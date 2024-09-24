@@ -413,7 +413,7 @@ class MineBlogRequest: Encodable {
     
 }
 
-struct blogDetailItem: Decodable {
+struct blogDetailItem: Codable {
     let id: Int
     let sign: Int
     let userBlogUrl: String

@@ -317,7 +317,9 @@ extension YFLoginVC {
     
     @objc func gotoRegister() {
         print(#function)
-        gotoController(YFRegisterVC())
+        let vc = YFRegisterVC()
+        vc.useType = useType
+        gotoController(vc)
     }
     
     @objc func gotoPrivateDelegate() {

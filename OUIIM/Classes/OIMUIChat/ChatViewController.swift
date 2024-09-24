@@ -2729,8 +2729,7 @@ extension ChatViewController: GestureDelegate {
                 ]
             case let .custom(source):
                 if source.type == .boke {
-                    actions = [forwardAction(id: message.id),
-                               replyAction(id: message.id, name: message.owner.name, body: "")]
+                    actions = [forwardAction(id: message.id)]
                 }
                 break
             default:

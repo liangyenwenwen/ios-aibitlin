@@ -65,6 +65,7 @@
 		045B8BF92BF481AF0094E080 /* UserMessageBottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045B8BF82BF481AF0094E080 /* UserMessageBottomSheetView.swift */; };
 		045B8BFD2BF4B7070094E080 /* YFChatBokeBottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045B8BFC2BF4B7070094E080 /* YFChatBokeBottomSheetView.swift */; };
 		047753C62BFDCD27006DBFD3 /* YFTranslateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047753C52BFDCD27006DBFD3 /* YFTranslateVC.swift */; };
+		047BF6B62CA2B6DF00706117 /* YFFileDataUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047BF6B52CA2B6DF00706117 /* YFFileDataUtil.swift */; };
 		049C643E2BEC619300B679C4 /* YFLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049C643D2BEC619300B679C4 /* YFLoginVC.swift */; };
 		049C64402BEC622300B679C4 /* YFLoginChooseHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049C643F2BEC622300B679C4 /* YFLoginChooseHeaderView.swift */; };
 		049C64432BEC689100B679C4 /* YFTitleAddUnderlineChooseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049C64422BEC689100B679C4 /* YFTitleAddUnderlineChooseView.swift */; };
@@ -241,6 +242,7 @@
 		046D26942BFF255F00FEA10F /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/Main.strings; sourceTree = "<group>"; };
 		046D26952BFF255F00FEA10F /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		047753C52BFDCD27006DBFD3 /* YFTranslateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFTranslateVC.swift; sourceTree = "<group>"; };
+		047BF6B52CA2B6DF00706117 /* YFFileDataUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFFileDataUtil.swift; sourceTree = "<group>"; };
 		049C643D2BEC619300B679C4 /* YFLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFLoginVC.swift; sourceTree = "<group>"; };
 		049C643F2BEC622300B679C4 /* YFLoginChooseHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFLoginChooseHeaderView.swift; sourceTree = "<group>"; };
 		049C64422BEC689100B679C4 /* YFTitleAddUnderlineChooseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFTitleAddUnderlineChooseView.swift; sourceTree = "<group>"; };
@@ -436,6 +438,7 @@
 				042E2A1E2BF5C3B400A90CB6 /* YFOpenIMUtil.swift */,
 				04F533F12BF84C8C005D0405 /* TestDataUtil.swift */,
 				04D6A6772C9131ED008193E7 /* YFNetworkUtils.swift */,
+				047BF6B52CA2B6DF00706117 /* YFFileDataUtil.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -1496,6 +1499,7 @@
 				1790EE6D2921EAFC00C4024A /* SettingTableViewController.swift in Sources */,
 				04F533F02BF84BC2005D0405 /* YFChatBottomSheetBokeListCell.swift in Sources */,
 				1790EE6F2921EAFC00C4024A /* SettingViewModel.swift in Sources */,
+				047BF6B62CA2B6DF00706117 /* YFFileDataUtil.swift in Sources */,
 				040D85ED2BEB8C0B00DCAAB3 /* BaseController.swift in Sources */,
 				040D85B12BEB89CB00DCAAB3 /* DefaultService.swift in Sources */,
 				04F2D0912BEE21CA00D5271B /* UserMessageContactView.swift in Sources */,

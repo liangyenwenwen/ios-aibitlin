@@ -16,13 +16,13 @@ import BSText
 
 class YFRegisterVC: BaseLogicController {
     /// 使用邮箱 或者手机号
-    var useType: MyStyle!
+    var useType: MyStyle = .useEmail
     
     private var _areaCode = "+86"
 
     override func initViews() {
         super.initViews()
-        useType = .useEmail
+     
         initRelativeLayoutSafeArea()
         
         setBackGroundColor(.white)
@@ -45,7 +45,7 @@ class YFRegisterVC: BaseLogicController {
     }
 
     lazy var chooseHeader: YFLoginChooseHeaderView = {
-        let r = YFLoginChooseHeaderView(useType: .useEmail, vcType: .isRegister)
+        let r = YFLoginChooseHeaderView(useType: useType, vcType: .isRegister)
         r.tg_width.equal(.fill)
         r.tg_height.equal(.fill)
         r.changeTypeClick = { [weak self] type in

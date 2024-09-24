@@ -149,7 +149,7 @@ class ChatTableViewCell: UITableViewCell {
         unreadLabel.snp.makeConstraints { make in
             make.top.equalTo(timeLabel.snp.bottom)
 //            make.right.equalTo(timeLabel)
-            make.left.equalTo(timeLabel.snp_right).offset(10)
+//            make.left.equalTo(timeLabel.snp_right).offset(10)
             make.right.equalToSuperview().offset(-10)
 //            make.height.greaterThanOrEqualTo(16)
             make.width.greaterThanOrEqualTo(unreadLabel.snp.height)

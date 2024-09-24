@@ -185,6 +185,8 @@ class MeHomeController: BaseLogicController {
                 vc.boke = item
                 
                 self?.gotoControllerFromRoot(vc)
+                
+              
 
             }
         }
@@ -230,6 +232,13 @@ extension MeHomeController {
             
             YFMineNetViewModel.mineBlog(userId: IMUser.userID) { [weak self] data in
                 self?.bokeItemsView.updateNet(data: data)
+                YFFileDataUtil.saveDataToFile(blogsArr: data)
+                YFFileDataUtil.saveDataToFile(blogsArr: data)
+//                print(YFFileDataUtil.readDataToFile())
+//                
+//                YFFileDataUtil.deleteOneDataFromFile(blogItem: data[1])
+//                print(YFFileDataUtil.readDataToFile())
+                
             } completionHandler: { errCode, errMsg in
                 
             }
