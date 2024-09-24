@@ -101,6 +101,7 @@ class CallRecordsViewController: UIViewController {
     private let _viewModel = CallRecordsViewModel()
     private let _disposeBag = DisposeBag()
     private func bindData() {
+        
         allRecordsBtn.rx.tap.subscribe(onNext: { [weak self] in
             self?._viewModel.tabSelected.accept(0)
         }).disposed(by: _disposeBag)

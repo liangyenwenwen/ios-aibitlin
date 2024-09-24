@@ -516,7 +516,7 @@ open class SelectContactsViewController: UIViewController {
     }
     
     private func completionAction() {
-        selectedAction()
+        selectedAction(pop: true)
         completionHandler?()
     }
     
@@ -606,7 +606,16 @@ extension SelectContactsViewController: UITableViewDataSource, UITableViewDelega
         cell.trainingLabel.text = contact.sub
         cell.trainingLabel.textColor = .c8E9AB0
         cell.trainingLabel.font = .f17
-        cell.avatarImageView.setAvatar(url: contact.faceURL, text: contact.name)
+//        cell.avatarImageView.setAvatar(url: contact.faceURL, text: contact.name)
+        if contact.type == .group {
+
+            cell.avatarImageView.setGroupImg(groupID: contact.ID!)
+
+        } else {
+            
+            cell.avatarImageView.setAvatar(url: contact.faceURL, text: contact.name, placeHolder: "contact_my_friend_icon")
+        }
+        
         cell.showSelectedIcon = allowsMultipleSelection
         
         if blockedIDs.contains(contact.ID!) {

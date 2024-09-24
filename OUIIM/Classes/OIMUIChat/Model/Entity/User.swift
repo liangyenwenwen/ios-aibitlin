@@ -10,6 +10,8 @@ struct User: Hashable {
     var name: String
 
     var faceURL: String?
+    
+    var type: ContactItemType = .user
 }
 
 extension User: Differentiable {}

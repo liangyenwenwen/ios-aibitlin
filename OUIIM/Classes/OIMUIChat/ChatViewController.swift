@@ -2271,7 +2271,7 @@ extension ChatViewController: CoustomInputBarAccessoryViewDelegate {
             alertController.addAction(UIAlertAction(title: "确定".innerLocalized(), style: .default, handler: { [self] _ in
                 self.dismiss(animated: true)
                 
-                let source = CardMessageSource(user: User(id: user.ID!, name: user.name!, faceURL: user.faceURL))
+                let source = CardMessageSource(user: User(id: user.ID!, name: user.name!, faceURL: user.faceURL, type: user.type))
                 self.chatController.sendMessage(.card(source), completion: completion)
             }))
             vc.present(alertController, animated: true)
@@ -2537,8 +2537,9 @@ extension ChatViewController: EditingBottomControllerDelegate {
                 return infos.count
             }
 
+            // 转发弹窗用户信息
             forwardCard.itemForIndex = { index in
-                return User(id: infos[index].ID!, name: infos[index].name!, faceURL: infos[index].faceURL)
+                return User(id: infos[index].ID!, name: infos[index].name!, faceURL: infos[index].faceURL ,type: infos[index].type)
             }
 
             forwardCard.cancelHandler = {

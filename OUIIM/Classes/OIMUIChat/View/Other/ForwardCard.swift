@@ -10,8 +10,11 @@ fileprivate enum CellType {
 
 fileprivate class UserCell: UICollectionViewCell {
     
-    lazy var avatarView = AvatarView()
-
+    lazy var avatarView :AvatarView  = {
+        let v = AvatarView()
+        v.layer.cornerRadius = (StandardUI.avatarWidth - 2) / 2
+        return v
+    }()
     
     
     lazy var titleLabel: UILabel = {
@@ -266,7 +269,19 @@ extension ForwardCard: UICollectionViewDelegate, UICollectionViewDataSource, UIC
         let item = itemForIndex(indexPath.item)
         
         cell.titleLabel.text = item.name
-        cell.avatarView.setAvatar(url: item.faceURL, text: item.name)
+        
+        
+        if item.type == .group {
+
+            cell.avatarView.setGroupImg(groupID: item.id)
+
+        } else {
+            
+            cell.avatarView.setAvatar(url: item.faceURL, text: item.name)
+        }
+//        cell.avatarView.setAvatar(url: item.faceURL, text: item.name)
+        
+        
         cell.type = numberOfItems() > 1 ? .vertical : .horizontal
         
         return cell

@@ -299,13 +299,16 @@ extension MyContactsViewController: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: SelectUserTableViewCell.className, for: indexPath) as! SelectUserTableViewCell
             
             let item = frequent[indexPath.row]
+            
+            print(item.type, item.name)
+            
             if item.type == .group {
 
                 cell.avatarImageView.setGroupImg(groupID: item.ID!)
     
             } else {
                 
-                cell.avatarImageView.setAvatar(url: item.faceURL, text: item.name, placeHolder: "contact_my_group_icon")
+                cell.avatarImageView.setAvatar(url: item.faceURL, text: item.name, placeHolder: "contact_my_friend_icon")
             }
 
             cell.avatarImageView.setAvatar(url: item.faceURL, text: item.name)

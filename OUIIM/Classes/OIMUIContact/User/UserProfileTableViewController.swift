@@ -175,7 +175,7 @@ extension UserProfileTableViewController: UITableViewDataSource, UITableViewDele
                 }
                 
                 forwardCard.itemForIndex = { index in
-                    return User(id: infos[index].ID!, name: infos[index].name!, faceURL: infos[index].faceURL)
+                    return User(id: infos[index].ID!, name: infos[index].name!, faceURL: infos[index].faceURL, type: infos[index].type)
                 }
                 
                 forwardCard.cancelHandler = {
