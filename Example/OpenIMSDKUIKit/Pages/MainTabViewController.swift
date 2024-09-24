@@ -123,7 +123,7 @@ class MainTabViewController: UITabBarController {
     
     @objc
     private func setText() {
-        viewControllers?[0].tabBarItem.title = "OpenIM"
+        viewControllers?[0].tabBarItem.title = "AIbitlin"
         viewControllers?[1].tabBarItem.title = "通讯录".localized()
         viewControllers?[2].tabBarItem.title = "发现".localized()
         viewControllers?[3].tabBarItem.title = "我的".localized()

@@ -234,10 +234,7 @@ extension MeHomeController {
                 self?.bokeItemsView.updateNet(data: data)
                 YFFileDataUtil.saveDataToFile(blogsArr: data)
                 YFFileDataUtil.saveDataToFile(blogsArr: data)
-//                print(YFFileDataUtil.readDataToFile())
-//                
-//                YFFileDataUtil.deleteOneDataFromFile(blogItem: data[1])
-//                print(YFFileDataUtil.readDataToFile())
+
                 
             } completionHandler: { errCode, errMsg in
                 

@@ -24,9 +24,9 @@
 "欢迎使用OpenIM" = "Welcome to OpenIM";
 "手机号" = "Phone number";
 "邮箱" = "Email";
-"请输入手机号码" = "Please enter the phone number";
-"请输入邮箱" = "Please enter the email";
-"请输入邀请码（选填）" = "Please enter the invitation code (optional)";
+"请输入手机号码" = "Please Enter The Phone Number";
+"请输入邮箱" = "Please Enter The Email";
+"请输入邀请码（选填）" = "Please Enter the invitation code (optional)";
 "密码" = "Password";
 "请输入密码" = "Enter password, please";
 "忘记密码" = "Forgot password";
@@ -96,17 +96,17 @@
 "请创建手势密码" = "Please create a gesture password";
 //"确定" = "Sure";
 //"取消" = "Cancel";
-"修改密码" = "Modify password";
+"修改密码" = "Modify Password";
 "清空聊天记录" = "Clear Message";
-"聊天自动翻译" = "Chat automatic translation";
+"聊天自动翻译" = "Chat Automatic Translation";
 "您确定要退出登录吗？" = "Are you sure you want to log out?";
-"跟随系统" = "follow the system";
-"语言设置" = "language settings";
+"跟随系统" = "Follow the system";
+"语言设置" = "Language Settings";
 "请填写新的邮箱地址" = "Please enter a new email address";
 "上传日志" = "Upload log";
 "选择博客" = "Select blog";
 "博客" = "Blog";
-"企业" = "enterprise";
+"企业" = "Enterprise";
 
 "welcome" = "Welcome to OpenIM";
 "phoneNumber" = "Phone Number";
@@ -148,7 +148,7 @@
 "loginPwdFormat" = "8 to 20 characters; at least including numbers and letters";
 "passwordLogin" = "Password Login";
 "through" = "Through %@";
-"home" = "OpenIM";
+"home" = "AIbitlin";
 "contacts" = "Contacts";
 "workbench" = "Discover";
 "mine" = "Mine";
