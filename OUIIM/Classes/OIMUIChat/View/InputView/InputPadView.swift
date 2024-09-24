@@ -16,9 +16,9 @@ public enum PadItemType: CaseIterable {
     var name: String {
         switch self {
         case .album:
-            return "相册".innerLocalized()
+            return "照片".innerLocalized()
         case .camera:
-            return "拍摄".innerLocalized()
+            return "相机".innerLocalized()
         case .card:
             return "名片".innerLocalized()
         case .media:

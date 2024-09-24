@@ -43,7 +43,7 @@ class UserTagTypeView: TGLinearLayout {
         corner(6)
         tg_width.equal(.fill)
         tg_height.equal(12)
-        tg_space = PADDING_SMALL
+        tg_space = 2
         tg_gravity = .vert.center
 //        backgroundColor = .purple
         

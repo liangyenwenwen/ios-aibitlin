@@ -239,7 +239,7 @@ open class PhotoHelper {
             sself.presentPhotoLibrary(byController: byController)
         })
         
-        let cameraAction = UIAlertAction(title: "拍摄", style: .default, handler: { [weak self] (alert) -> Void in
+        let cameraAction = UIAlertAction(title: "相机", style: .default, handler: { [weak self] (alert) -> Void in
             guard let sself = self else {
                 return
             }

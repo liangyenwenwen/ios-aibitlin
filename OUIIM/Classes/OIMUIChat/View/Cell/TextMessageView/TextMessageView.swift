@@ -26,7 +26,7 @@ class TextMessageView: UIView, ContainerCollectionViewCellDelegate {
         v.setContentCompressionResistancePriority(UILayoutPriority(999), for: .vertical)
         v.setContentHuggingPriority(UILayoutPriority(rawValue: 999), for: .horizontal)
         v.textContainer.lineBreakMode = .byCharWrapping
-        v.textContainerInset = UIEdgeInsets(top: 9, left: 20, bottom: 9, right: 20)
+        v.textContainerInset = UIEdgeInsets(top: 9, left: 12, bottom: 9, right: 12)
 //        v.widthAnchor.constraint(greaterThanOrEqualToConstant: 45)
         v.textContainer.lineFragmentPadding = 0
         v.text = " "
@@ -173,6 +173,12 @@ class TextMessageView: UIView, ContainerCollectionViewCellDelegate {
             hStack.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor)
         ])
         textViewWidthConstraint = textView.widthAnchor.constraint(lessThanOrEqualToConstant: viewPortWidth)
+        
+        //文本最低长度添加
+        textView.snp.makeConstraints { make in
+            make.width.greaterThanOrEqualTo(41)
+        }
+//        textViewWidthConstraint = textView.widthAnchor.constraint(greaterThanOrEqualToConstant: 45)
         textViewWidthConstraint?.isActive = true
         textView.heightAnchor.constraint(greaterThanOrEqualToConstant: 30).isActive = true
             

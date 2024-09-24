@@ -282,7 +282,7 @@ class userTag: UIView {
             }
             
             tagTitle.snp.makeConstraints { make in
-                make.left.equalTo(tagIcon.snp_right).offset(4)
+                make.left.equalTo(tagIcon.snp_right).offset(2)
                 make.centerY.equalToSuperview()
                 make.right.equalToSuperview().offset(-4)
             }

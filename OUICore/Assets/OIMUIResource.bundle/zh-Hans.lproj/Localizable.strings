@@ -78,9 +78,9 @@
 "seconds" = "秒";
 "cancel" = "取消";
 "determine" = "确定";
-"toolboxAlbum" = "相册";
+"toolboxAlbum" = "照片";
 "toolboxCall" = "视频通话";
-"toolboxCamera" = "拍摄";
+"toolboxCamera" = "相机";
 "toolboxCard" = "名片";
 "toolboxFile" = "文件";
 "toolboxLocation" = "位置";
@@ -366,8 +366,8 @@
 "reply" = "回复";
 "rollUp" = "收起";
 "fullText" = "全文";
-"selectAssetsFromCamera" = "拍摄";
-"selectAssetsFromAlbum" = "从相册选择";
+"selectAssetsFromCamera" = "相机";
+"selectAssetsFromAlbum" = "从照片选择";
 "whoCanWatch" = "谁可以看";
 "remindWhoToWatch" = "提醒谁看";
 "public" = "公开";
