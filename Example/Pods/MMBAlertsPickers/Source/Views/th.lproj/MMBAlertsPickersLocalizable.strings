@@ -1,0 +1,19 @@
+/************************* Mahmoud Abo-Osama *************************/
+//
+//  Localizable.strings
+
+
+//Common
+"Error"                      = "ข้อผิดพลาด";
+"Info"                       = "ข้อมูล";
+"Done"                       = "เสร็จแล้ว";
+"OK"                         = "ตกลง";
+"Confirm"                    = "ยืนยัน";
+"Cancel"                     = "เพิ่ม";
+"Add"                        = "ยกเลิก";
+"Attention"                  = "ความสนใจ";
+"Search or enter an address" = "ค้นหาหรือป้อนที่อยู่";
+"Select"                     = "เลือก";
+"Search"                     = "ค้นหา";
+"Search History"             = "ประวัติการค้นหา";
+"Palestine"                  = "ปาเลสไตน์";

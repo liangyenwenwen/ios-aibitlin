@@ -1,0 +1,217 @@
+"-1" = "网络错误";
+"2" = "邮箱无效";
+"1101" = "账号格式错误";
+"20001" = "密码错误";
+"20002" = "账号不存在";
+"20003" = "手机号已注册";
+"20004" = "账号已注册";
+"20005" = "频繁获取验证码";
+"20006" = "验证码错误";
+"20007" = "验证码过期";
+"20008" = "验证码失败次数过多";
+"20009" = "验证码已经使用";
+"20010" = "邀请码已经使用";
+"20011" = "邀请码不存在";
+"20012" = "被禁止登录注册";
+"20013" = "拒绝添加好友";
+"20014" = "邮箱已注册";
+"1001" = "参数错误";
+"10102" = "用户重新登录";
+
+"loginApp" = "登录";
+"注册APP" = "注册";
+"UseEmail" = "使用邮箱";
+"UsePhone" = "使用手机号";
+"LoginTips" = "登录你的账号、与全球用户无障碍聊天。";
+
+"welcome" = "欢迎使用OpenIM";
+"phoneNumber" = "手机号";
+"plsEnterPhoneNumber" = "请输入您的手机号";
+"plsEnterEmail" = "请输入您的邮箱";
+"password" = "密码";
+"plsEnterPassword" = "请输入您的密码";
+"account" = "账号";
+"plsEnterAccount" = "请输入您的账号";
+"forgetPassword" = "忘记密码";
+"verificationCodeLogin" = "验证码登录";
+"login" = "登录";
+"Log in" = "登录";
+"noAccountYet" = "还没有注册？";
+"loginNow" = "立即登录";
+"registerNow" = "立即注册";
+"lockPwdErrorHint" = "错误%@次";
+"newUserRegister" = "新用户注册";
+//"verificationCode" = "验证码";
+"sendVerificationCode" = "发送";
+"resendVerificationCode" = "重发验证码";
+"verificationCodeTimingReminder" = "%@后重新获取验证码";
+"defaultVerificationCode" = "（默认验证码：%@)";
+"plsEnterVerificationCode" = "请输入您的验证码";
+"invitationCode" = "邀请码";
+"plsEnterInvitationCode" = "请输入您的邀请码%@";
+"optional" = "选填";
+"nextStep" = "下一步";
+"plsEnterRightPhoneOrEmail" = "请输入正确的邮箱或手机号";
+"enterVerificationCode" = "输入%@验证码";
+"setPassword" = "设置密码";
+"plsConfirmPasswordAgain" = "请再次确认您的密码";
+"confirmPassword" = "确认密码";
+"wrongPasswordFormat" = "密码格式错误";
+"plsCompleteInfo" = "请完善个人信息";
+"plsEnterYourNickname" = "请输入您的昵称";
+"setInfo" = "设置信息";
+"loginPwdFormat" = "8 ～20位，至少包含数字、字母";
+"passwordLogin" = "密码登录";
+"through" = "通过%@";
+"home" = "OpenIM";
+"contacts" = "通讯录";
+"workbench" = "发现";
+"mine" = "我的";
+"email" = "邮箱";
+"cancel" = "取消";
+"sentSuccess" = "发送成功";
+"success" = "成功";
+"failure" = "失败";
+"plsEnterRightX" = "请输入正确的%@";
+"plsEnterYourX" = "请输入你的%@";
+"nickname" = "昵称";
+"set" = "设置";
+"info" = "信息";
+"twicePwdNoSame" = "两次输入的密码不一致";
+"enterPhoneVerificationCode" = "输入手机号验证码";
+"enterEmailVerificationCode" = "输入邮箱验证码";
+"resendVerificationCode" = "重发验证码";
+"suchAs" = "例如";
+"sdkApiAddress" = "IM API服务器地址";
+"sdkWsAddress" = "IM WS地址";
+"appAddress" = "登录注册服务器地址";
+"serverAddress" = "服务器地址";
+"switchToIP" = "切换到IP";
+"switchToDomain" = "切换到域名";
+"serverSettingTips" = "修改配置后，保存并重启才能生效";
+
+"inputAllMsg" = "请填写所有信息后保存。";
+"emailFormatError" = "邮箱格式错误。";
+"logoutHint" = "您确定要退出登录吗？";
+
+"pincodeTitle" = "请输入密码";
+"pincodeSubTitle" = "";
+"pincodeAgainTitle" = "请确认新密码";
+"pincodeAgainSubTitle" = "";
+"newPincodeTitle" = "请输入新密码";
+"newPincodeSubTitle" = "";
+"pincodeNotMatchTitle" = "密码不匹配";
+"accountWarn" = "警告!";
+"accountException" = "你的账号已在其他设备登录，请及时修改密码。";
+
+
+
+//网络相关
+ErrorNetworkUnknownHost = "找不到服务器";
+ErrorNetworkConnect = "连接服务器失败";
+ErrorNetworkTimeout = "连接服务器超时";
+ErrorNetworkNotAuth = "登录信息过期";
+ErrorNetworkNotPermission = "你没有权限访问";
+ErrorNetworkNotFound = "你访问的内容不存在";
+ErrorNetworkServer = "服务器错误";
+ErrorUnknown = "未知错误";
+ErrorUnknownFormat = "未知错误: %@";
+NetworkError= "你的网络好像不给力";
+ErrorParameter = "本地参数错误";
+ErrorUploadfile = "上传文件错误";
+ErrorResponsesign = "接口签名错误";
+ErrorResponsedecrypt = "接口解密错误";
+SuperLoading="加载中.";
+ClickReload= "%@, 点击重试";
+
+Sort="排序";
+Add="添加";
+Phone="手机号";
+Confirm="确认";
+More="更多";
+Resend="重新发送";
+ResendCount="%1$d后可重新发送";
+
+
+HomePage = "%@ 主页";
+UserBlog = "%@的博客";
+MeBlog = "我的博客";
+SendMessage = "发消息";
+Follow = "关注";
+ReasonForReporting = "选择举报该账号的原因";
+ReasonForDelete = "删除账号的原因是什么";
+ModifyRemarks = "修改备注";
+SendBusinesCard = "发送名片";
+CancelFollow = "取消关注";
+Block = "拉黑";
+Report = "举报";
+Save = "保存";
+MyFriend = "我的朋友";
+MeFollow = "我关注的";
+FollowMe = "关注我的";
+
+
+
+MyProfile="我的资料";
+AccountAndSecurity = "账号与安全";
+PersonalPrivacy = "个人隐私";
+PoliciesAndTerms = "政策与条款";
+Logout="退出登录";
+
+//个人资料
+BasicInformation = "基本信息";
+SocialMediaHomepage = "社交媒体主页";
+IntroTitle = "%@:";
+
+Photo = "照片";
+
+Name = "名字";
+Code = "验证码";
+PersonalProfile = "个人简介";
+
+"PleaseFillIn" = "请输入";
+NotFilledIn = "未填写";
+
+AccountInformation = "账号信息";
+DeleteAccount = "删除账号";
+
+ChangePassword = "修改密码";
+ChangeEmail = "修改邮箱";
+ChangePhone = "修改手机号";
+
+EnterTheOriginalPassword = "修改原密码";
+OriginalPassword = "原密码";
+EnterTheNewPassword = "输入新密码";
+NewPassword = "新密码";
+EnterAgain = "再次输入";
+BindingThirdPartyAccounts = "第三方账号绑定";
+
+
+IdentityVerification = "身份验证";
+PhoneVerification = "手机号认证";
+EmailVerification = "邮箱认证";
+
+WhatWaysCanYouFindMe = "可以通过那些方式找到我";
+Feedback = "问题反馈";
+Translate = "翻译";
+Blacklist = "黑名单";
+Toolbox = "工具箱";
+
+"I don't have an account" = "我没有账号，";
+"Create a new account" = "创建一个新账号";
+
+"删除您的账户，AIbitlin所有服务都将无法继续使用，包括聊天、快捷应用等。" = "删除您的账户，AIbitlin所有服务都将无法继续使用，包括聊天、快捷博客等。";
+
+
+"BuyVIP" = "购买VIP服务";
+
+//博客
+"博客地址" = "地址";
+BlogSituation = "%@概况";
+VisitorCount = "%@次访问";
+UserNotifiySetting = "%@通知设置";
+SecondsCount = "%@秒";
+
+
+//VIP 购买
+SupportShortNumber = "支持设置最短%@位账号ID";

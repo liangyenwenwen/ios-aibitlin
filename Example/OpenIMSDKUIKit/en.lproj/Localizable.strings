@@ -1,0 +1,596 @@
+"-1" = "Net Error";
+"2" = "Email is invalid";
+"1101" = "Account format error";
+"20001" = "Password error";
+"20002" = "Account doesn't exist";
+"20003" = "Phone alreadyregister";
+"20004" = "Account already registered";
+"20005" = "Obtain verification code frequently";
+"20006" = "Incorrect verification code";
+"20007" = "Verification code expired";
+"20008" = "Too many verification code failures";
+"20009" = "Verification code already used";
+"20010" = "Invitation code already used";
+"20011" = "The invitation code does not exist";
+"20012" = "Login/Register forbidden";
+"20013" = "Refused to add friends";
+"20014" = "Email has been registered";
+"1001" = "Args Error";
+"10102" = "User re-login";
+
+"通讯录" = "Contact";
+"我的" = "Me";
+"发现" = "Discovery";
+"欢迎使用OpenIM" = "Welcome to OpenIM";
+"手机号" = "Phone number";
+"邮箱" = "Email";
+"请输入手机号码" = "Please enter the phone number";
+"请输入邮箱" = "Please enter the email";
+"请输入邀请码（选填）" = "Please enter the invitation code (optional)";
+"密码" = "Password";
+"请输入密码" = "Enter password, please";
+"忘记密码" = "Forgot password";
+"验证码登录" = "Verification code login";
+"设置密码" = "set password";
+"设置信息" = "Setting Information";
+"登录" = "Log in";
+"我已阅读并同意:" = "I have read and agree to:";
+"《服务协议》《隐私权政策》" = "Service Agreement, Privacy Policy";
+"还没有账号？" = "Don't have an account yet?";
+"注册账号" = "Register";
+"新用户注册" = "New User Registration";
+"立即注册" = "Sign up now";
+" 发送验证码 " = " Send ";
+" 发送" = " Send ";
+"获取验证码" = "Get verification code";
+"输入验证码" = "Enter verification code";
+"输入手机验证码" = "Enter phone verification code";
+"输入邮箱验证码" = "Enter email verification code";
+"通过" = "Through";
+"相册" = "Album";
+"拍摄" = "Camera";
+
+//登录注册
+"注册APP" = "Join ";
+"loginApp" = "Log in to ";
+"UseEmail" = "Use E-mail";
+"UsePhone" = "Use Phone";
+"LoginTips" = "Log in to your account and chat with users around the world without any barriers.";
+
+"后重新获取验证码" = "Resent";
+"请输入验证码(若收不到,填666666)" = "Please enter the verification code (if not received, fill in 666666)";
+"输入正确的密码" = "Enter the correct password";
+"包含6~20位字符、大小写字母、特殊字符组合" = "Contains 6~20 characters, uppercase and lowercase letters, and special character combinations";
+"请输入你的昵称" = "Please enter your nickname";
+"昵称" = "nickname";
+"确认密码" = "Confirm Password";
+"请再次输入密码" = "Please enter the password again";
+"下一步" = "Next";
+
+"我的信息" = "Info";
+"账号设置" = "Setting";
+"关于我们" = "About";
+"退出登录" = "Logout";
+"朋友圈" = "Moments";
+"勿扰模式" = "Distrub";
+"开启后，不接收离线推送消息" = "When enabled, offline push messages will not be received.";
+"消息提示音" = "Ring";
+"震动" = "Vibration";
+"禁止加我为好友" = "Fobbiden add friend";
+"通讯录黑名单" = "Blocked";
+"移除黑名单" = "Remove blacklist.";
+"暂无黑名单" = "No One";
+"语言" = "Language";
+"解锁设置" = "Unlock Setting";
+"手势密码设置" = "Gesture password settings.";
+"面容" = "Face ID";
+"指纹" = "Touch ID";
+"设置成功" = "Done";
+"开启" = "Enable";
+"解锁" = "Unlock";
+"密码锁定" = "password lock";
+"生物识别" = "Biometrics";
+"面容ID/指纹解锁" = "Face ID / Touch ID";
+"开启后，可使用" = "After opening, it can be used";
+"重置手势密码" = "Reset gesture password";
+"请创建手势密码" = "Please create a gesture password";
+//"确定" = "Sure";
+//"取消" = "Cancel";
+"修改密码" = "Modify password";
+"清空聊天记录" = "Clear Message";
+"聊天自动翻译" = "Chat automatic translation";
+"您确定要退出登录吗？" = "Are you sure you want to log out?";
+"跟随系统" = "follow the system";
+"语言设置" = "language settings";
+"请填写新的邮箱地址" = "Please enter a new email address";
+"上传日志" = "Upload log";
+"选择博客" = "Select blog";
+"博客" = "Blog";
+"企业" = "enterprise";
+
+"welcome" = "Welcome to OpenIM";
+"phoneNumber" = "Phone Number";
+"plsEnterPhoneNumber" = "Please enter your phone number";
+"plsEnterEmail" = "Please enter your email";
+"password" = "Password";
+"plsEnterPassword" = "Please enter your password";
+"account" = "Account";
+"plsEnterAccount" = "Please enter your account";
+"forgetPassword" = "Forgot Password";
+"verificationCodeLogin" = "Verification Code Login";
+//"login" = "Login";
+"noAccountYet" = "Don't have an account yet?";
+"loginNow" = "Login now";
+"registerNow" = "Register now";
+"lockPwdErrorHint" = "Error %@ times";
+"newUserRegister" = "New User Registration";
+"verificationCode" = "Verification Code";
+"sendVerificationCode" = "Send Verification Code";
+"resendVerificationCode" = "Resend Verification Code";
+"verificationCodeTimingReminder" = "Get Verification Code Again in %@ seconds";
+"defaultVerificationCode" = "(Default Verification Code = %@)";
+"plsEnterVerificationCode" = "Please enter your verification code";
+"invitationCode" = "Invitation Code";
+"plsEnterInvitationCode" = "Please enter your invitation code %@";
+"optional" = "Optional";
+"nextStep" = "Next Step";
+"plsEnterRightPhone" = "Please enter a valid phone number";
+"plsEnterRightEmail" = "Please enter a valid email address";
+"plsEnterRightPhoneOrEmail" = "Please enter a valid phone or email address";
+"enterVerificationCode" = "Enter %@ verification code";
+"setPassword" = "Set Password";
+"plsConfirmPasswordAgain" = "Please confirm your password again";
+"confirmPassword" = "Confirm Password";
+"wrongPasswordFormat" = "Invalid password format";
+"plsCompleteInfo" = "Please complete your personal information";
+"plsEnterYourNickname" = "Please enter your nickname";
+"setInfo" = "Set Information";
+"loginPwdFormat" = "8 to 20 characters; at least including numbers and letters";
+"passwordLogin" = "Password Login";
+"through" = "Through %@";
+"home" = "OpenIM";
+"contacts" = "Contacts";
+"workbench" = "Discover";
+"mine" = "Mine";
+"email" = "E-mail";
+"cancel" = "Cancel";
+"sentSuccess" = "Sent Successfully";
+"success" = "Successfully";
+"failure" = "Failed";
+"plsEnterRightX" = "Please enter a valid %@";
+"plsEnterYourX" = "Please enter your %@";
+"nickname" = "nickname";
+"set" = "Set";
+"info" = "infomation";
+"twicePwdNoSame" = "Passwords do not match";
+"enterPhoneVerificationCode" = "Enter phone verification code";
+"enterEmailVerificationCode" = "Enter email verification code";
+"resendVerificationCode" = "Resend Verification Code";
+"suchAs" = "such as";
+"sdkApiAddress" = "SDK API Address";
+"sdkWsAddress" = "SDK WS Address";
+"appAddress" = "Login/Register Address";
+"serverAddress" = "Server Address";
+"switchToIP" = "Switch to IP";
+"switchToDomain" = "Switch to Domain";
+"serverSettingTips" = "After modifying the configuration, you need to save and restart for the changes to take effect";
+
+"inputAllMsg" = "Please fill in all information and save.";
+"emailFormatError" = "The email format is wrong.";
+"logoutHint" = "Are you sure you want to log out?";
+
+"pincodeTitle" = "Please enter password";
+"pincodeSubTitle" = "";
+"pincodeAgainTitle" = "Please confirm new password";
+"pincodeAgainSubTitle" = "";
+"newPincodeTitle" = "Please enter a new password";
+"newPincodeSubTitle" = "";
+"pincodeNotMatchTitle" = "Pincode Not Match";
+"accountWarn" = "Warn!";
+"accountException" = "Your account has been logged in to another device; please change your password in time.";
+
+
+
+//网络相关
+ErrorNetworkUnknownHost = "Server not found";
+ErrorNetworkConnect = "Failed to connect to the server";
+ErrorNetworkTimeout = "Connection server timeout";
+ErrorNetworkNotAuth = "Login information expired";
+ErrorNetworkNotPermission = "You do not have permission to access";
+ErrorNetworkNotFound = "The content you accessed does not exist";
+ErrorNetworkServer = "Server error";
+ErrorUnknown = "Unknown error";
+ErrorUnknownFormat = "Unknown error: %@";
+NetworkError= "Your Network seems to be suck";
+ErrorParameter = "Local parameter error";
+ErrorUploadfile = "Upload file error";
+ErrorResponsesign = "API signature error";
+ErrorResponsedecrypt = "API decryption error";
+SuperLoading="Loading.";
+ClickReload= "%@, click reload";
+
+Sort="Sort";
+Add="Add";
+Phone="Phone number";
+Confirm="Confirm";
+More="More";
+Resend="Resend";
+ResendCount="%1$d to resend";
+
+
+
+HomePage = "%@ homepage";
+UserBlog = "%@'s Blog";
+MeBlog = "My Blog";
+SendMessage = "Send messages";
+Follow = "Follow";
+
+ReasonForReporting = "Reason for reporting";
+ReasonForDelete = "Reason for delete";
+ModifyRemarks = "Modify remarks";
+SendBusinesCard = "Send busines card";
+CancelFollow = "Cancel follow";
+Block = "Block";
+Report = "Report";
+Save = "Save";
+MyFriend = "My Friends";
+MeFollow = "I Follow";
+FollowMe = "Follow Me";
+
+MyProfile="My Profile";
+AccountAndSecurity = "Account And Security";
+PersonalPrivacy = "Personal Privacy";
+PoliciesAndTerms = "Policies And Terms";
+Logout="Logout";
+
+
+
+//个人资料
+BasicInformation = "Basic information";
+SocialMediaHomepage = "Social media homepage";
+IntroTitle = "%@:";
+
+Photo = "Photo";
+
+Name = "Name";
+Code = "Code";
+PersonalProfile = "Personal profile";
+
+PleaseFillIn = "Please enter";
+NotFilledIn = "Not filled in";
+
+AccountInformation = "Account information";
+DeleteAccount = "Delete account";
+
+ChangePassword = "Change password";
+ChangeEmail = "Change email";
+ChangePhone = "Change phone";
+
+EnterTheOriginalPassword = "Enter the original password";
+OriginalPassword = "Original password";
+EnterTheNewPassword = "Enter the new password";
+NewPassword = "New password";
+EnterAgain = "Enter again";
+BindingThirdPartyAccounts = "Binding third-party accounts";
+
+
+IdentityVerification = "Identity verification";
+PhoneVerification = "Phone verification";
+EmailVerification = "Email verification";
+
+WhatWaysCanYouFindMe = "What ways can you find me";
+Feedback = "Feedback";
+Translate = "Translate";
+Blacklist = "Blacklist";
+Toolbox = "Toolbox";
+
+"I don't have an account" = "I don't have an account,";
+"Create a new account" = "Create a new account";
+
+"我已阅读并同意AIbitlin《注册协议》" =  "I have read and agreed to the AIbitlin Registration Agreement";
+"我已阅读并同意AIbitlin《隐私协议》《注册协议》" =  "I have read and agreed to the AIbitlin Privacy Agreement and Registration Agreement";
+"《隐私协议》" = "Privacy Agreement";
+"《注册协议》" = "Registration Agreement";
+"我已阅读并同意AIbitlin" = "I have read and agreed to the AIbitlin";
+"注册" = "Join in";
+"请勾选协议" = "Please check the agreement";
+"清空聊天记录" = "Clear Message";
+"置顶聊天" = "Top chat";
+"提交" = "Submit";
+"反馈" = "Feedback";
+//"举报原因" = "Reason";
+//"举报描述" = "Description";
+"问题描述" = "Description";
+"截图" = "SCREENSHOTS";
+//"截图证据" = "SCREENSHOTS";
+"标题" = "Title";
+"举报" = "Report";
+
+//"发布不适当内容对我造成骚扰" = "Harassing me by Posting inappropriate content";
+//"钱财欺诈" = "Money fraud";
+//"怀疑账号被盗用" = "Suspected account theft";
+//"其他" = "Others";
+"选择举报该账号的原因" = "Reasons for report the account";
+"添加好友" = "Add friend";
+"删除好友" = "Delete friend";
+//"消息" = "Messages";
+
+"用户名" = "Username";
+
+
+"确定删除你的账号吗" = "Are you sure about deleting your account";
+"删除您的账户，AIbitlin所有服务都将无法继续使用，包括聊天、快捷应用等。" = "If you delete your account, all services of AIbitlin will no longer be available, including chat, shortcut blogs, etc.";
+"我们将在7天内删除你的账号并清楚你的所有记录，请7天内不要登录此账号，否则会终止删除账号的进程。" = "We will delete your account and clear all your records within 7 days, please do not log in to this account within 7 days, otherwise the process of deleting the account will be terminated.";
+"注意：账号一经删除无法恢复" = "Note: Once an account is deleted, it cannot be restored";
+
+
+//博客
+"排序" = "Sort";
+"完成" = "OK";
+"内容" = "content";
+//"编辑" = "Edit";
+"显示在我的个人主页" = "Display on my personal homepage";
+"提交给安全审核" = "Submit to security review";
+//"分享给好友" = "Share with friends";
+"删除博客" = "Delete Blog";
+"添加到我的快捷博客"= "Add to My Quick Blog";
+"地址" = "Address";
+//"图标" = "Icon";
+//"名称" = "Name";
+//"简介" = "Snapshot";
+" 请输入以https://开头的地址" = "Address starting with https://";
+
+
+//翻译
+"翻译" = "Translate";
+"自动" = "auto";
+"原文-自动检测输入的语言" = "Text - Automatically detects the input language";
+"输入翻译的文字" = "Enter the translated text";
+"选择语言" = "Select language";
+"选择目标语言" = "Select target language";
+"译文" = "translation";
+"英文" = "English";
+"汉语" = "Chinese";
+"日语" = "Japanese";
+"俄语" = "Russian";
+"法语" = "French";
+"德语" = "German";
+"韩语" = "Korean";
+"泰语" = "Thai";
+
+
+"审核中" = "Review";
+"拒绝" = "Reject";
+"受限制" = "Limit";
+"翻译功能开发中" = "Translation function is under development";
+
+"BuyVIP" = "Buy VIP Services";
+
+"接收系统通知" = "Receive system notifications";
+"免打扰" = "Do not disturb";
+"消息置顶" = "Message top";
+"博客置顶" = "Blog top";
+
+//"访问" = "Access";
+"系统通知设置" = "System Notification Settings";
+
+
+//登录页面
+"登录哎比邻" = "Login to Aibitlin";
+"登录你的账号、与全球用户无障碍聊天。" = "Log in to your account and chat with users around the world without any barriers.";
+"邮箱" = "E-mail";
+"密码/输入密码" = "Password";
+"登录" = "Log In";
+"请输入" = "Please fill in";
+"我没有账号，创建一个新账号" = "I don't have an account, create a new account.";
+"我已阅读并同意Aibitlin《隐私协议》《注册协议》" =  "I have read and agreed to the Aibitlin's Privacy Agreement and Registration Agreement";
+"《隐私协议》" = "Privacy Agreement";
+"《注册协议》" = "Registration Agreement";
+"手机号" = "Phone";
+"使用邮箱注册/登录" = "Use E-mail";
+"使用手机登录/注册" = "Use Phone";
+"忘记密码" = "Forgot Password";
+
+
+//注册页面
+"注册哎比邻" = "Join Aibitlin";
+"验证码" = "Code";
+"获取验证码" = "Send";
+"8-20位，包含数字、字母。" = "8-20 digits, including numbers and letters.";
+"再次输入/再次输入密码" = "Enter again";
+"名字" = "Name";
+"我已阅读并同意AIbitlin《注册协议》" =  "I have read and agreed to the AIbitlin Registration Agreement";
+
+//注册页面
+"请验证你的邮箱" = "Please verify your email";
+"请验证你的手机号" = "Please verify your phone number";
+"邮箱地址" = "E-mail";
+"下一步" = "Next Step";
+"完成" = "Finish";
+"请输入两次密码" = "Please enter your password twice";
+"重设密码" = "Reset Password";
+
+//通讯录
+"群聊" = "Group Chats";
+
+//我的
+"我和我的博客" = "My blog";
+"企业" = "Company";
+"购买VIP服务" = "Purchase VIP Service";
+
+//消息-单聊和单聊设置
+"相机" = "Camera";
+"照片" = "Photo";
+"相册" = "Photo";
+"视频通话" = "Video Call";
+"语音通话" = "Voice Call";
+"名片" = "Contact Card";
+"文件" = "File";
+"置顶" = "Sticky on Top";
+"置顶聊天" = "Sticky on Top";
+"消息置顶" = "Sticky on Top";
+"聊天自动翻译" = "Chat Auto-translate";
+"清空聊天记录" = "Clear Chat History";
+"举报" = "Report";
+"轻触拍照，长按摄像" = "Touch to take photo, long press to record video";
+"全部" = "All";
+"预览" = "Preview";
+"使用" = "Use";
+"返回" = "Back";
+"已取消" = "Cancelled";
+"录制时间太短" = "ecording time is too short";
+"正在等待对方接听" = "Waiting for the other party to answer";
+"麦克风已开启" = "Microphone On";
+"麦克风已关闭" = "Microphone Off";
+"扬声器已开启" = "Speaker On";
+"扬声器已关闭" = "Speaker Off";
+"挂断" = "Hang Up";
+"接听" = "Answer";
+
+
+//举报
+"举报原因" = "Reason for Reporting";
+"举报详情" = "Report Details";
+"举报描述" = "Report Details";
+"请选择" = "Please select";
+"请选择投诉原因" = "Please select";
+"请选择举报原因" = "Please select";
+"截图证据" = "Screenshot Evidence";
+"提交" = "Submit";
+"提交审核" = "Submit";
+"发布不适当内容对我造成骚扰" = "Posting inappropriate content has caused harassment to me";
+"钱财欺诈" = "Monetary fraud";
+"怀疑账号被盗用" = "Suspected account theft";
+"其他" = "Other";
+
+//消息-群聊和群聊设置
+"群聊设置" = "Group Chat Settings";
+"添加" = "Add";
+"移除" = "Remove";
+"聊天内容" = "Chat Content";
+"图片" = "Picture";
+"视频" = "Video";
+"群公告" = "Group Announcement";
+"群管理" = "Group Management";
+"我在群里的昵称" = "My Name in the Group";
+"消息免打扰" = "Do Not Disturb";
+"免打扰" = "Do Not Disturb";
+"解散群聊" = "Dissolve Group Chat";
+ "编辑" = "Edit";
+"只有群主及管理员可以编辑" = "Only group owners and administrators can edit";
+"群主" = "Group Owner";
+"添加成员" = "Add Member";
+"删除成员" = "Remove Member";
+"全员禁言" = "Mute All Members";
+"群成员权限" = "Group Member Permissions";
+"进群验证" = "Group Join Verification";
+"群主管理权转让" = "Transfer Group Owner Rights";
+"确定将群主转让给" = "Confirm to transfer the group owner to: ";
+ "确定" = "Confirm";
+ "取消" = "Cancel";
+"昵称修改后，只会在此群内显示，群内成员都能看见" = "After the nickname is changed, it will only be displayed in this group and all group members can see it.";
+"允许任何人加群" = "Allow anyone to join the group";
+"群成员邀请无需验证" = "Group member invitations do not require verification";
+"需要发送验证信息" = "Need to send verification information";
+
+//通讯录-子页面
+"关注" = "Following";
+"回关" = "Follow back";
+"互关" = "Friends";
+"关注了你" = "start following you";
+"发消息" = "Message";
+ "消息" = "Message";
+"近6个月无更多记录" = "No more records in the past 6 months";
+"我的群组" = "My Group";
+"我创建的" = "Created by Me";
+"我加入的" = "Groups I Joined";
+
+
+
+//博客
+"添加博客" = "Add Blog";
+"博客地址" = "URL";
+ "图标" = "Icon";
+ "名称" = "Name";
+ "简介" = "Introduction";
+"我的博客" = "My Blog";
+"显示在个人主页" = "Display on My Profile Page";
+ "分享给好友" = "Share with Friends";
+"删除" = "Delete";
+BlogSituation = "Overview of %@";
+"区域访问限制" = "Regional Access Restrictions";
+"可访问" = "Accessible";
+"被拒绝，禁止访问" = "Denied, Access Forbidden";
+"您的请求正在处理中" = "Your Request is Being Processed.";
+"处理中" = "Processing";
+"7日访客数据" = "7-Day Visitor Data";
+"周一" = "Mon";
+"周二" = "Tue";
+"周三" = "Wed";
+"周四" = "Thu";
+"周五" = "Fri";
+"周六" = "Sat";
+"周日" = "Sun";
+"今天" = "Today";
+"好友访客" = "Friends Visitors";
+"陌生人访客" = "Stranger Visitors";
+"周一好友访客" = "Monday Friends Visitor";
+"周二好友访客" = "Tuesday Friends Visitor";
+"周三好友访客" = "Wednesday Friends Visitor";
+"周四好友访客" = "Thursday Friends Visitor";
+"周五好友访客" = "Friday Friend Visitor";
+"周六好友访客" = "Saturday Friends Visitor";
+"周日好友访客" = "Sunday Friends Visitor";
+"今天好友访客" = "Today's Friend Visitor";
+"周一陌生人访客" = "Monday Stranger Visitors";
+"周二陌生人访客" = "Tuesday Stranger Visitors";
+"周三陌生人访客" = "Wednesday Stranger Visitors";
+"周四陌生人访客" = "Thursday Stranger Visitors";
+"周五陌生人访客" = "Friday Stranger Visitors";
+"周六陌生人访客" = "Saturday Stranger Visitors";
+"周日陌生人访客" = "Sunday Stranger Visitors";
+"今天陌生人访客" = "Today's Stranger Visitors";
+"访问" = "Visit";
+VisitorCount = "%@ Visits";
+"提醒" = "Reminder";
+"查看陌生人访客请购买VIP服务" = "Please purchase VIP service to view stranger visitors";
+"该域名被禁止添加" = "This domain is prohibited from being added";
+UserNotifiySetting = "%@'s notification settings";
+"访问我的次数达到多少次通知我" = "Notify me when the number of visits to my account reaches";
+"停留时长超过多少秒通知我" = "Notify me when the duration of stay exceeds seconds";
+"访问次数" = "Number of Visits";
+"停留秒数" = "Duration in Seconds";
+SecondsCount = "%@ S";
+
+//VIP 购买
+"会员服务永久有效，根据您的需要选择适合您的会员服务。" = "Membership services are valid indefinitely. Choose the membership service that suits your needs";
+"永久有效" = "Permanently Valid";
+"购买" = "Buy";
+SupportShortNumber = "Support setting a minimum %@-digit account ID";
+"支持显示博客7日访客数以及全部访客明细" = "Supports displaying the number of blog visitors in the past 7 days and all visitor details";
+"支持个性化访客通知，帮助获客" = "Support personalized visitor notifications to help acquire customers";
+"支持显示博客7日访客数量并显示好友访问数据" = "Supports displaying the number of blog visitors in the past 7 days and displaying friends' visit data";
+
+
+//"" = "";
+//"" = "";
+//"" = "";
+//"" = "";
+//"" = "";
+//"" = "";
+//"" = "";
+//"" = "";
+//"" = "";
+//"" = "";
+//"" = "";
+//"" = "";
+//"" = "";
+//"" = "";
+//"" = "";
+//"" = "";
+//"" = "";
+//"" = "";
+//"" = "";
+//"" = "";
+//"" = "";
+

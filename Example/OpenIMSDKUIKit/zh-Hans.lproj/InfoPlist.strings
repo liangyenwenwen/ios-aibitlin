@@ -1,0 +1,21 @@
+/* 
+  InfoPlist.strings
+  OpenIMSDKUIKit
+
+  Created by mac on 2024/5/10.
+  Copyright © 2024 rentsoft. All rights reserved.
+*/
+
+"CFBundleDisplayName" = "哎比邻";
+
+"NSAppleMusicUsageDescription" = "请点击“好”以允许访问。若不允许，你将无法给好友发送或者上传本地相册图片及视频内容。";
+"NSCameraUsageDescription" = "请点击“好”以允许访问。若不允许，你将无法使用拍照、录制视频、扫一扫等功能。";
+"NSMicrophoneUsageDescription" = "请点击“好”以允许访问。若不允许，你将无法使用视频通话、发送语音消息或录制视频等功能。";
+"NSFaceIDUsageDescription" = "请点击“好”以允许访问。若不允许，你将无法使用Touch ID 或 Face ID解锁功能。";
+"NSLocationUsageDescription" = "若不允许，你将无法使用安全定位等功能";
+"NSPhotoLibraryAddUsageDescription" = "请点击“好”以允许访问。若不允许，你将无法给好友发送或者上传本地相册图片及视频内容。";
+"NSContactsUsageDescription" = "请点击“好”以允许访问。若不允许，你将无法通知到更多通讯录好友。";
+"NSLocationAlwaysUsageDescription" = "若不允许，你将无法使用安全定位等功能。";
+"NSPhotoLibraryUsageDescription" = "请点击“好”以允许访问。若不允许，你将无法给好友发送或者上传本地相册图片及视频内容。";
+"NSLocationWhenInUseUsageDescription" = "若不允许，你将无法使用安全定位等功能。";
+

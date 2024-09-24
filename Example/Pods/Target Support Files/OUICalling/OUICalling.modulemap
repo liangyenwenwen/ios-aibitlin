@@ -1,0 +1,6 @@
+framework module OUICalling {
+  umbrella header "OUICalling-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,19 @@
+/************************* Mahmoud Abo-Osama *************************/
+//
+//  Localizable.strings
+
+
+//Common
+"Error"                      = "错误";
+"Info"                       = "信息";
+"Done"                       = "完成";
+"OK"                         = "好的";
+"Confirm"                    = "确认";
+"Cancel"                     = "添加";
+"Add"                        = "取消";
+"Attention"                  = "注意";
+"Search or enter an address" = "搜索或者输入地址";
+"Select"                     = "选择";
+"Search"                     = "搜索";
+"Search History"             = "搜索历史";
+

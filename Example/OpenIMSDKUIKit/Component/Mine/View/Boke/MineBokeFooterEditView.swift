@@ -1,0 +1,179 @@
+//
+//  MineBokeFooterEditView.swift
+//  MyCloudMusic
+//
+//  Created by mac on 2024/5/6.
+//
+
+import UIKit
+import TangramKit
+import RxSwift
+import RxCocoa
+
+class MineBokeFooterEditView: TGLinearLayout {
+
+    var editBoke : ((blogDetailItem)->Void)!
+    var showBokeOnHome : ((blogDetailItem,Bool)->Void)!
+    var deleteBoke : ((blogDetailItem)->Void)!
+    var reportBoke : ((blogDetailItem)->Void)!
+    var topBlog : ((blogDetailItem)->Void)!
+    var isMe: Bool!
+    var blogItem: blogDetailItem!
+    
+    init(isMe : Bool = true) {
+        super.init(frame: .zero, orientation: .vert)
+        self.isMe = isMe
+        innerInit()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        innerInit()
+    }
+    
+    func innerInit() {
+        
+        corner(MEDDLE_RADIUS)
+        tg_width.equal(.fill)
+        tg_height.equal(.wrap)
+        tg_space = PADDING_OUTER
+        tg_gravity = .horz.center
+        tg_padding = UIEdgeInsets(top: PADDING_LARGE2, left: PADDING_MEDDLE, bottom: PADDING_MEDDLE, right: PADDING_MEDDLE)
+        backgroundColor = .colorBackgroundAPP
+        
+        
+        addSubview(topContainer)
+        addSubview(centerContainer)
+        addSubview(deleteBtn)
+        
+    }
+
+    lazy var topContainer: TGLinearLayout = {
+        let r = TGLinearLayout(.horz)
+        r.tg_width.equal(.fill)
+        r.tg_height.equal(.wrap)
+        r.tg_space = PADDING_MEDDLE
+        
+        r.addSubview(bokeMessageContainer)
+        bokeMessageContainer.addSubview(bokeTitle)
+        bokeMessageContainer.addSubview(bokeContent)
+        
+        r.addSubview(cancleBtn)
+        return r
+    }()
+    
+    lazy var bokeMessageContainer: TGLinearLayout = {
+        let r = TGLinearLayout(.vert)
+        r.tg_width.equal(.fill)
+        r.tg_height.equal(.wrap)
+        r.tg_space = PADDING_MEDDLE
+        r.clipsToBounds = true
+        return r
+    }()
+    
+    lazy var bokeTitle: UILabel = {
+        let r = ViewFactoryUtil.normalLbael()
+        r.text = "标题".localized()
+        r.textColor = .colorOnBackground
+        r.font = .systemFont(ofSize: TEXT_LARGE)
+        return r
+    }()
+    
+    lazy var bokeContent: UILabel = {
+        let r = ViewFactoryUtil.normalLbael()
+        r.text = "内容".localized()
+        r.numberOfLines = 1
+        r.tg_width.equal(.fill)
+        r.textColor = .placeholder
+        r.font = .systemFont(ofSize: TEXT_SMALL)
+        return r
+    }()
+    
+    lazy var cancleBtn: QMUIButton = {
+        let r = ViewFactoryUtil.imageBtn(R.image.close_cirle_icon()!)
+        r.rx.tap.subscribe(onNext: {
+            
+            GKCover.hide()
+        })
+        .disposed(by: rx.disposeBag)
+        return r
+    }()
+    
+    
+    
+    lazy var centerContainer: TGLinearLayout = {
+        let r = TGLinearLayout(.vert)
+        r.tg_width.equal(.fill)
+        r.tg_height.equal(.wrap)
+        r.tg_space = 1
+        r.corner(MEDDLE_RADIUS)
+        r.backgroundColor = .white
+        
+        if isMe {
+            //我的好友
+            var editView = SuperSettingView.smallWithIcon(title: "编辑".localized()) {[weak self] data in
+                self?.editBoke(self!.blogItem)
+            }
+            r.addSubview(editView)
+            r.addSubview(ViewFactoryUtil.smallDivider())
+        } else {
+            var addBoke = SuperSettingView.smallWithIcon(title: "添加到我的快捷博客".localized()) {[weak self] data in
+                print("ADD")
+            }
+            r.addSubview(addBoke)
+            r.addSubview(ViewFactoryUtil.smallDivider())
+        }
+        
+        
+        
+        var showHomeView = SuperSettingView.create(title: "显示在我的个人主页".localized()) { data in
+            
+        } switchChanged: { [weak self] data in
+            print("\(data.isOn)")
+            self?.showBokeOnHome(self!.blogItem, data.isOn)
+        }
+        r.addSubview(showHomeView)
+        showHomeView.superSwitch.isOn = true
+        r.addSubview(ViewFactoryUtil.smallDivider())
+        
+        
+        if isMe {
+            
+            var shareView = SuperSettingView.onlylTitle("博客置顶".localized(), click: { [weak self] data in
+                print("博客置顶")
+                self?.topBlog(self!.blogItem)
+            })
+            r.addSubview(shareView)
+            r.addSubview(ViewFactoryUtil.smallDivider())
+        }
+        
+        
+        var shareView = SuperSettingView.onlylTitle("分享给好友".localized(), click: { [weak self] data in
+            print("分享给好友")
+        })
+        r.addSubview(shareView)
+        
+//        var tfView = SuperSettingView.createInputTextView("邮箱地址", placeholder: "11111")
+//        r.addSubview(tfView)
+        
+        return r
+    }()
+    
+    lazy var deleteBtn: QMUIButton = {
+        let r = ViewFactoryUtil.linkButton()
+        r.setTitle( isMe ? "删除博客".localized() : "举报".localized(), for: .normal)
+        r.setTitleColor(.black80, for: .normal)
+//        r.addTarget(self, action: #selector(disagreeClick(_:)), for: .touchUpInside)
+        r.rx.tap.subscribe(onNext: { [weak self] in
+            if self!.isMe {
+                self?.deleteBoke(self!.blogItem)
+            } else {
+                self?.reportBoke(self!.blogItem)
+            }
+        })
+        .disposed(by: rx.disposeBag)
+        r.sizeToFit()
+        return r
+    }()
+    
+}
