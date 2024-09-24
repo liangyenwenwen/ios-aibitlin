@@ -219,7 +219,7 @@ ResendCount="%1$d to resend";
 
 
 
-HomePage = "%@ homepage";
+HomePage = "%@ Homepage";
 UserBlog = "%@'s Blog";
 MeBlog = "My Blog";
 SendMessage = "Send messages";
@@ -227,7 +227,7 @@ Follow = "Follow";
 
 ReasonForReporting = "Reason for reporting";
 ReasonForDelete = "Reason for delete";
-ModifyRemarks = "Modify remarks";
+ModifyRemarks = "Modify Remarks";
 SendBusinesCard = "Send busines card";
 CancelFollow = "Cancel follow";
 Block = "Block";
@@ -246,7 +246,7 @@ Logout="Logout";
 
 
 //个人资料
-BasicInformation = "Basic information";
+BasicInformation = "Basic Information";
 SocialMediaHomepage = "Social media homepage";
 IntroTitle = "%@:";
 
@@ -260,17 +260,17 @@ PleaseFillIn = "Please enter";
 NotFilledIn = "Not filled in";
 
 AccountInformation = "Account information";
-DeleteAccount = "Delete account";
+DeleteAccount = "Delete Account";
 
-ChangePassword = "Change password";
-ChangeEmail = "Change email";
-ChangePhone = "Change phone";
+ChangePassword = "Change Password";
+ChangeEmail = "Change Email";
+ChangePhone = "Change Phone";
 
 EnterTheOriginalPassword = "Enter the original password";
-OriginalPassword = "Original password";
+OriginalPassword = "Original Password";
 EnterTheNewPassword = "Enter the new password";
-NewPassword = "New password";
-EnterAgain = "Enter again";
+NewPassword = "New Password";
+EnterAgain = "Enter Again";
 BindingThirdPartyAccounts = "Binding third-party accounts";
 
 
@@ -312,7 +312,7 @@ Toolbox = "Toolbox";
 //"其他" = "Others";
 "选择举报该账号的原因" = "Reasons for report the account";
 "添加好友" = "Add friend";
-"删除好友" = "Delete friend";
+"删除好友" = "Delete Friend";
 //"消息" = "Messages";
 
 "用户名" = "Username";
@@ -366,7 +366,7 @@ Toolbox = "Toolbox";
 
 "BuyVIP" = "Buy VIP Services";
 
-"接收系统通知" = "Receive system notifications";
+"接收系统通知" = "Receive System Notifications";
 "免打扰" = "Do not disturb";
 "消息置顶" = "Message top";
 "博客置顶" = "Blog top";
@@ -426,9 +426,9 @@ Toolbox = "Toolbox";
 "语音通话" = "Voice Call";
 "名片" = "Contact Card";
 "文件" = "File";
-"置顶" = "Sticky on Top";
-"置顶聊天" = "Sticky on Top";
-"消息置顶" = "Sticky on Top";
+"置顶" = "Sticky On Top";
+"置顶聊天" = "Sticky On Top";
+"消息置顶" = "Sticky On Top";
 "聊天自动翻译" = "Chat Auto-translate";
 "清空聊天记录" = "Clear Chat History";
 "举报" = "Report";
