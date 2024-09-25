@@ -17,18 +17,23 @@ class MineBokeFooterEditView: TGLinearLayout {
     var deleteBoke : ((blogDetailItem)->Void)!
     var reportBoke : ((blogDetailItem)->Void)!
     var topBlog : ((blogDetailItem)->Void)!
-    var isMe: Bool!
+    var type: blogListVCType!
     var blogItem: blogDetailItem!
     
-    init(isMe : Bool = true) {
+    init(type : blogListVCType = .meBlog) {
         super.init(frame: .zero, orientation: .vert)
-        self.isMe = isMe
+        self.type = type
         innerInit()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         innerInit()
+    }
+    
+    func update() {
+        bokeTitle.text = blogItem.userBlogName
+        bokeContent.text = blogItem.userBlogIntro
     }
     
     func innerInit() {
@@ -43,7 +48,9 @@ class MineBokeFooterEditView: TGLinearLayout {
         
         
         addSubview(topContainer)
-        addSubview(centerContainer)
+        if type != .star {
+            addSubview(centerContainer)
+        }
         addSubview(deleteBtn)
         
     }
@@ -109,7 +116,9 @@ class MineBokeFooterEditView: TGLinearLayout {
         r.corner(MEDDLE_RADIUS)
         r.backgroundColor = .white
         
-        if isMe {
+        
+        
+        if type == .meBlog {
             //我的好友
             var editView = SuperSettingView.smallWithIcon(title: "编辑".localized()) {[weak self] data in
                 self?.editBoke(self!.blogItem)
@@ -137,7 +146,7 @@ class MineBokeFooterEditView: TGLinearLayout {
         r.addSubview(ViewFactoryUtil.smallDivider())
         
         
-        if isMe {
+        if type == .meBlog {
             
             var shareView = SuperSettingView.onlylTitle("博客置顶".localized(), click: { [weak self] data in
                 print("博客置顶")
@@ -153,19 +162,18 @@ class MineBokeFooterEditView: TGLinearLayout {
         })
         r.addSubview(shareView)
         
-//        var tfView = SuperSettingView.createInputTextView("邮箱地址", placeholder: "11111")
-//        r.addSubview(tfView)
+
         
         return r
     }()
     
     lazy var deleteBtn: QMUIButton = {
         let r = ViewFactoryUtil.linkButton()
-        r.setTitle( isMe ? "删除博客".localized() : "举报".localized(), for: .normal)
+        r.setTitle( type != .othersBlog ? "删除博客".localized() : "举报".localized(), for: .normal)
         r.setTitleColor(.black80, for: .normal)
 //        r.addTarget(self, action: #selector(disagreeClick(_:)), for: .touchUpInside)
         r.rx.tap.subscribe(onNext: { [weak self] in
-            if self!.isMe {
+            if self?.type != .othersBlog {
                 self?.deleteBoke(self!.blogItem)
             } else {
                 self?.reportBoke(self!.blogItem)

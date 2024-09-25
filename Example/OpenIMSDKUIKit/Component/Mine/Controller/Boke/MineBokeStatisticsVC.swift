@@ -22,6 +22,7 @@ class MineBokeStatisticsVC: BaseTitleController {
         return r
     }()
     
+   
     override func initViews() {
         setBackGroundColor(.colorBackgroundAPP)
         initLinearLayoutSafeArea()
@@ -38,6 +39,8 @@ class MineBokeStatisticsVC: BaseTitleController {
         bokeDescription.tg_bottom.equal(10)
         container.addSubview(bokeChartView)
         container.addSubview(visitorView)
+        
+        
         container.addSubview(trueBtn)
         
         updateBokeBase()
@@ -300,11 +303,7 @@ extension MineBokeStatisticsVC {
         } completionHandler: { errCode, errMsg in
             
         }
-
     }
-    
-    
-    
     
     func updateUIWith(data: BlogSurveyData) {
         friendView.numberLbl.text = data.friend.string

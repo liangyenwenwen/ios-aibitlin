@@ -51,10 +51,12 @@ class YFFileDataUtil {
         saveDataToFile(blogsArr: datas)
     }
 
-    static func deleteOneDataFromFile(blogItem: blogDetailItem) ->() {
+    
+    static func deleteOneDataFromFile(blogItem: blogDetailItem) -> [blogDetailItem] {
         var datas = readDataToFile()
         datas.removeFirst(where: {$0.id == blogItem.id})
         saveDataToFile(blogsArr: datas)
+        return datas
     }
     
     static func deleteAllDataFromFile() ->() {

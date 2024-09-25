@@ -148,11 +148,11 @@ extension GroupInfo {
     public func needVerificationText() -> String {
         
         if (needVerification == .allNeedVerification) {
-            return "需要发送验证信息".innerLocalized()
+            return "needVerification".innerLocalized()
         } else if (needVerification == .directly) {
-            return "允许任何人加群".innerLocalized()
+            return "allowAnyoneJoinGroup".innerLocalized()
         }
-        return "群成员邀请无需验证".innerLocalized()
+        return "inviteNotVerification".innerLocalized()
     }
 }
 

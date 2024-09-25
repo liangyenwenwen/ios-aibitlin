@@ -182,15 +182,15 @@ class GroupSettingManageTableViewController: UITableViewController {
             switch self {
                 
             case .transferOwner:
-                return "群主管理权转让".innerLocalized()
+                return "transferGroupOwnerRight".innerLocalized()
             case .muteAll:
                 return "全体禁言".innerLocalized()
             case .joinAuth:
-                return "进群验证".innerLocalized()
+                return "joinGroupSet".innerLocalized()
             case .canViewProfile:
-                return "不允许查看群成员资料".innerLocalized()
+                return "notAllowSeeMemberProfile".innerLocalized()
             case .canAddFriend:
-                return "不允许添加群成员为好友".innerLocalized()
+                return "notAllAddMemberToBeFriend".innerLocalized()
             }
         }
     }

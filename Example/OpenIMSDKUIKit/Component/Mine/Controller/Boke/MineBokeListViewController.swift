@@ -63,7 +63,7 @@ class MineBokeListViewController: BaseTitleController {
             superFooterContainerContainer.addSubview(bottomBtn)
         }
         
-//        if isMe {
+//        if vcType == .meBlog {
 //            navView.addRighttItem(sortBtn)
 //        }
 
@@ -114,7 +114,7 @@ extension MineBokeListViewController {
         cell.editBlock = { [weak self] in
             self?.showEdit(indexPath.row)
         }
-        if(vcType != .meBlog) {
+        if(vcType == .othersBlog) {
             cell.isClean()
         }
         return cell
@@ -164,8 +164,9 @@ extension MineBokeListViewController {
     
     
     func showEdit(_ index: Int)  {
-        let contentView = MineBokeFooterEditView(isMe: vcType == .meBlog)
+        let contentView = MineBokeFooterEditView(type: vcType)
         contentView.blogItem = datum[index] as! blogDetailItem
+        contentView.update()
         contentView.tg_width.equal(.fill)
         contentView.tg_height.equal(view.frame.height / 2)
         GKCover.cover(from: view, contentView: contentView, style: .translucent, showStyle: .bottom, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
@@ -186,6 +187,7 @@ extension MineBokeListViewController {
         contentView.deleteBoke = { [weak self] item in
             GKCover.hideWithoutAnimation()
             print("删除")
+
             self?.deleteBlog(item: item)
         }
         
@@ -241,13 +243,20 @@ extension MineBokeListViewController {
     }
     
     func deleteBlog(item: blogDetailItem) {
-        let parameters: [String:Any] = ["userBlogId":item.id, "sign":item.sign]
-        YFMineNetViewModel.deleteBlog(paramters: parameters) { errCode, errMsg in
-            if errCode == 20000 {
-                self.getMyBlog()
-            } else {
-                SuperToast.show(title: R.string.localizable.failure())
+        
+        if vcType == .star {
+            datum = YFFileDataUtil.deleteOneDataFromFile(blogItem: item)
+            self.tableView.reloadData()
+        } else {
+            let parameters: [String:Any] = ["userBlogId":item.id, "sign":item.sign]
+            YFMineNetViewModel.deleteBlog(paramters: parameters) { errCode, errMsg in
+                if errCode == 20000 {
+                    self.getMyBlog()
+                } else {
+                    SuperToast.show(title: R.string.localizable.failure())
+                }
             }
         }
+        
     }
 }
