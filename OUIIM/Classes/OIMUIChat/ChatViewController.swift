@@ -35,6 +35,7 @@ final class ChatViewController: UIViewController {
         case revoke
         case muiltSelection
         case translate
+        case star
         
         var image: UIImage? {
             switch self {
@@ -52,6 +53,8 @@ final class ChatViewController: UIViewController {
                 return UIImage(nameInBundle: "chat_tool_multi_sel_btn_icon")
             case .translate:
                 return UIImage(nameInBundle: "chat_tool_translate_btn_icon")
+            case .star:
+                return UIImage(named: "chat_tool_translate_btn_star")
             }
         }
         
@@ -71,6 +74,8 @@ final class ChatViewController: UIViewController {
                 return "多选".innerLocalized()
             case .translate:
                 return "翻译".innerLocalized()
+            case .star:
+                return "收藏".localized()
             }
         }
     }
@@ -2646,6 +2651,27 @@ extension ChatViewController: GestureDelegate {
         }
     }
     
+    private func starAction(id: String, source: bokeMessageSource) -> PopoverCollectionViewController.MenuItem {
+        return PopoverCollectionViewController.MenuItem(title: ToolItem.star.title, image: ToolItem.star.image) { [weak self] in
+            print("收藏", source)
+            
+//            if let handler = OIMApi.showBokeSheetHandle {
+//                handler(self, { [weak self]res in
+//                    print(#file, #line, res)
+//
+//                    let source = CustomMessageSource(data: self?.getCustomBokeData(res))
+//                    self?.chatController.sendMessage(.custom(source), completion: completion)
+//                })
+//            }
+            
+            if let handler = OIMApi.starBokeLinkHandle {
+                handler(source.title ?? "" , source.iconUrl ?? "", source.linkUrl ?? "", source.intro  ?? "",  {[weak self] res in
+                    
+                })
+            }
+        }
+    }
+    
     // MARK: - 张亚飞打的标记 长按手势 代理
     func longPress(with indexPath: IndexPath, sourceView: UIView, point: CGPoint) {
         
@@ -2729,7 +2755,8 @@ extension ChatViewController: GestureDelegate {
                 ]
             case let .custom(source):
                 if source.type == .boke {
-                    actions = [forwardAction(id: message.id)]
+                    actions = [forwardAction(id: message.id),
+                               starAction(id: message.id, source: source.bokeMessageSource)]
                 }
                 break
             default:

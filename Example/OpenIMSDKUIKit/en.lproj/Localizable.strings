@@ -417,6 +417,7 @@ Toolbox = "Toolbox";
 "我和我的博客" = "My blog";
 "企业" = "Company";
 "购买VIP服务" = "Purchase VIP Service";
+"我收藏的博客" = "My Blog Collection";
 
 //消息-单聊和单聊设置
 "相机" = "Camera";
@@ -571,6 +572,8 @@ SupportShortNumber = "Support setting a minimum %@-digit account ID";
 "支持个性化访客通知，帮助获客" = "Support personalized visitor notifications to help acquire customers";
 "支持显示博客7日访客数量并显示好友访问数据" = "Supports displaying the number of blog visitors in the past 7 days and displaying friends' visit data";
 
+
+"收藏" = "Star";
 
 //"" = "";
 //"" = "";

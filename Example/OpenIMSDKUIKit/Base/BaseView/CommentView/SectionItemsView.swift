@@ -84,50 +84,50 @@ class SectionItemsView: TGLinearLayout {
         }
     }
     
-    func update(data:Array<Any>)  {
-        if data.count == 0 {
-            topContainer.hide()
-            bottomContainer.hide()
-        } else if data.count < 6 {
-            topContainer.show()
-            bottomContainer.hide()
-            for index in topContainer.subviews.indices {
-                let item = topContainer.subviews[index] as! SectionItemView
-                if index < data.count {
-                    item.show()
-                    item.bindData(data[index] as! BokeItemStruct)
-                } else {
-                    item.hide()
-                }
-            }
-        } else {
-            topContainer.show()
-            bottomContainer.show()
-            for index in topContainer.subviews.indices {
-                let item = topContainer.subviews[index] as! SectionItemView
-                item.bindData(data[index] as! BokeItemStruct)
-                item.show()
-            }
-            
-            for index in bottomContainer.subviews.indices {
-                let item = bottomContainer.subviews[index] as! SectionItemView
-                if index + 5 < data.count {
-                    item.show()
-                    
-                    if data.count > 9 && index == 4 {
-                        let item = bottomContainer.subviews[4] as! SectionItemView
-                        item.bindData(TestDataUtil.moreBokeItemStruct)
-                    } else {
-                        item.bindData(data[index + 5] as! BokeItemStruct)
-                    }
-                    
-                } else {
-                    item.hide()
-                }
-            }
-
-        }
-    }
+//    func update(data:Array<Any>)  {
+//        if data.count == 0 {
+//            topContainer.hide()
+//            bottomContainer.hide()
+//        } else if data.count < 6 {
+//            topContainer.show()
+//            bottomContainer.hide()
+//            for index in topContainer.subviews.indices {
+//                let item = topContainer.subviews[index] as! SectionItemView
+//                if index < data.count {
+//                    item.show()
+//                    item.bindData(data[index] as! BokeItemStruct)
+//                } else {
+//                    item.hide()
+//                }
+//            }
+//        } else {
+//            topContainer.show()
+//            bottomContainer.show()
+//            for index in topContainer.subviews.indices {
+//                let item = topContainer.subviews[index] as! SectionItemView
+//                item.bindData(data[index] as! BokeItemStruct)
+//                item.show()
+//            }
+//            
+//            for index in bottomContainer.subviews.indices {
+//                let item = bottomContainer.subviews[index] as! SectionItemView
+//                if index + 5 < data.count {
+//                    item.show()
+//                    
+//                    if data.count > 9 && index == 4 {
+//                        let item = bottomContainer.subviews[4] as! SectionItemView
+//                        item.bindData(TestDataUtil.moreBokeItemStruct)
+//                    } else {
+//                        item.bindData(data[index + 5] as! BokeItemStruct)
+//                    }
+//                    
+//                } else {
+//                    item.hide()
+//                }
+//            }
+//
+//        }
+//    }
     
     
     lazy var topContainer: TGLinearLayout = {

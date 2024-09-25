@@ -161,7 +161,7 @@ struct _R {
     struct launchScreen {
       let source: RswiftResources.StringResource.Source
 
-      /// en translation: OpenIM makes your data more secure
+      /// en translation: AIbitlin makes your data more secure
       ///
       /// Key: 8ie-xW-0ye.text
       ///
@@ -169,7 +169,7 @@ struct _R {
       var ieXW0yeText: RswiftResources.StringResource { .init(key: "8ie-xW-0ye.text", tableName: "LaunchScreen", source: source, developmentValue: nil, comment: nil) }
     }
 
-    /// This `_R.string.localizable` struct is generated, and contains static references to 441 localization keys.
+    /// This `_R.string.localizable` struct is generated, and contains static references to 443 localization keys.
     struct localizable {
       let source: RswiftResources.StringResource.Source
 
@@ -229,7 +229,7 @@ struct _R {
       /// Locales: en, zh-Hans, th
       var add: RswiftResources.StringResource { .init(key: "Add", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: Basic information
+      /// en translation: Basic Information
       ///
       /// Key: BasicInformation
       ///
@@ -278,21 +278,21 @@ struct _R {
       /// Locales: en, zh-Hans, th
       var cancelFollow: RswiftResources.StringResource { .init(key: "CancelFollow", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: Change email
+      /// en translation: Change Email
       ///
       /// Key: ChangeEmail
       ///
       /// Locales: en, zh-Hans, th
       var changeEmail: RswiftResources.StringResource { .init(key: "ChangeEmail", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: Change password
+      /// en translation: Change Password
       ///
       /// Key: ChangePassword
       ///
       /// Locales: en, zh-Hans, th
       var changePassword: RswiftResources.StringResource { .init(key: "ChangePassword", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: Change phone
+      /// en translation: Change Phone
       ///
       /// Key: ChangePhone
       ///
@@ -327,7 +327,7 @@ struct _R {
       /// Locales: en, zh-Hans, th
       var createANewAccount: RswiftResources.StringResource { .init(key: "Create a new account", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: Delete account
+      /// en translation: Delete Account
       ///
       /// Key: DeleteAccount
       ///
@@ -341,7 +341,7 @@ struct _R {
       /// Locales: en, zh-Hans, th
       var emailVerification: RswiftResources.StringResource { .init(key: "EmailVerification", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: Enter again
+      /// en translation: Enter Again
       ///
       /// Key: EnterAgain
       ///
@@ -474,7 +474,7 @@ struct _R {
       /// Locales: en, zh-Hans, th
       var followMe: RswiftResources.StringResource { .init(key: "FollowMe", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: %@ homepage
+      /// en translation: %@ Homepage
       ///
       /// Key: HomePage
       ///
@@ -537,7 +537,7 @@ struct _R {
       /// Locales: en, zh-Hans, th
       var meFollow: RswiftResources.StringResource { .init(key: "MeFollow", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: Modify remarks
+      /// en translation: Modify Remarks
       ///
       /// Key: ModifyRemarks
       ///
@@ -579,7 +579,7 @@ struct _R {
       /// Locales: en, zh-Hans, th
       var networkError: RswiftResources.StringResource { .init(key: "NetworkError", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: New password
+      /// en translation: New Password
       ///
       /// Key: NewPassword
       ///
@@ -593,7 +593,7 @@ struct _R {
       /// Locales: en, zh-Hans, th
       var notFilledIn: RswiftResources.StringResource { .init(key: "NotFilledIn", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: Original password
+      /// en translation: Original Password
       ///
       /// Key: OriginalPassword
       ///
@@ -901,7 +901,7 @@ struct _R {
       /// Locales: en, zh-Hans, th
       var forgetPassword: RswiftResources.StringResource { .init(key: "forgetPassword", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: OpenIM
+      /// en translation: AIbitlin
       ///
       /// Key: home
       ///
@@ -1475,7 +1475,7 @@ struct _R {
       /// Locales: en, th
       var 俄语: RswiftResources.StringResource { .init(key: "俄语", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: Modify password
+      /// en translation: Modify Password
       ///
       /// Key: 修改密码
       ///
@@ -1587,7 +1587,7 @@ struct _R {
       /// Locales: en, th
       var 删除博客: RswiftResources.StringResource { .init(key: "删除博客", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: Delete friend
+      /// en translation: Delete Friend
       ///
       /// Key: 删除好友
       ///
@@ -2105,6 +2105,13 @@ struct _R {
       /// Locales: en, th
       var 我已阅读并同意Aibitlin隐私协议注册协议: RswiftResources.StringResource { .init(key: "我已阅读并同意Aibitlin《隐私协议》《注册协议》", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// en translation: My Blog Collection
+      ///
+      /// Key: 我收藏的博客
+      ///
+      /// Locales: en, th
+      var 我收藏的博客: RswiftResources.StringResource { .init(key: "我收藏的博客", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: I don't have an account, create a new account.
       ///
       /// Key: 我没有账号，创建一个新账号
@@ -2217,7 +2224,7 @@ struct _R {
       /// Locales: en, th
       var 接听: RswiftResources.StringResource { .init(key: "接听", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: Receive system notifications
+      /// en translation: Receive System Notifications
       ///
       /// Key: 接收系统通知
       ///
@@ -2272,6 +2279,13 @@ struct _R {
       ///
       /// Locales: en, th
       var 支持显示博客7日访客数量并显示好友访问数据: RswiftResources.StringResource { .init(key: "支持显示博客7日访客数量并显示好友访问数据", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Star
+      ///
+      /// Key: 收藏
+      ///
+      /// Locales: en, th
+      var 收藏: RswiftResources.StringResource { .init(key: "收藏", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: File
       ///
@@ -2448,7 +2462,7 @@ struct _R {
       /// Locales: en, th
       var 消息提示音: RswiftResources.StringResource { .init(key: "消息提示音", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: Sticky on Top
+      /// en translation: Sticky On Top
       ///
       /// Key: 消息置顶
       ///
@@ -2630,14 +2644,14 @@ struct _R {
       /// Locales: en, th
       var 编辑: RswiftResources.StringResource { .init(key: "编辑", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: Sticky on Top
+      /// en translation: Sticky On Top
       ///
       /// Key: 置顶
       ///
       /// Locales: en, th
       var 置顶: RswiftResources.StringResource { .init(key: "置顶", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: Sticky on Top
+      /// en translation: Sticky On Top
       ///
       /// Key: 置顶聊天
       ///
@@ -2854,7 +2868,7 @@ struct _R {
       /// Locales: en, th
       var 语言: RswiftResources.StringResource { .init(key: "语言", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: language settings
+      /// en translation: Language Settings
       ///
       /// Key: 语言设置
       ///
@@ -2924,21 +2938,21 @@ struct _R {
       /// Locales: en, th
       var 请输入密码: RswiftResources.StringResource { .init(key: "请输入密码", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: Please enter the phone number
+      /// en translation: Please Enter The Phone Number
       ///
       /// Key: 请输入手机号码
       ///
       /// Locales: en, th
       var 请输入手机号码: RswiftResources.StringResource { .init(key: "请输入手机号码", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: Please enter the invitation code (optional)
+      /// en translation: Please Enter the invitation code (optional)
       ///
       /// Key: 请输入邀请码（选填）
       ///
       /// Locales: en, th
       var 请输入邀请码选填: RswiftResources.StringResource { .init(key: "请输入邀请码（选填）", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: Please enter the email
+      /// en translation: Please Enter The Email
       ///
       /// Key: 请输入邮箱
       ///
@@ -3008,7 +3022,7 @@ struct _R {
       /// Locales: en, th
       var 购买VIP服务: RswiftResources.StringResource { .init(key: "购买VIP服务", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: follow the system
+      /// en translation: Follow the system
       ///
       /// Key: 跟随系统
       ///
@@ -3278,7 +3292,7 @@ struct _R {
     var colorBackground: RswiftResources.ColorResource { .init(name: "ColorBackground", path: [], bundle: bundle) }
   }
 
-  /// This `_R.image` struct is generated, and contains static references to 179 images.
+  /// This `_R.image` struct is generated, and contains static references to 181 images.
   struct image {
     let bundle: Foundation.Bundle
 
@@ -3603,6 +3617,9 @@ struct _R {
     /// Image `change_icon`.
     var change_icon: RswiftResources.ImageResource { .init(name: "change_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
+    /// Image `chat_tool_translate_btn_star`.
+    var chat_tool_translate_btn_star: RswiftResources.ImageResource { .init(name: "chat_tool_translate_btn_star", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
     /// Image `close_cirle_icon`.
     var close_cirle_icon: RswiftResources.ImageResource { .init(name: "close_cirle_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
@@ -3749,6 +3766,9 @@ struct _R {
 
     /// Image `search_gray`.
     var search_gray: RswiftResources.ImageResource { .init(name: "search_gray", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `section_star`.
+    var section_star: RswiftResources.ImageResource { .init(name: "section_star", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
     /// Image `section_vip`.
     var section_vip: RswiftResources.ImageResource { .init(name: "section_vip", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }

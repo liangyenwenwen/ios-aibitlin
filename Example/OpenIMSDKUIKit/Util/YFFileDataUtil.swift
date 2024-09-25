@@ -38,6 +38,7 @@ class YFFileDataUtil {
         let dataWrite = try? JSONEncoder().encode(blogsArr)
         do{
             try dataWrite?.write(to:filePath)
+            print("保存成功")
         } catch {
             print("保存到本地文件失败")
         }
@@ -45,7 +46,8 @@ class YFFileDataUtil {
         
     static func saveOneDataToFile(blogItem:blogDetailItem) ->() {
         var datas = readDataToFile()
-        datas.append(blogItem)
+        datas.removeFirst(where: {$0.userBlogName == blogItem.userBlogName && $0.userBlogUrl == blogItem.userBlogUrl})
+        datas.insert(blogItem, at: 0)
         saveDataToFile(blogsArr: datas)
     }
 
@@ -54,5 +56,10 @@ class YFFileDataUtil {
         datas.removeFirst(where: {$0.id == blogItem.id})
         saveDataToFile(blogsArr: datas)
     }
-
+    
+    static func deleteAllDataFromFile() ->() {
+        var datas:[blogDetailItem] = []
+        saveDataToFile(blogsArr: datas)
+    }
+    
 }

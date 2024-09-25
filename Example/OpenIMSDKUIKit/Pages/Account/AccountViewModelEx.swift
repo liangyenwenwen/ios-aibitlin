@@ -56,8 +56,10 @@ extension AccountViewModel {
     
     
     
-    // MARK: - 张亚飞打的标记   展示博客
+    // MARK: - 张亚飞打的标记  博客相关
     static func showBoke() {
+        
+        // MARK: - 张亚飞打的标记 展示博客
         OIMApi.showBokeHandle = { (keywords, completion: @escaping (String) -> Void) in
             print(keywords)
             completion("测试完成")
@@ -75,19 +77,6 @@ extension AccountViewModel {
                 GKCover.hide()
             }
             GKCover.cover(from: vc.view.window, contentView: contentView, style: .translucent, showStyle: .bottom, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
-            
-//            let contentView = MineChooseBottomSheetView()
-//            contentView.tg_width.equal(.fill)
-//            contentView.tg_height.equal(350)
-//            contentView.addUserMessageUI()
-//            contentView.chooseTitle = { title in
-//                print(title)
-//                let result = "百度首页####https://img2.baidu.com/it/u=1581581883,3427578739&fm=253&fmt=auto&app=138&f=PNG?w=192&h=192####https://www.baidu.com/"
-//                completion(result)
-//
-//                GKCover.hide()
-//            }
-//            GKCover.cover(from: vc.view.window, contentView: contentView, style: .translucent, showStyle: .bottom, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
         }
         
         // MARK: - 张亚飞打的标记   博客跳转
@@ -97,5 +86,31 @@ extension AccountViewModel {
             target.uri = link
             vc.navigationController?.pushViewController(target, animated: true)
         }
+        
+        // MARK: - 张亚飞打的标记   收藏博客
+        OIMApi.starBokeLinkHandle = { (title, icon, url, intro, completion: @escaping (String) -> Void)  in
+            
+           print(title, icon, url, intro)
+            
+            let id: Int
+            let sign: Int
+            let userBlogUrl: String
+            let userBlogIntro: String
+            let userBlogName: String
+            let userBlogCreatIp: String
+            let userBlogCreatAffiliatingArea: String
+            let userBlogOrder: Int
+            let userId: String
+            let isDelete: Int
+            let creationTime: String
+            let userBlogIcon: String
+            let changeTime: String
+            
+            let item = blogDetailItem(id: -1, sign: 0, userBlogUrl: url, userBlogIntro: intro, userBlogName: title, userBlogCreatIp: "", userBlogCreatAffiliatingArea: "", userBlogOrder: 0, userId: "", isDelete: 0, creationTime: "", userBlogIcon: icon, changeTime: "")
+            
+            YFFileDataUtil.saveOneDataToFile(blogItem: item)
+            
+        }
+        
     }
 }

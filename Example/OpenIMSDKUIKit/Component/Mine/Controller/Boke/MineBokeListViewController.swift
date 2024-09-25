@@ -10,18 +10,31 @@ import RxSwift
 import RxCocoa
 import OUICore
 
+enum blogListVCType :Int {
+    case meBlog  = 0
+    case othersBlog 
+    case star
+}
+
+
 class MineBokeListViewController: BaseTitleController {
 
-    var isMe = true
+    var vcType: blogListVCType = .meBlog
     var isEidt = false
     var othersID: String?
+    var othersName: String?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if isMe {
+        switch vcType {
+        case .meBlog:
             getMyBlog()
-        } else {
+        case .othersBlog:
             othersSeeMyBlog()
+        case .star:
+            self.datum = YFFileDataUtil.readDataToFile()
+            tableView.reloadData()
+            break
         }
     }
     
@@ -30,14 +43,22 @@ class MineBokeListViewController: BaseTitleController {
         setBackGroundColor(.white)
         initTableViewSafeAre()
 
-        title = R.string.localizable.meBlog()
+        switch vcType {
+        case .meBlog:
+            title = R.string.localizable.meBlog()
+        case .othersBlog:
+            title = R.string.localizable.userBlog(othersName ?? "")
+        case .star:
+            title = "我收藏的博客".localized()
+        }
+        
 
         
         tableView.register(MineBokeListCell.self, forCellReuseIdentifier: MineBokeListCell.className)
 //        tableView.isEditing = isMe
 //        tableView.dragInteractionEnabled = true
         
-        if isMe {
+        if vcType == .meBlog {
             superFooterContainerContainer.tg_padding = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
             superFooterContainerContainer.addSubview(bottomBtn)
         }
@@ -60,7 +81,7 @@ class MineBokeListViewController: BaseTitleController {
     }()
     
     func changeSortState() {
-        self.isMe = true
+        self.vcType = .meBlog
         self.isEidt.toggle()
         self.tableView.isEditing = self.isEidt 
         self.tableView.reloadData()
@@ -93,14 +114,14 @@ extension MineBokeListViewController {
         cell.editBlock = { [weak self] in
             self?.showEdit(indexPath.row)
         }
-        if(!isMe) {
+        if(vcType != .meBlog) {
             cell.isClean()
         }
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if(!isMe) {
+        if(vcType != .meBlog) {
             let item = datum[indexPath.row] as! blogDetailItem
             SuperWebController.start((self.navigationController!), uri: item.userBlogUrl)
         } else {
@@ -121,11 +142,11 @@ extension MineBokeListViewController {
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return (isMe && isEidt)
+        return (vcType == .meBlog && isEidt)
     }
     
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        return isMe
+        return vcType == .meBlog
     }
     
     
@@ -143,7 +164,7 @@ extension MineBokeListViewController {
     
     
     func showEdit(_ index: Int)  {
-        let contentView = MineBokeFooterEditView(isMe: isMe)
+        let contentView = MineBokeFooterEditView(isMe: vcType == .meBlog)
         contentView.blogItem = datum[index] as! blogDetailItem
         contentView.tg_width.equal(.fill)
         contentView.tg_height.equal(view.frame.height / 2)

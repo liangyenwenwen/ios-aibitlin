@@ -19,6 +19,8 @@ class MeHomeController: BaseLogicController {
         _viewModel.queryUserInfo()
         
         getMyBlog()
+        getMyStarBlog()
+        
     }
     
     override func initViews() {
@@ -30,6 +32,7 @@ class MeHomeController: BaseLogicController {
         addTopUserMessage()
         addVIP()
         addMyBoke()
+        addMyStarBoke()
         
         bindData()
         
@@ -159,7 +162,7 @@ class MeHomeController: BaseLogicController {
         container.addSubview(bokeView)
         
         let bokeHeader = ViewFactoryUtil.sectionHeaderView(title: R.string.localizable.meBlog(), isHaveMore: true)
-        let tap = UITapGestureRecognizer(target: self, action: #selector(gotoBokeList))
+        let tap = UITapGestureRecognizer(target: self, action: #selector(gotoMyBokeList))
         bokeHeader.addGestureRecognizer(tap)
         bokeView.addSubview(bokeHeader)
               
@@ -168,31 +171,58 @@ class MeHomeController: BaseLogicController {
     
     lazy var bokeItemsView: SectionItemsView = {
         let r = SectionItemsView()
-//        r.update(data: TestDataUtil.BokeData)
         
         r.bokeClick = { [weak self] item, isMore in
             if isMore {
                 self?.gotoControllerFromRoot(MineBokeListViewController.self)
             } else {
-                
-//                let target = SuperWebController()
-//                target.uri = item.link
-//                target.hidesBottomBarWhenPushed = true
-//                self?.navigationController?.pushViewController(target, animated: true)
-//                SuperWebController.start((self?.navigationController)!, uri: item.link)
+
                 
                 let vc = MineBokeStatisticsVC()
                 vc.boke = item
                 
                 self?.gotoControllerFromRoot(vc)
-                
-              
 
             }
         }
         
         return r
     }()
+    
+    func addMyStarBoke() {
+        let bokeView = TGLinearLayout(.vert)
+        bokeView.backgroundColor = .white
+        bokeView.corner(MEDDLE_RADIUS)
+        bokeView.tg_width.equal(.fill)
+        bokeView.tg_height.equal(.wrap)
+        container.addSubview(bokeView)
+        
+        let bokeHeader = ViewFactoryUtil.sectionHeaderView(title: "我收藏的博客".localized(), isHaveMore: true)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(gotoMyStarBokeList))
+        bokeHeader.addGestureRecognizer(tap)
+        bokeView.addSubview(bokeHeader)
+              
+        bokeView.addSubview(myStarblogItemsView)
+    }
+    
+    lazy var myStarblogItemsView: SectionItemsView = {
+        let r = SectionItemsView()
+        
+        r.bokeClick = { [weak self] item, isMore in
+            if isMore {
+                let vc = MineBokeListViewController()
+                vc.vcType = .star
+                self?.gotoControllerFromRoot(vc)
+            } else {
+                SuperWebController.start((self!.navigationController!), uri: item.userBlogUrl, isRoot: true)
+            }
+        }
+        
+        return r
+    }()
+    
+    
+    
 }
 
 // MARK: -  点击方法
@@ -215,12 +245,21 @@ extension MeHomeController {
     
     @objc func showMoreBoke() {
         print(#function)
-        bokeItemsView.update(data: Array(repeating: "hello", count: Int.random(in: 1 ... 10)))
+//        bokeItemsView.update(data: Array(repeating: "hello", count: Int.random(in: 1 ... 10)))
     }
     
-    @objc func gotoBokeList() {
-        gotoControllerFromRoot(MineBokeListViewController.self)
+  
+    @objc func gotoMyBokeList() {
+        let vc = MineBokeListViewController()
+        vc.vcType = .meBlog
+        gotoControllerFromRoot(vc)
     }
+    @objc func gotoMyStarBokeList() {
+        let vc = MineBokeListViewController()
+        vc.vcType = .star
+        gotoControllerFromRoot(vc)
+    }
+    
     
     @objc func gotoVip() {
         gotoControllerFromRoot(YFMineHomeBuyVipVC.self)
@@ -232,10 +271,7 @@ extension MeHomeController {
             
             YFMineNetViewModel.mineBlog(userId: IMUser.userID) { [weak self] data in
                 self?.bokeItemsView.updateNet(data: data)
-                YFFileDataUtil.saveDataToFile(blogsArr: data)
-                YFFileDataUtil.saveDataToFile(blogsArr: data)
 
-                
             } completionHandler: { errCode, errMsg in
                 
             }
@@ -243,4 +279,14 @@ extension MeHomeController {
         }
         
     }
+    
+    
+    func getMyStarBlog() {
+        
+//        print(YFFileDataUtil.readDataToFile())
+        
+        self.myStarblogItemsView.updateNet(data: YFFileDataUtil.readDataToFile())
+        
+    }
+    
 }

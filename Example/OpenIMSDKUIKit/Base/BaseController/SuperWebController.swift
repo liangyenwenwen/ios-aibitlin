@@ -162,10 +162,13 @@ extension SuperWebController{
     ///   - title: <#title description#>
     ///   - uri: <#uri description#>
     ///   - content: <#content description#>
-    static func start(_ controller:UINavigationController,title:String?=nil,uri:String?=nil,content:String?=nil) {
+    static func start(_ controller:UINavigationController,title:String?=nil,uri:String?=nil,content:String?=nil, isRoot:Bool = false) {
         let target = SuperWebController()
         target.uri=uri
         target.content = content
+        if isRoot {
+            target.hidesBottomBarWhenPushed = true
+        }
         controller.pushViewController(target, animated: true)
     }
 }

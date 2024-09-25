@@ -286,7 +286,9 @@ extension UserMessageVC {
     
     @objc func gotoBokeList() {
         let vc = MineBokeListViewController()
-        vc.isMe = false
+        vc.vcType = .othersBlog
+        vc.othersID = ConversationInfo?.userID
+        vc.othersName = ConversationInfo?.showName
         gotoController(vc)
     }
     
