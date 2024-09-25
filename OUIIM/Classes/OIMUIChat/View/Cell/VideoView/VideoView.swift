@@ -64,6 +64,11 @@ final class VideoView: UIView, ContainerCollectionViewCellDelegate {
         } else {
             imageView.setImage(url: controller.source.source.url, thumbURL: controller.source.thumb?.url)
         }
+        
+        backgroundColor = controller.messageType == .incoming ? .init(hexString: "#EAEAEA") : .init(hexString: "#388CEF")
+                
+        imageView.image = controller.messageType == .incoming ? .init(named: "chat_video_1") :  .init(named: "chat_video_0")
+        
     }
     
     private func setupSubviews() {

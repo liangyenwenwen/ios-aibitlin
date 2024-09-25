@@ -131,19 +131,19 @@ class TabMoreView: UIView {
         bottomView.layer.cornerRadius = 10
         bottomView.layer.maskedCorners  = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
    
-        bottomView.addSubview(lineView)
-        lineView.snp.makeConstraints { make in
-            make.width.equalTo(40)
-            make.height.equalTo(5)
-            make.top.equalToSuperview().offset(18)
-            make.centerX.equalToSuperview()
-        }
+//        bottomView.addSubview(lineView)
+//        lineView.snp.makeConstraints { make in
+//            make.width.equalTo(40)
+//            make.height.equalTo(5)
+//            make.top.equalToSuperview().offset(18)
+//            make.centerX.equalToSuperview()
+//        }
         
-        bottomView.addSubview(tipsLbl)
-        tipsLbl.snp.makeConstraints { make in
-            make.centerY.equalTo(lineView)
-            make.trailing.equalTo(-20)
-        }
+//        bottomView.addSubview(tipsLbl)
+//        tipsLbl.snp.makeConstraints { make in
+//            make.centerY.equalTo(lineView)
+//            make.trailing.equalTo(-20)
+//        }
         
         
         

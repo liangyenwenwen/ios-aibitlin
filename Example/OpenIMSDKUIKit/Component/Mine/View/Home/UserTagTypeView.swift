@@ -76,11 +76,11 @@ class UserTagTypeView: TGLinearLayout {
         case .blog:
             leftImg.image = R.image.tag_blog()!
             backgroundColor = .init(hexString: "#EA896A")
-            contactLbl.text = "博客".innerLocalized()
+            contactLbl.text = "博客".localized()
         case .company:
             leftImg.image = R.image.tag_company()!
             backgroundColor = .init(hexString: "#388CEF")
-            contactLbl.text = "企业".innerLocalized()
+            contactLbl.text = "企业".localized()
         }
     }
     

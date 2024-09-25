@@ -437,7 +437,7 @@ class ChatListHeaderView: UIView {
         }
         
         snp.makeConstraints { make in
-            make.height.equalTo(kStatusBarHeight + 44.h)
+            make.height.equalTo(kStatusBarHeight + 44)
         }
 //        startListening()
     }

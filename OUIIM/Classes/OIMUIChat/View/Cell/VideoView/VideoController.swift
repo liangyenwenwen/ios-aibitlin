@@ -26,11 +26,14 @@ final class VideoController {
     
     private let bubbleController: BubbleController
     
-    init(source: MediaMessageSource, messageId: String, bubbleController: BubbleController) {
+    var messageType: MessageType!
+    
+    init(source: MediaMessageSource, messageId: String, bubbleController: BubbleController, messageType: MessageType) {
         self.source = source
         self.messageId = messageId
         self.bubbleController = bubbleController
         self.duration = formatTime(seconds: TimeInterval(source.duration ?? 0))
+        self.messageType = messageType
         if let size = source.thumb?.size {
             self.size = size
         }

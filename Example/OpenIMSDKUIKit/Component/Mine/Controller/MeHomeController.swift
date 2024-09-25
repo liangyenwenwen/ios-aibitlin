@@ -162,6 +162,7 @@ class MeHomeController: BaseLogicController {
         container.addSubview(bokeView)
         
         let bokeHeader = ViewFactoryUtil.sectionHeaderView(title: R.string.localizable.meBlog(), isHaveMore: true)
+        bokeHeader.tg_height.equal(44)
         let tap = UITapGestureRecognizer(target: self, action: #selector(gotoMyBokeList))
         bokeHeader.addGestureRecognizer(tap)
         bokeView.addSubview(bokeHeader)
@@ -198,6 +199,7 @@ class MeHomeController: BaseLogicController {
         container.addSubview(bokeView)
         
         let bokeHeader = ViewFactoryUtil.sectionHeaderView(title: "我收藏的博客".localized(), isHaveMore: true)
+        bokeHeader.tg_height.equal(44)
         let tap = UITapGestureRecognizer(target: self, action: #selector(gotoMyStarBokeList))
         bokeHeader.addGestureRecognizer(tap)
         bokeView.addSubview(bokeHeader)
@@ -225,7 +227,7 @@ class MeHomeController: BaseLogicController {
     
 }
 
-// MARK: -  点击方法
+
 
 extension MeHomeController {
     @objc func scanCode() {

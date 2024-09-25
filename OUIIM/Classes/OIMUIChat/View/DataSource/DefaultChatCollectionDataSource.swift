@@ -247,7 +247,7 @@ final class DefaultChatCollectionDataSource: NSObject, ChatCollectionDataSource 
         let bubbleView = cell.customView.customView.maskedView
         let controller = VideoController(source: source,
                                          messageId: messageId,
-                                         bubbleController: buildBezierBubbleController(for: bubbleView, messageType: messageType, bubbleType: bubbleType))
+                                         bubbleController: buildBezierBubbleController(for: bubbleView, messageType: messageType, bubbleType: bubbleType), messageType: messageType)
         
         controller.longPress = { [weak self] sourceView, point in
             self?.gestureDelegate?.longPress(with: indexPath, sourceView: sourceView, point: point)

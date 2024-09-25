@@ -27,7 +27,7 @@ class MineBokeStatisticsVC: BaseTitleController {
         setBackGroundColor(.colorBackgroundAPP)
         initLinearLayoutSafeArea()
         
-        title = R.string.localizable.blogSituation(boke.userBlogName)
+        title = R.string.localizable.blogSituation(boke.userBlogName!)
         
         container.tg_padding = UIEdgeInsets(top: PADDING_OUTER, left: PADDING_OUTER, bottom: PADDING_OUTER, right: PADDING_OUTER)
         container.tg_space = 10
@@ -64,6 +64,7 @@ class MineBokeStatisticsVC: BaseTitleController {
     lazy var bokeIcon: UIImageView = {
         let r = ViewFactoryUtil.defalutImgView(R.image.place_boke_icon()!, 66)
         r.corner(12)
+        r.contentMode = .scaleAspectFill
         return r
     }()
     

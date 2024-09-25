@@ -356,6 +356,7 @@ extension ViewFactoryUtil {
         titleLbl.tg_centerY.equal(0)
         titleLbl.tg_width.equal(.fill)
         sectionHaderView.addSubview(titleLbl)
+        titleLbl.tag = 20001
         
         if(isHaveMore) {
             let moreImg = ViewFactoryUtil.moreIconView()

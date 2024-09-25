@@ -50,6 +50,7 @@ class MineBokeListCell: BaseTableViewCell {
     lazy var bokeIcon: UIImageView = {
         let r = ViewFactoryUtil.cornerImgView(R.image.defaultAvatar()!, 66)
         r.image = R.image.place_boke_icon()
+        r.contentMode = .scaleAspectFill
         return r
     }()
 

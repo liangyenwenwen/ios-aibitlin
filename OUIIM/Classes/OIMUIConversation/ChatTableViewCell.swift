@@ -323,7 +323,7 @@ class userTag: UIView {
             if type == 3{
                 tagIcon.image = .init(named: "tag_company")!
                 backgroundColor = .init(hexString: "#388CEF")
-                tagTitle.text = "企业".innerLocalized()
+                tagTitle.text = "企业".localized()
             }
         }
     }

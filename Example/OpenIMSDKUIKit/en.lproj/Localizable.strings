@@ -222,7 +222,7 @@ ResendCount="%1$d to resend";
 HomePage = "%@ Homepage";
 UserBlog = "%@'s Blog";
 MeBlog = "My Blog";
-SendMessage = "Send messages";
+SendMessage = "Messages";
 Follow = "Follow";
 
 ReasonForReporting = "Reason for reporting";

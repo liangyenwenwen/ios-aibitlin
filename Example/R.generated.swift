@@ -705,7 +705,7 @@ struct _R {
       /// Locales: en, zh-Hans, th
       var sendBusinesCard: RswiftResources.StringResource { .init(key: "SendBusinesCard", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: Send messages
+      /// en translation: Messages
       ///
       /// Key: SendMessage
       ///
@@ -3292,7 +3292,7 @@ struct _R {
     var colorBackground: RswiftResources.ColorResource { .init(name: "ColorBackground", path: [], bundle: bundle) }
   }
 
-  /// This `_R.image` struct is generated, and contains static references to 181 images.
+  /// This `_R.image` struct is generated, and contains static references to 185 images.
   struct image {
     let bundle: Foundation.Bundle
 
@@ -3619,6 +3619,18 @@ struct _R {
 
     /// Image `chat_tool_translate_btn_star`.
     var chat_tool_translate_btn_star: RswiftResources.ImageResource { .init(name: "chat_tool_translate_btn_star", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `chat_video_0`.
+    var chat_video_0: RswiftResources.ImageResource { .init(name: "chat_video_0", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `chat_video_1`.
+    var chat_video_1: RswiftResources.ImageResource { .init(name: "chat_video_1", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `chat_voice_0`.
+    var chat_voice_0: RswiftResources.ImageResource { .init(name: "chat_voice_0", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `chat_voice_1`.
+    var chat_voice_1: RswiftResources.ImageResource { .init(name: "chat_voice_1", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
     /// Image `close_cirle_icon`.
     var close_cirle_icon: RswiftResources.ImageResource { .init(name: "close_cirle_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }

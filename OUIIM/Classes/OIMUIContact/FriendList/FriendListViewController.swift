@@ -133,9 +133,10 @@ open class FriendListViewController: UIViewController {
     }
     
     lazy var headerView: listTableHeader = {
+        
         let r = listTableHeader(frame: CGRectMake(0, 0, UIScreen.main.bounds.width, 210))
         let data:[listTableHeader.MenuItem] = [listTableHeader.MenuItem(title: "新关注我的朋友".innerLocalized(), icon: UIImage(named: "friend_list_group_icon")),
-                                               listTableHeader.MenuItem(title: "群聊".innerLocalized(), icon: UIImage(named: "friend_list_new_friend_icon"))]
+                                               listTableHeader.MenuItem(title: "群聊".localized(), icon: UIImage(named: "friend_list_new_friend_icon"))]
         r.newFriendView.bindData(item: data[0])
         r.groupView.bindData(item: data[1])
         r.lblClick = { [weak self] index in
@@ -483,6 +484,7 @@ class listTableHeader: UIView {
             
             let Arr = ["MyFriend".localized(), "MeFollow".localized(), "FollowMe".localized()]
             let lblWidth = UIScreen.main.bounds.width / 4
+            var lastLbl : UILabel? = nil
             for index  in  0...2 {
                 let r = UILabel()
                 r.text = Arr[index]
@@ -491,11 +493,29 @@ class listTableHeader: UIView {
                 r.textAlignment = .center
                 r.tag = 2000 + index
                 addSubview(r)
-                r.snp.makeConstraints { make in
-                    make.left.equalTo(lblWidth * CGFloat(index))
-                    make.top.bottom.equalTo(0)
-                    make.width.equalTo(lblWidth)
+                
+                if index != 0 {
+                    lastLbl = viewWithTag(1999 + index) as? UILabel
                 }
+                
+                if index == 0 {
+                    r.snp.makeConstraints { make in
+                        make.left.equalTo(16)
+                        make.top.bottom.equalTo(0)
+                    }
+                } else {
+                    r.snp.makeConstraints { make in
+                        make.left.equalTo(lastLbl!.snp_right).offset(35)
+                        make.top.bottom.equalTo(0)
+                    }
+                }
+                
+                
+//                r.snp.makeConstraints { make in
+//                    make.left.equalTo(lblWidth * CGFloat(index) + 16)
+//                    make.top.bottom.equalTo(0)
+//                    make.width.equalTo(lblWidth)
+//                }
                 
                 let tap = UITapGestureRecognizer(target: self, action: #selector(changeChooseLbl(sender:)))
                 r.addGestureRecognizer(tap)

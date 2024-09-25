@@ -135,7 +135,7 @@ class SectionItemsView: TGLinearLayout {
         r.tg_space = PADDING_OUTER
         r.tg_width.equal(.fill)
         r.tg_height.equal(.wrap)
-        r.tg_padding = UIEdgeInsets(top: 0, left: PADDING_OUTER, bottom: PADDING_OUTER, right: PADDING_OUTER)
+        r.tg_padding = UIEdgeInsets(top: 0, left: PADDING_OUTER, bottom: PADDING_MEDDLE, right: PADDING_OUTER)
         
         for index in 0..<5 {
             let itemView  = SectionItemView()
@@ -205,6 +205,7 @@ class SectionItemView: TGLinearLayout {
         r.addSubview(blogStateLbl)
         r.tg_width.equal(itemWidth)
         r.tg_height.equal(itemWidth)
+        r.tg_top.equal(8)
         
         blogStateLbl.tg_bottom.equal(0)
         blogStateLbl.tg_left.equal(0)
@@ -220,7 +221,7 @@ class SectionItemView: TGLinearLayout {
         let r =  ViewFactoryUtil.cornerImgView(R.image.place_boke_icon()!)
         r.tg_width.equal(itemWidth)
         r.tg_height.equal(itemWidth)
-        
+        r.contentMode = .scaleAspectFill
         return r
     }()
     
@@ -239,6 +240,7 @@ class SectionItemView: TGLinearLayout {
         r.textAlignment = .center
         r.tg_width.equal(.fill)
         r.tg_height.equal(.fill)
+        r.tg_top.equal(8)
         return r
     }()
     

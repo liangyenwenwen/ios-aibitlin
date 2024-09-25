@@ -73,6 +73,8 @@ class UserMessageVC: BaseTitleController {
         userHeaderView.userID.text = ConversationInfo?.userID
 //        userHeaderView.userIcon.show(ConversationInfo?.faceURL)
         userHeaderView.avatarImageView.setAvatar(url: ConversationInfo?.faceURL, text: ConversationInfo?.showName)
+        
+        sectionTitleLbl.text = R.string.localizable.userBlog(ConversationInfo?.showName ?? "")
     }
     
     
@@ -111,6 +113,8 @@ class UserMessageVC: BaseTitleController {
         let r = UserMessageHeaderView()
         return r
     }()
+    
+    var sectionTitleLbl = UILabel()
     
     lazy var footerBtnView: BottomBtnView = {
         let r = BottomBtnView()
@@ -231,8 +235,6 @@ class UserMessageVC: BaseTitleController {
                             self.footerBtnView.setStyle(.sendMessageAndAttention)
                         }
                         
-                       
-                        
                     }
                 })
             }
@@ -270,7 +272,8 @@ extension UserMessageVC {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let r = TGLinearLayout(.vert)
-        let section = ViewFactoryUtil.sectionHeaderView(title: R.string.localizable.userBlog("荷包蛋小朋友"), isHaveMore: true)
+        let section = ViewFactoryUtil.sectionHeaderView(title: R.string.localizable.userBlog(""), isHaveMore: true)
+        sectionTitleLbl = section.viewWithTag(20001) as! UILabel
         section.tg_width.equal(.fill)
         section.tg_height.equal(.wrap)
         section.tg_top.equal(12)
@@ -297,18 +300,21 @@ extension UserMessageVC {
         return 62
     }
     
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        datum.count
+    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MineBokeListCell.className, for: indexPath) as! MineBokeListCell
         cell.isClean()
-//        cell.bindData(datum[indexPath.row] as! blogDetailItem)
+        cell.bindData(datum[indexPath.row] as! blogDetailItem)
         return cell
     }
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        var item = datum[indexPath.row] as! BokeItemStruct
-        SuperWebController.start((self.navigationController!), uri: item.link)
+        var item = datum[indexPath.row] as! blogDetailItem
+        SuperWebController.start((self.navigationController!), uri: item.userBlogUrl)
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {

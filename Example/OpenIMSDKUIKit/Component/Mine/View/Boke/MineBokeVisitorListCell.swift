@@ -109,9 +109,6 @@ class MineBokeVisitorListCell: BaseTableViewCell {
         
         self.toChatBlock(visitor.lookUserId)
         
-
-        
-
     }
 }
 

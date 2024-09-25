@@ -18,6 +18,9 @@ final class AudioView: UIView, ContainerCollectionViewCellDelegate {
         v.spacing = 4
         v.alignment = .center
         
+        v.isLayoutMarginsRelativeArrangement = true
+        v.layoutMargins = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 4)
+        
         return v
     }()
 
@@ -35,14 +38,14 @@ final class AudioView: UIView, ContainerCollectionViewCellDelegate {
         let v = UILabel()
         v.text = #"\#(0)``"#
         v.translatesAutoresizingMaskIntoConstraints = false
-        
+        v.textColor = .white
         return v
     }()
     
     lazy var iconImageView: UIImageView = {
         let v = UIImageView()
-        v.highlightedImage = UIImage(nameInBundle: "chat_msg_audio_record_normal")?.withTintColor(.c0089FF)
-        v.loadGif(name: "chat_msg_audio_record_play")
+//        v.highlightedImage = UIImage(nameInBundle: "chat_msg_audio_record_normal")?.withTintColor(.c0089FF)
+//        v.loadGif(name: "chat_msg_audio_record_play")
         v.isHighlighted = true
         v.translatesAutoresizingMaskIntoConstraints = false
         
@@ -94,10 +97,18 @@ final class AudioView: UIView, ContainerCollectionViewCellDelegate {
                 self.iconImageView.isHighlighted = false
             }
         }
+        
+        backgroundColor = controller.messageType == .incoming ? .init(hexString: "#EAEAEA") : .init(hexString: "#388CEF")
+        
+        iconImageView.image = controller.messageType == .incoming ? .init(named: "chat_voice_1") :  .init(named: "chat_voice_0")
+//        stackView.backgroundColor = .white
     }
 
     private func setupSubviews() {
         addSubview(stackView)
+//        backgroundColor = .white
+        clipsToBounds = true
+        layer.cornerRadius = 22
 
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),

@@ -414,19 +414,19 @@ class MineBlogRequest: Encodable {
 }
 
 struct blogDetailItem: Codable {
-    let id: Int
-    let sign: Int
-    let userBlogUrl: String
-    let userBlogIntro: String
-    let userBlogName: String
-    let userBlogCreatIp: String
-    let userBlogCreatAffiliatingArea: String
-    let userBlogOrder: Int
-    let userId: String
-    let isDelete: Int
-    let creationTime: String
-    let userBlogIcon: String
-    let changeTime: String
+    let id: Int?
+    let sign: Int?
+    let userBlogUrl: String?
+    let userBlogIntro: String?
+    let userBlogName: String?
+    let userBlogCreatIp: String?
+    let userBlogCreatAffiliatingArea: String?
+    let userBlogOrder: Int?
+    let userId: String?
+    let isDelete: Int?
+    let creationTime: String?
+    let userBlogIcon: String?
+    let changeTime: String?
     
     var state: BokeType {
         switch sign {

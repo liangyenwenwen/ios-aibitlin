@@ -33,7 +33,7 @@ class MineBokeNotificationSettingVC: BaseTitleController {
         setBackGroundColor(.colorBackgroundAPP)
         initLinearLayoutSafeArea()
     
-        title = R.string.localizable.userNotifiySetting(boke.userBlogName)
+        title = R.string.localizable.userNotifiySetting(boke.userBlogName!)
         
         container.tg_padding = UIEdgeInsets(top: PADDING_MEDDLE, left: PADDING_MEDDLE, bottom: PADDING_MEDDLE, right: PADDING_MEDDLE)
         container.tg_space = PADDING_OUTER

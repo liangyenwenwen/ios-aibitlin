@@ -34,7 +34,7 @@ class UserTagView: TGLinearLayout {
         let r = Int.random(in: 3...3)
         let array = Array(repeating: "", count: r)
         let imageArr = ["tag_vip", "tag_blog", "tag_company", "youtube"]
-        let dataArr = ["VIP2", "博客".innerLocalized(), "企业".innerLocalized(), "YouTube"]
+        let dataArr = ["VIP2", "博客".localized(), "企业".localized(), "YouTube"]
         
         let height = 12
         for index  in array.indices {
