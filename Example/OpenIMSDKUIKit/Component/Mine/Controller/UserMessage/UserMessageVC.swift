@@ -13,6 +13,10 @@ import OUIIM
 import OUICore
 import OpenIMSDK
 
+#if ENABLE_MOMENTS
+import OUIMoments
+#endif
+
 class UserMessageVC: BaseTitleController {
 
     var userID: String = ""
@@ -74,7 +78,10 @@ class UserMessageVC: BaseTitleController {
 //        userHeaderView.userIcon.show(ConversationInfo?.faceURL)
         userHeaderView.avatarImageView.setAvatar(url: ConversationInfo?.faceURL, text: ConversationInfo?.showName)
         
-        sectionTitleLbl.text = R.string.localizable.userBlog(ConversationInfo?.showName ?? "")
+        sectionBlogTitleLbl.text = R.string.localizable.userBlog(ConversationInfo?.showName ?? "")
+        sectionMomentsTitleLbl.text = R.string.localizable.userMoments(ConversationInfo?.showName ?? "")
+        
+        self.tableView.reloadData()
     }
     
     
@@ -114,7 +121,8 @@ class UserMessageVC: BaseTitleController {
         return r
     }()
     
-    var sectionTitleLbl = UILabel()
+    var sectionBlogTitleLbl = UILabel()
+    var sectionMomentsTitleLbl = UILabel()
     
     lazy var footerBtnView: BottomBtnView = {
         let r = BottomBtnView()
@@ -250,6 +258,59 @@ class UserMessageVC: BaseTitleController {
             
         }
     }
+    
+    lazy var tableSectionHeader: UIView = {
+//        let r = TGLinearLayout(.vert)
+        let section = ViewFactoryUtil.sectionHeaderView(title: R.string.localizable.userBlog(""), isHaveMore: true)
+//        sectionTitleLbl = section.viewWithTag(20001) as! UILabel
+//        if ConversationInfo != nil {
+//            sectionTitleLbl.text = R.string.localizable.userBlog(ConversationInfo?.showName ?? "")
+//        }
+        
+        section.tg_width.equal(.fill)
+        section.tg_height.equal(44)
+        section.tg_top.equal(12)
+        section.backgroundColor = .white
+        section.layer.cornerRadius = 14
+        section.layer.maskedCorners  = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+//        r.addSubview(section)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(gotoBokeList))
+        section.addGestureRecognizer(tap)
+        return section
+    }()
+    
+    
+    
+    class tableViewSectionHeader : TGLinearLayout {
+        
+        init() {
+            super.init(frame: .zero, orientation: .vert)
+            innerInit()
+        }
+        
+        required init?(coder: NSCoder) {
+            super.init(coder: coder)
+            innerInit()
+            tg_height.equal(56)
+        }
+        
+        func innerInit()  {
+            addSubview(sectionView)
+        }
+        
+        lazy var sectionView: UIView = {
+            let section = ViewFactoryUtil.sectionHeaderView(title: R.string.localizable.userBlog(""), isHaveMore: true)
+            section.tg_width.equal(.fill)
+            section.tg_height.equal(44)
+            section.tg_top.equal(12)
+            section.backgroundColor = .white
+            section.layer.cornerRadius = 14
+            section.layer.maskedCorners  = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+            return section
+        }()
+        
+        
+    }
 }
 
 extension UserMessageVC {
@@ -271,18 +332,46 @@ extension UserMessageVC {
 extension UserMessageVC {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let r = TGLinearLayout(.vert)
-        let section = ViewFactoryUtil.sectionHeaderView(title: R.string.localizable.userBlog(""), isHaveMore: true)
-        sectionTitleLbl = section.viewWithTag(20001) as! UILabel
-        section.tg_width.equal(.fill)
-        section.tg_height.equal(.wrap)
-        section.tg_top.equal(12)
-        section.backgroundColor = .white
-        section.layer.cornerRadius = 10
-        section.layer.maskedCorners  = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        r.addSubview(section)
-        let tap = UITapGestureRecognizer(target: self, action: #selector(gotoBokeList))
-        section.addGestureRecognizer(tap)
+//        let r = tableSectionHeader
+//        
+//        let titleLbl = r.viewWithTag(20001) as! UILabel
+//        if section == 0 {
+//            titleLbl.text = R.string.localizable.userMoments(ConversationInfo?.showName ?? "")
+//            sectionMomentsTitleLbl = titleLbl
+//        } else {
+//            titleLbl.text = R.string.localizable.userBlog(ConversationInfo?.showName ?? "")
+//            sectionBlogTitleLbl = titleLbl
+//        }
+//        
+//        return r
+        
+        let r = tableViewSectionHeader()
+        let sectionLbl = r.sectionView.viewWithTag(20001) as! UILabel
+        if section == 0 {
+            
+            r.sectionView.layer.maskedCorners  = [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+            sectionMomentsTitleLbl = sectionLbl
+            if ConversationInfo != nil {
+                sectionLbl.text = R.string.localizable.userMoments(ConversationInfo?.showName ?? "")
+            }
+            let tap = UITapGestureRecognizer(target: self, action: #selector(gotoMoments))
+            r.sectionView.addGestureRecognizer(tap)
+        } else {
+            if datum.count == 0 {
+                r.sectionView.layer.maskedCorners  = [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+            } else {
+                r.sectionView.layer.maskedCorners  = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+            }
+            
+            sectionBlogTitleLbl = sectionLbl
+            if ConversationInfo != nil {
+                sectionLbl.text = R.string.localizable.userBlog(ConversationInfo?.showName ?? "")
+            }
+            
+            let tap = UITapGestureRecognizer(target: self, action: #selector(gotoBokeList))
+            r.sectionView.addGestureRecognizer(tap)
+        }
+        
         return r
     }
     
@@ -296,12 +385,28 @@ extension UserMessageVC {
     }
     
     
+    @objc func gotoMoments() {
+        let vc = MomentsViewController()
+        vc.hidesBottomBarWhenPushed = true
+//        self.navigationController.setNavigationBarHidden(false, animated: true)
+//        self.pushViewController(vc)
+        self.navigationController?.pushViewController(vc)
+    }
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 62
+        return 56
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        datum.count
+        
+        if  section == 0 {
+            return 0
+        }
+        return datum.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -313,22 +418,34 @@ extension UserMessageVC {
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        var item = datum[indexPath.row] as! blogDetailItem
+        let item = datum[indexPath.row] as! blogDetailItem
         SuperWebController.start((self.navigationController!), uri: item.userBlogUrl)
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let r = TGLinearLayout(.vert)
-        r.tg_width.equal(.fill)
-        r.tg_height.equal(20)
-        r.backgroundColor = .white
-        r.layer.cornerRadius = 10
-        r.layer.maskedCorners  = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-        return r
+        
+        if section == 0 {
+            return nil
+        } else {
+            let r = TGLinearLayout(.vert)
+            r.tg_width.equal(.fill)
+            let height = datum.count > 0 ? 20 : 0
+            r.tg_height.equal(height)
+            r.backgroundColor = .white
+            r.layer.cornerRadius = 10
+            r.layer.maskedCorners  = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+            return r
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 20
+        
+        if section == 0 {
+            return 0
+        } else {
+            return datum.count > 0 ? 20 : 0
+        }
     }
     
     

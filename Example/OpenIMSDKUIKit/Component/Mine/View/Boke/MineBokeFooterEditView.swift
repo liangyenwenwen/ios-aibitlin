@@ -50,8 +50,17 @@ class MineBokeFooterEditView: TGLinearLayout {
         addSubview(topContainer)
         if type != .star {
             addSubview(centerContainer)
+            addSubview(deleteBtn)
+        } else {
+            
+            var deleteView = SuperSettingView.smallWithIcon(title: "删除博客".localized()) {[weak self] data in
+                self?.deleteBoke(self!.blogItem)
+                
+            }
+            deleteView.corner()
+            addSubview(deleteView)
         }
-        addSubview(deleteBtn)
+       
         
     }
 

@@ -755,7 +755,7 @@ final class ChatViewController: UIViewController {
             return
         }
 #else
-        if CallingManager.isBusy {
+        if custom.isBusy {
             presentAlert(title: "callingBusy".innerLocalized())
             
             return

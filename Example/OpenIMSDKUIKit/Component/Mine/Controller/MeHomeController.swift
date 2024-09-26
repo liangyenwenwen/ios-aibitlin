@@ -260,6 +260,8 @@ extension MeHomeController {
         let vc = MineBokeListViewController()
         vc.vcType = .star
         gotoControllerFromRoot(vc)
+        
+//        gotoControllerFromRoot(YFChatNewFriendListVC.self)
     }
     
     
@@ -290,5 +292,7 @@ extension MeHomeController {
         self.myStarblogItemsView.updateNet(data: YFFileDataUtil.readDataToFile())
         
     }
+    
+    
     
 }

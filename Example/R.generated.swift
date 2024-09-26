@@ -169,7 +169,7 @@ struct _R {
       var ieXW0yeText: RswiftResources.StringResource { .init(key: "8ie-xW-0ye.text", tableName: "LaunchScreen", source: source, developmentValue: nil, comment: nil) }
     }
 
-    /// This `_R.string.localizable` struct is generated, and contains static references to 443 localization keys.
+    /// This `_R.string.localizable` struct is generated, and contains static references to 445 localization keys.
     struct localizable {
       let source: RswiftResources.StringResource.Source
 
@@ -775,6 +775,13 @@ struct _R {
       /// Locales: en, zh-Hans, th
       var userBlog: RswiftResources.StringResource1<String> { .init(key: "UserBlog", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// en translation: %@'s Moments
+      ///
+      /// Key: UserMoments
+      ///
+      /// Locales: en, zh-Hans, th
+      var userMoments: RswiftResources.StringResource1<String> { .init(key: "UserMoments", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: %@'s notification settings
       ///
       /// Key: UserNotifiySetting
@@ -1363,7 +1370,7 @@ struct _R {
       /// Locales: en, th
       var 隐私协议: RswiftResources.StringResource { .init(key: "《隐私协议》", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: Upload log
+      /// en translation: Upload Bog
       ///
       /// Key: 上传日志
       ///
@@ -2056,7 +2063,7 @@ struct _R {
       /// Locales: en, th
       var 我加入的: RswiftResources.StringResource { .init(key: "我加入的", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: My blog
+      /// en translation: My Blog
       ///
       /// Key: 我和我的博客
       ///
@@ -2293,6 +2300,13 @@ struct _R {
       ///
       /// Locales: en, th
       var 文件: RswiftResources.StringResource { .init(key: "文件", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: New Friends
+      ///
+      /// Key: 新关注我的朋友
+      ///
+      /// Locales: en, th
+      var 新关注我的朋友: RswiftResources.StringResource { .init(key: "新关注我的朋友", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: New User Registration
       ///
@@ -3113,7 +3127,7 @@ struct _R {
       /// Locales: en, th
       var 选择举报该账号的原因: RswiftResources.StringResource { .init(key: "选择举报该账号的原因", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: Select blog
+      /// en translation: Select Blog
       ///
       /// Key: 选择博客
       ///
@@ -3292,7 +3306,7 @@ struct _R {
     var colorBackground: RswiftResources.ColorResource { .init(name: "ColorBackground", path: [], bundle: bundle) }
   }
 
-  /// This `_R.image` struct is generated, and contains static references to 185 images.
+  /// This `_R.image` struct is generated, and contains static references to 186 images.
   struct image {
     let bundle: Foundation.Bundle
 
@@ -3661,6 +3675,9 @@ struct _R {
 
     /// Image `friend_list_group_icon`.
     var friend_list_group_icon: RswiftResources.ImageResource { .init(name: "friend_list_group_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `friend_list_group_new_icon`.
+    var friend_list_group_new_icon: RswiftResources.ImageResource { .init(name: "friend_list_group_new_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
     /// Image `friend_list_new_friend_icon`.
     var friend_list_new_friend_icon: RswiftResources.ImageResource { .init(name: "friend_list_new_friend_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }

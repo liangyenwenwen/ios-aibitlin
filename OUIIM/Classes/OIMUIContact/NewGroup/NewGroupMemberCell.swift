@@ -111,6 +111,7 @@ class NewGroupMemberCell: UITableViewCell {
             }
             
             avatarView.addSubview(levelLabel)
+            avatarView.layer.cornerRadius = 22.w
             levelLabel.snp.makeConstraints { make in
                 make.leading.trailing.bottom.equalTo(avatarView)
             }

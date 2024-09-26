@@ -16,23 +16,23 @@ public enum PadItemType: CaseIterable {
     var name: String {
         switch self {
         case .album:
-            return "照片".innerLocalized()
+            return "照片".localized()
         case .camera:
-            return "相机".innerLocalized()
+            return "相机".localized()
         case .card:
-            return "名片".innerLocalized()
+            return "名片".localized()
         case .media:
             return "音视频".innerLocalized()
         case .location:
             return "定位".innerLocalized()
         case .file:
-            return "文件".innerLocalized()
+            return "文件".localized()
         case .boke:
-            return "博客".innerLocalized()
+            return "博客".localized()
         case .voiceCall:
-            return "语音通话".innerLocalized()
+            return "语音通话".localized()
         case .videoCall:
-            return "视频通话".innerLocalized()
+            return "视频通话".localized()
         }
     }
 
@@ -88,7 +88,7 @@ class InputPadView: UIView {
     private let itemsPerRow = 4
     // MARK: - 张亚飞打的标记  第一步修改下方按钮  聊天功能下面展示内容
 //    private let items: [PadItemType] = PadItemType.allCases
-    private let items: [PadItemType] = [.album, .camera, .videoCall, .voiceCall, .card, .boke, .file]
+    private let items: [PadItemType] = [.camera, .album, .videoCall, .voiceCall, .card, .boke, .file]
     
     private lazy var collectionView: UICollectionView = {
         

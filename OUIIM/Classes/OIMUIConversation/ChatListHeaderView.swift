@@ -421,7 +421,7 @@ class ChatListHeaderView: UIView {
 //                make.size.equalTo(28.w)
 //            }
             addBtn.snp.makeConstraints { make in
-                make.size.equalTo(28.w)
+                make.size.equalTo(28)
             }
             v.axis = .horizontal
             v.distribution = .equalSpacing
@@ -433,7 +433,7 @@ class ChatListHeaderView: UIView {
 //            make.leading.equalTo(hStack.snp.trailing).offset(8)
 //            make.centerY.equalTo(avatarImageView)
             make.centerY.equalTo(titleLbl)
-            make.trailing.equalToSuperview().offset(-26)
+            make.trailing.equalToSuperview().offset(-29)
         }
         
         snp.makeConstraints { make in

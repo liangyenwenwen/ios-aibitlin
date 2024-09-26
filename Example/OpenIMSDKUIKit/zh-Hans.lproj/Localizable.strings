@@ -134,6 +134,7 @@ ResendCount="%1$d后可重新发送";
 
 
 HomePage = "%@ 主页";
+UserMoments = "%@的朋友圈";
 UserBlog = "%@的博客";
 MeBlog = "我的博客";
 SendMessage = "发消息";

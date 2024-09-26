@@ -105,6 +105,19 @@ class MineBokeVisitorListCell: BaseTableViewCell {
         userScanNumber.text = R.string.localizable.visitorCount(model.ciShu > 99 ? "99+" : "\(model.ciShu)")
     }
     
+//    func bindData(_ model:BlogVisitorListModel) {
+//        self.visitor = model
+//        avatarImg.show(model.lookUserTouXiang, "DefaultAvatar")
+//        username.text = model.lookUserName
+//        userScanNumber.text = R.string.localizable.visitorCount(model.ciShu > 99 ? "99+" : "\(model.ciShu)")
+//    }
+    
+    func updateAboutChat() {
+        userScanNumber.text = "\("关注了你".localized()) 2024-09-03"
+        let lbl = sendMessageBtn.viewWithTag(20002) as! UILabel
+        lbl.text = "关注".localized()
+    }
+    
     @objc func toChat()  {
         
         self.toChatBlock(visitor.lookUserId)

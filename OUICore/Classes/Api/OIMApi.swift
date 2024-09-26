@@ -16,6 +16,7 @@ public typealias starBokeLinkHandle = ((_ blogTitle: String, _  blogIcon: String
 // MARK: - 张亚飞打的标记  其他跳转  比如 个人资料
 public typealias gotoUserMessageHandle = ((_ currentVC: UIViewController, _  userID: String, _ nickname: String, _ faceURL: String ,_ completion: @escaping ((String) -> Void)) -> Void)
 public typealias gotoGroupSettingHandle = ((_ currentVC: UIViewController, _  groupID: String, _ nickname: String, _ completion: @escaping ((String) -> Void)) -> Void)
+public typealias gotoNewFriendHandle = ((_ currentVC: UIViewController, _ completion: @escaping ((String) -> Void)) -> Void)
 
 public typealias showChatVCShoeethandle = ((_ currentVC: UIViewController, _  userID: String, _ completion: @escaping ((String) -> Void)) -> Void)
 public typealias gotoSystemSettingHandle = ((_ currentVC: UIViewController, _  userID: String, _ completion: @escaping ((String) -> Void)) -> Void)
@@ -165,6 +166,7 @@ public class OIMApi {
     
     public static var gotoUserMessageHandle: gotoUserMessageHandle?
     public static var gotoGroupSettingHandle: gotoGroupSettingHandle?
+    public static var gotoNewFriendHandle: gotoNewFriendHandle?
     public static var showChatVCShoeethandle: showChatVCShoeethandle?
     public static var gotoSystemSettingHandle: gotoSystemSettingHandle?
     public static var addFriendhandle: addFriendhandle?

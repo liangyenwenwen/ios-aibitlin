@@ -83,9 +83,9 @@
 "发布" = "Publish";
 "松开取消" = "Release to cancel";
 "转文字" = "trans to text";
-"照片" = "Album";
+"照片" = "Photo";
 "相机" = "Camera";
-"名片" = "Cards";
+"名片" = "Contact Card";
 "按住开始说话" = "Press to speak";
 "正在说话" = "Speaking";
 "发送" = "Send";
@@ -101,7 +101,7 @@
 "未读" = "unread";
 "名片" = "card";
 "图片" = "Image";
-"博客" = "Boke";
+"博客" = "Blog";
 "视频" = "Video";
 "文件" = "File";
 "定位" = "Location";
@@ -887,8 +887,8 @@
 
 
 
-"博客" = "blog";
-"blog" = "blog";
+"博客" = "Blog";
+"blog" = "Blog";
 
 "视频通话" = "Video call";
 "语音通话" = "Voice call";

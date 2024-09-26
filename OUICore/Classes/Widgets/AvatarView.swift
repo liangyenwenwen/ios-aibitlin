@@ -285,4 +285,6 @@ public class AvatarView: UIView {
         avatarImageView.backgroundColor = .c0089FF
         textLabel.text = nil
     }
+    
+    
 }

@@ -203,6 +203,8 @@ class ChatTableViewCell: UITableViewCell {
         super.prepareForReuse()
         avatarImageView.reset()
     }
+    
+    
 }
 
 

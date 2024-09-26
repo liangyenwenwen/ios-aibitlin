@@ -61,16 +61,7 @@ open class FriendListViewController: UIViewController {
         
         initView()
         bindData()
-        
-//        var textAttributes: [NSAttributedString.Key: AnyObject] = [:]
-//                
-//
-//        textAttributes[.foregroundColor] = UIColor.red
-//
-//        textAttributes[.font] = UIFont.systemFont(ofSize: 18)
-//
-//        
-//        self.navigationController?.navigationBar.titleTextAttributes = textAttributes
+
         
         let titleLbl = UILabel()
         titleLbl.font = UIFont(name: "PingFangSC-Medium", size: 18)
@@ -134,11 +125,13 @@ open class FriendListViewController: UIViewController {
     
     lazy var headerView: listTableHeader = {
         
-        let r = listTableHeader(frame: CGRectMake(0, 0, UIScreen.main.bounds.width, 210))
+        let r = listTableHeader(frame: CGRectMake(0, 0, UIScreen.main.bounds.width, 268))
         let data:[listTableHeader.MenuItem] = [listTableHeader.MenuItem(title: "新关注我的朋友".innerLocalized(), icon: UIImage(named: "friend_list_group_icon")),
+                                               listTableHeader.MenuItem(title: "newGroup".innerLocalized(), icon: UIImage(named: "friend_list_group_new_icon")),
                                                listTableHeader.MenuItem(title: "群聊".localized(), icon: UIImage(named: "friend_list_new_friend_icon"))]
         r.newFriendView.bindData(item: data[0])
-        r.groupView.bindData(item: data[1])
+        r.newGroupView.bindData(item: data[1])
+        r.groupView.bindData(item: data[2])
         r.lblClick = { [weak self] index in
             print("-----" , index)
         }
@@ -148,11 +141,24 @@ open class FriendListViewController: UIViewController {
             
             ApplicationStorage.lastFriendApplicationReadTime = ApplicationStorage.lastFriendApplicationTime
             
-            let vc = NewFriendListViewController()
+//            let vc = NewFriendListViewController()
+//            vc.hidesBottomBarWhenPushed = true
+//            self?.navigationController?.pushViewController(vc, animated: true)
+            
+            if let handler = OIMApi.gotoNewFriendHandle {
+                
+                handler(self!, { res in
+                   
+                })
+            }
+        }
+        r.newGroupClick = { [weak self] in
+            ApplicationStorage.lastGroupApplicationReadTime = ApplicationStorage.lastGroupApplicationTime
+
+            let vc = GroupApplicationTableViewController()
             vc.hidesBottomBarWhenPushed = true
             self?.navigationController?.pushViewController(vc, animated: true)
         }
-        
         r.groupClick = { [weak self] in
             print("-----" , "groupClick")
             
@@ -186,9 +192,9 @@ open class FriendListViewController: UIViewController {
         
         
         contactsViewModel.newFriendCountRelay.map { $0 == 0 }.bind(to: headerView.newFriendView.badgeLabel.rx.isHidden).disposed(by: _disposeBag)
-        contactsViewModel.newGroupCountRelay.map { $0 == 0 }.bind(to: headerView.groupView.badgeLabel.rx.isHidden).disposed(by: _disposeBag)
-        contactsViewModel.newFriendCountRelay.map { "\($0)" }.bind(to: headerView.newFriendView.badgeLabel.rx.text).disposed(by: _disposeBag)
-        contactsViewModel.newGroupCountRelay.map { "\($0)" }.bind(to: headerView.groupView.badgeLabel.rx.text).disposed(by: _disposeBag)
+        contactsViewModel.newGroupCountRelay.map { $0 == 0 }.bind(to: headerView.newGroupView.badgeLabel.rx.isHidden).disposed(by: _disposeBag)
+        contactsViewModel.newFriendCountRelay.map { "\($0 > 99 ? "99+" : "99")" }.bind(to: headerView.newFriendView.badgeLabel.rx.text).disposed(by: _disposeBag)
+        contactsViewModel.newGroupCountRelay.map { "\($0 > 99 ? "99+" : "99")" }.bind(to: headerView.newGroupView.badgeLabel.rx.text).disposed(by: _disposeBag)
         contactsViewModel.frequentContacts.asDriver().drive { [weak self] _ in
 //            self?.tableView.reloadData()
         }.disposed(by: _disposeBag)
@@ -261,7 +267,7 @@ class listTableHeader: UIView {
     var friendClick: (() -> Void)!
     var groupClick: (() -> Void)!
     var lblClick: ((Int) -> Void)!
-    
+    var newGroupClick:(() -> ())!
    
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -270,6 +276,7 @@ class listTableHeader: UIView {
         
         addSubview(newFriendView)
         addSubview(groupView)
+        addSubview(newGroupView)
         addSubview(searchView)
         addSubview(chooseView)
         searchView.snp.makeConstraints { make in
@@ -285,14 +292,20 @@ class listTableHeader: UIView {
             make.top.equalTo(50)
         }
         
-        groupView.snp.makeConstraints { make in
+        newGroupView.snp.makeConstraints { make in
             make.left.right.equalToSuperview()
             make.top.equalTo(108)
             make.height.equalTo(58)
         }
         
-        chooseView.snp.makeConstraints { make in
+        groupView.snp.makeConstraints { make in
+            make.left.right.equalToSuperview()
             make.top.equalTo(166)
+            make.height.equalTo(58)
+        }
+        
+        chooseView.snp.makeConstraints { make in
+            make.top.equalTo(224)
             make.left.right.equalToSuperview()
             make.height.equalTo(44)
         }
@@ -352,9 +365,18 @@ class listTableHeader: UIView {
         return r
     }()
     
-    lazy var groupView: ItemView = {
+    lazy var newGroupView: ItemView = {
         let r = ItemView()
         r.tag = 2101
+        r.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(chooseTopView(_:)))
+        r.addGestureRecognizer(tap)
+        return r
+    }()
+    
+    lazy var groupView: ItemView = {
+        let r = ItemView()
+        r.tag = 2102
         r.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer(target: self, action: #selector(chooseTopView(_:)))
         r.addGestureRecognizer(tap)
@@ -374,8 +396,10 @@ class listTableHeader: UIView {
         
         if sender.view?.tag == 2100 {
             friendClick()
-        } else {
+        } else if sender.view?.tag == 2102 {
             groupClick()
+        } else {
+            newGroupClick()
         }
     }
     
@@ -452,12 +476,13 @@ class listTableHeader: UIView {
         
         lazy var badgeLabel: UILabel = {
             let r = UILabel()
-            r.text = "10"
+            r.text = ""
             r.textColor = .white
             r.backgroundColor = .red
             r.textAlignment = .center
             r.clipsToBounds = true
             r.layer.cornerRadius = 12
+            r.isHidden = true
             return r
         }()
         

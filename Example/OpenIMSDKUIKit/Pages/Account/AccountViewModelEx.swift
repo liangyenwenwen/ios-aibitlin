@@ -51,6 +51,9 @@ extension AccountViewModel {
             
         }
         
+        OIMApi.gotoNewFriendHandle = { (vc, completion: @escaping (String) -> Void) in
+            vc.gotoControllerFromRoot(YFChatNewFriendListVC.self)
+        }
         
     }
     

@@ -27,11 +27,12 @@ class UserMessageHeaderView: TGLinearLayout {
         corner(MEDDLE_RADIUS)
         tg_width.equal(.fill)
         tg_height.equal(.wrap)
-        tg_space = PADDING_OUTER
+        tg_space = PADDING_MEDDLE
         tg_gravity = .horz.center
         tg_padding = UIEdgeInsets(top: PADDING_OUTER, left: PADDING_OUTER, bottom: PADDING_OUTER, right: PADDING_OUTER)
         
         backgroundColor = .init(patternImage: R.image.blur_bg()!)
+//        backgroundColor = .green
         
         addTopUserMessage()
         
@@ -130,6 +131,7 @@ class UserMessageHeaderView: TGLinearLayout {
     lazy var thridView: UserMessageThridView = {
         let r = UserMessageThridView()
         r.addThirdUI()
+//        r.backgroundColor = .red
         return r
     }()
     

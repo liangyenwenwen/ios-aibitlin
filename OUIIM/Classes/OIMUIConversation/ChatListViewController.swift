@@ -110,6 +110,7 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
     open override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.getUnReadTotalCount()
+//        self.timeCountDown()
     }
     
     override open func viewWillDisappear(_ animated: Bool) {
@@ -264,6 +265,11 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
             make.top.equalTo(_headerView.snp.bottom)
             make.leading.bottom.trailing.equalToSuperview()
         }
+        
+        timeCountDown()
+        
+        
+        
     }
     
     private func toChat(conversation: ConversationInfo) {
@@ -321,6 +327,9 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
             cell.muteImageView.isHidden = item.recvMsgOpt == .receive
             cell.timeLabel.text = MessageHelper.convertList(timestamp_ms: item.latestMsgSendTime)
 //            cell.tagView.isHidden = true
+            
+            cell.tagView.isHidden = item.conversationType != .c2c
+            
         }.disposed(by: _disposeBag)
 
         _tableView.backgroundColor = .white
@@ -430,4 +439,23 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
         }
     }
     
+    
+    func timeCountDown() {
+        var count = 60
+        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+            if count == 0 {
+                timer.invalidate()
+            } else {
+                count -= 1
+                if count % 5 == 0 {
+                    self._tableView.reloadData()
+                }
+            }
+        }
+    }
+    
+}
+
+extension ChatListViewController {
+
 }

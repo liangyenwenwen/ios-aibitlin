@@ -103,8 +103,8 @@
 "跟随系统" = "Follow the system";
 "语言设置" = "Language Settings";
 "请填写新的邮箱地址" = "Please enter a new email address";
-"上传日志" = "Upload log";
-"选择博客" = "Select blog";
+"上传日志" = "Upload Bog";
+"选择博客" = "Select Blog";
 "博客" = "Blog";
 "企业" = "Enterprise";
 
@@ -220,6 +220,7 @@ ResendCount="%1$d to resend";
 
 
 HomePage = "%@ Homepage";
+UserMoments = "%@'s Moments";
 UserBlog = "%@'s Blog";
 MeBlog = "My Blog";
 SendMessage = "Messages";
@@ -414,7 +415,7 @@ Toolbox = "Toolbox";
 "群聊" = "Group Chats";
 
 //我的
-"我和我的博客" = "My blog";
+"我和我的博客" = "My Blog";
 "企业" = "Company";
 "购买VIP服务" = "Purchase VIP Service";
 "我收藏的博客" = "My Blog Collection";
@@ -499,13 +500,13 @@ Toolbox = "Toolbox";
 "回关" = "Follow back";
 "互关" = "Friends";
 "关注了你" = "start following you";
+//"关注了你" = "following you";
 "发消息" = "Message";
  "消息" = "Message";
 "近6个月无更多记录" = "No more records in the past 6 months";
 "我的群组" = "My Group";
 "我创建的" = "Created by Me";
 "我加入的" = "Groups I Joined";
-
 
 
 //博客
@@ -574,6 +575,7 @@ SupportShortNumber = "Support setting a minimum %@-digit account ID";
 
 
 "收藏" = "Star";
+"新关注我的朋友" = "New Friends";
 
 //"" = "";
 //"" = "";

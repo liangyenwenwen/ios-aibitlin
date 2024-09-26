@@ -269,6 +269,7 @@ extension ViewFactoryUtil {
         lbl.text = title
         lbl.tg_width.equal(.wrap)
         lbl.tg_height.equal(.wrap)
+        lbl.tag = 20002
 
         return r
     }

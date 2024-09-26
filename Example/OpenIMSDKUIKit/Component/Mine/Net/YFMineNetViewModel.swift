@@ -314,8 +314,10 @@ class YFMineNetViewModel: AccountViewModel {
     static func updateLanguage() {
         
         if let IMUser = IMController.shared.currentUserRelay.value {
+            
             let url = SuperStringUtil.netUrl(API_BLOG_URL + updateUserLanguageAPI, ["language":String.getCurrentLanguageFirst(), "userId": IMUser.userID as Any])
-            Alamofire.request(url, method: .post).responseJSON { dataRequest in
+            
+            Alamofire.request(url, method: .post, headers: httpHeaders).responseJSON { dataRequest in
                 
             }
         }

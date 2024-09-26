@@ -185,15 +185,15 @@ class NewGroupViewController: UITableViewController {
         case .header:
             let cell = tableView.dequeueReusableCell(withIdentifier: GroupChatNameTableViewCell.className) as! GroupChatNameTableViewCell
             cell.avatarImageView.setAvatar(url: _viewModel.groupAvatar, placeHolder: "common_camera_button_icon", onTap: { [weak self] in
-                self?.presentSelectedPictureActionSheet(albumHandler: { [self] in
-                    guard let self else { return }
-                    
-                    self._photoHelper.presentPhotoLibrary(byController: self)
-                }, cameraHandler: { [self] in
-                    
-                    guard let self else { return }
-                    self._photoHelper.presentCamera(byController: self)
-                })
+//                self?.presentSelectedPictureActionSheet(albumHandler: { [self] in
+//                    guard let self else { return }
+//                    
+//                    self._photoHelper.presentPhotoLibrary(byController: self)
+//                }, cameraHandler: { [self] in
+//                    
+//                    guard let self else { return }
+//                    self._photoHelper.presentCamera(byController: self)
+//                })
             })
 
             cell.enableInput = true
