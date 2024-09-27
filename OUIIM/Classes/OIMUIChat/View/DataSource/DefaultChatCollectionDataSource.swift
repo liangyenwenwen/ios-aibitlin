@@ -616,7 +616,7 @@ final class DefaultChatCollectionDataSource: NSObject, ChatCollectionDataSource 
                                                   messageID: messageId,
                                                   highlight: anchor,
                                                   type: messageType,
-                                                  bubbleController: bubbleController)
+                                                  bubbleController: bubbleController, messageType: messageType)
             
             controller.longPress = { [weak self] sourceView, point in
                 self?.gestureDelegate?.longPress(with: indexPath, sourceView: sourceView, point: point)
@@ -669,7 +669,7 @@ final class DefaultChatCollectionDataSource: NSObject, ChatCollectionDataSource 
                                                   messageID: messageId,
                                                   highlight: anchor,
                                                   type: messageType,
-                                                  bubbleController: bubbleController)
+                                                  bubbleController: bubbleController, messageType: messageType)
             
             controller.longPress = { [weak self] sourceView, point in
                 self?.gestureDelegate?.longPress(with: indexPath, sourceView: sourceView, point: point)

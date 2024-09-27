@@ -101,7 +101,7 @@ final class AudioView: UIView, ContainerCollectionViewCellDelegate {
         backgroundColor = controller.messageType == .incoming ? .init(hexString: "#EAEAEA") : .init(hexString: "#388CEF")
         
         iconImageView.image = controller.messageType == .incoming ? .init(named: "chat_voice_1") :  .init(named: "chat_voice_0")
-//        stackView.backgroundColor = .white
+
     }
 
     private func setupSubviews() {

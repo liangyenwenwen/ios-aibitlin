@@ -10,7 +10,7 @@ final class CustomView: UIView, ContainerCollectionViewCellDelegate {
 
     private lazy var textView: UITextView = {
         let v = UITextView()
-        v.layer.cornerRadius = 5
+        v.layer.cornerRadius = 20
         v.layer.masksToBounds = true
         
         v.translatesAutoresizingMaskIntoConstraints = false
@@ -32,7 +32,7 @@ final class CustomView: UIView, ContainerCollectionViewCellDelegate {
         v.linkTextAttributes = [.foregroundColor: UIColor.systemBlue,
                                        .underlineStyle: 0]
         v.setContentCompressionResistancePriority(UILayoutPriority(999), for: .vertical)
-        
+        v.textContainerInset = UIEdgeInsets(top: 10, left: 12, bottom: 10, right: 12)
         return v
     }()
 
@@ -78,6 +78,9 @@ final class CustomView: UIView, ContainerCollectionViewCellDelegate {
             textView.attributedText = controller.attributedString
         }
         
+        
+        backgroundColor = controller.messageType == .incoming ? .init(hexString: "#EAEAEA") : .init(hexString: "#388CEF")
+        
         if controller.highlight {
             UIView.animate(withDuration: 1, animations: { [self] in
                 self.textView.backgroundColor = .systemRed
@@ -87,6 +90,9 @@ final class CustomView: UIView, ContainerCollectionViewCellDelegate {
                 }
             }
         }
+        
+        
+        
     }
 
     private func setupSubviews() {
@@ -112,6 +118,11 @@ final class CustomView: UIView, ContainerCollectionViewCellDelegate {
         longPressGesture.delegate = self
         longPressGesture.minimumPressDuration = 0.3
         textView.addGestureRecognizer(longPressGesture)
+        
+//        textView.backgroundColor = .orange
+//        backgroundColor = .red
+        clipsToBounds = true
+        layer.cornerRadius = 20
     }
     
     @objc
