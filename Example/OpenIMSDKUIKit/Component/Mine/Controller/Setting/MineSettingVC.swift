@@ -76,11 +76,11 @@ class MineSettingVC: BaseTitleController {
         let r = SuperSettingView.create(icon: R.image.mine_delegate_icon()!, title: R.string.localizable.personalPrivacy(), click: { [weak self] data in
             let language = String.getCurrentLanguage()
             if language.starts(with: "zh")  {
-                SuperWebController.start((self?.navigationController!)!, uri: "http://bitswith.com/ys/#/privacyZH")
+                SuperWebController.start((self?.navigationController!)!, uri: "https://deal.aibitlin.com/#/pages/privacy/index?lang=zh")
             } else if language.starts(with: "th"){
-                SuperWebController.start((self?.navigationController!)!, uri: "http://bitswith.com/ys/#/privacyTH")
+                SuperWebController.start((self?.navigationController!)!, uri: "https://deal.aibitlin.com/#/pages/privacy/index?lang=Thai")
             } else {
-                SuperWebController.start((self?.navigationController!)!, uri: "http://bitswith.com/ys/#/privacyAgreement")
+                SuperWebController.start((self?.navigationController!)!, uri: "https://deal.aibitlin.com/#/pages/privacy/index?lang=en")
             }
         })
         r.isMediumFont()

@@ -190,11 +190,11 @@ class YFRegisterVC: BaseLogicController {
             
             let language = String.getCurrentLanguage()
             if language.starts(with: "zh")  {
-                SuperWebController.start((self?.navigationController!)!, uri: "http://bitswith.com/ys/#/userZH")
+                SuperWebController.start((self?.navigationController!)!, uri: "https://deal.aibitlin.com/#/pages/registration/index?lang=zh")
             } else if language.starts(with: "th"){
-                SuperWebController.start((self?.navigationController!)!, uri: "http://bitswith.com/ys/#/userTH")
+                SuperWebController.start((self?.navigationController!)!, uri: "https://deal.aibitlin.com/#/pages/registration/index?lang=Thai")
             } else {
-                SuperWebController.start((self?.navigationController!)!, uri: "http://bitswith.com/ys/#/userAgreement")
+                SuperWebController.start((self?.navigationController!)!, uri: "https://deal.aibitlin.com/#/pages/registration/index?lang=en")
             }
         }
         r.attributedText = agreeStr
@@ -337,9 +337,11 @@ extension YFRegisterVC {
         print(#function)
 //        SuperWebController.start((self.navigationController!), uri: "http://bitswith.com/ys/#/userAgreement")
         if String.getCurrentLanguage().starts(with: "zh")  {
-            SuperWebController.start((self.navigationController!), uri: "http://bitswith.com/ys/#/userZH")
+            SuperWebController.start((self.navigationController!), uri: "https://deal.aibitlin.com/#/pages/registration/index?lang=zh")
+        } else if String.getCurrentLanguage().starts(with: "th") {
+            SuperWebController.start((self.navigationController!), uri: "https://deal.aibitlin.com/#/pages/registration/index?lang=Thai")
         } else {
-            SuperWebController.start((self.navigationController!), uri: "http://bitswith.com/ys/#/userAgreement")
+            SuperWebController.start((self.navigationController!), uri: "https://deal.aibitlin.com/#/pages/registration/index?lang=en")
         }
     }
     

@@ -155,7 +155,7 @@ class MainTabViewController: UITabBarController {
                     self?.presentLoginController()
                 } else {
                     self?.loginSuccess()
-                    self?.updateLanguage()
+                    self?.updateLanguage(uid: uid)
                 }
             }
         } else {
@@ -231,7 +231,10 @@ class MainTabViewController: UITabBarController {
                     UserDefaults.standard.setValue(vc?.useType.rawValue, forKey: loginTypeKey)
                     UserDefaults.standard.synchronize()
                     self?.loginSuccess(dismiss: true)
-                    self?.updateLanguage()
+                    if let uid = UserDefaults.standard.object(forKey: AccountViewModel.IMUidKey) as? String {
+                        self?.updateLanguage(uid: uid)
+                    }
+//
                 }
             }
             
@@ -351,15 +354,15 @@ extension MainTabViewController {
     
     // MARK: - 张亚飞打的标记 更新语言
     
-    func updateLanguage() {
+    func updateLanguage(uid: String) {
         
         let userDefaults = UserDefaults.standard
         
         let currentLanuage = userDefaults.string(forKey: "blogLanguage")
         if currentLanuage != nil {
-            YFMineNetViewModel.updateLanguage()
+            YFMineNetViewModel.updateLanguage(uid: uid)
         }  else {
-            YFMineNetViewModel.addUserLanguage()
+            YFMineNetViewModel.addUserLanguage(uid: uid)
         }
         
     }

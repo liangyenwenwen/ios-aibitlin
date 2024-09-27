@@ -300,27 +300,54 @@ class YFMineNetViewModel: AccountViewModel {
     }
     
     
-    static func addUserLanguage() {
+    static func addUserLanguage(uid: String) {
         
-        if let IMUser = IMController.shared.currentUserRelay.value {
-            let url = SuperStringUtil.netUrl(API_BLOG_URL + addUserLanguageAPI, ["language":String.getCurrentLanguageFirst(), "userId": IMUser.userID as Any])
-            Alamofire.request(url, method: .post).responseJSON { dataRequest in
+ 
+        let url = SuperStringUtil.netUrl(API_BLOG_URL + addUserLanguageAPI, ["language":String.getCurrentLanguageFirst(), "userId": uid, "imToken":UserDefaults.standard.string(forKey: bussinessTokenKey)!])
+        
+        print(["language":String.getCurrentLanguageFirst(), "userId": uid, "imToken":UserDefaults.standard.string(forKey: bussinessTokenKey)!])
+            Alamofire.request(url, method: .post, encoding: JSONEncoding.default, headers: httpHeaders ).responseJSON { dataRequest in
                 
+                if let data = dataRequest.data {
+                    let strData = String.init(data: data, encoding: String.Encoding.utf8)
+                    if let res = JsonTool.fromJson(strData!, toClass: BlogResponse.self) {
+                        
+                        if res.code == 20000  {
+                            let defaults = UserDefaults.standard
+                            defaults.set(String.getCurrentLanguageFirst(), forKey: "blogLanguage")
+                        }
+                        
+                    } else {
+                       
+                    }
+                }
             }
-        }
+
         
     }
     
-    static func updateLanguage() {
+    static func updateLanguage(uid: String) {
         
-        if let IMUser = IMController.shared.currentUserRelay.value {
+
             
-            let url = SuperStringUtil.netUrl(API_BLOG_URL + updateUserLanguageAPI, ["language":String.getCurrentLanguageFirst(), "userId": IMUser.userID as Any])
+            let url = SuperStringUtil.netUrl(API_BLOG_URL + updateUserLanguageAPI, ["language":String.getCurrentLanguageFirst(), "userId": uid,"imToken":UserDefaults.standard.string(forKey: bussinessTokenKey)!])
             
-            Alamofire.request(url, method: .post, headers: httpHeaders).responseJSON { dataRequest in
-                
+            Alamofire.request(url, method: .post, encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
+                if let data = dataRequest.data {
+                    let strData = String.init(data: data, encoding: String.Encoding.utf8)
+                    if let res = JsonTool.fromJson(strData!, toClass: BlogResponse.self) {
+                        
+                        if res.code == 20000  {
+                            let defaults = UserDefaults.standard
+                            defaults.set(String.getCurrentLanguageFirst(), forKey: "blogLanguage")
+                        }
+                        
+                    } else {
+                       
+                    }
+                }
             }
-        }
+    
         
     }
     

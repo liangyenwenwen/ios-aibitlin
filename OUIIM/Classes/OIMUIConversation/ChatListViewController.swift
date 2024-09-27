@@ -19,6 +19,8 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
     
     private var scrolledIndex = 0
     
+    var timer: Timer? = nil
+    
     public func scrollToUnreadItem() {
         let conversations = _viewModel.conversationsRelay.value
         var currentIndex = 0
@@ -441,16 +443,20 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
     
     
     func timeCountDown() {
-        var count = 60
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
-            if count == 0 {
-                timer.invalidate()
-            } else {
-                count -= 1
+        var count = 0
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+            
                 if count % 5 == 0 {
                     self._tableView.reloadData()
                 }
-            }
+            
+            count += 1
+        }
+    }
+    
+    deinit {
+        if timer != nil {
+            timer?.invalidate()
         }
     }
     

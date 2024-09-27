@@ -320,7 +320,7 @@ struct _R {
       /// Locales: en, zh-Hans, th
       var confirm: RswiftResources.StringResource { .init(key: "Confirm", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: Create a new account
+      /// en translation: Create new account
       ///
       /// Key: Create a new account
       ///
