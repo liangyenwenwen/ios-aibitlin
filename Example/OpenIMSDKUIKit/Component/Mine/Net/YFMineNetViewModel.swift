@@ -166,33 +166,33 @@ class YFMineNetViewModel: AccountViewModel {
             
             IMController.shared.checkFriend(userID: blog.userId!) { [self] r in
                 
-//                let paramters: [String: Any] = ["userId":blog.userId!,
-//                                                "userBlogId":blog.id!,
-//                                                "relation":r ? 1 : 2,
-//                                                "lookUserId":IMUser.userID!,
-//                                                "lookUserTouXiang":IMUser.faceURL ?? "",
-//                                                "lookUserName":IMUser.nickname!,
-//                                                "lookUserVip":"V1",
-//                                                "lookTime":YFDateUtil.getCurrentTime(timeFormat: .YYYYMMDDHHMMSS),
-//                                                "longitudeAndLatitude":"120.2052342,30.2489634",
-//                                                "lookUserIP":YFNetworkUtils.getIPAddress()!,
-//                                                "isNotBlog":0,
-//                                                "isNotQiYe":0,
-//                                                "tingLiuShiJian":5]
-                
-                let paramters: [String: Any] = ["userId":"3433973805",
-                                                "userBlogId":551,
-                                                "relation":2,
-                                                "lookUserId":"8124940774",
-                                                "lookUserTouXiang":"",
-                                                "lookUserName":"{\"b\":0,\"e\":0,\"n\":\"\",\"v\":3}",
+                let paramters: [String: Any] = ["userId":blog.userId!,
+                                                "userBlogId":blog.id!,
+                                                "relation":r ? 1 : 2,
+                                                "lookUserId":IMUser.userID!,
+                                                "lookUserTouXiang":IMUser.faceURL ?? "",
+                                                "lookUserName":IMUser.nickname!,
                                                 "lookUserVip":"1",
-                                                "lookTime":"2024-09-27 18:06:58",
-                                                "longitudeAndLatitude":"120.373036,30.308040",
-                                                "lookUserIP":"183.156.234.224",
-                                                "isNotBlog":1,
-                                                "isNotQiYe":1,
-                                                "tingLiuShiJian":5]
+                                                "lookTime":YFDateUtil.getCurrentTime(timeFormat: .YYYYMMDDHHMMSS),
+                                                "longitudeAndLatitude":"120.2052342,30.2489634",
+                                                "lookUserIP":YFNetworkUtils.getIPAddress()!,
+                                                "isNotBlog":0,
+                                                "isNotQiYe":0,
+                                                "tingLiuShiJian":51]
+                
+//                let paramters: [String: Any] = ["userId":"3433973805",
+//                                                "userBlogId":551,
+//                                                "relation":2,
+//                                                "lookUserId":"8124940774",
+//                                                "lookUserTouXiang":"",
+//                                                "lookUserName":"{\"b\":0,\"e\":0,\"n\":\"\",\"v\":3}",
+//                                                "lookUserVip":"1",
+//                                                "lookTime":"2024-09-27 18:06:58",
+//                                                "longitudeAndLatitude":"120.373036,30.308040",
+//                                                "lookUserIP":"183.156.234.224",
+//                                                "isNotBlog":1,
+//                                                "isNotQiYe":1,
+//                                                "tingLiuShiJian":5]
                 
                 let url = API_BLOG_URL + addShowBlogsSurveyAPI
                 Alamofire.request(url, method: .post, parameters: paramters, encoding: JSONEncoding.default, headers: httpHeaders).responseJSON(completionHandler: { dataRequest in

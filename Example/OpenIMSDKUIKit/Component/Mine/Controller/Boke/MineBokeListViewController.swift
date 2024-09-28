@@ -125,13 +125,12 @@ extension MineBokeListViewController {
      
         let item = datum[indexPath.row] as! blogDetailItem
         
-        YFMineNetViewModel.scanBlog(blog: item)
+       
         if(vcType != .meBlog) {
-            let item = datum[indexPath.row] as! blogDetailItem
             SuperWebController.start((self.navigationController!), uri: item.userBlogUrl)
         } else {
             let vc = MineBokeStatisticsVC()
-            
+            YFMineNetViewModel.scanBlog(blog: item)
             vc.boke = item
             navigationController?.pushViewController(vc)
         }
