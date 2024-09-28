@@ -48,6 +48,7 @@ let sdkWSRoute = ""
 //let defaultIMAddress = "web.rentsoft.cn"
 //let defaultAdminAddress = "web.rentsoft.cn"
 
+/// 本地 102
 let defaultAppAddress = "192.168.7.16"
 let defaultIMAddress = "192.168.7.16"
 let defaultAdminAddress = "192.168.7.16"
@@ -130,10 +131,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         let httpScheme = enableTLS ? "https://" : "http://"
         let wsScheme = enableTLS  ? "wss://" : "ws://"
         
-        let appSeverAddress = UserDefaults.standard.string(forKey: bussinessSeverAddrKey) ?? httpScheme + defaultAppAddress + (!enableDomain ? bussinessPort: bussinessRoute)
-        let sdkAPIAddr = UserDefaults.standard.string(forKey: sdkAPIAddrKey) ?? httpScheme + defaultIMAddress + (!enableDomain ? sdkAPIPort : sdkAPIRoute)
-        let sdkWSAddr = UserDefaults.standard.string(forKey: sdkWSAddrKey) ?? wsScheme + defaultAdminAddress + (!enableDomain ? sdkWSPort : sdkWSRoute)
-
+//        let appSeverAddress = UserDefaults.standard.string(forKey: bussinessSeverAddrKey) ?? httpScheme + defaultAppAddress + (!enableDomain ? bussinessPort: bussinessRoute)
+//        let sdkAPIAddr = UserDefaults.standard.string(forKey: sdkAPIAddrKey) ?? httpScheme + defaultIMAddress + (!enableDomain ? sdkAPIPort : sdkAPIRoute)
+//        let sdkWSAddr = UserDefaults.standard.string(forKey: sdkWSAddrKey) ?? wsScheme + defaultAdminAddress + (!enableDomain ? sdkWSPort : sdkWSRoute)
+        
+        let appSeverAddress = httpScheme + defaultAppAddress + (!enableDomain ? bussinessPort: bussinessRoute)
+        let sdkAPIAddr = httpScheme + defaultIMAddress + (!enableDomain ? sdkAPIPort : sdkAPIRoute)
+        let sdkWSAddr = wsScheme + defaultAdminAddress + (!enableDomain ? sdkWSPort : sdkWSRoute)
+        
         // 设取全局配置
         UserDefaults.standard.setValue(httpScheme + defaultAdminAddress + (!enableDomain ? adminPort : adminRoute), forKey: adminSeverAddrKey)
         
