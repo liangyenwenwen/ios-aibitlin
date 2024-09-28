@@ -72,7 +72,7 @@ public protocol InputPadViewDelegate: AnyObject {
 // MARK: - 张亚飞打的标记  底部弹窗
 class InputPadView: UIView {
 
-    private var size: CGSize? = CGSize(width: UIScreen.main.bounds.width, height: 220) {
+    private var size: CGSize? = CGSize(width: UIScreen.main.bounds.width, height: 254) {
         didSet {
             invalidateIntrinsicContentSize()
         }
@@ -96,7 +96,8 @@ class InputPadView: UIView {
         layout.minimumLineSpacing = 8
         layout.minimumInteritemSpacing = 10.0
         
-        layout.itemSize = CGSize(width: (intrinsicContentSize.width - layout.minimumInteritemSpacing * 3) / CGFloat(itemsPerRow), height: (intrinsicContentSize.height - layout.minimumLineSpacing) / 2.0)
+//        layout.itemSize = CGSize(width: (intrinsicContentSize.width - layout.minimumInteritemSpacing * 3) / CGFloat(itemsPerRow), height: (intrinsicContentSize.height - layout.minimumLineSpacing) / 2.0)
+        layout.itemSize = CGSize(width: ((intrinsicContentSize.width - 40) - layout.minimumInteritemSpacing * 3) / CGFloat(itemsPerRow), height: (220  - layout.minimumLineSpacing) / 2.0)
         
         let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
         v.showsVerticalScrollIndicator = false
@@ -112,7 +113,8 @@ class InputPadView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .secondarySystemBackground
+//        backgroundColor = .secondarySystemBackground
+        backgroundColor = .init(hexString: "#EFF2F6")
         translatesAutoresizingMaskIntoConstraints = false
         layoutMargins = .zero
         
@@ -120,10 +122,11 @@ class InputPadView: UIView {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             collectionView.topAnchor.constraint(equalTo: topAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
+//            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -34),
         ])
     }
     
@@ -166,10 +169,10 @@ private class ItemCell: UICollectionViewCell {
         vStack.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            vStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
+            vStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0),
             vStack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
             vStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            vStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
+            vStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -0)
         ])
     }
 

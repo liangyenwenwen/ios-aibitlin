@@ -15,9 +15,17 @@ class ChatTableViewCell: UITableViewCell {
 
     let titleLabel: UILabel = {
         let v = UILabel()
-        v.font = .f17
-        v.textColor = .c0C1C33
+        v.font = UIFont(name: "PingFangSC-Semibold", size: 16)
+        v.textColor = .init(hexString: "#333333")
         
+        return v
+    }()
+    
+    lazy var tagLable: UILabel = {
+        let v = UILabel()
+        v.font = UIFont(name: "PingFangSC-Semibold", size: 11)
+        v.textColor = .init(hexString: "#7238EF")
+        v.text = "[企业]".localized()
         return v
     }()
     
@@ -74,10 +82,10 @@ class ChatTableViewCell: UITableViewCell {
         return v
     }()
 
-    lazy var tagView: userTag = {
-        let v = userTag()
-        return v
-    }()
+//    lazy var tagView: userTag = {
+//        let v = userTag()
+//        return v
+//    }()
     
     let titleView: UIView = {
         let v = UIView()
@@ -90,8 +98,10 @@ class ChatTableViewCell: UITableViewCell {
 
         setUpUI()
         
-//        titleView.addSubview(titleLabel)
-//        titleView.addSubview(tagView)
+        
+        
+        
+        
 //        titleLabel.snp.makeConstraints { make in
 //            make.left.equalToSuperview()
 //            make.centerY.equalToSuperview()
@@ -108,23 +118,50 @@ class ChatTableViewCell: UITableViewCell {
 //            let v =  UIStackView(arrangedSubviews: [titleLabel, tagStack])
             let v = UIStackView()
             v.addArrangedSubview(titleLabel)
-            v.addArrangedSubview(tagView)
-            v.alignment = .center
-            v.distribution = .equalCentering
+            v.addArrangedSubview(tagLable)
+//            titleLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+            v.alignment = .lastBaseline
+//            v.distribution = .fillProportionally
             v.spacing = 4
 //            v.backgroundColor = .red
 //            v.spacing = 4
             return v
         }()
         
+        
+        
+        
         let vStack: UIStackView = {
-            let v = UIStackView(arrangedSubviews: [hTitleStack, subtitleLabel])
+//            let v = UIStackView(arrangedSubviews: [hTitleStack, subtitleLabel])
+            let v = UIStackView(arrangedSubviews: [titleView, subtitleLabel])
             v.axis = .vertical
             v.distribution = .equalSpacing
             v.spacing = 4
 //            v.backgroundColor = .yellow
             return v
         }()
+        
+        titleView.addSubview(tagLable)
+        titleView.addSubview(titleLabel)
+        tagLable.snp.makeConstraints { make in
+//            make.left.equalTo(titleLabel.snp_right).offset(4)
+            make.bottom.equalToSuperview().offset(-2)
+            make.right.lessThanOrEqualToSuperview()
+        }
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.left.equalToSuperview()
+            make.bottom.equalToSuperview()
+            make.right.lessThanOrEqualTo(tagLable.snp_left).offset(-4)
+        }
+       
+
+
+        titleView.snp.makeConstraints { make in
+            make.top.right.left.equalToSuperview()
+            make.height.equalTo(22)
+        }
+        
         
         let hStack = UIStackView(arrangedSubviews: [avatarImageView, vStack])
         hStack.alignment = .center
@@ -169,18 +206,18 @@ class ChatTableViewCell: UITableViewCell {
         }
         
 //        contentView.addSubview(tagView)
-        titleLabel.snp.makeConstraints { make in
+//        titleLabel.snp.makeConstraints { make in
 //            make.left.equalToSuperview()
 //            make.centerX.equalToSuperview()
-            make.width.lessThanOrEqualTo(100)
-        }
+//            make.width.lessThanOrEqualTo(100)
+//        }
         
-        tagView.snp.makeConstraints { make in
-            make.left.equalTo(titleLabel.snp_right).offset(5)
-            make.centerY.equalTo(titleLabel)
-            make.height.equalTo(12)
-            make.right.equalToSuperview()
-        }
+//        tagView.snp.makeConstraints { make in
+//            make.left.equalTo(titleLabel.snp_right).offset(5)
+//            make.centerY.equalTo(titleLabel)
+//            make.height.equalTo(12)
+//            make.right.equalToSuperview()
+//        }
         
 //        titleLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
 //        tagView.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
@@ -217,6 +254,51 @@ extension ChatTableViewCell {
 
     }
     
+    
+    func  updateUI(item: ConversationInfo) {
+        
+        let placeholderName: String = item.conversationType == .c2c ? "contact_my_friend_icon" : "contact_my_group_icon"
+        muteImageView.isHidden = item.recvMsgOpt == .receive
+        
+        // MARK: - 张亚飞打的标记 群头像 头像区分
+        
+        if item.conversationType == .superGroup {
+            
+            avatarImageView.setGroupImg(item: item)
+            
+        } else {
+            
+            avatarImageView.setAvatar(url: item.faceURL, text: item.showName, placeHolder: placeholderName)
+        }
+        
+        
+        titleLabel.text = item.showName!
+        pinImageView.isHidden = !item.isPinned
+        subtitleLabel.attributedText = MessageHelper.getAbstructOf(conversation: item, highlight: false)
+        var unreadShouldHide: Bool = false
+        if item.recvMsgOpt != .receive {
+            unreadShouldHide = true
+        }
+        if item.unreadCount <= 0 {
+            unreadShouldHide = true
+        }
+        unreadLabel.isHidden = unreadShouldHide
+        unreadLabel.text =  item.unreadCount > 99 ? "99+" : "\(item.unreadCount)"
+        muteImageView.isHidden = item.recvMsgOpt == .receive
+        timeLabel.text = MessageHelper.convertList(timestamp_ms: item.latestMsgSendTime)
+        
+        
+        tagLable.isHidden = item.conversationType == .notification
+        
+        if item.conversationType == .c2c {
+            tagLable.text = "[\("企业".localized())]".localized()
+            tagLable.textColor = .init(hexString: "#7238EF")
+        } else {
+            tagLable.text = "[\(4)]".localized()
+            tagLable.textColor = .init(hexString: "#388CEF")
+        }
+        
+    }
     
 }
 

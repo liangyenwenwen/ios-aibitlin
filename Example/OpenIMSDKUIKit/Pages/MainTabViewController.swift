@@ -105,7 +105,7 @@ class MainTabViewController: UITabBarController {
         self.tabBar.shadowImage = UIImage.init()
         delegate = self
         
-//        setText()
+        setText()
         NotificationCenter.default.addObserver(self, selector: #selector(setText), name: NSNotification.Name(LCLLanguageChangeNotification), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(logout), name: .init("logout"), object: nil)
         
@@ -123,10 +123,10 @@ class MainTabViewController: UITabBarController {
     
     @objc
     private func setText() {
-        viewControllers?[0].tabBarItem.title = "AIbitlin"
+        viewControllers?[0].tabBarItem.title = "消息".localized()
         viewControllers?[1].tabBarItem.title = "通讯录".localized()
-        viewControllers?[2].tabBarItem.title = "发现".localized()
-        viewControllers?[3].tabBarItem.title = "我的".localized()
+        viewControllers?[2].tabBarItem.title = "我的".localized()
+        viewControllers?[3].tabBarItem.title = "工具箱".localized()
     }
     
     private func loginExsitAccount() {
@@ -400,10 +400,11 @@ extension MainTabViewController: UITabBarControllerDelegate {
                     
 
                 var items = [TabMoreView.MenuItem]()
-                var listArrr:[MoreTabItem] = [MoreTabItem(image: "feedback_icon", title: R.string.localizable.feedback()),
-                                              MoreTabItem(image: "translate_icon", title: R.string.localizable.translate()),
-                                              MoreTabItem(image: "black_list_icon", title: R.string.localizable.blacklist()),
-                                              MoreTabItem(image: "moments_icon", title: "朋友圈".localized())]
+                var listArrr:[MoreTabItem] = [MoreTabItem(image: "tool_feedback_icon", title: R.string.localizable.feedback()),
+                                              MoreTabItem(image: "tool_translate_icon", title: R.string.localizable.translate()),
+                                              MoreTabItem(image: "tool_black_list_icon", title: R.string.localizable.blacklist()),
+                                              MoreTabItem(image: "tool_moments_icon", title: "朋友圈".localized()),
+                                              MoreTabItem(image: "tool_more_icon", title: "添加".localized())]
                 for i in 0 ..< listArrr.count {
                     let itemData = listArrr[i]
                     let item = TabMoreView.MenuItem(title: itemData.title, icon: UIImage(named: itemData.image)) { [weak self] in

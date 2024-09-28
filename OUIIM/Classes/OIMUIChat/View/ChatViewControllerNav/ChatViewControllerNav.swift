@@ -188,7 +188,7 @@ class ChatViewControllerNav: UIView {
     lazy var userTitleView: UIView = {
         let r = UIView()
         r.addSubview(userNameTitle)
-        r.addSubview(tagView)
+        r.addSubview(tagLable)
         
         userNameTitle.snp.makeConstraints { make in
             make.left.right.equalTo(0)
@@ -196,11 +196,10 @@ class ChatViewControllerNav: UIView {
             make.height.equalTo(18)
         }
         
-        tagView.snp.makeConstraints { make in
+        tagLable.snp.makeConstraints { make in
             make.left.bottom.right.equalTo(0)
             make.height.equalTo(12)
         }
-        tagView.refreshTag()
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(gotoUserDetailVC))
         r.addGestureRecognizer(tap)
@@ -216,10 +215,19 @@ class ChatViewControllerNav: UIView {
         return r
     }()
     
-    lazy var tagView: userTag = {
-        let v = userTag()
+//    lazy var tagView: userTag = {
+//        let v = userTag()
+//        return v
+//    }()
+    
+    lazy var tagLable: UILabel = {
+        let v = UILabel()
+        v.font = UIFont(name: "PingFangSC-Semibold", size: 11)
+        v.textColor = .init(hexString: "#7238EF")
+        v.text = "[V4、\("企业".localized())、\("博客".localized())]".localized()
         return v
     }()
+    
     
     
 }

@@ -169,7 +169,7 @@ struct _R {
       var ieXW0yeText: RswiftResources.StringResource { .init(key: "8ie-xW-0ye.text", tableName: "LaunchScreen", source: source, developmentValue: nil, comment: nil) }
     }
 
-    /// This `_R.string.localizable` struct is generated, and contains static references to 445 localization keys.
+    /// This `_R.string.localizable` struct is generated, and contains static references to 446 localization keys.
     struct localizable {
       let source: RswiftResources.StringResource.Source
 
@@ -1972,6 +1972,13 @@ struct _R {
       /// Locales: en, th
       var 密码锁定: RswiftResources.StringResource { .init(key: "密码锁定", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// en translation: Tool
+      ///
+      /// Key: 工具箱
+      ///
+      /// Locales: en, th
+      var 工具箱: RswiftResources.StringResource { .init(key: "工具箱", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: Cancelled
       ///
       /// Key: 已取消
@@ -3306,7 +3313,7 @@ struct _R {
     var colorBackground: RswiftResources.ColorResource { .init(name: "ColorBackground", path: [], bundle: bundle) }
   }
 
-  /// This `_R.image` struct is generated, and contains static references to 186 images.
+  /// This `_R.image` struct is generated, and contains static references to 195 images.
   struct image {
     let bundle: Foundation.Bundle
 
@@ -3709,6 +3716,18 @@ struct _R {
     /// Image `ic_eyes_open`.
     var ic_eyes_open: RswiftResources.ImageResource { .init(name: "ic_eyes_open", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
+    /// Image `inputbar_audio_btn_normal_icon`.
+    var inputbar_audio_btn_normal_icon: RswiftResources.ImageResource { .init(name: "inputbar_audio_btn_normal_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `inputbar_emoji_btn_normal_icon`.
+    var inputbar_emoji_btn_normal_icon: RswiftResources.ImageResource { .init(name: "inputbar_emoji_btn_normal_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `inputbar_keyboard_btn_icon`.
+    var inputbar_keyboard_btn_icon: RswiftResources.ImageResource { .init(name: "inputbar_keyboard_btn_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `inputbar_more_normal_icon`.
+    var inputbar_more_normal_icon: RswiftResources.ImageResource { .init(name: "inputbar_more_normal_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
     /// Image `inputbar_pad_boke_icon`.
     var inputbar_pad_boke_icon: RswiftResources.ImageResource { .init(name: "inputbar_pad_boke_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
@@ -3849,6 +3868,21 @@ struct _R {
 
     /// Image `tiktok_icon`.
     var tiktok_icon: RswiftResources.ImageResource { .init(name: "tiktok_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `tool_black_list_icon`.
+    var tool_black_list_icon: RswiftResources.ImageResource { .init(name: "tool_black_list_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `tool_feedback_icon`.
+    var tool_feedback_icon: RswiftResources.ImageResource { .init(name: "tool_feedback_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `tool_moments_icon`.
+    var tool_moments_icon: RswiftResources.ImageResource { .init(name: "tool_moments_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `tool_more_icon`.
+    var tool_more_icon: RswiftResources.ImageResource { .init(name: "tool_more_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `tool_translate_icon`.
+    var tool_translate_icon: RswiftResources.ImageResource { .init(name: "tool_translate_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
     /// Image `translate_icon`.
     var translate_icon: RswiftResources.ImageResource { .init(name: "translate_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }

@@ -128,12 +128,13 @@ class CoustomInputBarAccessoryView: InputBarAccessoryView {
     var audioDuration = 0 // 录制长度
     var audioRecordTimer: Timer?
     
+    
     lazy var audioButton: InputBarButtonItem = {
         let v = InputBarButtonItem()
             .configure {
-                $0.image = UIImage(nameInBundle: "inputbar_audio_btn_normal_icon")
-                $0.setImage(UIImage(nameInBundle: "inputbar_keyboard_btn_icon"), for: .selected)
-                $0.setImage(UIImage(nameInBundle: "inputbar_audio_btn_disable_icon"), for: .disabled)
+                $0.image = UIImage(named: "inputbar_audio_btn_normal_icon")
+                $0.setImage(UIImage(named: "inputbar_keyboard_btn_icon"), for: .selected)
+                $0.setImage(UIImage(named: "inputbar_audio_btn_normal_icon"), for: .disabled)
                 $0.setSize(CGSize(width: buttonSize, height: buttonSize), animated: false)
             }.onTouchUpInside { [weak self] item in
                 guard let self else { return }
@@ -243,9 +244,9 @@ class CoustomInputBarAccessoryView: InputBarAccessoryView {
     lazy var emojiButton: InputBarButtonItem = {
         let v = InputBarButtonItem()
             .configure {
-                $0.image = UIImage(nameInBundle: "inputbar_emoji_btn_normal_icon")
-                $0.setImage(UIImage(nameInBundle: "inputbar_keyboard_btn_icon"), for: .selected)
-                $0.setImage(UIImage(nameInBundle: "inputbar_emoji_btn_disable_icon"), for: .disabled)
+                $0.image = UIImage(named: "inputbar_emoji_btn_normal_icon")
+                $0.setImage(UIImage(named: "inputbar_keyboard_btn_icon"), for: .selected)
+                $0.setImage(UIImage(named: "inputbar_emoji_btn_normal_icon"), for: .disabled)
                 $0.setSize(CGSize(width: buttonSize, height: buttonSize), animated: false)
             }.onTouchUpInside { [weak self] item in
                 guard let self else { return }
@@ -266,9 +267,9 @@ class CoustomInputBarAccessoryView: InputBarAccessoryView {
     lazy var moreButton: InputBarButtonItem = {
         let v = InputBarButtonItem()
             .configure {
-                $0.image = UIImage(nameInBundle: "inputbar_more_normal_icon")
-                $0.setImage(UIImage(nameInBundle: "inputbar_keyboard_btn_icon"), for: .selected)
-                $0.setImage(UIImage(nameInBundle: "inputbar_more_disable_icon"), for: .disabled)
+                $0.image = UIImage(named: "inputbar_more_normal_icon")
+                $0.setImage(UIImage(named: "inputbar_keyboard_btn_icon"), for: .selected)
+                $0.setImage(UIImage(named: "inputbar_more_normal_icon"), for: .disabled)
                 $0.setSize(CGSize(width: buttonSize, height: buttonSize), animated: false)
             }.onTouchUpInside { [weak self] item in
                 guard let self else { return }
@@ -326,9 +327,14 @@ class CoustomInputBarAccessoryView: InputBarAccessoryView {
     
     private func setupSubViews() {
         layer.masksToBounds = true
-        backgroundColor = .secondarySystemBackground
-        backgroundView.backgroundColor = .secondarySystemBackground
-        inputTextView.backgroundColor = .systemBackground
+//        backgroundColor = .secondarySystemBackground
+//        backgroundView.backgroundColor = .secondarySystemBackground
+//        inputTextView.backgroundColor = .systemBackground
+        
+        backgroundColor = .init(hexString: "#EFF2F6")
+        backgroundView.backgroundColor = .init(hexString: "#EFF2F6")
+        inputTextView.backgroundColor = .white
+        
         inputTextView.textColor = .c0C1C33
         inputTextView.font = .f17
         inputTextView.placeholder = nil

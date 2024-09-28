@@ -21,25 +21,38 @@ class TabMoreView: UIView {
 
     private var disposeBag = DisposeBag()
     let frame_width = UIScreen.main.bounds.width
-    let itemwidth = (UIScreen.main.bounds.width - 100) / 4
+    let itemwidth = (UIScreen.main.bounds.width - 32) / 4
     var bottomHeight = 0
     
     public func setItems(_ items : [MenuItem]) {
         actionItems = items;
         
+        if scrollView == nil {
+            addScrollView()
+        }
         
-        addScrollView()
+//        let centerBgView = UIView()
+//        centerBgView.backgroundColor = .init(hexString: "#f5f5f5")
+//        centerBgView.corner(6)
+//        scrollView?.addSubview(centerBgView)
+//        scrollView?.backgroundColor = .red
+//        centerBgView.snp.makeConstraints { make in
+//            make.leading.equalTo(16)
+//            make.width.equalTo(frame_width - 32)
+//            make.top.equalTo(0)
+//            make.bottom.equalTo(-20)
+//        }
         
         for i in items.indices {
             let itemView: ItemView? = ItemView()
             itemView!.setData(item: items[i])
-            scrollView!.addSubview(itemView!)
-            let leading = 10 + i % 4 * (Int(itemwidth) + 20)
-            let top = i / 4 * (Int(itemwidth) + 30)
+            scrollView?.addSubview(itemView!)
+            let leading = i % 4 * (Int(itemwidth))
+            let top = 8 + 16 + i / 4 * (90)
             itemView!.snp.makeConstraints { make in
                 make.leading.equalTo(leading)
                 make.width.equalTo(itemwidth)
-                make.height.equalTo(itemwidth + 28)
+//                make.height.equalTo(itemwidth + 28)
                 make.top.equalTo(top)
             }
             
@@ -62,17 +75,18 @@ class TabMoreView: UIView {
             
         }
 
-        let heightRow = (items.count - 1) / 4  + 1
+//        let heightRow = (items.count - 1) / 4  + 1
         
-        let height = Int(itemwidth + 30) * heightRow + 70
-        let width = Int(frame_width)
-        scrollView!.contentSize = CGSize(width: width, height: height - 60)
+        let height = 196
+        let width = Int(frame_width - 32)
+        scrollView!.contentSize = CGSize(width: width, height: height)
         
-        let bottomHeight = height > 400 ? 400 : height
-        self.bottomHeight = bottomHeight
+//        let bottomHeight = height > 400 ? 400 : height
+//        self.bottomHeight = bottomHeight
+        self.bottomHeight = 252
         
         bottomView.snp.updateConstraints { make in
-            make.height.equalTo(bottomHeight)
+            make.height.equalTo(252)
         }
         bottomShow(show: true)
     }
@@ -83,6 +97,13 @@ class TabMoreView: UIView {
         v.clipsToBounds =  true
         return v
     }()
+    
+//    lazy var centerBgView: UIView = {
+//        let r = UIView()
+//        r.backgroundColor = .init(hexString: "#F5F5F5")
+//        r.corner(8)
+//        return r
+//    }()
     
     lazy var tipsLbl : UILabel = {
         let v = UILabel()
@@ -102,7 +123,7 @@ class TabMoreView: UIView {
     
     lazy var lineView: UIView = {
         let v = UIView()
-        v.backgroundColor = .black;
+        v.backgroundColor = .init(hexString: "#CCCCCC");
         v.layer.cornerRadius = 2
         return v;
     }()
@@ -126,18 +147,18 @@ class TabMoreView: UIView {
         bottomView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
             make.top.equalTo(self.snp.bottom)
-            make.height.equalTo(0)
+            make.height.equalTo(252)
         }
         bottomView.layer.cornerRadius = 10
         bottomView.layer.maskedCorners  = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
    
-//        bottomView.addSubview(lineView)
-//        lineView.snp.makeConstraints { make in
-//            make.width.equalTo(40)
-//            make.height.equalTo(5)
-//            make.top.equalToSuperview().offset(18)
-//            make.centerX.equalToSuperview()
-//        }
+        bottomView.addSubview(lineView)
+        lineView.snp.makeConstraints { make in
+            make.width.equalTo(50)
+            make.height.equalTo(4)
+            make.top.equalToSuperview().offset(12)
+            make.centerX.equalToSuperview()
+        }
         
 //        bottomView.addSubview(tipsLbl)
 //        tipsLbl.snp.makeConstraints { make in
@@ -161,9 +182,15 @@ class TabMoreView: UIView {
         scrollView = UIScrollView()
         bottomView.addSubview(scrollView!)
         scrollView?.showsVerticalScrollIndicator = false
+//        scrollView?.addSubview(centerBgView)
+        scrollView?.backgroundColor = .init(hexString: "#f5f5f5")
+        scrollView?.corner(8)
         scrollView!.snp.makeConstraints { make in
-            make.top.equalTo(40)
-            make.leading.bottom.trailing.equalToSuperview()
+            make.top.equalTo(36)
+            make.leading.equalTo(16)
+            make.trailing.equalTo(-16)
+//            make.bottom.trailing.equalToSuperview()
+            make.height.equalTo(196)
         }
     }
     
@@ -214,8 +241,8 @@ class TabMoreView: UIView {
 
         let titleLabel: UILabel = {
             let v = UILabel()
-            v.font = .systemFont(ofSize: 14)
-            v.textColor = .colorOnBackground
+            v.font = .regularFont(14)
+            v.textColor = .init(hexString: "#333333")
             return v
         }()
         
@@ -231,16 +258,17 @@ class TabMoreView: UIView {
             addSubview(titleLabel)
             
 //            backgroundColor = .green
-            let itemwidth = (UIScreen.main.bounds.width - 100) / 4
+//            let itemwidth = (UIScreen.main.bounds.width - 100) / 4
             iconImageView.snp.makeConstraints { make in
-                make.top.equalTo(5)
-                make.width.height.equalTo(itemwidth)
+                make.top.equalTo(0)
+                make.width.height.equalTo(30)
                 make.centerX.equalToSuperview()
             }
             
             titleLabel.snp.makeConstraints { make in
-                make.top.equalTo(iconImageView.snp.bottom).offset(5)
+                make.top.equalTo(iconImageView.snp.bottom).offset(14)
                 make.centerX.equalToSuperview()
+                make.bottom.equalToSuperview()
             }
             
         }
@@ -269,9 +297,11 @@ class TabMoreView: UIView {
 
                 disposeBag = DisposeBag()
                 
+                
                 if(scrollView != nil) {
                     scrollView?.removeFromSuperview()
                 }
+                
                 scrollView = nil
                 itemArr = nil
                 self.backgroundColor = .black.withAlphaComponent(show ? 0.3 : 0)

@@ -298,39 +298,8 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
         }).disposed(by: _disposeBag)
 
         _viewModel.conversationsRelay.bind(to: _tableView.rx.items(cellIdentifier: ChatTableViewCell.className, cellType: ChatTableViewCell.self)) { (row, item, cell) in
-     
-            let placeholderName: String = item.conversationType == .c2c ? "contact_my_friend_icon" : "contact_my_group_icon"
-            cell.muteImageView.isHidden = item.recvMsgOpt == .receive
             
-            // MARK: - 张亚飞打的标记 群头像 头像区分
-            
-            if item.conversationType == .superGroup {
-
-                cell.avatarImageView.setGroupImg(item: item)
-    
-            } else {
-                
-                cell.avatarImageView.setAvatar(url: item.faceURL, text: item.showName, placeHolder: placeholderName)
-            } 
-
-            
-            cell.titleLabel.text = item.showName!
-            cell.pinImageView.isHidden = !item.isPinned
-            cell.subtitleLabel.attributedText = MessageHelper.getAbstructOf(conversation: item, highlight: false)
-            var unreadShouldHide: Bool = false
-            if item.recvMsgOpt != .receive {
-                unreadShouldHide = true
-            }
-            if item.unreadCount <= 0 {
-                unreadShouldHide = true
-            }
-            cell.unreadLabel.isHidden = unreadShouldHide
-            cell.unreadLabel.text =  item.unreadCount > 99 ? "99+" : "\(item.unreadCount)"
-            cell.muteImageView.isHidden = item.recvMsgOpt == .receive
-            cell.timeLabel.text = MessageHelper.convertList(timestamp_ms: item.latestMsgSendTime)
-//            cell.tagView.isHidden = true
-            
-            cell.tagView.isHidden = item.conversationType != .c2c
+            cell.updateUI(item: item)
             
         }.disposed(by: _disposeBag)
 

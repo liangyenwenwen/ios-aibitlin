@@ -378,8 +378,9 @@ final class ChatViewController: UIViewController {
 //        } else {
 //            view.backgroundColor = .white
 //        }
-        view.backgroundColor = .init(hexString: "#f5f5f5")
+//        view.backgroundColor = .init(hexString: "#f5f5f5")
 //        setupNavigationBar()
+        view.backgroundColor = .white
         updateChatNavData()
         setupWatermarkView()
         setupInputBar()

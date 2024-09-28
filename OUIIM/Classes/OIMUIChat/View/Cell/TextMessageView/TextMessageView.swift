@@ -119,8 +119,13 @@ class TextMessageView: UIView, ContainerCollectionViewCellDelegate {
             }
         }
         
-        textView.textColor = controller.type == .incoming ? .init(hexString: "#333333") : .white
-        textView.backgroundColor = controller.type == .incoming ? .init(hexString: "#EAEAEA") : .init(hexString: "#388CEF")
+        textView.textColor = .init(hexString: "#333333")
+        textView.backgroundColor = controller.type == .incoming ? .init(hexString: "#EAEAEA") : .init(hexString: "#dae9ff")
+        
+       
+//        self.layoutIfNeeded()
+        
+        
     }
     
     
@@ -153,6 +158,17 @@ class TextMessageView: UIView, ContainerCollectionViewCellDelegate {
         
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+//        if controller?.type == .incoming {
+//            textView.setCorners(topLeft: 20, topRight: 4, bottomLeft: 20, bottomRight: 20)
+//
+//        } else {
+//            textView.setCorners(topLeft: 4, topRight: 20, bottomLeft: 20, bottomRight: 20)
+//        }
+        
+    }
     
     
 
