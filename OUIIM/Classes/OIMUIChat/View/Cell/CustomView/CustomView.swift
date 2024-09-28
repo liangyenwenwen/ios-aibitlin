@@ -32,7 +32,7 @@ final class CustomView: UIView, ContainerCollectionViewCellDelegate {
         v.linkTextAttributes = [.foregroundColor: UIColor.systemBlue,
                                        .underlineStyle: 0]
         v.setContentCompressionResistancePriority(UILayoutPriority(999), for: .vertical)
-        v.textContainerInset = UIEdgeInsets(top: 10, left: 12, bottom: 10, right: 12)
+        v.textContainerInset = UIEdgeInsets(top: 10, left: 8, bottom: 10, right: 12)
         return v
     }()
 

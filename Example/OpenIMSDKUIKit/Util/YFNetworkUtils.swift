@@ -11,6 +11,7 @@ import Foundation
 
 class YFNetworkUtils {
     
+    ///获取ip
     class func getIPAddress() -> String? {
         var address: String?
         var ifaddr: UnsafeMutablePointer<ifaddrs>? = nil
