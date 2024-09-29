@@ -26,7 +26,7 @@ class SearchFriendIndexViewController: UIViewController {
     
     private lazy var myQrcodeView: ListTileView = {
         let v = ListTileView()
-        v.imageView.image = UIImage(nameInBundle: "common_qrcode_icon_blue")
+        v.imageView.image = UIImage(named: "add_friend_Code")
         v.titleLabel.text = "myQrcode".innerLocalized()
         v.subTitleLabel.text = "myQrcodeHint".innerLocalized()
         
@@ -45,7 +45,7 @@ class SearchFriendIndexViewController: UIViewController {
     
     private lazy var scanQrcodeView: ListTileView = {
         let v = ListTileView()
-        v.imageView.image = UIImage(nameInBundle: "common_scan_qrcode_icon_blue")
+        v.imageView.image = UIImage(named: "add_scan_icon")
         v.titleLabel.text = "scanQrcode".innerLocalized()
         v.subTitleLabel.text = "scanQrcodeHint".innerLocalized()
         

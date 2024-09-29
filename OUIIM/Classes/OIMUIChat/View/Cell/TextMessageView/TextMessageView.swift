@@ -26,7 +26,7 @@ class TextMessageView: UIView, ContainerCollectionViewCellDelegate {
         v.setContentCompressionResistancePriority(UILayoutPriority(999), for: .vertical)
         v.setContentHuggingPriority(UILayoutPriority(rawValue: 999), for: .horizontal)
         v.textContainer.lineBreakMode = .byCharWrapping
-        v.textContainerInset = UIEdgeInsets(top: 9, left: 12, bottom: 9, right: 12)
+        v.textContainerInset = UIEdgeInsets(top: 11, left: 13, bottom: 11, right: 13)
 //        v.widthAnchor.constraint(greaterThanOrEqualToConstant: 45)
         v.textContainer.lineFragmentPadding = 0
         v.text = " "
@@ -36,6 +36,15 @@ class TextMessageView: UIView, ContainerCollectionViewCellDelegate {
         return v
     }()
 
+    lazy var bubbleImg: UIImageView = {
+        let r = UIImageView()
+        var image = UIImage.init(named: "chat_bubble_right")!.resizableImage(withCapInsets: UIEdgeInsets(top: 21, left: 21, bottom: 21, right: 21), resizingMode: .stretch)
+        r.image = image
+        return r
+    }()
+    
+    
+    
     private var controller: TextMessageController?
 
     private var textViewWidthConstraint: NSLayoutConstraint?
@@ -121,13 +130,45 @@ class TextMessageView: UIView, ContainerCollectionViewCellDelegate {
         
         textView.textColor = .init(hexString: "#333333")
         textView.backgroundColor = controller.type == .incoming ? .init(hexString: "#EAEAEA") : .init(hexString: "#dae9ff")
-        
+        textView.backgroundColor = .clear
        
+        bubbleImg.image = UIImage.init(named:controller.type == .outgoing ? "chat_bubble_right" : "chat_bubble_left")!.resizableImage(withCapInsets: UIEdgeInsets(top: 21, left: 21, bottom: 21, right: 21), resizingMode: .stretch)
+
 //        self.layoutIfNeeded()
         
-        
+//        applyRoundedCorners()
+//        self.backgroundColor = .red
     }
     
+//    private func applyRoundedCorners() {
+//            let rect = self.bounds
+//            let topLeftRadius: CGFloat = 22
+//            let topRightRadius: CGFloat = 4
+//            let bottomLeftRadius: CGFloat = 22
+//            let bottomRightRadius: CGFloat = 22
+//            
+//            let path = UIBezierPath()
+//            path.move(to: CGPoint(x: rect.minX + topLeftRadius, y: rect.minY))
+//            path.addLine(to: CGPoint(x: rect.maxX - topRightRadius, y: rect.minY))
+//            path.addQuadCurve(to: CGPoint(x: rect.maxX, y: rect.minY + topRightRadius),
+//                              controlPoint: CGPoint(x: rect.maxX, y: rect.minY))
+//            
+//            path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY - bottomRightRadius))
+//            path.addQuadCurve(to: CGPoint(x: rect.maxX - bottomRightRadius, y: rect.maxY),
+//                              controlPoint: CGPoint(x: rect.maxX, y: rect.maxY))
+//            
+//            path.addLine(to: CGPoint(x: rect.minX + bottomLeftRadius, y: rect.maxY))
+//            path.addQuadCurve(to: CGPoint(x: rect.minX, y: rect.maxY - bottomLeftRadius),
+//                              controlPoint: CGPoint(x: rect.minX, y: rect.maxY))
+//            
+//            path.addLine(to: CGPoint(x: rect.minX, y: rect.minY + topLeftRadius))
+//            path.addQuadCurve(to: CGPoint(x: rect.minX + topLeftRadius, y: rect.minY),
+//                              controlPoint: CGPoint(x: rect.minX, y: rect.minY))
+//            
+//            let maskLayer = CAShapeLayer()
+//            maskLayer.path = path.cgPath
+//            self.layer.mask = maskLayer
+//        }
     
     ///待翻译文本
     func isNeedtrans() {
@@ -158,9 +199,10 @@ class TextMessageView: UIView, ContainerCollectionViewCellDelegate {
         
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
+    
+//    override func layoutSubviews() {
+//        super.layoutSubviews()
+//        
 //        if controller?.type == .incoming {
 //            textView.setCorners(topLeft: 20, topRight: 4, bottomLeft: 20, bottomRight: 20)
 //
@@ -168,7 +210,7 @@ class TextMessageView: UIView, ContainerCollectionViewCellDelegate {
 //            textView.setCorners(topLeft: 4, topRight: 20, bottomLeft: 20, bottomRight: 20)
 //        }
         
-    }
+//    }
     
     
 
@@ -177,6 +219,10 @@ class TextMessageView: UIView, ContainerCollectionViewCellDelegate {
         translatesAutoresizingMaskIntoConstraints = false
         insetsLayoutMarginsFromSafeArea = false
         
+        addSubview(bubbleImg)
+        bubbleImg.snp.makeConstraints { make in
+            make.leading.trailing.top.bottom.equalToSuperview()
+        }
         let hStack = UIStackView(arrangedSubviews: [textView])
         hStack.alignment = .center
         hStack.translatesAutoresizingMaskIntoConstraints = false
@@ -217,8 +263,23 @@ class TextMessageView: UIView, ContainerCollectionViewCellDelegate {
             }
         }
         
+        
+       
 //        textView.backgroundColor = .white
+        
+//        self.backgroundColor = .init(patternImage: .init(named: "chat_bubble_right")!.resizableImage(withCapInsets: UIEdgeInsets(top: 21, left: 21, bottom: 21, right: 21), resizingMode: .stretch))
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     @objc private func handleLongPress(_ gesture: UILongPressGestureRecognizer) {
         if gesture.state == .began {

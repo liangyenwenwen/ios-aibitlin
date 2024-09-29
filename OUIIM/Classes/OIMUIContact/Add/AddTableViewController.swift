@@ -156,13 +156,13 @@ open class AddTableViewController: UITableViewController {
         var iconImage: UIImage? {
             switch self {
             case .createGroup:
-                return UIImage(nameInBundle: "add_create_group_icon")
+                return UIImage(named: "add_create_group_icon")
             case .joinGroup:
-                return UIImage(nameInBundle: "add_join_group_icon")
+                return UIImage(named: "add_join_group_icon")
             case .searchUser:
-                return UIImage(nameInBundle: "add_search_friend_icon")
+                return UIImage(named: "add_search_friend_icon")
             case .scanQrcode:
-                return UIImage(nameInBundle: "add_scan_icon")
+                return UIImage(named: "add_scan_icon")
             }
         }
         

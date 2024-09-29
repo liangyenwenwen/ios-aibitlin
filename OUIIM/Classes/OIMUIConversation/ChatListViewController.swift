@@ -122,7 +122,7 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
 
     private func createMenuItems() -> [PopoverTableViewController.MenuItem] {
       
-        let scanItem = PopoverTableViewController.MenuItem(title: "扫一扫".innerLocalized(), icon: UIImage(nameInBundle: "chat_menu_scan_icon")) { [weak self] in
+        let scanItem = PopoverTableViewController.MenuItem(title: "扫一扫".innerLocalized(), icon: UIImage(named: "chat_menu_scan_icon")) { [weak self] in
             let vc = ScanViewController()
             vc.scanDidComplete = { [weak self] (result: String) in
                 if result.contains(IMController.addFriendPrefix) {
@@ -156,7 +156,7 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
             vc.hidesBottomBarWhenPushed = true
             self?.navigationController?.pushViewController(vc, animated: true)
         }
-        let addFriendItem = PopoverTableViewController.MenuItem(title: "添加好友".innerLocalized(), icon: UIImage(nameInBundle: "chat_menu_add_friend_icon")) { [weak self] in
+        let addFriendItem = PopoverTableViewController.MenuItem(title: "添加好友".innerLocalized(), icon: UIImage(named: "chat_menu_add_friend_icon")) { [weak self] in
             let vc = SearchFriendIndexViewController()
             vc.hidesBottomBarWhenPushed = true
             vc.title = "添加好友".innerLocalized()
@@ -173,7 +173,7 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
             }
         }
 
-        let addGroupItem = PopoverTableViewController.MenuItem(title: "添加群聊".innerLocalized(), icon: UIImage(nameInBundle: "chat_menu_add_group_icon")) { [weak self] in
+        let addGroupItem = PopoverTableViewController.MenuItem(title: "添加群聊".innerLocalized(), icon: UIImage(named: "chat_menu_add_group_icon")) { [weak self] in
             let vc = SearchGroupIndexViewController()
             vc.hidesBottomBarWhenPushed = true
             self?.navigationController?.pushViewController(vc, animated: true)
@@ -184,7 +184,7 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
             }
         }
         
-        let createGroupItem = PopoverTableViewController.MenuItem(title: "发起群聊".innerLocalized(), icon: UIImage(nameInBundle: "chat_menu_create_group_icon")) { [weak self] in
+        let createGroupItem = PopoverTableViewController.MenuItem(title: "发起群聊".innerLocalized(), icon: UIImage(named: "chat_menu_create_group_icon")) { [weak self] in
             let vc = SelectContactsViewController()
             vc.title = "发起群聊".innerLocalized()
             vc.selectedContact(hasSelected: []) { [weak vc, weak self] (_, r: [ContactInfo]) in
@@ -197,7 +197,7 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
             self?.navigationController?.pushViewController(vc, animated: true)
         }
         
-        let createWorkGroupItem = PopoverTableViewController.MenuItem(title: "创建大群".innerLocalized(), icon: UIImage(nameInBundle: "chat_menu_create_work_group_icon")) { [weak self] in
+        let createWorkGroupItem = PopoverTableViewController.MenuItem(title: "创建大群".innerLocalized(), icon: UIImage(named: "chat_menu_create_work_group_icon")) { [weak self] in
             #if ENABLE_ORGANIZATION
             let vc = MyContactsViewController(types: [.friends, .staff], multipleSelected: true)
             #else
@@ -227,7 +227,7 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
         var items = [scanItem, addFriendItem, addGroupItem, createWorkGroupItem]
         
 #if ENABLE_LIVE_ROOM
-        let meetingItem = PopoverTableViewController.MenuItem(title: "视频会议".innerLocalized(), icon: UIImage(nameInBundle: "chat_menu_create_live_room_icon")) { [weak self] in
+        let meetingItem = PopoverTableViewController.MenuItem(title: "视频会议".innerLocalized(), icon: UIImage(named: "chat_menu_create_live_room_icon")) { [weak self] in
             let vc = LiveRecordsViewController()
             vc.hidesBottomBarWhenPushed = true
             self?.navigationController?.pushViewController(vc, animated: true)

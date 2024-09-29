@@ -27,7 +27,7 @@ class SearchGroupIndexViewController: UIViewController {
     
     private lazy var scanQrcodeView: ListTileView = {
         let v = ListTileView()
-        v.imageView.image = UIImage(nameInBundle: "common_scan_qrcode_icon_blue")
+        v.imageView.image = UIImage(named: "add_scan_icon")
         v.titleLabel.text = "scanQrcode".innerLocalized()
         v.subTitleLabel.text = "scanHint".innerLocalized()
         

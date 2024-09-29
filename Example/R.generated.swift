@@ -3313,7 +3313,7 @@ struct _R {
     var colorBackground: RswiftResources.ColorResource { .init(name: "ColorBackground", path: [], bundle: bundle) }
   }
 
-  /// This `_R.image` struct is generated, and contains static references to 195 images.
+  /// This `_R.image` struct is generated, and contains static references to 208 images.
   struct image {
     let bundle: Foundation.Bundle
 
@@ -3608,8 +3608,23 @@ struct _R {
     /// Image `add_circle_icon`.
     var add_circle_icon: RswiftResources.ImageResource { .init(name: "add_circle_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
+    /// Image `add_create_group_icon`.
+    var add_create_group_icon: RswiftResources.ImageResource { .init(name: "add_create_group_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `add_friend_Code`.
+    var add_friend_Code: RswiftResources.ImageResource { .init(name: "add_friend_Code", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
     /// Image `add_image_icon`.
     var add_image_icon: RswiftResources.ImageResource { .init(name: "add_image_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `add_join_group_icon`.
+    var add_join_group_icon: RswiftResources.ImageResource { .init(name: "add_join_group_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `add_scan_icon`.
+    var add_scan_icon: RswiftResources.ImageResource { .init(name: "add_scan_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `add_search_friend_icon`.
+    var add_search_friend_icon: RswiftResources.ImageResource { .init(name: "add_search_friend_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
     /// Image `black_list_icon`.
     var black_list_icon: RswiftResources.ImageResource { .init(name: "black_list_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
@@ -3637,6 +3652,30 @@ struct _R {
 
     /// Image `change_icon`.
     var change_icon: RswiftResources.ImageResource { .init(name: "change_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `chat_bubble_left`.
+    var chat_bubble_left: RswiftResources.ImageResource { .init(name: "chat_bubble_left", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `chat_bubble_right`.
+    var chat_bubble_right: RswiftResources.ImageResource { .init(name: "chat_bubble_right", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `chat_menu_add_friend_icon`.
+    var chat_menu_add_friend_icon: RswiftResources.ImageResource { .init(name: "chat_menu_add_friend_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `chat_menu_add_group_icon`.
+    var chat_menu_add_group_icon: RswiftResources.ImageResource { .init(name: "chat_menu_add_group_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `chat_menu_create_group_icon`.
+    var chat_menu_create_group_icon: RswiftResources.ImageResource { .init(name: "chat_menu_create_group_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `chat_menu_create_live_room_icon`.
+    var chat_menu_create_live_room_icon: RswiftResources.ImageResource { .init(name: "chat_menu_create_live_room_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `chat_menu_create_work_group_icon`.
+    var chat_menu_create_work_group_icon: RswiftResources.ImageResource { .init(name: "chat_menu_create_work_group_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `chat_menu_scan_icon`.
+    var chat_menu_scan_icon: RswiftResources.ImageResource { .init(name: "chat_menu_scan_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
     /// Image `chat_tool_translate_btn_star`.
     var chat_tool_translate_btn_star: RswiftResources.ImageResource { .init(name: "chat_tool_translate_btn_star", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
