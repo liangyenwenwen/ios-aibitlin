@@ -32,8 +32,10 @@ final class FileView: UIView, ContainerCollectionViewCellDelegate {
 
     private lazy var nameLabel: UILabel = {
         let v = UILabel()
-        v.font = .f17
-        v.textColor = .c0C1C33
+//        v.font = .f17
+//        v.textColor = .c0C1C33
+        v.font = UIFont(name: "PingFangSC-Semibold", size: 16)
+        v.textColor = .init(hexString: "#333333")
         v.translatesAutoresizingMaskIntoConstraints = false
         v.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         v.lineBreakMode = .byTruncatingMiddle
@@ -43,8 +45,10 @@ final class FileView: UIView, ContainerCollectionViewCellDelegate {
     
     private lazy var lengthLabel: UILabel = {
         let v = UILabel()
-        v.font = .f14
-        v.textColor = .c8E9AB0
+//        v.font = .f14
+//        v.textColor = .c8E9AB0
+        v.font = UIFont(name: "PingFangSC-Regular", size: 14)
+        v.textColor = .init(hexString: "#666666")
         v.translatesAutoresizingMaskIntoConstraints = false
         v.setContentCompressionResistancePriority(UILayoutPriority(999), for: .vertical)
         
@@ -83,12 +87,14 @@ final class FileView: UIView, ContainerCollectionViewCellDelegate {
         insetsLayoutMarginsFromSafeArea = false
 
         let contentView = UIView()
-        contentView.layer.cornerRadius = StandardUI.cornerRadius
-        contentView.layer.borderColor = UIColor.cE8EAEF.cgColor
-        contentView.layer.borderWidth = 1
+//        contentView.layer.cornerRadius = StandardUI.cornerRadius
+        contentView.layer.cornerRadius = 10
+//        contentView.layer.borderColor = UIColor.cE8EAEF.cgColor
+//        contentView.layer.borderWidth = 1
         contentView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.backgroundColor = .cellBackgroundColor
-        contentView.isUserInteractionEnabled = true 
+//        contentView.backgroundColor = .cellBackgroundColor
+        contentView.backgroundColor = .init(hexString: "#EAEAEA")
+        contentView.isUserInteractionEnabled = true
         
         addSubview(contentView)
         
@@ -97,7 +103,7 @@ final class FileView: UIView, ContainerCollectionViewCellDelegate {
             contentView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),
             contentView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
             contentView.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor),
-            contentView.heightAnchor.constraint(equalToConstant: 64),
+//            contentView.heightAnchor.constraint(equalToConstant: 64),
         ])
         
         let infoStack = UIStackView(arrangedSubviews: [nameLabel, lengthLabel])
@@ -133,21 +139,25 @@ final class FileView: UIView, ContainerCollectionViewCellDelegate {
             progressView.heightAnchor.constraint(equalToConstant: 20),
         ])
         
-        let rowStack = UIStackView(arrangedSubviews: [infoStack, UIView(), iconView])
+//        let rowStack = UIStackView(arrangedSubviews: [infoStack, UIView(), iconView])
+        let rowStack = UIStackView(arrangedSubviews: [iconView, infoStack])
         rowStack.distribution = .fill
         rowStack.alignment = .center
         rowStack.backgroundColor = .clear
+        rowStack.spacing = 18
         rowStack.translatesAutoresizingMaskIntoConstraints = false
         
         contentView.addSubview(rowStack)
         NSLayoutConstraint.activate([
             rowStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
             rowStack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            rowStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            rowStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
+            rowStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
+            rowStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
         ])
+//        backgroundColor = .red
         
         contentWidthConstraint = rowStack.widthAnchor.constraint(equalToConstant: viewPortWidth)
+//        contentHeightConstraint = rowStack.heightAnchor.constraint(equalToConstant: viewPortWidth)
         contentWidthConstraint?.priority = UILayoutPriority(999)
         
         isUserInteractionEnabled = true
@@ -195,8 +205,10 @@ final class FileView: UIView, ContainerCollectionViewCellDelegate {
     
     private func setupSize() {
         UIView.performWithoutAnimation { [self] in
-            self.contentWidthConstraint?.constant = self.viewPortWidth * StandardUI.maxWidthRate
+//            self.contentWidthConstraint?.constant = self.viewPortWidth * StandardUI.maxWidthRate
+            self.contentWidthConstraint?.constant = 280
             contentWidthConstraint?.isActive = true
+//            self.contentHeightConstraint?.constant = 76
             self.setNeedsLayout()
         }
     }

@@ -18,16 +18,21 @@ class YFBokeView: UIView, ContainerCollectionViewCellDelegate  {
     
     private lazy var nameLabel: UILabel = {
         let v = UILabel()
-        v.font = .systemFont(ofSize: 17)
-        v.textColor = .c0C1C33
+//        v.font = .systemFont(ofSize: 17)
+//        v.textColor = .c0C1C33
+        
+        v.font = UIFont(name: "PingFangSC-Semibold", size: 16)
+        v.textColor = .init(hexString: "#333333")
         
         return v
     }()
     
     private lazy var introLabel: UILabel = {
         let v = UILabel()
-        v.font = .systemFont(ofSize: 14)
-        v.textColor = .c0C1C33
+//        v.font = .systemFont(ofSize: 14)
+//        v.textColor = .c0C1C33
+        v.font = UIFont(name: "PingFangSC-Regular", size: 14)
+        v.textColor = .init(hexString: "#666666")
         v.text = "intro"
         v.numberOfLines = 1
         return v
@@ -68,11 +73,13 @@ class YFBokeView: UIView, ContainerCollectionViewCellDelegate  {
         insetsLayoutMarginsFromSafeArea = false
         
         let contentView = UIView()
-        contentView.layer.cornerRadius = StandardUI.cornerRadius
-        contentView.layer.borderColor = UIColor.cE8EAEF.cgColor
-        contentView.layer.borderWidth = 1
+//        contentView.layer.cornerRadius = StandardUI.cornerRadius
+        contentView.layer.cornerRadius = 10
+//        contentView.layer.borderColor = UIColor.cE8EAEF.cgColor
+//        contentView.layer.borderWidth = 1
         contentView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.backgroundColor = .cellBackgroundColor
+//        contentView.backgroundColor = .cellBackgroundColor
+        contentView.backgroundColor = .init(hexString: "#EAEAEA")
         contentView.isUserInteractionEnabled = true
         
         addSubview(contentView)
@@ -91,7 +98,7 @@ class YFBokeView: UIView, ContainerCollectionViewCellDelegate  {
         
         let infoStack = UIStackView(arrangedSubviews: [avatarView, messageStack])
 //        let infoStack = UIStackView(arrangedSubviews: [messageStack])
-        infoStack.spacing = 8
+        infoStack.spacing = 12
         infoStack.alignment = .center
         
         
@@ -113,18 +120,22 @@ class YFBokeView: UIView, ContainerCollectionViewCellDelegate  {
         contentView.addSubview(columStack)
         NSLayoutConstraint.activate([
             line.heightAnchor.constraint(equalToConstant: 1),
-            columStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            columStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
             columStack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            columStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+            columStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
             columStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
+//            columStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+//            columStack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+//            columStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+//            columStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
         ])
         
         contentWidthConstraint = columStack.widthAnchor.constraint(equalToConstant: viewPortWidth)
         contentWidthConstraint?.priority = UILayoutPriority(999)
         contentWidthConstraint?.isActive = true
         
-        contentHeightConstraint = columStack.heightAnchor.constraint(equalToConstant: viewPortWidth)
-        contentHeightConstraint?.priority = UILayoutPriority(999)
+//        contentHeightConstraint = columStack.heightAnchor.constraint(equalToConstant: viewPortWidth)
+//        contentHeightConstraint?.priority = UILayoutPriority(999)
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(tap))
         contentView.isUserInteractionEnabled = true
@@ -148,8 +159,8 @@ class YFBokeView: UIView, ContainerCollectionViewCellDelegate  {
     
     private func setupSize() {
         UIView.performWithoutAnimation { [self] in
-            self.contentWidthConstraint?.constant = self.viewPortWidth * StandardUI.maxWidthRate
-            self.contentHeightConstraint?.constant = 50
+            self.contentWidthConstraint?.constant = 280
+//            self.contentHeightConstraint?.constant = 50
             self.contentHeightConstraint?.isActive = true
             self.setNeedsLayout()
         }

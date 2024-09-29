@@ -5,6 +5,8 @@ final class CardController {
     var faceURL: String?
     
     var name: String?
+    
+    var userID: String?
 
     weak var delegate: ReloadDelegate?
     
@@ -32,6 +34,7 @@ final class CardController {
     private func configData() {
         self.name = source.user.name
         self.faceURL = source.user.faceURL
+        self.userID = source.user.id
     }
     
     func action() {
