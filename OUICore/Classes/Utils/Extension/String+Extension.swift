@@ -246,3 +246,4 @@ extension String.Encoding {
             return gbk
         }()
 }
+

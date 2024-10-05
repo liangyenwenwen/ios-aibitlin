@@ -252,7 +252,7 @@ extension MineBokeListViewController {
             datum = YFFileDataUtil.deleteOneDataFromFile(blogItem: item)
             self.tableView.reloadData()
         } else {
-            let parameters: [String:Any] = ["userBlogId":item.id, "sign":item.sign]
+            let parameters: [String:Any] = ["userBlogId":item.id!, "sign":item.sign!]
             YFMineNetViewModel.deleteBlog(paramters: parameters) { errCode, errMsg in
                 if errCode == 20000 {
                     self.getMyBlog()

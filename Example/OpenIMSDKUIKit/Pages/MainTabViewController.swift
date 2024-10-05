@@ -362,7 +362,10 @@ extension MainTabViewController {
         if currentLanuage != nil {
             YFMineNetViewModel.updateLanguage(uid: uid)
         }  else {
-            YFMineNetViewModel.addUserLanguage(uid: uid)
+            
+            if String.getCurrentLanguageFirst() != userDefaults.string(forKey: "blogLanguage\(uid)") {
+                YFMineNetViewModel.addUserLanguage(uid: uid)
+            }
         }
         
     }

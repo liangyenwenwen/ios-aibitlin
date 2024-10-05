@@ -122,10 +122,6 @@ class ChatViewControllerNav: UIView {
         
     }
     
-    
-    
-    
-    
     lazy var contentView: UIView = {
         let r = UIView()
         return r
@@ -225,10 +221,9 @@ class ChatViewControllerNav: UIView {
         v.font = UIFont(name: "PingFangSC-Semibold", size: 11)
         v.textColor = .init(hexString: "#7238EF")
         v.text = "[V4、\("企业".localized())、\("博客".localized())]".localized()
+        
         return v
     }()
-    
-    
     
 }
 

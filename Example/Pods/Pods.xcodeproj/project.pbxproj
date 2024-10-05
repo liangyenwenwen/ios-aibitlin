@@ -100,6 +100,7 @@
 		04ABB49755116829057D4E9B7C4729CD /* BehaviorRelay+Driver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F28BE462CE6FB729276D5015169051 /* BehaviorRelay+Driver.swift */; };
 		04AD5FD6C69582D10712A93103F776FD /* ViewUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A58D04D69C4DED27EE990021AB0926 /* ViewUtil.swift */; };
 		04C3BF852C9BB87300CB6EEF /* ChatViewControllerNav.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C3BF842C9BB87300CB6EEF /* ChatViewControllerNav.swift */; };
+		04C6CC182CB122F400E884CD /* SuperStringUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C6CC172CB122F400E884CD /* SuperStringUtil.swift */; };
 		04EDCC77AB5C96A7417C96281AD5AC61 /* ChatCollectionDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377C94EBA216D11D2B6942FD02D71A05 /* ChatCollectionDataSource.swift */; };
 		04FD8181DA1BCBB43F2DB30EE98A4CD0 /* UIBezierPath+QMUI.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C34F07E08DAAE6B41D5D62E7FFA588 /* UIBezierPath+QMUI.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		0522898C5F8832531158B8FEB07F7ABA /* QMUIToastAnimator.h in Headers */ = {isa = PBXBuildFile; fileRef = B9835D889F2497FE21C62B8C5521D727 /* QMUIToastAnimator.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -4413,6 +4414,7 @@
 		04A3BD5F9C18171EBB74F20E073FAD04 /* UINavigationBarExtensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UINavigationBarExtensions.swift; path = Sources/SwifterSwift/UIKit/UINavigationBarExtensions.swift; sourceTree = "<group>"; };
 		04BB358B717A25AFE595E10DBF3ED8E7 /* URLRequestExtensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = URLRequestExtensions.swift; path = Sources/SwifterSwift/Foundation/URLRequestExtensions.swift; sourceTree = "<group>"; };
 		04C3BF842C9BB87300CB6EEF /* ChatViewControllerNav.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewControllerNav.swift; sourceTree = "<group>"; };
+		04C6CC172CB122F400E884CD /* SuperStringUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperStringUtil.swift; sourceTree = "<group>"; };
 		04D43C16A21A73C995492938FC73072F /* save_button_icon@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "save_button_icon@3x.png"; sourceTree = "<group>"; };
 		05031A56EDAEF69B1FF799E84A599B81 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/AssetsLibrary.framework; sourceTree = DEVELOPER_DIR; };
 		052AFACB0D618BF8D724C171CE8E6783 /* R.swift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "R.swift-prefix.pch"; sourceTree = "<group>"; };
@@ -13696,6 +13698,7 @@
 				BA43C0A7CA4CBEE5F3F41DC6467B4D6A /* Section.swift */,
 				16941330FA0BE7DFE8A70EFDC7660C78 /* TypingState.swift */,
 				63E8A4C255D6CB38900B4DE06A75AFB3 /* User.swift */,
+				04C6CC172CB122F400E884CD /* SuperStringUtil.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -19293,6 +19296,7 @@
 				E8DC2C504D062918A67DFCCAD37EEAA3 /* TypingState.swift in Sources */,
 				3E1A468E949207AFDD499093F99E47F8 /* UnreadListResultViewController.swift in Sources */,
 				F38D07ABBFFC0244C816DCEB61A117A0 /* UnreadListViewController.swift in Sources */,
+				04C6CC182CB122F400E884CD /* SuperStringUtil.swift in Sources */,
 				EB639834ECBE2E5769CB15DF9D1270D4 /* UnreadListViewModel.swift in Sources */,
 				23C794481ED9A65E06A642C7D568453B /* UpImageButton.swift in Sources */,
 				F77EAE93844106C05078CB9BDB5D0E19 /* URLController.swift in Sources */,

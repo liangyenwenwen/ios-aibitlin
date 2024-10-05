@@ -1,35 +1,15 @@
 //
 //  SuperStringUtil.swift
-//  MyCloudMusic
+//  OUIIM
 //
-//  Created by mac on 2024/4/27.
+//  Created by mac on 2024/10/5.
 //
 
 import Foundation
-import SwifterSwift
+
+
 
 class SuperStringUtil {
-    
-    ///是否为空
-    static func isBlank(_ data: String?) -> Bool {
-        var data  = data
-        data = data?.trimmed
-        return data == nil || data!.isEmpty
-    }
-    
-    //是否不为空
-    static func isNotBlank(_ data: String?) -> Bool {
-        !isBlank(data)
-    }
-    
-    static func netUrl(_ data: String ,_ paramters:[String: Any]) -> String {
-        var string = data + "?"
-        for (key, value) in paramters {
-            string += "&\(key)=\(value)"
-        }
-        return string
-    }
-    
     
     static func getWeekDay (dateTime : String ) -> String {
         let dateFmt =  DateFormatter ()
