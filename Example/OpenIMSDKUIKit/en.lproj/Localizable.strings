@@ -499,8 +499,8 @@ Toolbox = "Toolbox";
 "关注" = "Following";
 "回关" = "Follow back";
 "互关" = "Friends";
-"关注了你" = "start following you";
-//"关注了你" = "following you";
+//"关注了你" = "start following you";
+"关注了你" = "following you";
 "发消息" = "Message";
  "消息" = "Message";
 "近6个月无更多记录" = "No more records in the past 6 months";
@@ -579,6 +579,9 @@ SupportShortNumber = "Support setting a minimum %@-digit account ID";
 
 "我的" = "Me";
 "工具箱" = "Tool";
+
+"永久生效" = "Permanent Effect";
+"已生效" = "Took Effect";
 
 //"" = "";
 //"" = "";

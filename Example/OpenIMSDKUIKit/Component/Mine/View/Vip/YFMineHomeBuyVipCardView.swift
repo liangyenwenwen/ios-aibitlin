@@ -10,6 +10,9 @@ import UIKit
 import TangramKit
 class YFMineHomeBuyVipCardView: TGLinearLayout {
     
+    var buyVipBlock: ((Int) -> ())!
+    
+    
     init() {
         super.init(frame: .zero, orientation: .vert)
         initViews()
@@ -53,6 +56,7 @@ class YFMineHomeBuyVipCardView: TGLinearLayout {
         r.text = "VIP1"
         r.textColor = .init(hexString: "#388CEF")
         r.font = UIFont(name: "PingFangSC-Semibold", size: 16)
+        
         return r
     }()
     
@@ -67,6 +71,10 @@ class YFMineHomeBuyVipCardView: TGLinearLayout {
         r.tg_gravity = .vert.center
         
         r.addSubview(buyVipLbl)
+        
+        r.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(bugVipAction))
+        r.addGestureRecognizer(tap)
         return r
     }()
     
@@ -116,7 +124,9 @@ class YFMineHomeBuyVipCardView: TGLinearLayout {
         return r
     }()
     
-    
+    @objc func bugVipAction() {
+        buyVipBlock(self.tag - 12000)
+    }
     
     
     

@@ -40,22 +40,29 @@ let sdkWSRoute = ""
 //let sdkWSPort = ":10001"
 //let sdkWSRoute = ":10001/msg_gateway_enterprise"
 
-//let defaultAppAddress = "im-api.bitswith.com"
-//let defaultIMAddress = "im-api.bitswith.com"
-//let defaultAdminAddress = "im-api.bitswith.com"
+let defaultAppAddress = "demo.aibitlin.com"
+let defaultIMAddress = "demo.aibitlin.com"
+let defaultAdminAddress = "demo.aibitlin.com"
 
 //let defaultAppAddress = "web.rentsoft.cn"
 //let defaultIMAddress = "web.rentsoft.cn"
 //let defaultAdminAddress = "web.rentsoft.cn"
 
 /// 本地 102
-let defaultAppAddress = "192.168.7.16"
-let defaultIMAddress = "192.168.7.16"
-let defaultAdminAddress = "192.168.7.16"
+/// let defaultAppAddress = "192.168.7.16"
+/// let defaultAppAddress = "192.168.7.110"
+//let defaultAppAddress = "192.168.7.16"
+//let defaultIMAddress = "192.168.7.16"
+//let defaultAdminAddress = "192.168.7.16"
 
 //let defaultAppAddress = "chat-api.test.bitswith.com"
 //let defaultIMAddress = "api.test.bitswith.com"
 //let defaultAdminAddress = "msg-gateway.test.bitswith.com"
+
+//BLOG_AUTH = "http://110.42.42.31:18898/";
+//APP_AUTH = "http://demo.aibitlin.com:10008/";
+//IM_API = "http://demo.aibitlin.com:10002";
+//IM_WS = "ws://demo.aibitlin.com:10001";
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {

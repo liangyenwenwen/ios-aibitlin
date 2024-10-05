@@ -30,7 +30,7 @@ class MineBokeVisitorListCell: BaseTableViewCell {
         container.addSubview(userMessageView)
         
         userMessageView.addSubview(username)
-        userMessageView.addSubview(usertag)
+        userMessageView.addSubview(tagLable)
         userMessageView.addSubview(userScanNumber)
         
 //        container.addSubview(sendMessageLbl)
@@ -70,11 +70,21 @@ class MineBokeVisitorListCell: BaseTableViewCell {
         return r
     }()
     
-    lazy var usertag : UserTagView = {
-       let r = UserTagView()
-        r.addThirdUI()
-        return r
-    }()
+//    lazy var usertag : UserTagView = {
+//       let r = UserTagView()
+//        r.addThirdUI()
+//        return r
+//    }()
+    
+    lazy var tagLable: UILabel = {
+            let v = UILabel()
+            v.font = UIFont(name: "PingFangSC-Semibold", size: 11)
+            v.textColor = .init(hexString: "#7238EF")
+            v.text = "[V4、\("企业".localized())、\("博客".localized())]".localized()
+        v.tg_width.equal(.wrap)
+        v.tg_height.equal(.wrap)
+            return v
+        }()
     
     lazy var userScanNumber: UILabel = {
         let r = ViewFactoryUtil.sectionTilteLbael()

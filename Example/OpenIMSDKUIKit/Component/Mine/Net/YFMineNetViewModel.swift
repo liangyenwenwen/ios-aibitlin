@@ -15,7 +15,8 @@ import Network
 
 class YFMineNetViewModel: AccountViewModel {
     
-    static let API_BLOG_URL = "http://192.168.7.107:18898"
+//    static let API_BLOG_URL = "http://192.168.7.107:18898"
+    static let API_BLOG_URL = "http://blog.aibitlin.com:18898"
     
     // MARK: - 张亚飞打的标记 blogAPI
     private static let BlogAuditAddWaitAuditAutoAPI = "/blog/audit/addWaitAuditAuto"
@@ -33,6 +34,8 @@ class YFMineNetViewModel: AccountViewModel {
     private static let updateUserLanguageAPI = "/user/language/updateUserLanguage"
     private static let addUserLanguageAPI = "/user/language/addUserLanguage"
     
+    private static let vipPurchaseInitializeAPI = "/vip/purchase/initialize"
+    private static let vipPurchaseSucceedsAPI = "/vip/purchase/succeeds"
     
     private static var httpHeaders : HTTPHeaders = [
         "token":UserDefaults.standard.string(forKey: bussinessTokenKey)!,
@@ -353,6 +356,64 @@ class YFMineNetViewModel: AccountViewModel {
     }
     
     
+    static func vipPurchaseInitialize(paramters:Parameters,
+                                      valueHandler: @escaping (String) -> Void,
+                                      completionHandler: @escaping CompletionHandler) {
+        let url = SuperStringUtil.netUrl(API_BLOG_URL + vipPurchaseInitializeAPI, paramters)
+    
+        Alamofire.request(url, method: .post, parameters: nil, encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
+            if let data = dataRequest.data {
+                let strData = String.init(data: data, encoding: String.Encoding.utf8)
+                print(strData!)
+                if let res = JsonTool.fromJson(strData!, toClass: BlogResponse.self) {
+                    
+                    if res.code == 20000  {
+                        if res.data != nil {
+                            valueHandler(res.data!)
+                        }
+                    } else {
+                        completionHandler(res.code, res.message)
+                    }
+                    
+                } else {
+                    completionHandler(-1, "Failure")
+                }
+                
+                
+            }
+        }
+    }
+    
+    static func vipPurchaseSucceeds(paramters:Parameters,
+                                      valueHandler: @escaping (String) -> Void,
+                                      completionHandler: @escaping CompletionHandler) {
+        let url = SuperStringUtil.netUrl(API_BLOG_URL + vipPurchaseSucceedsAPI, paramters)
+        
+        Alamofire.request(url, method: .post, parameters: paramters, encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
+            if let data = dataRequest.data {
+                let strData = String.init(data: data, encoding: String.Encoding.utf8)
+                print(strData!)
+                
+                if let data = dataRequest.data {
+                    let strData = String.init(data: data, encoding: String.Encoding.utf8)
+                    if let res = JsonTool.fromJson(strData!, toClass: BlogResponse.self) {
+                        
+                        if res.code == 20000  {
+                           valueHandler("scuccess")
+                        } else {
+                            completionHandler(res.code, res.message)
+                        }
+                        
+                    } else {
+                        completionHandler(-1, "Failure")
+                    }
+                }
+             
+            }
+        }
+    }
+    
+    
     static func addUserLanguage(uid: String) {
         
  
@@ -367,7 +428,7 @@ class YFMineNetViewModel: AccountViewModel {
                         
                         if res.code == 20000  {
                             let defaults = UserDefaults.standard
-                            defaults.set(String.getCurrentLanguageFirst(), forKey: "blogLanguage")
+                            defaults.set(String.getCurrentLanguageFirst(), forKey: "blogLanguage\(uid)")
                         }
                         
                     } else {
@@ -383,7 +444,7 @@ class YFMineNetViewModel: AccountViewModel {
         
 
             
-            let url = SuperStringUtil.netUrl(API_BLOG_URL + updateUserLanguageAPI, ["language":String.getCurrentLanguageFirst(), "userId": uid,"imToken":UserDefaults.standard.string(forKey: bussinessTokenKey)!])
+            let url = SuperStringUtil.netUrl(API_BLOG_URL + updateUserLanguageAPI, ["language":String.getCurrentLanguageFirst(), "userId": uid,"imToken":UserDefaults.standard.string(forKey: IMTokenKey)!])
             
             Alamofire.request(url, method: .post, encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
                 if let data = dataRequest.data {
@@ -392,7 +453,7 @@ class YFMineNetViewModel: AccountViewModel {
                         
                         if res.code == 20000  {
                             let defaults = UserDefaults.standard
-                            defaults.set(String.getCurrentLanguageFirst(), forKey: "blogLanguage")
+                            defaults.set(String.getCurrentLanguageFirst(), forKey: "blogLanguage\(uid)")
                         }
                         
                     } else {

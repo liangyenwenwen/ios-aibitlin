@@ -151,6 +151,7 @@ open class FriendListViewController: UIViewController {
                    
                 })
             }
+            
         }
         r.newGroupClick = { [weak self] in
             ApplicationStorage.lastGroupApplicationReadTime = ApplicationStorage.lastGroupApplicationTime

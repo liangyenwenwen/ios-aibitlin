@@ -358,7 +358,7 @@ extension MainTabViewController {
         
         let userDefaults = UserDefaults.standard
         
-        let currentLanuage = userDefaults.string(forKey: "blogLanguage")
+        let currentLanuage = userDefaults.string(forKey: "blogLanguage\(uid)")
         if currentLanuage != nil {
             YFMineNetViewModel.updateLanguage(uid: uid)
         }  else {

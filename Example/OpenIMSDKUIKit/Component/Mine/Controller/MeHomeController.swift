@@ -53,7 +53,8 @@ class MeHomeController: BaseLogicController {
         
 //        userIcon.showAvator(user?.faceURL)
         avatarImageView.setAvatar(url: user?.faceURL, text: user?.nickname)
-        username.text = user?.nickname
+        username.text = SuperStringUtil.getUserState(showname: (user?.nickname)!).n
+        tagLable.text = SuperStringUtil.getUserTag(showname: (user?.nickname)!)
         userID.text = user?.userID
     }
     
@@ -76,11 +77,11 @@ class MeHomeController: BaseLogicController {
         userMessageView.tg_width.equal(.fill)
         userMessageView.tg_height.equal(.wrap)
         userMessageView.tg_left.equal(14)
-        userMessageView.tg_space = PADDING_SMALL
+//        userMessageView.tg_space = PADDING_SMALL
         userView.addSubview(userMessageView)
         
         userMessageView.addSubview(username)
-        userMessageView.addSubview(usertag)
+        userMessageView.addSubview(tagLable)
         userMessageView.addSubview(userID)
         
         userView.addSubview(scanBtn)
@@ -112,11 +113,21 @@ class MeHomeController: BaseLogicController {
         return r
     }()
     
-    lazy var usertag : UserTagView = {
-       let r = UserTagView()
-        r.addThirdUI()
-        return r
-    }()
+//    lazy var usertag : UserTagView = {
+//       let r = UserTagView()
+//        r.addThirdUI()
+//        return r
+//    }()
+    
+    lazy var tagLable: UILabel = {
+            let v = UILabel()
+            v.font = UIFont(name: "PingFangSC-Semibold", size: 11)
+            v.textColor = .init(hexString: "#7238EF")
+            v.text = "[V4、\("企业".localized())、\("博客".localized())]".localized()
+        v.tg_width.equal(.wrap)
+        v.tg_height.equal(.wrap)
+            return v
+        }()
     
     lazy var userID: UILabel = {
         let r = ViewFactoryUtil.sectionTilteLbael()

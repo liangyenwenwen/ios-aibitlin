@@ -169,7 +169,7 @@ struct _R {
       var ieXW0yeText: RswiftResources.StringResource { .init(key: "8ie-xW-0ye.text", tableName: "LaunchScreen", source: source, developmentValue: nil, comment: nil) }
     }
 
-    /// This `_R.string.localizable` struct is generated, and contains static references to 446 localization keys.
+    /// This `_R.string.localizable` struct is generated, and contains static references to 448 localization keys.
     struct localizable {
       let source: RswiftResources.StringResource.Source
 
@@ -1545,7 +1545,7 @@ struct _R {
       /// Locales: en, th
       var 关注: RswiftResources.StringResource { .init(key: "关注", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: start following you
+      /// en translation: following you
       ///
       /// Key: 关注了你
       ///
@@ -1986,6 +1986,13 @@ struct _R {
       /// Locales: en, th
       var 已取消: RswiftResources.StringResource { .init(key: "已取消", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// en translation: Took Effect
+      ///
+      /// Key: 已生效
+      ///
+      /// Locales: en, th
+      var 已生效: RswiftResources.StringResource { .init(key: "已生效", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: Enable
       ///
       /// Key: 开启
@@ -2405,6 +2412,13 @@ struct _R {
       ///
       /// Locales: en, th
       var 永久有效: RswiftResources.StringResource { .init(key: "永久有效", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Permanent Effect
+      ///
+      /// Key: 永久生效
+      ///
+      /// Locales: en, th
+      var 永久生效: RswiftResources.StringResource { .init(key: "永久生效", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Chinese
       ///
