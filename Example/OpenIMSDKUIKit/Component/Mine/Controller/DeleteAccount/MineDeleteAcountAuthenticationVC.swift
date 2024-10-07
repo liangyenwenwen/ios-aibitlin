@@ -14,6 +14,8 @@ class MineDeleteAcountAuthenticationVC: BaseTitleController {
 
     var vcType: MyStyle = .usePhone
     
+    private var _areaCode = "+86"
+    
     override func initViews() {
         super.initViews()
         setBackGroundColor(.colorBackgroundAPP)
@@ -48,6 +50,8 @@ class MineDeleteAcountAuthenticationVC: BaseTitleController {
             title = R.string.localizable.deleteAccount()
             sectionLbl.text = R.string.localizable.pleaseFillIn()
             useTypeView.changePhoneEmail(true)
+            let tap = UITapGestureRecognizer(target: self, action: #selector(changePhoneArea))
+            useTypeView.phoneCodeView.addGestureRecognizer(tap)
             nextBtn.setTitle(R.string.localizable.nextStep(), for: .normal)
         case .useEmail:
             title = R.string.localizable.deleteAccount()
@@ -58,6 +62,8 @@ class MineDeleteAcountAuthenticationVC: BaseTitleController {
             title = R.string.localizable.phone()
             sectionLbl.text = R.string.localizable.pleaseFillIn()
             useTypeView.changePhoneEmail(true)
+            let tap = UITapGestureRecognizer(target: self, action: #selector(changePhoneArea))
+            useTypeView.phoneCodeView.addGestureRecognizer(tap)
             nextBtn.setTitle(R.string.localizable.nextStep(), for: .normal)
         case .changeEmail:
             title = R.string.localizable.email()
@@ -68,6 +74,8 @@ class MineDeleteAcountAuthenticationVC: BaseTitleController {
             title = "忘记密码".localized()
             sectionLbl.text = "请验证你的手机号".localized()
             useTypeView.changePhoneEmail(true)
+            let tap = UITapGestureRecognizer(target: self, action: #selector(changePhoneArea))
+            useTypeView.phoneCodeView.addGestureRecognizer(tap)
             nextBtn.setTitle(R.string.localizable.nextStep(), for: .normal)
         case .forgetPwdByEmail:
             title = "忘记密码".localized()
@@ -175,3 +183,23 @@ class MineDeleteAcountAuthenticationVC: BaseTitleController {
     }
     
 }
+
+extension MineDeleteAcountAuthenticationVC {
+    
+    @objc func changePhoneArea()  {
+        let alert = UIAlertController(style: .actionSheet, title: "")
+        alert.addLocalePicker(type: .phoneCode) {[weak self] info in
+            // action with selected object
+            guard let phoneCode = info?.phoneCode else {return}
+            self?._areaCode = phoneCode
+            self?.useTypeView.phoneCodeLbl.text = phoneCode
+        }
+        
+        alert.addAction(title: "cancel".localized(), style: .cancel)
+        self.present(alert, animated: true)
+    }
+    
+    
+}
+
+

@@ -583,6 +583,8 @@ SupportShortNumber = "Support setting a minimum %@-digit account ID";
 "永久生效" = "Permanent Effect";
 "已生效" = "Took Effect";
 
+"VIP等级不足" = "Insufficient VIP level";
+
 //"" = "";
 //"" = "";
 //"" = "";

@@ -23,13 +23,16 @@ class YFLoginVC: BaseLogicController {
     
     override func initViews() {
         super.initViews()
-        useType = .useEmail
+        useType =  AppDelegate.shared.isChine ? .usePhone : .useEmail
         initRelativeLayoutSafeArea()
         
         bindData()
         
         setBackGroundColor(.white)
         superHeaderContainerContainer.addSubview(chooseHeader)
+        
+        /// APP分离国内外
+        chooseHeader.hide()
         superHeaderContainerContainer.tg_height.equal(50)
         
         container.tg_padding = UIEdgeInsets(top: 0, left: PADDING_LARGE2, bottom: 0, right: PADDING_LARGE2)

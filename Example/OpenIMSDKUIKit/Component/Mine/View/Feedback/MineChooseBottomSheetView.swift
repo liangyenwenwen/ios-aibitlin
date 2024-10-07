@@ -216,9 +216,11 @@ class MineChooseBottomSheetView: TGLinearLayout {
     func addChatVCUI() {
         IMController.shared.getConversation(sessionType: .c2c, sourceId: userID!) { [weak self] (conversation: ConversationInfo?) in
             guard let conversation else { return }
-
+            
+            let userShowname = SuperStringUtil.getUserShowname(showname: conversation.showName ?? "")
+            
             self?.conversationInfo = conversation
-            self?.titleLbl.text = conversation.showName
+            self?.titleLbl.text = userShowname
             self?.tipslbl.text = "ID:\(String(describing: conversation.userID!))"
             self?.chatTopView?.superSwitch.isOn = conversation.isPinned
             print(conversation.conversationID)

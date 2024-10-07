@@ -44,6 +44,7 @@ class SuperStringUtil {
         return "error"
     }
     
+    /// 获取用户的信息  博客 公司 vip 名字
     static func getUserState(showname: String) -> UserState {
         guard let jsonData = showname.data(using: .utf8) else { return UserState(b: 0, e: 0, v: 0, n: showname)}
         do {
@@ -54,6 +55,11 @@ class SuperStringUtil {
         }
     }
     
+    static func getUserShowname(showname: String) -> String  {
+        let user = getUserState(showname: showname)
+        return user.n
+    }
+    /// 获取用户的tag
     static func getUserTag(showname: String) -> String? {
         guard let jsonData = showname.data(using: .utf8) else { return nil}
         do {

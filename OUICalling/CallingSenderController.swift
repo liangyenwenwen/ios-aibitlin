@@ -218,6 +218,7 @@ extension SignalViewController: RoomDelegate {
     
     func room(_ room: Room, participant: Participant, didUpdate publication: TrackPublication, muted: Bool) {
         print("\(#function) muted \(String(describing: participant.showName)) - \(publication.kind) status:\(!muted)")
+        
         if publication.kind == .video {
             DispatchQueue.main.async { [self] in
                 let participantUser = CallingUserInfo(userID: participant.identity, nickname: participant.showName, faceURL: participant.faceURL)

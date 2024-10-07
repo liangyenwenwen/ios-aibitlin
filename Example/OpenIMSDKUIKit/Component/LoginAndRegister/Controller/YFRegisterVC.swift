@@ -14,7 +14,7 @@ import TangramKit
 import UIKit
 import BSText
 
-class YFRegisterVC: BaseLogicController {
+class YFRegisterVC: BaseTitleController {
     /// 使用邮箱 或者手机号
     var useType: MyStyle = .useEmail
     
@@ -26,8 +26,11 @@ class YFRegisterVC: BaseLogicController {
         initRelativeLayoutSafeArea()
         
         setBackGroundColor(.white)
-        superHeaderContainerContainer.addSubview(chooseHeader)
-        superHeaderContainerContainer.tg_height.equal(50)
+//        setBackGroundColor(.white)
+//        superHeaderContainerContainer.addSubview(chooseHeader)
+//        /// APP分离国内外
+//        chooseHeader.hide()
+//        superHeaderContainerContainer.tg_height.equal(50)
         
         container.tg_padding = UIEdgeInsets(top: 0, left: PADDING_LARGE2, bottom: 0, right: PADDING_LARGE2)
         

@@ -35,11 +35,12 @@ class MineBokeStatisticsVC: BaseTitleController {
         container.addSubview(bokeBaseView)
         container.addSubview(bokeDescription)
         bokeDescription.tg_bottom.equal(14)
+        
         container.addSubview(bokeDataView)
         bokeDescription.tg_bottom.equal(10)
         container.addSubview(bokeChartView)
         container.addSubview(visitorView)
-        
+
         
         container.addSubview(trueBtn)
         
@@ -58,6 +59,8 @@ class MineBokeStatisticsVC: BaseTitleController {
         r.addSubview(bokeIcon)
         r.addSubview(bokeTitleAndStateView)
         r.addSubview(settingBtn)
+    
+        
         return r
     }()
     
@@ -109,6 +112,10 @@ class MineBokeStatisticsVC: BaseTitleController {
     lazy var settingBtn: UIButton = {
         let r = ViewFactoryUtil.imageBtn(R.image.mine_setting_icon()!, 20)
         r.addTarget(self, action: #selector(gotoSettingVC), for: .touchUpInside)
+        let rank = UserDefaults.standard.integer(forKey: "vipRank")
+        if rank < 3 {
+            r.hide()
+        }
         return r
     }()
     
@@ -190,27 +197,41 @@ class MineBokeStatisticsVC: BaseTitleController {
         r.titleLbl.text = "好友访客".localized()
         r.gotoVisitorBlock = { [weak self] in
             print("goto  Friends")
-            let vc = MineBokeVisitorListVC()
-            vc.vcType = .bokeVisitorFriend
-            vc.boke = self?.boke
-            vc.blogTime = self?.chooseTime
-//            vc.paramters = ["userId":self?.boke.userId, "userBlogId":self?.boke.id, "time": self?.chooseTime]
-            self?.navigationController?.pushViewController(vc)
+            
+            let rank = UserDefaults.standard.integer(forKey: "vipRank")
+            if rank > 0 {
+                let vc = MineBokeVisitorListVC()
+                vc.vcType = .bokeVisitorFriend
+                vc.boke = self?.boke
+                vc.blogTime = self?.chooseTime
+                self?.navigationController?.pushViewController(vc)
+            } else {
+                SuperToast.show(title: "VIP等级不足")
+            }
+            
         }
         return r
     }()
     
     lazy var strangerView:  bokeVisitorNumberView = {
+        
+        
         let r = bokeVisitorNumberView()
         r.titleLbl.text = "陌生人访客".localized()
         r.gotoVisitorBlock = { [weak self] in
             print("goto  strangers")
-            let vc = MineBokeVisitorListVC()
-            vc.vcType = .bokeVisitorStranger
-            vc.boke = self?.boke
-            vc.blogTime = self?.chooseTime
-//            vc.paramters = ["userId":self?.boke.userId, "userBlogId":self?.boke.id, "time": self?.chooseTime]
-            self?.navigationController?.pushViewController(MineBokeVisitorListVC())
+            
+            let rank = UserDefaults.standard.integer(forKey: "vipRank")
+            if rank > 1 {
+                let vc = MineBokeVisitorListVC()
+                vc.vcType = .bokeVisitorStranger
+                vc.boke = self?.boke
+                vc.blogTime = self?.chooseTime
+                self?.navigationController?.pushViewController(vc)
+            } else {
+                SuperToast.show(title: "VIP等级不足")
+            }
+           
         }
         return r
     }()

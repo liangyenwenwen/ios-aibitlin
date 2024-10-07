@@ -80,6 +80,7 @@ class MainTabViewController: UITabBarController {
 //        myNav.tabBarItem.selectedImage = UIImage.init(named: "TabMeSelected_1")
 //        controllers.append(myNav)
         
+//        MineViewController  MeHomeController
         let mineNav = NavigationController.init(rootViewController: MeHomeController())
         mineNav.tabBarItem.image = UIImage.init(named: "TabMeSelected_0")
         mineNav.tabBarItem.selectedImage = UIImage.init(named: "TabMeSelected_1")
@@ -130,6 +131,7 @@ class MainTabViewController: UITabBarController {
     }
     
     private func loginExsitAccount() {
+        
         IMController.shared.currentUserRelay.subscribe(onNext: { r in
             guard let r else { return }
             

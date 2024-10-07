@@ -2316,6 +2316,8 @@ public class FullUserInfo {
             
             return temp ?? _showName
         }
+        
+        
     }
     
     public init(userID: String = "", showName: String? = nil, faceURL: String? = nil) {

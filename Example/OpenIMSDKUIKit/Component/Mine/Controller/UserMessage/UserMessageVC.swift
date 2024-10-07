@@ -73,13 +73,15 @@ class UserMessageVC: BaseTitleController {
     
     func updataUI() {
         
-        userHeaderView.username.text = ConversationInfo?.showName
+        let userShowname = SuperStringUtil.getUserShowname(showname: ConversationInfo?.showName ?? "")
+        
+        userHeaderView.username.text = userShowname
         userHeaderView.userID.text = ConversationInfo?.userID
 //        userHeaderView.userIcon.show(ConversationInfo?.faceURL)
-        userHeaderView.avatarImageView.setAvatar(url: ConversationInfo?.faceURL, text: ConversationInfo?.showName)
+        userHeaderView.avatarImageView.setAvatar(url: ConversationInfo?.faceURL, text: userShowname)
         
-        sectionBlogTitleLbl.text = R.string.localizable.userBlog(ConversationInfo?.showName ?? "")
-        sectionMomentsTitleLbl.text = R.string.localizable.userMoments(ConversationInfo?.showName ?? "")
+        sectionBlogTitleLbl.text = R.string.localizable.userBlog(userShowname)
+        sectionMomentsTitleLbl.text = R.string.localizable.userMoments(userShowname)
         
         self.tableView.reloadData()
     }
@@ -345,6 +347,8 @@ extension UserMessageVC {
 //        
 //        return r
         
+        let userShowname = SuperStringUtil.getUserShowname(showname: ConversationInfo?.showName ?? "")
+        
         let r = tableViewSectionHeader()
         let sectionLbl = r.sectionView.viewWithTag(20001) as! UILabel
         if section == 0 {
@@ -352,7 +356,7 @@ extension UserMessageVC {
             r.sectionView.layer.maskedCorners  = [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner]
             sectionMomentsTitleLbl = sectionLbl
             if ConversationInfo != nil {
-                sectionLbl.text = R.string.localizable.userMoments(ConversationInfo?.showName ?? "")
+                sectionLbl.text = R.string.localizable.userMoments(userShowname)
             }
             let tap = UITapGestureRecognizer(target: self, action: #selector(gotoMoments))
             r.sectionView.addGestureRecognizer(tap)
@@ -365,7 +369,7 @@ extension UserMessageVC {
             
             sectionBlogTitleLbl = sectionLbl
             if ConversationInfo != nil {
-                sectionLbl.text = R.string.localizable.userBlog(ConversationInfo?.showName ?? "")
+                sectionLbl.text = R.string.localizable.userBlog(userShowname)
             }
             
             let tap = UITapGestureRecognizer(target: self, action: #selector(gotoBokeList))
@@ -377,11 +381,15 @@ extension UserMessageVC {
     
     
     @objc func gotoBokeList() {
+        
+        let userShowname = SuperStringUtil.getUserShowname(showname: ConversationInfo?.showName ?? "")
+        
         let vc = MineBokeListViewController()
         vc.vcType = .othersBlog
         vc.othersID = ConversationInfo?.userID
-        vc.othersName = ConversationInfo?.showName
+        vc.othersName = userShowname
         gotoController(vc)
+        
     }
     
     

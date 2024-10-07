@@ -227,8 +227,6 @@ class ChatTableViewCell: UITableViewCell {
 //        let array: [[String]] = [["006tNc79gy1g5fmoexlt6j30u00vxqrb.jpg", "006tNc79gy1g5fmofi07aj30u00uwqqk.jpg", "006tNc79gy1g5fln5crn5j30u00u00vh.jpg"]];
         
         
-        
-        
     }
 
     @available(*, unavailable)
@@ -272,7 +270,11 @@ extension ChatTableViewCell {
         }
         
         
-        titleLabel.text = item.showName!
+        let userStruct = SuperStringUtil.getUserState(showname: item.showName!)
+        titleLabel.text =  userStruct.n
+        
+        titleLabel.textColor = userStruct.v > 0 ? .init(hexString: "#FF3939") : .init(hexString: "#333333")
+        
         pinImageView.isHidden = !item.isPinned
         subtitleLabel.attributedText = MessageHelper.getAbstructOf(conversation: item, highlight: false)
         var unreadShouldHide: Bool = false
@@ -291,8 +293,13 @@ extension ChatTableViewCell {
         tagLable.isHidden = item.conversationType == .notification
         
         if item.conversationType == .c2c {
-            tagLable.text = "[\("企业".localized())]".localized()
-            tagLable.textColor = .init(hexString: "#7238EF")
+            if userStruct.e > 0 {
+                tagLable.text = "[\("企业".localized())]".localized()
+                tagLable.textColor = .init(hexString: "#7238EF")
+            } else {
+                tagLable.text = nil
+            }
+            
         } else {
             tagLable.text = "[\(4)]".localized()
             tagLable.textColor = .init(hexString: "#388CEF")

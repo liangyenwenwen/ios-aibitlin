@@ -52,10 +52,19 @@ class MeHomeController: BaseLogicController {
         let user = _viewModel.currentUserRelay.value
         
 //        userIcon.showAvator(user?.faceURL)
-        avatarImageView.setAvatar(url: user?.faceURL, text: user?.nickname)
-        username.text = SuperStringUtil.getUserState(showname: (user?.nickname)!).n
+        
+        let userState = SuperStringUtil.getUserState(showname: user?.nickname ?? "")
+        
+        avatarImageView.setAvatar(url: user?.faceURL, text: userState.n)
+        username.text = userState.n
         tagLable.text = SuperStringUtil.getUserTag(showname: (user?.nickname)!)
         userID.text = user?.userID
+        
+        let defaults = UserDefaults.standard
+        defaults.set(userState.v, forKey: "vipRank")
+//        defaults.set(0, forKey: "vipRank")
+//        defaults.integer(forKey: "vipRank")
+        
     }
     
     func addTopUserMessage() {
@@ -123,9 +132,10 @@ class MeHomeController: BaseLogicController {
             let v = UILabel()
             v.font = UIFont(name: "PingFangSC-Semibold", size: 11)
             v.textColor = .init(hexString: "#7238EF")
-            v.text = "[V4、\("企业".localized())、\("博客".localized())]".localized()
-        v.tg_width.equal(.wrap)
-        v.tg_height.equal(.wrap)
+//            v.text = "[V4、\("企业".localized())、\("博客".localized())]".localized()
+            v.text = nil
+            v.tg_width.equal(.wrap)
+            v.tg_height.equal(.wrap)
             return v
         }()
     
