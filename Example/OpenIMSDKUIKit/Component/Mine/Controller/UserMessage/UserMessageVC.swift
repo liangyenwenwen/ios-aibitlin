@@ -21,6 +21,7 @@ class UserMessageVC: BaseTitleController {
 
     var userID: String = ""
     var ConversationInfo: ConversationInfo?
+    var userInfo: QueryUserInfo?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -60,25 +61,56 @@ class UserMessageVC: BaseTitleController {
         superFooterContainer.backgroundColor = .colorSurface
         superFooterContainerContainer.addSubview(footerBtnView)
         
-        IMController.shared.getConversation(sessionType: .c2c, sourceId: userID) { [weak self] (conversation: ConversationInfo?) in
-            guard let conversation else { return }
-
-            self?.ConversationInfo = conversation
-            self?.updataUI()
-        }
-        
+//        IMController.shared.getConversation(sessionType: .c2c, sourceId: userID) { [weak self] (conversation: ConversationInfo?) in
+//            guard let conversation else { return }
+//
+//            self?.ConversationInfo = conversation
+//            self?.updataUI()
+//        }
+        getUserInfo()
         othersSeeMyBlog()
     }
     
     
+    func getUserInfo() {
+        
+//        IMController.shared.getUserInfo(uids: [userID], groupID: nil) { [self] users in
+//            guard let sdkUser = users.first else { return }
+//            userInfo = sdkUser
+//            
+//            print(userInfo?.showName)
+//            
+//            
+//        }
+        
+        AccountViewModel.queryUserInfo(userIDList: [userID],
+                                       valueHandler: { [weak self] (users: [QueryUserInfo]) in
+            guard let user: QueryUserInfo = users.first else { return }
+//            print(user.nickname, user.phoneNumber, user.email)
+            self?.userInfo = user
+            self?.updataUI()
+        }, completionHandler: {(errCode, errMsg) in
+            
+        })
+        
+    }
+    
     func updataUI() {
         
-        let userShowname = SuperStringUtil.getUserShowname(showname: ConversationInfo?.showName ?? "")
+        let user = SuperStringUtil.getUserState(showname: userInfo?.nickname ?? "")
+        
+        let userShowname = user.n
         
         userHeaderView.username.text = userShowname
-        userHeaderView.userID.text = ConversationInfo?.userID
+        userHeaderView.userID.text = userInfo?.chatID ?? ""
 //        userHeaderView.userIcon.show(ConversationInfo?.faceURL)
         userHeaderView.avatarImageView.setAvatar(url: ConversationInfo?.faceURL, text: userShowname)
+        if userInfo?.areaCode != nil {
+            userHeaderView.phoneView.contactLbl.text = userInfo!.areaCode! + userInfo!.phoneNumber!
+        }
+        userHeaderView.emailView.contactLbl.text = userInfo?.email
+        userHeaderView.tagLable.text = SuperStringUtil.getUserTag(showname: userInfo?.nickname ?? "")
+        userHeaderView.userIntroLbl.text = userInfo?.personalProfile
         
         sectionBlogTitleLbl.text = R.string.localizable.userBlog(userShowname)
         sectionMomentsTitleLbl.text = R.string.localizable.userMoments(userShowname)
@@ -347,7 +379,7 @@ extension UserMessageVC {
 //        
 //        return r
         
-        let userShowname = SuperStringUtil.getUserShowname(showname: ConversationInfo?.showName ?? "")
+        let userShowname = SuperStringUtil.getUserShowname(showname: userInfo?.nickname ?? "")
         
         let r = tableViewSectionHeader()
         let sectionLbl = r.sectionView.viewWithTag(20001) as! UILabel
@@ -355,7 +387,7 @@ extension UserMessageVC {
             
             r.sectionView.layer.maskedCorners  = [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner]
             sectionMomentsTitleLbl = sectionLbl
-            if ConversationInfo != nil {
+            if userInfo != nil {
                 sectionLbl.text = R.string.localizable.userMoments(userShowname)
             }
             let tap = UITapGestureRecognizer(target: self, action: #selector(gotoMoments))
@@ -368,7 +400,7 @@ extension UserMessageVC {
             }
             
             sectionBlogTitleLbl = sectionLbl
-            if ConversationInfo != nil {
+            if userInfo != nil {
                 sectionLbl.text = R.string.localizable.userBlog(userShowname)
             }
             

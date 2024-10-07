@@ -305,9 +305,28 @@ extension ChatTableViewCell {
             tagLable.textColor = .init(hexString: "#388CEF")
         }
         
+        if item.conversationType == .c2c {
+            updateNickName(userID: item.userID!)
+        }
+        
+    }
+    
+    func  updateNickName(userID: String) {
+        if let handler = OIMApi.getUserMessageHandle {
+            
+            handler(userID, {  [weak self]res in
+               print(res)
+                
+                let userStruct = SuperStringUtil.getUserState(showname: res)
+                
+                self?.titleLabel.textColor = userStruct.v > 0 ? .init(hexString: "#FF3939") : .init(hexString: "#333333")
+                
+            })
+        }
     }
     
 }
+
 
 
 

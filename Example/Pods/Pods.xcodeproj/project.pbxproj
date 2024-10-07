@@ -103,6 +103,7 @@
 		04C6CC182CB122F400E884CD /* SuperStringUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C6CC172CB122F400E884CD /* SuperStringUtil.swift */; };
 		04EDCC77AB5C96A7417C96281AD5AC61 /* ChatCollectionDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377C94EBA216D11D2B6942FD02D71A05 /* ChatCollectionDataSource.swift */; };
 		04F8E3A72CB37EE800CFC444 /* PermissionsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F8E3A62CB37EE800CFC444 /* PermissionsHelper.swift */; };
+		04F8E3A92CB3CFB900CFC444 /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F8E3A82CB3CFB900CFC444 /* HomeModel.swift */; };
 		04FD8181DA1BCBB43F2DB30EE98A4CD0 /* UIBezierPath+QMUI.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C34F07E08DAAE6B41D5D62E7FFA588 /* UIBezierPath+QMUI.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		0522898C5F8832531158B8FEB07F7ABA /* QMUIToastAnimator.h in Headers */ = {isa = PBXBuildFile; fileRef = B9835D889F2497FE21C62B8C5521D727 /* QMUIToastAnimator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0529F5E309FEF38A1C578FBC56EE042E /* SDImageIOCoder.h in Headers */ = {isa = PBXBuildFile; fileRef = C34D99C349DA0C86625FF15802CAAFBF /* SDImageIOCoder.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -4418,6 +4419,7 @@
 		04C6CC172CB122F400E884CD /* SuperStringUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperStringUtil.swift; sourceTree = "<group>"; };
 		04D43C16A21A73C995492938FC73072F /* save_button_icon@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "save_button_icon@3x.png"; sourceTree = "<group>"; };
 		04F8E3A62CB37EE800CFC444 /* PermissionsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsHelper.swift; sourceTree = "<group>"; };
+		04F8E3A82CB3CFB900CFC444 /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
 		05031A56EDAEF69B1FF799E84A599B81 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/AssetsLibrary.framework; sourceTree = DEVELOPER_DIR; };
 		052AFACB0D618BF8D724C171CE8E6783 /* R.swift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "R.swift-prefix.pch"; sourceTree = "<group>"; };
 		052FF8566338358C03A1B16B02D411FA /* BaseAnimationLayer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BaseAnimationLayer.swift; path = Sources/Private/CoreAnimation/Layers/BaseAnimationLayer.swift; sourceTree = "<group>"; };
@@ -14984,6 +14986,7 @@
 		F1AE029ADAEFDF9E61A130D5AB7D8F32 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				04F8E3A82CB3CFB900CFC444 /* HomeModel.swift */,
 				BF9FA27ECA1BAC64E2816BAEEF3D14A6 /* Caches.swift */,
 				1B2A050767A7E2110C109BD1BDFE37FE /* DataProviderDelegate.swift */,
 				5AE1C1675A1F64F7ED3730E7D84E8400 /* DefaultDataProvider.swift */,
@@ -19251,6 +19254,7 @@
 				0413868895ABA88E2428B47851CF4FC3 /* Message.swift in Sources */,
 				12D106C64706958104AAAFA53FFD0207 /* MetaDataCache.swift in Sources */,
 				83A189BDC700B445299E980984418617 /* ModifyNicknameViewController.swift in Sources */,
+				04F8E3A92CB3CFB900CFC444 /* HomeModel.swift in Sources */,
 				46C0E9A1CC8A60A161184599EDD935A6 /* MoreRecordsViewController.swift in Sources */,
 				A764C8A6CE49A72C56FF96D5200B49FC /* MultipleTextLineCell.swift in Sources */,
 				D13634D0410990D8A580C63CCE1B0064 /* NewFriendListViewController.swift in Sources */,

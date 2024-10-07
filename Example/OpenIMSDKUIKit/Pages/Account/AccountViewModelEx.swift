@@ -55,6 +55,16 @@ extension AccountViewModel {
             vc.gotoControllerFromRoot(YFChatNewFriendListVC.self)
         }
         
+        OIMApi.getUserMessageHandle = { (userID, completion: @escaping (String) -> Void) in
+            AccountViewModel.queryUserInfo(userIDList: [userID]) { users in
+                guard let user: QueryUserInfo = users.first else { return }
+                completion(user.nickname ?? "")
+            } completionHandler: { errCode, errMsg in
+                
+            }
+
+        }
+        
     }
     
     

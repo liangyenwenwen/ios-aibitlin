@@ -620,7 +620,7 @@ extension MessageInfo {
 //                if isMine {
 //                    str.append(NSAttributedString(string: msg, attributes: [.font: UIFont.f17, .foregroundColor: UIColor.white]))
 //                } else {
-                    str.append(NSAttributedString(string: msg, attributes: [.font: UIFont.f17, .foregroundColor: UIColor.init(hexString: "#333333")]))
+                    str.append(NSAttributedString(string: " " + msg, attributes: [.font: UIFont.f17, .foregroundColor: UIColor.init(hexString: "#333333")]))
 //                }
                 
             }

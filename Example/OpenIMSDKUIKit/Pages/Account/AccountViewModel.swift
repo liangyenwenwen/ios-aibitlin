@@ -337,10 +337,13 @@ open class AccountViewModel {
                                allowAddFriend: Int? = nil,
                                allowBeep: Int? = nil,
                                allowVibration: Int? = nil,
+                               chatID: String? = nil,
+                               personalProfile: String? = nil,
                                completionHandler: @escaping CompletionHandler)
     {
         let body = JsonTool.toJson(fromObject:
             UpdateUserInfoRequest(userID: userID,
+                                  chatID: chatID,
                                   phone: phone,
                                   faceURL: faceURL,
                                   nickname: nickname,
@@ -351,7 +354,9 @@ open class AccountViewModel {
                                   email: email,
                                   allowAddFriend: allowAddFriend,
                                   allowBeep: allowBeep,
-                                  allowVibration: allowVibration)).data(using: .utf8)
+                                  allowVibration: allowVibration,
+                                  personalProfile: personalProfile
+                                  )).data(using: .utf8)
         
         var req = try! URLRequest(url: API_BASE_URL + UpdateUserInfoAPI, method: .post)
         req.httpBody = body
@@ -362,6 +367,7 @@ open class AccountViewModel {
         
         
         Alamofire.request(req).responseString { (response: DataResponse<String>) in
+            
             switch response.result {
             case .success(let result):
                 if let res = JsonTool.fromJson(result, toClass: Response<UpdateUserInfoRequest>.self) {
@@ -397,7 +403,6 @@ open class AccountViewModel {
         Alamofire.request(req).responseString(encoding: .utf8) { (response: DataResponse<String>) in
             switch response.result {
             case .success(let result):
-//                print(YFNetworkUtils.getIPAddress() ?? "获取ip 失败")
                 if let res = JsonTool.fromJson(result, toClass: Response<QueryUserInfoData>.self) {
                     if res.errCode == 0 {
                         valueHandler(res.data!.users)
@@ -622,6 +627,7 @@ class QueryUserInfo: UpdateUserInfoRequest {}
 
 class UpdateUserInfoRequest: Codable {
     let userID: String?
+    let chatID: String?
     let account: String?
     let password: String?
     let level: Int?
@@ -640,8 +646,10 @@ class UpdateUserInfoRequest: Codable {
     let allowAddFriend: Int?
     let allowBeep: Int?
     let allowVibration: Int?
+    let personalProfile: String?
     
     init(userID: String? = nil,
+         chatID: String? = nil,
          phone: String? = nil,
          password: String? = nil,
          telephone: String? = nil,
@@ -658,9 +666,11 @@ class UpdateUserInfoRequest: Codable {
          allowAddFriend: Int? = nil,
          allowBeep: Int? = nil,
          allowVibration: Int? = nil,
-         forbidden: Int? = nil)
+         forbidden: Int? = nil,
+         personalProfile: String? = nil)
     {
         self.areaCode = areaCode
+        self.chatID = chatID
         self.telephone = telephone
         self.password = password?.md5()
         self.phoneNumber = phone
@@ -678,8 +688,10 @@ class UpdateUserInfoRequest: Codable {
         self.allowBeep = allowBeep
         self.allowVibration = allowVibration
         self.forbidden = forbidden
+        self.personalProfile = personalProfile
     }
 }
+
 
 class ChangePasswordRequest: Encodable {
     private let userID: String

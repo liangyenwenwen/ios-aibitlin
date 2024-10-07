@@ -22,6 +22,9 @@ public typealias showChatVCShoeethandle = ((_ currentVC: UIViewController, _  us
 public typealias gotoSystemSettingHandle = ((_ currentVC: UIViewController, _  userID: String, _ completion: @escaping ((String) -> Void)) -> Void)
 public typealias addFriendhandle = ((_ currentVC: UIViewController, _  userID: String, _ completion: @escaping ((String) -> Void)) -> Void)
 
+
+public typealias getUserMessageHandle = ((_  userID: String, _ completion: @escaping ((String) -> Void)) -> Void)
+
 // MARK: - 张亚飞打的标记  更新会话的ex
 public typealias updateConversationEx = ((_ conversationEx : String, _ completion: @escaping ((String) -> Void)) -> Void)
 
@@ -171,6 +174,8 @@ public class OIMApi {
     public static var gotoSystemSettingHandle: gotoSystemSettingHandle?
     public static var addFriendhandle: addFriendhandle?
     public static var updateConversationEx: updateConversationEx?
+    
+    public static var getUserMessageHandle: getUserMessageHandle?
     
     public static var updateConversationCell: updateConversationCell?
     public static var reloadCollectionView: reloadCollectionView?

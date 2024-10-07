@@ -205,6 +205,7 @@ class SuperSettingView: TGLinearLayout {
     lazy var changeIcon: UIImageView = {
         let r = ViewFactoryUtil.cornerImgView(R.image.defaultAvatar()!, 40)
         r.hide()
+        r.corner(20)
         r.addSubview(avatarImageView)
         r.contentMode = .scaleAspectFill
         return r
@@ -213,10 +214,10 @@ class SuperSettingView: TGLinearLayout {
     lazy var avatarImageView: AvatarView = {
         let v = AvatarView()
         v.size = 40
-        v.corner(22)
+        v.corner(20)
         v.border(.white)
-        v.tg_top.equal(PADDING_OUTER)
-        v.tg_left.equal(PADDING_SMALL)
+        v.tg_top.equal(0)
+        v.tg_left.equal(0)
         v.tg_width.equal(40)
         v.tg_height.equal(40)
         return v

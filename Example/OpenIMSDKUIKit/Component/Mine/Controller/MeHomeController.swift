@@ -58,7 +58,7 @@ class MeHomeController: BaseLogicController {
         avatarImageView.setAvatar(url: user?.faceURL, text: userState.n)
         username.text = userState.n
         tagLable.text = SuperStringUtil.getUserTag(showname: (user?.nickname)!)
-        userID.text = user?.userID
+        userID.text = user?.chatID
         
         let defaults = UserDefaults.standard
         defaults.set(userState.v, forKey: "vipRank")

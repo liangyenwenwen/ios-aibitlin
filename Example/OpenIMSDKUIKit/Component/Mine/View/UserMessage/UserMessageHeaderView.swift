@@ -89,7 +89,7 @@ class UserMessageHeaderView: TGLinearLayout {
     
     
     lazy var username: UILabel = {
-        let r = ViewFactoryUtil.customBoldTilteLable("荷包蛋小朋友", font: TEXT_LARGE4)
+        let r = ViewFactoryUtil.customBoldTilteLable("", font: TEXT_LARGE4)
         return r
     }()
     
@@ -103,7 +103,7 @@ class UserMessageHeaderView: TGLinearLayout {
             let v = UILabel()
             v.font = UIFont(name: "PingFangSC-Semibold", size: 11)
             v.textColor = .init(hexString: "#7238EF")
-            v.text = "[V4、\("企业".localized())、\("博客".localized())]".localized()
+            v.text = nil
         v.tg_width.equal(.wrap)
         v.tg_height.equal(.wrap)
             return v
@@ -119,7 +119,7 @@ class UserMessageHeaderView: TGLinearLayout {
         let r = UserMessageContactView()
         r.tg_width.equal(.fill)
         r.tg_height.equal(.wrap)
-        r.bindData(data: "+86 17681117999")
+        r.bindData(data: "")
         return r
     }()
 
@@ -127,13 +127,14 @@ class UserMessageHeaderView: TGLinearLayout {
         let r = UserMessageContactView()
         r.tg_width.equal(.fill)
         r.tg_height.equal(.wrap)
-        r.bindData(data: "asdwasd111111@gmail.com", isPhone: false)
+        r.bindData(data: "", isPhone: false)
         return r
     }()
     
     lazy var userIntroLbl: UILabel = {
-        let r = ViewFactoryUtil.sectionTilteLbael("梦想是一个人，带上狗狗，驾车环游世界，记录旅途中的美好生活，感受世界的美好。欢迎大家关注我的Ins：Richenda0728")
+        let r = ViewFactoryUtil.sectionTilteLbael("梦想是一个人，带上狗狗，驾车环游世界，记录旅途中的美好生活，感受世界的美好。欢迎大家关注我的")
         r.lineSpace(10)
+        r.text = nil
         r.textColor = .colorOnBackground
         return r
     }()

@@ -307,6 +307,7 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
         _tableView.rx.modelSelected(ConversationInfo.self).subscribe(onNext: { [weak self] (conversation: ConversationInfo) in
             
             self?.toChat(conversation: conversation)
+            
         }).disposed(by: _disposeBag)
 
         _viewModel.loginUserPublish.subscribe(onNext: { [weak self] (userInfo: UserInfo?) in
@@ -415,7 +416,7 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
         var count = 0
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
             
-                if count % 5 == 0 {
+                if count % 50 == 0 {
                     self._tableView.reloadData()
                 }
             

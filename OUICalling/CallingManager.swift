@@ -689,6 +689,7 @@ public class CallRecord: Codable {
     public var date: Int = 0
     public var duration: Int = 0
     public var isSingnal: Bool = true
+    public var isChoose: Bool = false
     
     public func typeStr() -> String {
         return type == "audio" ? "语音通话".innerLocalized() : "视频通话".innerLocalized()

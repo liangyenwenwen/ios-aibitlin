@@ -136,9 +136,9 @@ class MainTabViewController: UITabBarController {
     private func setText() {
         viewControllers?[0].tabBarItem.title = "消息".localized()
         viewControllers?[1].tabBarItem.title = "通讯录".localized()
-        viewControllers?[1].tabBarItem.title = "通讯录".localized()
-        viewControllers?[2].tabBarItem.title = "我的".localized()
-        viewControllers?[3].tabBarItem.title = "工具箱".localized()
+        viewControllers?[2].tabBarItem.title = "通讯录".localized()
+        viewControllers?[3].tabBarItem.title = "我的".localized()
+        viewControllers?[4].tabBarItem.title = "工具箱".localized()
     }
     
     private func loginExsitAccount() {

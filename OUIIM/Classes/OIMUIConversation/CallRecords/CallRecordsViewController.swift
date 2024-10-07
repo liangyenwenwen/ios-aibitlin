@@ -95,13 +95,27 @@ open class CallRecordsViewController: UIViewController {
             v.distribution = .fillEqually
             return v
         }()
-
-        tableView.tableHeaderView = btnStackView
-        tableView.tableFooterView = UIView()
         
+
+//        tableView.tableHeaderView = btnStackView
+      
+        btnStackView.backgroundColor = .white
+        view.addSubview(btnStackView)
+        btnStackView.snp.makeConstraints { make in
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
+            make.height.equalTo(44)
+        }
+        
+        tableView.tableFooterView = UIView()
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+//            make.edges.equalToSuperview()
+            make.bottom.equalToSuperview()
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
+            make.top.equalTo(btnStackView.snp_bottom)
         }
     }
 
@@ -202,6 +216,23 @@ extension CallRecordsViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+//        tableView.deselectRow(at: indexPath, animated: true)
+//                // 创建UIAlertController
+//                let alertController = UIAlertController(title: "Title", message: "Your message here", preferredStyle: .alert)
+//                
+//                // 创建UIAlertAction，用于处理点击气泡按钮的事件
+//                let okAction = UIAlertAction(title: "OK", style: .default, handler: { _ in
+//                    // 点击OK后的处理
+//                })
+//                
+//                alertController.addAction(okAction)
+//                
+//                // 显示UIAlertController
+//                present(alertController, animated: true, completion: nil)
+        
+//        tableView.reloadRows(at: [indexPath], with: .automatic)
+        
         let record = _viewModel.items.value[indexPath.row]
         
 #if ENABLE_LIVE_ROOM
@@ -221,9 +252,14 @@ extension CallRecordsViewController: UITableViewDelegate, UITableViewDataSource 
         if record is CallRecord {
             // 吊起拨打电话界面
             startCalling(record: record as! CallRecord)
+//            let temp = record as! CallRecord
+//            temp.type = "video" "audio"
         } else {
             
         }
     }
+    
+    
+    
 }
 #endif

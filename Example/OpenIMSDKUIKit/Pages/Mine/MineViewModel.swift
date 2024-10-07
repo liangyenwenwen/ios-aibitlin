@@ -19,10 +19,10 @@ class MineViewModel {
     }
     
     func queryUserInfo() {
-        if let IMUser = IMController.shared.currentUserRelay.value {
-            let u = QueryUserInfo(userID: IMUser.userID, faceURL: IMUser.faceURL, nickname: IMUser.nickname)
-            currentUserRelay.accept(u)
-        }
+//        if let IMUser = IMController.shared.currentUserRelay.value {
+//            let u = QueryUserInfo(userID: IMUser.userID, faceURL: IMUser.faceURL, nickname: IMUser.nickname)
+//            currentUserRelay.accept(u)
+//        }
         guard let userID = AccountViewModel.userID else { return }
         
         AccountViewModel.queryUserInfo(userIDList: [userID],
@@ -40,6 +40,14 @@ class MineViewModel {
     func updateNickname(_ name: String, completion: @escaping CallBack.ErrorOptionalReturnVoid) {
         AccountViewModel.updateUserInfo(userID: IMController.shared.uid, nickname: name, completionHandler: completion)
     }
+    
+    func updateChatID(_ chatID: String, completion: @escaping CallBack.ErrorOptionalReturnVoid) {
+        AccountViewModel.updateUserInfo(userID: IMController.shared.uid, chatID: chatID, completionHandler: completion)
+    }
+    func updateIntro(_ intro: String, completion: @escaping CallBack.ErrorOptionalReturnVoid) {
+        AccountViewModel.updateUserInfo(userID: IMController.shared.uid, personalProfile: intro, completionHandler: completion)
+    }
+    
 
     func updateBirthday(timeStampSeconds: Int, completion: @escaping CallBack.ErrorOptionalReturnVoid) {
         AccountViewModel.updateUserInfo(userID: IMController.shared.uid, birth: timeStampSeconds * 1000, completionHandler: completion)

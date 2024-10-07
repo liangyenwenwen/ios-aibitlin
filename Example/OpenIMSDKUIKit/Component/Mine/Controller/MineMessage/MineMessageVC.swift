@@ -59,10 +59,13 @@ class MineMessageVC: BaseTitleController {
         
         let user = _viewModel.currentUserRelay.value
         
-        userNicknameView.contentLbl.text = user?.nickname
+        userNicknameView.contentLbl.text = SuperStringUtil.getUserShowname(showname: user?.nickname ?? "")
         userIconView.changeIcon.show(user?.faceURL)
+//        userIconView.changeIcon.hide()
         userIconView.avatarImageView.setAvatar(url: user?.faceURL, text: user?.nickname)
-        userIDView.contentLbl.text = user?.userID
+        userIconView.avatarImageView.corner(20)
+        userIDView.contentLbl.text = user?.chatID
+        introView.contentLbl.text  = user?.personalProfile
     }
     
     lazy var accountMessageView: TGLinearLayout = {
@@ -190,6 +193,11 @@ class MineMessageVC: BaseTitleController {
         switch changeType {
         case .nickname:
             changeNickName(data)
+        case .userID:
+            changeChatID(data)
+        case .userIntro:
+            changeIntro(data)
+            break
         default:
             break;
         }
@@ -200,9 +208,40 @@ class MineMessageVC: BaseTitleController {
  
         ProgressHUD.animate()
         self._viewModel.updateNickname(data!) { [weak self] code, msg in
+            ProgressHUD.dismiss()
             if code == 0 {
-                self?.userNicknameView.textFieldView.text = data
-                ProgressHUD.dismiss()
+                self?.userNicknameView.contentLbl.text = data
+                
+            } else {
+                ProgressHUD.error(msg)
+            }
+  
+        }
+    }
+    
+    func changeChatID(_ data: String?) {
+ 
+        ProgressHUD.animate()
+        self._viewModel.updateChatID(data!) { [weak self] code, msg in
+            ProgressHUD.dismiss()
+            if code == 0 {
+                self?.userIDView.contentLbl.text = data
+                
+            } else {
+                ProgressHUD.error(msg)
+            }
+  
+        }
+    }
+    
+    func changeIntro(_ data: String?) {
+ 
+        ProgressHUD.animate()
+        self._viewModel.updateIntro(data!) { [weak self] code, msg in
+            ProgressHUD.dismiss()
+            if code == 0 {
+                self?.introView.contentLbl.text = data
+                print("++++++++++")
             } else {
                 ProgressHUD.error(msg)
             }
