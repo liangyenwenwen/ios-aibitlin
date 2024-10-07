@@ -604,10 +604,10 @@ extension MessageInfo {
             let imageAttachment = NSTextAttachment()
             
             if isMine {
-                imageAttachment.image = UIImage(named: isVideo ? "chat_voice_0" : "chat_video_0")
+                imageAttachment.image = UIImage(named: !isVideo ? "chat_voice_1" : "chat_video_1")
                 imageAttachment.bounds = CGRect(x: 0, y: -3, width: 18, height: 18)
             } else {
-                imageAttachment.image = UIImage(named: isVideo ? "chat_voice_1" : "chat_video_1")
+                imageAttachment.image = UIImage(named: !isVideo ? "chat_voice_1" : "chat_video_1")
                 imageAttachment.bounds = CGRect(x: 0, y: -3, width: 18, height: 18)
             }
             
@@ -617,11 +617,11 @@ extension MessageInfo {
             
             if let msg = value["msg"] as? String {
                 
-                if isMine {
-                    str.append(NSAttributedString(string: msg, attributes: [.font: UIFont.f17, .foregroundColor: UIColor.white]))
-                } else {
+//                if isMine {
+//                    str.append(NSAttributedString(string: msg, attributes: [.font: UIFont.f17, .foregroundColor: UIColor.white]))
+//                } else {
                     str.append(NSAttributedString(string: msg, attributes: [.font: UIFont.f17, .foregroundColor: UIColor.init(hexString: "#333333")]))
-                }
+//                }
                 
             }
             

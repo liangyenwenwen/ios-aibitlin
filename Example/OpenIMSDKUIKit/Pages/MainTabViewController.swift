@@ -27,7 +27,9 @@ class MainTabViewController: UITabBarController {
     private let _disposeBag = DisposeBag()
     var lastTabBarItemTag: Int = 0
     var lastTabBarItemSelectedTime: Date?
+//    private let callRecordsViewController = CallRecordsViewController()
     private let conversationViewController = ChatListViewController()
+//    private let CallRecordsViewController = CallRecordsViewController()
     private lazy var _moreView: TabMoreView = {
         let v = TabMoreView()
         return v
@@ -53,6 +55,14 @@ class MainTabViewController: UITabBarController {
             return badge
         }).bind(to: chatNav.tabBarItem.rx.badgeValue).disposed(by: _disposeBag)
         
+        
+//        CallRecordsViewController
+        ///通话记录
+        let recordsVC = CallRecordsViewController()
+        let recordsNav = NavigationController.init(rootViewController: recordsVC)
+        recordsNav.tabBarItem.image = UIImage.init(named: "TabContactSelected_0")
+        recordsNav.tabBarItem.selectedImage = UIImage.init(named: "TabContactSelected_1")
+        controllers.append(recordsNav)
         
 //        let vc = FriendListViewController()
 //        vc.hidesBottomBarWhenPushed = true
@@ -125,6 +135,7 @@ class MainTabViewController: UITabBarController {
     @objc
     private func setText() {
         viewControllers?[0].tabBarItem.title = "消息".localized()
+        viewControllers?[1].tabBarItem.title = "通讯录".localized()
         viewControllers?[1].tabBarItem.title = "通讯录".localized()
         viewControllers?[2].tabBarItem.title = "我的".localized()
         viewControllers?[3].tabBarItem.title = "工具箱".localized()
@@ -380,20 +391,20 @@ extension MainTabViewController: UITabBarControllerDelegate {
     
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
         
-        if viewController == viewControllers?[2] {
-            tabBar.backgroundColor = .black183
+//        if viewController == viewControllers?[2] {
+//            tabBar.backgroundColor = .black183
 //            let appearance = tabBar.standardAppearance.copy()
 //            appearance.backgroundImage = UIImage.getImageAboutColor(color: .clear)
 //            appearance.shadowImage = UIImage.getImageAboutColor(color: .clear)
 //            tabBar.standardAppearance = appearance
-        } else  {
-            tabBar.backgroundColor = .white
-        }
+//        } else  {
+//            tabBar.backgroundColor = .white
+//        }
         
         
         
         
-        if viewController == viewControllers?[3] {
+        if viewController == viewControllers?[4] {
             
             if !view.subviews.contains(_moreView) {
                 

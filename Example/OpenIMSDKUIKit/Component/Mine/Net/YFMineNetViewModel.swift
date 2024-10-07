@@ -12,6 +12,7 @@ import OUICore
 import ProgressHUD
 import RxSwift
 import Network
+import ProgressHUD
 
 class YFMineNetViewModel: AccountViewModel {
     
@@ -53,6 +54,9 @@ class YFMineNetViewModel: AccountViewModel {
                           userBlogIntro: String?,
                           completionHandler: @escaping CompletionHandler) {
         
+        ProgressHUD.animate()
+        
+        
         let body = JsonTool.toJson(fromObject: BlogAuditRequest(userId: userId, userBlogUrl: userBlogUrl, userBlogIcon: userBlogIcon, userBlogName: userBlogName, userBlogIntro: userBlogIntro)).data(using: .utf8)
         
         
@@ -63,6 +67,9 @@ class YFMineNetViewModel: AccountViewModel {
         
         
         Alamofire.request(req).responseString { (response: DataResponse<String>) in
+            
+            ProgressHUD.dismiss()
+            
             switch response.result {
             case .success(let result):
                 if let res = JsonTool.fromJson(result, toClass: BlogResponse.self) {
@@ -90,11 +97,16 @@ class YFMineNetViewModel: AccountViewModel {
                          valueHandler: @escaping ([blogDetailItem]) -> Void,
                          completionHandler: @escaping CompletionHandler) {
         
+        ProgressHUD.animate()
+        
         let body = JsonTool.toJson(fromObject: MineBlogRequest(userId: userId)).data(using: .utf8)
         var req = try! URLRequest(url: API_BLOG_URL + ShowMyMyBlogsAPI + "?userId=\(userId!)", method: .post, headers: httpHeaders)
         req.httpBody = body
 
         Alamofire.request(req).responseJSON { dataRequest in
+            
+            ProgressHUD.dismiss()
+            
             if let data = dataRequest.data {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 print(strData!)
@@ -117,11 +129,16 @@ class YFMineNetViewModel: AccountViewModel {
                          valueHandler: @escaping ([blogDetailItem]) -> Void,
                          completionHandler: @escaping CompletionHandler) {
         
+        ProgressHUD.animate()
+        
         let body = JsonTool.toJson(fromObject: MineBlogRequest(userId: userId)).data(using: .utf8)
         var req = try! URLRequest(url: API_BLOG_URL + otherSeeMyBlogAPI + "?userId=\(userId!)", method: .post, headers: httpHeaders)
         req.httpBody = body
 
         Alamofire.request(req).responseJSON { dataRequest in
+            
+            ProgressHUD.dismiss()
+            
             if let data = dataRequest.data {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 print(strData!)
@@ -140,10 +157,13 @@ class YFMineNetViewModel: AccountViewModel {
     }
     
     static func blogTop(paramters:Parameters, completionHandler: @escaping CompletionHandler) {
+        ProgressHUD.animate()
         
         let url = SuperStringUtil.netUrl(API_BLOG_URL + blogTopAPI, paramters)
         print(url)
         Alamofire.request(url, method: .post, headers: httpHeaders).responseJSON { dataRequest in
+            
+            ProgressHUD.dismiss()
             
             if let data = dataRequest.data {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
@@ -216,9 +236,14 @@ class YFMineNetViewModel: AccountViewModel {
     }
     
     static func editBlog(paramters:Parameters, completionHandler: @escaping CompletionHandler) {
+        
+        ProgressHUD.animate()
+        
         let url = API_BLOG_URL + updateWaitAuditAutoAPI
-        print(paramters)
         Alamofire.request(url, method: .post, parameters: paramters, encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
+            
+            ProgressHUD.dismiss()
+            
             if let data = dataRequest.data {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 print(strData!)
@@ -237,12 +262,16 @@ class YFMineNetViewModel: AccountViewModel {
     }
     
     static func deleteBlog(paramters:Parameters, completionHandler: @escaping CompletionHandler) {
+        
+        ProgressHUD.animate()
+        
         let url = SuperStringUtil.netUrl(API_BLOG_URL + deleteBlogAPI, paramters)
-        print(paramters)
         Alamofire.request(url, method: .post, parameters: paramters, encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
+            
+            ProgressHUD.dismiss()
+            
             if let data = dataRequest.data {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
-                print(strData!)
                 if let res = JsonTool.fromJson(strData!, toClass: BlogResponse.self) {
 
                     if res.code == 20000  {
@@ -260,9 +289,14 @@ class YFMineNetViewModel: AccountViewModel {
     static func queryShowBlogsSurvey(paramters:Parameters,
                                      valueHandler: @escaping (BlogSurveyData?) -> Void,
                                      completionHandler: @escaping CompletionHandler) {
+        
+        ProgressHUD.animate()
+        
         let url = SuperStringUtil.netUrl(API_BLOG_URL + queryShowBlogsSurveyAPI, paramters)
-        print(paramters)
         Alamofire.request(url, method: .post, parameters: paramters, encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
+            
+            ProgressHUD.dismiss()
+            
             if let data = dataRequest.data {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 print(strData!)
@@ -284,9 +318,14 @@ class YFMineNetViewModel: AccountViewModel {
     static func queryShowBlogsSurveyOneDay(paramters:Parameters,
                                            valueHandler: @escaping (blogOneDayNumber?) -> Void,
                                            completionHandler: @escaping CompletionHandler) {
-        print(paramters)
+        
+        ProgressHUD.animate()
+        
         let url = SuperStringUtil.netUrl(API_BLOG_URL + queryShowBlogsSurveyOneDayAPI, paramters)
         Alamofire.request(url, method: .post, parameters: paramters, encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
+            
+            ProgressHUD.dismiss()
+            
             if let data = dataRequest.data {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 print(strData!)
@@ -308,11 +347,15 @@ class YFMineNetViewModel: AccountViewModel {
     static func queryShowBlogsSurveyFriends(paramters:Parameters,
                                            valueHandler: @escaping ([BlogVisitorListModel]) -> Void,
                                            completionHandler: @escaping CompletionHandler) {
-        print(paramters)
+        
+        ProgressHUD.animate()
         let url = SuperStringUtil.netUrl(API_BLOG_URL + queryShowBlogsSurveyFriendsAPI, paramters)
         
         Alamofire.request(url, method: .post, parameters: nil, encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
+            
+            ProgressHUD.dismiss()
             if let data = dataRequest.data {
+                
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 print(strData!)
                 if let res = JsonTool.fromJson(strData!, toClass: BlogListResponse<[BlogVisitorListModel]>.self) {
@@ -333,10 +376,14 @@ class YFMineNetViewModel: AccountViewModel {
     static func queryShowBlogsSurveyStranger(paramters:Parameters,
                                            valueHandler: @escaping ([BlogVisitorListModel]) -> Void,
                                            completionHandler: @escaping CompletionHandler) {
-        print(paramters)
+        ProgressHUD.animate()
+        
         let url = SuperStringUtil.netUrl(API_BLOG_URL + queryShowBlogsSurveyStrangerAPI, paramters)
         
         Alamofire.request(url, method: .post, parameters: nil, encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
+            
+            ProgressHUD.dismiss()
+            
             if let data = dataRequest.data {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 print(strData!)
@@ -359,9 +406,15 @@ class YFMineNetViewModel: AccountViewModel {
     static func vipPurchaseInitialize(paramters:Parameters,
                                       valueHandler: @escaping (String) -> Void,
                                       completionHandler: @escaping CompletionHandler) {
+        
+        ProgressHUD.animate()
+        
         let url = SuperStringUtil.netUrl(API_BLOG_URL + vipPurchaseInitializeAPI, paramters)
     
         Alamofire.request(url, method: .post, parameters: nil, encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
+            
+            ProgressHUD.dismiss()
+            
             if let data = dataRequest.data {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 print(strData!)
@@ -387,6 +440,9 @@ class YFMineNetViewModel: AccountViewModel {
     static func vipPurchaseSucceeds(paramters:Parameters,
                                       valueHandler: @escaping (String) -> Void,
                                       completionHandler: @escaping CompletionHandler) {
+        
+        ProgressHUD.animate()
+        
         let url = SuperStringUtil.netUrl(API_BLOG_URL + vipPurchaseSucceedsAPI, paramters)
         
         Alamofire.request(url, method: .post, parameters: paramters, encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
@@ -394,6 +450,7 @@ class YFMineNetViewModel: AccountViewModel {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 print(strData!)
                 
+                ProgressHUD.dismiss()
                 if let data = dataRequest.data {
                     let strData = String.init(data: data, encoding: String.Encoding.utf8)
                     if let res = JsonTool.fromJson(strData!, toClass: BlogResponse.self) {
@@ -415,6 +472,7 @@ class YFMineNetViewModel: AccountViewModel {
     
     
     static func addUserLanguage(uid: String) {
+        
         
  
         let url = SuperStringUtil.netUrl(API_BLOG_URL + addUserLanguageAPI, ["language":String.getCurrentLanguageFirst(), "userId": uid, "imToken":UserDefaults.standard.string(forKey: bussinessTokenKey)!])
@@ -442,25 +500,26 @@ class YFMineNetViewModel: AccountViewModel {
     
     static func updateLanguage(uid: String) {
         
-           
-            
-            let url = SuperStringUtil.netUrl(API_BLOG_URL + updateUserLanguageAPI, ["language":String.getCurrentLanguageFirst(), "userId": uid,"imToken":UserDefaults.standard.string(forKey: bussinessTokenKey)!])
-            
-            Alamofire.request(url, method: .post, encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
-                if let data = dataRequest.data {
-                    let strData = String.init(data: data, encoding: String.Encoding.utf8)
-                    if let res = JsonTool.fromJson(strData!, toClass: BlogResponse.self) {
-                        
-                        if res.code == 20000  {
-                            let defaults = UserDefaults.standard
-                            defaults.set(String.getCurrentLanguageFirst(), forKey: "blogLanguage\(uid)")
-                        }
-                        
-                    } else {
-                       
+        
+        
+        
+        let url = SuperStringUtil.netUrl(API_BLOG_URL + updateUserLanguageAPI, ["language":String.getCurrentLanguageFirst(), "userId": uid,"imToken":UserDefaults.standard.string(forKey: bussinessTokenKey)!])
+        
+        Alamofire.request(url, method: .post, encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
+            if let data = dataRequest.data {
+                let strData = String.init(data: data, encoding: String.Encoding.utf8)
+                if let res = JsonTool.fromJson(strData!, toClass: BlogResponse.self) {
+                    
+                    if res.code == 20000  {
+                        let defaults = UserDefaults.standard
+                        defaults.set(String.getCurrentLanguageFirst(), forKey: "blogLanguage\(uid)")
                     }
+                    
+                } else {
+                   
                 }
             }
+        }
     
         
     }

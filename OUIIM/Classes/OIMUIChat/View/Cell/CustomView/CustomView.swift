@@ -36,6 +36,13 @@ final class CustomView: UIView, ContainerCollectionViewCellDelegate {
         return v
     }()
 
+    lazy var bubbleImg: UIImageView = {
+        let r = UIImageView()
+        var image = UIImage.init(named: "chat_bubble_right")!.resizableImage(withCapInsets: UIEdgeInsets(top: 21, left: 21, bottom: 21, right: 21), resizingMode: .stretch)
+        r.image = image
+        return r
+    }()
+    
     private var controller: CustomViewController?
 
     private var textViewWidthConstraint: NSLayoutConstraint?
@@ -79,7 +86,7 @@ final class CustomView: UIView, ContainerCollectionViewCellDelegate {
         }
         
         
-        backgroundColor = controller.messageType == .incoming ? .init(hexString: "#EAEAEA") : .init(hexString: "#388CEF")
+//        backgroundColor = controller.messageType == .incoming ? .init(hexString: "#EAEAEA") : .init(hexString: "#388CEF")
         
         if controller.highlight {
             UIView.animate(withDuration: 1, animations: { [self] in
@@ -91,6 +98,7 @@ final class CustomView: UIView, ContainerCollectionViewCellDelegate {
             }
         }
         
+        bubbleImg.image = UIImage.init(named:controller.type == .outgoing ? "chat_bubble_right" : "chat_bubble_left")!.resizableImage(withCapInsets: UIEdgeInsets(top: 21, left: 21, bottom: 21, right: 21), resizingMode: .stretch)
         
         
     }
@@ -99,6 +107,11 @@ final class CustomView: UIView, ContainerCollectionViewCellDelegate {
         layoutMargins = .zero
         translatesAutoresizingMaskIntoConstraints = false
         insetsLayoutMarginsFromSafeArea = false
+        
+        addSubview(bubbleImg)
+        bubbleImg.snp.makeConstraints { make in
+            make.leading.trailing.top.bottom.equalToSuperview()
+        }
         
         addSubview(textView)
         NSLayoutConstraint.activate([
@@ -121,8 +134,8 @@ final class CustomView: UIView, ContainerCollectionViewCellDelegate {
         
 //        textView.backgroundColor = .orange
 //        backgroundColor = .red
-        clipsToBounds = true
-        layer.cornerRadius = 20
+//        clipsToBounds = true
+//        layer.cornerRadius = 20
     }
     
     @objc

@@ -129,8 +129,8 @@ class TextMessageView: UIView, ContainerCollectionViewCellDelegate {
         }
         
         textView.textColor = .init(hexString: "#333333")
-        textView.backgroundColor = controller.type == .incoming ? .init(hexString: "#EAEAEA") : .init(hexString: "#dae9ff")
-        textView.backgroundColor = .clear
+//        textView.backgroundColor = controller.type == .incoming ? .init(hexString: "#EAEAEA") : .init(hexString: "#dae9ff")
+//        textView.backgroundColor = .clear
        
         bubbleImg.image = UIImage.init(named:controller.type == .outgoing ? "chat_bubble_right" : "chat_bubble_left")!.resizableImage(withCapInsets: UIEdgeInsets(top: 21, left: 21, bottom: 21, right: 21), resizingMode: .stretch)
 

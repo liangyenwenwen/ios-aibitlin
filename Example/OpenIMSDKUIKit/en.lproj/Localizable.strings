@@ -585,6 +585,11 @@ SupportShortNumber = "Support setting a minimum %@-digit account ID";
 
 "VIP等级不足" = "Insufficient VIP level";
 
+"提示" = "Tips";
+"请去-> [设置 - 隐私 - 相机] 打开访问开关" = "Please go to -> [Settings - Privacy - Camera] to turn on the access switch";
+"请去-> [设置 - 隐私 - 麦克风] 打开访问开关" = "Please go to -> [Settings - Privacy - Microphone] to turn on the access switch";
+"请去-> [设置 - 隐私 - 相册] 打开访问开关" = "Please go to -> [Settings - Privacy - Albums] to turn on the access switch";
+
 //"" = "";
 //"" = "";
 //"" = "";

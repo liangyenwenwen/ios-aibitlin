@@ -102,6 +102,7 @@
 		04C3BF852C9BB87300CB6EEF /* ChatViewControllerNav.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C3BF842C9BB87300CB6EEF /* ChatViewControllerNav.swift */; };
 		04C6CC182CB122F400E884CD /* SuperStringUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C6CC172CB122F400E884CD /* SuperStringUtil.swift */; };
 		04EDCC77AB5C96A7417C96281AD5AC61 /* ChatCollectionDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377C94EBA216D11D2B6942FD02D71A05 /* ChatCollectionDataSource.swift */; };
+		04F8E3A72CB37EE800CFC444 /* PermissionsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F8E3A62CB37EE800CFC444 /* PermissionsHelper.swift */; };
 		04FD8181DA1BCBB43F2DB30EE98A4CD0 /* UIBezierPath+QMUI.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C34F07E08DAAE6B41D5D62E7FFA588 /* UIBezierPath+QMUI.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		0522898C5F8832531158B8FEB07F7ABA /* QMUIToastAnimator.h in Headers */ = {isa = PBXBuildFile; fileRef = B9835D889F2497FE21C62B8C5521D727 /* QMUIToastAnimator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0529F5E309FEF38A1C578FBC56EE042E /* SDImageIOCoder.h in Headers */ = {isa = PBXBuildFile; fileRef = C34D99C349DA0C86625FF15802CAAFBF /* SDImageIOCoder.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -4416,6 +4417,7 @@
 		04C3BF842C9BB87300CB6EEF /* ChatViewControllerNav.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewControllerNav.swift; sourceTree = "<group>"; };
 		04C6CC172CB122F400E884CD /* SuperStringUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperStringUtil.swift; sourceTree = "<group>"; };
 		04D43C16A21A73C995492938FC73072F /* save_button_icon@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "save_button_icon@3x.png"; sourceTree = "<group>"; };
+		04F8E3A62CB37EE800CFC444 /* PermissionsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsHelper.swift; sourceTree = "<group>"; };
 		05031A56EDAEF69B1FF799E84A599B81 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/AssetsLibrary.framework; sourceTree = DEVELOPER_DIR; };
 		052AFACB0D618BF8D724C171CE8E6783 /* R.swift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "R.swift-prefix.pch"; sourceTree = "<group>"; };
 		052FF8566338358C03A1B16B02D411FA /* BaseAnimationLayer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BaseAnimationLayer.swift; path = Sources/Private/CoreAnimation/Layers/BaseAnimationLayer.swift; sourceTree = "<group>"; };
@@ -11962,6 +11964,7 @@
 				7285BDC1489F43B67370779CC5A39045 /* DifferenceKit+Extension.swift */,
 				0381A5B49724901AD720EFC5E13EEC78 /* RevokedMessageStorage.swift */,
 				3762FE1E0463166C4D3DAAE58F5C78D9 /* SetActor.swift */,
+				04F8E3A62CB37EE800CFC444 /* PermissionsHelper.swift */,
 				EDDF4714CD422FC20CBFE717F1DDDA87 /* Keyboard */,
 			);
 			path = Helper;
@@ -19273,6 +19276,7 @@
 				6CCEB3E0D1F7B77CF17733C46F39F422 /* ScanViewController.swift in Sources */,
 				F0EE581BD84F15226EA0EAD6B3158553 /* SearchContainerViewController.swift in Sources */,
 				6C5B5CCBF1C2C1988A5C4593DF8B830F /* SearchFriendIndexViewController.swift in Sources */,
+				04F8E3A72CB37EE800CFC444 /* PermissionsHelper.swift in Sources */,
 				FCAF15C46C05AB9BCAE7994B284B1E41 /* SearchFriendViewController.swift in Sources */,
 				F0BA449268AC7911318218CC996BF4D6 /* SearchGroupIndexViewController.swift in Sources */,
 				634894ED2127B3CF4AE6572204A45F09 /* SearchRecordViewModel.swift in Sources */,

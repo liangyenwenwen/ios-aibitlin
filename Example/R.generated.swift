@@ -169,7 +169,7 @@ struct _R {
       var ieXW0yeText: RswiftResources.StringResource { .init(key: "8ie-xW-0ye.text", tableName: "LaunchScreen", source: source, developmentValue: nil, comment: nil) }
     }
 
-    /// This `_R.string.localizable` struct is generated, and contains static references to 449 localization keys.
+    /// This `_R.string.localizable` struct is generated, and contains static references to 453 localization keys.
     struct localizable {
       let source: RswiftResources.StringResource.Source
 
@@ -2280,6 +2280,13 @@ struct _R {
       /// Locales: en, th
       var 提交给安全审核: RswiftResources.StringResource { .init(key: "提交给安全审核", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// en translation: Tips
+      ///
+      /// Key: 提示
+      ///
+      /// Locales: en, th
+      var 提示: RswiftResources.StringResource { .init(key: "提示", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: Reminder
       ///
       /// Key: 提醒
@@ -2944,6 +2951,27 @@ struct _R {
       ///
       /// Locales: en, th
       var 请勾选协议: RswiftResources.StringResource { .init(key: "请勾选协议", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Please go to -> [Settings - Privacy - Albums] to turn on the access switch
+      ///
+      /// Key: 请去-> [设置 - 隐私 - 相册] 打开访问开关
+      ///
+      /// Locales: en, th
+      var 请去设置隐私相册打开访问开关: RswiftResources.StringResource { .init(key: "请去-> [设置 - 隐私 - 相册] 打开访问开关", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Please go to -> [Settings - Privacy - Camera] to turn on the access switch
+      ///
+      /// Key: 请去-> [设置 - 隐私 - 相机] 打开访问开关
+      ///
+      /// Locales: en, th
+      var 请去设置隐私相机打开访问开关: RswiftResources.StringResource { .init(key: "请去-> [设置 - 隐私 - 相机] 打开访问开关", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Please go to -> [Settings - Privacy - Microphone] to turn on the access switch
+      ///
+      /// Key: 请去-> [设置 - 隐私 - 麦克风] 打开访问开关
+      ///
+      /// Locales: en, th
+      var 请去设置隐私麦克风打开访问开关: RswiftResources.StringResource { .init(key: "请去-> [设置 - 隐私 - 麦克风] 打开访问开关", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Please enter a new email address
       ///

@@ -194,8 +194,8 @@ open class FriendListViewController: UIViewController {
         
         contactsViewModel.newFriendCountRelay.map { $0 == 0 }.bind(to: headerView.newFriendView.badgeLabel.rx.isHidden).disposed(by: _disposeBag)
         contactsViewModel.newGroupCountRelay.map { $0 == 0 }.bind(to: headerView.newGroupView.badgeLabel.rx.isHidden).disposed(by: _disposeBag)
-        contactsViewModel.newFriendCountRelay.map { "\($0 > 99 ? "99+" : "99")" }.bind(to: headerView.newFriendView.badgeLabel.rx.text).disposed(by: _disposeBag)
-        contactsViewModel.newGroupCountRelay.map { "\($0 > 99 ? "99+" : "99")" }.bind(to: headerView.newGroupView.badgeLabel.rx.text).disposed(by: _disposeBag)
+        contactsViewModel.newFriendCountRelay.map { "\($0 > 99 ? "99+" : "\($0)")" }.bind(to: headerView.newFriendView.badgeLabel.rx.text).disposed(by: _disposeBag)
+        contactsViewModel.newGroupCountRelay.map { "\($0 > 99 ? "99+" : "\($0)")" }.bind(to: headerView.newGroupView.badgeLabel.rx.text).disposed(by: _disposeBag)
         contactsViewModel.frequentContacts.asDriver().drive { [weak self] _ in
 //            self?.tableView.reloadData()
         }.disposed(by: _disposeBag)

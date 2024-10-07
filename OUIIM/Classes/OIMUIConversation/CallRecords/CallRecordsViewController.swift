@@ -11,7 +11,7 @@ import OUICalling
 import OUILive
 #endif
 
-class CallRecordsViewController: UIViewController {
+open class CallRecordsViewController: UIViewController {
 #if ENABLE_CALL
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -23,10 +23,17 @@ class CallRecordsViewController: UIViewController {
         
     }
 
-    override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "音视频".innerLocalized()
-
+//        navigationItem.title = "音视频".innerLocalized()
+        
+        let titleLbl = UILabel()
+        titleLbl.font = UIFont(name: "PingFangSC-Medium", size: 18)
+        titleLbl.textColor = .init(hexString: "#333333")
+        titleLbl.text =  "音视频".innerLocalized()
+        self.navigationItem.titleView = titleLbl
+        
+        
         initView()
         bindData()
         _viewModel.getRecords()
@@ -152,11 +159,11 @@ class CallRecordsViewController: UIViewController {
 #if ENABLE_CALL
 extension CallRecordsViewController: UITableViewDelegate, UITableViewDataSource {
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return _viewModel.items.value.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: FriendListUserTableViewCell.className, for: indexPath) as! FriendListUserTableViewCell
         cell.selectionStyle = .none
         
@@ -194,7 +201,7 @@ extension CallRecordsViewController: UITableViewDelegate, UITableViewDataSource 
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let record = _viewModel.items.value[indexPath.row]
         
 #if ENABLE_LIVE_ROOM

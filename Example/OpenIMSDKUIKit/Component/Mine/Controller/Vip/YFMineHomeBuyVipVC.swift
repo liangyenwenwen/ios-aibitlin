@@ -12,6 +12,7 @@ import OUIIM
 import TangramKit
 import UIKit
 
+
 class YFMineHomeBuyVipVC: BaseTitleController {
 
 
@@ -97,9 +98,12 @@ extension YFMineHomeBuyVipVC {
     }
     
     func buyVip(vipRank:Int) {
+        
+        
         if let IMUser = IMController.shared.currentUserRelay.value {
             YFMineNetViewModel.vipPurchaseSucceeds(paramters: ["userId": IMUser.userID ?? "", "vip": vipRank]) { data in
                 self.initVip()
+                
             } completionHandler: { errCode, errMsg in
             
             }
