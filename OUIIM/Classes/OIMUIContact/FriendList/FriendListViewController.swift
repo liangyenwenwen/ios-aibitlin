@@ -141,16 +141,16 @@ open class FriendListViewController: UIViewController {
             
             ApplicationStorage.lastFriendApplicationReadTime = ApplicationStorage.lastFriendApplicationTime
             
-//            let vc = NewFriendListViewController()
-//            vc.hidesBottomBarWhenPushed = true
-//            self?.navigationController?.pushViewController(vc, animated: true)
+            let vc = NewFriendListViewController()
+            vc.hidesBottomBarWhenPushed = true
+            self?.navigationController?.pushViewController(vc, animated: true)
             
-            if let handler = OIMApi.gotoNewFriendHandle {
-                
-                handler(self!, { res in
-                   
-                })
-            }
+//            if let handler = OIMApi.gotoNewFriendHandle {
+//                
+//                handler(self!, { res in
+//                   
+//                })
+//            }
             
         }
         r.newGroupClick = { [weak self] in

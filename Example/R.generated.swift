@@ -481,7 +481,7 @@ struct _R {
       /// Locales: en, zh-Hans, th
       var homePage: RswiftResources.StringResource1<String> { .init(key: "HomePage", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: I don't have an account,
+      /// en translation: 
       ///
       /// Key: I don't have an account
       ///

@@ -285,7 +285,8 @@ Translate = "Translate";
 Blacklist = "Blacklist";
 Toolbox = "Toolbox";
 
-"I don't have an account" = "I don't have an account,";
+//"I don't have an account" = "I don't have an account,";
+"I don't have an account" = "";
 "Create a new account" = "Create new account";
 
 "我已阅读并同意AIbitlin《注册协议》" =  "I have read and agreed to the AIbitlin Registration Agreement";

@@ -117,10 +117,42 @@ class ChatViewControllerNav: UIView {
             
             userNameTitle.text = info.showName
             setIconImage()
+            
+            updateNickName(userID: info.userID!)
         }
         
         
     }
+    
+    // MARK: - 张亚飞打的标记 获取用户信息
+    func  updateNickName(userID: String) {
+        if let handler = OIMApi.getUserMessageHandle {
+            
+            handler(userID, {  [weak self]res in
+               print(res)
+                
+                let userStruct = SuperStringUtil.getUserState(showname: res)
+                
+                self?.userNameTitle.textColor = userStruct.v > 0 ? .init(hexString: "#FF3939") : .init(hexString: "#333333")
+                
+                let tag = SuperStringUtil.getUserTag(showname: res)
+                
+                if tag != nil {
+                    self?.tagLable.text = tag
+//                    self?.userNameTitle.snp.updateConstraints({ make in
+//                        make.bottom.equalTo((self?.tagLable.snp_top)!)
+//                    })
+                } else {
+                    self?.userNameTitle.snp.makeConstraints({ make in
+                        make.bottom.equalToSuperview()
+                    })
+                }
+                
+                
+            })
+        }
+    }
+    
     
     lazy var contentView: UIView = {
         let r = UIView()
@@ -189,7 +221,8 @@ class ChatViewControllerNav: UIView {
         userNameTitle.snp.makeConstraints { make in
             make.left.right.equalTo(0)
             make.top.equalTo(0)
-            make.height.equalTo(18)
+//            make.bottom.equalToSuperview()
+//            make.height.equalTo(18)
         }
         
         tagLable.snp.makeConstraints { make in
@@ -221,7 +254,7 @@ class ChatViewControllerNav: UIView {
         v.font = UIFont(name: "PingFangSC-Semibold", size: 11)
         v.textColor = .init(hexString: "#7238EF")
         v.text = "[V4、\("企业".localized())、\("博客".localized())]".localized()
-        
+        v.text = nil
         return v
     }()
     

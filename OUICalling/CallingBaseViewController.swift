@@ -336,6 +336,7 @@ public class CallingBaseViewController: CallingBaseController {
         self.suspend(coverImageName: "contact_my_friend_icon", tips: self.linkingDuration > 0 ? "通话中".innerLocalized() : nil)
     }
     
+    // MARK: - 张亚飞打的标记 麦克风按钮
     private lazy var micButton: UIButton = {
         let v = UIButton(type: .custom)
 
@@ -361,8 +362,11 @@ public class CallingBaseViewController: CallingBaseController {
         
         toggleMicrophoneEnabled().then { _ in
             sender.isEnabled = true
+            
         }.catch { _ in
             sender.isEnabled = true
+            
+            
         }
     }
     
@@ -381,6 +385,7 @@ public class CallingBaseViewController: CallingBaseController {
     }()
     
     
+    // MARK: - 张亚飞打的标记  语音按钮
     private lazy var thirdButton: UIButton = {
         let v = UIButton(type: .custom)
         v.setImage(.init(nameInBundle: "speaker_open"), for: .normal)

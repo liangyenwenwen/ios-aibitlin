@@ -40,7 +40,9 @@ class NewFriendTableViewCell: UITableViewCell {
             make.leading.equalToSuperview().offset(16)
             make.centerY.equalToSuperview()
         }
-
+        
+        avatarView.layer.cornerRadius = 22.w
+        
         let textStack: UIStackView = {
             let v = UIStackView(arrangedSubviews: [titleLabel, subtitleLabel])
             v.axis = .vertical

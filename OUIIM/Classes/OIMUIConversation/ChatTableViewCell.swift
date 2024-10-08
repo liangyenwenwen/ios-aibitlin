@@ -253,7 +253,7 @@ extension ChatTableViewCell {
     }
     
     
-    func  updateUI(item: ConversationInfo) {
+    func  updateUI(item: ConversationInfo, needCalculate: Bool = true) {
         
         let placeholderName: String = item.conversationType == .c2c ? "contact_my_friend_icon" : "contact_my_group_icon"
         muteImageView.isHidden = item.recvMsgOpt == .receive
@@ -273,7 +273,7 @@ extension ChatTableViewCell {
         let userStruct = SuperStringUtil.getUserState(showname: item.showName!)
         titleLabel.text =  userStruct.n
         
-        titleLabel.textColor = userStruct.v > 0 ? .init(hexString: "#FF3939") : .init(hexString: "#333333")
+//        titleLabel.textColor = userStruct.v > 0 ? .init(hexString: "#FF3939") : .init(hexString: "#333333")
         
         pinImageView.isHidden = !item.isPinned
         subtitleLabel.attributedText = MessageHelper.getAbstructOf(conversation: item, highlight: false)
@@ -292,26 +292,40 @@ extension ChatTableViewCell {
         
         tagLable.isHidden = item.conversationType == .notification
         
-        if item.conversationType == .c2c {
-            if userStruct.e > 0 {
-                tagLable.text = "[\("企业".localized())]".localized()
-                tagLable.textColor = .init(hexString: "#7238EF")
-            } else {
-                tagLable.text = nil
+        
+        
+        if needCalculate {
+            if item.conversationType == .c2c {
+                
+                updateNickName(userID: item.userID!, item: item)
             }
             
-        } else {
-            tagLable.text = "[\(4)]".localized()
-            tagLable.textColor = .init(hexString: "#388CEF")
+            if item.conversationType == .superGroup {
+                updateGroupNumberCount(groupID: item.groupID!, item: item)
+            }
+        } else  {
+            if item.conversationType == .c2c {
+    //            if userStruct.e > 0 {
+    //                tagLable.text = "[\("企业".localized())]".localized()
+    //                tagLable.textColor = .init(hexString: "#7238EF")
+    //            } else {
+                    tagLable.text = ""
+    //            }
+                
+            } else if item.conversationType == .superGroup {
+                tagLable.text = "[\(4)]"
+                tagLable.textColor = .init(hexString: "#388CEF")
+                titleLabel.textColor = .init(hexString: "#333333")
+            } else {
+                tagLable.text = ""
+                titleLabel.textColor = .init(hexString: "#333333")
+            }
         }
-        
-        if item.conversationType == .c2c {
-            updateNickName(userID: item.userID!)
-        }
-        
+
     }
     
-    func  updateNickName(userID: String) {
+    // MARK: - 张亚飞打的标记 获取用户信息
+    func  updateNickName(userID: String, item: ConversationInfo) {
         if let handler = OIMApi.getUserMessageHandle {
             
             handler(userID, {  [weak self]res in
@@ -320,8 +334,20 @@ extension ChatTableViewCell {
                 let userStruct = SuperStringUtil.getUserState(showname: res)
                 
                 self?.titleLabel.textColor = userStruct.v > 0 ? .init(hexString: "#FF3939") : .init(hexString: "#333333")
-                
+                self?.updateUI(item: item, needCalculate:  false)
             })
+        }
+    }
+    
+    func updateGroupNumberCount(groupID: String, item: ConversationInfo) {
+
+        IMController.shared.getGroupInfo(groupIds: [groupID]) { [weak self] (groupInfos: [GroupInfo]) in
+            guard let self else { return }
+            guard let groupInfo = groupInfos.first else { return }
+            print(groupInfo.memberCount)
+            tagLable.text = "[\(groupInfo.memberCount)]"
+//            getGroupInfoHelper(groupInfo: groupInfo)
+            self.updateUI(item: item, needCalculate:  false)
         }
     }
     
