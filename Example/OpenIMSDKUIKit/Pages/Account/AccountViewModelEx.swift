@@ -85,8 +85,21 @@ extension AccountViewModel {
             contentView.tg_width.equal(.fill)
             contentView.tg_height.equal(350)
             contentView.chooseBoke = { item in
-                let result = "\(item.userBlogName)####\(item.userBlogIcon)####\(item.userBlogUrl)####\(item.userBlogIntro)"
-                completion(result)
+//                let result = "\(item.userBlogName)####\(item.userBlogIcon)####\(item.userBlogUrl)####\(item.userBlogIntro)"
+                
+                let encoder = JSONEncoder()
+                do  {
+                    let jsondata = try encoder.encode(item)
+                    if let jsonString = String(data: jsondata, encoding: .utf8) {
+                        print(jsonString)
+                        completion(jsonString)
+                    }
+                } catch {
+                    print(error.localizedDescription)
+                }
+                
+                
+//                completion(result)
                 GKCover.hide()
             }
             GKCover.cover(from: vc.view.window, contentView: contentView, style: .translucent, showStyle: .bottom, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)

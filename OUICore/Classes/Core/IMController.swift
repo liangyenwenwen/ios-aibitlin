@@ -875,22 +875,32 @@ extension IMController {
                                 sending: CallBack.MessageReturnVoid,
                                 onComplete: @escaping CallBack.MessageReturnVoid) {
         let reslut = JsonTool.toJson(fromObject: boke)
+//        
+//        let param = ["customType": 10500,
+//                     "data": ["title": boke.title,
+//                              "iconUrl": boke.iconUrl,
+//                              "linkUrl": boke.linkUrl,
+//                              "intro": boke.intro,
+//                              "customType": 10500,]
+//        ] as [String : Any]
         
-        let param = ["customType": 10500,
-                     "data": ["title": boke.title,
-                              "iconUrl": boke.iconUrl,
-                              "linkUrl": boke.linkUrl,
-                              "intro": boke.intro,
-                              "customType": 10500,
-                             ]
-        ] as [String : Any]
+        let param = ["customType": 10500, "data":["id": boke.id,
+                                                 "sign":boke.sign,
+                                                 "userBlogUrl":boke.userBlogUrl,
+                                                 "userBlogIntro":boke.userBlogIntro,
+                                                 "userBlogName": boke.userBlogName,
+                                                 "userBlogCreatIp":boke.userBlogCreatIp,
+                                                 "userBlogCreatAffiliatingArea": boke.userBlogCreatAffiliatingArea,
+                                                 "userBlogOrder":boke.userBlogOrder,
+                                                 "userId":boke.userId,
+                                                 "isDelete":boke.isDelete,
+                                                 "creationTime":boke.creationTime,
+                                                 "userBlogIcon":boke.userBlogIcon,
+                                                 "changeTime":boke.changeTime]]  as [String : Any]
         
         do {
             let dataStr = String.init(data: try JSONSerialization.data(withJSONObject: param),
                                       encoding: .utf8)!
-//            let msg = OIMMessageInfo.createCustomMessage(dataStr, extension: nil, description: nil)
-        
-        
             let message = OIMMessageInfo.createCustomMessage(dataStr, extension: "boke", description: "")
             message.status = .sending
             sending(message.toMessageInfo())
@@ -2078,16 +2088,46 @@ public class CardElem: Codable {
 // MARK: - 张亚飞打的标记   博客消息元素
 public class BokeElem: Codable {
     
-    public var title: String?
-    public var iconUrl: String?
-    public var linkUrl: String?
-    public var intro: String?
+//    public var title: String?
+//    public var iconUrl: String?
+//    public var linkUrl: String?
+//    public var intro: String?
+//    
+//    public init(title: String? = nil, iconUrl: String? = nil, linkUrl: String? = nil, intro: String? = nil) {
+//        self.title = title
+//        self.iconUrl = iconUrl
+//        self.linkUrl = linkUrl
+//        self.intro = intro
+//    }
     
-    public init(title: String? = nil, iconUrl: String? = nil, linkUrl: String? = nil, intro: String? = nil) {
-        self.title = title
-        self.iconUrl = iconUrl
-        self.linkUrl = linkUrl
-        self.intro = intro
+    let id: Int?
+    let sign: Int?
+    let userBlogUrl: String?
+    let userBlogIntro: String?
+    let userBlogName: String?
+    let userBlogCreatIp: String?
+    let userBlogCreatAffiliatingArea: String?
+    let userBlogOrder: Int?
+    let userId: String?
+    let isDelete: Int?
+    let creationTime: String?
+    let userBlogIcon: String?
+    let changeTime: String?
+    
+    public init(id: Int?, sign: Int?, userBlogUrl: String?, userBlogIntro: String?, userBlogName: String?, userBlogCreatIp: String?, userBlogCreatAffiliatingArea: String?, userBlogOrder: Int?, userId: String?, isDelete: Int?, creationTime: String?, userBlogIcon: String?, changeTime: String?) {
+        self.id = id
+        self.sign = sign
+        self.userBlogUrl = userBlogUrl
+        self.userBlogIntro = userBlogIntro
+        self.userBlogName = userBlogName
+        self.userBlogCreatIp = userBlogCreatIp
+        self.userBlogCreatAffiliatingArea = userBlogCreatAffiliatingArea
+        self.userBlogOrder = userBlogOrder
+        self.userId = userId
+        self.isDelete = isDelete
+        self.creationTime = creationTime
+        self.userBlogIcon = userBlogIcon
+        self.changeTime = changeTime
     }
 
     

@@ -1862,9 +1862,9 @@ extension ChatViewController: ChatControllerDelegate {
 #endif
             case .boke:
                 // MARK: - 张亚飞打的标记  博客被点击
-                print(source.bokeMessageSource.linkUrl)
+                print(source.bokeMessageSource.userBlogUrl)
                 print("boke 被点击")
-                gotoBokeLink(source.bokeMessageSource.linkUrl!)
+                gotoBokeLink(source.bokeMessageSource.userBlogUrl!)
             default:
                 break
             }
@@ -2322,15 +2322,43 @@ extension ChatViewController: CoustomInputBarAccessoryViewDelegate {
     }
     
     func getCustomBokeData(_ title: String) -> String {
-        let arr = title.components(separatedBy: "####")
-        let parm  = ["customType": 10500, "data": ["title": arr[0],"iconUrl": arr[1], "linkUrl":arr[2], "intro":arr[3] ]] as [String : Any]
+//        let arr = title.components(separatedBy: "####")
+//        let parm  = ["customType": 10500, "data": ["title": arr[0],"iconUrl": arr[1], "linkUrl":arr[2], "intro":arr[3] ]] as [String : Any]
         
-        do {
-            let datastr = String.init(data: try JSONSerialization.data(withJSONObject: parm), encoding: .utf8)
-            return datastr!
-        } catch {
+        guard let jsonData = title.data(using: .utf8) else {
             return ""
         }
+        
+        do {
+            let boke = try JSONDecoder().decode(bokeMessageSource.self, from: jsonData)
+            
+            let param = ["customType": 10500, "data":["id": boke.id,
+                                                     "sign":boke.sign,
+                                                     "userBlogUrl":boke.userBlogUrl,
+                                                     "userBlogIntro":boke.userBlogIntro,
+                                                     "userBlogName": boke.userBlogName,
+                                                     "userBlogCreatIp":boke.userBlogCreatIp,
+                                                     "userBlogCreatAffiliatingArea": boke.userBlogCreatAffiliatingArea,
+                                                     "userBlogOrder":boke.userBlogOrder,
+                                                     "userId":boke.userId,
+                                                     "isDelete":boke.isDelete,
+                                                     "creationTime":boke.creationTime,
+                                                     "userBlogIcon":boke.userBlogIcon,
+                                                     "changeTime":boke.changeTime]]  as [String : Any]
+            
+            do {
+                let datastr = String.init(data: try JSONSerialization.data(withJSONObject: param), encoding: .utf8)
+                return datastr!
+            } catch {
+                return ""
+            }
+            
+        } catch {
+            return ""
+            print(error.localizedDescription)
+        }
+        
+       
         
     }
     
@@ -2666,7 +2694,7 @@ extension ChatViewController: GestureDelegate {
 //            }
             
             if let handler = OIMApi.starBokeLinkHandle {
-                handler(source.title ?? "" , source.iconUrl ?? "", source.linkUrl ?? "", source.intro  ?? "",  {[weak self] res in
+                handler(source.userBlogName ?? "" , source.userBlogIcon ?? "", source.userBlogUrl ?? "", source.userBlogIntro  ?? "",  {[weak self] res in
                     
                 })
             }

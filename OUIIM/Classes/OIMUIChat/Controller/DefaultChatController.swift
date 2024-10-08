@@ -659,7 +659,10 @@ final class DefaultChatController: ChatController {
     // MARK: - 张亚飞打的标记  ******** 重中之重  发送博客方法 ***********
 
     private func sendBoke(source: bokeMessageSource, completion: @escaping ([Section]) -> Void) {
-        let boke = BokeElem(title: source.title, iconUrl: source.iconUrl, linkUrl: source.linkUrl, intro: source.intro)
+//        let boke = BokeElem(title: source.title, iconUrl: source.iconUrl, linkUrl: source.linkUrl, intro: source.intro)
+//        let boke = BokeElem(from: )
+        
+        let boke = BokeElem(id: source.id, sign: source.sign, userBlogUrl: source.userBlogUrl, userBlogIntro: source.userBlogIntro, userBlogName: source.userBlogName, userBlogCreatIp: source.userBlogCreatIp, userBlogCreatAffiliatingArea: source.userBlogCreatAffiliatingArea, userBlogOrder: source.userBlogOrder, userId: source.userId, isDelete: source.isDelete, creationTime: source.creationTime, userBlogIcon: source.userBlogIcon, changeTime: source.changeTime)
 
         IMController.shared.sendBokeMessage(boke: boke, to: receiverId, conversationType: conversationType) { [weak self] msg in
             self?.appendMessage(msg, completion: completion)

@@ -266,12 +266,50 @@ struct FaceMessageSource: Hashable {
 }
 
 // MARK: - 张亚飞打的标记  博客消息
-struct bokeMessageSource: Hashable {
-    var title: String?
-    var iconUrl: String?
-    var linkUrl: String?
-    var intro: String?
+struct bokeMessageSource: Hashable, Codable {
+//    var title: String?
+//    var iconUrl: String?
+//    var linkUrl: String?
+//    var intro: String?
+    let id: Int?
+    let sign: Int?
+    let userBlogUrl: String?
+    let userBlogIntro: String?
+    let userBlogName: String?
+    let userBlogCreatIp: String?
+    let userBlogCreatAffiliatingArea: String?
+    let userBlogOrder: Int?
+    let userId: String?
+    let isDelete: Int?
+    let creationTime: String?
+    let userBlogIcon: String?
+    let changeTime: String?
+    
+    var state: BokeType {
+        switch sign {
+        case 0:
+            return .normal
+        case 1, 4:
+            return .wait
+        case 2:
+            return .refuse
+        case 3:
+            return .limit
+            
+        default:
+            return.normal
+        }
+    }
 }
+
+enum BokeType {
+    case normal
+    case wait
+    case refuse
+    case limit
+}
+
+
 // MARK: - 张亚飞打的标记  通知消息
 struct NoticeMessageSource: Hashable {
     
@@ -348,14 +386,26 @@ extension CustomMessageSource {
     // MARK: - 张亚飞打的标记   获取博客信息
     public var bokeMessageSource: bokeMessageSource {
         if let value = value {
-            let title = value["title"]
-            let iconUrl = value["iconUrl"]
-            let linkUrl = value["linkUrl"]
-            let intro = value["intro"] ?? "intro"
-            print(intro)
-            return OUIIM.bokeMessageSource(title: title as? String ?? "", iconUrl: iconUrl as? String ?? "", linkUrl: linkUrl as? String ?? "" , intro: intro as? String ?? "")
+//            let title = value["title"]
+//            let iconUrl = value["iconUrl"]
+//            let linkUrl = value["linkUrl"]
+//            let intro = value["intro"] ?? "intro"
+//            print(intro)
+            return OUIIM.bokeMessageSource(id: value["id"] as? Int,
+                                           sign: value["sign"] as? Int,
+                                           userBlogUrl: value["userBlogUrl"] as? String,
+                                           userBlogIntro: value["userBlogIntro"] as? String,
+                                           userBlogName: value["userBlogName"] as? String,
+                                           userBlogCreatIp: value["userBlogCreatIp"] as? String,
+                                           userBlogCreatAffiliatingArea: value["userBlogCreatAffiliatingArea"] as? String,
+                                           userBlogOrder: value["userBlogOrder"] as? Int,
+                                           userId: value["userId"] as? String,
+                                           isDelete: value["isDelete"] as? Int,
+                                           creationTime: value["creationTime"] as? String,
+                                           userBlogIcon: value["userBlogIcon"] as? String,
+                                           changeTime: value["changeTime"] as? String)
         }
-        return OUIIM.bokeMessageSource(title: "title", iconUrl: "icon", linkUrl: "link", intro: "intro")
+        return OUIIM.bokeMessageSource(id: -1, sign: 0, userBlogUrl: "", userBlogIntro: "", userBlogName: "", userBlogCreatIp: "", userBlogCreatAffiliatingArea: "", userBlogOrder: 0, userId: "", isDelete: 0, creationTime: "", userBlogIcon: "", changeTime: "")
     }
     
     // MARK: - 张亚飞打的标记   自定义消息加工

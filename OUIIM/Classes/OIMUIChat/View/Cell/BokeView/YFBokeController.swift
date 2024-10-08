@@ -32,9 +32,9 @@ final class YFBokeController {
     }
     
     private func configData() {
-        self.name = source.title
-        self.faceURL = source.iconUrl
-        self.intro = source.intro
+        self.name = source.userBlogName
+        self.faceURL = source.userBlogUrl
+        self.intro = source.userBlogIntro
     }
     
     func action() {
@@ -45,7 +45,35 @@ final class YFBokeController {
     
     func getCustomBokeData(_ source: bokeMessageSource) -> String {
   
-        let parm  = ["customType": 10500, "data": ["title": source.title,"iconUrl": source.iconUrl, "linkUrl":source.linkUrl, "intro": source.intro]] as [String : Any]
+//        let parm  = ["customType": 10500, "data": ["title": source.title,"iconUrl": source.iconUrl, "linkUrl":source.linkUrl, "intro": source.intro]] as [String : Any]
+        
+//        let id: Int?
+//        let sign: Int?
+//        let userBlogUrl: String?
+//        let userBlogIntro: String?
+//        let userBlogName: String?
+//        let userBlogCreatIp: String?
+//        let userBlogCreatAffiliatingArea: String?
+//        let userBlogOrder: Int?
+//        let userId: String?
+//        let isDelete: Int?
+//        let creationTime: String?
+//        let userBlogIcon: String?
+//        let changeTime: String?
+        
+        let parm = ["customType": 10500, "data":["id": source.id,
+                                                 "sign":source.sign,
+                                                 "userBlogUrl":source.userBlogUrl,
+                                                 "userBlogIntro":source.userBlogIntro,
+                                                 "userBlogName": source.userBlogName,
+                                                 "userBlogCreatIp":source.userBlogCreatIp,
+                                                 "userBlogCreatAffiliatingArea": source.userBlogCreatAffiliatingArea,
+                                                 "userBlogOrder":source.userBlogOrder, 
+                                                 "userId":source.userId,
+                                                 "isDelete":source.isDelete,
+                                                 "creationTime":source.creationTime,
+                                                 "userBlogIcon":source.userBlogIcon,
+                                                 "changeTime":source.changeTime]]  as [String : Any]
         
         do {
             let datastr = String.init(data: try JSONSerialization.data(withJSONObject: parm), encoding: .utf8)
