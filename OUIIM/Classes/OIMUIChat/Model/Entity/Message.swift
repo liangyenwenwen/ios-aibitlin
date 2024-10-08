@@ -336,6 +336,7 @@ struct CustomMessageSource: Hashable {
 }
 
 extension CustomMessageSource {
+    
     public var value: [String: Any]? {
         if let data = data {
             let obj = try! JSONSerialization.jsonObject(with: data.data(using: .utf8)!) as! [String: Any]
