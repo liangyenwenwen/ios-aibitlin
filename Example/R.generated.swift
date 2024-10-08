@@ -169,7 +169,7 @@ struct _R {
       var ieXW0yeText: RswiftResources.StringResource { .init(key: "8ie-xW-0ye.text", tableName: "LaunchScreen", source: source, developmentValue: nil, comment: nil) }
     }
 
-    /// This `_R.string.localizable` struct is generated, and contains static references to 453 localization keys.
+    /// This `_R.string.localizable` struct is generated, and contains static references to 454 localization keys.
     struct localizable {
       let source: RswiftResources.StringResource.Source
 
@@ -3218,6 +3218,13 @@ struct _R {
       /// Locales: en, th
       var 通讯录黑名单: RswiftResources.StringResource { .init(key: "通讯录黑名单", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// en translation: Call Log
+      ///
+      /// Key: 通话记录
+      ///
+      /// Locales: en, th
+      var 通话记录: RswiftResources.StringResource { .init(key: "通话记录", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: Through
       ///
       /// Key: 通过
@@ -3362,7 +3369,7 @@ struct _R {
     var colorBackground: RswiftResources.ColorResource { .init(name: "ColorBackground", path: [], bundle: bundle) }
   }
 
-  /// This `_R.image` struct is generated, and contains static references to 208 images.
+  /// This `_R.image` struct is generated, and contains static references to 223 images.
   struct image {
     let bundle: Foundation.Bundle
 
@@ -3636,6 +3643,12 @@ struct _R {
     /// Image `TabMoreSelected_1`.
     var tabMoreSelected_1: RswiftResources.ImageResource { .init(name: "TabMoreSelected_1", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
+    /// Image `TabPhoneSelected_0`.
+    var tabPhoneSelected_0: RswiftResources.ImageResource { .init(name: "TabPhoneSelected_0", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `TabPhoneSelected_1`.
+    var tabPhoneSelected_1: RswiftResources.ImageResource { .init(name: "TabPhoneSelected_1", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
     /// Image `TestBack`.
     var testBack: RswiftResources.ImageResource { .init(name: "TestBack", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
@@ -3699,6 +3712,12 @@ struct _R {
     /// Image `boke_more_icon`.
     var boke_more_icon: RswiftResources.ImageResource { .init(name: "boke_more_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
+    /// Image `call_log_auido`.
+    var call_log_auido: RswiftResources.ImageResource { .init(name: "call_log_auido", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `call_log_video`.
+    var call_log_video: RswiftResources.ImageResource { .init(name: "call_log_video", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
     /// Image `change_icon`.
     var change_icon: RswiftResources.ImageResource { .init(name: "change_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
@@ -3740,6 +3759,9 @@ struct _R {
 
     /// Image `chat_voice_1`.
     var chat_voice_1: RswiftResources.ImageResource { .init(name: "chat_voice_1", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `choose_avater_camera`.
+    var choose_avater_camera: RswiftResources.ImageResource { .init(name: "choose_avater_camera", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
     /// Image `close_cirle_icon`.
     var close_cirle_icon: RswiftResources.ImageResource { .init(name: "close_cirle_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
@@ -3908,6 +3930,36 @@ struct _R {
 
     /// Image `section_vip`.
     var section_vip: RswiftResources.ImageResource { .init(name: "section_vip", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `system_avatar_0`.
+    var system_avatar_0: RswiftResources.ImageResource { .init(name: "system_avatar_0", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `system_avatar_1`.
+    var system_avatar_1: RswiftResources.ImageResource { .init(name: "system_avatar_1", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `system_avatar_2`.
+    var system_avatar_2: RswiftResources.ImageResource { .init(name: "system_avatar_2", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `system_avatar_3`.
+    var system_avatar_3: RswiftResources.ImageResource { .init(name: "system_avatar_3", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `system_avatar_4`.
+    var system_avatar_4: RswiftResources.ImageResource { .init(name: "system_avatar_4", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `system_avatar_5`.
+    var system_avatar_5: RswiftResources.ImageResource { .init(name: "system_avatar_5", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `system_avatar_6`.
+    var system_avatar_6: RswiftResources.ImageResource { .init(name: "system_avatar_6", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `system_avatar_7`.
+    var system_avatar_7: RswiftResources.ImageResource { .init(name: "system_avatar_7", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `system_avatar_8`.
+    var system_avatar_8: RswiftResources.ImageResource { .init(name: "system_avatar_8", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `system_avatar_9`.
+    var system_avatar_9: RswiftResources.ImageResource { .init(name: "system_avatar_9", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
     /// Image `tab_contact_icon_normal`.
     var tab_contact_icon_normal: RswiftResources.ImageResource { .init(name: "tab_contact_icon_normal", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }

@@ -125,11 +125,14 @@ class MineBokeEditVC: BaseTitleController {
                         print(url)
                         self?.url = url
                         self?.iconView.changeIcon.image = first
-                        ProgressHUD.dismiss()
+                        
                     }
+                    
+                    ProgressHUD.dismiss()
                 }
 
             } else {
+                
                 ProgressHUD.dismiss()
             }
         }
@@ -149,10 +152,12 @@ class MineBokeEditVC: BaseTitleController {
                             print(url)
                             self?.url = url
                             self?.iconView.changeIcon.image = photo
-                            ProgressHUD.dismiss()
+                            
                         }
+                        ProgressHUD.dismiss()
                     }
                 }
+                
             }
         }
         return v

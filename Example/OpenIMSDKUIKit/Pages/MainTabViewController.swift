@@ -60,8 +60,8 @@ class MainTabViewController: UITabBarController {
         ///通话记录
         let recordsVC = CallRecordsViewController()
         let recordsNav = NavigationController.init(rootViewController: recordsVC)
-        recordsNav.tabBarItem.image = UIImage.init(named: "TabContactSelected_0")
-        recordsNav.tabBarItem.selectedImage = UIImage.init(named: "TabContactSelected_1")
+        recordsNav.tabBarItem.image = UIImage.init(named: "TabPhoneSelected_0")
+        recordsNav.tabBarItem.selectedImage = UIImage.init(named: "TabPhoneSelected_1")
         controllers.append(recordsNav)
         
 //        let vc = FriendListViewController()
@@ -135,7 +135,7 @@ class MainTabViewController: UITabBarController {
     @objc
     private func setText() {
         viewControllers?[0].tabBarItem.title = "消息".localized()
-        viewControllers?[1].tabBarItem.title = "通讯录".localized()
+        viewControllers?[1].tabBarItem.title = "通话记录".localized()
         viewControllers?[2].tabBarItem.title = "通讯录".localized()
         viewControllers?[3].tabBarItem.title = "我的".localized()
         viewControllers?[4].tabBarItem.title = "工具箱".localized()
@@ -381,7 +381,23 @@ extension MainTabViewController {
             }
         }
         
+        
+        toChooseUserAvatar()
     }
+    
+    
+    
+    
+    func toChooseUserAvatar() {
+        let r =  YFChooseUserAvatarCardView()
+        view.addSubview(r)
+        r.snp.makeConstraints { make in
+            make.top.trailing.leading.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+        r.bottomShow(show: true)
+    }
+    
 
 }
 
@@ -496,6 +512,11 @@ extension MainTabViewController: UITabBarControllerDelegate {
             currentVC.pushViewController(vc)
         }
     }
+    
+   
+    
+    
+    
     
 }
 

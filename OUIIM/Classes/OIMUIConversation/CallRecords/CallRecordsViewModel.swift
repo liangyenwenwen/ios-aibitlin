@@ -42,6 +42,8 @@ class CallRecordsViewModel {
         missedRecords = allRecords.filter { $0.success == false}
         allRecordsRelay.accept(allRecords)
         tabSelected.accept(0)
+        
+    
     }
     
     func getMeetings() {

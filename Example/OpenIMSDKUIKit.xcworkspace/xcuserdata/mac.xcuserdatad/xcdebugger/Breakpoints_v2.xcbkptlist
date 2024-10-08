@@ -42,40 +42,10 @@
             filePath = "../OUIIM/Classes/OIMUIChat/ChatViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2326"
-            endingLineNumber = "2326"
+            startingLineNumber = "2331"
+            endingLineNumber = "2331"
             landmarkName = "getCustomBokeData(_:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "A038FB63-3406-4AD3-BA13-DD16623E40C2 - b413582ba123d53e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "OUIIM.ChatViewController.getCustomBokeData(Swift.String) -&gt; Swift.String"
-                  moduleName = "IM-NCER"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Desktop/aibitlin/OUIIM/Classes/OIMUIChat/ChatViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "2326"
-                  endingLineNumber = "2326">
-               </Location>
-               <Location
-                  uuid = "A038FB63-3406-4AD3-BA13-DD16623E40C2 - b413582ba123d57c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "OUIIM.ChatViewController.getCustomBokeData(Swift.String) -&gt; Swift.String"
-                  moduleName = "IM-NCER"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Desktop/aibitlin/OUIIM/Classes/OIMUIChat/ChatViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "2328"
-                  endingLineNumber = "2328">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -88,8 +58,8 @@
             filePath = "../OUIIM/Classes/OIMUIChat/ChatViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2696"
-            endingLineNumber = "2696"
+            startingLineNumber = "2701"
+            endingLineNumber = "2701"
             landmarkName = "starAction(id:source:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -97,16 +67,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D0E46DA7-5CE4-45F7-ABAD-A3417BB1767A"
+            uuid = "5A2BA944-5B9A-40AE-9B22-84D4C70E5C26"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../OUIIM/Classes/OIMUIChat/View/Cell/BokeView/YFBokeController.swift"
+            filePath = "../OUIIM/Classes/OIMUIChat/ChatViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "54"
-            endingLineNumber = "54"
-            landmarkName = "getCustomBokeData(_:)"
+            startingLineNumber = "1872"
+            endingLineNumber = "1872"
+            landmarkName = "didTapContent(with:data:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

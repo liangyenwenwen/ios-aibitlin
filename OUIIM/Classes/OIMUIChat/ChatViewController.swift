@@ -1864,7 +1864,12 @@ extension ChatViewController: ChatControllerDelegate {
                 // MARK: - 张亚飞打的标记  博客被点击
                 print(source.bokeMessageSource.userBlogUrl)
                 print("boke 被点击")
-                gotoBokeLink(source.bokeMessageSource.userBlogUrl!)
+                if source.bokeMessageSource.userBlogUrl != nil {
+                    gotoBokeLink(source.bokeMessageSource.userBlogUrl!)
+                } else {
+                    gotoBokeLink("")
+                }
+                
             default:
                 break
             }

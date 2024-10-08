@@ -68,6 +68,7 @@
 		045B8BFD2BF4B7070094E080 /* YFChatBokeBottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045B8BFC2BF4B7070094E080 /* YFChatBokeBottomSheetView.swift */; };
 		047753C62BFDCD27006DBFD3 /* YFTranslateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047753C52BFDCD27006DBFD3 /* YFTranslateVC.swift */; };
 		047BF6B62CA2B6DF00706117 /* YFFileDataUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047BF6B52CA2B6DF00706117 /* YFFileDataUtil.swift */; };
+		049B98032CB521360032E7B8 /* YFChooseUserAvatarCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049B98022CB521360032E7B8 /* YFChooseUserAvatarCardView.swift */; };
 		049C643E2BEC619300B679C4 /* YFLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049C643D2BEC619300B679C4 /* YFLoginVC.swift */; };
 		049C64402BEC622300B679C4 /* YFLoginChooseHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049C643F2BEC622300B679C4 /* YFLoginChooseHeaderView.swift */; };
 		049C64432BEC689100B679C4 /* YFTitleAddUnderlineChooseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049C64422BEC689100B679C4 /* YFTitleAddUnderlineChooseView.swift */; };
@@ -248,6 +249,7 @@
 		046D26952BFF255F00FEA10F /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		047753C52BFDCD27006DBFD3 /* YFTranslateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFTranslateVC.swift; sourceTree = "<group>"; };
 		047BF6B52CA2B6DF00706117 /* YFFileDataUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFFileDataUtil.swift; sourceTree = "<group>"; };
+		049B98022CB521360032E7B8 /* YFChooseUserAvatarCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFChooseUserAvatarCardView.swift; sourceTree = "<group>"; };
 		049C643D2BEC619300B679C4 /* YFLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFLoginVC.swift; sourceTree = "<group>"; };
 		049C643F2BEC622300B679C4 /* YFLoginChooseHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFLoginChooseHeaderView.swift; sourceTree = "<group>"; };
 		049C64422BEC689100B679C4 /* YFTitleAddUnderlineChooseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFTitleAddUnderlineChooseView.swift; sourceTree = "<group>"; };
@@ -627,6 +629,7 @@
 				045B8BFC2BF4B7070094E080 /* YFChatBokeBottomSheetView.swift */,
 				04F533EF2BF84BC2005D0405 /* YFChatBottomSheetBokeListCell.swift */,
 				04016EF52CA5442800D54020 /* YFChatNewFriendListCell.swift */,
+				049B98022CB521360032E7B8 /* YFChooseUserAvatarCardView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1469,6 +1472,7 @@
 				04F2D0862BEE21CA00D5271B /* MineDeleteAcountAuthenticationVC.swift in Sources */,
 				1790EE6C2921EAFC00C4024A /* BlockedListViewController.swift in Sources */,
 				DC0B7DF6282DFA85003896C1 /* DemoUI.swift in Sources */,
+				049B98032CB521360032E7B8 /* YFChooseUserAvatarCardView.swift in Sources */,
 				040D85EB2BEB8C0B00DCAAB3 /* SuperToast.swift in Sources */,
 				04F2D08E2BEE21CA00D5271B /* UserMessageThridTypeView.swift in Sources */,
 				040D85E62BEB8C0B00DCAAB3 /* SectionItemsView.swift in Sources */,

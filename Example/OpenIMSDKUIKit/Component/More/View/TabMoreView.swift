@@ -159,15 +159,7 @@ class TabMoreView: UIView {
             make.top.equalToSuperview().offset(12)
             make.centerX.equalToSuperview()
         }
-        
-//        bottomView.addSubview(tipsLbl)
-//        tipsLbl.snp.makeConstraints { make in
-//            make.centerY.equalTo(lineView)
-//            make.trailing.equalTo(-20)
-//        }
-        
-        
-        
+
         bottomView.addSubview(bottomLineView)
         bottomLineView.snp.makeConstraints { make in
             make.bottom.leading.trailing.equalToSuperview()

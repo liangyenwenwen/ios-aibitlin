@@ -16,6 +16,7 @@ open class CallRecordsViewController: UIViewController {
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+        _viewModel.getRecords()
     }
 
     override open func viewDidAppear(_ animated: Bool) {
@@ -46,6 +47,9 @@ open class CallRecordsViewController: UIViewController {
     private lazy var tableView: UITableView = {
         let v = UITableView()
         v.register(FriendListUserTableViewCell.self, forCellReuseIdentifier: FriendListUserTableViewCell.className)
+        
+        v.register(YFCallRecordsListCell.self, forCellReuseIdentifier: YFCallRecordsListCell.className)
+        
         v.separatorInset = UIEdgeInsets(top: 0, left: 82, bottom: 0, right: StandardUI.margin_22)
         v.separatorColor = .sepratorColor
         v.rowHeight = UITableView.automaticDimension
@@ -178,41 +182,59 @@ extension CallRecordsViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: FriendListUserTableViewCell.className, for: indexPath) as! FriendListUserTableViewCell
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: YFCallRecordsListCell.className, for: indexPath) as! YFCallRecordsListCell
         cell.selectionStyle = .none
         
         let model = _viewModel.items.value[indexPath.row]
         
         if model is CallRecord, let model = model as? CallRecord {
-            cell.titleLabel.text = model.nickname
-            cell.subtitleLabel.text = "[\(model.typeStr())] \(model.formatDateStr())"
-            cell.avatarImageView.setAvatar(url: model.faceURL, text: model.nickname, onTap: nil)
-            cell.trainingLabel.text = model.durationStr()
+
             
-            if !model.success {
-                cell.titleLabel.textColor = .red
-                cell.subtitleLabel.textColor = .red
-                cell.trainingLabel.textColor = .red
-                cell.trainingLabel.text = model.inOrOutStr()
-            }
+            cell.update(model: model)
         } else if model is MeetingInfo, let model = model as? MeetingInfo {
-            cell.titleLabel.text = model.meetingName
-            cell.subtitleLabel.text = "\(Date.timeString(timeInterval: model.startTime * 1000)) - \(Date.timeString(timeInterval: model.endTime * 1000))"
-            cell.avatarImageView.setAvatar(url: nil, text: nil, placeHolder: "live_room_record_icon")
-            let now = Date().timeIntervalSince1970
-            if now > model.endTime {
-                cell.trainingLabel.text =  "[已结束]"
-            } else if now < model.startTime {
-                cell.trainingLabel.text =  "[未开始]"
-            } else {
-                cell.trainingLabel.text =  "[已开始]"
-            }
+  
             
-            cell.titleLabel.textColor = .red
-            cell.subtitleLabel.textColor = .red
-            cell.trainingLabel.textColor = .red
+            cell.update(model: model)
         }
         return cell
+        
+        
+//        let cell = tableView.dequeueReusableCell(withIdentifier: FriendListUserTableViewCell.className, for: indexPath) as! FriendListUserTableViewCell
+//        cell.selectionStyle = .none
+//        
+//        let model = _viewModel.items.value[indexPath.row]
+//        
+//        if model is CallRecord, let model = model as? CallRecord {
+//            cell.titleLabel.text = model.nickname
+//            cell.subtitleLabel.text = "[\(model.typeStr())] \(model.formatDateStr())"
+//            cell.avatarImageView.setAvatar(url: model.faceURL, text: model.nickname, onTap: nil)
+//            cell.trainingLabel.text = model.durationStr()
+//            
+//            if !model.success {
+//                cell.titleLabel.textColor = .red
+//                cell.subtitleLabel.textColor = .red
+//                cell.trainingLabel.textColor = .red
+//                cell.trainingLabel.text = model.inOrOutStr()
+//            }
+//        } else if model is MeetingInfo, let model = model as? MeetingInfo {
+//            cell.titleLabel.text = model.meetingName
+//            cell.subtitleLabel.text = "\(Date.timeString(timeInterval: model.startTime * 1000)) - \(Date.timeString(timeInterval: model.endTime * 1000))"
+//            cell.avatarImageView.setAvatar(url: nil, text: nil, placeHolder: "live_room_record_icon")
+//            let now = Date().timeIntervalSince1970
+//            if now > model.endTime {
+//                cell.trainingLabel.text =  "[已结束]"
+//            } else if now < model.startTime {
+//                cell.trainingLabel.text =  "[未开始]"
+//            } else {
+//                cell.trainingLabel.text =  "[已开始]"
+//            }
+//            
+//            cell.titleLabel.textColor = .red
+//            cell.subtitleLabel.textColor = .red
+//            cell.trainingLabel.textColor = .red
+//        }
+//        return cell
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -260,6 +282,9 @@ extension CallRecordsViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     
+    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 72
+    }
     
 }
 #endif

@@ -73,6 +73,18 @@ extension UIImageView {
         image = UIImage(contentsOfFile: url.path)
     }
     
+    public func setImageAbout(string: String?, placeHolder: String?) {
+        guard let string, !string.isEmpty, let url = URL(string: string) else {
+            if let placeHolder = placeHolder {
+                image = UIImage(named: placeHolder)
+            } else {
+                image = nil
+            }
+            return
+        }
+        kf.setImage(with: url, placeholder: UIImage.init(named: placeHolder ?? "DefaultAvatar"))
+    }
+    
     public func cancelDownload() {
         kf.cancelDownloadTask()
     }

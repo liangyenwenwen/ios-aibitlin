@@ -94,6 +94,7 @@
 		0473ACF62C9584E600FC5370 /* UIImageView+NoCacheGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0473ACE92C9584E600FC5370 /* UIImageView+NoCacheGroup.swift */; };
 		049389F31E8090566255E75326C366C5 /* ic_flags.png in Resources */ = {isa = PBXBuildFile; fileRef = FB5D954A2FB136E07EA46924EACAAA7B /* ic_flags.png */; };
 		04968C77AF8CB469CE27F8BCF5205A18 /* QMUINavigationBarScrollingAnimator.h in Headers */ = {isa = PBXBuildFile; fileRef = 68B4BF97D755F3F5D0EA8E4B42D0976D /* QMUINavigationBarScrollingAnimator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		049B98012CB510EF0032E7B8 /* YFCallRecordsListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049B98002CB510EF0032E7B8 /* YFCallRecordsListCell.swift */; };
 		04A2D75C1A95FE0D38B74C3C2847CE39 /* SDAnimatedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = BA6738B1158992DE3CD21E3DC0D69493 /* SDAnimatedImageView.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		04A5A83C27088A7C62D00DA0CDB7AADB /* CompoundBezierPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211936FC35583D1B190ED43700623C4E /* CompoundBezierPath.swift */; };
 		04AA1429E81CC5BAB0BBC9305823DA3A /* OIMManager+Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E0CB76126E4BEBDD2C1CE6E1F4B88FA /* OIMManager+Group.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
@@ -4413,6 +4414,7 @@
 		048CB58F6C9C6C9E6B575FC831F53F2D /* SetMuteViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SetMuteViewController.swift; sourceTree = "<group>"; };
 		049088819BD675680DA0BE7BD62F9A22 /* NSCharacterSet+QMUI.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSCharacterSet+QMUI.m"; path = "QMUIKit/UIKitExtensions/NSCharacterSet+QMUI.m"; sourceTree = "<group>"; };
 		0493443AC7C5DA2B8377770A4C997410 /* UITextInputTraits+QMUI.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UITextInputTraits+QMUI.h"; path = "QMUIKit/UIKitExtensions/UITextInputTraits+QMUI.h"; sourceTree = "<group>"; };
+		049B98002CB510EF0032E7B8 /* YFCallRecordsListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFCallRecordsListCell.swift; sourceTree = "<group>"; };
 		04A3BD5F9C18171EBB74F20E073FAD04 /* UINavigationBarExtensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UINavigationBarExtensions.swift; path = Sources/SwifterSwift/UIKit/UINavigationBarExtensions.swift; sourceTree = "<group>"; };
 		04BB358B717A25AFE595E10DBF3ED8E7 /* URLRequestExtensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = URLRequestExtensions.swift; path = Sources/SwifterSwift/Foundation/URLRequestExtensions.swift; sourceTree = "<group>"; };
 		04C3BF842C9BB87300CB6EEF /* ChatViewControllerNav.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewControllerNav.swift; sourceTree = "<group>"; };
@@ -8722,6 +8724,13 @@
 			path = CDDGroupAvatarSwift;
 			sourceTree = "<group>";
 		};
+		049B97FD2CB50FD00032E7B8 /* CallRecords */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CallRecords;
+			sourceTree = "<group>";
+		};
 		04C3BF832C9BB84C00CB6EEF /* ChatViewControllerNav */ = {
 			isa = PBXGroup;
 			children = (
@@ -9265,6 +9274,7 @@
 			children = (
 				1E0ECF6D463ABA86B89803AB0B024F6C /* CallRecordsViewController.swift */,
 				486BD48F31B1D65CC75FA6C1B958560E /* CallRecordsViewModel.swift */,
+				049B98002CB510EF0032E7B8 /* YFCallRecordsListCell.swift */,
 			);
 			path = CallRecords;
 			sourceTree = "<group>";
@@ -9820,6 +9830,7 @@
 		3534AE6D43389F29B0986D99CE9FF389 /* OUICoreView */ = {
 			isa = PBXGroup;
 			children = (
+				049B97FD2CB50FD00032E7B8 /* CallRecords */,
 				6AB053DC70489ED83CB981518EED647B /* GroupFriendList */,
 				20916F1259917099317968D3F9A659F9 /* MediaPreview */,
 				3EF89D498AC9B2337357B903C0AC494E /* Pod */,
@@ -19310,6 +19321,7 @@
 				F77EAE93844106C05078CB9BDB5D0E19 /* URLController.swift in Sources */,
 				F29D2E7C1C72D17F45DC9C77CCC4DC44 /* URLSource.swift in Sources */,
 				B67024C8CBD6C7913DD8912C2E5FF129 /* URLView.swift in Sources */,
+				049B98012CB510EF0032E7B8 /* YFCallRecordsListCell.swift in Sources */,
 				DC926E098B4E3E55382520AC014BA2E7 /* User.swift in Sources */,
 				32E80631129BED78D45B7A6CE01F1D5B /* UserDetailTableViewController.swift in Sources */,
 				6F93671CD776F447CE40AC5ED64A3C59 /* UserDetailViewModel.swift in Sources */,
