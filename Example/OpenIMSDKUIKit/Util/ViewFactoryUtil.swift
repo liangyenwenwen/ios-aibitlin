@@ -366,4 +366,46 @@ extension ViewFactoryUtil {
         
         return sectionHaderView
     }
+    
+    ///  分组 头部
+    static func sectionHeaderViewAboutVIP(_ image: UIImage = R.image.boke_icon()!,  title: String = "标题", isHaveMore: Bool = false) -> UIView{
+        let sectionHaderView = TGLinearLayout(.horz)
+        sectionHaderView.tg_padding = UIEdgeInsets(top: PADDING_OUTER, left: PADDING_OUTER, bottom: PADDING_OUTER, right: PADDING_OUTER)
+        sectionHaderView.tg_width.equal(.fill)
+        sectionHaderView.tg_height.equal(.wrap)
+        sectionHaderView.tg_space = PADDING_OUTER
+        
+        let leftImg = ViewFactoryUtil.defalutImgView(image, 20)
+        leftImg.tg_centerY.equal(0)
+        sectionHaderView.addSubview(leftImg)
+        
+        let titleLbl = ViewFactoryUtil.customBoldTilteLable(title)
+        titleLbl.tg_centerY.equal(0)
+        titleLbl.tg_width.equal(.wrap)
+        sectionHaderView.addSubview(titleLbl)
+        titleLbl.tag = 20001
+        
+        
+        let copyImg = ViewFactoryUtil.defalutImgView(R.image.copy_icon()!, 16)
+        copyImg.tg_centerY.equal(0)
+        copyImg.tg_left.equal(-10)
+        sectionHaderView.addSubview(copyImg)
+        
+        let view = UIView()
+        titleLbl.tg_centerY.equal(0)
+        view.tg_width.equal(.fill)
+        sectionHaderView.addSubview(view)
+        
+        if(isHaveMore) {
+            let moreImg = ViewFactoryUtil.moreIconView()
+            sectionHaderView.addSubview(moreImg)
+        }
+        
+        return sectionHaderView
+    }
+    
+    
+    
+    
+    
 }

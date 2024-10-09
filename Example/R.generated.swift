@@ -169,7 +169,7 @@ struct _R {
       var ieXW0yeText: RswiftResources.StringResource { .init(key: "8ie-xW-0ye.text", tableName: "LaunchScreen", source: source, developmentValue: nil, comment: nil) }
     }
 
-    /// This `_R.string.localizable` struct is generated, and contains static references to 455 localization keys.
+    /// This `_R.string.localizable` struct is generated, and contains static references to 458 localization keys.
     struct localizable {
       let source: RswiftResources.StringResource.Source
 
@@ -788,6 +788,13 @@ struct _R {
       ///
       /// Locales: en, zh-Hans, th
       var userNotifiySetting: RswiftResources.StringResource1<String> { .init(key: "UserNotifiySetting", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// zh-Hans translation: 靓号ID: 
+      ///
+      /// Key: VIP ID: 
+      ///
+      /// Locales: zh-Hans
+      var vipiD: RswiftResources.StringResource { .init(key: "VIP ID: ", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Insufficient VIP level
       ///
@@ -2154,6 +2161,13 @@ struct _R {
       /// Locales: en, th
       var 我的: RswiftResources.StringResource { .init(key: "我的", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// en translation: My QR Code
+      ///
+      /// Key: 我的二维码
+      ///
+      /// Locales: en, th
+      var 我的二维码: RswiftResources.StringResource { .init(key: "我的二维码", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: Info
       ///
       /// Key: 我的信息
@@ -2377,6 +2391,13 @@ struct _R {
       ///
       /// Locales: en, th
       var 显示在我的个人主页: RswiftResources.StringResource { .init(key: "显示在我的个人主页", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Ordinary user
+      ///
+      /// Key: 普通用户
+      ///
+      /// Locales: en, th
+      var 普通用户: RswiftResources.StringResource { .init(key: "普通用户", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: No One
       ///
@@ -3376,7 +3397,7 @@ struct _R {
     var colorBackground: RswiftResources.ColorResource { .init(name: "ColorBackground", path: [], bundle: bundle) }
   }
 
-  /// This `_R.image` struct is generated, and contains static references to 226 images.
+  /// This `_R.image` struct is generated, and contains static references to 227 images.
   struct image {
     let bundle: Foundation.Bundle
 
@@ -3940,6 +3961,9 @@ struct _R {
 
     /// Image `search_gray`.
     var search_gray: RswiftResources.ImageResource { .init(name: "search_gray", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `section_QR_code`.
+    var section_QR_code: RswiftResources.ImageResource { .init(name: "section_QR_code", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
     /// Image `section_star`.
     var section_star: RswiftResources.ImageResource { .init(name: "section_star", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }

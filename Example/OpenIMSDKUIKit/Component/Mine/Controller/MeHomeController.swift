@@ -13,6 +13,8 @@ import UIKit
 class MeHomeController: BaseLogicController {
     private let _viewModel = MineViewModel()
     
+    var vipTitle = UILabel()
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
@@ -31,6 +33,7 @@ class MeHomeController: BaseLogicController {
         
         addTopUserMessage()
         addVIP()
+        addCode()
         addMyBoke()
         addMyStarBoke()
         
@@ -57,8 +60,16 @@ class MeHomeController: BaseLogicController {
         
         avatarImageView.setAvatar(url: user?.faceURL, text: userState.n)
         username.text = userState.n
-        tagLable.text = SuperStringUtil.getUserTag(showname: (user?.nickname)!)
+        tagLable.text = SuperStringUtil.getUserTag(showname: (user?.nickname)!)  ?? "普通用户".localized()
+        tagLable.textColor = userState.v > 0  ? .init(hexString: "#7238EF")  : .init(hexString: "#999999")
         userID.text = user?.chatID
+        
+        if userState.v > 0 {
+            vipTitle.text = "VIP ID: ".localized() + "\(String(describing: user?.chatID != nil ? user!.chatID! : user!.userID!))"
+        } else {
+            vipTitle.text = "ID: ".localized() + "\(String(describing: user?.chatID != nil ? user!.chatID! : user!.userID!))"
+        }
+        
         
         let defaults = UserDefaults.standard
         defaults.set(userState.v, forKey: "vipRank")
@@ -91,9 +102,9 @@ class MeHomeController: BaseLogicController {
         
         userMessageView.addSubview(username)
         userMessageView.addSubview(tagLable)
-        userMessageView.addSubview(userID)
+//        userMessageView.addSubview(userID)
         
-        userView.addSubview(scanBtn)
+//        userView.addSubview(scanBtn)
         userView.addSubview(settingBtn)
     }
 
@@ -161,8 +172,9 @@ class MeHomeController: BaseLogicController {
         return r
     }()
     
-    func addVIP() {
-        let vipView = ViewFactoryUtil.sectionHeaderView(R.image.section_vip()!, title: "购买VIP服务".localized(), isHaveMore: true)
+    
+    lazy var vipView: UIView = {
+        let vipView = ViewFactoryUtil.sectionHeaderViewAboutVIP(R.image.section_vip()!, title: "ID:", isHaveMore: true)
         vipView.backgroundColor = .white
         vipView.corner(MEDDLE_RADIUS)
         vipView.tg_width.equal(.fill)
@@ -171,7 +183,31 @@ class MeHomeController: BaseLogicController {
         let tap = UITapGestureRecognizer(target: self, action: #selector(gotoVip))
         vipView.addGestureRecognizer(tap)
         
+        vipTitle = vipView.viewWithTag(20001) as! UILabel
+//        vipTitle.tg_width.equal(.wrap)
+        
+        
+        
+        
+        return vipView
+    }()
+    
+    func addVIP() {
+
         container.addSubview(vipView)
+    }
+    
+    func addCode() {
+        let codeView = ViewFactoryUtil.sectionHeaderView(R.image.section_QR_code()!, title: "我的二维码".localized(), isHaveMore: true)
+        codeView.backgroundColor = .white
+        codeView.corner(MEDDLE_RADIUS)
+        codeView.tg_width.equal(.fill)
+        codeView.tg_height.equal(44)
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(gotoCode))
+        codeView.addGestureRecognizer(tap)
+        
+        container.addSubview(codeView)
     }
 
     func addMyBoke() {
@@ -219,7 +255,7 @@ class MeHomeController: BaseLogicController {
         bokeView.tg_height.equal(.wrap)
         container.addSubview(bokeView)
         
-        let bokeHeader = ViewFactoryUtil.sectionHeaderView(title: "我收藏的博客".localized(), isHaveMore: true)
+        let bokeHeader = ViewFactoryUtil.sectionHeaderView(.init(named: "section_star")!,title: "我收藏的博客".localized(), isHaveMore: true)
         bokeHeader.tg_height.equal(44)
         let tap = UITapGestureRecognizer(target: self, action: #selector(gotoMyStarBokeList))
         bokeHeader.addGestureRecognizer(tap)
@@ -287,6 +323,10 @@ extension MeHomeController {
     
     
     @objc func gotoVip() {
+        gotoControllerFromRoot(YFMineHomeBuyVipVC.self)
+    }
+    
+    @objc func gotoCode() {
         gotoControllerFromRoot(YFMineHomeBuyVipVC.self)
     }
     

@@ -216,3 +216,6 @@ SecondsCount = "%@秒";
 
 //VIP 购买
 SupportShortNumber = "支持设置最短%@位账号ID";
+
+
+"VIP ID: " = "靓号ID: ";

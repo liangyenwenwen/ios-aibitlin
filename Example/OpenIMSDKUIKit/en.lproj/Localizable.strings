@@ -593,6 +593,10 @@ SupportShortNumber = "Support setting a minimum %@-digit account ID";
 "请去-> [设置 - 隐私 - 麦克风] 打开访问开关" = "Please go to -> [Settings - Privacy - Microphone] to turn on the access switch";
 "请去-> [设置 - 隐私 - 相册] 打开访问开关" = "Please go to -> [Settings - Privacy - Albums] to turn on the access switch";
 
+"我的二维码" = "My QR Code";
+
+"普通用户" = "Ordinary user";
+
 //"" = "";
 //"" = "";
 //"" = "";

@@ -14,7 +14,8 @@ open class FriendListUserTableViewCell: UITableViewCell {
 //        v.font = UIFont.f17
 //        v.textColor = UIColor.c0C1C33
         v.font =  UIFont(name: "PingFangSC-Medium", size: 18)
-        v.textColor = UIColor(red: 0.533, green: 0.533, blue: 0.533, alpha: 1)
+//        v.textColor = UIColor(red: 0.533, green: 0.533, blue: 0.533, alpha: 1)
+        v.textColor = .init(hexString: "#333333")
         return v
     }()
 
