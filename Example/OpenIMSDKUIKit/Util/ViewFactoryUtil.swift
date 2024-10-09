@@ -390,6 +390,7 @@ extension ViewFactoryUtil {
         copyImg.tg_centerY.equal(0)
         copyImg.tg_left.equal(-10)
         sectionHaderView.addSubview(copyImg)
+        copyImg.tag = 20002
         
         let view = UIView()
         titleLbl.tg_centerY.equal(0)

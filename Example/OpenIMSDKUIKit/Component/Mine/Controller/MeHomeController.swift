@@ -14,6 +14,7 @@ class MeHomeController: BaseLogicController {
     private let _viewModel = MineViewModel()
     
     var vipTitle = UILabel()
+    var userShowId: String = ""
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -65,16 +66,14 @@ class MeHomeController: BaseLogicController {
         userID.text = user?.chatID
         
         if userState.v > 0 {
-            vipTitle.text = "VIP ID: ".localized() + "\(String(describing: user?.chatID != nil ? user!.chatID! : user!.userID!))"
+            userShowId = "\(String(describing: user?.chatID != nil ? user!.chatID! : user!.userID!))"
         } else {
-            vipTitle.text = "ID: ".localized() + "\(String(describing: user?.chatID != nil ? user!.chatID! : user!.userID!))"
+            userShowId = "\(String(describing: user?.chatID != nil ? user!.chatID! : user!.userID!))"
         }
-        
+        vipTitle.text = "ID: ".localized() + userShowId
         
         let defaults = UserDefaults.standard
         defaults.set(userState.v, forKey: "vipRank")
-//        defaults.set(0, forKey: "vipRank")
-//        defaults.integer(forKey: "vipRank")
         
     }
     
@@ -183,9 +182,6 @@ class MeHomeController: BaseLogicController {
         let tap = UITapGestureRecognizer(target: self, action: #selector(gotoVip))
         vipView.addGestureRecognizer(tap)
         
-        vipTitle = vipView.viewWithTag(20001) as! UILabel
-//        vipTitle.tg_width.equal(.wrap)
-        
         
         
         
@@ -195,6 +191,23 @@ class MeHomeController: BaseLogicController {
     func addVIP() {
 
         container.addSubview(vipView)
+        
+        vipTitle = vipView.viewWithTag(20001) as! UILabel
+        let copyImg = vipView.viewWithTag(20002) as! UIImageView
+        
+        let copyView = UIView()
+//        copyView.backgroundColor = .red.withAlphaComponent(0.3)
+        view.addSubview(copyView)
+        copyView.snp.makeConstraints { make in
+            make.left.equalTo(vipTitle.snp_left)
+            make.top.equalTo(vipView)
+            make.bottom.equalTo(vipView)
+            make.right.equalTo(copyImg.snp_right)
+        }
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(copyUserID))
+        copyView.addGestureRecognizer(tap)
+        
     }
     
     func addCode() {
@@ -329,6 +342,14 @@ extension MeHomeController {
     @objc func gotoCode() {
         gotoControllerFromRoot(YFMineHomeBuyVipVC.self)
     }
+    
+    
+    @objc func copyUserID() {
+        UIPasteboard.general.string = userShowId
+        
+        SuperToast.show(title: "复制成功")
+    }
+    
     
     func getMyBlog() {
         
