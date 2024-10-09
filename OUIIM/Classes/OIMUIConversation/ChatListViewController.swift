@@ -96,6 +96,7 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
         v.delegate = self
         v.separatorStyle = .none
         v.rowHeight = 68.h
+        v.contentInsetAdjustmentBehavior = .never
         
         let refresh: UIRefreshControl = {
             let v = UIRefreshControl(frame: CGRect(x: 0, y: 0, width: 35, height: 35))
@@ -105,6 +106,7 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
             }).disposed(by: _disposeBag)
             return v
         }()
+//        refresh.backgroundColor = .green
         v.refreshControl = refresh
         v.backgroundColor = .clear
         
@@ -277,19 +279,21 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
     }
 
     private func initView() {
-        view.addSubview(_headerView)
-//        _headerView.backgroundColor = .red
-        _headerView.snp.makeConstraints { make in
-            make.leading.top.trailing.equalToSuperview()
-        }
+        
         view.addSubview(_tableView)
+        let header = UIView()
+        _tableView.tableHeaderView = header
         _tableView.snp.makeConstraints { make in
-            make.top.equalTo(_headerView.snp.bottom)
+            make.top.equalTo(kStatusBarHeight + 10)
             make.leading.bottom.trailing.equalToSuperview()
         }
         
         timeCountDown()
         
+        view.addSubview(_headerView)
+        _headerView.snp.makeConstraints { make in
+            make.leading.top.trailing.equalToSuperview()
+        }
         
         
     }
@@ -323,6 +327,7 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
         _viewModel.conversationsRelay.bind(to: _tableView.rx.items(cellIdentifier: ChatTableViewCell.className, cellType: ChatTableViewCell.self)) { (row, item, cell) in
             
             cell.updateUI(item: item)
+//            cell.backgroundColor = .red
             
         }.disposed(by: _disposeBag)
 

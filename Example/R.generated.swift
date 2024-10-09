@@ -3376,7 +3376,7 @@ struct _R {
     var colorBackground: RswiftResources.ColorResource { .init(name: "ColorBackground", path: [], bundle: bundle) }
   }
 
-  /// This `_R.image` struct is generated, and contains static references to 224 images.
+  /// This `_R.image` struct is generated, and contains static references to 226 images.
   struct image {
     let bundle: Foundation.Bundle
 
@@ -3722,8 +3722,14 @@ struct _R {
     /// Image `call_log_auido`.
     var call_log_auido: RswiftResources.ImageResource { .init(name: "call_log_auido", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
+    /// Image `call_log_auido_btn`.
+    var call_log_auido_btn: RswiftResources.ImageResource { .init(name: "call_log_auido_btn", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
     /// Image `call_log_video`.
     var call_log_video: RswiftResources.ImageResource { .init(name: "call_log_video", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `call_log_video_btn`.
+    var call_log_video_btn: RswiftResources.ImageResource { .init(name: "call_log_video_btn", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
     /// Image `change_icon`.
     var change_icon: RswiftResources.ImageResource { .init(name: "change_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }

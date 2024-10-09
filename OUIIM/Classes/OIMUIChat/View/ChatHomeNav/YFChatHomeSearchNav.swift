@@ -31,7 +31,6 @@ class YFChatHomeSearchNav: UIView {
             make.top.equalTo(kStatusBarHeight)
             make.height.equalTo(52)
         }
-//        backgroundColor = .red
         snp.makeConstraints { make in
             make.height.equalTo(kStatusBarHeight + 52)
         }

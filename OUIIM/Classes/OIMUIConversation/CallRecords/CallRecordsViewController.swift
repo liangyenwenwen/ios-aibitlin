@@ -16,6 +16,7 @@ open class CallRecordsViewController: UIViewController {
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
+        self.currentRow = -1
         _viewModel.getRecords()
     }
 
@@ -91,6 +92,8 @@ open class CallRecordsViewController: UIViewController {
 
     private lazy var resultC = GroupListResultViewController()
 
+    var currentRow: Int = -1
+    
     private func initView() {
         
 //        let btnStackView: UIStackView = {
@@ -135,11 +138,6 @@ open class CallRecordsViewController: UIViewController {
         }
         
         
-        
-        
-        
-        
-        
         tableView.tableFooterView = UIView()
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
@@ -155,6 +153,13 @@ open class CallRecordsViewController: UIViewController {
     private let _viewModel = CallRecordsViewModel()
     private let _disposeBag = DisposeBag()
     private func bindData() {
+        
+        // 注册对名为"myNotification"的通知的观察
+        NotificationCenter.default.addObserver(self, selector: #selector(handleNotification), name: Notification.Name("refrehCallLogs"), object: nil)
+
+      
+        
+        
         
 //        allRecordsBtn.rx.tap.subscribe(onNext: { [weak self] in
 //            self?._viewModel.tabSelected.accept(0)
@@ -187,6 +192,7 @@ open class CallRecordsViewController: UIViewController {
         _viewModel.tabSelected.subscribe(onNext: { [weak self] index in
             self?.allLogsBtn.backgroundColor = index == 0 ? .white : .clear
             self?.unreadLogsBtn.backgroundColor = index == 1 ? .white : .clear
+            self?.currentRow = -1
             self?.tableView.reloadData()
         }).disposed(by: _disposeBag)
         
@@ -196,8 +202,8 @@ open class CallRecordsViewController: UIViewController {
     }
     
     // 音视频通话
-    private func startCalling(record: CallRecord) {
-        CallingManager.manager.startLiveChat(othersID: [record.otherSideID!])
+    private func startCalling(record: CallRecord, isVideo: Bool = true) {
+        CallingManager.manager.startLiveChat(othersID: [record.otherSideID!], isVideo: isVideo)
     }
 #endif
     #if ENABLE_LIVE_ROOM
@@ -255,7 +261,11 @@ open class CallRecordsViewController: UIViewController {
     
     
     
-    
+    // 处理接收到的通知
+    @objc func handleNotification() {
+        self.currentRow = -1
+        _viewModel.getRecords()
+    }
     
     
     
@@ -276,14 +286,27 @@ extension CallRecordsViewController: UITableViewDelegate, UITableViewDataSource 
         let model = _viewModel.items.value[indexPath.row]
         
         if model is CallRecord, let model = model as? CallRecord {
-
             
-            cell.update(model: model)
+            cell.update(model: model, indexRow: indexPath.row, currentRow: currentRow)
         } else if model is MeetingInfo, let model = model as? MeetingInfo {
-  
             
             cell.update(model: model)
         }
+        
+        cell.videoView.didClickBlock = {
+            let temp = model as! CallRecord
+            temp.type = "video"
+            print("video")
+            self.startCalling(record: temp, isVideo: true)
+        }
+        cell.audioView.didClickBlock = {
+            let temp = model as! CallRecord
+            temp.type = "audio"
+            print("audio")
+            self.startCalling(record: temp, isVideo: false)
+        }
+        
+        
         return cell
         
         
@@ -324,49 +347,66 @@ extension CallRecordsViewController: UITableViewDelegate, UITableViewDataSource 
 //        return cell
     }
     
-    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-//        tableView.deselectRow(at: indexPath, animated: true)
-//                // 创建UIAlertController
-//                let alertController = UIAlertController(title: "Title", message: "Your message here", preferredStyle: .alert)
-//                
-//                // 创建UIAlertAction，用于处理点击气泡按钮的事件
-//                let okAction = UIAlertAction(title: "OK", style: .default, handler: { _ in
-//                    // 点击OK后的处理
-//                })
-//                
-//                alertController.addAction(okAction)
-//                
-//                // 显示UIAlertController
-//                present(alertController, animated: true, completion: nil)
-        
-//        tableView.reloadRows(at: [indexPath], with: .automatic)
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)  {
         
         let record = _viewModel.items.value[indexPath.row]
         
-#if ENABLE_LIVE_ROOM
-        if CallingManager.isBusy || LiveRoomViewController.isBusy {
-            presentAlert(title: "callingBusy".innerLocalized())
-            
-            return
-        }
-#else
-        if CallingManager.isBusy {
-            presentAlert(title: "callingBusy".innerLocalized())
-            
-            return
-        }
-#endif
-        
         if record is CallRecord {
-            // 吊起拨打电话界面
-            startCalling(record: record as! CallRecord)
-//            let temp = record as! CallRecord
-//            temp.type = "video" "audio"
-        } else {
             
+            if currentRow == indexPath.row {
+                currentRow = -1
+            } else {
+                currentRow = indexPath.row
+            }
+            
+            self.tableView.reloadData()
         }
+        
     }
+    
+//    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        
+////        tableView.deselectRow(at: indexPath, animated: true)
+////                // 创建UIAlertController
+////                let alertController = UIAlertController(title: "Title", message: "Your message here", preferredStyle: .alert)
+////                
+////                // 创建UIAlertAction，用于处理点击气泡按钮的事件
+////                let okAction = UIAlertAction(title: "OK", style: .default, handler: { _ in
+////                    // 点击OK后的处理
+////                })
+////                
+////                alertController.addAction(okAction)
+////                
+////                // 显示UIAlertController
+////                present(alertController, animated: true, completion: nil)
+//        
+////        tableView.reloadRows(at: [indexPath], with: .automatic)
+//        
+//        let record = _viewModel.items.value[indexPath.row]
+//        
+//#if ENABLE_LIVE_ROOM
+//        if CallingManager.isBusy || LiveRoomViewController.isBusy {
+//            presentAlert(title: "callingBusy".innerLocalized())
+//            
+//            return
+//        }
+//#else
+//        if CallingManager.isBusy {
+//            presentAlert(title: "callingBusy".innerLocalized())
+//            
+//            return
+//        }
+//#endif
+//        
+//        if record is CallRecord {
+//            // 吊起拨打电话界面
+//            startCalling(record: record as! CallRecord)
+////            let temp = record as! CallRecord
+////            temp.type = "video" "audio"
+//        } else {
+//            
+//        }
+//    }
     
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

@@ -53,6 +53,13 @@ public class CallingBaseController: UIViewController {
      挂断、拒绝等关闭界面
      */
     @objc public func dismiss() {}
+    
+    public override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        // 发送名为"myNotification"的通知
+        NotificationCenter.default.post(name: Notification.Name("refrehCallLogs"), object: nil)
+    }
 }
 
 // 空隙站位
