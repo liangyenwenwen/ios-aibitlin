@@ -126,13 +126,13 @@ open class CallRecordsViewController: UIViewController {
         }
         
         allLogsBtn.snp.makeConstraints { make in
-            make.left.equalToSuperview().inset(4)
+            make.left.equalToSuperview().inset(2)
             make.top.bottom.equalToSuperview().inset(2)
             make.width.equalTo(83)
         }
         
         unreadLogsBtn.snp.makeConstraints { make in
-            make.right.equalToSuperview().inset(4)
+            make.right.equalToSuperview().inset(2)
             make.top.bottom.equalToSuperview().inset(2)
             make.width.equalTo(83)
         }

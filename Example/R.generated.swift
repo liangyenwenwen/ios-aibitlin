@@ -169,7 +169,7 @@ struct _R {
       var ieXW0yeText: RswiftResources.StringResource { .init(key: "8ie-xW-0ye.text", tableName: "LaunchScreen", source: source, developmentValue: nil, comment: nil) }
     }
 
-    /// This `_R.string.localizable` struct is generated, and contains static references to 458 localization keys.
+    /// This `_R.string.localizable` struct is generated, and contains static references to 459 localization keys.
     struct localizable {
       let source: RswiftResources.StringResource.Source
 
@@ -2140,6 +2140,13 @@ struct _R {
       /// Locales: en, th
       var 我已阅读并同意Aibitlin隐私协议注册协议: RswiftResources.StringResource { .init(key: "我已阅读并同意Aibitlin《隐私协议》《注册协议》", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// en translation: I Want to Recommend Blogs
+      ///
+      /// Key: 我想要推荐的博客
+      ///
+      /// Locales: en, th
+      var 我想要推荐的博客: RswiftResources.StringResource { .init(key: "我想要推荐的博客", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: My Blog Collection
       ///
       /// Key: 我收藏的博客
@@ -3397,7 +3404,7 @@ struct _R {
     var colorBackground: RswiftResources.ColorResource { .init(name: "ColorBackground", path: [], bundle: bundle) }
   }
 
-  /// This `_R.image` struct is generated, and contains static references to 229 images.
+  /// This `_R.image` struct is generated, and contains static references to 231 images.
   struct image {
     let bundle: Foundation.Bundle
 
@@ -3965,6 +3972,9 @@ struct _R {
     /// Image `place_boke_icon`.
     var place_boke_icon: RswiftResources.ImageResource { .init(name: "place_boke_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
+    /// Image `save_icon`.
+    var save_icon: RswiftResources.ImageResource { .init(name: "save_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
     /// Image `search_gray`.
     var search_gray: RswiftResources.ImageResource { .init(name: "search_gray", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
@@ -3976,6 +3986,9 @@ struct _R {
 
     /// Image `section_vip`.
     var section_vip: RswiftResources.ImageResource { .init(name: "section_vip", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `share_icon`.
+    var share_icon: RswiftResources.ImageResource { .init(name: "share_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
     /// Image `system_avatar_0`.
     var system_avatar_0: RswiftResources.ImageResource { .init(name: "system_avatar_0", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }

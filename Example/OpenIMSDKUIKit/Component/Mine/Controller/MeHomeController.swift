@@ -65,6 +65,9 @@ class MeHomeController: BaseLogicController {
         tagLable.textColor = userState.v > 0  ? .init(hexString: "#7238EF")  : .init(hexString: "#999999")
         userID.text = user?.chatID
         
+        print(user?.userID)
+        print(user?.chatID)
+        
         if userState.v > 0 {
             userShowId = "\(String(describing: user?.chatID != nil ? user!.chatID! : user!.userID!))"
         } else {

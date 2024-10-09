@@ -24,9 +24,12 @@ class YFMineQRCodeVC: BaseTitleController {
         title = "我的二维码".localized()
         
         scrollViewContainer.addSubview(userCardView)
+        
+        addMyStarBoke()
 
     }
     
+    // MARK: - 张亚飞打的标记 卡片
     /// 用户卡片
     lazy var userCardView: TGLinearLayout = {
         let r = TGLinearLayout(.vert)
@@ -39,7 +42,12 @@ class YFMineQRCodeVC: BaseTitleController {
         
         r.addSubview(userShowTitleView)
         r.addSubview(userEditTitleView)
+        userEditTitleView.hide()
         r.addSubview(codeView)
+        r.addSubview(userIdTitleView)
+        r.addSubview(tipLbl)
+        r.addSubview(lineView)
+        r.addSubview(cardBottmView)
         
         return r
     }()
@@ -51,7 +59,7 @@ class YFMineQRCodeVC: BaseTitleController {
         r.tg_height.equal(40)
         r.tg_space = 7
         r.tg_gravity = .vert.center
-//        r.backgroundColor = .yellow
+        r.tg_top.equal(38)
         r.addSubview(userNicknameLbl)
         r.addSubview(ViewFactoryUtil.defalutImgView(R.image.edit_icon()!, 16))
         return r
@@ -75,7 +83,7 @@ class YFMineQRCodeVC: BaseTitleController {
         r.tg_space = 7
         r.tg_gravity = .vert.center
         r.addSubview(userNicknameTF)
-//        r.backgroundColor = .yellow
+        r.tg_top.equal(38)
         
         let chooseBtn = ViewFactoryUtil.imageBtn(R.image.choose_blue()!, 32)
         r.addSubview(chooseBtn)
@@ -98,6 +106,146 @@ class YFMineQRCodeVC: BaseTitleController {
         r.tg_width.equal(260)
         r.tg_height.equal(260)
         r.border(.init(hexString: "#EAEAEA"), cornerRadius: 8)
+        r.tg_top.equal(17)
+        return r
+    }()
+    
+    
+    ///用户id展示
+    lazy var userIdTitleView: TGLinearLayout = {
+        let r = TGLinearLayout(.horz)
+        r.tg_width.equal(.wrap)
+        r.tg_height.equal(22)
+        r.tg_space = 7
+        r.tg_gravity = .vert.center
+        r.tg_top.equal(24)
+        
+        let lbl = UILabel()
+        lbl.tg_width.equal(.wrap)
+        lbl.tg_height.equal(.wrap)
+        lbl.textColor = .black666
+        lbl.font = .regularFont(13)
+        lbl.text = "靓号ID：122456646"
+        
+        r.addSubview(lbl)
+        r.addSubview(ViewFactoryUtil.defalutImgView(R.image.copy_icon()!, 16))
+        
+        return r
+    }()
+    
+    lazy var tipLbl: UILabel = {
+        let r = UILabel()
+        r.text = "1.未下载APP的用户，扫你的二维码可直接下载哎比邻。\n2.未注册用户在登录页面扫你的二维码，免注册即可试用哎比邻，并自动收藏您推荐的博客。"
+        r.tg_left.equal(16)
+        r.tg_right.equal(16)
+        r.tg_height.equal(.wrap)
+        r.tg_top.equal(19)
+        r.font = .regularFont(13)
+        r.textColor = .black999
+        return r
+    }()
+    
+    lazy var lineView: UIView = {
+        let r = UIView()
+        r.backgroundColor = .init(hexString: "#eaeaea")
+        r.tg_width.equal(.fill)
+        r.tg_height.equal(1)
+        r.tg_top.equal(25)
+        return r
+    }()
+    
+    lazy var cardBottmView: TGLinearLayout = {
+        let r = TGLinearLayout(.horz)
+        r.tg_height.equal(50)
+        r.tg_width.equal(.fill)
+        r.tg_gravity = .vert.center
+        r.addSubview(shareView)
+        
+        r.addSubview(shareView)
+        
+        let lineView = UIView()
+        lineView.tg_width.equal(1)
+        lineView.tg_height.equal(15)
+        lineView.backgroundColor = .init(hexString: "#eaeaea")
+        r.addSubview(lineView)
+        
+        r.addSubview(saveView)
+        return r
+    }()
+    
+    lazy var shareView: TGLinearLayout = {
+        let r = TGLinearLayout(.horz)
+        r.tg_height.equal(50)
+        r.tg_width.equal(.fill)
+        r.tg_space = 5
+        r.tg_gravity = .center
+        
+        r.addSubview(ViewFactoryUtil.defalutImgView(R.image.share_icon()!, 16))
+        
+        let lbl = UILabel()
+        lbl.tg_width.equal(.wrap)
+        lbl.tg_height.equal(.wrap)
+        lbl.font = .regularFont(14)
+        lbl.textColor = .black333
+        lbl.text = "分享给好友";
+        r.addSubview(lbl)
+        
+        return r
+    }()
+    
+    
+    lazy var saveView: TGLinearLayout = {
+        let r = TGLinearLayout(.horz)
+        r.tg_height.equal(50)
+        r.tg_width.equal(.fill)
+        r.tg_space = 5
+        r.tg_gravity = .center
+        
+        r.addSubview(ViewFactoryUtil.defalutImgView(R.image.save_icon()!, 16))
+        let lbl = UILabel()
+        lbl.tg_width.equal(.wrap)
+        lbl.tg_height.equal(.wrap)
+        lbl.font = .regularFont(14)
+        lbl.textColor = .black333
+        lbl.text = "保存到手机";
+        r.addSubview(lbl)
+        
+        return r
+    }()
+    
+    
+    
+    // MARK: - 张亚飞打的标记 博客
+    func addMyStarBoke() {
+        let bokeView = TGLinearLayout(.vert)
+        bokeView.backgroundColor = .white
+        bokeView.corner(MEDDLE_RADIUS)
+        bokeView.tg_width.equal(.fill)
+        bokeView.tg_height.equal(.wrap)
+        scrollViewContainer.addSubview(bokeView)
+        
+        let bokeHeader = ViewFactoryUtil.sectionHeaderView(title: "我想要推荐的博客".localized(), isHaveMore: false)
+        bokeHeader.tg_height.equal(44)
+//        let tap = UITapGestureRecognizer(target: self, action: #selector(gotoMyStarBokeList))
+//        bokeHeader.addGestureRecognizer(tap)
+        bokeView.addSubview(bokeHeader)
+              
+        bokeView.addSubview(myStarblogItemsView)
+    }
+    
+    lazy var myStarblogItemsView: SectionItemsView = {
+        let r = SectionItemsView()
+        
+        r.bokeClick = { [weak self] item, isMore in
+            if isMore {
+                let vc = MineBokeListViewController()
+                vc.vcType = .star
+                self?.gotoControllerFromRoot(vc)
+            } else {
+                SuperWebController.start((self!.navigationController!), uri: item.userBlogUrl, isRoot: true)
+            }
+        }
+        
         return r
     }()
     

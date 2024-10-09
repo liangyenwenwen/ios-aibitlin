@@ -422,6 +422,8 @@ Toolbox = "Toolbox";
 "企业" = "Company";
 "购买VIP服务" = "Purchase VIP Service";
 "我收藏的博客" = "My Blog Collection";
+"我想要推荐的博客" = "I Want to Recommend Blogs";
+
 
 //消息-单聊和单聊设置
 "相机" = "Camera";
