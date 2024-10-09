@@ -527,9 +527,9 @@ class tableHeaderSearchView: UIView {
         
         addSubview(rightImg)
         rightImg.snp.makeConstraints { make in
-            make.right.equalToSuperview().inset(16)
-            make.width.equalTo(24)
-            make.height.equalTo(20)
+            make.right.equalToSuperview().inset(11)
+            make.width.equalTo(34)
+            make.height.equalTo(34)
             make.centerY.equalTo(searchView)
         }
     }

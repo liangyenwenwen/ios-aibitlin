@@ -31,6 +31,24 @@ open class FriendListViewController: UIViewController {
         }
         return v
     }()
+    
+    lazy var _headerNavView: YFChatHomeSearchNav = {
+        let r =  YFChatHomeSearchNav()
+        r.backgroundColor = .white
+        r.searchView.searchBlock = { [weak self]  in
+            let vc = GlobalSearchViewController()
+            vc.hidesBottomBarWhenPushed = true
+            self?.navigationController?.pushViewController(vc, animated: true)
+        }
+        r.searchView.btnClickBlock = { [weak self] in
+            guard let self else { return }
+            let vc = AddTableViewController()
+            vc.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        return r
+    }()
+    
 
     private let _viewModel = FriendListViewModel()
     public lazy var contactsViewModel = ContactsViewModel()
@@ -40,13 +58,27 @@ open class FriendListViewController: UIViewController {
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationItem.hidesSearchBarWhenScrolling = false
-        navigationController?.navigationBar.isHidden = false
+//        navigationController?.navigationBar.isHidden = false
+        
+        navigationController?.setNavigationBarHidden(true, animated: true)
         
         _viewModel.getMyFriendList()
         contactsViewModel.getFriendApplications()
         contactsViewModel.getGroupApplications()
         contactsViewModel.queryMyDepartmentInfo()
         contactsViewModel.getFrequentUsers()
+    }
+    
+    open override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        navigationController?.setNavigationBarHidden(true, animated: false)
+ 
+    }
+    
+    override open func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: true)
     }
 
     override open func viewDidAppear(_ animated: Bool) {
@@ -63,26 +95,26 @@ open class FriendListViewController: UIViewController {
         bindData()
 
         
-        let titleLbl = UILabel()
-        titleLbl.font = UIFont(name: "PingFangSC-Medium", size: 18)
-        titleLbl.textColor = .init(hexString: "#333333")
-        titleLbl.text =  "通讯录".localized()
-        self.navigationItem.titleView = titleLbl
-        
-        
-        let addItem: UIBarButtonItem = {
-                    let v = UIBarButtonItem()
-                    v.image = UIImage(nameInBundle: "contact_add_icon")
-                    v.imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 15)
-                    v.rx.tap.subscribe(onNext: { [weak self] in
-                        let vc = AddTableViewController()
-                        vc.hidesBottomBarWhenPushed = true
-                        self?.navigationController?.pushViewController(vc, animated: true)
-                    }).disposed(by: _disposeBag)
-                    return v
-                }()
-                
-                navigationItem.rightBarButtonItems = [addItem]
+//        let titleLbl = UILabel()
+//        titleLbl.font = UIFont(name: "PingFangSC-Medium", size: 18)
+//        titleLbl.textColor = .init(hexString: "#333333")
+//        titleLbl.text =  "通讯录".localized()
+//        self.navigationItem.titleView = titleLbl
+//        
+//        
+//        let addItem: UIBarButtonItem = {
+//                    let v = UIBarButtonItem()
+//                    v.image = UIImage(nameInBundle: "contact_add_icon")
+//                    v.imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 15)
+//                    v.rx.tap.subscribe(onNext: { [weak self] in
+//                        let vc = AddTableViewController()
+//                        vc.hidesBottomBarWhenPushed = true
+//                        self?.navigationController?.pushViewController(vc, animated: true)
+//                    }).disposed(by: _disposeBag)
+//                    return v
+//                }()
+//                
+//                navigationItem.rightBarButtonItems = [addItem]
     }
     
     
@@ -111,22 +143,29 @@ open class FriendListViewController: UIViewController {
         
         
         
-        resultC.selectUserCallBack = { [weak self] uid in
-            let vc = UserDetailTableViewController(userId: uid, groupId: nil, userDetailFor: .card)
-            self?.navigationController?.pushViewController(vc, animated: true)
+//        resultC.selectUserCallBack = { [weak self] uid in
+//            let vc = UserDetailTableViewController(userId: uid, groupId: nil, userDetailFor: .card)
+//            self?.navigationController?.pushViewController(vc, animated: true)
+//        }
+        
+        view.addSubview(_headerNavView)
+//        _headerView.backgroundColor = .red
+        _headerNavView.snp.makeConstraints { make in
+            make.leading.top.trailing.equalToSuperview()
         }
 
         view.addSubview(_tableView)
         _tableView.tableHeaderView = headerView
         _tableView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.top.equalTo(_headerNavView.snp.bottom)
+            make.leading.bottom.trailing.equalToSuperview()
         }
     }
     
     lazy var headerView: listTableHeader = {
         
-        let r = listTableHeader(frame: CGRectMake(0, 0, UIScreen.main.bounds.width, 268))
-        let data:[listTableHeader.MenuItem] = [listTableHeader.MenuItem(title: "新关注我的朋友".innerLocalized(), icon: UIImage(named: "friend_list_group_icon")),
+        let r = listTableHeader(frame: CGRectMake(0, 0, UIScreen.main.bounds.width, 252))
+        let data:[listTableHeader.MenuItem] = [listTableHeader.MenuItem(title: "新的好友".innerLocalized(), icon: UIImage(named: "friend_list_group_icon")),
                                                listTableHeader.MenuItem(title: "newGroup".innerLocalized(), icon: UIImage(named: "friend_list_group_new_icon")),
                                                listTableHeader.MenuItem(title: "群聊".localized(), icon: UIImage(named: "friend_list_new_friend_icon"))]
         r.newFriendView.bindData(item: data[0])
@@ -167,13 +206,13 @@ open class FriendListViewController: UIViewController {
             vc.hidesBottomBarWhenPushed = true
             self?.navigationController?.pushViewController(vc, animated: true)
         }
-        let tap = UITapGestureRecognizer()
-        tap.rx.event.subscribe(onNext: { [weak self] _ in
-            let vc = GlobalSearchViewController()
-            vc.hidesBottomBarWhenPushed = true
-            self?.navigationController?.pushViewController(vc, animated: true)
-        }).disposed(by: _disposeBag)
-        r.searchView.addGestureRecognizer(tap)
+//        let tap = UITapGestureRecognizer()
+//        tap.rx.event.subscribe(onNext: { [weak self] _ in
+//            let vc = GlobalSearchViewController()
+//            vc.hidesBottomBarWhenPushed = true
+//            self?.navigationController?.pushViewController(vc, animated: true)
+//        }).disposed(by: _disposeBag)
+//        r.searchView.addGestureRecognizer(tap)
         return r
     }()
 
@@ -278,35 +317,35 @@ class listTableHeader: UIView {
         addSubview(newFriendView)
         addSubview(groupView)
         addSubview(newGroupView)
-        addSubview(searchView)
+//        addSubview(searchView)
         addSubview(chooseView)
-        searchView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(16.w)
-            make.top.equalTo(4)
-            make.height.equalTo(34)
-        }
+//        searchView.snp.makeConstraints { make in
+//            make.leading.trailing.equalToSuperview().inset(16.w)
+//            make.top.equalTo(4)
+//            make.height.equalTo(34)
+//        }
         
         
         newFriendView.snp.makeConstraints { make in
             make.left.right.equalToSuperview()
-            make.height.equalTo(58)
-            make.top.equalTo(50)
+            make.height.equalTo(59)
+            make.top.equalTo(0)
         }
         
         newGroupView.snp.makeConstraints { make in
             make.left.right.equalToSuperview()
-            make.top.equalTo(108)
-            make.height.equalTo(58)
+            make.top.equalTo(59)
+            make.height.equalTo(59)
         }
         
         groupView.snp.makeConstraints { make in
             make.left.right.equalToSuperview()
-            make.top.equalTo(166)
-            make.height.equalTo(58)
+            make.top.equalTo(118)
+            make.height.equalTo(59)
         }
         
         chooseView.snp.makeConstraints { make in
-            make.top.equalTo(224)
+            make.top.equalTo(190)
             make.left.right.equalToSuperview()
             make.height.equalTo(44)
         }
@@ -329,32 +368,32 @@ class listTableHeader: UIView {
 //            return v
 //        }()
     
-    lazy var searchView: UIView = {
-        let v = UIView()
-        v.backgroundColor = .init(hexString: "#F5F5F5")
-        v.clipsToBounds = true
-        v.layer.cornerRadius = 17.w
-        v.isUserInteractionEnabled = true
-        
-        let searchImg = UIImageView(image: UIImage(named: "search_gray"))
-        v.addSubview(searchImg)
-        searchImg.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(14.w)
-            make.width.height.equalTo(15.w)
-            make.centerY.equalToSuperview()
-        }
-        
-        let titleLbl = UILabel()
-        titleLbl.text = "search".innerLocalized()
-        titleLbl.font = UIFont(name: "PingFangSC-Regular", size: 13)
-        titleLbl.textColor = UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
-        v.addSubview(titleLbl)
-        titleLbl.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(39.w)
-            make.centerY.equalToSuperview()
-        }
-        return v
-    }()
+//    lazy var searchView: UIView = {
+//        let v = UIView()
+//        v.backgroundColor = .init(hexString: "#F5F5F5")
+//        v.clipsToBounds = true
+//        v.layer.cornerRadius = 17.w
+//        v.isUserInteractionEnabled = true
+//        
+//        let searchImg = UIImageView(image: UIImage(named: "search_gray"))
+//        v.addSubview(searchImg)
+//        searchImg.snp.makeConstraints { make in
+//            make.left.equalToSuperview().offset(14.w)
+//            make.width.height.equalTo(15.w)
+//            make.centerY.equalToSuperview()
+//        }
+//        
+//        let titleLbl = UILabel()
+//        titleLbl.text = "search".innerLocalized()
+//        titleLbl.font = UIFont(name: "PingFangSC-Regular", size: 13)
+//        titleLbl.textColor = UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
+//        v.addSubview(titleLbl)
+//        titleLbl.snp.makeConstraints { make in
+//            make.left.equalToSuperview().offset(39.w)
+//            make.centerY.equalToSuperview()
+//        }
+//        return v
+//    }()
     
     
     lazy var newFriendView: ItemView = {
@@ -508,10 +547,11 @@ class listTableHeader: UIView {
         override init(frame: CGRect) {
             super.init(frame: frame)
             
-            let Arr = ["MyFriend".localized(), "MeFollow".localized(), "FollowMe".localized()]
+//            let Arr = ["MyFriend".localized(), "MeFollow".localized(), "FollowMe".localized()]
+            let Arr = ["MyFriend".localized()]
             let lblWidth = UIScreen.main.bounds.width / 4
             var lastLbl : UILabel? = nil
-            for index  in  0...2 {
+            for index  in  0..<Arr.count {
                 let r = UILabel()
                 r.text = Arr[index]
                 r.font = index == 0 ? UIFont(name: "PingFangSC-Medium", size: 18) : UIFont(name: "PingFangSC-Medium", size: 14)
