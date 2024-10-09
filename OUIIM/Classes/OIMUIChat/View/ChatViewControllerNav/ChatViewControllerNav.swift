@@ -10,6 +10,7 @@ import OUICore
 
 class ChatViewControllerNav: UIView {
     
+    
     var conversationInfo:ConversationInfo!
     
     var backBlock:(()->Void)!

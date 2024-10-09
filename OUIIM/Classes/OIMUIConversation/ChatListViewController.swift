@@ -41,34 +41,54 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
     }
     
     public func refreshUserInfo(userInfo: UserInfo? = nil) {
-        _headerView.avatarImageView.setAvatar(url: userInfo?.faceURL?.defaultThumbnailURLString, text: userInfo?.nickname)
-        _headerView.nameLabel.text = userInfo?.nickname
+//        _headerView.avatarImageView.setAvatar(url: userInfo?.faceURL?.defaultThumbnailURLString, text: userInfo?.nickname)
+//        _headerView.nameLabel.text = userInfo?.nickname
     }
     
     public func clearRecord() {
         _viewModel.conversationsRelay.accept([])
     }
     
-    private lazy var _headerView: ChatListHeaderView = {
-        let v = ChatListHeaderView()
-//        let tap = UITapGestureRecognizer()
-//        tap.rx.event.subscribe(onNext: { [weak self] _ in
-//            let vc = GlobalSearchViewController()
+//    private lazy var _headerView: ChatListHeaderView = {
+//        let v = ChatListHeaderView()
+////        let tap = UITapGestureRecognizer()
+////        tap.rx.event.subscribe(onNext: { [weak self] _ in
+////            let vc = GlobalSearchViewController()
+////            vc.hidesBottomBarWhenPushed = true
+////            self?.navigationController?.pushViewController(vc, animated: true)
+////        }).disposed(by: _disposeBag)
+////        v.searchView.addGestureRecognizer(tap)
+//        
+//        #if ENABLE_CALL
+//        v.callBtn.rx.tap.subscribe(onNext: { [weak self] in
+//            let vc = CallRecordsViewController()
 //            vc.hidesBottomBarWhenPushed = true
 //            self?.navigationController?.pushViewController(vc, animated: true)
 //        }).disposed(by: _disposeBag)
-//        v.searchView.addGestureRecognizer(tap)
-        
-        #if ENABLE_CALL
-        v.callBtn.rx.tap.subscribe(onNext: { [weak self] in
-            let vc = CallRecordsViewController()
+//        #endif
+//        
+//        return v
+//    }()
+    
+    lazy var _headerView: YFChatHomeSearchNav = {
+        let r =  YFChatHomeSearchNav()
+        r.backgroundColor = .white
+        r.searchView.searchBlock = { [weak self]  in
+            let vc = GlobalSearchViewController()
             vc.hidesBottomBarWhenPushed = true
             self?.navigationController?.pushViewController(vc, animated: true)
-        }).disposed(by: _disposeBag)
-        #endif
-        
-        return v
+        }
+        r.searchView.btnClickBlock = { [weak self] in
+            guard let self else { return }
+            let popover = PopoverTableViewController(items: createMenuItems())
+            popover.topInset = 0
+            popover.show(in: self, sender: _headerView.searchView.rightImg, permittedArrowDirections: [])
+            
+        }
+        return r
     }()
+    
+    
 
     private lazy var _tableView: UITableView = {
         let v = UITableView(frame: view.frame, style: .grouped)
@@ -287,15 +307,18 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
 //                ProgressHUD.dismiss()
 //            }
             
-            self?._headerView.updateConnectionStatus(status: status)
+//            self?._headerView.updateConnectionStatus(status: status)
         })
         
-        _headerView.addBtn.rx.tap.subscribe(onNext: { [weak self] in
-            guard let self else { return }
-            let popover = PopoverTableViewController(items: createMenuItems())
-            popover.topInset = 0
-            popover.show(in: self, sender: _headerView.addBtn, permittedArrowDirections: [])
-        }).disposed(by: _disposeBag)
+        /// 显示弹窗
+//        _headerView.addBtn.rx.tap.subscribe(onNext: { [weak self] in
+//            guard let self else { return }
+//            let popover = PopoverTableViewController(items: createMenuItems())
+//            popover.topInset = 0
+//            popover.show(in: self, sender: _headerView.addBtn, permittedArrowDirections: [])
+//        }).disposed(by: _disposeBag)
+        
+        
 
         _viewModel.conversationsRelay.bind(to: _tableView.rx.items(cellIdentifier: ChatTableViewCell.className, cellType: ChatTableViewCell.self)) { (row, item, cell) in
             
@@ -311,8 +334,8 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
         }).disposed(by: _disposeBag)
 
         _viewModel.loginUserPublish.subscribe(onNext: { [weak self] (userInfo: UserInfo?) in
-            self?._headerView.avatarImageView.setAvatar(url: userInfo?.faceURL?.defaultThumbnailURLString, text: userInfo?.nickname, onTap: nil)
-            self?._headerView.nameLabel.text = userInfo?.nickname
+//            self?._headerView.avatarImageView.setAvatar(url: userInfo?.faceURL?.defaultThumbnailURLString, text: userInfo?.nickname, onTap: nil)
+//            self?._headerView.nameLabel.text = userInfo?.nickname
             self?._contactViewModel.getFriendApplications()
             self?._contactViewModel.getGroupApplications()
         }).disposed(by: _disposeBag)
@@ -364,21 +387,21 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
         return configure
     }
     
-    public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let r  = tableHeaderSearchView()
-        let tap = UITapGestureRecognizer()
-        tap.rx.event.subscribe(onNext: { [weak self] _ in
-            let vc = GlobalSearchViewController()
-            vc.hidesBottomBarWhenPushed = true
-            self?.navigationController?.pushViewController(vc, animated: true)
-        }).disposed(by: _disposeBag)
-        r.addGestureRecognizer(tap)
-        return r
-    }
-    
-    public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 52
-    }
+//    public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        let r  = tableHeaderSearchView()
+//        let tap = UITapGestureRecognizer()
+//        tap.rx.event.subscribe(onNext: { [weak self] _ in
+//            let vc = GlobalSearchViewController()
+//            vc.hidesBottomBarWhenPushed = true
+//            self?.navigationController?.pushViewController(vc, animated: true)
+//        }).disposed(by: _disposeBag)
+//        r.addGestureRecognizer(tap)
+//        return r
+//    }
+//    
+//    public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        return 52
+//    }
     
     // MARK: - 张亚飞打的标记  业务层调用SDK里面的页面
     func actionAboutApp() {

@@ -33,7 +33,7 @@ final class YFBokeController {
     
     private func configData() {
         self.name = source.userBlogName
-        self.faceURL = source.userBlogUrl
+        self.faceURL = source.userBlogIcon
         self.intro = source.userBlogIntro
     }
     

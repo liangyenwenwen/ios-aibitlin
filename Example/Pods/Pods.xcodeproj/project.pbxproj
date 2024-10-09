@@ -102,6 +102,7 @@
 		04AD5FD6C69582D10712A93103F776FD /* ViewUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A58D04D69C4DED27EE990021AB0926 /* ViewUtil.swift */; };
 		04C3BF852C9BB87300CB6EEF /* ChatViewControllerNav.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C3BF842C9BB87300CB6EEF /* ChatViewControllerNav.swift */; };
 		04C6CC182CB122F400E884CD /* SuperStringUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C6CC172CB122F400E884CD /* SuperStringUtil.swift */; };
+		04CACDA22CB618B700149F3A /* YFChatHomeSearchNav.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CACDA12CB618B700149F3A /* YFChatHomeSearchNav.swift */; };
 		04EDCC77AB5C96A7417C96281AD5AC61 /* ChatCollectionDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377C94EBA216D11D2B6942FD02D71A05 /* ChatCollectionDataSource.swift */; };
 		04F8E3A72CB37EE800CFC444 /* PermissionsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F8E3A62CB37EE800CFC444 /* PermissionsHelper.swift */; };
 		04F8E3A92CB3CFB900CFC444 /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F8E3A82CB3CFB900CFC444 /* HomeModel.swift */; };
@@ -4419,6 +4420,7 @@
 		04BB358B717A25AFE595E10DBF3ED8E7 /* URLRequestExtensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = URLRequestExtensions.swift; path = Sources/SwifterSwift/Foundation/URLRequestExtensions.swift; sourceTree = "<group>"; };
 		04C3BF842C9BB87300CB6EEF /* ChatViewControllerNav.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewControllerNav.swift; sourceTree = "<group>"; };
 		04C6CC172CB122F400E884CD /* SuperStringUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperStringUtil.swift; sourceTree = "<group>"; };
+		04CACDA12CB618B700149F3A /* YFChatHomeSearchNav.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFChatHomeSearchNav.swift; sourceTree = "<group>"; };
 		04D43C16A21A73C995492938FC73072F /* save_button_icon@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "save_button_icon@3x.png"; sourceTree = "<group>"; };
 		04F8E3A62CB37EE800CFC444 /* PermissionsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsHelper.swift; sourceTree = "<group>"; };
 		04F8E3A82CB3CFB900CFC444 /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
@@ -8739,6 +8741,14 @@
 			path = ChatViewControllerNav;
 			sourceTree = "<group>";
 		};
+		04CACDA02CB6187B00149F3A /* ChatHomeNav */ = {
+			isa = PBXGroup;
+			children = (
+				04CACDA12CB618B700149F3A /* YFChatHomeSearchNav.swift */,
+			);
+			path = ChatHomeNav;
+			sourceTree = "<group>";
+		};
 		05F7B54971FBE0ACF1B7E8B8AD61D908 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -10723,6 +10733,7 @@
 			isa = PBXGroup;
 			children = (
 				467B30B37D7250996C0EE088325E48C5 /* ReloadDelegate.swift */,
+				04CACDA02CB6187B00149F3A /* ChatHomeNav */,
 				04C3BF832C9BB84C00CB6EEF /* ChatViewControllerNav */,
 				2155CF5E5ECCF89AED0D987D44984315 /* AccessoryView */,
 				65A52150EC92DEFE342A6CCC286D26D1 /* Cell */,
@@ -19296,6 +19307,7 @@
 				F0BA449268AC7911318218CC996BF4D6 /* SearchGroupIndexViewController.swift in Sources */,
 				634894ED2127B3CF4AE6572204A45F09 /* SearchRecordViewModel.swift in Sources */,
 				04C3BF852C9BB87300CB6EEF /* ChatViewControllerNav.swift in Sources */,
+				04CACDA22CB618B700149F3A /* YFChatHomeSearchNav.swift in Sources */,
 				0FFEB1E28A14225EA350BFB67204FCC2 /* Section.swift in Sources */,
 				9C7FD5E3FFDEED8D8B58FFDBF4655A56 /* SetActor.swift in Sources */,
 				3106600528537273331BC9B5F024A39C /* SetChatBackgroundViewController.swift in Sources */,

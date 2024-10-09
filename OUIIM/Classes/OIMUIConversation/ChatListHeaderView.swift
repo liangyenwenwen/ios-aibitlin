@@ -509,15 +509,28 @@ class ChatListHeaderView: UIView {
 
 class tableHeaderSearchView: UIView {
     
+    var searchBlock:(()->Void)?
+    var btnClickBlock:(()->Void)?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         addSubview(searchView)
         searchView.snp.makeConstraints { make in
             make.top.equalTo(4)
-            make.leading.trailing.equalToSuperview().inset(16.w)
-            make.bottom.equalTo(-14)
+//            make.leading.trailing.equalToSuperview().inset(16.w)
+            make.left.equalToSuperview().inset(16)
+            make.right.equalToSuperview().inset(54)
+//            make.bottom.equalTo(-14)
             make.height.equalTo(34)
+        }
+        
+        addSubview(rightImg)
+        rightImg.snp.makeConstraints { make in
+            make.right.equalToSuperview().inset(16)
+            make.width.equalTo(24)
+            make.height.equalTo(20)
+            make.centerY.equalTo(searchView)
         }
     }
     
@@ -551,7 +564,35 @@ class tableHeaderSearchView: UIView {
             make.left.equalToSuperview().offset(39.w)
             make.centerY.equalToSuperview()
         }
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(searchDidSelectAction))
+        v.isUserInteractionEnabled = true
+        v.addGestureRecognizer(tap)
+        
         return v
     }()
     
+    lazy var rightImg: UIImageView = {
+        let r = UIImageView()
+        r.image = .init(named: "chat_home_menu")
+        let tap = UITapGestureRecognizer(target: self, action: #selector(menuDidSelectAction))
+        r.isUserInteractionEnabled = true
+        r.addGestureRecognizer(tap)
+        return r
+    }()
+    
+    
+    @objc func searchDidSelectAction() {
+        print("searchDidSelectAction")
+        if self.searchBlock != nil {
+            print("searchBlock")
+            self.searchBlock!()
+        }
+    }
+    
+    @objc func menuDidSelectAction() {
+        if self.btnClickBlock != nil {
+            self.btnClickBlock!()
+        }
+    }
 }

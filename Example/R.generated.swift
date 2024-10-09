@@ -3369,7 +3369,7 @@ struct _R {
     var colorBackground: RswiftResources.ColorResource { .init(name: "ColorBackground", path: [], bundle: bundle) }
   }
 
-  /// This `_R.image` struct is generated, and contains static references to 223 images.
+  /// This `_R.image` struct is generated, and contains static references to 224 images.
   struct image {
     let bundle: Foundation.Bundle
 
@@ -3726,6 +3726,9 @@ struct _R {
 
     /// Image `chat_bubble_right`.
     var chat_bubble_right: RswiftResources.ImageResource { .init(name: "chat_bubble_right", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `chat_home_menu`.
+    var chat_home_menu: RswiftResources.ImageResource { .init(name: "chat_home_menu", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
     /// Image `chat_menu_add_friend_icon`.
     var chat_menu_add_friend_icon: RswiftResources.ImageResource { .init(name: "chat_menu_add_friend_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
