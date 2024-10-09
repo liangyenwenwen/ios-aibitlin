@@ -340,7 +340,18 @@ extension MeHomeController {
     }
     
     @objc func gotoCode() {
-        gotoControllerFromRoot(YFMineHomeBuyVipVC.self)
+        guard let user: QueryUserInfo = _viewModel.currentUserRelay.value else { return }
+//        let vc = QRCodeViewController(idString: IMController.addFriendPrefix.append(string: user.userID!))
+//        vc.avatarView.setAvatar(url: user.faceURL, text: user.nickname)
+//        vc.nameLabel.text = user.nickname
+//        vc.tipLabel.text = "qrcodeHint".innerLocalized()
+//        vc.hidesBottomBarWhenPushed = true
+//        navigationController?.pushViewController(vc, animated: true)
+        
+        let v = YFMineQRCodeVC()
+        v.user = user
+//        navigationController?.pushViewController(v, animated: true)
+        gotoControllerFromRoot(v)
     }
     
     

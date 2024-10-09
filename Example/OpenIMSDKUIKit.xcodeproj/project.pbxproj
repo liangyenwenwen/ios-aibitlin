@@ -82,6 +82,7 @@
 		04D8BF822C8AD0AA00C1244E /* MineBokeVisitorListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D8BF812C8AD0AA00C1244E /* MineBokeVisitorListCell.swift */; };
 		04D8BF842C8AD7EC00C1244E /* MineBokeVisitorListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D8BF832C8AD7EC00C1244E /* MineBokeVisitorListVC.swift */; };
 		04DB1E3E2CA6B0C000EE8B8C /* YFDateUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DB1E3D2CA6B0C000EE8B8C /* YFDateUtil.swift */; };
+		04F1FCEF2CB67E5000080742 /* YFMineQRCodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F1FCEE2CB67E5000080742 /* YFMineQRCodeVC.swift */; };
 		04F2D05F2BEE129A00D5271B /* SuperWebController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F2D05E2BEE129A00D5271B /* SuperWebController.swift */; };
 		04F2D0822BEE21CA00D5271B /* MineMessageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F2D0662BEE21CA00D5271B /* MineMessageVC.swift */; };
 		04F2D0832BEE21CA00D5271B /* MeHomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F2D0672BEE21CA00D5271B /* MeHomeController.swift */; };
@@ -263,6 +264,7 @@
 		04D8BF812C8AD0AA00C1244E /* MineBokeVisitorListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineBokeVisitorListCell.swift; sourceTree = "<group>"; };
 		04D8BF832C8AD7EC00C1244E /* MineBokeVisitorListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineBokeVisitorListVC.swift; sourceTree = "<group>"; };
 		04DB1E3D2CA6B0C000EE8B8C /* YFDateUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFDateUtil.swift; sourceTree = "<group>"; };
+		04F1FCEE2CB67E5000080742 /* YFMineQRCodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFMineQRCodeVC.swift; sourceTree = "<group>"; };
 		04F2D05E2BEE129A00D5271B /* SuperWebController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuperWebController.swift; sourceTree = "<group>"; };
 		04F2D0662BEE21CA00D5271B /* MineMessageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineMessageVC.swift; sourceTree = "<group>"; };
 		04F2D0672BEE21CA00D5271B /* MeHomeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeHomeController.swift; sourceTree = "<group>"; };
@@ -684,6 +686,14 @@
 			path = Net;
 			sourceTree = "<group>";
 		};
+		04F1FCED2CB67E3600080742 /* QRCode */ = {
+			isa = PBXGroup;
+			children = (
+				04F1FCEE2CB67E5000080742 /* YFMineQRCodeVC.swift */,
+			);
+			path = QRCode;
+			sourceTree = "<group>";
+		};
 		04F2D0622BEE215100D5271B /* Component */ = {
 			isa = PBXGroup;
 			children = (
@@ -709,6 +719,7 @@
 			isa = PBXGroup;
 			children = (
 				04F2D0672BEE21CA00D5271B /* MeHomeController.swift */,
+				04F1FCED2CB67E3600080742 /* QRCode */,
 				04F4EE772C8C2AE00028E895 /* Vip */,
 				047753C42BFDCD00006DBFD3 /* Translate */,
 				0418B5772BF1E75000108808 /* Feedback */,
@@ -1565,6 +1576,7 @@
 				049C643E2BEC619300B679C4 /* YFLoginVC.swift in Sources */,
 				040D85EF2BEB8C0B00DCAAB3 /* BaseCommentController.swift in Sources */,
 				04F2D0902BEE21CA00D5271B /* UserMessageHeaderView.swift in Sources */,
+				04F1FCEF2CB67E5000080742 /* YFMineQRCodeVC.swift in Sources */,
 				1790EE742921EAFC00C4024A /* MineViewController.swift in Sources */,
 				040D860D2BEB8C4200DCAAB3 /* SuperUIStringExtension.swift in Sources */,
 				04F2D09D2BEE221400D5271B /* UIView+GKExtension.m in Sources */,

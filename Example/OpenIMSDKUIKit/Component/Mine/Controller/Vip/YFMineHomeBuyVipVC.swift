@@ -21,7 +21,7 @@ class YFMineHomeBuyVipVC: BaseTitleController {
         initScrollSafeArea()
         scrollViewContainer.tg_padding = UIEdgeInsets(top: PADDING_OUTER, left: PADDING_OUTER, bottom: PADDING_OUTER, right: PADDING_OUTER)
         scrollViewContainer.tg_space = 10
-        
+//        scrollView.backgroundColor = .red
         title = "购买VIP服务".localized()
         
         scrollViewContainer.addSubview(titleView)
