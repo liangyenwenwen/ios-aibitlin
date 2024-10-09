@@ -169,7 +169,7 @@ struct _R {
       var ieXW0yeText: RswiftResources.StringResource { .init(key: "8ie-xW-0ye.text", tableName: "LaunchScreen", source: source, developmentValue: nil, comment: nil) }
     }
 
-    /// This `_R.string.localizable` struct is generated, and contains static references to 454 localization keys.
+    /// This `_R.string.localizable` struct is generated, and contains static references to 455 localization keys.
     struct localizable {
       let source: RswiftResources.StringResource.Source
 
@@ -2391,6 +2391,13 @@ struct _R {
       ///
       /// Locales: en, th
       var 朋友圈: RswiftResources.StringResource { .init(key: "朋友圈", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Missed Calls
+      ///
+      /// Key: 未接来电
+      ///
+      /// Locales: en, th
+      var 未接来电: RswiftResources.StringResource { .init(key: "未接来电", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Please purchase VIP service to view stranger visitors
       ///

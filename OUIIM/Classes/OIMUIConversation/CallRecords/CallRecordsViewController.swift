@@ -15,7 +15,7 @@ open class CallRecordsViewController: UIViewController {
 #if ENABLE_CALL
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        navigationController?.setNavigationBarHidden(true, animated: false)
         _viewModel.getRecords()
     }
 
@@ -93,24 +93,52 @@ open class CallRecordsViewController: UIViewController {
 
     private func initView() {
         
-        let btnStackView: UIStackView = {
-            let v = UIStackView(arrangedSubviews: [allRecordsBtn, missedRecordsBtn])
-            v.frame = CGRect(origin: .zero, size: CGSize(width: kScreenWidth, height: 44))
-            v.distribution = .fillEqually
-            return v
-        }()
+//        let btnStackView: UIStackView = {
+//            let v = UIStackView(arrangedSubviews: [allRecordsBtn, missedRecordsBtn])
+//            v.frame = CGRect(origin: .zero, size: CGSize(width: kScreenWidth, height: 44))
+//            v.distribution = .fillEqually
+//            return v
+//        }()
         
+        view.backgroundColor  = .white
 
 //        tableView.tableHeaderView = btnStackView
       
-        btnStackView.backgroundColor = .white
-        view.addSubview(btnStackView)
-        btnStackView.snp.makeConstraints { make in
-            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
-            make.left.equalToSuperview()
-            make.right.equalToSuperview()
-            make.height.equalTo(44)
+//        btnStackView.backgroundColor = .white
+//        view.addSubview(btnStackView)
+//        btnStackView.snp.makeConstraints { make in
+//            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
+//            make.left.equalToSuperview()
+//            make.right.equalToSuperview()
+//            make.height.equalTo(44)
+//        }
+        
+        
+        view.addSubview(chooseLogsView)
+        chooseLogsView.snp.makeConstraints { make in
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(6)
+            make.width.equalTo(172)
+            make.height.equalTo(32)
+            make.centerX.equalToSuperview()
         }
+        
+        allLogsBtn.snp.makeConstraints { make in
+            make.left.equalToSuperview().inset(4)
+            make.top.bottom.equalToSuperview().inset(2)
+            make.width.equalTo(83)
+        }
+        
+        unreadLogsBtn.snp.makeConstraints { make in
+            make.right.equalToSuperview().inset(4)
+            make.top.bottom.equalToSuperview().inset(2)
+            make.width.equalTo(83)
+        }
+        
+        
+        
+        
+        
+        
         
         tableView.tableFooterView = UIView()
         view.addSubview(tableView)
@@ -119,7 +147,8 @@ open class CallRecordsViewController: UIViewController {
             make.bottom.equalToSuperview()
             make.left.equalToSuperview()
             make.right.equalToSuperview()
-            make.top.equalTo(btnStackView.snp_bottom)
+//            make.top.equalTo(btnStackView.snp_bottom)
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(54)
         }
     }
 
@@ -127,24 +156,41 @@ open class CallRecordsViewController: UIViewController {
     private let _disposeBag = DisposeBag()
     private func bindData() {
         
-        allRecordsBtn.rx.tap.subscribe(onNext: { [weak self] in
+//        allRecordsBtn.rx.tap.subscribe(onNext: { [weak self] in
+//            self?._viewModel.tabSelected.accept(0)
+//        }).disposed(by: _disposeBag)
+//        
+//        missedRecordsBtn.rx.tap.subscribe(onNext: { [weak self] in
+//            self?._viewModel.tabSelected.accept(1)
+//        }).disposed(by: _disposeBag)
+//        
+//        missedMeetingBtn.rx.tap.subscribe(onNext: { [weak self] in
+//            self?._viewModel.tabSelected.accept(2)
+//        }).disposed(by: _disposeBag)
+//        
+//        _viewModel.tabSelected.subscribe(onNext: { [weak self] index in
+//            self?.allRecordsBtn.isSelected = index == 0
+//            self?.missedRecordsBtn.isSelected = index == 1
+//            self?.missedMeetingBtn.isSelected = index == 2
+//            self?.tableView.reloadData()
+//        }).disposed(by: _disposeBag)
+        
+        allLogsBtn.rx.tap.subscribe(onNext: { [weak self] in
             self?._viewModel.tabSelected.accept(0)
         }).disposed(by: _disposeBag)
         
-        missedRecordsBtn.rx.tap.subscribe(onNext: { [weak self] in
+        unreadLogsBtn.rx.tap.subscribe(onNext: { [weak self] in
             self?._viewModel.tabSelected.accept(1)
         }).disposed(by: _disposeBag)
-        
-        missedMeetingBtn.rx.tap.subscribe(onNext: { [weak self] in
-            self?._viewModel.tabSelected.accept(2)
-        }).disposed(by: _disposeBag)
+
         
         _viewModel.tabSelected.subscribe(onNext: { [weak self] index in
-            self?.allRecordsBtn.isSelected = index == 0
-            self?.missedRecordsBtn.isSelected = index == 1
-            self?.missedMeetingBtn.isSelected = index == 2
+            self?.allLogsBtn.backgroundColor = index == 0 ? .white : .clear
+            self?.unreadLogsBtn.backgroundColor = index == 1 ? .white : .clear
             self?.tableView.reloadData()
         }).disposed(by: _disposeBag)
+        
+        
         
         _viewModel.getRecords()
     }
@@ -172,6 +218,47 @@ open class CallRecordsViewController: UIViewController {
         }
     }
     #endif
+    
+    lazy var chooseLogsView: UIView = {
+        let r = UIView()
+        r.backgroundColor = .init(hexString: "#E8E8E8")
+        r.clipsToBounds = true
+        r.layer.cornerRadius = 9
+        
+        r.addSubview(allLogsBtn)
+        r.addSubview(unreadLogsBtn)
+        return r
+    }()
+    
+    lazy var allLogsBtn: UIButton = {
+        let r = UIButton()
+        r.setTitle("通话记录".localized(), for: .normal)
+        r.setTitleColor(.init(hexString: "#333333"), for: .normal)
+        r.backgroundColor = .clear
+        r.titleLabel?.font =  UIFont(name: "PingFangSC-Medium", size: 13)
+        r.clipsToBounds = true
+        r.layer.cornerRadius = 7
+        r.backgroundColor = .white
+        return r
+    }()
+    
+    lazy var unreadLogsBtn: UIButton = {
+        let r = UIButton()
+        r.setTitle("未接来电".localized(), for: .normal)
+        r.setTitleColor(.init(hexString: "#333333"), for: .normal)
+        r.backgroundColor = .clear
+        r.titleLabel?.font =  UIFont(name: "PingFangSC-Medium", size: 13)
+        r.clipsToBounds = true
+        r.layer.cornerRadius = 7
+        return r
+    }()
+    
+    
+    
+    
+    
+    
+    
 }
 
 #if ENABLE_CALL

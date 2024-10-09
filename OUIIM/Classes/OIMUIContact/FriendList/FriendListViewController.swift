@@ -60,7 +60,7 @@ open class FriendListViewController: UIViewController {
         navigationItem.hidesSearchBarWhenScrolling = false
 //        navigationController?.navigationBar.isHidden = false
         
-        navigationController?.setNavigationBarHidden(true, animated: true)
+        navigationController?.setNavigationBarHidden(true, animated: false)
         
         _viewModel.getMyFriendList()
         contactsViewModel.getFriendApplications()
@@ -78,7 +78,7 @@ open class FriendListViewController: UIViewController {
     
     override open func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationController?.setNavigationBarHidden(false, animated: false)
     }
 
     override open func viewDidAppear(_ animated: Bool) {
