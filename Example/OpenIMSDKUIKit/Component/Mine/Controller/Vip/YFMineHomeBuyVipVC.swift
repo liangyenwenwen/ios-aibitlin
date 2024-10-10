@@ -26,6 +26,7 @@ class YFMineHomeBuyVipVC: BaseTitleController {
         
         scrollViewContainer.addSubview(titleView)
         scrollViewContainer.addSubview(descriptionView)
+//        superFooterContainerContainer.tg_bottom.equal(0)
         addVipView()
     }
     

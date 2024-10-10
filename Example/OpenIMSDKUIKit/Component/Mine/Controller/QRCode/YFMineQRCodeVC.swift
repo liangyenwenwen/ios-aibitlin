@@ -8,6 +8,7 @@
 
 import Foundation
 import TangramKit
+import OUICore
 
 class YFMineQRCodeVC: BaseTitleController {
     
@@ -19,7 +20,7 @@ class YFMineQRCodeVC: BaseTitleController {
         initScrollSafeArea()
         scrollViewContainer.tg_padding = UIEdgeInsets(top: PADDING_OUTER, left: PADDING_OUTER, bottom: PADDING_OUTER, right: PADDING_OUTER)
         scrollViewContainer.tg_space = 10
-//        scrollView.backgroundColor = .red
+        superFooterContainerContainer.tg_bottom.equal(0)
 
         title = "我的二维码".localized()
         
@@ -231,23 +232,47 @@ class YFMineQRCodeVC: BaseTitleController {
         bokeView.addSubview(bokeHeader)
               
         bokeView.addSubview(myStarblogItemsView)
+        myStarblogItemsView.updateRecommendData()
     }
     
     lazy var myStarblogItemsView: SectionItemsView = {
         let r = SectionItemsView()
         
-        r.bokeClick = { [weak self] item, isMore in
-            if isMore {
-                let vc = MineBokeListViewController()
-                vc.vcType = .star
-                self?.gotoControllerFromRoot(vc)
-            } else {
-                SuperWebController.start((self!.navigationController!), uri: item.userBlogUrl, isRoot: true)
-            }
+        r.commendbokeClick = { [weak self] item, isMore, index in
+//            if isMore {
+//                let vc = MineBokeListViewController()
+//                vc.vcType = .star
+//                self?.gotoControllerFromRoot(vc)
+//            } else {
+//                SuperWebController.start((self!.navigationController!), uri: item.userBlogUrl, isRoot: true)
+//            }
+            
+            self?.addBlog(index: index)
         }
-        
         return r
     }()
     
+    
+    func addBlog(index: Int) {
+        
+        let contentView = YFChatBokeBottomSheetView()
+        contentView.showAll = true
+        contentView.tg_width.equal(.fill)
+        contentView.tg_height.equal(350)
+        contentView.chooseBoke = { [weak self] item in
+            
+            var data = YFFileDataUtil.readDataToFile(false)
+            if data.count < 3 {
+                YFFileDataUtil.saveOneDataToFile(false, blogItem: item)
+            } else {
+                YFFileDataUtil.deleteOneDataFromFile(false, blogItem: data[index])
+                YFFileDataUtil.saveOneDataToFile(false, blogItem: item)
+            }
+            self?.myStarblogItemsView.updateRecommendData()
+            GKCover.hide()
+        }
+        GKCover.cover(from: self.view.window, contentView: contentView, style: .translucent, showStyle: .bottom, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
+        
+    }
     
 }

@@ -18,6 +18,8 @@ class YFChatBokeBottomSheetView: TGLinearLayout {
     
     var data : [blogDetailItem] =  []
     
+    var showAll: Bool  = false
+    
     init() {
         super.init(frame: .zero, orientation: .vert)
         innerInit()
@@ -41,7 +43,12 @@ class YFChatBokeBottomSheetView: TGLinearLayout {
         addSubview(topView)
         addSubview(tableView)
         
-        getMyBlog()
+        if showAll {
+            getAllBlog()
+        } else {
+            getMyBlog()
+        }
+       
     }
     
     lazy var topView: TGLinearLayout = {
@@ -129,7 +136,20 @@ extension YFChatBokeBottomSheetView {
             } completionHandler: { errCode, errMsg in
                 
             }
-
+        }
+    }
+    
+    
+    func getAllBlog() {
+        if let IMUser = IMController.shared.currentUserRelay.value {
+            
+            YFMineNetViewModel.mineBlog(userId: IMUser.userID) { [weak self] data in
+                
+                self?.data = data
+                self?.tableView.reloadData()
+            } completionHandler: { errCode, errMsg in
+                
+            }
         }
     }
 }

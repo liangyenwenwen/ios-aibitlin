@@ -58,7 +58,7 @@ class YFFileDataUtil {
         saveDataToFile(isStar, blogsArr: datas)
     }
 
-    
+    @discardableResult
     static func deleteOneDataFromFile(_ isStar: Bool = true, blogItem: blogDetailItem) -> [blogDetailItem] {
         var datas = readDataToFile(isStar)
         datas.removeFirst(where: {$0.id == blogItem.id})
@@ -67,7 +67,7 @@ class YFFileDataUtil {
     }
     
     static func deleteAllDataFromFile(_ isStar: Bool = true) ->() {
-        var datas:[blogDetailItem] = []
+        let datas:[blogDetailItem] = []
         saveDataToFile(isStar,blogsArr: datas)
     }
     
