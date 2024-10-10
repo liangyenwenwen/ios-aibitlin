@@ -41,6 +41,9 @@ extension UIView {
     
     /// 显示边框
     func border(_ color:UIColor, borderWidth: CGFloat = 1, cornerRadius: CGFloat = MEDDLE_RADIUS) {
+        
+        self.clipsToBounds = true
+        
         //边框为1
         self.layer.borderWidth = borderWidth
         

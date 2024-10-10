@@ -12,7 +12,8 @@ import OUICore
 
 class YFMineQRCodeVC: BaseTitleController {
     
-     var user: QueryUserInfo!
+    var user: QueryUserInfo!
+    var username: String = ""
     
     override func initViews() {
         
@@ -28,6 +29,7 @@ class YFMineQRCodeVC: BaseTitleController {
         
         addMyStarBoke()
 
+        refreshUI()
     }
     
     // MARK: - 张亚飞打的标记 卡片
@@ -45,6 +47,18 @@ class YFMineQRCodeVC: BaseTitleController {
         r.addSubview(userEditTitleView)
         userEditTitleView.hide()
         r.addSubview(codeView)
+        
+        codeView.addSubview(codeImgView)
+        codeImgView.snp.makeConstraints { make in
+            make.top.left.right.bottom.equalToSuperview().inset(10)
+        }
+        codeView.addSubview(userAvatarImgView)
+        userAvatarImgView.snp.makeConstraints { make in
+            make.width.height.equalTo(56)
+            make.center.equalToSuperview()
+        }
+        
+        
         r.addSubview(userIdTitleView)
         r.addSubview(tipLbl)
         r.addSubview(lineView)
@@ -63,6 +77,9 @@ class YFMineQRCodeVC: BaseTitleController {
         r.tg_top.equal(38)
         r.addSubview(userNicknameLbl)
         r.addSubview(ViewFactoryUtil.defalutImgView(R.image.edit_icon()!, 16))
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(showNicknameTFView))
+        r.addGestureRecognizer(tap)
         return r
     }()
     
@@ -72,7 +89,7 @@ class YFMineQRCodeVC: BaseTitleController {
         r.tg_height.equal(.wrap)
         r.textColor = .black333
         r.font = .mediumFont(15)
-        r.text = "用户昵称"
+        r.text = username
         return r
     }()
     
@@ -87,6 +104,8 @@ class YFMineQRCodeVC: BaseTitleController {
         r.tg_top.equal(38)
         
         let chooseBtn = ViewFactoryUtil.imageBtn(R.image.choose_blue()!, 32)
+        chooseBtn.addTarget(self, action: #selector(showNicknameLblView), for: .touchUpInside)
+        
         r.addSubview(chooseBtn)
         
         return r
@@ -98,7 +117,7 @@ class YFMineQRCodeVC: BaseTitleController {
         r.tg_height.equal(32)
         r.backgroundColor = .init(hexString: "#F5F5F5")
         r.corner(8)
-        r.text = "111"
+        r.text = username
         return r
     }()
     
@@ -108,6 +127,17 @@ class YFMineQRCodeVC: BaseTitleController {
         r.tg_height.equal(260)
         r.border(.init(hexString: "#EAEAEA"), cornerRadius: 8)
         r.tg_top.equal(17)
+        return r
+    }()
+    
+    lazy var codeImgView: UIImageView = {
+        let r = UIImageView()
+        return r
+    }()
+    
+    lazy var userAvatarImgView: UIImageView = {
+        let r = UIImageView()
+        r.border(.white, borderWidth: 3, cornerRadius: 28)
         return r
     }()
     
@@ -126,7 +156,7 @@ class YFMineQRCodeVC: BaseTitleController {
         lbl.tg_height.equal(.wrap)
         lbl.textColor = .black666
         lbl.font = .regularFont(13)
-        lbl.text = "靓号ID：122456646"
+        lbl.text = "ID: "
         
         r.addSubview(lbl)
         r.addSubview(ViewFactoryUtil.defalutImgView(R.image.copy_icon()!, 16))
@@ -272,6 +302,45 @@ class YFMineQRCodeVC: BaseTitleController {
             GKCover.hide()
         }
         GKCover.cover(from: self.view.window, contentView: contentView, style: .translucent, showStyle: .bottom, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
+        
+    }
+    
+}
+
+extension YFMineQRCodeVC {
+    
+    func refreshUI() {
+        
+        let idString = IMController.addFriendPrefix.append(string: user.userID!)
+        DispatchQueue.global().async {
+            let image = CodeImageGenerator.createQRCodeImage(content: idString, size: CGSize(width: 140, height: 140), foregroundColor: UIColor.black, backgroundColor: UIColor.clear)
+            DispatchQueue.main.async {
+                self.codeImgView.image = image
+            }
+        }
+        
+        userAvatarImgView.sd_setImage(with: URL(string: user.faceURL), placeholderImage: R.image.defaultAvatar()!)
+        username = user.nickname!
+        
+        userNicknameLbl.text = username
+        userNicknameTF.text = username
+        
+    }
+    
+    @objc func showNicknameLblView() {
+        userShowTitleView.show()
+        userEditTitleView.hide()
+        view.endEditing(true)
+        username = userNicknameTF.text!
+        userNicknameLbl.text = username
+    }
+    
+    @objc func showNicknameTFView() {
+        
+        userShowTitleView.hide()
+        userEditTitleView.show()
+        
+        userNicknameTF.text = username
         
     }
     
