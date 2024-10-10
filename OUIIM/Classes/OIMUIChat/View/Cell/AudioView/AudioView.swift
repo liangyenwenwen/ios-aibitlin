@@ -34,6 +34,13 @@ final class AudioView: UIView, ContainerCollectionViewCellDelegate {
 
     private var viewPortWidth: CGFloat = 300
     
+    lazy var bubbleImg: UIImageView = {
+        let r = UIImageView()
+        var image = UIImage.init(named: "chat_bubble_right")!.resizableImage(withCapInsets: UIEdgeInsets(top: 21, left: 21, bottom: 21, right: 21), resizingMode: .stretch)
+        r.image = image
+        return r
+    }()
+    
     private lazy var durationLabel: UILabel = {
         let v = UILabel()
         v.text = #"\#(0)``"#
@@ -82,12 +89,12 @@ final class AudioView: UIView, ContainerCollectionViewCellDelegate {
                 stackView.addArrangedSubview(durationLabel)
                 stackView.addArrangedSubview(iconImageView)
                 iconImageView.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
-                durationLabel.textColor = nil
+                durationLabel.textColor = .init(hexString: "#333333")
             } else {
                 stackView.addArrangedSubview(iconImageView)
                 stackView.addArrangedSubview(durationLabel)
                 iconImageView.transform = .identity
-                durationLabel.textColor = .c0089FF
+                durationLabel.textColor = .init(hexString: "#333333")
             }
             
             switch controller.state {
@@ -98,18 +105,29 @@ final class AudioView: UIView, ContainerCollectionViewCellDelegate {
             }
         }
         
-        backgroundColor = controller.messageType == .incoming ? .init(hexString: "#EAEAEA") : .init(hexString: "#388CEF")
+//        backgroundColor = controller.messageType == .incoming ? .init(hexString: "#EAEAEA") : .init(hexString: "#388CEF")
         
-        iconImageView.image = controller.messageType == .incoming ? .init(named: "chat_voice_1") :  .init(named: "chat_voice_0")
-
+//        iconImageView.image = controller.messageType == .incoming ? .init(named: "chat_voice_1") :  .init(named: "chat_voice_0")
+        
+//        iconImageView.image = controller.messageType == .incoming ? UIImage(nameInBundle: "msg_audio_left_icon")?.withTintColor(.init(hexString: "#333333")!) :  UIImage(nameInBundle: "msg_audio_right_icon")?.withTintColor(.init(hexString: "#333333")!)
+        iconImageView.image =  UIImage(nameInBundle: "chat_msg_audio_record_normal")?.withTintColor(.init(hexString: "#333333")!)
+        bubbleImg.image = UIImage.init(named:controller.messageType == .outgoing ? "chat_bubble_right" : "chat_bubble_left")!.resizableImage(withCapInsets: UIEdgeInsets(top: 21, left: 21, bottom: 21, right: 21), resizingMode: .stretch)
     }
 
     private func setupSubviews() {
+        
+        addSubview(bubbleImg)
+        bubbleImg.snp.makeConstraints { make in
+            make.leading.trailing.top.bottom.equalToSuperview()
+        }
+        
         addSubview(stackView)
 //        backgroundColor = .white
         clipsToBounds = true
-        layer.cornerRadius = 22
+//        layer.cornerRadius = 22
 
+        
+        
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),
             stackView.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor),

@@ -10,7 +10,8 @@ public typealias QueryDataHandler<T: Any> = ((_ completion: @escaping Completion
 public typealias showBoke = ((_ keywords: String , _ completion: @escaping ((String) -> Void)) -> Void)
 public typealias currentVCShowBokeHandle = ((_ currentVC: UIViewController , _ completion: @escaping ((String) -> Void)) -> Void)
 public typealias showBokeLinkHandle = ((_ currentVC: UIViewController, _  bokeLink: String ,_ completion: @escaping ((String) -> Void)) -> Void)
-public typealias starBokeLinkHandle = ((_ blogTitle: String, _  blogIcon: String, _ _blogUrl: String, _ blogIntro: String, _ completion: @escaping ((String) -> Void)) -> Void)
+//public typealias starBokeLinkHandle = ((_ blogTitle: String, _  blogIcon: String, _ _blogUrl: String, _ blogIntro: String, _ completion: @escaping ((String) -> Void)) -> Void)
+public typealias starBokeLinkHandle = ((_ blogJson: String,  _ completion: @escaping ((String) -> Void)) -> Void)
 
 
 // MARK: - 张亚飞打的标记  其他跳转  比如 个人资料

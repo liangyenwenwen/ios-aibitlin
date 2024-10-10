@@ -65,8 +65,8 @@ final class ChatAvatarView: UIView, StaticViewFactory {
         backgroundColor = .clear
         
         avatarView.customView.clipsToBounds = true
-        avatarView.customView.size = 48.w
-        avatarView.customView.layer.cornerRadius = 24.w
+        avatarView.customView.size = 36.w
+        avatarView.customView.layer.cornerRadius = 18.w
         avatarView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([

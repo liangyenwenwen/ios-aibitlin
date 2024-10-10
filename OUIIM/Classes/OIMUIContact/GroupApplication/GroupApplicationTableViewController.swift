@@ -36,6 +36,7 @@ class GroupApplicationTableViewController: UITableViewController {
         _viewModel.applicationItems
             .asDriver(onErrorJustReturn: [])
             .drive(tableView.rx.items) { [weak self] (tableView, _, item: GroupApplicationInfo) in
+                
                 let cell = tableView.dequeueReusableCell(withIdentifier: GroupApplicationTableViewCell.className) as! GroupApplicationTableViewCell
                 
                 guard let self else { return cell }

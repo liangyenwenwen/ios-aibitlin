@@ -169,7 +169,7 @@ struct _R {
       var ieXW0yeText: RswiftResources.StringResource { .init(key: "8ie-xW-0ye.text", tableName: "LaunchScreen", source: source, developmentValue: nil, comment: nil) }
     }
 
-    /// This `_R.string.localizable` struct is generated, and contains static references to 459 localization keys.
+    /// This `_R.string.localizable` struct is generated, and contains static references to 460 localization keys.
     struct localizable {
       let source: RswiftResources.StringResource.Source
 
@@ -193,6 +193,13 @@ struct _R {
       ///
       /// Locales: en, th
       var 请输入以https开头的地址: RswiftResources.StringResource { .init(key: " 请输入以https://开头的地址", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: 1.Users who haven't downloaded the app can scan your QR code to download AIibitlin directly. 2.Unregistered users can scan your QR code on the login page to try AIibitlin without registering, and it will automatically save your recommended blog.
+      ///
+      /// Key: 1.未下载APP的用户，扫你的二维码可直接下载哎比邻。 2.未注册用户在登录页面扫你的二维码，免注册即可试用哎比邻，并自动收藏您推荐的博客。
+      ///
+      /// Locales: en, th
+      var 未下载APP的用户扫你的二维码可直接下载哎比邻2未注册用户在登录页面扫你的二维码免注册即可试用哎比邻并自动收藏您推荐的博客: RswiftResources.StringResource { .init(key: "1.未下载APP的用户，扫你的二维码可直接下载哎比邻。\n2.未注册用户在登录页面扫你的二维码，免注册即可试用哎比邻，并自动收藏您推荐的博客。", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: 7-Day Visitor Data
       ///

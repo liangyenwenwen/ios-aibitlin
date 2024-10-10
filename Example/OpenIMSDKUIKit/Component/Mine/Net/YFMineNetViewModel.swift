@@ -110,6 +110,7 @@ class YFMineNetViewModel: AccountViewModel {
             if let data = dataRequest.data {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 print(strData!)
+                
                 if let res = JsonTool.fromJson(strData!, toClass: BlogListResponse<[blogDetailItem]>.self) {
 
                     if res.code == 20000  {
@@ -120,6 +121,8 @@ class YFMineNetViewModel: AccountViewModel {
                 } else {
                     completionHandler(-1, "Failure")
                 }
+                
+                
             }
         }
     }

@@ -114,27 +114,43 @@ extension AccountViewModel {
         }
         
         // MARK: - 张亚飞打的标记   收藏博客
-        OIMApi.starBokeLinkHandle = { (title, icon, url, intro, completion: @escaping (String) -> Void)  in
+        OIMApi.starBokeLinkHandle = { (jsonString, completion: @escaping (String) -> Void)  in
             
-           print(title, icon, url, intro)
             
-            let id: Int
-            let sign: Int
-            let userBlogUrl: String
-            let userBlogIntro: String
-            let userBlogName: String
-            let userBlogCreatIp: String
-            let userBlogCreatAffiliatingArea: String
-            let userBlogOrder: Int
-            let userId: String
-            let isDelete: Int
-            let creationTime: String
-            let userBlogIcon: String
-            let changeTime: String
+            guard let jsonData = jsonString.data(using: .utf8) else {
+                        return
+            }
+                    
+            do {
+                
+                let boke = try JSONDecoder().decode(blogDetailItem.self, from: jsonData)
+                YFFileDataUtil.saveOneDataToFile(blogItem: boke)
+                
+            } catch {
+                
+                return
+            }
             
-            let item = blogDetailItem(id: -1, sign: 0, userBlogUrl: url, userBlogIntro: intro, userBlogName: title, userBlogCreatIp: "", userBlogCreatAffiliatingArea: "", userBlogOrder: 0, userId: "", isDelete: 0, creationTime: "", userBlogIcon: icon, changeTime: "")
             
-            YFFileDataUtil.saveOneDataToFile(blogItem: item)
+//           print(title, icon, url, intro)
+//            
+//            let id: Int
+//            let sign: Int
+//            let userBlogUrl: String
+//            let userBlogIntro: String
+//            let userBlogName: String
+//            let userBlogCreatIp: String
+//            let userBlogCreatAffiliatingArea: String
+//            let userBlogOrder: Int
+//            let userId: String
+//            let isDelete: Int
+//            let creationTime: String
+//            let userBlogIcon: String
+//            let changeTime: String
+//            
+//            let item = blogDetailItem(id: -1, sign: 0, userBlogUrl: url, userBlogIntro: intro, userBlogName: title, userBlogCreatIp: "", userBlogCreatAffiliatingArea: "", userBlogOrder: 0, userId: "", isDelete: 0, creationTime: "", userBlogIcon: icon, changeTime: "")
+//            
+//            YFFileDataUtil.saveOneDataToFile(blogItem: item)
             
         }
         

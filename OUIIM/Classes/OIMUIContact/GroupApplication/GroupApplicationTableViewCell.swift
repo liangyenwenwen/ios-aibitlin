@@ -53,6 +53,9 @@ class GroupApplicationTableViewCell: UITableViewCell {
         hStack.alignment = .top
         
         contentView.addSubview(hStack)
+        
+        avatarView.layer.cornerRadius = 22.w
+        
         hStack.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(16)
             make.top.bottom.equalToSuperview().inset(12)

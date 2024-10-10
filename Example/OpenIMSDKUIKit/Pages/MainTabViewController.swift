@@ -60,8 +60,8 @@ class MainTabViewController: UITabBarController {
         ///通话记录
         let recordsVC = CallRecordsViewController()
         let recordsNav = NavigationController.init(rootViewController: recordsVC)
-        recordsNav.tabBarItem.image = UIImage.init(named: "TabPhoneSelected_0")
-        recordsNav.tabBarItem.selectedImage = UIImage.init(named: "TabPhoneSelected_1")
+        recordsNav.tabBarItem.image = UIImage.init(named: "TabPhoneSelected_0")?.withRenderingMode(.alwaysOriginal)
+        recordsNav.tabBarItem.selectedImage = UIImage.init(named: "TabPhoneSelected_1")?.withRenderingMode(.alwaysOriginal)
         controllers.append(recordsNav)
         
 //        let vc = FriendListViewController()
@@ -71,8 +71,8 @@ class MainTabViewController: UITabBarController {
 //        ContactsViewController  FriendListViewController
         let contactVC = FriendListViewController()
         let contactNav = NavigationController.init(rootViewController: contactVC)
-        contactNav.tabBarItem.image = UIImage.init(named: "TabContactSelected_0")
-        contactNav.tabBarItem.selectedImage = UIImage.init(named: "TabContactSelected_1")
+        contactNav.tabBarItem.image = UIImage.init(named: "TabContactSelected_0")?.withRenderingMode(.alwaysOriginal)
+        contactNav.tabBarItem.selectedImage = UIImage.init(named: "TabContactSelected_1")?.withRenderingMode(.alwaysOriginal)
         controllers.append(contactNav)
 
         IMController.shared.contactUnreadSubject.map({ (unread: Int) -> String? in
@@ -92,14 +92,14 @@ class MainTabViewController: UITabBarController {
         
 //        MineViewController  MeHomeController
         let mineNav = NavigationController.init(rootViewController: MeHomeController())
-        mineNav.tabBarItem.image = UIImage.init(named: "TabMeSelected_0")
-        mineNav.tabBarItem.selectedImage = UIImage.init(named: "TabMeSelected_1")
+        mineNav.tabBarItem.image = UIImage.init(named: "TabMeSelected_0")?.withRenderingMode(.alwaysOriginal)
+        mineNav.tabBarItem.selectedImage = UIImage.init(named: "TabMeSelected_1")?.withRenderingMode(.alwaysOriginal)
         controllers.append(mineNav)
         
         
         let moreNav = UINavigationController.init(rootViewController: UIViewController())
-        moreNav.tabBarItem.image = UIImage.init(named: "TabMoreSelected_0")
-        moreNav.tabBarItem.selectedImage = UIImage.init(named: "TabMoreSelected_1")
+        moreNav.tabBarItem.image = UIImage.init(named: "TabMoreSelected_0")?.withRenderingMode(.alwaysOriginal)
+        moreNav.tabBarItem.selectedImage = UIImage.init(named: "TabMoreSelected_1")?.withRenderingMode(.alwaysOriginal)
         controllers.append(moreNav)
         
         
@@ -130,15 +130,28 @@ class MainTabViewController: UITabBarController {
 //        tabBar.standardAppearance = appearance
         
         tabBar.layer.shadowOpacity = 0.0
+        
+        tabBar.unselectedItemTintColor = .init(hexString: "#333333")
     }
     
     @objc
     private func setText() {
-        viewControllers?[0].tabBarItem.title = "消息".localized()
-        viewControllers?[1].tabBarItem.title = "通话记录".localized()
-        viewControllers?[2].tabBarItem.title = "通讯录".localized()
-        viewControllers?[3].tabBarItem.title = "我的".localized()
-        viewControllers?[4].tabBarItem.title = "工具箱".localized()
+        
+        let Arr = ["消息".localized(), "通话记录".localized(), "通讯录".localized(), "我的".localized(),  "工具箱".localized()]
+        
+        for (index, element) in Arr.enumerated() {
+            
+            viewControllers?[index].tabBarItem.title = element
+            
+        }
+//        
+//        viewControllers?[0].tabBarItem.title = "消息".localized()
+//        viewControllers?[1].tabBarItem.title = "通话记录".localized()
+//        viewControllers?[2].tabBarItem.title = "通讯录".localized()
+//        viewControllers?[3].tabBarItem.title = "我的".localized()
+//        viewControllers?[4].tabBarItem.title = "工具箱".localized()
+        
+       
     }
     
     private func loginExsitAccount() {

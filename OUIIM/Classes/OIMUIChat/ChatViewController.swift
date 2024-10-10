@@ -2699,11 +2699,29 @@ extension ChatViewController: GestureDelegate {
 //                })
 //            }
             
+//            if let handler = OIMApi.starBokeLinkHandle {
+//                handler(source.userBlogName ?? "" , source.userBlogIcon ?? "", source.userBlogUrl ?? "", source.userBlogIntro  ?? "",  {[weak self] res in
+//                    
+//                })
+//            }
+            
             if let handler = OIMApi.starBokeLinkHandle {
-                handler(source.userBlogName ?? "" , source.userBlogIcon ?? "", source.userBlogUrl ?? "", source.userBlogIntro  ?? "",  {[weak self] res in
-                    
-                })
+                
+                let encoder = JSONEncoder()
+                do  {
+                    let jsondata = try encoder.encode(source)
+                    if let jsonString = String(data: jsondata, encoding: .utf8) {
+                        handler(jsonString,  {[weak self] res in
+                                               
+                                           })
+
+                    }
+                } catch {
+                    print(error.localizedDescription)
+                }
+                
             }
+            
         }
     }
     
