@@ -14,6 +14,7 @@ class YFMineQRCodeVC: BaseTitleController {
     
     var user: QueryUserInfo!
     var username: String = ""
+    var userShowId: String = ""
     
     override func initViews() {
         
@@ -156,17 +157,25 @@ class YFMineQRCodeVC: BaseTitleController {
         lbl.tg_height.equal(.wrap)
         lbl.textColor = .black666
         lbl.font = .regularFont(13)
-        lbl.text = "ID: "
         
+        userShowId = user.chatID ?? ""
+        lbl.text = "ID: ".localized() + userShowId
+        
+
         r.addSubview(lbl)
         r.addSubview(ViewFactoryUtil.defalutImgView(R.image.copy_icon()!, 16))
+        
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(copyUserID))
+        r.isUserInteractionEnabled = true
+        r.addGestureRecognizer(tap)
         
         return r
     }()
     
     lazy var tipLbl: UILabel = {
         let r = UILabel()
-        r.text = "1.未下载APP的用户，扫你的二维码可直接下载哎比邻。\n2.未注册用户在登录页面扫你的二维码，免注册即可试用哎比邻，并自动收藏您推荐的博客。"
+        r.text = "1.未下载APP的用户，扫你的二维码可直接下载哎比邻。\n2.未注册用户在登录页面扫你的二维码，免注册即可试用哎比邻，并自动收藏您推荐的博客。".localized()
         r.tg_left.equal(16)
         r.tg_right.equal(16)
         r.tg_height.equal(.wrap)
@@ -325,6 +334,9 @@ extension YFMineQRCodeVC {
         userNicknameLbl.text = username
         userNicknameTF.text = username
         
+       
+        
+        
     }
     
     @objc func showNicknameLblView() {
@@ -342,6 +354,12 @@ extension YFMineQRCodeVC {
         
         userNicknameTF.text = username
         
+    }
+    
+    @objc func copyUserID() {
+        UIPasteboard.general.string = userShowId
+        
+        SuperToast.show(title: "复制成功")
     }
     
 }

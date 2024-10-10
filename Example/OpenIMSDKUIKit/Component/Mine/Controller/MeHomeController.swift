@@ -63,16 +63,17 @@ class MeHomeController: BaseLogicController {
         username.text = userState.n
         tagLable.text = SuperStringUtil.getUserTag(showname: (user?.nickname)!)  ?? "普通用户".localized()
         tagLable.textColor = userState.v > 0  ? .init(hexString: "#7238EF")  : .init(hexString: "#999999")
-        userID.text = user?.chatID
+//        userID.text = user?.chatID
         
         print(user?.userID)
         print(user?.chatID)
         
-        if userState.v > 0 {
-            userShowId = "\(String(describing: user?.chatID != nil ? user!.chatID! : user!.userID!))"
-        } else {
-            userShowId = "\(String(describing: user?.chatID != nil ? user!.chatID! : user!.userID!))"
-        }
+//        if userState.v > 0 {
+//            userShowId = "\(String(describing: user?.chatID != nil ? user!.chatID! : user!.userID!))"
+//        } else {
+//            userShowId = "\(String(describing: user?.chatID != nil ? user!.chatID! : user!.userID!))"
+//        }
+        userShowId = user?.chatID ?? ""
         vipTitle.text = "ID: ".localized() + userShowId
         
         let defaults = UserDefaults.standard
@@ -152,11 +153,11 @@ class MeHomeController: BaseLogicController {
             return v
         }()
     
-    lazy var userID: UILabel = {
-        let r = ViewFactoryUtil.sectionTilteLbael()
-        r.text = "用户id"
-        return r
-    }()
+//    lazy var userID: UILabel = {
+//        let r = ViewFactoryUtil.sectionTilteLbael()
+//        r.text = "用户id"
+//        return r
+//    }()
     
     lazy var scanBtn: QMUIButton = {
         let r = ViewFactoryUtil.imageBtn(R.image.mine_QRCode_icon()!, 20)
