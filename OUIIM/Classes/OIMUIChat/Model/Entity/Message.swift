@@ -349,7 +349,13 @@ struct NoticeMessageSource: Hashable {
             }
         }
     }
+    
+    
 }
+
+
+
+
 
 // 自定义消息
 // MARK: - 张亚飞打的标记  自定义消息
@@ -530,6 +536,24 @@ extension Message: Differentiable {
     public func isContentEqual(to source: Message) -> Bool {
         self == source
     }
+}
+
+
+
+/// 通知内容
+struct systemCustomNotitifyItem : Codable{
+    var count: String?
+    var user: systemCustomNotitifyUser?
+}
+
+struct systemCustomNotitifyUser : Codable{
+    var userID: String?
+    var account: String?
+    var email: String?
+    var nickname: String?
+    var faceURL: String?
+    var gender: Int?
+    var level: Int?
 }
 
 

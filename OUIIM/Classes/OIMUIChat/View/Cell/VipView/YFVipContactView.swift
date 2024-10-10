@@ -124,9 +124,7 @@ class YFVipContactView: UIView, StaticViewFactory, ContainerCollectionViewCellDe
     }
 
     private func setupSize() {
-        UIView.performWithoutAnimation { [self] in
-
-        }
+        setNeedsLayout()
     }
 }
 
@@ -223,4 +221,14 @@ class YFContactNormalView: UIView {
         return v
     }()
     
+    
+    func update(user: systemCustomNotitifyUser) {
+        
+        let userState = SuperStringUtil.getUserState(showname: user.nickname!)
+        
+        contactIcon.setImageAbout(string: user.faceURL, placeHolder: "DefaultAvatar")
+        contactNickName.text = userState.n
+        contactNickName.textColor = userState.v > 0  ? .init(hexString: "#ff3939")  : .init(hexString: "#999999")
+        contactID.text = user.userID
+    }
 }

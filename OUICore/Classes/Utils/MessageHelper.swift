@@ -81,6 +81,8 @@ public struct MessageHelper {
             abstruct += conversation.isPrivateChat ? "开启了阅后即焚".innerLocalized() : "关闭了阅后即焚".innerLocalized()
         case .custom:
             abstruct += message.customMessageAbstruct
+//        case .oaNotification:
+//            abstruct += message.notificationElem
         default:
             tmpAttr = message.systemNotification(highlight: highlight)
         }

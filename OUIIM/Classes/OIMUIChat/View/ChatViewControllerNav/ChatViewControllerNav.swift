@@ -95,6 +95,7 @@ class ChatViewControllerNav: UIView {
             
             systemTitleLbl.text = info.showName
             moreImg.image = .init(named: "mine_setting_icon")
+//            view.backgroundColor = .init(hexString: "#f5f5f5")
         }
         
         

@@ -27,6 +27,14 @@ class YFVipNormalView: UIView, StaticViewFactory, ContainerCollectionViewCellDel
         return v
     }()
     
+    lazy var contactView: YFContactNormalView = {
+        let v = YFContactNormalView()
+        v.backgroundColor = .init(hexString: "#EAEAEA")
+        v.clipsToBounds = true
+        v.layer.cornerRadius = 8
+        return v
+    }()
+    
     lazy var timeLbl: UILabel = {
         let v = UILabel()
         v.font = .init(name: "PingFangSC-Regular", size: 11)
@@ -64,6 +72,27 @@ class YFVipNormalView: UIView, StaticViewFactory, ContainerCollectionViewCellDel
             return
         }
         
+        titleLbl.text = controller.source.title
+        contentLbl.text = controller.source.text
+        timeLbl.text = Date.timeString(date: controller.message.date)
+        
+        
+        guard let jsonData = controller.source.text!.data(using: .utf8) else {
+                    return
+        }
+
+        do {
+            let user = try JSONDecoder().decode(systemCustomNotitifyItem.self, from: jsonData)
+            print(user.user?.faceURL, user.user?.userID)
+            if let messageContact = user.user {
+                contactView.update(user:messageContact)
+            }
+            
+        } catch {
+            print("没有user")
+        }
+        
+        
     }
 
     private func setupSubviews() {
@@ -83,6 +112,7 @@ class YFVipNormalView: UIView, StaticViewFactory, ContainerCollectionViewCellDel
         
         bgView.addSubview(titleLbl)
         bgView.addSubview(contentLbl)
+        bgView.addSubview(contactView)
         bgView.addSubview(timeLbl)
         
         titleLbl.snp.makeConstraints { make in
@@ -92,20 +122,27 @@ class YFVipNormalView: UIView, StaticViewFactory, ContainerCollectionViewCellDel
         contentLbl.snp.makeConstraints { make in
             make.left.right.equalTo(titleLbl)
             make.top.equalTo(titleLbl.snp_bottom).offset(10)
+            
+//            make.bottom.equalToSuperview().offset(-14)
+        }
+        
+        contactView.snp.makeConstraints { make in
+            make.left.right.equalTo(titleLbl)
+            make.height.equalTo(76)
+            make.top.equalTo(contentLbl.snp_bottom).offset(10)
         }
         timeLbl.snp.makeConstraints { make in
             make.left.right.equalTo(titleLbl)
-            make.top.equalTo(contentLbl.snp_bottom).offset(10)
+            make.top.equalTo(contactView.snp_bottom).offset(10)
             make.bottom.equalToSuperview().offset(-14)
         }
-        
         
     }
 
     private func setupSize() {
-        UIView.performWithoutAnimation { [self] in
-
-        }
+        
+//        setNeedsLayout()
+        layoutIfNeeded()
     }
 }
 

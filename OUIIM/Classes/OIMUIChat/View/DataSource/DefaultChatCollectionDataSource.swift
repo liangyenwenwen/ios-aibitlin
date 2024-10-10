@@ -23,6 +23,8 @@ typealias MergeCollectionCell = ContainerCollectionViewCell<MessageContainerView
 typealias CardCollectionCell = ContainerCollectionViewCell<MessageContainerView<EditingAccessoryView, MainContainerView<ChatAvatarView, CardView, ChatAvatarView>>>
 typealias LocationCollectionCell = ContainerCollectionViewCell<MessageContainerView<EditingAccessoryView, MainContainerView<ChatAvatarView, LocationView, ChatAvatarView>>>
 typealias NoticeCollectionCell = ContainerCollectionViewCell<MessageContainerView<EditingAccessoryView, MainContainerView<ChatAvatarView, NoticeView, ChatAvatarView>>>
+
+// MARK: - 张亚飞打的标记  初始系统通知
 typealias OANoticeCollectionCell = ContainerCollectionViewCell<MessageContainerView<EditingAccessoryView, MainContainerView<ChatAvatarView, OANoticeView, ChatAvatarView>>>
 typealias CustomViewCollectionCell = ContainerCollectionViewCell<MessageContainerView<EditingAccessoryView, MainContainerView<ChatAvatarView, CustomView, ChatAvatarView>>>
 typealias BlankCustomViewCollectionCell = ContainerCollectionViewCell<MessageContainerView<EditingAccessoryView, MainContainerView<ChatAvatarView, BlankCustomView, ChatAvatarView>>>
@@ -775,18 +777,14 @@ final class DefaultChatCollectionDataSource: NSObject, ChatCollectionDataSource 
     
     ///测试修改
     private func createVipNormalMessage(collectionView: UICollectionView,
-                                 indexPath: IndexPath,
-                                 alignment: ChatItemAlignment,
-                                 title: String? = nil,
-                                 attributeTitle: NSAttributedString? = nil,
-                                 enableBackgroundColor: Bool = false) -> VipNormolCollectionCell {
+                                        indexPath: IndexPath,
+                                        message: Message,
+                                        source:NoticeMessageSource) -> VipNormolCollectionCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: VipNormolCollectionCell.reuseIdentifier, for: indexPath) as! VipNormolCollectionCell
         
         let bubbleView = cell.customView
-        let controller = SystemTipsViewController(text: title,
-                                               attributedString: attributeTitle,
-                                                  enableBackgroundColor: enableBackgroundColor)
-//        bubbleView.setup(with: controller)
+        let controller = YFVipNormalViewController(message: message, source: source)
+        bubbleView.setup(with: controller)
         controller.delegate = reloadDelegate
         cell.delegate = bubbleView
         
@@ -1203,8 +1201,8 @@ extension DefaultChatCollectionDataSource: UICollectionViewDataSource {
             case let .notice(source):
 //                let cell = createNoticeCell(collectionView: collectionView, messageId: message.id, isSelected: message.isSelected, indexPath: indexPath, source: source, date: message.date, alignment: cell.alignment, user: message.owner, bubbleType: bubbleType, status: message.status, messageType: message.type, sessionType: message.sessionType)
                 //测试修改
-//                let cell = createVipNormalMessage(collectionView: collectionView, indexPath: indexPath, alignment: cell.alignment, attributeTitle: group.value)
-                let cell = createVipContactMessage(collectionView: collectionView, indexPath: indexPath, alignment: cell.alignment, attributeTitle: nil)
+                let cell = createVipNormalMessage(collectionView: collectionView, indexPath: indexPath, message: message, source: source)
+//                let cell = createVipContactMessage(collectionView: collectionView, indexPath: indexPath, alignment: cell.alignment, attributeTitle: nil)
                 return cell
             case let .face(source, isLocallyStored: _):
                 let cell = createFaceCell(collectionView: collectionView, messageId: message.id, isSelected: message.isSelected, indexPath: indexPath, alignment: cell.alignment, user: message.owner, source: source, date: message.date, bubbleType: bubbleType, status: message.status, messageType: message.type, sessionType: message.sessionType, isTop: indexPath.item == 0, lastID: lastID)
@@ -1272,8 +1270,11 @@ extension DefaultChatCollectionDataSource: ChatLayoutDelegate {
                     return .estimated(CGSize(width: chatLayout.layoutFrame.width, height: isDownloaded ? 120 : 80))
                 case .file(_, _):
                     return .estimated(CGSize(width: chatLayout.layoutFrame.width, height: 60))
-                case .quote(_), .merge(_), .card(_), .location(_), .notice(_), .face(_):
+                case .quote(_), .merge(_), .card(_), .location(_),  .face(_):
                     return .estimated(CGSize(width: chatLayout.layoutFrame.width, height: 72))
+                case .notice(_):
+//                    return .estimated(CGSize(width: chatLayout.layoutFrame.width, height: chatLayout.layoutFrame.height))
+                    return .estimated(CGSize(width: chatLayout.layoutFrame.width, height: 110))
                 }
             case .date, .systemMessage:
                 return .estimated(CGSize(width: chatLayout.layoutFrame.width, height: 18))

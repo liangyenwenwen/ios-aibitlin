@@ -457,10 +457,7 @@ final class ChatViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
         setWartermarkBackground()
         getDraft()
-        
-        
 
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -602,7 +599,7 @@ final class ChatViewController: UIViewController {
             print("系统通知")
             let info = chatController.getConversation()
             titleView.mainLabel.text = info.showName
-            
+            view.backgroundColor = .init(hexString: "#f5f5f5")
             navigationItem.rightBarButtonItems = [settingButton]
         }
     }
@@ -612,6 +609,10 @@ final class ChatViewController: UIViewController {
     func updateChatNavData() {
         
         chatViewControllerNav.updateAbout(info: chatController.getConversation())
+        
+        if chatController.getConversation().conversationType == .notification {
+            view.backgroundColor = .init(hexString: "#f5f5f5")
+        }
         
         self.chatController.getGroupInfo(force: false) { [weak self] info in
             guard let self else { return }

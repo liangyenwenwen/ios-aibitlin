@@ -10,21 +10,37 @@ import Foundation
 
 final class YFVipNormalViewController {
     
+//    weak var delegate: ReloadDelegate?
+//
+//    let text: String?
+//    
+//    let attributedString: NSAttributedString?
+//    
+//    let enableBackgroundColor: Bool
+//
+//    init(text: String? = nil, attributedString: NSAttributedString? = nil, enableBackgroundColor: Bool = false) {
+//        self.text = text
+//        self.attributedString = attributedString
+//        self.enableBackgroundColor = enableBackgroundColor
+//    }
+//    
+//    func action(url: URL) {
+//        delegate?.didTapContent(with: "", data: .url(url, isLocallyStored: false))
+//    }
+    
     weak var delegate: ReloadDelegate?
-
-    let text: String?
+        
+    let source: NoticeMessageSource
     
-    let attributedString: NSAttributedString?
-    
-    let enableBackgroundColor: Bool
+    let message: Message
+//    private let bubbleController: BubbleController
 
-    init(text: String? = nil, attributedString: NSAttributedString? = nil, enableBackgroundColor: Bool = false) {
-        self.text = text
-        self.attributedString = attributedString
-        self.enableBackgroundColor = enableBackgroundColor
+    init(message: Message, source: NoticeMessageSource) {
+        self.message = message
+        self.source = source
     }
     
-    func action(url: URL) {
-        delegate?.didTapContent(with: "", data: .url(url, isLocallyStored: false))
+    func action() {
+        delegate?.didTapContent(with: message.id, data: .notice(source))
     }
 }

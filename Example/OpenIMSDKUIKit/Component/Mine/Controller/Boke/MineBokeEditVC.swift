@@ -74,7 +74,9 @@ class MineBokeEditVC: BaseTitleController {
         }
         r.avatarImageView.hide()
         r.changeIcon.show()
-        
+        r.changeIcon.image = nil
+        r.changeIcon.corner(4)
+        r.changeIcon.backgroundColor = .init(hexString: "#f0f2f5")
         return r
     }()
     
