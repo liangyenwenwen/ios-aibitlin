@@ -17,7 +17,8 @@ import ProgressHUD
 class YFMineNetViewModel: AccountViewModel {
     
 //    static let API_BLOG_URL = "http://192.168.7.107:18898"
-    static let API_BLOG_URL = "http://blog.aibitlin.com:18898"
+    public static let API_BLOG_URL = "http://blog.aibitlin.com:18898"
+    
     
     // MARK: - 张亚飞打的标记 blogAPI
     private static let BlogAuditAddWaitAuditAutoAPI = "/blog/audit/addWaitAuditAuto"
@@ -38,11 +39,17 @@ class YFMineNetViewModel: AccountViewModel {
     private static let vipPurchaseInitializeAPI = "/vip/purchase/initialize"
     private static let vipPurchaseSucceedsAPI = "/vip/purchase/succeeds"
     
+    
+    // MARK: - 张亚飞打的标记 IM AIP
+    private static let pictureFindAPI = "/picture/find"
+    
+    
     private static var httpHeaders : HTTPHeaders = [
         "token":UserDefaults.standard.string(forKey: bussinessTokenKey)!,
         "X-Forwarded-For":"183.156.234.224",
         "Authorization":"eyJ1c2VySW5mbyI6InVzZXJCbG9nWWFuWmhlbmdUb2tlbiJ9",
         "Content-Type":"application/json",
+        "operationID":UUID().uuidString,
     ]
     
    // MARK: - 张亚飞打的标记   博客接口
@@ -502,10 +509,7 @@ class YFMineNetViewModel: AccountViewModel {
     }
     
     static func updateLanguage(uid: String) {
-        
-        
-        
-        
+  
         let url = SuperStringUtil.netUrl(API_BLOG_URL + updateUserLanguageAPI, ["language":String.getCurrentLanguageFirst(), "userId": uid,"imToken":UserDefaults.standard.string(forKey: bussinessTokenKey)!])
         
         Alamofire.request(url, method: .post, encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
@@ -527,7 +531,45 @@ class YFMineNetViewModel: AccountViewModel {
         
     }
     
+    
 }
+
+// MARK: - 张亚飞打的标记   IM新增API
+extension YFMineNetViewModel {
+    
+     static func pictureFind(valueHandler: @escaping ([String]) -> Void,
+                             completionHandler: @escaping CompletionHandler) {
+        let url = API_BASE_URL + pictureFindAPI
+         
+         Alamofire.request(url, method: .post, parameters: [:],encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
+             if let data  = dataRequest.data {
+                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
+                 print(strData)
+                 if let res = JsonTool.fromJson(strData!, toClass: Response<PictureFindResponse>.self) {
+                     
+                     if res.errCode == 0  {
+                         valueHandler(res.data?.urls ?? [])
+                     } else {
+                         ProgressHUD.error(res.errMsg)
+                     }
+                     
+                 } else {
+                    
+                 }
+             }
+         }
+    }
+    
+}
+
+
+
+
+struct PictureFindResponse: Codable {
+    var urls : [String]?
+}
+
+
 
 
 // MARK: - 张亚飞打的标记   Response

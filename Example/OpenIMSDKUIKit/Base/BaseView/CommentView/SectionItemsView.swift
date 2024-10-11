@@ -102,10 +102,13 @@ class SectionItemsView: TGLinearLayout {
         }
         
         if data.count < 3 {
-            let item = topContainer.subviews[data.count] as! SectionItemView
-            item.index = data.count
-            item.show()
-            item.bindDataNet(moreBoke, true, isRecommend: true)
+            
+            for index in data.count...2 {
+                let item = topContainer.subviews[index] as! SectionItemView
+                item.index = data.count
+                item.show()
+                item.bindDataNet(moreBoke, true, isRecommend: true)
+            }
             
         }
         

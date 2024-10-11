@@ -26,6 +26,7 @@ class YFCallRecordsListCell: UITableViewCell {
         let r = UIImageView()
         r.clipsToBounds = true
         r.layer.cornerRadius = 28
+        r.contentMode = .scaleAspectFill
         return r
     }()
     
@@ -137,7 +138,7 @@ class YFCallRecordsListCell: UITableViewCell {
     
     func update(model: CallRecord, indexRow: Int, currentRow: Int) {
         
-        titleLbl.text = model.nickname
+        titleLbl.text = SuperStringUtil.getUserState(showname: model.nickname!).n
         leftIconImg.setImageAbout(string: model.faceURL, placeHolder: "DefaultAvatar")
         timeLbl.text =   MessageHelper.convertList(timestamp_ms: model.date)
 //        model.formatDateStr()

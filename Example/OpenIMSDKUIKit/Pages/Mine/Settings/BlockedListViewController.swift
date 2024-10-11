@@ -79,8 +79,8 @@ open class BlockedListViewController: UIViewController {
         
         _viewModel.blockedList.asDriver(onErrorJustReturn: []).drive(_tableView.rx.items) { tableView, _, item in
             let cell = tableView.dequeueReusableCell(withIdentifier: FriendListUserTableViewCell.className) as! FriendListUserTableViewCell
-            cell.titleLabel.text = item.nickname
-            cell.avatarImageView.setAvatar(url: item.faceURL, text: item.nickname, onTap: nil)
+            cell.titleLabel.text = SuperStringUtil.getUserState(showname: item.nickname ?? "").n
+            cell.avatarImageView.setAvatar(url: item.faceURL, text: SuperStringUtil.getUserState(showname: item.nickname ?? "").n, onTap: nil)
             return cell
         }.disposed(by: _disposeBag)
         

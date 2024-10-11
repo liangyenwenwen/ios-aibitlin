@@ -115,7 +115,7 @@ class SignalViewController: CallingBaseViewController {
         let nameLabel = UILabel()
         nameLabel.layer.cornerRadius = 6
         nameLabel.layer.masksToBounds = true
-        nameLabel.text = inviter?.nickname
+        nameLabel.text = SuperStringUtil.getUserState(showname: inviter?.nickname ?? "").n
         nameLabel.font = .systemFont(ofSize: 28)
         nameLabel.textAlignment = .center
         nameLabel.textColor = .white

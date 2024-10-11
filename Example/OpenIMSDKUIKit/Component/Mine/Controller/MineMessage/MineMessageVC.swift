@@ -62,7 +62,7 @@ class MineMessageVC: BaseTitleController {
         userNicknameView.contentLbl.text = SuperStringUtil.getUserShowname(showname: user?.nickname ?? "")
         userIconView.changeIcon.show(user?.faceURL)
 //        userIconView.changeIcon.hide()
-        userIconView.avatarImageView.setAvatar(url: user?.faceURL, text: user?.nickname)
+        userIconView.avatarImageView.setAvatar(url: user?.faceURL, text: SuperStringUtil.getUserState(showname: user?.nickname ?? "").n)
         userIconView.avatarImageView.corner(20)
         userIDView.contentLbl.text = user?.chatID
         introView.contentLbl.text  = user?.personalProfile

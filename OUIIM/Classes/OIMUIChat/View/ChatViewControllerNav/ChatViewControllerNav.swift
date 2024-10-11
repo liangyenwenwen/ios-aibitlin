@@ -117,10 +117,24 @@ class ChatViewControllerNav: UIView {
             chatIconImg.isHidden = false
             systemTitleLbl.isHidden = true
             
-            userNameTitle.text = info.showName
+           
             setIconImage()
             
-            updateNickName(userID: info.userID!)
+//            updateNickName(userID: info.userID!)
+            
+            let userStruct = SuperStringUtil.getUserState(showname: info.showName!)
+            
+            userNameTitle.textColor = userStruct.v > 0 ? .init(hexString: "#FF3939") : .init(hexString: "#333333")
+            userNameTitle.text = userStruct.n
+            let tag = SuperStringUtil.getUserTag(showname: info.showName!)
+            
+            if tag != nil {
+                self.tagLable.text = tag
+            } else {
+                self.userNameTitle.snp.makeConstraints({ make in
+                    make.bottom.equalToSuperview()
+                })
+            }
         }
         
         
@@ -141,9 +155,6 @@ class ChatViewControllerNav: UIView {
                 
                 if tag != nil {
                     self?.tagLable.text = tag
-//                    self?.userNameTitle.snp.updateConstraints({ make in
-//                        make.bottom.equalTo((self?.tagLable.snp_top)!)
-//                    })
                 } else {
                     self?.userNameTitle.snp.makeConstraints({ make in
                         make.bottom.equalToSuperview()
@@ -178,6 +189,7 @@ class ChatViewControllerNav: UIView {
         r.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer(target: self, action: #selector(iconDidSelect))
         r.addGestureRecognizer(tap)
+        r.contentMode = .scaleAspectFill
         return r
     }()
     

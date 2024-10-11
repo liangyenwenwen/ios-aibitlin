@@ -231,10 +231,10 @@ open class FriendListViewController: UIViewController {
         }).disposed(by: _disposeBag)
         
         
-        contactsViewModel.newFriendCountRelay.map { $0 == 0 }.bind(to: headerView.newFriendView.badgeLabel.rx.isHidden).disposed(by: _disposeBag)
-        contactsViewModel.newGroupCountRelay.map { $0 == 0 }.bind(to: headerView.newGroupView.badgeLabel.rx.isHidden).disposed(by: _disposeBag)
-        contactsViewModel.newFriendCountRelay.map { "\($0 > 99 ? "99+" : "\($0)")" }.bind(to: headerView.newFriendView.badgeLabel.rx.text).disposed(by: _disposeBag)
-        contactsViewModel.newGroupCountRelay.map { "\($0 > 99 ? "99+" : "\($0)")" }.bind(to: headerView.newGroupView.badgeLabel.rx.text).disposed(by: _disposeBag)
+        contactsViewModel.newFriendCountRelay.map { $0 == 0 }.bind(to: headerView.newFriendView.unreadLabel.rx.isHidden).disposed(by: _disposeBag)
+        contactsViewModel.newGroupCountRelay.map { $0 == 0 }.bind(to: headerView.newGroupView.unreadLabel.rx.isHidden).disposed(by: _disposeBag)
+        contactsViewModel.newFriendCountRelay.map { "\($0 > 99 ? "99+" : "\($0)")" }.bind(to: headerView.newFriendView.unreadLabel.rx.text).disposed(by: _disposeBag)
+        contactsViewModel.newGroupCountRelay.map { "\($0 > 99 ? "99+" : "\($0)")" }.bind(to: headerView.newGroupView.unreadLabel.rx.text).disposed(by: _disposeBag)
         contactsViewModel.frequentContacts.asDriver().drive { [weak self] _ in
 //            self?.tableView.reloadData()
         }.disposed(by: _disposeBag)
@@ -460,7 +460,7 @@ class listTableHeader: UIView {
             addSubview(iconImageView)
             addSubview(titleLabel)
             addSubview(lineView)
-            addSubview(badgeLabel)
+            addSubview(unreadLabel)
             
             iconImageView.snp.makeConstraints { make in
                 make.left.equalTo(16)
@@ -480,7 +480,7 @@ class listTableHeader: UIView {
                 make.height.equalTo(1)
             }
             
-            badgeLabel.snp.makeConstraints { make in
+            unreadLabel.snp.makeConstraints { make in
                 make.right.equalTo(-10)
                 make.centerY.equalToSuperview()
                 make.width.equalTo(30)
@@ -515,16 +515,27 @@ class listTableHeader: UIView {
         }()
 
         
-        lazy var badgeLabel: UILabel = {
-            let r = UILabel()
-            r.text = ""
-            r.textColor = .white
-            r.backgroundColor = .red
-            r.textAlignment = .center
-            r.clipsToBounds = true
-            r.layer.cornerRadius = 12
-            r.isHidden = true
-            return r
+//        lazy var badgeLabel: UILabel = {
+//            let r = UILabel()
+//            r.text = ""
+//            r.textColor = .white
+//            r.backgroundColor = .red
+//            r.textAlignment = .center
+//            r.clipsToBounds = true
+//            r.layer.cornerRadius = 12
+//            r.isHidden = true
+//            return r
+//        }()
+        
+        let unreadLabel: RoundCornerLayoutLabel = {
+            let v = RoundCornerLayoutLabel(roundCorners: .allCorners, radius: nil)
+            v.font = .f12
+            v.backgroundColor = .cFF381F
+            v.textColor = .white
+            v.textAlignment = .center
+            v.contentInset = UIEdgeInsets(top: 1, left: 4, bottom: 1, right: 4)
+            
+            return v
         }()
         
         

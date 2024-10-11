@@ -139,6 +139,7 @@ class YFMineQRCodeVC: BaseTitleController {
     lazy var userAvatarImgView: UIImageView = {
         let r = UIImageView()
         r.border(.white, borderWidth: 3, cornerRadius: 28)
+        r.contentMode = .scaleAspectFill
         return r
     }()
     
@@ -329,7 +330,7 @@ extension YFMineQRCodeVC {
         }
         
         userAvatarImgView.sd_setImage(with: URL(string: user.faceURL), placeholderImage: R.image.defaultAvatar()!)
-        username = user.nickname!
+        username = SuperStringUtil.getUserShowname(showname: user.nickname!)
         
         userNicknameLbl.text = username
         userNicknameTF.text = username

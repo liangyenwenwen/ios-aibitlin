@@ -7,11 +7,14 @@
 //
 
 import Foundation
+import OUICore
+import ProgressHUD
 
 class YFChooseUserAvatarCardView: UIView {
     
-    var currentIndex: Int = 1
+    var currentIndex: Int = 0
     var bottomHeight = 672
+    var picData: [String]?
     
     lazy var bottomView: UIView = {
         let v = UIView()
@@ -23,6 +26,7 @@ class YFChooseUserAvatarCardView: UIView {
     lazy var topCameraImg: UIImageView = {
         let r = UIImageView()
         r.image = .init(named: "choose_avater_camera")
+        r.corner(60)
         return r
     }()
     
@@ -41,6 +45,37 @@ class YFChooseUserAvatarCardView: UIView {
         r.text = "选择系统头像"
         return r
     }()
+    
+    
+    lazy var refreshView: UIView = {
+        let r = UIView()
+        r.addSubview(refreshViewImage)
+        r.addSubview(refreshViewTitle)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(refreshAction))
+        r.addGestureRecognizer(tap)
+        return r
+    }()
+    
+    lazy var refreshViewImage: UIImageView = {
+        let r = UIImageView()
+        r.image = .init(named: "refresh_blue")
+        return r
+    }()
+    
+    lazy var refreshViewTitle: UILabel = {
+        let r = UILabel()
+        r.text = "换一批".localized()
+        r.textColor = .init(hexString: "#388CEF")
+        r.font = .mediumFont(16)
+        return r
+    }()
+    
+    
+    
+    
+    
+    
+    
     
     lazy var trueLbl: UILabel = {
         
@@ -105,9 +140,9 @@ class YFChooseUserAvatarCardView: UIView {
             systemIconImg.tag = 15000 + index
             systemIconImg.centerImg.corner((width - 8) / 2)
             systemIconImg.layer.borderColor =  index == currentIndex ? UIColor.init(hexString: "#388CEF").cgColor : UIColor.clear.cgColor
-            systemIconImg.centerImg.image = .init(named: "system_avatar_\(index)")
+//            systemIconImg.centerImg.image = .init(named: "system_avatar_\(index)")
             
-            let top = 344 + (index / 5) * 80
+            let top = 334 + (index / 5) * 80
             let left = 29 + Int(index % 5) * Int(width + 6)
             
             systemIconImg.snp.makeConstraints { make in
@@ -127,6 +162,30 @@ class YFChooseUserAvatarCardView: UIView {
         }
         
         
+        bottomView.addSubview(refreshView)
+        let refreshTop  = 334 + 2 * 80 + 10
+        refreshView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(refreshTop)
+            make.height.equalTo(20)
+        }
+        refreshViewImage.snp.makeConstraints { make in
+            make.left.equalToSuperview().inset(4)
+            make.centerY.equalToSuperview()
+            make.width.equalTo(17)
+            make.height.equalTo(18)
+        }
+        refreshViewTitle.snp.makeConstraints { make in
+            make.left.equalTo(refreshViewImage.snp_right).offset(10)
+            make.centerY.equalToSuperview()
+            make.right.equalToSuperview().inset(4)
+        }
+        
+        
+        
+        
+        
+        
         bottomView.addSubview(trueLbl)
         trueLbl.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
@@ -137,25 +196,10 @@ class YFChooseUserAvatarCardView: UIView {
         }
         
         
-        
+        getPicNet()
     }
     
     
-    @objc func imageChanged(sender :UITapGestureRecognizer) {
-        let senderview = sender.view as!  systemIconView
-        
-        let senderTag = senderview.tag
-        currentIndex = senderTag - 15000
-        for index in 0...9 {
-            
-            let view = viewWithTag(15000 + index)  as!  systemIconView
-            view.layer.borderColor =  index == currentIndex ? UIColor.init(hexString: "#388CEF").cgColor : UIColor.clear.cgColor
-        }
-    }
-    
-    @objc func saveAction() {
-        print("保存")
-    }
     
     
     //点击bottom区域外 消失
@@ -204,7 +248,8 @@ class YFChooseUserAvatarCardView: UIView {
         lazy var centerImg: UIImageView = {
             let r = UIImageView()
             r.clipsToBounds = true
-            r.image = .init(named: "DefaultAvatar")
+//            r.image = .init(named: "DefaultAvatar")
+            r.contentMode = .scaleAspectFill
             return r
         }()
         
@@ -231,3 +276,63 @@ class YFChooseUserAvatarCardView: UIView {
     
     
 }
+
+extension YFChooseUserAvatarCardView {
+    
+    
+    @objc func imageChanged(sender :UITapGestureRecognizer) {
+        let senderview = sender.view as!  systemIconView
+        
+        let senderTag = senderview.tag
+        currentIndex = senderTag - 15000
+        for index in 0...9 {
+            
+            let view = viewWithTag(15000 + index)  as!  systemIconView
+            view.layer.borderColor =  index == currentIndex ? UIColor.init(hexString: "#388CEF").cgColor : UIColor.clear.cgColor
+        }
+        
+        self.topCameraImg.show(picData?[currentIndex] ?? "")
+    }
+    
+    @objc func saveAction() {
+        print("保存")
+        
+        if let data = picData {
+            AccountViewModel.updateUserInfo(userID: IMController.shared.uid, faceURL:data[self.currentIndex]) { errCode, errMsg in
+                if errCode != 0 {
+                    ProgressHUD.error(errMsg)
+                } else {
+                    print("保存成功")
+                    self.bottomShow(show: false)
+                }
+            }
+        }
+        
+        
+    }
+    
+    @objc func refreshAction() {
+        getPicNet()
+    }
+    
+    func getPicNet() {
+
+        YFMineNetViewModel.pictureFind {  [weak  self] data in
+            
+            self?.picData = data
+            for (index, item) in data.enumerated() {
+                let iconView = self?.viewWithTag(15000 + index) as! systemIconView
+                iconView.centerImg.show(item)
+            }
+            
+            self?.topCameraImg.show(data[self!.currentIndex])
+            
+        } completionHandler: { errCode, errMsg in
+            
+        }
+
+    }
+}
+
+
+

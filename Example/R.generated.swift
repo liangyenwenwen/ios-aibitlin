@@ -169,7 +169,7 @@ struct _R {
       var ieXW0yeText: RswiftResources.StringResource { .init(key: "8ie-xW-0ye.text", tableName: "LaunchScreen", source: source, developmentValue: nil, comment: nil) }
     }
 
-    /// This `_R.string.localizable` struct is generated, and contains static references to 460 localization keys.
+    /// This `_R.string.localizable` struct is generated, and contains static references to 461 localization keys.
     struct localizable {
       let source: RswiftResources.StringResource.Source
 
@@ -2266,6 +2266,13 @@ struct _R {
       /// Locales: en, th
       var 指纹: RswiftResources.StringResource { .init(key: "指纹", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// en translation: Refresh
+      ///
+      /// Key: 换一批
+      ///
+      /// Locales: en, th
+      var 换一批: RswiftResources.StringResource { .init(key: "换一批", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: Sort
       ///
       /// Key: 排序
@@ -3411,7 +3418,7 @@ struct _R {
     var colorBackground: RswiftResources.ColorResource { .init(name: "ColorBackground", path: [], bundle: bundle) }
   }
 
-  /// This `_R.image` struct is generated, and contains static references to 232 images.
+  /// This `_R.image` struct is generated, and contains static references to 233 images.
   struct image {
     let bundle: Foundation.Bundle
 
@@ -3981,6 +3988,9 @@ struct _R {
 
     /// Image `place_boke_icon`.
     var place_boke_icon: RswiftResources.ImageResource { .init(name: "place_boke_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `refresh_blue`.
+    var refresh_blue: RswiftResources.ImageResource { .init(name: "refresh_blue", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
     /// Image `save_icon`.
     var save_icon: RswiftResources.ImageResource { .init(name: "save_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }

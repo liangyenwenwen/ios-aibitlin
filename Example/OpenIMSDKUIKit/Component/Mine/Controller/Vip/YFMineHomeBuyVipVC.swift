@@ -77,10 +77,14 @@ extension YFMineHomeBuyVipVC {
         if let IMUser = IMController.shared.currentUserRelay.value {
             YFMineNetViewModel.vipPurchaseInitialize(paramters: ["userId": IMUser.userID ?? ""]) { data in
                 
-                let arr = data.components(separatedBy: ",")
+                let count = Int(data) ?? 0
                 
-                for str in arr {
-                    let card = self.view.viewWithTag(Int(str)! + 12000) as! YFMineHomeBuyVipCardView
+                if  count < 1 {
+                    return
+                }
+                
+                for index in 1...count {
+                    let card = self.view.viewWithTag(index + 12000) as! YFMineHomeBuyVipCardView
                     card.buyVip.backgroundColor = .white
                     card.buyVipLbl.text = "生效中".localized()
                     card.buyVipLbl.textColor = .init(hexString: "#999999")

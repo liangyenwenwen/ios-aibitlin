@@ -371,9 +371,6 @@ class MainTabViewController: UITabBarController {
     }
     
     
-    
-    
-    
 }
 
 extension MainTabViewController {
@@ -397,8 +394,6 @@ extension MainTabViewController {
         
         toChooseUserAvatar()
     }
-    
-    
     
     
     func toChooseUserAvatar() {

@@ -297,7 +297,12 @@ extension ChatTableViewCell {
         if needCalculate {
             if item.conversationType == .c2c {
                 
-                updateNickName(userID: item.userID!, item: item)
+//                updateNickName(userID: item.userID!, item: item)
+                
+                let userStruct = SuperStringUtil.getUserState(showname: item.showName!)
+                
+                titleLabel.textColor = userStruct.v > 0 ? .init(hexString: "#FF3939") : .init(hexString: "#333333")
+                updateUI(item: item, needCalculate:  false)
             }
             
             if item.conversationType == .superGroup {
