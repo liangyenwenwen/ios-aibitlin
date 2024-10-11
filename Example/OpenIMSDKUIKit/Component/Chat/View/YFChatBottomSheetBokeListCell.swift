@@ -27,6 +27,7 @@ class YFChatBottomSheetBokeListCell: BaseTableViewCell {
         let r = ViewFactoryUtil.cornerImgView(R.image.defaultAvatar()!, 32)
         r.image = R.image.place_boke_icon()
         r.tg_centerY.equal(0)
+        r.contentMode = .scaleAspectFill
         return r
     }()
     

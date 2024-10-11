@@ -1,5 +1,6 @@
 
 import Foundation
+import UIKit
 
 public enum ContactItemType: Codable {
     case user
@@ -489,9 +490,32 @@ extension MessageInfo {
                 result = NSMutableAttributedString(string: notification)
             }
         case .oaNotification:
-
+            ///  获取系统通知摘要
             if let detail = notificationElem?.detailObject {
-                result = NSMutableAttributedString(string: "\(detail["text"] ?? "")", attributes: contentAttributes)
+                
+                if let detailText = detail["text"]  {
+                   
+                    if let jsonData = (detailText as! String).data(using: .utf8)  {
+                          
+                        do {
+                            let user = try JSONDecoder().decode(systemCustomNotitifyItem.self, from: jsonData)
+//                            result = NSMutableAttributedString(string: user.cont!, attributes: contentAttributes)
+                            result = NSMutableAttributedString(string: "\(detail["notificationName"] ?? "")", attributes: contentAttributes)
+                        } catch {
+                            result = NSMutableAttributedString(string: detailText as! String, attributes: contentAttributes)
+                        }
+                    } else {
+                        result = NSMutableAttributedString(string: "", attributes: contentAttributes)
+                    }
+
+                    
+                    
+                } else {
+                    
+                    result = NSMutableAttributedString(string: "", attributes: contentAttributes)
+                }
+                
+//                result = NSMutableAttributedString(string: "\(detail["text"] ?? "")", attributes: contentAttributes)
             }
         case .groupMemberMuted:
             
@@ -740,4 +764,21 @@ extension FriendInfo {
     public var showName: String {
         return (remark != nil && remark!.count > 0) ? remark! : (nickname ?? userID!)
     }
+}
+
+
+/// 通知内容
+struct systemCustomNotitifyItem : Codable{
+    var cont: String?
+    var user: systemCustomNotitifyUser?
+}
+
+struct systemCustomNotitifyUser : Codable{
+    var userID: String?
+    var account: String?
+    var email: String?
+    var nickname: String?
+    var faceURL: String?
+    var gender: Int?
+    var level: Int?
 }

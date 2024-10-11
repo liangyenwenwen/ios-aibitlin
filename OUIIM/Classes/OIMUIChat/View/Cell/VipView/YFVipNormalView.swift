@@ -84,7 +84,9 @@ class YFVipNormalView: UIView, StaticViewFactory, ContainerCollectionViewCellDel
         do {
             let user = try JSONDecoder().decode(systemCustomNotitifyItem.self, from: jsonData)
             print(user.user?.faceURL, user.user?.userID)
+            contentLbl.text = user.count
             if let messageContact = user.user {
+                
                 contactView.update(user:messageContact)
             }
             
