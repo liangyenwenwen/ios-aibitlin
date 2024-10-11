@@ -130,6 +130,10 @@ class YFVipContactView: UIView, StaticViewFactory, ContainerCollectionViewCellDe
 
 
 class YFContactNormalView: UIView {
+    
+    var chatBlock:((_ userid: String) -> Void)?
+    
+    var userItem: systemCustomNotitifyUser?
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .purple
@@ -218,17 +222,69 @@ class YFContactNormalView: UIView {
             make.left.equalTo(11)
             make.right.equalTo(-11)
         }
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(chat))
+        v.addGestureRecognizer(tap)
+        
         return v
     }()
     
     
     func update(user: systemCustomNotitifyUser) {
-        
+        userItem = user
         let userState = SuperStringUtil.getUserState(showname: user.nickname!)
         
         contactIcon.setImageAbout(string: user.faceURL, placeHolder: "DefaultAvatar")
         contactNickName.text = userState.n
         contactNickName.textColor = userState.v > 0  ? .init(hexString: "#ff3939")  : .init(hexString: "#999999")
         contactID.text = user.userID
+        
+    
     }
+    
+    
+    @objc func chat() {
+        
+//        if let block = chatBlock {
+//            block(userItem!.userID!)
+//        }
+        
+//        if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
+            // MARK: - 张亚飞打的标记  获取会话信息
+            IMController.shared.getConversation(sessionType: .c2c, sourceId: userItem!.userID!) { [weak self] (conversation: ConversationInfo?) in
+                guard let conversation else { return }
+//                print("获取控制器成功")
+                let vc = ChatViewControllerBuilder().build(conversation, hiddenInputBar: false)
+                vc.hidesBottomBarWhenPushed = true
+                self?.findNavigator()?.pushViewController(vc, animated: false)
+            }
+//        } else {
+//            print("获取控制器失败")
+//        }
+        
+        
+        
+    }
+    
+}
+
+extension UIView {
+    func findController() -> UIViewController! {
+            return self.findControllerWithClass(UIViewController.self)
+        }
+        
+        func findNavigator() -> UINavigationController! {
+            return self.findControllerWithClass(UINavigationController.self)
+        }
+        
+        func findControllerWithClass<T>(_ clzz: AnyClass) -> T? {
+            var responder = self.next
+            while(responder != nil) {
+                if (responder!.isKind(of: clzz)) {
+                    return responder as? T
+                }
+                responder = responder?.next
+            }
+            return nil
+        }
 }
