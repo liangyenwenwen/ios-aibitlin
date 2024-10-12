@@ -164,12 +164,15 @@ class SuperSettingView: TGLinearLayout {
         result.tg_width.equal(.fill)
         result.tg_height.equal(.wrap)
 //        result.tg_top.equal(10)
-        result.font = UIFont.systemFont(ofSize: TEXT_MEDDLE)
-        result.tintColor = .colorOnBackground
+       
         result.hide()
 
         result.placeholder = R.string.localizable.pleaseFillIn()
         result.placeholderColor = .placeholderText
+
+        result.font = .mediumFont(14)
+        result.tintColor = .colorOnBackground
+        
         return result
     }()
     

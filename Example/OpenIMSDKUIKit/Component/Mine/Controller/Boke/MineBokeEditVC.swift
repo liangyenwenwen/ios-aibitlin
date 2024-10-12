@@ -82,6 +82,9 @@ class MineBokeEditVC: BaseTitleController {
     
     lazy var nameView: SuperSettingView = {
         let r = SuperSettingView.createInput("名称".localized(), placeholder: " \(R.string.localizable.pleaseFillIn())")
+        
+//        r.textFieldView.backgroundColor = .red
+       
         return r
     }()
     
@@ -90,6 +93,11 @@ class MineBokeEditVC: BaseTitleController {
         r.tg_height.equal(92)
         r.titleView.tg_top.equal(8)
         r.tg_gravity = .vert.top
+        
+//        r.textView.backgroundColor = .red
+        
+        r.textView.textContainerInset = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 13)
+        
         return r
     }()
     

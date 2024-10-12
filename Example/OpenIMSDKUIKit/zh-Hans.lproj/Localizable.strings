@@ -213,9 +213,9 @@ VisitorCount = "%@次访问";
 UserNotifiySetting = "%@通知设置";
 SecondsCount = "%@秒";
 
-
 //VIP 购买
 SupportShortNumber = "支持设置最短%@位账号ID";
 
-
 "VIP ID: " = "靓号ID: ";
+
+"Done" = "完成";

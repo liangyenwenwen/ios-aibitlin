@@ -83,7 +83,6 @@ class MineBokeNotificationSettingVC: BaseTitleController {
     
     func chooseCountAction() {
         
-        
         let alert = UIAlertController(title: "访问次数".localized(), message: nil, preferredStyle: .actionSheet)
         let frameSizes = (1...10).map{String($0)}
         let pickerViewValues: [[String]] = [frameSizes]
@@ -98,12 +97,12 @@ class MineBokeNotificationSettingVC: BaseTitleController {
         //cacel 取消也改变值  defalut 必须选择 alert才会消失
         alert.addAction(title: "Done".localized(), style: .cancel)
         alert.show()
+        
     }
     
     func chooselengthOfStayAction() {
         
-        
-        let alert = UIAlertController(title: "停留时间".localized(), message: nil, preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "停留秒数".localized(), message: nil, preferredStyle: .actionSheet)
         let frameSizes = (1...12).map{String($0 * 5)}
         let pickerViewValues: [[String]] = [frameSizes]
         let pickerViewSelectedValue: PickerViewViewController.Index = (column: 0, row: frameSizes.firstIndex(of: self.chooseCount) ?? 0)
@@ -117,6 +116,7 @@ class MineBokeNotificationSettingVC: BaseTitleController {
         //cacel 取消也改变值  defalut 必须选择 alert才会消失
         alert.addAction(title: "Done".localized(), style: .cancel)
         alert.show()
+        
     }
     
 }
