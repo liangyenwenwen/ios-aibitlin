@@ -12,6 +12,15 @@ class ChatTableViewCell: UITableViewCell {
         v.layer.cornerRadius = 24.h
         return v
     }()
+    
+    
+//    let avaterImage: UIImageView = {
+//       let r = UIImageView(frame: CGRect(x: 0, y: 0, width: 48, height: 48))
+//        r.clipsToBounds = true
+//        r.layer.cornerRadius = 24
+//        r.backgroundColor = .red
+//        return r
+//    }()
 
     let titleLabel: UILabel = {
         let v = UILabel()
@@ -164,6 +173,7 @@ class ChatTableViewCell: UITableViewCell {
         
         
         let hStack = UIStackView(arrangedSubviews: [avatarImageView, vStack])
+//        let hStack = UIStackView(arrangedSubviews: [avaterImage, vStack])
         hStack.alignment = .center
         hStack.spacing = 12.w
 //        hStack.backgroundColor = .green
@@ -252,8 +262,8 @@ extension ChatTableViewCell {
 
     }
     
-    
-    func  updateUI(item: ConversationInfo, needCalculate: Bool = true) {
+//    func  updateUI(item: ConversationInfo, needCalculate: Bool = true)
+    func  updateUI(item: ConversationInfo) {
         
         let placeholderName: String = item.conversationType == .c2c ? "contact_my_friend_icon" : "contact_my_group_icon"
         muteImageView.isHidden = item.recvMsgOpt == .receive
@@ -266,6 +276,7 @@ extension ChatTableViewCell {
             
         } else {
             
+//            avatarImageView.setAboutGroupImg(linkurl: item.faceURL ?? "", userId: item.conversationID)
             avatarImageView.setAvatar(url: item.faceURL, text: item.showName, placeHolder: placeholderName)
         }
         
@@ -294,7 +305,7 @@ extension ChatTableViewCell {
         
         
         
-        if needCalculate {
+//        if needCalculate {
             if item.conversationType == .c2c {
                 
 //                updateNickName(userID: item.userID!, item: item)
@@ -302,22 +313,11 @@ extension ChatTableViewCell {
                 let userStruct = SuperStringUtil.getUserState(showname: item.showName!)
                 
                 titleLabel.textColor = userStruct.v > 0 ? .init(hexString: "#FF3939") : .init(hexString: "#333333")
-                updateUI(item: item, needCalculate:  false)
-            }
-            
-            if item.conversationType == .superGroup {
-                updateGroupNumberCount(groupID: item.groupID!, item: item)
-            }
-        } else  {
-            if item.conversationType == .c2c {
-    //            if userStruct.e > 0 {
-    //                tagLable.text = "[\("企业".localized())]".localized()
-    //                tagLable.textColor = .init(hexString: "#7238EF")
-    //            } else {
-                    tagLable.text = ""
-    //            }
+//                updateUI(item: item, needCalculate:  false)
                 
-            } else if item.conversationType == .superGroup {
+                tagLable.text = ""
+            }else if item.conversationType == .superGroup {
+//                updateGroupNumberCount(groupID: item.groupID!, item: item)
                 tagLable.text = "[\(4)]"
                 tagLable.textColor = .init(hexString: "#388CEF")
                 titleLabel.textColor = .init(hexString: "#333333")
@@ -325,36 +325,47 @@ extension ChatTableViewCell {
                 tagLable.text = ""
                 titleLabel.textColor = .init(hexString: "#333333")
             }
-        }
+//        } else  {
+//            if item.conversationType == .c2c {
+//                tagLable.text = ""
+//            } else if item.conversationType == .superGroup {
+//                tagLable.text = "[\(4)]"
+//                tagLable.textColor = .init(hexString: "#388CEF")
+//                titleLabel.textColor = .init(hexString: "#333333")
+//            } else {
+//                tagLable.text = ""
+//                titleLabel.textColor = .init(hexString: "#333333")
+//            }
+//        }
 
     }
     
     // MARK: - 张亚飞打的标记 获取用户信息
-    func  updateNickName(userID: String, item: ConversationInfo) {
-        if let handler = OIMApi.getUserMessageHandle {
-            
-            handler(userID, {  [weak self]res in
-               print(res)
-                
-                let userStruct = SuperStringUtil.getUserState(showname: res)
-                
-                self?.titleLabel.textColor = userStruct.v > 0 ? .init(hexString: "#FF3939") : .init(hexString: "#333333")
-                self?.updateUI(item: item, needCalculate:  false)
-            })
-        }
-    }
+//    func  updateNickName(userID: String, item: ConversationInfo) {
+//        if let handler = OIMApi.getUserMessageHandle {
+//            
+//            handler(userID, {  [weak self]res in
+//               print(res)
+//                
+//                let userStruct = SuperStringUtil.getUserState(showname: res)
+//                
+//                self?.titleLabel.textColor = userStruct.v > 0 ? .init(hexString: "#FF3939") : .init(hexString: "#333333")
+//                self?.updateUI(item: item, needCalculate:  false)
+//            })
+//        }
+//    }
     
-    func updateGroupNumberCount(groupID: String, item: ConversationInfo) {
-
-        IMController.shared.getGroupInfo(groupIds: [groupID]) { [weak self] (groupInfos: [GroupInfo]) in
-            guard let self else { return }
-            guard let groupInfo = groupInfos.first else { return }
-            print(groupInfo.memberCount)
-            tagLable.text = "[\(groupInfo.memberCount)]"
-//            getGroupInfoHelper(groupInfo: groupInfo)
-            self.updateUI(item: item, needCalculate:  false)
-        }
-    }
+//    func updateGroupNumberCount(groupID: String, item: ConversationInfo) {
+//
+//        IMController.shared.getGroupInfo(groupIds: [groupID]) { [weak self] (groupInfos: [GroupInfo]) in
+//            guard let self else { return }
+//            guard let groupInfo = groupInfos.first else { return }
+//            print(groupInfo.memberCount)
+//            tagLable.text = "[\(groupInfo.memberCount)]"
+////            getGroupInfoHelper(groupInfo: groupInfo)
+//            self.updateUI(item: item, needCalculate:  false)
+//        }
+//    }
     
 }
 

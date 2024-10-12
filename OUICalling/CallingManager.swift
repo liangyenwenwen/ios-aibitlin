@@ -474,6 +474,13 @@ extension CallingManager {
             record.incoming = signalingInfo.invitation.inviterUserID != OIMManager.manager.getLoginUserID()
             record.otherSideID = record.incoming ? signalingInfo.invitation.inviterUserID : signalingInfo.invitation.inviteeUserIDList.first
             
+            if record.incoming {
+                record.nickname = inviter?.nickname
+                record.faceURL = inviter?.faceURL
+            }
+            
+            
+            
             if signalingInfo.isSignal, !tips.isEmpty {
                 // 目前仅支持单聊
                 Self.saveRrecord(record: record)

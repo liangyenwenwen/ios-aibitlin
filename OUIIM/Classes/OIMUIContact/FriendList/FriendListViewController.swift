@@ -263,7 +263,7 @@ extension FriendListViewController: UITableViewDataSource, UITableViewDelegate {
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: FriendListUserTableViewCell.className) as! FriendListUserTableViewCell
         let user: UserInfo = _viewModel.contactSections[indexPath.section][indexPath.row]
-        cell.titleLabel.text = user.nickname!
+        cell.titleLabel.text = SuperStringUtil.getUserState(showname: user.nickname!).n
         cell.avatarImageView.setAvatar(url: user.faceURL, text: user.nickname, onTap: nil)
         return cell
     }
@@ -534,7 +534,7 @@ class listTableHeader: UIView {
             v.textColor = .white
             v.textAlignment = .center
             v.contentInset = UIEdgeInsets(top: 1, left: 4, bottom: 1, right: 4)
-            
+            v.isHidden = true
             return v
         }()
         

@@ -603,6 +603,7 @@ extension SelectContactsViewController: UITableViewDataSource, UITableViewDelega
         let contact = getContacts(by: indexPath)
         
         cell.titleLabel.text = contact.name
+//        cell.titleLabel.text = SuperStringUtil.getUserState(showname: contact.name ?? "").n
         cell.trainingLabel.text = contact.sub
         cell.trainingLabel.textColor = .c8E9AB0
         cell.trainingLabel.font = .f17
@@ -679,4 +680,57 @@ extension SelectContactsViewController: UISearchResultsUpdating {
             _viewModel.search(keyword: keyword, type: contacTypes)
         }
     }
+}
+
+
+
+class SuperStringUtil {
+    
+    /// 获取用户的信息  博客 公司 vip 名字
+    static func getUserState(showname: String) -> UserState {
+        guard let jsonData = showname.data(using: .utf8) else { return UserState(b: 0, e: 0, v: 0, n: showname)}
+        do {
+            let user = try JSONDecoder().decode(UserState.self, from: jsonData)
+            return user
+        } catch {
+            return  UserState(b: 0, e: 0, v: 0, n: showname)
+        }
+    }
+    
+    static func getUserShowname(showname: String) -> String  {
+        let user = getUserState(showname: showname)
+        return user.n
+    }
+    /// 获取用户的tag
+    static func getUserTag(showname: String) -> String? {
+        guard let jsonData = showname.data(using: .utf8) else { return nil}
+        do {
+            let user = try JSONDecoder().decode(UserState.self, from: jsonData)
+            var reslut = ""
+            if user.v > 0 {
+                reslut.append("V\(user.v)")
+            }
+            
+            if user.b > 0 {
+                reslut.append(reslut.count == 0 ? "\("博客".localized())" : "、\("博客".localized())")
+            }
+            
+            if user.b > 0 {
+                reslut.append(reslut.count == 0 ? "\("企业".localized())" : "、\("企业".localized())")
+            }
+            
+            return reslut.count == 0 ? nil : "[\(reslut)]"
+        } catch {
+            return  nil
+        }
+    }
+    
+}
+
+
+struct UserState: Codable {
+    let b: Int
+    let e: Int
+    let v: Int
+    let n: String
 }

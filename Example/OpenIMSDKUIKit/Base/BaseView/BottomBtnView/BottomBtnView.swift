@@ -72,7 +72,8 @@ class BottomBtnView: TGLinearLayout {
         rightBtn.hide()
         
         addSubview(centerBtn)
-        centerBtn.setTitle(R.string.localizable.follow(), for: .normal)
+//        centerBtn.setTitle(R.string.localizable.follow(), for: .normal)
+        centerBtn.setTitle("添加好友".localized(), for: .normal)
     }
     
     func initSendMessageAndAttentionlUI() {
@@ -81,7 +82,8 @@ class BottomBtnView: TGLinearLayout {
         rightBtn.show()
         
         addSubview(leftBtn)
-        leftBtn.setTitle(R.string.localizable.follow(), for: .normal)
+//        leftBtn.setTitle(R.string.localizable.follow(), for: .normal)
+        leftBtn.setTitle("添加好友".localized(), for: .normal)
         
         addSubview(rightBtn)
         rightBtn.setTitle(R.string.localizable.sendMessage(), for: .normal)

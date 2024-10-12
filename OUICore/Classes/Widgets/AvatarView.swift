@@ -215,6 +215,7 @@ public class AvatarView: UIView {
             if faceUrlArr.count > 0 {
                 
                 setGroupImgWithFaceURls(faceUrlArr: faceUrlArr, groupID: item.groupID!)
+//                setGroupImgWithFaceURls(faceUrlArr: [faceUrlArr[0]], groupID: item.groupID!)
                 avatarImageView.backgroundColor = .cE8EAEF
             } else {
                 
@@ -224,6 +225,13 @@ public class AvatarView: UIView {
             
         }
     }
+    
+    public func setAboutGroupImg(linkurl: String, userId: String) {
+        
+        setGroupImgWithFaceURls(faceUrlArr: [linkurl], groupID: userId)
+        
+    }
+
     
     public func setGroupImg(groupID: String) {
         

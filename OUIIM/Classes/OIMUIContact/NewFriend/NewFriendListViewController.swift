@@ -55,7 +55,7 @@ class NewFriendListViewController: UIViewController {
             
             guard let self else { return cell }
             
-            cell.titleLabel.text = item.fromNickname
+            cell.titleLabel.text = SuperStringUtil.getUserState(showname: item.fromNickname ?? "").n
             cell.subtitleLabel.text = item.reqMsg ?? ""
             if let state = NewFriendTableViewCell.ApplyState(rawValue: item.handleResult.rawValue) {
                 cell.setApplyState(state, isSendOut: _viewModel.isSendOut(userID: item.fromUserID))

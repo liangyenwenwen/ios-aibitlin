@@ -20,6 +20,8 @@ private let signupuserKey = "signupuserKey"
 
 class MainTabViewController: UITabBarController {
     
+    private let _viewModel = MineViewModel()
+    
     func clearConversation() {
         conversationViewController.clearRecord()
     }
@@ -35,9 +37,19 @@ class MainTabViewController: UITabBarController {
         return v
     }()
     
+    private lazy var _YFChooseUserAvatarCardView: YFChooseUserAvatarCardView = {
+        let v = YFChooseUserAvatarCardView()
+        return v
+    }()
+    
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         var controllers: [UIViewController] = []
+        
+        // 注册对名为"myNotification"的通知的观察
+//        NotificationCenter.default.addObserver(self, selector: #selector(changeAvatar), name: Notification.Name("homeChooseUserIcon"), object: nil)
         
         let chatNav = NavigationController.init(rootViewController: conversationViewController)
         chatNav.tabBarItem.image = UIImage.init(named: "TabMessageSelected_0")?.withRenderingMode(.alwaysOriginal)
@@ -371,6 +383,58 @@ class MainTabViewController: UITabBarController {
     }
     
     
+    
+//    private lazy var _photoHelper: PhotoHelper = {
+//        let v = PhotoHelper()
+//        v.setConfigToPickAvatar()
+//        v.didPhotoSelected = { [weak self] (images: [UIImage], _: [PHAsset]) in
+//            guard var first = images.first else { return }
+//            ProgressHUD.animate()
+//            first = first.compress(expectSize: 20 * 1024)
+//            let result = FileHelper.shared.saveImage(image: first)
+//            
+//            if result.isSuccess {
+//                self?._viewModel.uploadFile(fullPath: result.fullPath, onProgress: { [weak self] progress in
+//
+//                }, onComplete: { [weak self] code, msg in
+//                    if code == 0 {
+//                        self?._YFChooseUserAvatarCardView.bottomShow(show: false)
+//                        ProgressHUD.dismiss()
+//                    } else {
+//                        ProgressHUD.error(msg)
+//                    }
+//                })
+//            } else {
+//                ProgressHUD.dismiss()
+//            }
+//        }
+//        
+//        v.didCameraFinished = { [weak self] (photo: UIImage?, _: URL?) in
+//            guard let sself = self else { return }
+//            if var photo {
+//                ProgressHUD.animate()
+//                
+//                photo = photo.compress(expectSize: 20 * 1024)
+//                let result = FileHelper.shared.saveImage(image: photo)
+//                if result.isSuccess {
+//                    self?._viewModel.uploadFile(fullPath: result.fullPath, onProgress: { [weak self] progress in
+//
+//                    }, onComplete: { [weak self] code, msg in
+//                        if code == 0 {
+//                            self?._YFChooseUserAvatarCardView.bottomShow(show: false)
+//                            ProgressHUD.dismiss()
+//                        } else {
+//                            ProgressHUD.error(msg)
+//                        }
+//                    })
+//                }
+//            }
+//        }
+//        return v
+//    }()
+//    
+    
+    
 }
 
 extension MainTabViewController {
@@ -390,14 +454,28 @@ extension MainTabViewController {
                 YFMineNetViewModel.addUserLanguage(uid: uid)
             }
         }
+
+        userFirstChooseAvatar()
         
-        
-        toChooseUserAvatar()
+    }
+    
+    func  userFirstChooseAvatar() {
+        AccountViewModel.queryUserInfo(userIDList: [IMController.shared.uid],
+                                       valueHandler: { [weak self] (users: [QueryUserInfo]) in
+            guard let user: QueryUserInfo = users.first else { return }
+            
+            if user.faceURL == nil || user.faceURL == "" {
+                self?.toChooseUserAvatar()
+            }
+        }, completionHandler: {(errCode, errMsg) in
+            
+        })
     }
     
     
     func toChooseUserAvatar() {
         let r =  YFChooseUserAvatarCardView()
+        _YFChooseUserAvatarCardView = YFChooseUserAvatarCardView()
         view.addSubview(r)
         r.snp.makeConstraints { make in
             make.top.trailing.leading.equalToSuperview()
@@ -405,6 +483,40 @@ extension MainTabViewController {
         }
         r.bottomShow(show: true)
     }
+    
+    
+    @objc func changeAvatar() {
+        
+//        if let currentController = findController() {
+//            currentController.presentSelectedPictureActionSheet { [weak self] in
+//                guard let self else { return }
+//                _photoHelper.presentPhotoLibrary(byController: currentController)
+//            } cameraHandler: {[weak self] in
+//                guard let self else { return }
+//                _photoHelper.presentCamera(byController: currentController)
+//            }
+//        }
+        
+//        presentSelectedPictureActionSheet { [weak self] in
+//            guard let self else { return }
+//            _photoHelper.presentPhotoLibrary(byController: self)
+//        } cameraHandler: {[weak self] in
+//            guard let self else { return }
+//            _photoHelper.presentCamera(byController: self)
+//        }
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
 
 }

@@ -129,6 +129,8 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
         }
         self.refreshConversations()
         
+        _tableView.reloadData()
+        
     }
 
     open override func viewDidAppear(_ animated: Bool) {
@@ -288,7 +290,7 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
             make.leading.bottom.trailing.equalToSuperview()
         }
         
-        timeCountDown()
+//        timeCountDown()
         
         view.addSubview(_headerView)
         _headerView.snp.makeConstraints { make in

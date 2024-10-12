@@ -104,7 +104,8 @@ class UserMessageVC: BaseTitleController {
         userHeaderView.username.text = userShowname
         userHeaderView.userID.text = userInfo?.chatID ?? ""
 //        userHeaderView.userIcon.show(ConversationInfo?.faceURL)
-        userHeaderView.avatarImageView.setAvatar(url: ConversationInfo?.faceURL, text: userShowname)
+        userHeaderView.avatarImageView.setAvatar(url: userInfo?.faceURL, text: userShowname)
+        
         if userInfo?.areaCode != nil {
             userHeaderView.phoneView.contactLbl.text = userInfo!.areaCode! + userInfo!.phoneNumber!
         }

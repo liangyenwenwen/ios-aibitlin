@@ -10,11 +10,13 @@ import Foundation
 import OUICore
 import ProgressHUD
 
-class YFChooseUserAvatarCardView: UIView {
+class YFChooseUserAvatarCardView: UIView, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     var currentIndex: Int = 0
     var bottomHeight = 672
     var picData: [String]?
+    
+    private let _viewModel = MineViewModel()
     
     lazy var bottomView: UIView = {
         let v = UIView()
@@ -27,6 +29,10 @@ class YFChooseUserAvatarCardView: UIView {
         let r = UIImageView()
         r.image = .init(named: "choose_avater_camera")
         r.corner(60)
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(changeAvatar))
+        r.isUserInteractionEnabled = true
+        r.addGestureRecognizer(tap)
         return r
     }()
     
@@ -35,6 +41,11 @@ class YFChooseUserAvatarCardView: UIView {
         r.font = .mediumFont(16)
         r.textColor = .init(hexString: "#388CEF")
         r.text = "更换头像"
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(changeAvatar))
+        r.isUserInteractionEnabled = true
+        r.addGestureRecognizer(tap)
+        
         return r
     }()
     
@@ -274,8 +285,59 @@ class YFChooseUserAvatarCardView: UIView {
         
     }
     
+    private lazy var _photoHelper: PhotoHelper = {
+        let v = PhotoHelper()
+        v.setConfigToPickAvatar()
+        v.didPhotoSelected = { [weak self] (images: [UIImage], _: [PHAsset]) in
+            guard var first = images.first else { return }
+            ProgressHUD.animate()
+            first = first.compress(expectSize: 20 * 1024)
+            let result = FileHelper.shared.saveImage(image: first)
+            
+            if result.isSuccess {
+                self?._viewModel.uploadFile(fullPath: result.fullPath, onProgress: { [weak self] progress in
+
+                }, onComplete: { [weak self] code, msg in
+                    if code == 0 {
+                        self?.bottomShow(show: false)
+                        ProgressHUD.dismiss()
+                    } else {
+                        ProgressHUD.error(msg)
+                    }
+                })
+            } else {
+                ProgressHUD.dismiss()
+            }
+        }
+        
+        v.didCameraFinished = { [weak self] (photo: UIImage?, _: URL?) in
+            guard let sself = self else { return }
+            if var photo {
+                ProgressHUD.animate()
+                
+                photo = photo.compress(expectSize: 20 * 1024)
+                let result = FileHelper.shared.saveImage(image: photo)
+                if result.isSuccess {
+                    self?._viewModel.uploadFile(fullPath: result.fullPath, onProgress: { [weak self] progress in
+
+                    }, onComplete: { [weak self] code, msg in
+                        if code == 0 {
+                            ProgressHUD.dismiss()
+                        } else {
+                            ProgressHUD.error(msg)
+                        }
+                    })
+                }
+            }
+        }
+        return v
+    }()
+    
     
 }
+    
+    
+
 
 extension YFChooseUserAvatarCardView {
     
@@ -316,7 +378,7 @@ extension YFChooseUserAvatarCardView {
     }
     
     func getPicNet() {
-
+        
         YFMineNetViewModel.pictureFind {  [weak  self] data in
             
             self?.picData = data
@@ -330,9 +392,94 @@ extension YFChooseUserAvatarCardView {
         } completionHandler: { errCode, errMsg in
             
         }
-
+        
     }
+    
+    @objc func changeAvatar() {
+        
+//        NotificationCenter.default.post(name: Notification.Name("homeChooseUserIcon"), object: nil)
+        
+        if let currentController = findController() {
+            currentController.presentSelectedPictureActionSheet { [weak self] in
+                guard let self else { return }
+                _photoHelper.presentPhotoLibrary(byController: currentController)
+            } cameraHandler: {[weak self] in
+                guard let self else { return }
+//                _photoHelper.presentCamera(byController: currentController)
+                presentCamera()
+            }
+        }
+        
+    }
+    
+    
+    
+    func presentCamera() {
+         
+        if let currentController = findController() {
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = .camera
+            imagePicker.allowsEditing = true
+     
+            // 检查相机权限
+            if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                // 检查相机权限
+                switch AVCaptureDevice.authorizationStatus(for: .video) {
+                case .authorized:
+                    // 已授权，可以直接调用相机
+                    currentController.present(imagePicker, animated: true, completion: nil)
+                case .notDetermined:
+                    // 未询问过用户授权，请求授权
+                    AVCaptureDevice.requestAccess(for: .video) { granted in
+                        if granted {
+                            DispatchQueue.main.async {
+                                currentController.present(imagePicker, animated: true, completion: nil)
+                            }
+                        }
+                    }
+                default:
+                    // 无权限，可以提示用户或者跳转到设置页面
+                    print("无权限访问相机")
+                }
+            } else {
+                // 设备无相机，提示用户或者进行错误处理
+                print("设备无相机")
+            }
+        }
+    }
+    
+    // MARK: - UIImagePickerControllerDelegate
+      func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+          picker.dismiss(animated: true, completion: nil)
+      }
+   
+      func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+          // 处理图片
+          if var image = info[.originalImage] as? UIImage {
+              // 使用image
+              
+              ProgressHUD.animate()
+              
+              image = image.compress(expectSize: 20 * 1024)
+              let result = FileHelper.shared.saveImage(image: image)
+              if result.isSuccess {
+                  self._viewModel.uploadFile(fullPath: result.fullPath, onProgress: { [weak self] progress in
+
+                  }, onComplete: { [weak self] code, msg in
+                      if code == 0 {
+                          self?.bottomShow(show: false)
+                          ProgressHUD.dismiss()
+                      } else {
+                          ProgressHUD.error(msg)
+                      }
+                  })
+              }
+              
+          }
+   
+          picker.dismiss(animated: true, completion: nil)
+      }
+    
+    
 }
-
-
-
