@@ -433,9 +433,6 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
             } else {
                 tabBarItem?.badgeValue = nil
             }
-        
-            
-            
 //            self?._tableView.reloadData()
             
         }

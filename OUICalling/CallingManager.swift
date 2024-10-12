@@ -4,6 +4,7 @@ import OpenIMSDK
 import RxSwift
 import RxCocoa
 import Reachability
+import OUICore
 
 enum CallingState: String {
     case normal = "normal"
@@ -558,10 +559,15 @@ extension CallingManager {
                                                    onSuccess: { [weak self] message in
                 guard let self, let message else { return }
                 endCallingHandler?(message)
+                
+                
             }) { code, msg in
                 print("单聊插入本地失败:\(code), \(msg)")
             }
         }
+        
+        
+        
         
     }
     
@@ -579,9 +585,34 @@ extension CallingManager {
         let result = Array<CallRecord>.toJson(fromObject: records)
         UserDefaults.standard.set(result, forKey: recordsKey)
         UserDefaults.standard.synchronize()
+        
+        
+       
+        calculateCount()
+        
     }
     
-    // 通话结束保存本地的音视频记录
+    static func calculateCount() {
+        let recordsNumberKey = "\(Open_im_sdkGetLoginUserID())-com.calling.records.unread.key"
+        
+        getRecords()
+        var allRecords = CallingManager.getRecords()
+        var missedRecords = allRecords.filter { $0.success == false}
+        
+        /// 获取已读的未接通话数量
+        let readNumber = UserDefaults.standard.integer(forKey: recordsNumberKey)
+        
+        let showNumber = missedRecords.count - readNumber
+        
+        NotificationCenter.default.post(name: Notification.Name("refrehCallLogsbadgeValue"), object: nil, userInfo: ["value": "\(showNumber)"])
+        
+    }
+    
+    
+    
+    
+    
+    // 删除通话记录
     static public func deleteRrecord(record: CallRecord) {
         let recordsKey = "\(Open_im_sdkGetLoginUserID())-com.calling.records.key"
         var allRecords = CallingManager.getRecords()

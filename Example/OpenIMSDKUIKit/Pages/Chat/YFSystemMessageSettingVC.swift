@@ -56,7 +56,12 @@ class YFSystemMessageSettingVC: BaseTitleController {
         container.addSubview(ViewFactoryUtil.sectionTilteLbael(R.string.localizable.basicInformation()))
         container.addSubview(settingView)
         
+        
+       
+        
     }
+    
+    
     
     
     func updateUI() {

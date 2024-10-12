@@ -12,17 +12,26 @@ import OUILive
 #endif
 
 open class CallRecordsViewController: UIViewController {
+    var isShow: Bool = false
+    
 #if ENABLE_CALL
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
         self.currentRow = -1
-        _viewModel.getRecords()
+        _viewModel.getRecords(true)
+        isShow = true
+//        NotificationCenter.default.post(name: Notification.Name("refrehCallLogsbadgeValue"), object: nil, userInfo: ["value": "\(0)"])
     }
 
     override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+    }
+
+    open override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        isShow = false
     }
 
     open override func viewDidLoad() {
@@ -38,11 +47,12 @@ open class CallRecordsViewController: UIViewController {
         
         initView()
         bindData()
-        _viewModel.getRecords()
+        _viewModel.getRecords(true)
     }
     
     deinit {
         hidesBottomBarWhenPushed = false
+        NotificationCenter.default.removeObserver(self)
     }
 
     private lazy var tableView: UITableView = {
@@ -154,8 +164,10 @@ open class CallRecordsViewController: UIViewController {
     private let _disposeBag = DisposeBag()
     private func bindData() {
         
-        // 注册对名为"myNotification"的通知的观察
+        // 注册对名为"refrehCallLogs"的通知的观察  刷新界面
         NotificationCenter.default.addObserver(self, selector: #selector(handleNotification), name: Notification.Name("refrehCallLogs"), object: nil)
+        // 注册对名为"refrehCallLogsbadgeValue"的通知的观察  刷新badgeValue
+//        NotificationCenter.default.addObserver(self, selector: #selector(refreshBadges(_:)), name: Notification.Name("refrehCallLogsbadgeValue"), object: nil)
 
       
         
@@ -198,7 +210,7 @@ open class CallRecordsViewController: UIViewController {
         
         
         
-        _viewModel.getRecords()
+        _viewModel.getRecords(true)
     }
     
     // 音视频通话
@@ -261,14 +273,24 @@ open class CallRecordsViewController: UIViewController {
     
     
     
-    // 处理接收到的通知
+    // 处理接收到的通知  刷新通知
     @objc func handleNotification() {
         self.currentRow = -1
-        _viewModel.getRecords()
+        _viewModel.getRecords(isShow)
     }
     
+//    @objc func refreshBadges(_ notidication: Notification) {
+//        
+//        print(notidication.userInfo)
+//        
+//        if  let userinfo = notidication.userInfo, let receivedValue = userinfo["value"] as? String {
+//            print(receivedValue)
+//            
+//        }
+//    }
     
     
+   
 }
 
 #if ENABLE_CALL

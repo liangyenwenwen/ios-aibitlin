@@ -73,7 +73,7 @@ class MineSettingVC: BaseTitleController {
     }()
     
     lazy var privateDeletegeView: SuperSettingView = {
-        let r = SuperSettingView.create(icon: R.image.mine_delegate_icon()!, title: R.string.localizable.personalPrivacy(), click: { [weak self] data in
+        let r = SuperSettingView.create(icon: R.image.mine_delegate_icon()!, title: R.string.localizable.policiesAndTerms(), click: { [weak self] data in
             let language = String.getCurrentLanguage()
             if language.starts(with: "zh")  {
                 SuperWebController.start((self?.navigationController!)!, uri: "https://deal.aibitlin.com/#/pages/privacy/index?lang=zh")

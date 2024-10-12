@@ -144,6 +144,36 @@ class MainTabViewController: UITabBarController {
         tabBar.layer.shadowOpacity = 0.0
         
         tabBar.unselectedItemTintColor = .init(hexString: "#333333")
+        
+        // 注册对名为"refrehCallLogsbadgeValue"的通知的观察  刷新badgeValue
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshBadges(_:)), name: Notification.Name("refrehCallLogsbadgeValue"), object: nil)
+        
+    }
+    
+    @objc func refreshBadges(_ notidication: Notification) {
+        
+        print(notidication.userInfo)
+        
+        if  let userinfo = notidication.userInfo, let receivedValue = userinfo["value"] as? String {
+            
+            
+//            let root = self?.tabBarController
+//            let tabBarItem = root?.tabBar.items![0]
+//            if count > 0 {
+//                tabBarItem?.badgeValue = count > 99 ? "99+" : "\(count)"
+//            } else {
+//                tabBarItem?.badgeValue = nil
+//            }
+            
+            let tabBarItem = self.tabBar.items![1]
+            let count = Int(receivedValue) ?? 0
+            if  count > 0  {
+                tabBarItem.badgeValue = count > 99 ? "99+" : "\(count)"
+            } else {
+                tabBarItem.badgeValue = nil
+            }
+            
+        }
     }
     
     @objc
@@ -359,8 +389,12 @@ class MainTabViewController: UITabBarController {
             let p = JsonTool.toJson(fromObject: r)
             UserDefaults.standard.set(p, forKey: signupuserKey)
             UserDefaults.standard.synchronize()
-       
             conversationViewController.refreshUserInfo(userInfo: r)
+            
+            if r.faceURL == nil || r.faceURL == "" {
+                userFirstChooseAvatar()
+                
+            }
             
             ProgressHUD.dismiss()
             
@@ -455,7 +489,7 @@ extension MainTabViewController {
             }
         }
 
-        userFirstChooseAvatar()
+        
         
     }
     

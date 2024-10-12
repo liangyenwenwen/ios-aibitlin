@@ -2,6 +2,7 @@
 import OUICore
 import RxRelay
 import RxSwift
+import OpenIMSDK
 
 #if ENABLE_CALL
 import OUICalling
@@ -37,13 +38,21 @@ class CallRecordsViewModel {
         
     }
 
-    func getRecords() {
+    func getRecords(_ needClear: Bool = false) {
         allRecords = CallingManager.getRecords()
 //        getMeetings()
         missedRecords = allRecords.filter { $0.success == false}
         allRecordsRelay.accept(allRecords)
         tabSelected.accept(0)
         
+        if (needClear) {
+            let recordsNumberKey = "\(Open_im_sdkGetLoginUserID())-com.calling.records.unread.key"
+            UserDefaults.standard.set(missedRecords.count, forKey: recordsNumberKey)
+            NotificationCenter.default.post(name: Notification.Name("refrehCallLogsbadgeValue"), object: nil, userInfo: ["value": "\(0)"])
+        }
+       
+        
+//        NotificationCenter.default.post(name: Notification.Name("refrehCallLogsbadgeValue"), object: nil, userInfo: ["value": "\(0)"])
     }
     
     func deleteRecord(record : CallRecord) {
