@@ -1530,6 +1530,10 @@ extension DefaultChatController: DataProviderDelegate {
         let isCurSingleChat = msgSessionType == .c2c && conversationType == .c2c && (sendID == userID || sendID == IMController.shared.uid && receivID == userID)
         let isCurGroupChat = msgSessionType == .superGroup && conversationType == .superGroup && groupID == msgGroupID
         
+        /// 接收消息时候对名字过滤
+//        message.senderNickname = SuperStringUtil.getUserState(showname: message.senderNickname ?? "").n
+        
+        
         if isCurGroupChat || isCurSingleChat {
             recvMessageIsCurrentChat = true
             

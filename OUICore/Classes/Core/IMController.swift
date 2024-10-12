@@ -2678,7 +2678,9 @@ extension OIMMessageInfo {
         item.msgFrom = msgFrom.toMessageLevel()
         item.contentType = contentType.toMessageContentType()
         item.senderPlatformID = senderPlatformID.rawValue
-        item.senderNickname = senderNickname
+//        item.senderNickname = senderNickname
+        /// 拦截消息  修改聊天中的用户名
+        item.senderNickname = SuperStringUtil.getUserShowname(showname: senderNickname ?? "")
         item.senderFaceUrl = senderFaceUrl
         item.groupID = groupID
         item.content = content
