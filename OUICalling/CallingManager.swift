@@ -30,6 +30,9 @@ enum CallingState: String {
 public typealias ValueChangedHandler<T> = (_ value: T) -> Void
 
 public class CallingManager: NSObject {
+    
+    static var refreshBlock:(() -> Void)?
+    
     private let disposeBag = DisposeBag()
     private var signalingInfo: OIMSignalingInfo?
     
@@ -577,6 +580,25 @@ extension CallingManager {
         UserDefaults.standard.set(result, forKey: recordsKey)
         UserDefaults.standard.synchronize()
     }
+    
+    // 通话结束保存本地的音视频记录
+    static public func deleteRrecord(record: CallRecord) {
+        let recordsKey = "\(Open_im_sdkGetLoginUserID())-com.calling.records.key"
+        var allRecords = CallingManager.getRecords()
+        
+        allRecords.removeAll(where: {$0.date == record.date})
+        
+        let result = Array<CallRecord>.toJson(fromObject: allRecords)
+        UserDefaults.standard.set(result, forKey: recordsKey)
+        UserDefaults.standard.synchronize()
+        
+//        if let block = refreshBlock {
+//            block()
+//        }
+        
+        NotificationCenter.default.post(name: Notification.Name("refrehCallLogs"), object: nil)
+    }
+    
     
     // 获取本地的音视频记录
     static public func getRecords() -> [CallRecord] {

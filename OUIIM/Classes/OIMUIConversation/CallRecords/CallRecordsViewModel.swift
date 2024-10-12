@@ -34,16 +34,21 @@ class CallRecordsViewModel {
                 self?.items.accept(sself.missedMeetingRecords)
             }
         }).disposed(by: _disposeBag)
+        
     }
 
     func getRecords() {
         allRecords = CallingManager.getRecords()
-        getMeetings()
+//        getMeetings()
         missedRecords = allRecords.filter { $0.success == false}
         allRecordsRelay.accept(allRecords)
         tabSelected.accept(0)
         
+    }
     
+    func deleteRecord(record : CallRecord) {
+        CallingManager.deleteRrecord(record: record)
+        
     }
     
     func getMeetings() {

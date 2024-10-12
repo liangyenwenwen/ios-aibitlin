@@ -364,6 +364,22 @@ extension CallRecordsViewController: UITableViewDelegate, UITableViewDataSource 
         
     }
     
+    public func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    public func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let deleteAction = UITableViewRowAction(style: .default, title: "删除") { res, index in
+            print(res, index)
+            
+            self._viewModel.deleteRecord(record: self._viewModel.items.value[indexPath.row] as! CallRecord)
+//            self.tableView.reloadData()
+        }
+        return [deleteAction]
+    }
+    
+   
+    
 //    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        
 ////        tableView.deselectRow(at: indexPath, animated: true)
