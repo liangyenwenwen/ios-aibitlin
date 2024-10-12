@@ -95,7 +95,7 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
         v.register(ChatTableViewCell.self, forCellReuseIdentifier: ChatTableViewCell.className)
         v.delegate = self
         v.separatorStyle = .none
-        v.rowHeight = 68.h
+        v.rowHeight = 72
         v.contentInsetAdjustmentBehavior = .never
         
         let refresh: UIRefreshControl = {
@@ -286,7 +286,7 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
         let header = UIView()
         _tableView.tableHeaderView = header
         _tableView.snp.makeConstraints { make in
-            make.top.equalTo(kStatusBarHeight + 10)
+            make.top.equalTo(kStatusBarHeight + 15)
             make.leading.bottom.trailing.equalToSuperview()
         }
         

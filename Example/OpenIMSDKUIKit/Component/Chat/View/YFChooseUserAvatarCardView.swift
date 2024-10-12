@@ -385,9 +385,14 @@ extension YFChooseUserAvatarCardView {
             for (index, item) in data.enumerated() {
                 let iconView = self?.viewWithTag(15000 + index) as! systemIconView
                 iconView.centerImg.show(item)
+                
             }
             
-            self?.topCameraImg.show(data[self!.currentIndex])
+            if data.count > 5 {
+                self?.topCameraImg.show(data[self!.currentIndex])
+            }
+            
+           
             
         } completionHandler: { errCode, errMsg in
             

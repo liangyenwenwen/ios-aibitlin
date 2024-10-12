@@ -7,9 +7,10 @@ class ChatTableViewCell: UITableViewCell {
     
     let avatarImageView: AvatarView = {
         let v = AvatarView()
-        v.size = 48.h
+        v.size = 56
         v.clipsToBounds = true
-        v.layer.cornerRadius = 24.h
+        v.layer.cornerRadius = 28
+        v.contentMode = .scaleAspectFill
         return v
     }()
     
@@ -268,16 +269,17 @@ extension ChatTableViewCell {
         let placeholderName: String = item.conversationType == .c2c ? "contact_my_friend_icon" : "contact_my_group_icon"
         muteImageView.isHidden = item.recvMsgOpt == .receive
         
+//        avatarImageView.reset()
         // MARK: - 张亚飞打的标记 群头像 头像区分
-        
+       
         if item.conversationType == .superGroup {
-            
+                    
             avatarImageView.setGroupImg(item: item)
+                    
+        }  else {
             
-        } else {
-            
+            avatarImageView.setAvatar(url: item.faceURL, text: item.showName, placeHolder: placeholderName, isLocal: true)
 //            avatarImageView.setAboutGroupImg(linkurl: item.faceURL ?? "", userId: item.conversationID)
-            avatarImageView.setAvatar(url: item.faceURL, text: item.showName, placeHolder: placeholderName)
         }
         
         

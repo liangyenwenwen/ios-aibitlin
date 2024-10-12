@@ -453,11 +453,18 @@ extension UserMessageVC {
     
     
     @objc func gotoMoments() {
-        let vc = MomentsViewController()
-        vc.hidesBottomBarWhenPushed = true
+//        let vc = MomentsViewController()
+//        vc.hidesBottomBarWhenPushed = true
 //        self.navigationController.setNavigationBarHidden(false, animated: true)
 //        self.pushViewController(vc)
-        self.navigationController?.pushViewController(vc)
+//        self.navigationController?.pushViewController(vc)
+        
+        if let user = userInfo {
+            let vc = OthersViewController(userID: user.userID!, nickname: SuperStringUtil.getUserShowname(showname: user.nickname ?? ""), faceURL: user.faceURL)
+            navigationController?.pushViewController(vc, animated: true)
+        }
+        
+        
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

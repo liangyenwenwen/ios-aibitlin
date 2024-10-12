@@ -152,7 +152,12 @@ public class AvatarView: UIView {
             textLabel.text = t
         } else {
             avatarImageView.isHidden = false
-            avatarImageView.image = .init(nameInBundle: placeHolder)
+            if placeHolder == "friend_list_new_friend_icon" {
+                avatarImageView.image = .init(named: placeHolder)
+            } else {
+                avatarImageView.image = .init(nameInBundle: placeHolder)
+            }
+            
             avatarImageView.backgroundColor = .clear
         }
         
@@ -219,7 +224,7 @@ public class AvatarView: UIView {
                 avatarImageView.backgroundColor = .cE8EAEF
             } else {
                 
-                setAvatar(url: "friend_list_new_friend_icon", text: "", placeHolder: "", isLocal: true)
+                setAvatar(url: "", placeHolder: "friend_list_new_friend_icon", isLocal: true)
                
             }
             
@@ -263,6 +268,7 @@ public class AvatarView: UIView {
         AvatarManager.groupAvatarType = .QQ
         AvatarManager.distanceBetweenAvatar = 1
         avatarImageView.setImageAvatar(groupId: groupID, groupSource: faceUrlArr)
+        
         
     }
     
