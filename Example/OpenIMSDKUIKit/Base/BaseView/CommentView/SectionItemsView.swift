@@ -301,7 +301,7 @@ class SectionItemView: TGLinearLayout {
             break
         case .wait:
             blogStateLbl.show()
-            blogStateLbl.text = "审核中".localized()
+            blogStateLbl.text = "处理中".localized()
         case .refuse:
             blogStateLbl.show()
             blogStateLbl.text = "拒绝".localized()
@@ -321,7 +321,7 @@ class SectionItemView: TGLinearLayout {
             break
         case .wait:
             blogStateLbl.show()
-            blogStateLbl.text = "审核中".localized()
+            blogStateLbl.text = "处理中".localized()
         case .refuse:
             blogStateLbl.show()
             blogStateLbl.text = "拒绝".localized()

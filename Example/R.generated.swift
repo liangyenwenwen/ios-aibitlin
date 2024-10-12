@@ -3418,7 +3418,7 @@ struct _R {
     var colorBackground: RswiftResources.ColorResource { .init(name: "ColorBackground", path: [], bundle: bundle) }
   }
 
-  /// This `_R.image` struct is generated, and contains static references to 233 images.
+  /// This `_R.image` struct is generated, and contains static references to 234 images.
   struct image {
     let bundle: Foundation.Bundle
 
@@ -4000,6 +4000,9 @@ struct _R {
 
     /// Image `section_QR_code`.
     var section_QR_code: RswiftResources.ImageResource { .init(name: "section_QR_code", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `section_moments_icon`.
+    var section_moments_icon: RswiftResources.ImageResource { .init(name: "section_moments_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
     /// Image `section_star`.
     var section_star: RswiftResources.ImageResource { .init(name: "section_star", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }

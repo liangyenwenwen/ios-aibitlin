@@ -364,6 +364,7 @@ Toolbox = "Toolbox";
 
 
 "审核中" = "Review";
+"处理中" = "Processing";
 "拒绝" = "Reject";
 "受限制" = "Limit";
 "翻译功能开发中" = "Translation function is under development";

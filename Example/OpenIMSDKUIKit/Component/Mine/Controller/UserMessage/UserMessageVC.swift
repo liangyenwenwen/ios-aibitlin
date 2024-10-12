@@ -46,9 +46,9 @@ class UserMessageVC: BaseTitleController {
         initTableViewSafeAreCustom(.grouped)
         container.tg_padding = UIEdgeInsets(top: PADDING_MEDDLE, left: PADDING_OUTER, bottom: PADDING_MEDDLE, right: PADDING_OUTER)
         
-        tableView.tableHeaderView = tableHeaderView
-        view.layoutIfNeeded()
-        print(userHeaderView.frame)
+//        tableView.tableHeaderView = tableHeaderView
+//        view.layoutIfNeeded()
+//        print(userHeaderView.frame)
 //        datum = TestDataUtil.BokeData.filter({ item in
 //            item.state == .normal
 //        })
@@ -116,7 +116,26 @@ class UserMessageVC: BaseTitleController {
         sectionBlogTitleLbl.text = R.string.localizable.userBlog(userShowname)
         sectionMomentsTitleLbl.text = R.string.localizable.userMoments(userShowname)
         
+        
+        
+        tableView.tableHeaderView = tableHeaderView
+        view.layoutIfNeeded()
+        print(userHeaderView.frame)
+        
+        
+        
         self.tableView.reloadData()
+        
+        
+//        userHeaderView.setNeedsLayout()
+//        userHeaderView.layoutIfNeeded()
+        
+//        CGFloat height = [headerView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
+//        let height = userHeaderView.systemLayoutSizeFitting(.)
+//        CGRect headerFrame = headerView.frame;
+//        headerFrame.size.height = height;
+//        headerView.frame = headerFrame;
+        
     }
     
     
@@ -318,6 +337,7 @@ class UserMessageVC: BaseTitleController {
     
     class tableViewSectionHeader : TGLinearLayout {
         
+        
         init() {
             super.init(frame: .zero, orientation: .vert)
             innerInit()
@@ -346,6 +366,10 @@ class UserMessageVC: BaseTitleController {
         
         
     }
+    
+//    override func viewWillLayoutSubviews() {
+//        view.layoutIfNeeded()
+//    }
 }
 
 extension UserMessageVC {
@@ -384,6 +408,8 @@ extension UserMessageVC {
         
         let r = tableViewSectionHeader()
         let sectionLbl = r.sectionView.viewWithTag(20001) as! UILabel
+        let leftImg = r.sectionView.viewWithTag(20003) as! UIImageView
+        leftImg.image = section == 0 ? R.image.section_moments_icon()! : R.image.boke_icon()
         if section == 0 {
             
             r.sectionView.layer.maskedCorners  = [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner]

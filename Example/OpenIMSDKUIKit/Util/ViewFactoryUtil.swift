@@ -351,6 +351,7 @@ extension ViewFactoryUtil {
         
         let leftImg = ViewFactoryUtil.defalutImgView(image, 20)
         leftImg.tg_centerY.equal(0)
+        leftImg.tag = 20003
         sectionHaderView.addSubview(leftImg)
         
         let titleLbl = ViewFactoryUtil.customBoldTilteLable(title)

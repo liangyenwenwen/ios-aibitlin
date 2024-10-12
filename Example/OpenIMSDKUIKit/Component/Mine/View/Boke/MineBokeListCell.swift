@@ -117,7 +117,7 @@ class MineBokeListCell: BaseTableViewCell {
     
     lazy var stateLbl: QMUILabel = {
         let r = QMUILabel()
-        r.text = "审核中"
+        r.text = "处理中"
         r.font = .systemFont(ofSize: 12)
         r.tg_width.equal(.wrap)
         r.tg_height.equal(.wrap)
@@ -152,15 +152,15 @@ class MineBokeListCell: BaseTableViewCell {
             blogStateImg.hide()
             break
         case .wait:
-            blogStateLbl.show()
+            blogStateLbl.hide()
             stateLbl.show()
-            blogStateLbl.text = "审核中".localized()
-            stateLbl.text = "审核中".localized()
+            blogStateLbl.text = "处理中".localized()
+            stateLbl.text = "处理中".localized()
             stateLbl.textColor = .orange
             stateLbl.border(.orange, cornerRadius: 2)
             blogStateImg.image = R.image.blog_state_1()!
         case .refuse:
-            blogStateLbl.show()
+            blogStateLbl.hide()
             stateLbl.show()
             blogStateLbl.text = "拒绝".localized()
             stateLbl.text = "拒绝".localized()
@@ -168,7 +168,7 @@ class MineBokeListCell: BaseTableViewCell {
             stateLbl.border(.red, cornerRadius: 2)
             blogStateImg.image = R.image.blog_state_3()!
         case .limit:
-            blogStateLbl.show()
+            blogStateLbl.hide()
             stateLbl.show()
             blogStateLbl.text = "受限制".localized()
             stateLbl.text = "受限制".localized()

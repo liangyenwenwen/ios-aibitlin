@@ -317,7 +317,7 @@ extension ChatTableViewCell {
                 
                 tagLable.text = ""
             }else if item.conversationType == .superGroup {
-//                updateGroupNumberCount(groupID: item.groupID!, item: item)
+                updateGroupNumberCount(groupID: item.groupID!, item: item)
                 tagLable.text = "[\(4)]"
                 tagLable.textColor = .init(hexString: "#388CEF")
                 titleLabel.textColor = .init(hexString: "#333333")
@@ -355,17 +355,17 @@ extension ChatTableViewCell {
 //        }
 //    }
     
-//    func updateGroupNumberCount(groupID: String, item: ConversationInfo) {
-//
-//        IMController.shared.getGroupInfo(groupIds: [groupID]) { [weak self] (groupInfos: [GroupInfo]) in
-//            guard let self else { return }
-//            guard let groupInfo = groupInfos.first else { return }
-//            print(groupInfo.memberCount)
-//            tagLable.text = "[\(groupInfo.memberCount)]"
-////            getGroupInfoHelper(groupInfo: groupInfo)
+    func updateGroupNumberCount(groupID: String, item: ConversationInfo) {
+
+        IMController.shared.getGroupInfo(groupIds: [groupID]) { [weak self] (groupInfos: [GroupInfo]) in
+            guard let self else { return }
+            guard let groupInfo = groupInfos.first else { return }
+            print(groupInfo.memberCount)
+            tagLable.text = "[\(groupInfo.memberCount)]"
+//            getGroupInfoHelper(groupInfo: groupInfo)
 //            self.updateUI(item: item, needCalculate:  false)
-//        }
-//    }
+        }
+    }
     
 }
 
