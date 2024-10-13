@@ -8,6 +8,11 @@ open class FriendListUserTableViewCell: UITableViewCell {
         v.layer.cornerRadius = 20.w
         return v
     }()
+    
+    let titleView: UIView = {
+        let v = UIView()
+        return v
+    }()
 
     public let titleLabel: UILabel = {
         let v = UILabel()
@@ -16,6 +21,14 @@ open class FriendListUserTableViewCell: UITableViewCell {
         v.font =  UIFont(name: "PingFangSC-Medium", size: 18)
 //        v.textColor = UIColor(red: 0.533, green: 0.533, blue: 0.533, alpha: 1)
         v.textColor = .init(hexString: "#333333")
+        return v
+    }()
+    
+    lazy var tagLable: UILabel = {
+        let v = UILabel()
+        v.font = UIFont(name: "PingFangSC-Semibold", size: 11)
+        v.textColor = .init(hexString: "#7238EF")
+        v.text = "[企业]".localized()
         return v
     }()
 
@@ -56,12 +69,32 @@ open class FriendListUserTableViewCell: UITableViewCell {
         backgroundColor = .cellBackgroundColor
         
         let textStack: UIStackView = {
-            let v = UIStackView(arrangedSubviews: [titleLabel, subtitleLabel])
+//            let v = UIStackView(arrangedSubviews: [titleLabel, subtitleLabel])
+            let v = UIStackView(arrangedSubviews: [titleView, subtitleLabel])
             v.axis = .vertical
             v.spacing = 4
             v.alignment = .leading
             return v
         }()
+        
+        titleView.addSubview(tagLable)
+        titleView.addSubview(titleLabel)
+        tagLable.snp.makeConstraints { make in
+            make.bottom.equalToSuperview().offset(-2)
+            make.right.lessThanOrEqualToSuperview()
+        }
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.left.equalToSuperview()
+            make.bottom.equalToSuperview()
+            make.right.lessThanOrEqualTo(tagLable.snp_left).offset(-4)
+        }
+
+        titleView.snp.makeConstraints { make in
+            make.top.right.left.equalToSuperview()
+            make.height.equalTo(22)
+        }
+        
         
         trainingLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
         rowStack.addArrangedSubview(avatarImageView)
@@ -107,4 +140,18 @@ open class FriendListUserTableViewCell: UITableViewCell {
         subtitleLabel.textColor = .c0C1C33
         trainingLabel.textColor = .c0C1C33
     }
+    
+    
+    public func bindData(user: UserInfo) {
+        
+//       titleLabel.text = SuperStringUtil.getUserState(showname: user.nickname!).n
+       avatarImageView.setAvatar(url: user.faceURL, text: user.nickname, onTap: nil)
+        
+        let userStruct = SuperStringUtil.getUserState(showname: user.nickname!)
+        titleLabel.text =  userStruct.n
+        titleLabel.textColor = userStruct.v > 0 ? .init(hexString: "#FF3939") : .init(hexString: "#333333")
+        tagLable.text =  SuperStringUtil.getUserTag(showname: user.nickname!) ?? ""
+        
+    }
+    
 }

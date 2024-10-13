@@ -154,7 +154,6 @@ class ChatTableViewCell: UITableViewCell {
         titleView.addSubview(tagLable)
         titleView.addSubview(titleLabel)
         tagLable.snp.makeConstraints { make in
-//            make.left.equalTo(titleLabel.snp_right).offset(4)
             make.bottom.equalToSuperview().offset(-2)
             make.right.lessThanOrEqualToSuperview()
         }
@@ -164,8 +163,7 @@ class ChatTableViewCell: UITableViewCell {
             make.bottom.equalToSuperview()
             make.right.lessThanOrEqualTo(tagLable.snp_left).offset(-4)
         }
-       
-
+    
 
         titleView.snp.makeConstraints { make in
             make.top.right.left.equalToSuperview()

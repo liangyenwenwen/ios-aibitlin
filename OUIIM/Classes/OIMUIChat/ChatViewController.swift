@@ -1541,7 +1541,8 @@ extension ChatViewController: ChatControllerDelegate {
         titleView.mainLabel.text = "\(info.groupName!)"
         titleView.mainTailLabel.text = "(\(info.memberCount))"
         
-        chatViewControllerNav.GroupTitleLbl.text =  "\(info.groupName!)(\(info.memberCount))"
+//        chatViewControllerNav.GroupTitleLbl.text =  "\(info.groupName!)(\(info.memberCount))"
+        chatViewControllerNav.groupNumberLable.text = "[\(info.memberCount)]"
         
         self.showGroupAnnouncements(groupInfo: info)
     }

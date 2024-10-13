@@ -41,7 +41,7 @@ class ChatViewControllerNav: UIView {
         contentView.addSubview(backImg)
         contentView.addSubview(chatIconImg)
         contentView.addSubview(moreImg)
-        contentView.addSubview(GroupTitleLbl)
+        contentView.addSubview(groupTitleView)
         contentView.addSubview(systemTitleLbl)
         contentView.addSubview(userTitleView)
         
@@ -63,11 +63,29 @@ class ChatViewControllerNav: UIView {
             make.centerY.equalToSuperview()
         }
         
-        GroupTitleLbl.snp.makeConstraints { make in
+        groupTitleView.snp.makeConstraints { make in
             make.left.equalTo(100)
             make.right.equalTo(moreImg.snp_left).offset(-40)
-            make.centerY.equalToSuperview()
+//            make.centerY.equalToSuperview()
+            make.top.equalTo(chatIconImg)
+            make.bottom.equalTo(chatIconImg)
         }
+        groupTitleView.addSubview(GroupTitleLbl)
+        groupTitleView.addSubview(groupNumberLable)
+        
+        groupNumberLable.snp.makeConstraints { make in
+//            make.bottom.equalToSuperview().offset(-2)
+            make.right.lessThanOrEqualToSuperview()
+            make.centerY.equalToSuperview().offset(2)
+        }
+        GroupTitleLbl.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+//            make.top.equalToSuperview()
+            make.left.equalToSuperview()
+//            make.bottom.equalToSuperview()
+            make.right.lessThanOrEqualTo(groupNumberLable.snp_left).offset(-4)
+        }
+        
         
         systemTitleLbl.snp.makeConstraints { make in
             make.left.equalTo(100)
@@ -89,7 +107,7 @@ class ChatViewControllerNav: UIView {
         if info.conversationType == .notification {
             
             userTitleView.isHidden = true
-            GroupTitleLbl.isHidden = true
+            groupTitleView.isHidden = true
             chatIconImg.isHidden = true
             systemTitleLbl.isHidden = false
             
@@ -102,18 +120,19 @@ class ChatViewControllerNav: UIView {
         if info.conversationType == .superGroup {
             
             userTitleView.isHidden = true
-            GroupTitleLbl.isHidden = false
+            groupTitleView.isHidden = false
             chatIconImg.isHidden = false
             systemTitleLbl.isHidden = true
             
             GroupTitleLbl.text = info.showName
+            
             setIconImage()
         }
         
         if info.conversationType == .c2c {
             
             userTitleView.isHidden = false
-            GroupTitleLbl.isHidden = true
+            groupTitleView.isHidden = true
             chatIconImg.isHidden = false
             systemTitleLbl.isHidden = true
             
@@ -202,11 +221,11 @@ class ChatViewControllerNav: UIView {
         return r
     }()
     
-    lazy var GroupTitleLbl: UILabel = {
-        let r = UILabel()
-        r.textColor = .init(hexString: "#333333")
-        r.font =  UIFont(name: "PingFangSC-Medium", size: 18)
-        r.text = "群名"
+    
+    lazy var groupTitleView: UIView = {
+        let r = UIView()
+        
+//        r.backgroundColor = .red
         
         r.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer(target: self, action: #selector(gotoGroupUserListVC))
@@ -215,6 +234,22 @@ class ChatViewControllerNav: UIView {
         return r
     }()
     
+    lazy var GroupTitleLbl: UILabel = {
+        let r = UILabel()
+        r.textColor = .init(hexString: "#333333")
+        r.font =  UIFont(name: "PingFangSC-Medium", size: 18)
+        r.text = "群名"
+        return r
+    }()
+    
+    
+    lazy var groupNumberLable: UILabel = {
+        let v = UILabel()
+        v.font = UIFont(name: "PingFangSC-Semibold", size: 11)
+        v.textColor = .init(hexString: "#7238EF")
+        v.text = nil
+        return v
+    }()
     
     
     lazy var systemTitleLbl: UILabel = {

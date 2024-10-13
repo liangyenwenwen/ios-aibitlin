@@ -263,8 +263,9 @@ extension FriendListViewController: UITableViewDataSource, UITableViewDelegate {
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: FriendListUserTableViewCell.className) as! FriendListUserTableViewCell
         let user: UserInfo = _viewModel.contactSections[indexPath.section][indexPath.row]
-        cell.titleLabel.text = SuperStringUtil.getUserState(showname: user.nickname!).n
-        cell.avatarImageView.setAvatar(url: user.faceURL, text: user.nickname, onTap: nil)
+//        cell.titleLabel.text = SuperStringUtil.getUserState(showname: user.nickname!).n
+//        cell.avatarImageView.setAvatar(url: user.faceURL, text: user.nickname, onTap: nil)
+        cell.bindData(user: user)
         return cell
     }
 
