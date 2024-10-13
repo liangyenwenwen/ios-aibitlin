@@ -444,9 +444,11 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
         var count = 0
         Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
             
-                if count % 3 == 0 {
+                if count % 5 == 0 {
                     self._tableView.reloadData()
-                    timer.invalidate()
+                    if count > 15 {
+                        timer.invalidate()
+                    }
                 }
             
             count += 1

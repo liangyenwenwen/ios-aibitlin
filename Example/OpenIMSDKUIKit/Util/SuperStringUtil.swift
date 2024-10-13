@@ -47,13 +47,22 @@ class SuperStringUtil {
     }
     
     
-    static func getWeekDay (dateTime : String ) -> String {
+    static func getWeekDay (dateTime : String, isFriend: Bool = false, isStranger: Bool = false) -> String {
         let dateFmt =  DateFormatter ()
         dateFmt.dateFormat = "yyyy-MM-dd"
         let date = dateFmt.date(from: dateTime )!
         let calendar = Calendar.current
         let components = calendar.dateComponents([.weekday], from: date)
-        let weekDays = [NSNull.init(),"周日","周一","周二","周三","周四","周五","周六"]as [Any]
+        var weekDays :[Any] = []
+        weekDays = [NSNull.init(),"周日","周一","周二","周三","周四","周五","周六"]
+        if isFriend {
+            weekDays = [NSNull.init(),"周日好友访客","周一好友访客","周二好友访客","周三好友访客","周四好友访客","周五好友访客","周六好友访客"]
+        }
+        
+        if isStranger {
+            weekDays = [NSNull.init(),"周日陌生人访客","周一陌生人访客","周二陌生人访客","周三陌生人访客","周四陌生人访客","周五陌生人访客","周六陌生人访客"]
+        }
+        
         if let weekday = components.weekday {
             return weekDays[weekday] as! String
         }

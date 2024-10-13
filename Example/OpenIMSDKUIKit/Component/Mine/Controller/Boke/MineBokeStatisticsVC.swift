@@ -194,7 +194,7 @@ class MineBokeStatisticsVC: BaseTitleController {
     
     lazy var friendView:  bokeVisitorNumberView = {
         let r = bokeVisitorNumberView()
-        r.titleLbl.text = "好友访客".localized()
+        r.titleLbl.text = "今天好友访客".localized()
         r.gotoVisitorBlock = { [weak self] in
             print("goto  Friends")
             
@@ -217,7 +217,7 @@ class MineBokeStatisticsVC: BaseTitleController {
         
         
         let r = bokeVisitorNumberView()
-        r.titleLbl.text = "陌生人访客".localized()
+        r.titleLbl.text = "今天陌生人访客".localized()
         r.gotoVisitorBlock = { [weak self] in
             print("goto  strangers")
             
@@ -319,7 +319,10 @@ extension MineBokeStatisticsVC {
         YFMineNetViewModel.queryShowBlogsSurveyOneDay(paramters: paramters) { [self] data in
             if let data = data {
                 chooseTime = time
+                
+                friendView.titleLbl.text =  currentTag != 1206 ?  SuperStringUtil.getWeekDay(dateTime: time, isFriend: true).localized() : "今天好友访客".localized()
                 friendView.numberLbl.text = data.friend.string
+                strangerView.titleLbl.text =  currentTag != 1206 ?  SuperStringUtil.getWeekDay(dateTime: time, isStranger: true).localized() : "今天陌生人好友访客".localized()
                 strangerView.numberLbl.text = data.stranger.string
             }
         } completionHandler: { errCode, errMsg in
