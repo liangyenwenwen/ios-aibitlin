@@ -478,7 +478,7 @@ class YFMineNetViewModel: AccountViewModel {
         
         
  
-        let url = SuperStringUtil.netUrl(API_BLOG_URL + addUserLanguageAPI, ["language":String.getCurrentLanguageFirst(), "userId": uid])
+        let url = SuperStringUtil.netUrl(API_BLOG_URL + addUserLanguageAPI, ["language":String.getCurrentLanguageFirst(), "userId": uid, "imToken":UserDefaults.standard.string(forKey: bussinessTokenKey)!])
         
         print(["language":String.getCurrentLanguageFirst(), "userId": uid, "imToken":UserDefaults.standard.string(forKey: bussinessTokenKey)!])
             Alamofire.request(url, method: .post, encoding: JSONEncoding.default, headers: httpHeaders ).responseJSON { dataRequest in
@@ -503,7 +503,7 @@ class YFMineNetViewModel: AccountViewModel {
     
     static func updateLanguage(uid: String) {
   
-        let url = SuperStringUtil.netUrl(API_BLOG_URL + updateUserLanguageAPI, ["language":String.getCurrentLanguageFirst(), "userId": uid])
+        let url = SuperStringUtil.netUrl(API_BLOG_URL + updateUserLanguageAPI, ["language":String.getCurrentLanguageFirst(), "userId": uid, "imToken":UserDefaults.standard.string(forKey: bussinessTokenKey)!])
         
         Alamofire.request(url, method: .post, encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
             if let data = dataRequest.data {
