@@ -31,6 +31,9 @@ class YFMineQRCodeVC: BaseTitleController {
         addMyStarBoke()
 
         refreshUI()
+        
+        view.addSubview(saveCard)
+//        view.sendSubviewToBack(saveCard)
     }
     
     // MARK: - 张亚飞打的标记 卡片
@@ -153,17 +156,9 @@ class YFMineQRCodeVC: BaseTitleController {
         r.tg_gravity = .vert.center
         r.tg_top.equal(24)
         
-        let lbl = UILabel()
-        lbl.tg_width.equal(.wrap)
-        lbl.tg_height.equal(.wrap)
-        lbl.textColor = .black666
-        lbl.font = .regularFont(13)
-        
-        userShowId = user.chatID ?? ""
-        lbl.text = "ID: ".localized() + userShowId
         
 
-        r.addSubview(lbl)
+        r.addSubview(userIDLbl)
         r.addSubview(ViewFactoryUtil.defalutImgView(R.image.copy_icon()!, 16))
         
         
@@ -173,6 +168,22 @@ class YFMineQRCodeVC: BaseTitleController {
         
         return r
     }()
+    
+
+    
+    lazy var userIDLbl: UILabel = {
+        let lbl = UILabel()
+        lbl.tg_width.equal(.wrap)
+        lbl.tg_height.equal(.wrap)
+        lbl.textColor = .black666
+        lbl.font = .regularFont(13)
+        
+        userShowId = user.chatID ?? ""
+        lbl.text = "ID: ".localized() + userShowId
+        
+        return lbl
+    }()
+    
     
     lazy var tipLbl: UILabel = {
         let r = UILabel()
@@ -251,6 +262,10 @@ class YFMineQRCodeVC: BaseTitleController {
         lbl.text = "保存到手机";
         r.addSubview(lbl)
         
+        let tap = UITapGestureRecognizer(target: self, action: #selector(saveQRCode))
+        r.isUserInteractionEnabled = true
+        r.addGestureRecognizer(tap)
+        
         return r
     }()
     
@@ -292,6 +307,17 @@ class YFMineQRCodeVC: BaseTitleController {
         return r
     }()
     
+    lazy var saveCard: QRCodeSaveCardView = {
+        let r = QRCodeSaveCardView()
+        r.isHidden = true
+        return r
+    }()
+    
+    
+    
+}
+
+extension YFMineQRCodeVC {
     
     func addBlog(index: Int) {
         
@@ -314,10 +340,6 @@ class YFMineQRCodeVC: BaseTitleController {
         GKCover.cover(from: self.view.window, contentView: contentView, style: .translucent, showStyle: .bottom, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
         
     }
-    
-}
-
-extension YFMineQRCodeVC {
     
     func refreshUI() {
         
@@ -362,5 +384,53 @@ extension YFMineQRCodeVC {
         
         SuperToast.show(title: "复制成功")
     }
+    
+    
+    @objc func saveQRCode() {
+        
+
+        saveCard.bindData(showname: username, codeImg: codeImgView.image, avater: userAvatarImgView.image, idString: userIDLbl.text)
+
+        saveCard.isHidden = false
+       saveViewToPhotoAlbum(view: saveCard)
+      
+    }
+    
+  
+    func saveViewToPhotoAlbum(view:UIView) {
+       
+        // 开始图形上下文
+            UIGraphicsBeginImageContextWithOptions(view.bounds.size, view.isOpaque, 0.0)
+            defer { UIGraphicsEndImageContext() } // 确保上下文能被释放
+            
+            // 将view渲染到图形上下文中
+            if let context = UIGraphicsGetCurrentContext() {
+                view.layer.render(in: context)
+                view.isHidden = true
+            }
+            
+            // 从图形上下文获取图片
+            guard let image = UIGraphicsGetImageFromCurrentImageContext() else { return }
+            
+            // 保存图片到相册
+        UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.image(image:didFinishSavingWithError:contextInfo:)), nil)
+    }
+    
+    @objc func image(image: UIImage, didFinishSavingWithError: NSError?,contextInfo: AnyObject)
+
+    {
+
+        if didFinishSavingWithError != nil {
+            
+            print("error!")
+            
+            return
+        }
+
+        print("保存成功")
+
+    }
+ 
+    
     
 }

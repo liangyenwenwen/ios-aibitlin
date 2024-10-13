@@ -61,6 +61,7 @@
 		0419D4052C019350009CBE94 /* SuperUICollectionViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0419D4042C019350009CBE94 /* SuperUICollectionViewExtension.swift */; };
 		0420C71E2BEB78CC0005F5B8 /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0420C71D2BEB78CC0005F5B8 /* ProfileTableViewController.swift */; };
 		042E2A1F2BF5C3B400A90CB6 /* YFOpenIMUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042E2A1E2BF5C3B400A90CB6 /* YFOpenIMUtil.swift */; };
+		0434ABA42CBBC2F7000F9B07 /* QRCodeSaveCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0434ABA32CBBC2F7000F9B07 /* QRCodeSaveCardView.swift */; };
 		043A558C2C8166490041836E /* UserTagTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043A55892C8166490041836E /* UserTagTypeView.swift */; };
 		043A558D2C8166490041836E /* UserTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043A558A2C8166490041836E /* UserTagView.swift */; };
 		045B8BF72BF4496D0094E080 /* MineChooseBottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045B8BF62BF4496C0094E080 /* MineChooseBottomSheetView.swift */; };
@@ -226,6 +227,7 @@
 		0420C7182BEB61350005F5B8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		0420C71D2BEB78CC0005F5B8 /* ProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
 		042E2A1E2BF5C3B400A90CB6 /* YFOpenIMUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFOpenIMUtil.swift; sourceTree = "<group>"; };
+		0434ABA32CBBC2F7000F9B07 /* QRCodeSaveCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeSaveCardView.swift; sourceTree = "<group>"; };
 		043A55892C8166490041836E /* UserTagTypeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTagTypeView.swift; sourceTree = "<group>"; };
 		043A558A2C8166490041836E /* UserTagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTagView.swift; sourceTree = "<group>"; };
 		045B8BF62BF4496C0094E080 /* MineChooseBottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineChooseBottomSheetView.swift; sourceTree = "<group>"; };
@@ -574,6 +576,14 @@
 			path = Feedback;
 			sourceTree = "<group>";
 		};
+		0434ABA22CBBC2D8000F9B07 /* QRCode */ = {
+			isa = PBXGroup;
+			children = (
+				0434ABA32CBBC2F7000F9B07 /* QRCodeSaveCardView.swift */,
+			);
+			path = QRCode;
+			sourceTree = "<group>";
+		};
 		043A558B2C8166490041836E /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -768,6 +778,7 @@
 		04F2D0762BEE21CA00D5271B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0434ABA22CBBC2D8000F9B07 /* QRCode */,
 				04F4EE7A2C8C2C160028E895 /* Vip */,
 				043A558B2C8166490041836E /* Home */,
 				045B8BF52BF448880094E080 /* Feedback */,
@@ -1501,6 +1512,7 @@
 				1790EE812922294600C4024A /* AccountViewModel.swift in Sources */,
 				04F87EF52C8E8D3D00C82A37 /* SuperUIFontExtension.swift in Sources */,
 				17BBFAC22925CDBB0025B686 /* InputCodeViewController.swift in Sources */,
+				0434ABA42CBBC2F7000F9B07 /* QRCodeSaveCardView.swift in Sources */,
 				1790EE712921EAFC00C4024A /* MineOptionTableViewCell.swift in Sources */,
 				040D85C62BEB8B0400DCAAB3 /* ResurceUntil.swift in Sources */,
 				1790EE702921EAFC00C4024A /* LanguageTableViewController.swift in Sources */,
