@@ -13,7 +13,7 @@ import OUIIM
 import OUICore
 import ProgressHUD
 
-class MineMessageVC: BaseTitleController {
+class MineMessageVC: BaseTitleController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     public var user: UserInfo?
     
@@ -256,7 +256,9 @@ class MineMessageVC: BaseTitleController {
             _photoHelper.presentPhotoLibrary(byController: self)
         } cameraHandler: {[weak self] in
             guard let self else { return }
-            _photoHelper.presentCamera(byController: self)
+//            _photoHelper.presentCamera(byController: self)
+            
+            presentCamera()
         }
     }
     
@@ -312,5 +314,75 @@ class MineMessageVC: BaseTitleController {
         return v
     }()
     
+    
+    //    , UIImagePickerControllerDelegate, UINavigationControllerDelegate  private let _viewModel = MineViewModel()
+        
+        func presentCamera() {
+             
+
+                let imagePicker = UIImagePickerController()
+                imagePicker.delegate = self
+                imagePicker.sourceType = .camera
+                imagePicker.allowsEditing = true
+         
+                // 检查相机权限
+                if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                    // 检查相机权限
+                    switch AVCaptureDevice.authorizationStatus(for: .video) {
+                    case .authorized:
+                        // 已授权，可以直接调用相机
+                        present(imagePicker, animated: true, completion: nil)
+                    case .notDetermined:
+                        // 未询问过用户授权，请求授权
+                        AVCaptureDevice.requestAccess(for: .video) { granted in
+                            if granted {
+                                DispatchQueue.main.async {
+                                    self.present(imagePicker, animated: true, completion: nil)
+                                }
+                            }
+                        }
+                    default:
+                        // 无权限，可以提示用户或者跳转到设置页面
+                        print("无权限访问相机")
+                    }
+                } else {
+                    // 设备无相机，提示用户或者进行错误处理
+                    print("设备无相机")
+                }
+            
+        }
+        
+        // MARK: - UIImagePickerControllerDelegate
+          func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+              picker.dismiss(animated: true, completion: nil)
+          }
+       
+          func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+              // 处理图片
+              if var image = info[.editedImage] as? UIImage {
+                  // 使用image
+                  
+                  ProgressHUD.animate()
+                  
+                  image = image.compress(expectSize: 20 * 1024)
+                  let result = FileHelper.shared.saveImage(image: image)
+                  if result.isSuccess {
+                      self._viewModel.uploadFile(fullPath: result.fullPath, onProgress: { [weak self] progress in
+
+                      }, onComplete: { [weak self] code, msg in
+                          if code == 0 {
+                              self?.user?.faceURL = "file://" + result.fullPath
+                              self?.userIconView.iconView.image = image
+                              ProgressHUD.dismiss()
+                          } else {
+                              ProgressHUD.error(msg)
+                          }
+                      })
+                  }
+                  
+              }
+       
+              picker.dismiss(animated: true, completion: nil)
+          }
     
 }

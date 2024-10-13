@@ -519,7 +519,7 @@ extension MainTabViewController {
     }
     
     
-    @objc func changeAvatar() {
+//    @objc func changeAvatar() {
         
 //        if let currentController = findController() {
 //            currentController.presentSelectedPictureActionSheet { [weak self] in
@@ -539,7 +539,7 @@ extension MainTabViewController {
 //            _photoHelper.presentCamera(byController: self)
 //        }
         
-    }
+//    }
     
     
     

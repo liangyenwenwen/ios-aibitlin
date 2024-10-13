@@ -666,7 +666,7 @@ class SuperStringUtil {
                 reslut.append(reslut.count == 0 ? "\("博客".localized())" : "、\("博客".localized())")
             }
             
-            if user.b > 0 {
+            if user.e > 0 {
                 reslut.append(reslut.count == 0 ? "\("企业".localized())" : "、\("企业".localized())")
             }
             

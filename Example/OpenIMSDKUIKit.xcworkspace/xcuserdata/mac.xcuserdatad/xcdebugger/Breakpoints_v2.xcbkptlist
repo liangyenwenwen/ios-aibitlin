@@ -80,51 +80,5 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "969018B2-DCBB-428F-8F7A-CDFB8D4212F4"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../3rd/ZLPhotoBrowser/Sources/General/ZLLanguageDefine.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "162"
-            endingLineNumber = "162"
-            landmarkName = "ZLLocalLanguageKey"
-            landmarkType = "14">
-            <Locations>
-               <Location
-                  uuid = "969018B2-DCBB-428F-8F7A-CDFB8D4212F4 - 61fbc43a9f087e55"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "one-time initialization function for done"
-                  moduleName = "ZLPhotoBrowser"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Desktop/aibitlin/3rd/ZLPhotoBrowser/Sources/General/ZLLanguageDefine.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "162"
-                  endingLineNumber = "162">
-               </Location>
-               <Location
-                  uuid = "969018B2-DCBB-428F-8F7A-CDFB8D4212F4 - 110958f1cb28f075"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ZLPhotoBrowser.ZLLocalLanguageKey.done.unsafeMutableAddressor : ZLPhotoBrowser.ZLLocalLanguageKey"
-                  moduleName = "ZLPhotoBrowser"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Desktop/aibitlin/3rd/ZLPhotoBrowser/Sources/General/ZLLanguageDefine.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "162"
-                  endingLineNumber = "162">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

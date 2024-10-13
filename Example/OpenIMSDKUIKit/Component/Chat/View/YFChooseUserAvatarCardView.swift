@@ -250,10 +250,6 @@ class YFChooseUserAvatarCardView: UIView, UIImagePickerControllerDelegate, UINav
     
     
     
-    
-    
-    
-    
     class systemIconView: UIView {
         
         lazy var centerImg: UIImageView = {
@@ -418,6 +414,7 @@ extension YFChooseUserAvatarCardView {
     }
     
     
+//    , UIImagePickerControllerDelegate, UINavigationControllerDelegate  private let _viewModel = MineViewModel()
     
     func presentCamera() {
          

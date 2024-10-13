@@ -30,17 +30,19 @@ class GroupChatNameTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         selectionStyle = .none
-        contentView.addSubview(avatarImageView)
-        avatarImageView.snp.makeConstraints { make in
-            make.size.equalTo(48)
-            make.left.equalToSuperview().offset(StandardUI.margin_22)
-            make.top.equalToSuperview().inset(20)
-            make.bottom.equalToSuperview().inset(20).priority(.low)
-        }
+        /// 去除创建群聊 换头像图片
+//        contentView.addSubview(avatarImageView)
+//        avatarImageView.snp.makeConstraints { make in
+//            make.size.equalTo(48)
+//            make.left.equalToSuperview().offset(StandardUI.margin_22)
+//            make.top.equalToSuperview().inset(20)
+//            make.bottom.equalToSuperview().inset(20).priority(.low)
+//        }
 
         contentView.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
-            make.left.equalTo(avatarImageView.snp.right).offset(20)
+//            make.left.equalTo(avatarImageView.snp.right).offset(20)
+            make.left.equalToSuperview().offset(StandardUI.margin_22)
             make.centerY.equalToSuperview()
             make.right.equalToSuperview().offset(-20)
         }
