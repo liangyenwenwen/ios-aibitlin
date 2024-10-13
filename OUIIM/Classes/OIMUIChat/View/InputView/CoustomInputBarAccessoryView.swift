@@ -287,8 +287,10 @@ class CoustomInputBarAccessoryView: InputBarAccessoryView {
     }()
     
     private lazy var emojiView: EmojiView = {
+        /// 表情键盘
         let keyboardSettings = KeyboardSettings(bottomType: .topCategories, identity: identity)
-        keyboardSettings.countOfRecentsEmojis = 10
+//        keyboardSettings.countOfRecentsEmojis = 10
+        keyboardSettings.countOfRecentsEmojis = 0
         keyboardSettings.updateRecentEmojiImmediately = true
         keyboardSettings.needToShowDeleteButton = true
         let v = EmojiView(keyboardSettings: keyboardSettings)

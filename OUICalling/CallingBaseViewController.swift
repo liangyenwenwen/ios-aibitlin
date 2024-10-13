@@ -357,16 +357,18 @@ public class CallingBaseViewController: CallingBaseController {
     @objc func micButtonAction(sender: UIButton) {
         print("\(#function)")
 
-        sender.isSelected = !sender.isSelected
+        ///切换麦克风
+//        sender.isSelected = !sender.isSelected
         sender.isEnabled = false
         
         toggleMicrophoneEnabled().then { _ in
             sender.isEnabled = true
             
+            sender.isSelected = !sender.isSelected
         }.catch { _ in
             sender.isEnabled = true
             
-            
+//            sender.isSelected = !sender.isSelected
         }
     }
     
@@ -415,8 +417,9 @@ public class CallingBaseViewController: CallingBaseController {
     
     @objc func thirdButtonAction(sender: UIButton) {
         print("\(#function)")
-
-        sender.isSelected = !sender.isSelected
+        
+        ///切换免提
+//        sender.isSelected = !sender.isSelected
         toggleSpeakerphoneEnabled(enabled: !sender.isSelected)
     }
     
@@ -736,6 +739,7 @@ public class CallingBaseViewController: CallingBaseController {
                 try session.setCategory(.playAndRecord, mode: .default, options: [.allowBluetooth, .defaultToSpeaker])
                 try session.overrideOutputAudioPort(.speaker)
             }
+            self.thirdButton.isSelected = enabled
             try session.setActive(true)
         } catch let error {
             print(error.localizedDescription)
