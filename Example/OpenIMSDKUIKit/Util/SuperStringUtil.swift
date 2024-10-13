@@ -7,8 +7,24 @@
 
 import Foundation
 import SwifterSwift
+import CoreLocation
 
 class SuperStringUtil {
+    
+    static func getCurrentLocation() -> String {
+        let locationManager = CLLocationManager()
+        locationManager.requestWhenInUseAuthorization()
+        
+        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
+            if let currentLocation = locationManager.location {
+//                print("当前经度：\(currentLocation.coordinate.longitude)")
+//                print("当前纬度：\(currentLocation.coordinate.latitude)")
+                return "\(currentLocation.coordinate.longitude),\(currentLocation.coordinate.latitude)"
+            }
+        }
+        
+        return "120.2052342,30.2489634"
+    }
     
     ///是否为空
     static func isBlank(_ data: String?) -> Bool {

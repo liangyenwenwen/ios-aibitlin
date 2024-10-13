@@ -12,6 +12,10 @@ import TangramKit
 class SuperWebController: BaseTitleController {
     var uri:String?
     var content:String?
+    
+    var blogItem: blogDetailItem?
+    var timeCount:Int = 0
+    var timer: Timer? = nil
 
     override func initViews() {
         super.initViews()
@@ -23,11 +27,42 @@ class SuperWebController: BaseTitleController {
         container.addSubview(webView)
         
         container.addSubview(progressView)
+        
+        if blogItem != nil {
+            timeCountCalcatue()
+        }
+      
     }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        if let blog = blogItem {
+            timer?.invalidate()
+            timer = nil
+            YFMineNetViewModel.scanBlog(blog: blog, duration: timeCount)
+        }
+    }
+    
+    
+    func timeCountCalcatue() {
+        
+        timer =  Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+            self.timeCount += 1
+            
+        }
+    }
+    
+    
     
     override func initDatum() {
         super.initDatum()
         if SuperStringUtil.isNotBlank(uri) {
+            
+            if uri!.hasPrefix("www."){
+                uri = "http://" + uri!
+            }
+            
             //显示网址内容
             //创建一个Request
             let request = URLRequest(url: URL(string: uri)!)
@@ -166,6 +201,16 @@ extension SuperWebController{
         let target = SuperWebController()
         target.uri=uri
         target.content = content
+        if isRoot {
+            target.hidesBottomBarWhenPushed = true
+        }
+        controller.pushViewController(target, animated: true)
+    }
+    
+    static func startAboubBlog(_ controller:UINavigationController,blogItem: blogDetailItem, isRoot:Bool = false) {
+        let target = SuperWebController()
+        target.uri = blogItem.userBlogUrl
+        target.blogItem = blogItem
         if isRoot {
             target.hidesBottomBarWhenPushed = true
         }

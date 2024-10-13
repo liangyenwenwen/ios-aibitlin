@@ -136,8 +136,11 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
     open override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.getUnReadTotalCount()
-//        self.timeCountDown()
+        self.timeCountDown()
     }
+    
+    
+    
     
     override open func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -433,18 +436,17 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
             } else {
                 tabBarItem?.badgeValue = nil
             }
-//            self?._tableView.reloadData()
-            
         }
     }
     
     
     func timeCountDown() {
         var count = 0
-        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
             
-                if count % 50 == 0 {
+                if count % 3 == 0 {
                     self._tableView.reloadData()
+                    timer.invalidate()
                 }
             
             count += 1

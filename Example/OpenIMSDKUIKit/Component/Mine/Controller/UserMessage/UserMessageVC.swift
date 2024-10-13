@@ -493,8 +493,10 @@ extension UserMessageVC {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item = datum[indexPath.row] as! blogDetailItem
-        SuperWebController.start((self.navigationController!), uri: item.userBlogUrl)
-        YFMineNetViewModel.scanBlog(blog: item)
+//        SuperWebController.start((self.navigationController!), uri: item.userBlogUrl)
+//        YFMineNetViewModel.scanBlog(blog: item)
+        
+        SuperWebController.startAboubBlog(self.navigationController!, blogItem: item)
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {

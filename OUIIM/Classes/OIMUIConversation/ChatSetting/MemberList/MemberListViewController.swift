@@ -230,7 +230,7 @@ class MemberListViewController: UIViewController {
         _viewModel.ownerAndAdminRelay.bind(to: headerTableView.rx.items(cellIdentifier: FriendListUserTableViewCell.className,
                                                                         cellType: FriendListUserTableViewCell.self)) {[weak self] _, model, cell in
             
-            cell.titleLabel.text = model.nickname
+            cell.titleLabel.text = SuperStringUtil.getUserState(showname: model.nickname ?? "").n
             // admin or owner
             if model.isOwnerOrAdmin {
                 cell.trainingLabel.textColor = .c8E9AB0
@@ -258,7 +258,7 @@ class MemberListViewController: UIViewController {
         
         _viewModel.membersRelay.bind(to: _tableView.rx.items(cellIdentifier: FriendListUserTableViewCell.className,
                                                              cellType: FriendListUserTableViewCell.self)) {[weak self] _, model, cell in
-            cell.titleLabel.text = model.nickname
+            cell.titleLabel.text = SuperStringUtil.getUserState(showname: model.nickname ?? "").n
             cell.avatarImageView.setAvatar(url: model.faceURL, text: model.nickname)
             
         }.disposed(by: _disposeBag)

@@ -37,8 +37,8 @@ class YFNetworkUtils {
             }
             freeifaddrs(ifaddr)
         }
-//        return address
-        return "1.1.1.1"
+        return address
+//        return "1.1.1.1"
     }
     
     
