@@ -192,7 +192,7 @@ class YFMineNetViewModel: AccountViewModel {
         
         }
     }
-    
+    // MARK: - 张亚飞打的标记
     static func scanBlog(blog: blogDetailItem, duration: Int) {
         
         if let IMUser = IMController.shared.currentUserRelay.value  {
@@ -200,7 +200,7 @@ class YFMineNetViewModel: AccountViewModel {
             if IMUser.userID == blog.userId {
                 return
             }
-            
+  
             IMController.shared.checkFriend(userID: blog.userId!) { [self] r in
                 
                 let userStruct = SuperStringUtil.getUserState(showname: IMUser.nickname!)

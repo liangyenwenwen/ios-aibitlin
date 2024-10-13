@@ -495,7 +495,7 @@ extension UserMessageVC {
         let item = datum[indexPath.row] as! blogDetailItem
 //        SuperWebController.start((self.navigationController!), uri: item.userBlogUrl)
 //        YFMineNetViewModel.scanBlog(blog: item)
-        
+
         SuperWebController.startAboubBlog(self.navigationController!, blogItem: item)
     }
     

@@ -166,8 +166,11 @@ class GroupListViewController: UIViewController {
 
         _viewModel.items.bind(to: tableView.rx.items(cellIdentifier: FriendListUserTableViewCell.className, cellType: FriendListUserTableViewCell.self)) { _, model, cell in
             cell.titleLabel.text = model.groupName
+     
             cell.subtitleLabel.text = "\(model.memberCount)人"
-            cell.avatarImageView.setAvatar(url: model.faceURL, text: nil, placeHolder: "contact_my_group_icon", onTap: nil)
+//            cell.avatarImageView.setAvatar(url: model.faceURL, text: nil, placeHolder: "contact_my_group_icon", onTap: nil)
+            cell.avatarImageView.setGroupInfoImg(item: model)
+            
         }.disposed(by: _disposeBag)
 
         tableView.rx.modelSelected(GroupInfo.self).subscribe(onNext: { [weak self] (groupInfo: GroupInfo) in
