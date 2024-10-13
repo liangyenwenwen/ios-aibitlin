@@ -314,7 +314,6 @@ extension MineBokeEditVC {
                           ProgressHUD.dismiss()
                       }
                   }
-                  
               }
        
               picker.dismiss(animated: true, completion: nil)

@@ -458,7 +458,7 @@ extension YFChooseUserAvatarCardView {
    
       func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
           // 处理图片
-          if var image = info[.originalImage] as? UIImage {
+          if var image = info[.editedImage] as? UIImage {
               // 使用image
               
               ProgressHUD.animate()

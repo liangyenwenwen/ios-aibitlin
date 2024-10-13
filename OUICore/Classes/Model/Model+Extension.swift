@@ -378,7 +378,7 @@ extension MessageInfo {
             if let notificationElem, let opUser = notificationElem.opUser {
                 let nickname = notificationElem.opUserIsMe ? "you".innerLocalized() : (opUser.nickname ?? opUser.userID!)
                 
-                let str = "createGroupNtf".innerLocalizedFormat(arguments: nickname)
+                let str = "createGroupNtf".innerLocalizedFormat(arguments: SuperStringUtil.getUserShowname(showname: nickname ?? ""))
                 result = createAttrString(baseString: str, users: [opUser])
             }
         case .groupInfoSet:
