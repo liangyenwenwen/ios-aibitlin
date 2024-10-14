@@ -169,7 +169,7 @@ struct _R {
       var ieXW0yeText: RswiftResources.StringResource { .init(key: "8ie-xW-0ye.text", tableName: "LaunchScreen", source: source, developmentValue: nil, comment: nil) }
     }
 
-    /// This `_R.string.localizable` struct is generated, and contains static references to 465 localization keys.
+    /// This `_R.string.localizable` struct is generated, and contains static references to 466 localization keys.
     struct localizable {
       let source: RswiftResources.StringResource.Source
 
@@ -2742,6 +2742,13 @@ struct _R {
       /// Locales: en, th
       var 移除黑名单: RswiftResources.StringResource { .init(key: "移除黑名单", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// en translation: All Empty
+      ///
+      /// Key: 空空如也
+      ///
+      /// Locales: en, th
+      var 空空如也: RswiftResources.StringResource { .init(key: "空空如也", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: Sign up now
       ///
       /// Key: 立即注册
@@ -3446,7 +3453,7 @@ struct _R {
     var colorBackground: RswiftResources.ColorResource { .init(name: "ColorBackground", path: [], bundle: bundle) }
   }
 
-  /// This `_R.image` struct is generated, and contains static references to 236 images.
+  /// This `_R.image` struct is generated, and contains static references to 237 images.
   struct image {
     let bundle: Foundation.Bundle
 
@@ -3875,6 +3882,9 @@ struct _R {
 
     /// Image `copy_icon`.
     var copy_icon: RswiftResources.ImageResource { .init(name: "copy_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `custom_blank_icon`.
+    var custom_blank_icon: RswiftResources.ImageResource { .init(name: "custom_blank_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
     /// Image `edit_icon`.
     var edit_icon: RswiftResources.ImageResource { .init(name: "edit_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }

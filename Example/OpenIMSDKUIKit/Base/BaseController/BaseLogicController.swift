@@ -237,6 +237,21 @@ class BaseLogicController: BaseCommentController {
     func bindData() {
         
     }
+    
+    func tableViewAddEmptyView() {
+        tableView.swizzleMethod()
+        let emptyV:HDEmptyView = HDEmptyView.emptyActionViewWithImageStr(imageStr: "custom_blank_icon", titleStr: "空空如也".localized() as NSString, detailStr: "", btnTitleStr: "", target: self, action: #selector(reloadBtnAction)) as! HDEmptyView
+        
+        emptyV.titleLabTextColor = UIColor.red
+        emptyV.actionBtnFont = UIFont.systemFont(ofSize: 19)
+        emptyV.contentViewY = -150
+        emptyV.actionBtnIsHidden = true
+        emptyV.titleLabFont = UIFont(name: "PingFangSC-Medium", size: 16)!
+        emptyV.titleLabTextColor =  UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
+        
+        tableView.ly_emptyView = emptyV
+    }
+    
 }
 
 
@@ -250,5 +265,8 @@ extension BaseLogicController: UITableViewDataSource, UITableViewDelegate {
         return UITableViewCell()
     }
     
+    @objc func reloadBtnAction(_ sender: UIButton) {
+        print("点击刷新按钮")
+    }
     
 }

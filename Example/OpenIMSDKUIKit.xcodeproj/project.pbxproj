@@ -76,6 +76,11 @@
 		049C64452BECC62D00B679C4 /* YFRegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049C64442BECC62C00B679C4 /* YFRegisterVC.swift */; };
 		049C64472BECD49700B679C4 /* YFControllerUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049C64462BECD49700B679C4 /* YFControllerUtil.swift */; };
 		04A4BD002BF32F17008FA224 /* YFMineChangePasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A4BCFF2BF32F17008FA224 /* YFMineChangePasswordVC.swift */; };
+		04A87DEE2CBD0CC1008B4247 /* HDEmptyBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A87DE82CBD0CC1008B4247 /* HDEmptyBaseView.swift */; };
+		04A87DEF2CBD0CC1008B4247 /* HDEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A87DE92CBD0CC1008B4247 /* HDEmptyView.swift */; };
+		04A87DF02CBD0CC1008B4247 /* HDRunTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A87DEA2CBD0CC1008B4247 /* HDRunTime.swift */; };
+		04A87DF12CBD0CC1008B4247 /* UIScrollView+Empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A87DEB2CBD0CC1008B4247 /* UIScrollView+Empty.swift */; };
+		04A87DF22CBD0CC1008B4247 /* UIView+Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A87DEC2CBD0CC1008B4247 /* UIView+Position.swift */; };
 		04D45E832CA250390052F05A /* AccountViewModelEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D45E822CA250390052F05A /* AccountViewModelEx.swift */; };
 		04D5C1ED2C93DF72005EBF86 /* YFMineNetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D5C1EC2C93DF72005EBF86 /* YFMineNetViewModel.swift */; };
 		04D6A6782C9131ED008193E7 /* YFNetworkUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D6A6772C9131ED008193E7 /* YFNetworkUtils.swift */; };
@@ -244,6 +249,11 @@
 		049C64442BECC62C00B679C4 /* YFRegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFRegisterVC.swift; sourceTree = "<group>"; };
 		049C64462BECD49700B679C4 /* YFControllerUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFControllerUtil.swift; sourceTree = "<group>"; };
 		04A4BCFF2BF32F17008FA224 /* YFMineChangePasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFMineChangePasswordVC.swift; sourceTree = "<group>"; };
+		04A87DE82CBD0CC1008B4247 /* HDEmptyBaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HDEmptyBaseView.swift; sourceTree = "<group>"; };
+		04A87DE92CBD0CC1008B4247 /* HDEmptyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HDEmptyView.swift; sourceTree = "<group>"; };
+		04A87DEA2CBD0CC1008B4247 /* HDRunTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HDRunTime.swift; sourceTree = "<group>"; };
+		04A87DEB2CBD0CC1008B4247 /* UIScrollView+Empty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Empty.swift"; sourceTree = "<group>"; };
+		04A87DEC2CBD0CC1008B4247 /* UIView+Position.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Position.swift"; sourceTree = "<group>"; };
 		04D45E822CA250390052F05A /* AccountViewModelEx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewModelEx.swift; sourceTree = "<group>"; };
 		04D5C1EC2C93DF72005EBF86 /* YFMineNetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFMineNetViewModel.swift; sourceTree = "<group>"; };
 		04D6A6772C9131ED008193E7 /* YFNetworkUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFNetworkUtils.swift; sourceTree = "<group>"; };
@@ -663,6 +673,18 @@
 			path = ChooseView;
 			sourceTree = "<group>";
 		};
+		04A87DED2CBD0CC1008B4247 /* HDEmptyView */ = {
+			isa = PBXGroup;
+			children = (
+				04A87DE82CBD0CC1008B4247 /* HDEmptyBaseView.swift */,
+				04A87DE92CBD0CC1008B4247 /* HDEmptyView.swift */,
+				04A87DEA2CBD0CC1008B4247 /* HDRunTime.swift */,
+				04A87DEB2CBD0CC1008B4247 /* UIScrollView+Empty.swift */,
+				04A87DEC2CBD0CC1008B4247 /* UIView+Position.swift */,
+			);
+			path = HDEmptyView;
+			sourceTree = "<group>";
+		};
 		04D5C1EB2C93DF46005EBF86 /* Net */ = {
 			isa = PBXGroup;
 			children = (
@@ -823,6 +845,7 @@
 		04F2D0952BEE21EC00D5271B /* Vender */ = {
 			isa = PBXGroup;
 			children = (
+				04A87DED2CBD0CC1008B4247 /* HDEmptyView */,
 				04F2D0962BEE221400D5271B /* GKCover */,
 			);
 			path = Vender;
@@ -1386,6 +1409,7 @@
 				17FD41122B66559B008F1485 /* LocalAuthManager.swift in Sources */,
 				042E2A1F2BF5C3B400A90CB6 /* YFOpenIMUtil.swift in Sources */,
 				040D860E2BEB8C4200DCAAB3 /* SuperUIColorExtensionswift.swift in Sources */,
+				04A87DF12CBD0CC1008B4247 /* UIScrollView+Empty.swift in Sources */,
 				17D150AA2B83409C00E0AFB5 /* JKLLockScreenNumber.m in Sources */,
 				049C64452BECC62D00B679C4 /* YFRegisterVC.swift in Sources */,
 				04D8BF842C8AD7EC00C1244E /* MineBokeVisitorListVC.swift in Sources */,
@@ -1425,12 +1449,14 @@
 				04D5C1ED2C93DF72005EBF86 /* YFMineNetViewModel.swift in Sources */,
 				04F4EE792C8C2B180028E895 /* YFMineHomeBuyVipVC.swift in Sources */,
 				04DB1E3E2CA6B0C000EE8B8C /* YFDateUtil.swift in Sources */,
+				04A87DEF2CBD0CC1008B4247 /* HDEmptyView.swift in Sources */,
 				17C4BBAA28CA1220003782EF /* Array+deduplicate.swift in Sources */,
 				04F2D0892BEE21CA00D5271B /* MineSettingVC.swift in Sources */,
 				0419D4052C019350009CBE94 /* SuperUICollectionViewExtension.swift in Sources */,
 				04F2D08F2BEE21CA00D5271B /* UsermessageBokeListCell.swift in Sources */,
 				17B11A442ABD28C600DB8980 /* NavigationController.swift in Sources */,
 				1790EE7A2921EAFC00C4024A /* MainTabViewController.swift in Sources */,
+				04A87DF02CBD0CC1008B4247 /* HDRunTime.swift in Sources */,
 				04F2D08A2BEE21CA00D5271B /* MineAccountAddSafeVC.swift in Sources */,
 				17620CE42A4D1E5200B74C96 /* String+Extension.swift in Sources */,
 				04D45E832CA250390052F05A /* AccountViewModelEx.swift in Sources */,
@@ -1452,6 +1478,7 @@
 				040D86042BEB8C4200DCAAB3 /* ObserveableMoyaExtension.swift in Sources */,
 				17BBFAC02925C6330025B686 /* InputAccountViewController.swift in Sources */,
 				04F2D05F2BEE129A00D5271B /* SuperWebController.swift in Sources */,
+				04A87DF22CBD0CC1008B4247 /* UIView+Position.swift in Sources */,
 				040D85EA2BEB8C0B00DCAAB3 /* BaseNavView.swift in Sources */,
 				1790EE6D2921EAFC00C4024A /* SettingTableViewController.swift in Sources */,
 				04F533F02BF84BC2005D0405 /* YFChatBottomSheetBokeListCell.swift in Sources */,
@@ -1475,6 +1502,7 @@
 				17BBFAC42925D4C10025B686 /* CountDownTimerButton.swift in Sources */,
 				04F2D09E2BEE221400D5271B /* GKCover.m in Sources */,
 				040D85BF2BEB8B0400DCAAB3 /* Constant.swift in Sources */,
+				04A87DEE2CBD0CC1008B4247 /* HDEmptyBaseView.swift in Sources */,
 				04F2D08B2BEE21CA00D5271B /* MineBokeEditVC.swift in Sources */,
 				04F2D0882BEE21CA00D5271B /* ChangeMessageVC.swift in Sources */,
 				043A558D2C8166490041836E /* UserTagView.swift in Sources */,

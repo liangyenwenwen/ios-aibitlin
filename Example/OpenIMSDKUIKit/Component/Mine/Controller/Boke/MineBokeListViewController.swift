@@ -42,6 +42,9 @@ class MineBokeListViewController: BaseTitleController {
         super.initViews()
         setBackGroundColor(.white)
         initTableViewSafeAre()
+        
+        
+        tableViewAddEmptyView()
 
         switch vcType {
         case .meBlog:
