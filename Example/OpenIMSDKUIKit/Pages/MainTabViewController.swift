@@ -179,7 +179,7 @@ class MainTabViewController: UITabBarController {
     @objc
     private func setText() {
         
-        let Arr = ["消息".localized(), "通话记录".localized(), "通讯录".localized(), "我的".localized(),  "工具箱".localized()]
+        let Arr = ["消息".localized(), "通话记录".localized(), "通讯录".localized(), "我的".localized(),  "快捷".localized()]
         
         for (index, element) in Arr.enumerated() {
             
@@ -591,7 +591,7 @@ extension MainTabViewController: UITabBarControllerDelegate {
                 var listArrr:[MoreTabItem] = [MoreTabItem(image: "tool_feedback_icon", title: R.string.localizable.feedback()),
                                               MoreTabItem(image: "tool_translate_icon", title: R.string.localizable.translate()),
                                               MoreTabItem(image: "tool_black_list_icon", title: R.string.localizable.blacklist()),
-                                              MoreTabItem(image: "tool_moments_icon", title: "朋友圈".localized()),
+                                              MoreTabItem(image: "tool_moments_icon", title: "好友动态".localized()),
                                               MoreTabItem(image: "tool_more_icon", title: "添加".localized())]
                 for i in 0 ..< listArrr.count {
                     let itemData = listArrr[i]

@@ -29,18 +29,26 @@ class MineBokeEditVC: BaseTitleController, UIImagePickerControllerDelegate, UINa
         container.tg_padding = UIEdgeInsets(top: PADDING_MEDDLE, left: PADDING_MEDDLE, bottom: PADDING_MEDDLE, right: PADDING_MEDDLE)
         container.addSubview(topContentView)
         
-        topContentView.addSubview(addressView)
-        topContentView.addSubview(ViewFactoryUtil.smallDivider())
         topContentView.addSubview(iconView)
         topContentView.addSubview(ViewFactoryUtil.smallDivider())
         topContentView.addSubview(nameView)
         topContentView.addSubview(ViewFactoryUtil.smallDivider())
+        topContentView.addSubview(addressView)
+        topContentView.addSubview(ViewFactoryUtil.smallDivider())
         topContentView.addSubview(introView)
         
-        container.addSubview(trueBtn)
+        
+//        let view = UIView()
+//        view.tg_height.equal(.fill)
+//        view.tg_width.equal(.fill)
+//        container.addSubview(view)
+        
+//        container.addSubview(trueBtn)
         
         superFooterContainerContainer.tg_padding = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-       
+        superFooterContainerContainer.addSubview(trueBtn)
+        
+        
         bindData()
         
         if isEdit {
@@ -110,7 +118,7 @@ class MineBokeEditVC: BaseTitleController, UIImagePickerControllerDelegate, UINa
         r.tg_top.equal(20)
         r.setTitle(R.string.localizable.confirm(), for: .normal)
         r.addTarget(self, action: #selector(saveBlog), for: .touchUpInside)
-        
+        r.tg_bottom.equal(50)
         return r
     }()
     

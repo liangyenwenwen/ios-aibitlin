@@ -169,7 +169,7 @@ struct _R {
       var ieXW0yeText: RswiftResources.StringResource { .init(key: "8ie-xW-0ye.text", tableName: "LaunchScreen", source: source, developmentValue: nil, comment: nil) }
     }
 
-    /// This `_R.string.localizable` struct is generated, and contains static references to 463 localization keys.
+    /// This `_R.string.localizable` struct is generated, and contains static references to 465 localization keys.
     struct localizable {
       let source: RswiftResources.StringResource.Source
 
@@ -1965,6 +1965,13 @@ struct _R {
       /// Locales: en, th
       var 处理中: RswiftResources.StringResource { .init(key: "处理中", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// en translation: Friends' Activity
+      ///
+      /// Key: 好友动态
+      ///
+      /// Locales: en, th
+      var 好友动态: RswiftResources.StringResource { .init(key: "好友动态", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: Friends Visitors
       ///
       /// Key: 好友访客
@@ -2069,6 +2076,13 @@ struct _R {
       ///
       /// Locales: en, th
       var 忘记密码: RswiftResources.StringResource { .init(key: "忘记密码", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Qucik
+      ///
+      /// Key: 快捷
+      ///
+      /// Locales: en, th
+      var 快捷: RswiftResources.StringResource { .init(key: "快捷", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Suspected account theft
       ///

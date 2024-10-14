@@ -22,11 +22,16 @@ class MineBokeListCell: BaseTableViewCell {
         container.backgroundColor = .white
         
         container.addSubview(bokeMessageContainer)
+//        bokeMessageContainer.backgroundColor = .red
         
-        
-        container.addSubview(moreImg)
+//        container.addSubview(moreImg)
         
         container.tg_gravity = .vert.center
+        
+//        moreImg.backgroundColor = .red
+//        moreImg.snp.makeConstraints { make in
+//            make.centerY.equalTo(bokeTitle.snp_centerY)
+//        }
     }
 
     lazy var topView: TGRelativeLayout = {
@@ -90,17 +95,22 @@ class MineBokeListCell: BaseTableViewCell {
         r.addSubview(bokeTitleAddStateView)
         r.addSubview(bokeContent)
         
+        
         return r
     }()
     
     
     lazy var bokeTitleAddStateView: TGLinearLayout = {
         let r = TGLinearLayout(.horz)
-        r.tg_width.equal(.wrap)
+        r.tg_width.equal(.fill)
         r.tg_height.equal(.wrap)
         r.tg_space = PADDING_MEDDLE
         r.addSubview(blogStateImg)
         r.addSubview(bokeTitle)
+        
+        r.addSubview(moreImg)
+        
+//        r.backgroundColor = .red
 //        r.addSubview(stateLbl)
 //        r.addSubview(ViewFactoryUtil.primaryHalfFilletButton())
         r.tg_gravity = .vert.center
@@ -110,7 +120,7 @@ class MineBokeListCell: BaseTableViewCell {
     
     lazy var bokeTitle: UILabel = {
         let r = ViewFactoryUtil.customBoldTilteLable("标题")
-        r.tg_width.equal(.wrap)
+        r.tg_width.equal(.fill)
         r.numberOfLines = 1
         return r
     }()
@@ -121,7 +131,7 @@ class MineBokeListCell: BaseTableViewCell {
         r.font = .systemFont(ofSize: 12)
         r.tg_width.equal(.wrap)
         r.tg_height.equal(.wrap)
-        r.border(.red)
+//        r.border(.red)
         r.contentEdgeInsets = UIEdgeInsets(horizontal: 5, vertical: 2)
         r.hide()
         return r
@@ -136,6 +146,7 @@ class MineBokeListCell: BaseTableViewCell {
         let r = ViewFactoryUtil.customTilteLabelFill("博客内容博客内容博客内容博客内容博客内容博客内容博客内容博客内容博客内容博客内容", font: TEXT_SMALL, textColor: .black666)
         r.numberOfLines = 1
         r.tg_width.equal(.fill)
+        r.tg_right.equal(80)
         return r
     }()
     
