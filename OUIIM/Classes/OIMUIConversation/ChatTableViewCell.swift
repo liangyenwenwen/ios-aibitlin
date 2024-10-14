@@ -271,13 +271,15 @@ extension ChatTableViewCell {
         // MARK: - 张亚飞打的标记 群头像 头像区分
        
         if item.conversationType == .superGroup {
-                    
-            avatarImageView.setGroupImg(item: item)
-                    
-        }  else {
             
+            avatarImageView.isGroup = true
+            avatarImageView.setGroupImg(item: item)
+           
+        }  else {
+            avatarImageView.isGroup = false
             avatarImageView.setAvatar(url: item.faceURL, text: item.showName, placeHolder: placeholderName, isLocal: true)
 //            avatarImageView.setAboutGroupImg(linkurl: item.faceURL ?? "", userId: item.conversationID)
+//            avatarImageView
         }
         
         

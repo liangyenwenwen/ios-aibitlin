@@ -26,7 +26,7 @@ class QRCodeSaveCardView: TGLinearLayout {
     func innerInit() {
         tg_width.equal(.fill)
         tg_height.equal(.wrap)
-        backgroundColor = .red
+        backgroundColor = .white
         addSubview(userCardView)
     }
     
@@ -36,10 +36,10 @@ class QRCodeSaveCardView: TGLinearLayout {
         let r = TGLinearLayout(.vert)
 //        r.tg_width.equal(.fill)
         r.tg_height.equal(.wrap)
-        r.tg_top.equal(5)
-        r.tg_left.equal(5)
-        r.tg_bottom.equal(5)
-        r.tg_right.equal(5)
+        r.tg_top.equal(2)
+        r.tg_left.equal(2)
+        r.tg_bottom.equal(2)
+        r.tg_right.equal(2)
         r.tg_gravity = .horz.center
         r.backgroundColor = .white
         r.corner(14)
@@ -61,6 +61,8 @@ class QRCodeSaveCardView: TGLinearLayout {
         
         r.addSubview(userIdTitleView)
         r.addSubview(tipLbl)
+        
+        r.addSubview(recommendBlogView)
         
         r.addSubview(lineView)
         r.addSubview(appIcon)
@@ -155,9 +157,15 @@ class QRCodeSaveCardView: TGLinearLayout {
         r.tg_space = 25
         r.tg_gravity = .vert.center
         r.tg_top.equal(38)
-        r.addSubview(userNicknameLbl)
+        
+        for index in 0..<3 {
+            let itemView  = SectionItemView()
+            r.addSubview(itemView)
+        }
+        
         return r
     }()
+
     
     
     lazy var lineView: UIImageView = {
@@ -186,5 +194,33 @@ class QRCodeSaveCardView: TGLinearLayout {
         codeImgView.image = codeImg
         userAvatarImgView.image = avater
         userIDLbl.text = idString
+        
+        refreshRecommend()
     }
+    
+    func refreshRecommend() {
+        
+        let data = YFFileDataUtil.readDataToFile(false)
+        
+        if data.count == 0 {
+            recommendBlogView.hide()
+            return
+        } else {
+            recommendBlogView.show()
+        }
+        
+        
+        for index in recommendBlogView.subviews.indices {
+            let item = recommendBlogView.subviews[index] as! SectionItemView
+            item.index = index
+            if index < data.count {
+                item.show()
+                item.bindDataNet(data[index])
+            } else {
+                item.hide()
+            }
+        }
+    }
+    
+    
 }

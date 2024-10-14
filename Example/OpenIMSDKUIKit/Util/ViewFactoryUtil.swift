@@ -347,7 +347,7 @@ extension ViewFactoryUtil {
         sectionHaderView.tg_padding = UIEdgeInsets(top: PADDING_OUTER, left: PADDING_OUTER, bottom: PADDING_OUTER, right: PADDING_OUTER)
         sectionHaderView.tg_width.equal(.fill)
         sectionHaderView.tg_height.equal(.wrap)
-        sectionHaderView.tg_space = PADDING_OUTER
+        sectionHaderView.tg_space = PADDING_MEDDLE
         
         let leftImg = ViewFactoryUtil.defalutImgView(image, 20)
         leftImg.tg_centerY.equal(0)

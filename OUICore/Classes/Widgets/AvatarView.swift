@@ -12,6 +12,8 @@ public class AvatarView: UIView {
         }
     }
     
+    public var isGroup = false
+    
     private var disposeBag = DisposeBag()
     
     private let indexAvatarList = [
@@ -24,7 +26,7 @@ public class AvatarView: UIView {
         "friend_list_new_friend_icon",
       ]
     
-     let avatarImageView: UIImageView = {
+    public let avatarImageView: UIImageView = {
         let v = UIImageView()
         v.contentMode = .scaleAspectFill
         v.isUserInteractionEnabled = true
@@ -33,6 +35,16 @@ public class AvatarView: UIView {
         
         return v
     }()
+    
+    public let groupAvatarImageView: UIImageView = {
+       let v = UIImageView()
+       v.contentMode = .scaleAspectFill
+       v.isUserInteractionEnabled = true
+       v.translatesAutoresizingMaskIntoConstraints = false
+       v.backgroundColor = .c0089FF
+        v.isHidden = true
+       return v
+   }()
     
     private let editAvatarImageView: UIImageView = {
         let v = UIImageView(image: UIImage(systemName: "pencil.circle"))
@@ -76,6 +88,7 @@ public class AvatarView: UIView {
         
         avatarImageView.addSubview(editAvatarImageView)
         addSubview(avatarImageView)
+        addSubview(groupAvatarImageView)
         addSubview(textLabel)
         
         NSLayoutConstraint.activate([
@@ -83,6 +96,11 @@ public class AvatarView: UIView {
             avatarImageView.topAnchor.constraint(equalTo: topAnchor),
             avatarImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
             avatarImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            
+            groupAvatarImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            groupAvatarImageView.topAnchor.constraint(equalTo: topAnchor),
+            groupAvatarImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            groupAvatarImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
             
             editAvatarImageView.trailingAnchor.constraint(equalTo: avatarImageView.trailingAnchor),
             editAvatarImageView.bottomAnchor.constraint(equalTo: avatarImageView.bottomAnchor),
@@ -196,7 +214,7 @@ public class AvatarView: UIView {
             if faceUrlArr.count > 0 {
                 
                 setGroupImgWithFaceURls(faceUrlArr: faceUrlArr, groupID: item.groupID)
-                avatarImageView.backgroundColor = .cE8EAEF
+                groupAvatarImageView.backgroundColor = .cE8EAEF
                 
             } else {
                 
@@ -221,7 +239,7 @@ public class AvatarView: UIView {
                 
                 setGroupImgWithFaceURls(faceUrlArr: faceUrlArr, groupID: item.groupID!)
 //                setGroupImgWithFaceURls(faceUrlArr: [faceUrlArr[0]], groupID: item.groupID!)
-                avatarImageView.backgroundColor = .cE8EAEF
+                groupAvatarImageView.backgroundColor = .cE8EAEF
             } else {
                 
                 setAvatar(url: "", placeHolder: "friend_list_new_friend_icon", isLocal: true)
@@ -263,11 +281,12 @@ public class AvatarView: UIView {
     
     
     func setGroupImgWithFaceURls(faceUrlArr: [String], groupID: String) {
+        self.isGroup = true
         reset()
         AvatarManager.placeholderImage = UIImage(named: "DefaultAvatar")!
         AvatarManager.groupAvatarType = .QQ
         AvatarManager.distanceBetweenAvatar = 1
-        avatarImageView.setImageAvatar(groupId: groupID, groupSource: faceUrlArr)
+        groupAvatarImageView.setImageAvatar(groupId: groupID, groupSource: faceUrlArr)
         
         
     }
@@ -293,10 +312,25 @@ public class AvatarView: UIView {
     }
     
     public func reset() {
+        
+        if isGroup {
+            avatarImageView.isHidden = true
+            groupAvatarImageView.isHidden = false
+        } else {
+            avatarImageView.isHidden = false
+            groupAvatarImageView.isHidden = true
+        }
+        
+        groupAvatarImageView.kf.cancelDownloadTask()
+        groupAvatarImageView.contentMode = .scaleAspectFill
+        groupAvatarImageView.image = nil
+        groupAvatarImageView.backgroundColor = .c0089FF
+        
         avatarImageView.kf.cancelDownloadTask()
         avatarImageView.contentMode = .scaleAspectFill
         avatarImageView.image = nil
         avatarImageView.backgroundColor = .c0089FF
+        
         textLabel.text = nil
     }
     

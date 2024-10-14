@@ -61,7 +61,7 @@ class YFMineNetViewModel: AccountViewModel {
                           userBlogIntro: String?,
                           completionHandler: @escaping CompletionHandler) {
         
-        ProgressHUD.animate()
+//        ProgressHUD.animate()
         
         
         let body = JsonTool.toJson(fromObject: BlogAuditRequest(userId: userId, userBlogUrl: userBlogUrl, userBlogIcon: userBlogIcon, userBlogName: userBlogName, userBlogIntro: userBlogIntro)).data(using: .utf8)
@@ -75,7 +75,7 @@ class YFMineNetViewModel: AccountViewModel {
         
         Alamofire.request(req).responseString { (response: DataResponse<String>) in
             
-            ProgressHUD.dismiss()
+//            ProgressHUD.dismiss()
             
             switch response.result {
             case .success(let result):
@@ -104,7 +104,7 @@ class YFMineNetViewModel: AccountViewModel {
                          valueHandler: @escaping ([blogDetailItem]) -> Void,
                          completionHandler: @escaping CompletionHandler) {
         
-        ProgressHUD.animate()
+//        ProgressHUD.animate()
         
         let body = JsonTool.toJson(fromObject: MineBlogRequest(userId: userId)).data(using: .utf8)
         var req = try! URLRequest(url: API_BLOG_URL + ShowMyMyBlogsAPI + "?userId=\(userId!)", method: .post, headers: httpHeaders)
@@ -112,7 +112,7 @@ class YFMineNetViewModel: AccountViewModel {
 
         Alamofire.request(req).responseJSON { dataRequest in
             
-            ProgressHUD.dismiss()
+//            ProgressHUD.dismiss()
             
             if let data = dataRequest.data {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
@@ -139,7 +139,7 @@ class YFMineNetViewModel: AccountViewModel {
                          valueHandler: @escaping ([blogDetailItem]) -> Void,
                          completionHandler: @escaping CompletionHandler) {
         
-        ProgressHUD.animate()
+//        ProgressHUD.animate()
         
         let body = JsonTool.toJson(fromObject: MineBlogRequest(userId: userId)).data(using: .utf8)
         var req = try! URLRequest(url: API_BLOG_URL + otherSeeMyBlogAPI + "?userId=\(userId!)", method: .post, headers: httpHeaders)
@@ -147,7 +147,7 @@ class YFMineNetViewModel: AccountViewModel {
 
         Alamofire.request(req).responseJSON { dataRequest in
             
-            ProgressHUD.dismiss()
+//            ProgressHUD.dismiss()
             
             if let data = dataRequest.data {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
@@ -167,13 +167,13 @@ class YFMineNetViewModel: AccountViewModel {
     }
     
     static func blogTop(paramters:Parameters, completionHandler: @escaping CompletionHandler) {
-        ProgressHUD.animate()
+//        ProgressHUD.animate()
         
         let url = SuperStringUtil.netUrl(API_BLOG_URL + blogTopAPI, paramters)
         print(url)
         Alamofire.request(url, method: .post, headers: httpHeaders).responseJSON { dataRequest in
             
-            ProgressHUD.dismiss()
+//            ProgressHUD.dismiss()
             
             if let data = dataRequest.data {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
@@ -240,12 +240,12 @@ class YFMineNetViewModel: AccountViewModel {
     
     static func editBlog(paramters:Parameters, completionHandler: @escaping CompletionHandler) {
         
-        ProgressHUD.animate()
+//        ProgressHUD.animate()
         
         let url = API_BLOG_URL + updateWaitAuditAutoAPI
         Alamofire.request(url, method: .post, parameters: paramters, encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
             
-            ProgressHUD.dismiss()
+//            ProgressHUD.dismiss()
             
             if let data = dataRequest.data {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
@@ -266,12 +266,12 @@ class YFMineNetViewModel: AccountViewModel {
     
     static func deleteBlog(paramters:Parameters, completionHandler: @escaping CompletionHandler) {
         
-        ProgressHUD.animate()
+//        ProgressHUD.animate()
         
         let url = SuperStringUtil.netUrl(API_BLOG_URL + deleteBlogAPI, paramters)
         Alamofire.request(url, method: .post, parameters: paramters, encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
             
-            ProgressHUD.dismiss()
+//            ProgressHUD.dismiss()
             
             if let data = dataRequest.data {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
@@ -293,12 +293,12 @@ class YFMineNetViewModel: AccountViewModel {
                                      valueHandler: @escaping (BlogSurveyData?) -> Void,
                                      completionHandler: @escaping CompletionHandler) {
         
-        ProgressHUD.animate()
+//        ProgressHUD.animate()
         
         let url = SuperStringUtil.netUrl(API_BLOG_URL + queryShowBlogsSurveyAPI, paramters)
         Alamofire.request(url, method: .post, parameters: paramters, encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
             
-            ProgressHUD.dismiss()
+//            ProgressHUD.dismiss()
             
             if let data = dataRequest.data {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
@@ -322,12 +322,12 @@ class YFMineNetViewModel: AccountViewModel {
                                            valueHandler: @escaping (blogOneDayNumber?) -> Void,
                                            completionHandler: @escaping CompletionHandler) {
         
-        ProgressHUD.animate()
+//        ProgressHUD.animate()
         
         let url = SuperStringUtil.netUrl(API_BLOG_URL + queryShowBlogsSurveyOneDayAPI, paramters)
         Alamofire.request(url, method: .post, parameters: paramters, encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
             
-            ProgressHUD.dismiss()
+//            ProgressHUD.dismiss()
             
             if let data = dataRequest.data {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
@@ -351,12 +351,12 @@ class YFMineNetViewModel: AccountViewModel {
                                            valueHandler: @escaping ([BlogVisitorListModel]) -> Void,
                                            completionHandler: @escaping CompletionHandler) {
         
-        ProgressHUD.animate()
+//        ProgressHUD.animate()
         let url = SuperStringUtil.netUrl(API_BLOG_URL + queryShowBlogsSurveyFriendsAPI, paramters)
         
         Alamofire.request(url, method: .post, parameters: nil, encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
             
-            ProgressHUD.dismiss()
+//            ProgressHUD.dismiss()
             if let data = dataRequest.data {
                 
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
@@ -379,13 +379,13 @@ class YFMineNetViewModel: AccountViewModel {
     static func queryShowBlogsSurveyStranger(paramters:Parameters,
                                            valueHandler: @escaping ([BlogVisitorListModel]) -> Void,
                                            completionHandler: @escaping CompletionHandler) {
-        ProgressHUD.animate()
+//        ProgressHUD.animate()
         
         let url = SuperStringUtil.netUrl(API_BLOG_URL + queryShowBlogsSurveyStrangerAPI, paramters)
         
         Alamofire.request(url, method: .post, parameters: nil, encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
             
-            ProgressHUD.dismiss()
+//            ProgressHUD.dismiss()
             
             if let data = dataRequest.data {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
@@ -410,13 +410,13 @@ class YFMineNetViewModel: AccountViewModel {
                                       valueHandler: @escaping (String) -> Void,
                                       completionHandler: @escaping CompletionHandler) {
         
-        ProgressHUD.animate()
+//        ProgressHUD.animate()
         
         let url = SuperStringUtil.netUrl(API_BLOG_URL + vipPurchaseInitializeAPI, paramters)
     
         Alamofire.request(url, method: .post, parameters: nil, encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
             
-            ProgressHUD.dismiss()
+//            ProgressHUD.dismiss()
             
             if let data = dataRequest.data {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
@@ -444,7 +444,7 @@ class YFMineNetViewModel: AccountViewModel {
                                       valueHandler: @escaping (String) -> Void,
                                       completionHandler: @escaping CompletionHandler) {
         
-        ProgressHUD.animate()
+//        ProgressHUD.animate()
         
         let url = SuperStringUtil.netUrl(API_BLOG_URL + vipPurchaseSucceedsAPI, paramters)
         
@@ -453,7 +453,7 @@ class YFMineNetViewModel: AccountViewModel {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 print(strData!)
                 
-                ProgressHUD.dismiss()
+//                ProgressHUD.dismiss()
                 if let data = dataRequest.data {
                     let strData = String.init(data: data, encoding: String.Encoding.utf8)
                     if let res = JsonTool.fromJson(strData!, toClass: BlogResponse.self) {
@@ -543,7 +543,8 @@ extension YFMineNetViewModel {
                      if res.errCode == 0  {
                          valueHandler(res.data?.urls ?? [])
                      } else {
-                         ProgressHUD.error(res.errMsg)
+//                         ProgressHUD.error(res.errMsg)
+                         SuperToast.show(title: res.errMsg!)
                      }
                      
                  } else {

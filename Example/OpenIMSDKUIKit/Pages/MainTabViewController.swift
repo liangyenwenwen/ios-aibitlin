@@ -223,7 +223,7 @@ class MainTabViewController: UITabBarController {
                     self?.presentLoginController()
                 } else {
                     self?.loginSuccess()
-                    self?.updateLanguage(uid: uid)
+                   
                 }
             }
         } else {
@@ -299,9 +299,9 @@ class MainTabViewController: UITabBarController {
                     UserDefaults.standard.setValue(vc?.useType.rawValue, forKey: loginTypeKey)
                     UserDefaults.standard.synchronize()
                     self?.loginSuccess(dismiss: true)
-                    if let uid = UserDefaults.standard.object(forKey: AccountViewModel.IMUidKey) as? String {
-                        self?.updateLanguage(uid: uid)
-                    }
+//                    if let uid = UserDefaults.standard.object(forKey: AccountViewModel.IMUidKey) as? String {
+//                        self?.updateLanguage(uid: uid)
+//                    }
 //
                 }
             }
@@ -393,8 +393,10 @@ class MainTabViewController: UITabBarController {
             
             if r.faceURL == nil || r.faceURL == "" {
                 userFirstChooseAvatar()
-                
+             
             }
+            
+            updateLanguage(uid: r.userID)
             
             ProgressHUD.dismiss()
             
@@ -484,9 +486,9 @@ extension MainTabViewController {
             YFMineNetViewModel.updateLanguage(uid: uid)
         }  else {
             
-            if String.getCurrentLanguageFirst() != userDefaults.string(forKey: "blogLanguage\(uid)") {
+//            if String.getCurrentLanguageFirst() != userDefaults.string(forKey: "blogLanguage\(uid)") {
                 YFMineNetViewModel.addUserLanguage(uid: uid)
-            }
+//            }
         }
 
         

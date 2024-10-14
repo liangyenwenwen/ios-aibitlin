@@ -33,7 +33,7 @@ class YFMineQRCodeVC: BaseTitleController {
         refreshUI()
         
         view.addSubview(saveCard)
-//        view.sendSubviewToBack(saveCard)
+        view.sendSubviewToBack(saveCard)
     }
     
     // MARK: - 张亚飞打的标记 卡片
@@ -392,7 +392,7 @@ extension YFMineQRCodeVC {
         saveCard.bindData(showname: username, codeImg: codeImgView.image, avater: userAvatarImgView.image, idString: userIDLbl.text)
 
         saveCard.isHidden = false
-       saveViewToPhotoAlbum(view: saveCard)
+        saveViewToPhotoAlbum(view: saveCard.userCardView)
       
     }
     
@@ -400,12 +400,14 @@ extension YFMineQRCodeVC {
     func saveViewToPhotoAlbum(view:UIView) {
        
         // 开始图形上下文
-            UIGraphicsBeginImageContextWithOptions(view.bounds.size, view.isOpaque, 0.0)
+            UIGraphicsBeginImageContextWithOptions(view.bounds.size,  false, 1.0)
             defer { UIGraphicsEndImageContext() } // 确保上下文能被释放
             
             // 将view渲染到图形上下文中
             if let context = UIGraphicsGetCurrentContext() {
                 view.layer.render(in: context)
+                view.isHidden = true
+            } else {
                 view.isHidden = true
             }
             
@@ -427,7 +429,8 @@ extension YFMineQRCodeVC {
             return
         }
 
-        print("保存成功")
+        print("图片保存成功".localized())
+        SuperToast.show(title: "图片保存成功".localized())
 
     }
  
