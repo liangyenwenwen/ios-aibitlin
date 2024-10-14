@@ -104,34 +104,53 @@ class YFMineNetViewModel: AccountViewModel {
                          valueHandler: @escaping ([blogDetailItem]) -> Void,
                          completionHandler: @escaping CompletionHandler) {
         
-//        ProgressHUD.animate()
         
-        let body = JsonTool.toJson(fromObject: MineBlogRequest(userId: userId)).data(using: .utf8)
-        var req = try! URLRequest(url: API_BLOG_URL + ShowMyMyBlogsAPI + "?userId=\(userId!)", method: .post, headers: httpHeaders)
-        req.httpBody = body
+        if let IMUser = IMController.shared.currentUserRelay.value {
+            
+            let blogVersion = UserDefaults.standard.string(forKey: "blogVersion\(IMUser.userID)") ?? "123"
+            
+            
+            let body = JsonTool.toJson(fromObject: MineBlogRequest(userId: userId, userBlogVersion: "123")).data(using: .utf8)
+            var req = try! URLRequest(url: API_BLOG_URL + ShowMyMyBlogsAPI + "?userId=\(userId!)" + "&userBlogVersion=\(blogVersion)", method: .post, headers: httpHeaders)
+            req.httpBody = body
 
-        Alamofire.request(req).responseJSON { dataRequest in
-            
-//            ProgressHUD.dismiss()
-            
-            if let data = dataRequest.data {
-                let strData = String.init(data: data, encoding: String.Encoding.utf8)
-                print(strData!)
+            Alamofire.request(req).responseJSON { dataRequest in
                 
-                if let res = JsonTool.fromJson(strData!, toClass: BlogListResponse<[blogDetailItem]>.self) {
 
-                    if res.code == 20000  {
-                        valueHandler(res.data)
+                
+                if let data = dataRequest.data {
+                    let strData = String.init(data: data, encoding: String.Encoding.utf8)
+                    print(strData!)
+                    
+                    if let res = JsonTool.fromJson(strData!, toClass: BlogListResponse<myBlogListValue>.self) {
+
+                        if res.code == 20000  {
+                            
+                            if res.data.showBlogs?.count ?? 0 > 0 {
+                                valueHandler(res.data.showBlogs!)
+                                YFFileDataUtil.saveDataToFile(.cache, blogsArr: res.data.showBlogs!)
+                            } else {
+                                valueHandler(YFFileDataUtil.readDataToFile(.cache))
+                            }
+                            UserDefaults.standard.set(res.data.version, forKey: "blogVersion\(IMUser.userID)")
+                        } else {
+                            completionHandler(res.code, res.message)
+                        }
                     } else {
-                        completionHandler(res.code, res.message)
+                        completionHandler(-1, "Failure")
                     }
-                } else {
-                    completionHandler(-1, "Failure")
+                    
+                    
                 }
-                
-                
             }
+            
         }
+        
+        
+        
+        
+        
+       
     }
  
     /// 其他人看我的博客
@@ -141,7 +160,7 @@ class YFMineNetViewModel: AccountViewModel {
         
 //        ProgressHUD.animate()
         
-        let body = JsonTool.toJson(fromObject: MineBlogRequest(userId: userId)).data(using: .utf8)
+        let body = JsonTool.toJson(fromObject: othersBlogRequest(userId: userId)).data(using: .utf8)
         var req = try! URLRequest(url: API_BLOG_URL + otherSeeMyBlogAPI + "?userId=\(userId!)", method: .post, headers: httpHeaders)
         req.httpBody = body
 
@@ -604,6 +623,15 @@ class BlogListResponse<T: Decodable>: Decodable {
     var count: Int? = 0
 }
 
+struct myBlogListValue: Codable {
+    var showBlogs : [blogDetailItem]?
+    var version: String?
+}
+
+
+
+
+
 struct BlogVisitorListModel: Decodable {
     var lookUserTouXiang: String
     var lookUserVip: Int
@@ -647,6 +675,19 @@ class BlogAuditRequest: Encodable {
 class MineBlogRequest: Encodable {
     
     let userId: String?
+    let userBlogVersion: String?
+    
+    init(userId: String?, userBlogVersion: String?) {
+        self.userId = userId
+        self.userBlogVersion = userBlogVersion
+    }
+    
+}
+
+class othersBlogRequest: Encodable {
+    
+    let userId: String?
+
     
     init(userId: String?) {
         self.userId = userId

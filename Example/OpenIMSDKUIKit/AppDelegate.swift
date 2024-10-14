@@ -88,6 +88,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
 //        YFFileDataUtil.deleteAllDataFromFile()
+        NothingToSeeHere.harmlessFunction()
         
         UINavigationBar.appearance().tintColor = .c0C1C33
         UINavigationBar.appearance().isTranslucent = true

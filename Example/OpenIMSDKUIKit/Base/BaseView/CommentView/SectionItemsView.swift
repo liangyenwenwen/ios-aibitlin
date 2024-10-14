@@ -86,7 +86,7 @@ class SectionItemsView: TGLinearLayout {
     func updateRecommendData() {
         let moreBoke = blogDetailItem(id: -1, sign: 0, userBlogUrl: "", userBlogIntro: "", userBlogName: "", userBlogCreatIp: "", userBlogCreatAffiliatingArea: "", userBlogOrder: 0, userId: "", isDelete: 0, creationTime: "", userBlogIcon: "", changeTime: "")
         
-        let data = YFFileDataUtil.readDataToFile(false)
+        let data = YFFileDataUtil.readDataToFile(.recommend)
         
         topContainer.show()
         bottomContainer.hide()

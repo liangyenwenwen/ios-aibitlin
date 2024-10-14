@@ -57,6 +57,8 @@ class BaseTitleController: BaseLogicController {
     }()
     
     
+    
+    
     @discardableResult
     func addLeftImageButton(_ data:UIImage) -> QMUIButton {
         let r = ViewFactoryUtil.imageBtn(data)

@@ -1,14 +1,14 @@
-////
-////  UIScrollView+Empty.swift
-////  HDEmptyViewDemo
-////
-////  Created by liuyi on 2018/5/18.
-////  Copyright © 2018年 liuyi. All rights reserved.
-////
+//
+//  RunTimeAbout.swift
+//  OpenIMSDKUIKit_Example
+//
+//  Created by mac on 2024/10/14.
+//  Copyright © 2024 rentsoft. All rights reserved.
+//
+
 
 import UIKit
 import Foundation
-
 
 extension UIScrollView {
     struct RuntimeKey {
@@ -175,7 +175,7 @@ extension UITableView:SelfAware {
 
 extension UICollectionView:SelfAware {
     static func awake() {
-//        UICollectionView.classInit()
+        UICollectionView.classInit()
     }
     
     static func classInit() {
@@ -244,27 +244,31 @@ protocol SelfAware: class {
     static func awake()
 }
 
+class NothingToSeeHere {
+    static func harmlessFunction() {
+        let typeCount = Int(objc_getClassList(nil, 0))
+        let types = UnsafeMutablePointer<AnyClass>.allocate(capacity: typeCount)
+        let autoreleasingTypes = AutoreleasingUnsafeMutablePointer<AnyClass>(types)
+        objc_getClassList(autoreleasingTypes, Int32(typeCount))
+        for index in 0 ..< typeCount {
+            (types[index] as? SelfAware.Type)?.awake()
+        }
+        //types.deallocate(capacity: typeCount)
+        types.deallocate()
+    }
+}
 
-//extension UIApplication {
-//    private static let runOnce: Void = {
-//        NothingToSeeHere.harmlessFunction()
-//    }()
-//    
-//    override open var next: UIResponder? {
-//        // Called before applicationDidFinishLaunching
-//        UIApplication.runOnce
-//        return super.next
-//    }
-//}
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+extension UIApplication {
+    private static let runOnce: Void = {
+        NothingToSeeHere.harmlessFunction()
+    }()
+    
+    override open var next: UIResponder? {
+        // Called before applicationDidFinishLaunching
+        UIApplication.runOnce
+        return super.next
+    }
+}
+
+
+

@@ -78,6 +78,11 @@
 		0413868895ABA88E2428B47851CF4FC3 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DF83A3CB23FC891ACE06E01580A171 /* Message.swift */; };
 		04183C6B0768DB7CBC8CE53CDAB26030 /* CoreTextRenderLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4C2A95658C4C3424D612CB6EB547E3 /* CoreTextRenderLayer.swift */; };
 		043732665F9B4041C26A8C88F4CE86E2 /* QMUIKeyboardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D6B2708964A1115828E2387D0E4185 /* QMUIKeyboardManager.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		0442CC5B2CBD23E700B2DDF3 /* HDEmptyBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0442CC552CBD23E700B2DDF3 /* HDEmptyBaseView.swift */; };
+		0442CC5C2CBD23E700B2DDF3 /* HDEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0442CC562CBD23E700B2DDF3 /* HDEmptyView.swift */; };
+		0442CC5D2CBD23E700B2DDF3 /* HDRunTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0442CC572CBD23E700B2DDF3 /* HDRunTime.swift */; };
+		0442CC5E2CBD23E700B2DDF3 /* UIScrollView+Empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0442CC582CBD23E700B2DDF3 /* UIScrollView+Empty.swift */; };
+		0442CC5F2CBD23E700B2DDF3 /* UIView+Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0442CC592CBD23E700B2DDF3 /* UIView+Position.swift */; };
 		044973538553B114516678D144E318CA /* Serializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C3A7416970DAB859D99C6549968FA2 /* Serializer.swift */; };
 		045D15533C6D419A291AEDB8DB2628D6 /* ic_workgroup.png in Resources */ = {isa = PBXBuildFile; fileRef = D3B8A3AAB946B94B5A906E35D28A1900 /* ic_workgroup.png */; };
 		046C0C9787A71F9A9300C54A756C660E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E03438B8B85A64C4E316136AA48D9B6D /* Localizable.strings */; };
@@ -4396,6 +4401,11 @@
 		0407A7C790652E09DA66AC09E84444A0 /* WebRTC-SDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "WebRTC-SDK.debug.xcconfig"; sourceTree = "<group>"; };
 		042B36D779587E6FA74A527FCA072FFA /* UIViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UIViewController.swift; path = Source/Viewers/ImageViewer/Source/Extensions/UIViewController.swift; sourceTree = "<group>"; };
 		0441504AD50E454934E8F39C26AC0ACB /* NSData+ImageContentType.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSData+ImageContentType.m"; path = "SDWebImage/Core/NSData+ImageContentType.m"; sourceTree = "<group>"; };
+		0442CC552CBD23E700B2DDF3 /* HDEmptyBaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HDEmptyBaseView.swift; sourceTree = "<group>"; };
+		0442CC562CBD23E700B2DDF3 /* HDEmptyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HDEmptyView.swift; sourceTree = "<group>"; };
+		0442CC572CBD23E700B2DDF3 /* HDRunTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HDRunTime.swift; sourceTree = "<group>"; };
+		0442CC582CBD23E700B2DDF3 /* UIScrollView+Empty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Empty.swift"; sourceTree = "<group>"; };
+		0442CC592CBD23E700B2DDF3 /* UIView+Position.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Position.swift"; sourceTree = "<group>"; };
 		04442F0BC61F08225F2C55F7696A8555 /* ColorExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ColorExtension.swift; path = Sources/Private/Utility/Primitives/ColorExtension.swift; sourceTree = "<group>"; };
 		04554889CAA7305E0DB1A25EE88778D9 /* LayoutModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LayoutModel.swift; path = ChatLayout/Classes/Core/Model/LayoutModel.swift; sourceTree = "<group>"; };
 		0461B3F80FC05957690727254D64DB36 /* Result */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Result; path = Result.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -8684,6 +8694,19 @@
 			name = Pod;
 			sourceTree = "<group>";
 		};
+		0442CC5A2CBD23E700B2DDF3 /* HDEmptyView */ = {
+			isa = PBXGroup;
+			children = (
+				0442CC552CBD23E700B2DDF3 /* HDEmptyBaseView.swift */,
+				0442CC562CBD23E700B2DDF3 /* HDEmptyView.swift */,
+				0442CC572CBD23E700B2DDF3 /* HDRunTime.swift */,
+				0442CC582CBD23E700B2DDF3 /* UIScrollView+Empty.swift */,
+				0442CC592CBD23E700B2DDF3 /* UIView+Position.swift */,
+			);
+			name = HDEmptyView;
+			path = ../../../../Example/OpenIMSDKUIKit/Vender/HDEmptyView;
+			sourceTree = "<group>";
+		};
 		0473ACDF2C9584E600FC5370 /* Avatar */ = {
 			isa = PBXGroup;
 			children = (
@@ -11984,6 +12007,7 @@
 		92B4C0DA9D806BDC419CA6DBC88AC1AE /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				0442CC5A2CBD23E700B2DDF3 /* HDEmptyView */,
 				63AE8833369BB3AF07620C92BDFE39D3 /* DefaultImageLoader.swift */,
 				7285BDC1489F43B67370779CC5A39045 /* DifferenceKit+Extension.swift */,
 				0381A5B49724901AD720EFC5E13EEC78 /* RevokedMessageStorage.swift */,
@@ -19162,6 +19186,7 @@
 			files = (
 				7B7CD90F5175C37C585712FAF5C0C057 /* AddEntranceTableViewCell.swift in Sources */,
 				F426C65C58116F67FC3E5D95DF8F57F9 /* AddTableViewController.swift in Sources */,
+				0442CC5C2CBD23E700B2DDF3 /* HDEmptyView.swift in Sources */,
 				FBD9B09726E56C583754A019958FE8F9 /* ApplicationViewController.swift in Sources */,
 				E4728EB600D21F00017D3945ECF8BBD1 /* ApplicationViewModel.swift in Sources */,
 				27E9FAD52641613CE6AB6EAEE657D42F /* ApplyViewController.swift in Sources */,
@@ -19180,6 +19205,7 @@
 				565BD07E5197B4F264B61C57A29BCB78 /* CardView.swift in Sources */,
 				21AC113CFEE248780B6953550DFD84A8 /* Cell.swift in Sources */,
 				FCE8168C144E187D28E2D74B66991125 /* CellBaseView.swift in Sources */,
+				0442CC5E2CBD23E700B2DDF3 /* UIScrollView+Empty.swift in Sources */,
 				36F0FC6F3AF0FB7379B8773D8EE40772 /* ChatAvatarView.swift in Sources */,
 				04EDCC77AB5C96A7417C96281AD5AC61 /* ChatCollectionDataSource.swift in Sources */,
 				09E86F11E6EE0BA3513C8C10DDD24C14 /* ChatController.swift in Sources */,
@@ -19207,11 +19233,13 @@
 				DDDDDFC529B76E9B09BFC06432F494AD /* DefaultChatCollectionDataSource.swift in Sources */,
 				C44217AF9422294DBB50F67978636744 /* DefaultChatController.swift in Sources */,
 				CD13CB8C13BA421DFE216F83CA877ADF /* DefaultDataProvider.swift in Sources */,
+				0442CC5D2CBD23E700B2DDF3 /* HDRunTime.swift in Sources */,
 				9E3DE8BF9CB30C32B7CCA8605447F8C9 /* DefaultImageLoader.swift in Sources */,
 				4D4784DDDA1EBE9CCE23E5836B5FB5CE /* DefaultLineScanAnimationView.swift in Sources */,
 				E2C310CD906DECFFB20F43634C51048A /* DefaultScannerView.swift in Sources */,
 				71EAAC1B08C203CA2EFFBFFAADEA316E /* DifferenceKit+Extension.swift in Sources */,
 				5F23A06AD0425799CBDCF1A354081F84 /* DurationPickerView.swift in Sources */,
+				0442CC5B2CBD23E700B2DDF3 /* HDEmptyBaseView.swift in Sources */,
 				7B4EC3B73673B0B899D74E77DE778132 /* EditingAccessoryController.swift in Sources */,
 				442AA9362D2211EB3B808341A7653F02 /* EditingAccessoryControllerDelegate.swift in Sources */,
 				2E973EE098D3A952DB173C42EE2ECCC8 /* EditingAccessoryView.swift in Sources */,
@@ -19238,6 +19266,7 @@
 				C0785F3274335AC638DEF21A717B8652 /* GroupApplicationTableViewController.swift in Sources */,
 				FD087A45A31DD24223F123A5499BB541 /* GroupApplicationViewModel.swift in Sources */,
 				38FEC52DCEACF87EA1B4374DD9A7102A /* GroupBasicInfoCell.swift in Sources */,
+				0442CC5F2CBD23E700B2DDF3 /* UIView+Position.swift in Sources */,
 				312F82FDCAC26AB2C3E512BE8C01238C /* GroupChatMemberTableViewCell.swift in Sources */,
 				A0B99B896F2BC1EC961A3094CD727E3A /* GroupChatNameTableViewCell.swift in Sources */,
 				746F9284BAEAE8BBDC6B168C0C29B25C /* GroupChatSettingTableViewController.swift in Sources */,

@@ -24,12 +24,15 @@ class MineBokeVisitorListVC: BaseTitleController {
         super.initViews()
         setBackGroundColor(.white)
         initTableViewSafeAre()
+        isNeedEmptyView()
 
         title = vcType == .bokeVisitorFriend ? "好友访客".localized() : "陌生人访客".localized()
         
         tableView.register(MineBokeVisitorListCell.self, forCellReuseIdentifier: MineBokeVisitorListCell.className)
         
         netWork()
+        
+        isNeedEmptyView()
 
     }
     

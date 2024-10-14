@@ -7,6 +7,7 @@
 
 import UIKit
 import TangramKit
+import RxRelay
 
 class BaseLogicController: BaseCommentController {
     
@@ -30,12 +31,20 @@ class BaseLogicController: BaseCommentController {
     var scrollView: UIScrollView!
     var scrollViewContainer: TGLinearLayout!
     
+    var isHaveEmpty: Bool = false
+    lazy var emptyView: YFEmptyView = {
+        let r = YFEmptyView()
+        return r
+    }()
+    
     lazy var topBg: UIImageView = {
         let r = UIImageView()
         r.image = .init(named: "user_meesage_top_bg")
         r.contentMode = .scaleAspectFill
         return r
     }()
+    
+//    var datum : BehaviorRelay<[Any]> = .init(value: [])
     
     lazy var  datum: [Any] = {
         var reslut: [Any] = []
@@ -239,7 +248,6 @@ class BaseLogicController: BaseCommentController {
     }
     
     func tableViewAddEmptyView() {
-        tableView.swizzleMethod()
         let emptyV:HDEmptyView = HDEmptyView.emptyActionViewWithImageStr(imageStr: "custom_blank_icon", titleStr: "空空如也".localized() as NSString, detailStr: "", btnTitleStr: "", target: self, action: #selector(reloadBtnAction)) as! HDEmptyView
         
         emptyV.titleLabTextColor = UIColor.red
@@ -252,12 +260,32 @@ class BaseLogicController: BaseCommentController {
         tableView.ly_emptyView = emptyV
     }
     
+    func isNeedEmptyView() {
+        view.addSubview(emptyView)
+        isHaveEmpty = true
+        emptyView.snp.makeConstraints { make in
+            make.top.equalTo(tableView)
+            make.left.equalTo(tableView)
+            make.right.equalTo(tableView)
+            make.bottom.equalTo(tableView)
+        }
+    }
+    
 }
 
 
 extension BaseLogicController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        if isHaveEmpty {
+            if datum.count > 0 {
+                emptyView.hide()
+            } else {
+                emptyView.show()
+            }
+        }
+ 
         return datum.count
     }
     
@@ -265,7 +293,7 @@ extension BaseLogicController: UITableViewDataSource, UITableViewDelegate {
         return UITableViewCell()
     }
     
-    @objc func reloadBtnAction(_ sender: UIButton) {
+    @objc override func reloadBtnAction() {
         print("点击刷新按钮")
     }
     

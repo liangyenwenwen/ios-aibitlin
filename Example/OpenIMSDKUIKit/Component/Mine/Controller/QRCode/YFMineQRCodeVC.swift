@@ -327,12 +327,12 @@ extension YFMineQRCodeVC {
         contentView.tg_height.equal(350)
         contentView.chooseBoke = { [weak self] item in
             
-            var data = YFFileDataUtil.readDataToFile(false)
+            var data = YFFileDataUtil.readDataToFile(.recommend)
             if data.count < 3 {
-                YFFileDataUtil.saveOneDataToFile(false, blogItem: item)
+                YFFileDataUtil.saveOneDataToFile(.recommend, blogItem: item)
             } else {
-                YFFileDataUtil.deleteOneDataFromFile(false, blogItem: data[index])
-                YFFileDataUtil.saveOneDataToFile(false, blogItem: item)
+                YFFileDataUtil.deleteOneDataFromFile(.recommend, blogItem: data[index])
+                YFFileDataUtil.saveOneDataToFile(.recommend, blogItem: item)
             }
             self?.myStarblogItemsView.updateRecommendData()
             GKCover.hide()

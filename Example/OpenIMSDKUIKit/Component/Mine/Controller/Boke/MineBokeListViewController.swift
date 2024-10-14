@@ -10,6 +10,7 @@ import RxSwift
 import RxCocoa
 import OUICore
 
+
 enum blogListVCType :Int {
     case meBlog  = 0
     case othersBlog 
@@ -33,6 +34,7 @@ class MineBokeListViewController: BaseTitleController {
             othersSeeMyBlog()
         case .star:
             self.datum = YFFileDataUtil.readDataToFile()
+//            self.datum = Observable
             tableView.reloadData()
             break
         }
@@ -43,8 +45,9 @@ class MineBokeListViewController: BaseTitleController {
         setBackGroundColor(.white)
         initTableViewSafeAre()
         
-        
-        tableViewAddEmptyView()
+       
+//        tableViewAddEmptyView()
+        isNeedEmptyView()
 
         switch vcType {
         case .meBlog:
@@ -56,6 +59,7 @@ class MineBokeListViewController: BaseTitleController {
         }
         
 
+        bindDataAboutEmpty()
         
         tableView.register(MineBokeListCell.self, forCellReuseIdentifier: MineBokeListCell.className)
 //        tableView.isEditing = isMe
@@ -110,8 +114,10 @@ class MineBokeListViewController: BaseTitleController {
 
 extension MineBokeListViewController {
  
+ 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        emptyView.hide()
         let cell = tableView.dequeueReusableCell(withIdentifier: MineBokeListCell.className, for: indexPath) as! MineBokeListCell
         cell.bindData(datum[indexPath.row] as! blogDetailItem)
         cell.editBlock = { [weak self] in
@@ -139,6 +145,31 @@ extension MineBokeListViewController {
             vc.boke = item
             navigationController?.pushViewController(vc)
         }
+        
+    }
+    
+    func bindDataAboutEmpty() {
+        
+//        pwdView.textFieldView.rx.text.orEmpty
+//            .subscribe(onNext:{ [weak self] in
+//                print("ttt",$0)
+//                self?.refresUIAboutPwdTips($0)
+//            })
+//            .disposed(by: rx.disposeBag)
+        
+//        tableView.rx.items(dataSource: datum)
+//            .subscribe(onChanged: { [weak tableView] indexPath, element, view in
+//                // 更新cell的UI
+//            }).disposed(by: disposeBag)
+        
+//        let array = [1, 2, 3, 4, 5]
+//        let observable = Observable.from(datum)
+
+//        observable.subscribe(onNext: { element in
+//            print("+++++")
+//            print(element)
+//            print("+++++")
+//        }).disposed(by: rx.disposeBag)
         
     }
     
