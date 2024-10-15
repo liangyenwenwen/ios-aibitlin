@@ -35,11 +35,12 @@ class SuperToast {
             make.left.right.equalToSuperview().inset(20)
         }
         
-//        let offsetY = -hud.frame.height/CGFloat(2) + CGFloat(80)
-        let offsetY = CGFloat(-134)
+        let offsetY = -hud.frame.height/CGFloat(2) + CGFloat(80)
+//        let offsetY = CGFloat(-134)
         
         //显示到屏幕顶部
         hud.offset = CGPoint(x: 0, y: offsetY)
+//        hud.offset = CGPoint(x: 0, y: -UIScreen.main.bounds.height / 2)
         
         hud.removeFromSuperViewOnHide = true
         hud.hide(animated: true, afterDelay: 1.5)

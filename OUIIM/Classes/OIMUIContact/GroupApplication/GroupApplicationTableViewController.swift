@@ -39,7 +39,16 @@ class GroupApplicationTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         _viewModel.getGroupApplications()
+        
+        navigationController?.navigationBar.isHidden = false
     }
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        navigationController?.navigationBar.isHidden = false
+    }
+    
 
     private func bindData() {
         _viewModel.loading.asDriver().drive(onNext: { isLoading in

@@ -60,7 +60,8 @@ open class FriendListViewController: UIViewController {
         navigationItem.hidesSearchBarWhenScrolling = false
 //        navigationController?.navigationBar.isHidden = false
         
-        navigationController?.setNavigationBarHidden(true, animated: false)
+//        navigationController?.setNavigationBarHidden(true, animated: false)
+        navigationController?.navigationBar.isHidden = true
         
         _viewModel.getMyFriendList()
         contactsViewModel.getFriendApplications()
@@ -69,21 +70,36 @@ open class FriendListViewController: UIViewController {
         contactsViewModel.getFrequentUsers()
     }
     
-    open override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        
-        navigationController?.setNavigationBarHidden(true, animated: false)
- 
-    }
+//    override func viewDidAppear(_ animated: Bool) {
+//            super.viewDidAppear(animated)
+//            navigationController?.navigationBar.isHidden = false
+//        }
+    
+//    open override func viewWillLayoutSubviews() {
+//        super.viewWillLayoutSubviews()
+//        
+//        navigationController?.setNavigationBarHidden(true, animated: false)
+//        navigationController?.navigationBar.isHidden = true
+// 
+//    }
     
     override open func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: false)
+//        navigationController?.setNavigationBarHidden(false, animated: true)
+//        navigationController?.navigationBar.isHidden = false
+    }
+    
+    open override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+//        navigationController?.setNavigationBarHidden(false, animated: true)
+//        navigationController?.navigationBar.isHidden = false
+        
     }
 
     override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         navigationItem.hidesSearchBarWhenScrolling = true
+        navigationController?.navigationBar.isHidden = true
     }
 
     override open func viewDidLoad() {

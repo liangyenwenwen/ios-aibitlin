@@ -17,8 +17,16 @@ class NewFriendListViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         _viewModel.getNewFriendApplications()
+        
+        navigationController?.navigationBar.isHidden = false
+
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+            super.viewDidAppear(animated)
+            navigationController?.navigationBar.isHidden = false
+        }
+    
     private lazy var tableView: UITableView = {
         let v = UITableView()
         v.register(NewFriendTableViewCell.self, forCellReuseIdentifier: NewFriendTableViewCell.className)

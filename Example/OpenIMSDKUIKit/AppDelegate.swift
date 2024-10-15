@@ -85,12 +85,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
     }
     
+   
     private let _disposeBag = DisposeBag();
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
 //        YFFileDataUtil.deleteAllDataFromFile()
         NothingToSeeHere.harmlessFunction()
-        Bugly.start(withAppId: "f2c07e72cb")
+//        Bugly.start(withAppId: "f2c07e72cb")
+        Bugly.start(withAppId: "f2c07e72cb", developmentDevice: true, config: nil)
+        
         
         UINavigationBar.appearance().tintColor = .c0C1C33
         UINavigationBar.appearance().isTranslucent = true

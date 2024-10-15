@@ -463,7 +463,7 @@ final class ChatViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         collectionView.collectionViewLayout.invalidateLayout()
-        
+        navigationController?.navigationBar.isHidden = true
         if var draft = chatController.getConversation().draftText, !draft.isEmpty {
             inputBarView.inputTextView.becomeFirstResponder()
         }
@@ -481,6 +481,8 @@ final class ChatViewController: UIViewController {
         } onFailure: { code, res in
             print(res)
         }
+        
+//        navigationController?.navigationBar.isHidden = false
         
     }
     

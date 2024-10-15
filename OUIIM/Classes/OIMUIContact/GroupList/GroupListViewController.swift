@@ -11,11 +11,18 @@ class GroupListViewController: UIViewController {
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationItem.hidesSearchBarWhenScrolling = false
+        
+        navigationController?.navigationBar.isHidden = false
+    
+       
     }
 
     override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         navigationItem.hidesSearchBarWhenScrolling = true
+        navigationController?.navigationBar.isHidden = false
+//        navigationController?.setNavigationBarHidden(false, animated: false)
+        
     }
 
     private lazy var createChatBtn: UIBarButtonItem = {
