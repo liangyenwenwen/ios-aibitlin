@@ -219,7 +219,8 @@ class MainTabViewController: UITabBarController {
             AccountViewModel.loginIM(uid: uid, imToken: token, chatToken: chatToken) {[weak self] (errCode, errMsg) in
 
                 if errMsg != nil {
-                    ProgressHUD.error( errMsg)
+//                    ProgressHUD.error( errMsg)
+                    SuperToast.show(title: errMsg)
                     self?.presentLoginController()
                 } else {
                     self?.loginSuccess()
@@ -256,14 +257,17 @@ class MainTabViewController: UITabBarController {
             guard let controller = vc, let phone = controller.phone, !phone.isEmpty else { return }
             
             if !controller.chooseDelegateBtn.isSelected {
-                ProgressHUD.error("请勾选协议".localized())
+//                ProgressHUD.error("请勾选协议".localized())
+                SuperToast.show(title: "请勾选协议".localized())
                 return
             }
             guard let phone = controller.phone, !phone.isEmpty else {
                 if vc?.useType == .usePhone {
-                    ProgressHUD.error( "填写正确的手机号码".localized())
+//                    ProgressHUD.error( "填写正确的手机号码".localized())
+                    SuperToast.show(title:  "填写正确的手机号码".localized())
                 } else {
-                    ProgressHUD.error( "填写正确的邮箱".localized())
+                    SuperToast.show(title: "填写正确的邮箱".localized())
+//                    ProgressHUD.error( "填写正确的邮箱".localized())
                 }
                 return
             }
@@ -292,7 +296,8 @@ class MainTabViewController: UITabBarController {
                                        verificationCode: code,
                                        areaCode: controller.areaCode!) {[weak self] (errCode, errMsg) in
                 if errMsg != nil {
-                    ProgressHUD.error(errCode == -1 ? errMsg : String(errCode).localized())
+//                    ProgressHUD.error(errCode == -1 ? errMsg : String(errCode).localized())
+                    SuperToast.show(title: errCode == -1 ? errMsg : String(errCode).localized())
                     self?.presentLoginController()
                     
                 } else {

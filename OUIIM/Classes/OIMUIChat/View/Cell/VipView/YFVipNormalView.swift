@@ -88,10 +88,21 @@ class YFVipNormalView: UIView, StaticViewFactory, ContainerCollectionViewCellDel
             if let messageContact = user.user {
                 
                 contactView.update(user:messageContact)
+                contactView.isHidden = false
+                
+                timeLbl.snp.makeConstraints { make in
+                    make.top.equalTo(contactView.snp_bottom).offset(10)
+                }
             }
             
         } catch {
+            contactView.isHidden = true
             print("没有user")
+            
+            timeLbl.snp.makeConstraints { make in
+                make.top.equalTo(contentLbl.snp_bottom).offset(10)
+            }
+            
         }
         
         

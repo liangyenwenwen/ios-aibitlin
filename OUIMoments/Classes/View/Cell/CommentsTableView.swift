@@ -43,7 +43,7 @@ class CommentsTableView: UITableView {
             return
         }
         let model = comments[indexPath.item]
-        commentnputView.textView.placeholder = "回复".innerLocalized() + "\(model.nickname!)："
+        commentnputView.textView.placeholder = "回复".innerLocalized() + "\(SuperStringUtil.getUserState(showname: model.nickname!).n)"
         commentnputView.show()
         
         onAction?(model.userID, .bg(model.isSelf!))

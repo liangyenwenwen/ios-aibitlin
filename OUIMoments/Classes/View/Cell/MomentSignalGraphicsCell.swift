@@ -146,11 +146,13 @@ extension MomentSignalGraphicsCell: ListBindable {
         guard let viewModel = viewModel as? MomentsInfo else { return }
         self.viewModel = viewModel
         
-        avatarView.setAvatar(url: viewModel.faceURL, text: viewModel.nickname, onTap: { [weak self] in
+        let userState = SuperStringUtil.getUserState(showname: viewModel.nickname)
+        
+        avatarView.setAvatar(url: viewModel.faceURL, text: userState.n, onTap: { [weak self] in
             self?.onTapAvatar?(viewModel.faceURL)
         })
         
-        nameLabel.text = viewModel.nickname
+        nameLabel.text = userState.n
         contentLabel.text = viewModel.content?.text
         
         if viewModel.isNeedExpend {

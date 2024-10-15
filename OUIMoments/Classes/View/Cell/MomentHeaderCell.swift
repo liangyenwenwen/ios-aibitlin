@@ -63,10 +63,11 @@ extension MomentHeaderCell: ListBindable {
             return
         }
         
+        let userState = SuperStringUtil.getUserState(showname: viewModel.userName)
         bgImageView.setImage(with: viewModel.backgroundURL, placeHolder: "moments_header_bg")
-        avatarImageView.setAvatar(url: viewModel.faceURL, text: viewModel.userName, fullText: true, onTap: { [weak self] in
+        avatarImageView.setAvatar(url: viewModel.faceURL, text: userState.n, fullText: true, onTap: { [weak self] in
             self?.onTap?(.avatar)
         })
-        userNameLabel.text = viewModel.userName
+        userNameLabel.text = userState.n
     }
 }

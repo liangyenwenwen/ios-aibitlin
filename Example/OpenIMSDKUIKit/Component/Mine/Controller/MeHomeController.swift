@@ -10,6 +10,10 @@ import OUIIM
 import TangramKit
 import UIKit
 
+#if ENABLE_MOMENTS
+import OUIMoments
+#endif
+
 class MeHomeController: BaseLogicController {
     private let _viewModel = MineViewModel()
     
@@ -35,6 +39,7 @@ class MeHomeController: BaseLogicController {
         addTopUserMessage()
         addVIP()
         addCode()
+        addMoments()
         addMyBoke()
         addMyStarBoke()
         
@@ -226,6 +231,19 @@ class MeHomeController: BaseLogicController {
         
         container.addSubview(codeView)
     }
+    
+    func addMoments() {
+        let codeView = ViewFactoryUtil.sectionHeaderView(R.image.section_moments_icon()!, title: "我的动态".localized(), isHaveMore: true)
+        codeView.backgroundColor = .white
+        codeView.corner(MEDDLE_RADIUS)
+        codeView.tg_width.equal(.fill)
+        codeView.tg_height.equal(44)
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(gotoMoments))
+        codeView.addGestureRecognizer(tap)
+        
+        container.addSubview(codeView)
+    }
 
     func addMyBoke() {
         let bokeView = TGLinearLayout(.vert)
@@ -343,6 +361,10 @@ extension MeHomeController {
         gotoControllerFromRoot(YFMineHomeBuyVipVC.self)
     }
     
+    @objc func gotoMoments() {
+        let vc = MomentsViewController()
+        gotoControllerFromRoot(vc)
+    }
     @objc func gotoCode() {
         guard let user: QueryUserInfo = _viewModel.currentUserRelay.value else { return }
 //        let vc = QRCodeViewController(idString: IMController.addFriendPrefix.append(string: user.userID!))

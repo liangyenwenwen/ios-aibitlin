@@ -57,7 +57,7 @@ open class CallRecordsViewController: UIViewController {
         
         emptyV.titleLabTextColor = UIColor.red
         emptyV.actionBtnFont = UIFont.systemFont(ofSize: 19)
-        emptyV.contentViewY = -150
+        emptyV.contentViewY = -90
         emptyV.actionBtnIsHidden = true
         emptyV.titleLabFont = UIFont(name: "PingFangSC-Medium", size: 16)!
         emptyV.titleLabTextColor =  UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1)

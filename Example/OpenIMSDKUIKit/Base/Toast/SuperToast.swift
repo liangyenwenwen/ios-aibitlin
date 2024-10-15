@@ -14,7 +14,7 @@ class SuperToast {
     
     /// 1.5秒文字提示
     /// - Parameter title: 提示文字
-    static func show(title: String)  {
+    static func show(title: String?)  {
         let hud = MBProgressHUD.showAdded(to: AppDelegate.shared.window!.rootViewController!.view, animated: true)
         hud.mode = .text
         
@@ -28,9 +28,10 @@ class SuperToast {
         hud.label.font = .mediumFont(16)
         hud.label.numberOfLines = 0
         hud.label.text = title
+//        hud.label.text = "测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本"
         
         hud.label.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview().inset(10)
+            make.top.bottom.equalToSuperview().inset(8)
             make.left.right.equalToSuperview().inset(20)
         }
         
@@ -41,7 +42,7 @@ class SuperToast {
         hud.offset = CGPoint(x: 0, y: offsetY)
         
         hud.removeFromSuperViewOnHide = true
-        hud.hide(animated: true, afterDelay: 15)
+        hud.hide(animated: true, afterDelay: 1.5)
     }
     
     

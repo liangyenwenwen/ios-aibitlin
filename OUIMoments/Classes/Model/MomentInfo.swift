@@ -163,7 +163,7 @@ extension MomentsInfo {
             for i in 0..<displayUsers.count {
 
                 let u = displayUsers[i]
-                var uName = u.nickname
+                var uName = SuperStringUtil.getUserState(showname: u.nickname).n
                 // 如果是最后一个
                 if i < displayUsers.count - 1 {
                     uName += "、"

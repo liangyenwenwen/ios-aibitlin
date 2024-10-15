@@ -13,6 +13,7 @@ import Foundation
 let kSubViewMargin = 20.0
 //描述字体
 let kTitleLabFont = UIFont.systemFont(ofSize: 16)
+let kTitleLabFont2 =  UIFont.init(name: "PingFangSC-Medium", size: 16)!
 //详细描述字体
 let kDetailLabFont = UIFont.systemFont(ofSize: 14)
 //按钮字体大小
@@ -27,6 +28,8 @@ let kActionBtnHorizontalMargin = 30.0
 let kBlackColor = UIColor.init(red: 0.3, green: 0.3, blue: 0.3, alpha: 1)
 //灰色
 let kGrayColor = UIColor.init(red: 0.5, green: 0.5, blue: 0.5, alpha: 1)
+
+let ktitleColor = UIColor.init(red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
 
 public class HDEmptyView: HDEmptyBaseView {
     //提醒图片
@@ -49,9 +52,10 @@ public class HDEmptyView: HDEmptyBaseView {
         return detailL
     }()
     //
-    fileprivate  lazy var actionButton: UIButton = {
+    lazy var actionButton: UIButton = {
         let btn = UIButton()
         btn.layer.masksToBounds = true
+        btn.isHidden = true
         return btn
     }()
     
@@ -75,7 +79,7 @@ public class HDEmptyView: HDEmptyBaseView {
         }
     }
     // 内容物-Y坐标 (此属性与contentViewOffset 互斥，只有一个会有效)
-    public var contentViewY: CGFloat = 0 {
+    public var contentViewY: CGFloat = -90 {
         didSet {
             self.contentView.ly_top = self.contentViewY
         }
@@ -88,14 +92,14 @@ public class HDEmptyView: HDEmptyBaseView {
     }
     
     //标题字体, 大小default is 16.f
-    public var titleLabFont: UIFont = kTitleLabFont {
+    public var titleLabFont: UIFont = kTitleLabFont2 {
         didSet {
             setupSubviews()
         }
     }
     
     //标题文字颜色
-    public var titleLabTextColor: UIColor = kBlackColor {
+    public var titleLabTextColor: UIColor = ktitleColor {
         didSet {
             titleLabel.textColor = titleLabTextColor
         }

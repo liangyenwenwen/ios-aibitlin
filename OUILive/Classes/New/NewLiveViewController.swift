@@ -91,6 +91,7 @@ public class NewLiveViewController: UIViewController {
                     self.navigationController?.pushViewController(vc, animated: true)
                 }, onFailure: { (errCode, errMsg) in
                     ProgressHUD.error(errMsg)
+                    
                 })
             }).disposed(by: disposeBag)
         } else if operateType == .modify {

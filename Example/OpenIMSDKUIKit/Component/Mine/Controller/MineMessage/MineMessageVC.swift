@@ -213,7 +213,8 @@ class MineMessageVC: BaseTitleController, UIImagePickerControllerDelegate, UINav
                 self?.userNicknameView.contentLbl.text = data
                 
             } else {
-                ProgressHUD.error(msg)
+//                ProgressHUD.error(msg)
+                SuperToast.show(title: msg)
             }
   
         }
@@ -228,7 +229,8 @@ class MineMessageVC: BaseTitleController, UIImagePickerControllerDelegate, UINav
                 self?.userIDView.contentLbl.text = data
                 
             } else {
-                ProgressHUD.error(msg)
+//                ProgressHUD.error(msg)
+                SuperToast.show(title: msg)
             }
   
         }
@@ -243,7 +245,8 @@ class MineMessageVC: BaseTitleController, UIImagePickerControllerDelegate, UINav
                 self?.introView.contentLbl.text = data
                 print("++++++++++")
             } else {
-                ProgressHUD.error(msg)
+//                ProgressHUD.error(msg)
+                SuperToast.show(title: msg)
             }
   
         }
@@ -279,10 +282,12 @@ class MineMessageVC: BaseTitleController, UIImagePickerControllerDelegate, UINav
                     if code == 0 {
                         self?.user?.faceURL = "file://" + result.fullPath
                         self?.userIconView.iconView.image = first
-                        ProgressHUD.dismiss()
+                        
                     } else {
-                        ProgressHUD.error(msg)
+//                        ProgressHUD.error(msg)
+                        SuperToast.show(title: msg)
                     }
+                    ProgressHUD.dismiss()
                 })
             } else {
                 ProgressHUD.dismiss()
@@ -303,10 +308,12 @@ class MineMessageVC: BaseTitleController, UIImagePickerControllerDelegate, UINav
                         if code == 0 {
                             self?.user?.faceURL = "file://" + result.fullPath
                             self?.userIconView.iconView.image = photo
-                            ProgressHUD.dismiss()
+                           
                         } else {
-                            ProgressHUD.error(msg)
+//                            ProgressHUD.error(msg)
+                            SuperToast.show(title: msg)
                         }
+                        ProgressHUD.dismiss()
                     })
                 }
             }
@@ -373,10 +380,12 @@ class MineMessageVC: BaseTitleController, UIImagePickerControllerDelegate, UINav
                           if code == 0 {
                               self?.user?.faceURL = "file://" + result.fullPath
                               self?.userIconView.iconView.image = image
-                              ProgressHUD.dismiss()
+                             
                           } else {
-                              ProgressHUD.error(msg)
+//                              ProgressHUD.error(msg)
+                              SuperToast.show(title: msg)
                           }
+                          ProgressHUD.dismiss()
                       })
                   }
                   

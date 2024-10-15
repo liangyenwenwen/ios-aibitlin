@@ -60,6 +60,9 @@ class NewMessageViewController: UIViewController {
         viewModel.items.bind(to: tableView.rx.items(cellIdentifier: NSStringFromClass(NewMessageCell.self), cellType: NewMessageCell.self)) { _, model, cell in
             
             let c = model.content
+            
+            let modelState = SuperStringUtil.getUserState(showname: model.nickname)
+            
             if let thumb = c?.metas.first?.thumb {
                 cell.previewImageView.setImage(with: thumb.defaultThumbnailURLString, placeHolder: nil)
             } else {
@@ -70,35 +73,45 @@ class NewMessageViewController: UIViewController {
             
             if model.type == .favor {
                 let user = model.likeUsers.first
-                cell.avatarView.setAvatar(url: user?.faceURL, text: user?.nickname)
-                cell.nickNameLabel.text = user?.nickname
+                
+                let userState = SuperStringUtil.getUserState(showname: user?.nickname ?? "")
+                
+                
+                cell.avatarView.setAvatar(url: user?.faceURL, text: userState.n)
+                cell.nickNameLabel.text = userState.n
                 // 为你点了赞
                 var attach = NSTextAttachment()
                 attach.bounds = .init(x: 0, y: -3, width: 16, height: 16)
                 attach.image = .init(nameInBundle: "moments_thumb_selected_icon")
                 
                 let imageStr = NSAttributedString.init(attachment: attach)
-                var contentString = NSMutableAttributedString.init(string:  " " + "likedWho".innerLocalizedFormat(arguments: model.nickname))
+                var contentString = NSMutableAttributedString.init(string:  " " + "likedWho".innerLocalizedFormat(arguments: modelState.n))
                 contentString.insert(imageStr, at: 0)
                 cell.contentLabel.attributedText = contentString
                 
             } else if model.type == .mention {
                 // 提到了你
                 let user = model.atUsers.first
-                cell.avatarView.setAvatar(url: user?.faceURL, text: user?.nickname)
-                cell.nickNameLabel.text = user?.nickname
+                
+                let userState = SuperStringUtil.getUserState(showname: user?.nickname ?? "")
+                
+                cell.avatarView.setAvatar(url: user?.faceURL, text: userState.n)
+                cell.nickNameLabel.text = userState.n
                 cell.contentLabel.text = "mentionedWho".innerLocalizedFormat(arguments: model.nickname)
             } else {
                 // 评论了你
                 let comment = model.comments.first
-                cell.avatarView.setAvatar(url: comment?.faceURL, text: comment?.nickname)
-                cell.nickNameLabel.text = comment?.nickname
+                
+                let userState = SuperStringUtil.getUserState(showname: comment?.nickname ?? "")
+                
+                cell.avatarView.setAvatar(url: comment?.faceURL, text: userState.n)
+                cell.nickNameLabel.text = userState.n
                 
                 if let replyUserID = comment?.replyUserID, !replyUserID.isEmpty {
                     //回复：xxx ： 内容
-                    cell.contentLabel.text = "repliedWho".innerLocalizedFormat(arguments: model.nickname, comment!.content)
+                    cell.contentLabel.text = "repliedWho".innerLocalizedFormat(arguments: modelState.n, comment!.content)
                 } else {
-                   cell.contentLabel.text = "commentedWho".innerLocalizedFormat(arguments: model.nickname, comment!.content)
+                   cell.contentLabel.text = "commentedWho".innerLocalizedFormat(arguments: modelState.n, comment!.content)
                 }
             }
             

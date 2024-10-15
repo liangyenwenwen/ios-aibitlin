@@ -84,6 +84,8 @@ extension MomentCommentCell: ListBindable {
         guard let viewModel = viewModel as? MomentsInfo else { return }
         self.viewModel = viewModel
         
+        let userState = SuperStringUtil.getUserState(showname: viewModel.nickname)
+        
         if viewModel.likeUsersAttributedText == nil {
             // 这里有个低端逻辑
             likeUsersTextView.snp.remakeConstraints { make in

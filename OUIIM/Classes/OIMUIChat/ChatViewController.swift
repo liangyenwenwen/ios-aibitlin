@@ -612,6 +612,7 @@ final class ChatViewController: UIViewController {
         
         if chatController.getConversation().conversationType == .notification {
             view.backgroundColor = .init(hexString: "#f5f5f5")
+//            tableViewAddEmptyView()
         }
         
         self.chatController.getGroupInfo(force: false) { [weak self] info in
@@ -623,6 +624,22 @@ final class ChatViewController: UIViewController {
     
     
     
+    func tableViewAddEmptyView() {
+        let emptyV:HDEmptyView = HDEmptyView.emptyActionViewWithImageStr(imageStr: "custom_blank_icon", titleStr: "空空如也".localized() as NSString, detailStr: "", btnTitleStr: "", target: self, action: #selector(reloadBtnAction)) as! HDEmptyView
+        
+//        emptyV.titleLabTextColor = UIColor.red
+//        emptyV.actionBtnFont = UIFont.systemFont(ofSize: 19)
+//        emptyV.contentViewY = -90
+//        emptyV.actionButton.isHidden = true
+//        emptyV.titleLabFont = UIFont(name: "PingFangSC-Medium", size: 16)!
+//        emptyV.titleLabTextColor =  UIColor.init(red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
+        
+        collectionView.ly_emptyView = emptyV
+    }
+        
+    @objc func reloadBtnAction() {
+        
+    }
     
     
     

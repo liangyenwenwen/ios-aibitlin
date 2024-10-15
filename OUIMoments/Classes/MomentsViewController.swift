@@ -74,7 +74,8 @@ public class MomentsViewController: BaseIGListViewController {
     
     public override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "朋友圈".innerLocalized()
+//        navigationItem.title = "朋友圈".innerLocalized()
+        navigationItem.title =  "好友动态".localized()
         view.backgroundColor = .white
         
         addRefreshing()
@@ -238,9 +239,10 @@ extension MomentsViewController {
             controller.onTap = { [weak self] action in
                 guard let self else {return}
                 
+                
                 switch action {
                 case .avatar:
-                    let vc = OthersViewController(userID: info.userID, nickname: info.nickname, faceURL: info.faceURL)
+                    let vc = OthersViewController(userID: info.userID, nickname: SuperStringUtil.getUserState(showname: info.nickname).n, faceURL: info.faceURL)
                     navigationController?.pushViewController(vc, animated: true)
                 case .permisson:
                     let vc = PermissionUserListViewController(users: info.permissionUsers.map {ContactInfo(ID: $0.userID, name: $0.nickname, faceURL: $0.faceURL)})

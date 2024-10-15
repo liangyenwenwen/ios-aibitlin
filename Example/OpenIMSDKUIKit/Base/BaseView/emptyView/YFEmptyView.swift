@@ -36,14 +36,32 @@ class YFEmptyView: UIView {
         return r
     }()
     
+    lazy var centerView: UIView = {
+        let r = UIView()
+        return r
+    }()
+    
+    
     func initUI() {
         
         backgroundColor = .white
-        addSubview(tipImgView)
-        addSubview(tipLbl)
+        
+        addSubview(centerView)
+        
+        centerView.addSubview(tipImgView)
+        centerView.addSubview(tipLbl)
+        
+        centerView.snp.makeConstraints { make in
+            make.centerY.equalToSuperview().offset(-100)
+            make.left.right.equalToSuperview()
+        }
         
         tipImgView.snp.makeConstraints { make in
-            make.top.equalTo(212)
+//            make.top.equalTo(200)
+//            make.width.equalTo(120)
+//            make.height.equalTo(54)
+//            make.centerX.equalToSuperview()
+            make.top.equalToSuperview()
             make.width.equalTo(120)
             make.height.equalTo(54)
             make.centerX.equalToSuperview()
@@ -53,6 +71,7 @@ class YFEmptyView: UIView {
             make.top.equalTo(tipImgView.snp_bottom).offset(20)
             make.centerX.equalToSuperview()
             make.height.equalTo(16)
+            make.bottom.equalToSuperview()
         }
         
     }

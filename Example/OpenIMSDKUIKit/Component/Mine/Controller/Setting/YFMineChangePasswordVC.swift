@@ -153,12 +153,14 @@ extension YFMineChangePasswordVC{
     
     @objc func gotoNextVC()  {
         if !newPwdView.textFieldView.text!.validatePassword() {
-            ProgressHUD.error("plsEnterRightX".localizedFormat("password".localized()))
+//            ProgressHUD.error("plsEnterRightX".localizedFormat("password".localized()))
+            SuperToast.show(title: "plsEnterRightX".localizedFormat("password".localized()))
             return
         }
         
         if newPwdView.inputText != rePwdView.inputText {
-            ProgressHUD.error("twicePwdNoSame".localized())
+//            ProgressHUD.error("twicePwdNoSame".localized())
+            SuperToast.show(title: "twicePwdNoSame".localized())
             return
         }
         

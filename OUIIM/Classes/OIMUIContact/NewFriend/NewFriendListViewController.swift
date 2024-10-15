@@ -34,11 +34,15 @@ class NewFriendListViewController: UIViewController {
     }()
 
     private func initView() {
+        
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(8)
             make.leading.bottom.trailing.equalToSuperview()
         }
+        
+        tableViewAddEmptyView()
+        
     }
 
     private func bindData() {
@@ -79,7 +83,24 @@ class NewFriendListViewController: UIViewController {
 //            }
         }).disposed(by: _disposeBag)
     }
-
+    
+    func tableViewAddEmptyView() {
+        let emptyV:HDEmptyView = HDEmptyView.emptyActionViewWithImageStr(imageStr: "custom_blank_icon", titleStr: "空空如也".localized() as NSString, detailStr: "", btnTitleStr: "", target: self, action: #selector(reloadBtnAction)) as! HDEmptyView
+        
+        emptyV.titleLabTextColor = UIColor.red
+        emptyV.actionBtnFont = UIFont.systemFont(ofSize: 19)
+        emptyV.contentViewY = -90
+        emptyV.actionBtnIsHidden = true
+        emptyV.titleLabFont = UIFont(name: "PingFangSC-Medium", size: 16)!
+        emptyV.titleLabTextColor =  UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
+        
+        tableView.ly_emptyView = emptyV
+    }
+    
+    @objc func reloadBtnAction() {
+        
+    }
+    
     private let _viewModel = NewFriendListViewModel()
     private let _disposeBag = DisposeBag()
 }
