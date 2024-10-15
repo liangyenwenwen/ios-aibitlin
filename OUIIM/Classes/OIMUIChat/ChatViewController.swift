@@ -1819,7 +1819,7 @@ extension ChatViewController: ChatControllerDelegate {
         case .merge(let source):
             guard let msgs = source.multiMessage else { return }
             let vc = ForwardListViewController(title: source.title, messages: msgs)
-            navigationController?.pushViewController(vc, animated: true)
+            navigationController?.pushViewController(vc, animated: false)
             
         case .card(let source):
 //            let vc = UserDetailTableViewController(userId: source.user.id, groupId: chatController.getConversation().groupID, userDetailFor: .card)

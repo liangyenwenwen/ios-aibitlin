@@ -70,7 +70,7 @@ final class MergeView: UIView, ContainerCollectionViewCellDelegate {
     func reloadData() {
         titleLabel.text = controller?.title
         
-        let labels = controller?.abstracts?.prefix(4).map({ text in
+        let labels = controller?.abstracts?.prefix(2).map({ text in
             let v = UILabel()
             v.numberOfLines = 3
             v.font = .f14

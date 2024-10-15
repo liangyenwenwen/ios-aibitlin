@@ -31,9 +31,16 @@ class ForwardListViewController: UIViewController {
     private var prevMessage: Message?
     private var prevSecion = 0
     
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = false
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .cF8F9FA
+        
         
         initView()
     }
