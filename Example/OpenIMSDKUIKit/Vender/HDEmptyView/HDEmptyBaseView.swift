@@ -13,7 +13,7 @@ public typealias  HDTapBlock = () -> ()
 
 public class HDEmptyBaseView: UIView {
 
-    //点击空白区域
+    //点击空白区域 12
     var tapContentViewBlock: HDTapBlock?
     //点击刷新按钮
     var _btnClickBlock: HDTapBlock?

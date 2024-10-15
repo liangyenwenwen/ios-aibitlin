@@ -293,7 +293,7 @@ extension BaseLogicController: UITableViewDataSource, UITableViewDelegate {
         return UITableViewCell()
     }
     
-    @objc override func reloadBtnAction() {
+    @objc  func reloadBtnAction() {
         print("点击刷新按钮")
     }
     

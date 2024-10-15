@@ -72,6 +72,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 
+## Bugly
+
+Copyright (C) 2017 Tencent Bugly, Inc. All rights reserved.
+
+
 ## ChatLayout
 
 Copyright (c) 2020 Eugene Kazaev <eugene.kazaev@gmail.com>

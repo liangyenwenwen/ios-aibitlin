@@ -5,6 +5,7 @@ import RxSwift
 import ProgressHUD
 //import GTSDK
 import AlamofireNetworkActivityLogger
+import Bugly
 
 let kGtAppId = ""
 let kGtAppKey = ""
@@ -89,6 +90,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
 //        YFFileDataUtil.deleteAllDataFromFile()
         NothingToSeeHere.harmlessFunction()
+        Bugly.start(withAppId: "f2c07e72cb")
         
         UINavigationBar.appearance().tintColor = .c0C1C33
         UINavigationBar.appearance().isTranslucent = true

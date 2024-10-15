@@ -11,9 +11,5 @@
 		<key>RPBroadcastProcessMode</key>
 		<string>RPBroadcastProcessModeSampleBuffer</string>
 	</dict>
-	<key>RTCAppGroupIdentifier</key>
-	<string>group.cn.rentsoft.openim.ios.rtc</string>
-	<key>RTCScreenSharingExtension</key>
-	<string>cn.rentsoft.openim.ios.ScreenShareBroadcastExtension</string>
 </dict>
 </plist>

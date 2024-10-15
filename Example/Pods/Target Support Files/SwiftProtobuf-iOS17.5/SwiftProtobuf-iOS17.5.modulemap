@@ -1,0 +1,6 @@
+framework module SwiftProtobuf {
+  umbrella header "SwiftProtobuf-iOS17.5-umbrella.h"
+
+  export *
+  module * { export * }
+}
