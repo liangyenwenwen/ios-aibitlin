@@ -62,7 +62,7 @@ internal extension RTCI420Buffer {
                               dstUV: dstUV,
                               dstStrideUV: Int32(dstUVStride),
                               width: width,
-                              height: height)
+                              width: height)
 
         } else {
             let dst = CVPixelBufferGetBaseAddress(outputPixelBuffer)
