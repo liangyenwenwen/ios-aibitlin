@@ -610,6 +610,12 @@ SupportShortNumber = "Support setting a minimum %@-digit account ID";
 "好友动态" = "Friends' Activity";
 "空空如也" = "All Empty";
 
+"搜索联系人" = "Search Contacts";
+"搜索群聊" = "Search Groups";
+"创建群聊" = "Create Group";
+
+"我的动态" = "My Activity";
+
 //"" = "";
 //"" = "";
 //"" = "";

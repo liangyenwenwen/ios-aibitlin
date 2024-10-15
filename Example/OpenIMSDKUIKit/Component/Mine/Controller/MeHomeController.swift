@@ -365,6 +365,7 @@ extension MeHomeController {
         let vc = MomentsViewController()
         gotoControllerFromRoot(vc)
     }
+    
     @objc func gotoCode() {
         guard let user: QueryUserInfo = _viewModel.currentUserRelay.value else { return }
 //        let vc = QRCodeViewController(idString: IMController.addFriendPrefix.append(string: user.userID!))

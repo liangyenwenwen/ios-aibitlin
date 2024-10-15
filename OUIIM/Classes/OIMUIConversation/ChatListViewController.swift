@@ -200,10 +200,10 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
             vc.hidesBottomBarWhenPushed = true
             self?.navigationController?.pushViewController(vc, animated: true)
         }
-        let addFriendItem = PopoverTableViewController.MenuItem(title: "添加好友".innerLocalized(), icon: UIImage(named: "chat_menu_add_friend_icon")) { [weak self] in
+        let addFriendItem = PopoverTableViewController.MenuItem(title: "搜索联系人".localized(), icon: UIImage(named: "chat_menu_add_friend_icon")) { [weak self] in
             let vc = SearchFriendIndexViewController()
             vc.hidesBottomBarWhenPushed = true
-            vc.title = "添加好友".innerLocalized()
+            vc.title = "搜索联系人".localized()
             self?.navigationController?.pushViewController(vc, animated: true)
             vc.didSelectedItem = { [weak self] id in
 //                let vc = UserDetailTableViewController(userId: id, groupId: nil)
@@ -217,20 +217,20 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
             }
         }
 
-        let addGroupItem = PopoverTableViewController.MenuItem(title: "添加群聊".innerLocalized(), icon: UIImage(named: "chat_menu_add_group_icon")) { [weak self] in
+        let addGroupItem = PopoverTableViewController.MenuItem(title: "搜索群聊".localized(), icon: UIImage(named: "chat_menu_add_group_icon")) { [weak self] in
             let vc = SearchGroupIndexViewController()
             vc.hidesBottomBarWhenPushed = true
             self?.navigationController?.pushViewController(vc, animated: true)
-            vc.title = "添加群聊".innerLocalized()
+            vc.title = "搜索群聊".localized()
             vc.didSelectedItem = { [weak self] id in
                 let vc = GroupDetailViewController(groupId: id)
                 self?.navigationController?.pushViewController(vc, animated: true)
             }
         }
         
-        let createGroupItem = PopoverTableViewController.MenuItem(title: "发起群聊".innerLocalized(), icon: UIImage(named: "chat_menu_create_group_icon")) { [weak self] in
+        let createGroupItem = PopoverTableViewController.MenuItem(title: "创建群聊".localized(), icon: UIImage(named: "chat_menu_create_group_icon")) { [weak self] in
             let vc = SelectContactsViewController()
-            vc.title = "发起群聊".innerLocalized()
+            vc.title = "创建群聊".localized()
             vc.selectedContact(hasSelected: []) { [weak vc, weak self] (_, r: [ContactInfo]) in
                 guard let sself = self else { return }
                 let users = r.map {UserInfo(userID: $0.ID!, nickname: $0.name, faceURL: $0.faceURL)}

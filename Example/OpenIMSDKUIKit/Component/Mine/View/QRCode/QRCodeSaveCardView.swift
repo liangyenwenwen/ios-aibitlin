@@ -196,6 +196,8 @@ class QRCodeSaveCardView: TGLinearLayout {
         userIDLbl.text = idString
         
         refreshRecommend()
+        
+        layoutIfNeeded()
     }
     
     func refreshRecommend() {

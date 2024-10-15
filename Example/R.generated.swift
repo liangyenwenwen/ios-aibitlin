@@ -169,7 +169,7 @@ struct _R {
       var ieXW0yeText: RswiftResources.StringResource { .init(key: "8ie-xW-0ye.text", tableName: "LaunchScreen", source: source, developmentValue: nil, comment: nil) }
     }
 
-    /// This `_R.string.localizable` struct is generated, and contains static references to 466 localization keys.
+    /// This `_R.string.localizable` struct is generated, and contains static references to 470 localization keys.
     struct localizable {
       let source: RswiftResources.StringResource.Source
 
@@ -1608,6 +1608,13 @@ struct _R {
       /// Locales: en, th
       var 分享给好友: RswiftResources.StringResource { .init(key: "分享给好友", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// en translation: Create Group
+      ///
+      /// Key: 创建群聊
+      ///
+      /// Locales: en, th
+      var 创建群聊: RswiftResources.StringResource { .init(key: "创建群聊", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: Delete
       ///
       /// Key: 删除
@@ -2217,6 +2224,13 @@ struct _R {
       /// Locales: en, th
       var 我的信息: RswiftResources.StringResource { .init(key: "我的信息", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// en translation: My Activity
+      ///
+      /// Key: 我的动态
+      ///
+      /// Locales: en, th
+      var 我的动态: RswiftResources.StringResource { .init(key: "我的动态", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: My Blog
       ///
       /// Key: 我的博客
@@ -2356,6 +2370,20 @@ struct _R {
       ///
       /// Locales: en, th
       var 提醒: RswiftResources.StringResource { .init(key: "提醒", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Search Groups
+      ///
+      /// Key: 搜索群聊
+      ///
+      /// Locales: en, th
+      var 搜索群聊: RswiftResources.StringResource { .init(key: "搜索群聊", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Search Contacts
+      ///
+      /// Key: 搜索联系人
+      ///
+      /// Locales: en, th
+      var 搜索联系人: RswiftResources.StringResource { .init(key: "搜索联系人", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Support personalized visitor notifications to help acquire customers
       ///

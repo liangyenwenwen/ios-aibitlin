@@ -11,6 +11,17 @@ open class AddTableViewController: UITableViewController {
         navigationItem.title = "添加".innerLocalized()
     }
     
+//    navigationController?.navigationBar.isHidden = false
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = false
+    }
+    
+    open override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        navigationController?.navigationBar.isHidden = false
+    }
+    
     private func configureTableView() {
         tableView.rowHeight = 74
         if #available(iOS 15.0, *) {
