@@ -546,6 +546,7 @@ final class StateController<Layout: ChatLayoutRepresentation> {
         var insertedSectionsIndexesArray = [(Int, SectionModel<Layout>?)]()
 
         var reloadedItemsIndexesArray = [IndexPath]()
+        var reconfiguredItemsIndexesArray = [IndexPath]()
         var deletedItemsIndexesArray = [IndexPath]()
         var insertedItemsIndexesArray = [(IndexPath, ItemModel?)]()
 
@@ -558,13 +559,9 @@ final class StateController<Layout: ChatLayoutRepresentation> {
 
                 reloadedSectionsIndexesArray.append(sectionIndex)
             case let .itemReload(itemIndexPath: indexPath):
-                reloadedIndexes.insert(indexPath)
-
                 reloadedItemsIndexesArray.append(indexPath)
             case let .itemReconfigure(itemIndexPath: indexPath):
-                reconfiguredIndexes.insert(indexPath)
-
-                reloadedItemsIndexesArray.append(indexPath)
+                reconfiguredItemsIndexesArray.append(indexPath)
             case let .sectionDelete(sectionIndex):
                 deletedSectionsIndexes.insert(sectionIndex)
 
@@ -742,18 +739,6 @@ final class StateController<Layout: ChatLayoutRepresentation> {
             }
         }
 
-        for indexPath in reloadedItemsIndexesArray {
-            guard var item = item(for: indexPath.itemPath, kind: .cell, at: .beforeUpdate) else {
-                assertionFailure("Item at index path (\(indexPath.section) - \(indexPath.item)) does not exist.")
-                continue
-            }
-            let oldHeight = item.frame.height
-            let configuration = layoutRepresentation.configuration(for: .cell, at: indexPath)
-            applyConfiguration(configuration, to: &item)
-            afterUpdateModel.replaceItem(item, at: indexPath)
-            visibleBoundsBeforeUpdate.offsettingBy(dx: 0, dy: item.frame.height - oldHeight)
-        }
-
         for indexPath in deletedItemsIndexesArray {
             guard let itemId = itemIdentifier(for: indexPath.itemPath, kind: .cell, at: .beforeUpdate) else {
                 assertionFailure("Item at index path (\(indexPath.section) - \(indexPath.item)) does not exist.")
@@ -794,6 +779,35 @@ final class StateController<Layout: ChatLayoutRepresentation> {
                     itemToRestore = ItemToRestore(globalIndex: globalIndex, kind: .cell, offset: 0)
                 }
             }
+        }
+
+        for indexPath in reloadedItemsIndexesArray {
+            guard var item = item(for: indexPath.itemPath, kind: .cell, at: .beforeUpdate),
+                  let indexPathAfterUpdate = afterUpdateModel.itemPath(by: item.id, kind: .cell)?.indexPath else {
+                assertionFailure("Item at index path (\(indexPath.section) - \(indexPath.item)) does not exist.")
+                continue
+            }
+            reloadedIndexes.insert(indexPathAfterUpdate)
+            let oldHeight = item.frame.height
+            let configuration = layoutRepresentation.configuration(for: .cell, at: indexPathAfterUpdate)
+            applyConfiguration(configuration, to: &item)
+            afterUpdateModel.replaceItem(item, at: indexPathAfterUpdate)
+            visibleBoundsBeforeUpdate.offsettingBy(dx: 0, dy: item.frame.height - oldHeight)
+        }
+
+        for indexPath in reconfiguredItemsIndexesArray {
+            guard var item = item(for: indexPath.itemPath, kind: .cell, at: .beforeUpdate),
+                  let indexPathAfterUpdate = afterUpdateModel.itemPath(by: item.id, kind: .cell)?.indexPath else {
+                assertionFailure("Item at index path (\(indexPath.section) - \(indexPath.item)) does not exist.")
+                continue
+            }
+            reconfiguredIndexes.insert(indexPathAfterUpdate)
+
+            let oldHeight = item.frame.height
+            let configuration = layoutRepresentation.configuration(for: .cell, at: indexPathAfterUpdate)
+            applyConfiguration(configuration, to: &item)
+            afterUpdateModel.replaceItem(item, at: indexPathAfterUpdate)
+            visibleBoundsBeforeUpdate.offsettingBy(dx: 0, dy: item.frame.height - oldHeight)
         }
 
         var afterUpdateModelSections = afterUpdateModel.sections

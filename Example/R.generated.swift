@@ -10,14 +10,12 @@ import UIKit
 private class BundleFinder {}
 let R = _R(bundle: Bundle(for: BundleFinder.self))
 
-struct _R {
+struct _R: Sendable {
   let bundle: Foundation.Bundle
-
-  let entitlements = entitlements()
-
   var string: string { .init(bundle: bundle, preferredLanguages: nil, locale: nil) }
   var color: color { .init(bundle: bundle) }
   var image: image { .init(bundle: bundle) }
+  var entitlements: entitlements { .init() }
   var nib: nib { .init(bundle: bundle) }
   var storyboard: storyboard { .init(bundle: bundle) }
 

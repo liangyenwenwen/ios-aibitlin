@@ -15,7 +15,9 @@ class SuperToast {
     /// 1.5秒文字提示
     /// - Parameter title: 提示文字
     static func show(title: String?)  {
-        let hud = MBProgressHUD.showAdded(to: AppDelegate.shared.window!.rootViewController!.view, animated: true)
+        
+        let hud = MBProgressHUD.showAdded(to: AppDelegate.shared.window!, animated: true)
+//        let hud = MBProgressHUD.showAdded(to: AppDelegate.shared.window!.rootViewController!.view, animated: true)
         hud.mode = .text
         
         //背景颜色
@@ -43,7 +45,7 @@ class SuperToast {
 //        hud.offset = CGPoint(x: 0, y: -UIScreen.main.bounds.height / 2)
         
         hud.removeFromSuperViewOnHide = true
-        hud.hide(animated: true, afterDelay: 1.5)
+        hud.hide(animated: true, afterDelay: 15)
     }
     
     

@@ -41,9 +41,9 @@ let sdkWSRoute = ""
 //let sdkWSPort = ":10001"
 //let sdkWSRoute = ":10001/msg_gateway_enterprise"
 
-let defaultAppAddress = "demo.aibitlin.com"
-let defaultIMAddress = "demo.aibitlin.com"
-let defaultAdminAddress = "demo.aibitlin.com"
+let defaultAppAddress = "imserver.aibitlin.com"
+let defaultIMAddress = "imserver.aibitlin.com"
+let defaultAdminAddress = "imserver.aibitlin.com"
 
 //let defaultAppAddress = "web.rentsoft.cn"
 //let defaultIMAddress = "web.rentsoft.cn"

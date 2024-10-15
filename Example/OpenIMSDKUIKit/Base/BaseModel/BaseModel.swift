@@ -5,15 +5,15 @@
 //  Created by mac on 2024/4/25.
 //
 
-import Foundation
-import HandyJSON
-
-class BaseModel: HandyJSON {
-    required init() {
-            
-    }
-    
-    func mapping(mapper: HelpingMapper) {
-        
-    }
-}
+//import Foundation
+//import HandyJSON
+//
+//class BaseModel: HandyJSON {
+//    required init() {
+//            
+//    }
+//    
+//    func mapping(mapper: HelpingMapper) {
+//        
+//    }
+//}

@@ -9,6 +9,8 @@ import OUICore
 import OUIIM
 import TangramKit
 import UIKit
+import RxCocoa
+import NSObject_Rx
 
 #if ENABLE_MOMENTS
 import OUIMoments

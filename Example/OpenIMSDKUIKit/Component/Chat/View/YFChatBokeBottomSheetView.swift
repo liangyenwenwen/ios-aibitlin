@@ -11,6 +11,7 @@ import TangramKit
 import RxSwift
 import RxCocoa
 import OUICore
+import NSObject_Rx
 
 class YFChatBokeBottomSheetView: TGLinearLayout {
 

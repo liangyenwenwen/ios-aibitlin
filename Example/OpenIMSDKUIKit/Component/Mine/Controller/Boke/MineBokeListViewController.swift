@@ -9,6 +9,8 @@ import UIKit
 import RxSwift
 import RxCocoa
 import OUICore
+import NSObject_Rx
+
 
 
 enum blogListVCType :Int {

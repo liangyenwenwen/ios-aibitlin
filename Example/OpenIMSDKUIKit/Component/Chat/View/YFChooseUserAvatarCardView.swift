@@ -215,12 +215,12 @@ class YFChooseUserAvatarCardView: UIView, UIImagePickerControllerDelegate, UINav
     
     //点击bottom区域外 消失
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let touch = touches.first else {return}
-        let view = bottomView
-        let point = touch.location(in: self)
-        let tPoint = view.convert(point, from: self)
-        if view.point(inside: tPoint, with: event) {return}
-        bottomShow(show: false)
+//        guard let touch = touches.first else {return}
+//        let view = bottomView
+//        let point = touch.location(in: self)
+//        let tPoint = view.convert(point, from: self)
+//        if view.point(inside: tPoint, with: event) {return}
+//        bottomShow(show: false)
     }
     
     
@@ -298,8 +298,8 @@ class YFChooseUserAvatarCardView: UIView, UIImagePickerControllerDelegate, UINav
                         self?.bottomShow(show: false)
                         ProgressHUD.dismiss()
                     } else {
-//                        ProgressHUD.error(msg)
-                        SuperToast.show(title: msg)
+                        ProgressHUD.error(msg)
+//                        SuperToast.show(title: msg)
                     }
                 })
             } else {
@@ -321,8 +321,8 @@ class YFChooseUserAvatarCardView: UIView, UIImagePickerControllerDelegate, UINav
                         if code == 0 {
                             ProgressHUD.dismiss()
                         } else {
-//                            ProgressHUD.error(msg)
-                            SuperToast.show(title: msg)
+                            ProgressHUD.error(msg)
+//                            SuperToast.show(title: msg)
                         }
                     })
                 }
@@ -360,8 +360,8 @@ extension YFChooseUserAvatarCardView {
         if let data = picData {
             AccountViewModel.updateUserInfo(userID: IMController.shared.uid, faceURL:data[self.currentIndex]) { errCode, errMsg in
                 if errCode != 0 {
-//                    ProgressHUD.error(errMsg)
-                    SuperToast.show(title: errMsg)
+                    ProgressHUD.error(errMsg)
+//                    SuperToast.show(title: errMsg)
                 } else {
                     print("保存成功")
                     self.bottomShow(show: false)
@@ -476,8 +476,8 @@ extension YFChooseUserAvatarCardView {
                           self?.bottomShow(show: false)
                           ProgressHUD.dismiss()
                       } else {
-//                          ProgressHUD.error(msg)
-                          SuperToast.show(title: msg)
+                          ProgressHUD.error(msg)
+//                          SuperToast.show(title: msg)
                       }
                   })
               }

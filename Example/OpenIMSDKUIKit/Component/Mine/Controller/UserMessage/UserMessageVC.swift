@@ -12,6 +12,7 @@ import RxCocoa
 import OUIIM
 import OUICore
 import OpenIMSDK
+import NSObject_Rx
 
 #if ENABLE_MOMENTS
 import OUIMoments

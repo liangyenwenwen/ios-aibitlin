@@ -213,8 +213,8 @@ class MineMessageVC: BaseTitleController, UIImagePickerControllerDelegate, UINav
                 self?.userNicknameView.contentLbl.text = data
                 
             } else {
-//                ProgressHUD.error(msg)
-                SuperToast.show(title: msg)
+                ProgressHUD.error(msg)
+//                SuperToast.show(title: msg)
             }
   
         }
@@ -229,8 +229,8 @@ class MineMessageVC: BaseTitleController, UIImagePickerControllerDelegate, UINav
                 self?.userIDView.contentLbl.text = data
                 
             } else {
-//                ProgressHUD.error(msg)
-                SuperToast.show(title: msg)
+                ProgressHUD.error(msg)
+//                SuperToast.show(title: msg)
             }
   
         }
@@ -245,8 +245,8 @@ class MineMessageVC: BaseTitleController, UIImagePickerControllerDelegate, UINav
                 self?.introView.contentLbl.text = data
                 print("++++++++++")
             } else {
-//                ProgressHUD.error(msg)
-                SuperToast.show(title: msg)
+                ProgressHUD.error(msg)
+//                SuperToast.show(title: msg)
             }
   
         }
@@ -310,8 +310,8 @@ class MineMessageVC: BaseTitleController, UIImagePickerControllerDelegate, UINav
                             self?.userIconView.iconView.image = photo
                            
                         } else {
-//                            ProgressHUD.error(msg)
-                            SuperToast.show(title: msg)
+                            ProgressHUD.error(msg)
+//                            SuperToast.show(title: msg)
                         }
                         ProgressHUD.dismiss()
                     })

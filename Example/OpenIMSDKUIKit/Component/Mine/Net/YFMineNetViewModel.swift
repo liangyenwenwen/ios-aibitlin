@@ -17,7 +17,9 @@ import ProgressHUD
 class YFMineNetViewModel: AccountViewModel {
     
 //    static let API_BLOG_URL = "http://192.168.7.107:18898"
-    public static let API_BLOG_URL = "http://blog.aibitlin.com:18898"
+//    public static let API_BLOG_URL = "http://blog.aibitlin.com:18898"
+    public static let API_BLOG_URL = "https://imblog.aibitlin.com"
+
     
     
     // MARK: - 张亚飞打的标记 blogAPI
@@ -562,8 +564,8 @@ extension YFMineNetViewModel {
                      if res.errCode == 0  {
                          valueHandler(res.data?.urls ?? [])
                      } else {
-//                         ProgressHUD.error(res.errMsg)
-                         SuperToast.show(title: res.errMsg!)
+                         ProgressHUD.error(res.errMsg)
+//                         SuperToast.show(title: res.errMsg!)
                      }
                      
                  } else {

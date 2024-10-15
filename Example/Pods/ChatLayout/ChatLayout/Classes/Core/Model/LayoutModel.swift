@@ -110,7 +110,6 @@ final class LayoutModel<Layout: ChatLayoutRepresentation> {
 
     func itemPath(by itemId: UUID, kind: ItemKind) -> ItemPath? {
         guard let itemPathByIdentifierCache else {
-            assertionFailure("Internal inconsistency. Cache is not prepared.")
             for (sectionIndex, section) in sections.enumerated() {
                 switch kind {
                 case .header:
@@ -139,6 +138,7 @@ final class LayoutModel<Layout: ChatLayoutRepresentation> {
         if index < sections.count &- 1 {
             let nextIndex = index &+ 1
             sections.withUnsafeMutableBufferPointer { directlyMutableSections in
+                nonisolated(unsafe) let directlyMutableSections = directlyMutableSections
                 DispatchQueue.concurrentPerform(iterations: directlyMutableSections.count &- nextIndex) { internalIndex in
                     directlyMutableSections[internalIndex &+ nextIndex].offsetY += heightDiff
                 }

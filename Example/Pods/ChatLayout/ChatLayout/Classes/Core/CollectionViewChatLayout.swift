@@ -338,12 +338,6 @@ open class CollectionViewChatLayout: UICollectionViewLayout {
             return
         }
 
-        #if DEBUG
-        if collectionView.isPrefetchingEnabled {
-            preconditionFailure("UICollectionView with prefetching enabled is not supported due to https://openradar.appspot.com/40926834 bug.")
-        }
-        #endif
-
         if prepareActions.contains(.switchStates) {
             controller.commitUpdates()
             state = .beforeUpdate
@@ -405,6 +399,7 @@ open class CollectionViewChatLayout: UICollectionViewLayout {
                     // Items
                     var items: ContiguousArray<ItemModel> = section.items
                     items.withUnsafeMutableBufferPointer { directlyMutableItems in
+                        nonisolated(unsafe) let directlyMutableItems = directlyMutableItems
                         DispatchQueue.concurrentPerform(iterations: directlyMutableItems.count) { rowIndex in
                             directlyMutableItems[rowIndex].resetSize()
                         }
@@ -621,6 +616,7 @@ open class CollectionViewChatLayout: UICollectionViewLayout {
         let shouldInvalidateLayout = cachedCollectionViewSize != .some(newBounds.size) ||
             cachedCollectionViewInset != .some(adjustedContentInset) ||
             invalidationActions.contains(.shouldInvalidateOnBoundsChange)
+            || (isUserInitiatedScrolling && state == .beforeUpdate)
 
         invalidationActions.remove(.shouldInvalidateOnBoundsChange)
         return shouldInvalidateLayout
@@ -729,8 +725,13 @@ open class CollectionViewChatLayout: UICollectionViewLayout {
                     let cell = collectionView.cellForItem(at: indexPath)
 
                     if let originalAttributes = controller.itemAttributes(for: indexPath.itemPath, kind: .cell, at: .beforeUpdate),
-                       let preferredAttributes = cell?.preferredLayoutAttributesFitting(originalAttributes),
-                       shouldInvalidateLayout(forPreferredLayoutAttributes: preferredAttributes, withOriginalAttributes: originalAttributes) {
+                       let preferredAttributes = cell?.preferredLayoutAttributesFitting(originalAttributes.typedCopy()) as? ChatLayoutAttributes,
+                       let itemIdentifierBeforeUpdate = controller.itemIdentifier(for: indexPath.itemPath, kind: .cell, at: .beforeUpdate),
+                       let indexPathAfterUpdate = controller.itemPath(by: itemIdentifierBeforeUpdate, kind: .cell, at: .afterUpdate)?.indexPath,
+                       let itemAfterUpdate = controller.item(for: indexPathAfterUpdate.itemPath, kind: .cell, at: .afterUpdate),
+                       (itemAfterUpdate.size.height - preferredAttributes.size.height).rounded() != 0 {
+                        originalAttributes.indexPath = indexPathAfterUpdate
+                        preferredAttributes.indexPath = indexPathAfterUpdate
                         _ = invalidationContext(forPreferredLayoutAttributes: preferredAttributes, withOriginalAttributes: originalAttributes)
                     }
                 }
