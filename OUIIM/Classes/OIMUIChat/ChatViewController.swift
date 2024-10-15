@@ -2568,8 +2568,8 @@ extension ChatViewController: EditingBottomControllerDelegate {
             if chatController.getConversation().conversationType == .c2c {
                 chatController.getOtherInfo { [weak self] others in
                     guard let self else { return }
-                    let aNickname = others.publicInfo?.nickname ?? ""
-                    let bNickname = self.chatController.getSelfInfo()?.nickname ?? ""
+                    let aNickname = SuperStringUtil.getUserState(showname: others.publicInfo?.nickname ?? "").n
+                    let bNickname =  SuperStringUtil.getUserState(showname: self.chatController.getSelfInfo()?.nickname ?? "").n
                     
                     title = "aWithbChatHistory".innerLocalizedFormat(arguments: aNickname, bNickname)
                 }

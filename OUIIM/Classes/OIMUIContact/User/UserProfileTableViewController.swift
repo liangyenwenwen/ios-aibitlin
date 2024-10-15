@@ -166,7 +166,8 @@ extension UserProfileTableViewController: UITableViewDataSource, UITableViewDele
                 guard let self, let vc else { return }
                 
                 let forwardCard = ForwardCard(frame: view.bounds)
-                forwardCard.contentLabel.text = MessageContentType.card.abstruct + (user.nickname ?? "")
+//                forwardCard.contentLabel.text = MessageContentType.card.abstruct + (user.nickname ?? "")
+                forwardCard.contentLabel.text = MessageContentType.card.abstruct + SuperStringUtil.getUserState(showname: user.nickname ?? "").n
                 forwardCard.textFiled.isHidden = true
                 vc.view.addSubview(forwardCard)
                                 

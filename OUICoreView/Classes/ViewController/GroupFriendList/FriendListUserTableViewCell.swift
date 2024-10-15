@@ -28,7 +28,7 @@ open class FriendListUserTableViewCell: UITableViewCell {
         let v = UILabel()
         v.font = UIFont(name: "PingFangSC-Semibold", size: 11)
         v.textColor = .init(hexString: "#7238EF")
-        v.text = "[企业]".localized()
+        v.text = nil
         return v
     }()
 
