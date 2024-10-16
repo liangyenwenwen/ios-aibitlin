@@ -33,9 +33,33 @@ class SuperStringUtil {
         return data == nil || data!.isEmpty
     }
     
-    //是否不为空
+    ///是否不为空
     static func isNotBlank(_ data: String?) -> Bool {
         !isBlank(data)
+    }
+    
+    
+    ///检测网址 并且网址长度低于256
+    static func isUrl(_ data: String?, limitLength: Int = 256, showTip: Bool = false) -> Bool {
+        let  urlString = data ?? ""
+        if urlString.count > limitLength {
+            
+            return false
+        }
+        
+        guard let url = URL(string: urlString) else {
+                return false
+        }
+            
+        let dataDetector = try! NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
+        let range = NSRange(location: 0, length: urlString.utf16.count)
+        
+        let result = dataDetector.firstMatch(in: urlString, options: [], range: range) != nil
+        
+        if showTip && result == false {
+            SuperToast.show(title: "请输入有效网址")
+        }
+        return result
     }
     
     static func netUrl(_ data: String ,_ paramters:[String: Any]) -> String {

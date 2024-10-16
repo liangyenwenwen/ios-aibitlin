@@ -214,6 +214,10 @@ extension MineBokeEditVC {
             return
         }
         
+        if !SuperStringUtil.isUrl(addressView.inputText, showTip: true) {
+            
+            return
+        }
         
         
         
