@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import OpenIMSDK
 
 enum localBlogType {
     case star
@@ -21,21 +22,21 @@ class YFFileDataUtil {
     static var filePath:URL = {
         let manager = FileManager.default
         var filePath = manager.urls(for: .documentDirectory, in: .userDomainMask).first
-        filePath!.appendPathComponent("blog.archive")
+        filePath!.appendPathComponent("\(Open_im_sdkGetLoginUserID())blog.archive")
         return filePath!
     }()
     
     static var recommendfilePath:URL = {
         let manager = FileManager.default
         var filePath = manager.urls(for: .documentDirectory, in: .userDomainMask).first
-        filePath!.appendPathComponent("recommendblog.archive")
+        filePath!.appendPathComponent("\(Open_im_sdkGetLoginUserID())recommendblog.archive")
         return filePath!
     }()
     
     static var cachefilePath:URL = {
         let manager = FileManager.default
         var filePath = manager.urls(for: .documentDirectory, in: .userDomainMask).first
-        filePath!.appendPathComponent("blogCache.archive")
+        filePath!.appendPathComponent("\(Open_im_sdkGetLoginUserID())blogCache.archive")
         return filePath!
     }()
         

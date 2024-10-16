@@ -208,6 +208,15 @@ extension MineBokeEditVC {
     
     
     func addNewBlog() {
+        
+        if url.count < 2 {
+            SuperToast.show(title: "博客图标未设置".localized())
+            return
+        }
+        
+        
+        
+        
         if let IMUser = IMController.shared.currentUserRelay.value {
             ProgressHUD.animate()
             YFMineNetViewModel.blogAudit(userId: IMUser.userID, userBlogUrl: addressView.inputText, userBlogIcon: url, userBlogName: nameView.inputText, userBlogIntro: introView.textView.text) { errCode, errMsg in
