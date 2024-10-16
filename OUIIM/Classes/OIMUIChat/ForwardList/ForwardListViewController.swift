@@ -7,7 +7,7 @@ import ProgressHUD
 import OUILive
 #endif
 
-class ForwardListViewController: UIViewController {
+open class ForwardListViewController: UIViewController {
     
     var messages: [[Message]] = []
     
@@ -18,7 +18,7 @@ class ForwardListViewController: UIViewController {
         self.messages = splitByDay(source: temp)
     }
     
-    required init?(coder: NSCoder) {
+    required public init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -32,12 +32,12 @@ class ForwardListViewController: UIViewController {
     private var prevSecion = 0
     
     
-    override func viewWillAppear(_ animated: Bool) {
+    open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = false
     }
     
-    override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .cF8F9FA
         
@@ -180,15 +180,15 @@ class ForwardListViewController: UIViewController {
 
 extension ForwardListViewController: UITableViewDelegate, UITableViewDataSource {
     
-    func numberOfSections(in tableView: UITableView) -> Int {
+    public func numberOfSections(in tableView: UITableView) -> Int {
         messages.count
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         messages[section].count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let msg = messages[indexPath.section][indexPath.row]
         let sender = msg.owner
         let sendTime = Date.timeString(date: msg.date)
@@ -497,7 +497,7 @@ extension ForwardListViewController: UITableViewDelegate, UITableViewDataSource 
         return cell
     }
     
-    func tableView(_: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    public func tableView(_: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         let yearLabel = UILabel()
         yearLabel.textColor = .systemGray3
@@ -516,15 +516,15 @@ extension ForwardListViewController: UITableViewDelegate, UITableViewDataSource 
         return yearLabel
     }
     
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         nil
     }
     
-    func tableView(_: UITableView, heightForHeaderInSection _: Int) -> CGFloat {
+    public func tableView(_: UITableView, heightForHeaderInSection _: Int) -> CGFloat {
         32
     }
     
-    func tableView(_: UITableView, heightForFooterInSection _: Int) -> CGFloat {
+    public func tableView(_: UITableView, heightForFooterInSection _: Int) -> CGFloat {
         CGFloat.leastNormalMagnitude
     }
 }
@@ -544,19 +544,19 @@ extension ForwardListViewController: UIDocumentInteractionControllerDelegate {
         }
     }
     
-    func documentInteractionControllerViewControllerForPreview(_ controller: UIDocumentInteractionController) -> UIViewController {
+    public func documentInteractionControllerViewControllerForPreview(_ controller: UIDocumentInteractionController) -> UIViewController {
         return self
     }
     
-    func documentInteractionControllerViewForPreview(_ controller: UIDocumentInteractionController) -> UIView? {
+    public func documentInteractionControllerViewForPreview(_ controller: UIDocumentInteractionController) -> UIView? {
         return view
     }
     
-    func documentInteractionControllerRectForPreview(_ controller: UIDocumentInteractionController) -> CGRect {
+    public func documentInteractionControllerRectForPreview(_ controller: UIDocumentInteractionController) -> CGRect {
         return view.frame
     }
     
-    func documentInteractionControllerDidEndPreview(_ controller: UIDocumentInteractionController) {
+    public func documentInteractionControllerDidEndPreview(_ controller: UIDocumentInteractionController) {
         print("Dismissed!!!")
     }
 }

@@ -252,6 +252,10 @@ class YFMineQRCodeVC: BaseTitleController {
         lbl.text = "分享给好友";
         r.addSubview(lbl)
         
+        let tap = UITapGestureRecognizer(target: self, action: #selector(shareCode))
+        r.isUserInteractionEnabled = true
+        r.addGestureRecognizer(tap)
+        
         return r
     }()
     
@@ -405,24 +409,40 @@ extension YFMineQRCodeVC {
       
     }
     
+    @objc func shareCode() {
+        saveCard.bindData(showname: username, codeImg: codeImgView.image, avater: userAvatarImgView.image, idString: userIDLbl.text)
+        
+        guard let image = getShareCardImg(view: saveCard.userCardView) else {return}
+        
+        let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+        self.present(activityViewController, animated: true)
+    }
+    
+    func  getShareCardImg(view:UIView ) -> UIImage? {
+        
+        // 开始图形上下文
+        UIGraphicsBeginImageContextWithOptions(view.bounds.size,  false, 1.0)
+        defer { UIGraphicsEndImageContext() } // 确保上下文能被释放
+        
+        // 将view渲染到图形上下文中
+        if let context = UIGraphicsGetCurrentContext() {
+            view.layer.render(in: context)
+//                view.isHidden = true
+        } else {
+//                view.isHidden = true
+        }
+        
+        // 从图形上下文获取图片
+        guard let image = UIGraphicsGetImageFromCurrentImageContext() else { return nil }
+        
+        return image
+    }
+    
   
     func saveViewToPhotoAlbum(view:UIView) {
        
-        // 开始图形上下文
-            UIGraphicsBeginImageContextWithOptions(view.bounds.size,  false, 1.0)
-            defer { UIGraphicsEndImageContext() } // 确保上下文能被释放
-            
-            // 将view渲染到图形上下文中
-            if let context = UIGraphicsGetCurrentContext() {
-                view.layer.render(in: context)
-//                view.isHidden = true
-            } else {
-//                view.isHidden = true
-            }
-            
-            // 从图形上下文获取图片
-            guard let image = UIGraphicsGetImageFromCurrentImageContext() else { return }
-            
+        
+        guard let image = getShareCardImg(view: view) else {return}
             // 保存图片到相册
         UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.image(image:didFinishSavingWithError:contextInfo:)), nil)
     }
