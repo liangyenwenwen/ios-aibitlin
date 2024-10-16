@@ -247,10 +247,23 @@ open class CallRecordsViewController: UIViewController {
             LiveRoomViewController.showIn(viewController: self, invitationInfo: invitaion)
 
         } onFailure: { errCode, errMsg in
+            ProgressHUD.dismiss()
             if errMsg?.contains("roomIsNotExist") == true {
-                ProgressHUD.error( "会议已经结束！".innerLocalized())
+//                ProgressHUD.error( "会议已经结束！".innerLocalized())
+                if let handler = OIMApi.showTipHandle {
+                                
+                    handler("会议已经结束！".innerLocalized(), { res in
+                       
+                    })
+                }
             } else {
-                ProgressHUD.error( "网络异常请稍后再试！".innerLocalized())
+//                ProgressHUD.error( "网络异常请稍后再试！".innerLocalized())
+                if let handler = OIMApi.showTipHandle {
+                                
+                    handler("网络异常请稍后再试！".innerLocalized(), { res in
+                       
+                    })
+                }
             }
         }
     }

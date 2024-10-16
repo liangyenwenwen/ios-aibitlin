@@ -117,7 +117,8 @@ class ScreenLockSettingViewController: UITableViewController {
     @objc func toggleEnableBiometrics() {
         
         guard isBiometricsAvailable else {
-            ProgressHUD.error("设备不支持生物识别。")
+//            ProgressHUD.error("设备不支持生物识别。")
+            SuperToast.show(title: "设备不支持生物识别。")
             tableView.performBatchUpdates {
                 tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .automatic)
             }

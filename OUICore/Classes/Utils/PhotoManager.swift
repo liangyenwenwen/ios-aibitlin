@@ -462,7 +462,14 @@ open class PhotoHelper {
                         print("保存视频时出错：\(error.localizedDescription)")
                         if showToast {
                             DispatchQueue.main.async {
-                                ProgressHUD.error("保存视频时出错：\(error.localizedDescription)")
+//                                ProgressHUD.error("保存视频时出错：\(error.localizedDescription)")
+                                
+                                if let handler = OIMApi.showTipHandle {
+                                                
+                                    handler("保存视频时出错：\(error.localizedDescription)", { res in
+                                       
+                                    })
+                                }
                             }
                         }
                     } else {

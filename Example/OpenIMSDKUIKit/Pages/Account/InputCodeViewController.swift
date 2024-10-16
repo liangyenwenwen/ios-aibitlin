@@ -97,9 +97,11 @@ class InputCodeViewController: UIViewController {
             guard let `self` = self else { return }
             AccountViewModel.requestCode(phone: operateType == .phone ? phone : nil, areaCode: areaCode, email: operateType == .email ? phone : nil, useFor: self.usedFor) { (errCode, errMsg) in
                 if errCode != 0 {
-                    ProgressHUD.error(String(errCode).localized())
+//                    ProgressHUD.error(String(errCode).localized())
+                    SuperToast.show(title: String(errCode).localized())
                 } else {
-                    ProgressHUD.success("sentSuccess".localized())
+//                    ProgressHUD.success("sentSuccess".localized())
+                    SuperToast.show(title: "sentSuccess".localized())
                     countDownButton.isCounting = true
                 }
             }
@@ -183,7 +185,8 @@ class InputCodeViewController: UIViewController {
                 nextStep.isEnabled = false
                 codeTextField.digitBorderColor = .red
                 codeTextField.digitBorderColorFocused = .red
-                ProgressHUD.error(String(errCode).localized())
+//                ProgressHUD.error(String(errCode).localized())
+                SuperToast.show(title: String(errCode).localized())
             } else {
                 basicInfo["verCode"] = code
                 let vc = InputPasswordViewController(usedFor: usedFor, operateType: operateType)

@@ -213,8 +213,8 @@ class MineMessageVC: BaseTitleController, UIImagePickerControllerDelegate, UINav
                 self?.userNicknameView.contentLbl.text = data
                 
             } else {
-                ProgressHUD.error(msg)
-//                SuperToast.show(title: msg)
+//                ProgressHUD.error(msg)
+                SuperToast.show(title: msg)
             }
   
         }
@@ -310,8 +310,8 @@ class MineMessageVC: BaseTitleController, UIImagePickerControllerDelegate, UINav
                             self?.userIconView.iconView.image = photo
                            
                         } else {
-                            ProgressHUD.error(msg)
-//                            SuperToast.show(title: msg)
+//                            ProgressHUD.error(msg)
+                            SuperToast.show(title: msg)
                         }
                         ProgressHUD.dismiss()
                     })

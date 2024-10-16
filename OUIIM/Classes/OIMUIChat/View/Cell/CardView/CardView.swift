@@ -52,7 +52,7 @@ class CardView: UIView, ContainerCollectionViewCellDelegate {
         guard let controller else {
             return
         }
-        nameLabel.text = controller.name
+        nameLabel.text = SuperStringUtil.getUserState(showname: controller.name ?? "").n
         self.IDLabel.text = "ID:" + (controller.userID ?? "")
         avatarView.setAvatar(url: controller.faceURL, text: controller.name)
     }

@@ -291,6 +291,7 @@ extension SuperSettingView {
             tempEmail = textFieldView.text!
             textFieldView.text = tempPhone
             textFieldView.keyboardType = .numberPad
+            textFieldView.clearButtonMode = .always
             
         } else {
             phoneCodeView.hide()

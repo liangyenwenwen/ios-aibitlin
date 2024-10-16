@@ -45,7 +45,7 @@ class SuperToast {
 //        hud.offset = CGPoint(x: 0, y: -UIScreen.main.bounds.height / 2)
         
         hud.removeFromSuperViewOnHide = true
-        hud.hide(animated: true, afterDelay: 15)
+        hud.hide(animated: true, afterDelay: 1.5)
     }
     
     

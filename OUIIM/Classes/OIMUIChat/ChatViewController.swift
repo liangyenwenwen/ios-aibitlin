@@ -1754,9 +1754,23 @@ extension ChatViewController: ChatControllerDelegate {
             } else if uRL.absoluteString.hasPrefix(sendFriendReqSchme) {
                 ProgressHUD.animate()
                 chatController.addFriend { r in
-                    ProgressHUD.success("sendSuccessfully".innerLocalized())
+//                    ProgressHUD.success("sendSuccessfully".innerLocalized())
+                    ProgressHUD.dismiss()
+                    if let handler = OIMApi.showTipHandle {
+                                    
+                        handler("sendSuccessfully".innerLocalized(), { res in
+                           
+                        })
+                    }
                 } onFailure: { errCode, errMsg in
-                    ProgressHUD.error("canNotAddFriends".innerLocalized())
+//                    ProgressHUD.error("canNotAddFriends".innerLocalized())
+                    ProgressHUD.dismiss()
+                    if let handler = OIMApi.showTipHandle {
+                                    
+                        handler("canNotAddFriends".innerLocalized(), { res in
+                           
+                        })
+                    }
                 }
             }
         case .image(let source, let isLocallyStored):
@@ -1875,10 +1889,25 @@ extension ChatViewController: ChatControllerDelegate {
                     LiveRoomViewController.showIn(viewController: self, invitationInfo: invitaion)
 
                 } onFailure: { errCode, errMsg in
+                    ProgressHUD.dismiss()
                     if errMsg?.contains("roomIsNotExist") == true {
-                        ProgressHUD.error("会议已经结束！".innerLocalized())
+//                        ProgressHUD.error("会议已经结束！".innerLocalized())
+//                        ProgressHUD.dismiss()
+                        if let handler = OIMApi.showTipHandle {
+                                        
+                            handler("会议已经结束！".innerLocalized(), { res in
+                               
+                            })
+                        }
                     } else {
-                        ProgressHUD.error("网络异常请稍后再试！".innerLocalized())
+//                        ProgressHUD.error("网络异常请稍后再试！".innerLocalized())
+                        
+                        if let handler = OIMApi.showTipHandle {
+                                        
+                            handler("网络异常请稍后再试！".innerLocalized(), { res in
+                               
+                            })
+                        }
                     }
                 }
 #endif

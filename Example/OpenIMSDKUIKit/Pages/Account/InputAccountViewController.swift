@@ -287,9 +287,11 @@ public class InputAccountViewController: UIViewController {
         
         if let phone = phoneTextField.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines), phone.isEmpty  {
             if operateType == .phone {
-                ProgressHUD.error("plsEnterRightX".localizedFormat("phoneNumber".localized()))
+//                ProgressHUD.error("plsEnterRightX".localizedFormat("phoneNumber".localized()))
+                SuperToast.show(title: "plsEnterRightX".localizedFormat("phoneNumber".localized()))
             } else {
-                ProgressHUD.error("plsEnterRightX".localizedFormat("email".localized()))
+//                ProgressHUD.error("plsEnterRightX".localizedFormat("email".localized()))
+                SuperToast.show(title: "plsEnterRightX".localizedFormat("email".localized()))
             }
             return
         }
@@ -302,7 +304,8 @@ public class InputAccountViewController: UIViewController {
             guard let sself = self else { return }
             
             if errCode != 0 {
-                ProgressHUD.error(String(errCode).localized())
+//                ProgressHUD.error(String(errCode).localized())
+                SuperToast.show(title: String(errCode).localized())
                 
                 if errCode == 20002 {
                     let vc = InputCodeViewController(usedFor: sself.usedFor, operateType: sself.operateType)
@@ -320,6 +323,8 @@ public class InputAccountViewController: UIViewController {
                                 "invitationCode": invaitationCode ?? ""]
                 sself.navigationController?.pushViewController(vc, animated: true)
             }
+            
+            ProgressHUD.dismiss()
         }
     }
     

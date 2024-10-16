@@ -92,6 +92,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 //        YFFileDataUtil.deleteAllDataFromFile()
         NothingToSeeHere.harmlessFunction()
 //        Bugly.start(withAppId: "f2c07e72cb")
+        
+        //初始化 自建界面和IM界面的交互
+        AccountViewModel.initInteraction()
+        
+        
         Bugly.start(withAppId: "f2c07e72cb", developmentDevice: true, config: nil)
         
         

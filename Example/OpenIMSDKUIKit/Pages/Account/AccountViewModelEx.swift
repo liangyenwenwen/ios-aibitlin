@@ -12,6 +12,14 @@ import OUICore
 // MARK: - 张亚飞打的标记  业务交互
 extension AccountViewModel {
     
+    static func initInteraction() {
+        IMGotoAppVC()
+        showBoke()
+        showTip()
+    }
+    
+    
+    
     // MARK: - 张亚飞打的标记  业务交互 跳转
     static func IMGotoAppVC() {
        
@@ -154,5 +162,12 @@ extension AccountViewModel {
             
         }
         
+    }
+    
+    // MARK: - 张亚飞打的标记  提示
+    static func  showTip() {
+        OIMApi.showTipHandle = { (tips, _: @escaping (String) -> Void) in
+            SuperToast.show(title: tips)
+        }
     }
 }

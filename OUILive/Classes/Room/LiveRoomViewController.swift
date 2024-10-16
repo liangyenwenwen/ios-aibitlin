@@ -171,7 +171,14 @@ public class LiveRoomViewController: UIViewController {
                     self?.showSettingView()
                     ProgressHUD.dismiss()
                 } else {
-                    ProgressHUD.error("setupFailed".innerLocalized())
+//                    ProgressHUD.error("setupFailed".innerLocalized())
+                    ProgressHUD.dismiss()
+                    if let handler = OIMApi.showTipHandle {
+                                    
+                        handler("setupFailed".innerLocalized(), { res in
+                           
+                        })
+                    }
                 }
             }
         }

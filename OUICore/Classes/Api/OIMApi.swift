@@ -33,6 +33,9 @@ public typealias updateConversationCell = ((_ messageID : String, _ completion: 
 public typealias reloadCollectionView = ((_ completion: @escaping ((String) -> Void)) -> Void)
 
 
+// MARK: - 张亚飞打的标记  tip
+public typealias showTipHandle = ((_ tips : String, _ completion: @escaping ((String) -> Void)) -> Void)
+
 public class OIMApi {
     
     private static let userOnlineStatus = "/user/get_users_online_status"
@@ -180,6 +183,8 @@ public class OIMApi {
     
     public static var updateConversationCell: updateConversationCell?
     public static var reloadCollectionView: reloadCollectionView?
+    
+    public static var showTipHandle: showTipHandle?
 }
 
 extension OIMApi {

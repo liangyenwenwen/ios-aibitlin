@@ -462,8 +462,8 @@ open class AccountViewModel {
             ifQueryFriends()
             ifQueryUserInfo()
             ifQeuryConfig()
-            showBoke()
-            IMGotoAppVC()
+//            showBoke()
+//            IMGotoAppVC()
             saveUser(uid: uid, imToken: imToken, chatToken: chatToken)
             queryUserInfoFromChatServer(userID: uid)
         } onFail: { (code: Int, msg: String?) in

@@ -288,8 +288,8 @@ extension YFRegisterVC {
 
             guard let sself = self else { return }
             if errCode != 0 {
-                ProgressHUD.error(String(errCode).localized())
-//                SuperToast.show(title: String(errCode).localized())
+//                ProgressHUD.error(String(errCode).localized())
+                SuperToast.show(title: String(errCode).localized())
                 CountDownUtil.cancel()
                 self?.codeView.codeBtn.setTitle(R.string.localizable.resend(), for: .normal)
                 self?.codeView.codeBtn.isEnabled = true
@@ -358,20 +358,20 @@ extension YFRegisterVC {
     
     @objc func register() {
         if !chooseDelegateBtn.isSelected {
-            ProgressHUD.error("请勾选协议".localized())
-//            SuperToast.show(title: "请勾选协议".localized())
+//            ProgressHUD.error("请勾选协议".localized())
+            SuperToast.show(title: "请勾选协议".localized())
             return
         }
         if !pwdView.textFieldView.text!.validatePassword() {
-            ProgressHUD.error("plsEnterRightX".localizedFormat("password".localized()))
-//            SuperToast.show(title: "plsEnterRightX".localizedFormat("password".localized()))
+//            ProgressHUD.error("plsEnterRightX".localizedFormat("password".localized()))
+            SuperToast.show(title: "plsEnterRightX".localizedFormat("password".localized()))
             return
         }
         
         if pwdView.inputText != rePwdView.inputText {
             print(pwdView.inputText, rePwdView.inputText)
-            ProgressHUD.error("twicePwdNoSame".localized())
-//            SuperToast.show(title: "twicePwdNoSame".localized())
+//            ProgressHUD.error("twicePwdNoSame".localized())
+            SuperToast.show(title: "twicePwdNoSame".localized())
             return
         }
         toComplate()
@@ -384,8 +384,8 @@ extension YFRegisterVC {
             guard let self else { return }
             
             if errCode != 0 {
-                ProgressHUD.error(String(errCode).localized())
-//                SuperToast.show(title: String(errCode).localized())
+//                ProgressHUD.error(String(errCode).localized())
+                SuperToast.show(title: String(errCode).localized())
             } else {
 //                basicInfo["verCode"] = code
 //                let vc = InputPasswordViewController(usedFor: usedFor, operateType: operateType)
@@ -400,8 +400,8 @@ extension YFRegisterVC {
         view.endEditing(true)
         
         guard let name = nicknameView.inputText?.trimmingCharacters(in: .whitespacesAndNewlines), !name.isEmpty else {
-            ProgressHUD.error("plsEnterYourX".localizedFormat("nickname".localized()))
-//            SuperToast.show(title: "plsEnterYourX".localizedFormat("nickname".localized()))
+//            ProgressHUD.error("plsEnterYourX".localizedFormat("nickname".localized()))
+            SuperToast.show(title: "plsEnterYourX".localizedFormat("nickname".localized()))
             return
         }
         ProgressHUD.animate()
@@ -417,6 +417,7 @@ extension YFRegisterVC {
         { errCode, errMsg in
             
             if errMsg != nil {
+                ProgressHUD.dismiss()
 //                ProgressHUD.error(String(errCode).localized())
                 SuperToast.show(title: String(errCode).localized())
             } else {

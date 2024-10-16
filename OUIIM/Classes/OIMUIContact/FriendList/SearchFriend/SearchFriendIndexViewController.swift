@@ -75,7 +75,17 @@ class SearchFriendIndexViewController: UIViewController {
                     vc.hidesBottomBarWhenPushed = true
                     self?.navigationController?.pushViewController(vc, animated: true)
                 } else {
-                    ProgressHUD.error("unrecognized".innerLocalized())
+//                    ProgressHUD.error("unrecognized".innerLocalized())
+                    
+                    ProgressHUD.dismiss()
+                    
+                    if let handler = OIMApi.showTipHandle {
+                                    
+                        handler("unrecognized".innerLocalized(), { res in
+                           
+                        })
+                    }
+                    
                     self?.navigationController?.popViewController(animated: true)
                 }
             }

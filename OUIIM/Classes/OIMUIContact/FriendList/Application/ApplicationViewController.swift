@@ -159,7 +159,14 @@ class ApplicationViewController: UIViewController {
                 ProgressHUD.dismiss()
                 self?.navigationController?.popViewController(animated: true)
             } else {
-                ProgressHUD.error(r)
+//                ProgressHUD.error(r)
+                ProgressHUD.dismiss()
+                if let handler = OIMApi.showTipHandle {
+                                
+                    handler(r ?? "", { res in
+                       
+                    })
+                }
             }
         }
     }
@@ -171,7 +178,14 @@ class ApplicationViewController: UIViewController {
                 ProgressHUD.dismiss()
                 self?.navigationController?.popViewController(animated: true)
             } else {
-                ProgressHUD.error(r)
+//                ProgressHUD.error(r)
+                ProgressHUD.dismiss()
+                if let handler = OIMApi.showTipHandle {
+                                
+                    handler(r ?? "", { res in
+                       
+                    })
+                }
             }
         }
     }

@@ -103,6 +103,13 @@ let VALUE12 = 12
 let INPUT_SMALL = 30
 let INPUT_MEDDLE = 40
 
+
+/// 文本框长度限制
+let PASSWORD_MAX_LENGTH = 20
+let USERNAME_MAX_LENGTH = 32
+
+
+
 /**
  * android
  */

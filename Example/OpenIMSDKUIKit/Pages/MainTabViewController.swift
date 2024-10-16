@@ -261,24 +261,25 @@ class MainTabViewController: UITabBarController {
                 SuperToast.show(title: "请勾选协议".localized())
                 return
             }
-            guard let phone = controller.phone, !phone.isEmpty else {
-                if vc?.useType == .usePhone {
+//            guard let phone = controller.phone, !phone.isEmpty else {
+//                if vc?.useType == .usePhone {
 //                    ProgressHUD.error( "填写正确的手机号码".localized())
-                    SuperToast.show(title:  "填写正确的手机号码".localized())
-                } else {
+//                    SuperToast.show(title:  "填写正确的手机号码".localized())
+//                } else {
 //                    SuperToast.show(title: "填写正确的邮箱".localized())
-                    ProgressHUD.error( "填写正确的邮箱".localized())
-                }
-                return
-            }
+//                    ProgressHUD.error( "填写正确的邮箱".localized())
+//                }
+//                return
+//            }
             
             let psw = controller.password
             let code = controller.verificationCode
             
-            guard psw?.isEmpty == false || code?.isEmpty == false else {
-                ProgressHUD.error( "填写正确的密码/验证码")
-                return
-            }
+//            guard psw?.isEmpty == false || code?.isEmpty == false else {
+//                ProgressHUD.error( "填写正确的密码/验证码")
+//                return
+//            }
+            
             var account: String?
             
             ProgressHUD.animate()
@@ -295,9 +296,12 @@ class MainTabViewController: UITabBarController {
                                        psw: code != nil ? nil : psw,
                                        verificationCode: code,
                                        areaCode: controller.areaCode!) {[weak self] (errCode, errMsg) in
+                
+                
                 if errMsg != nil {
-                    ProgressHUD.error(errCode == -1 ? errMsg : String(errCode).localized())
-//                    SuperToast.show(title: errCode == -1 ? errMsg : String(errCode).localized())
+//                    ProgressHUD.error(errCode == -1 ? errMsg : String(errCode).localized())
+                    ProgressHUD.dismiss()
+                    SuperToast.show(title: errCode == -1 ? errMsg : String(errCode).localized())
                     self?.presentLoginController()
                     
                 } else {

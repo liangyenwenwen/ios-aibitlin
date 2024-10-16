@@ -157,7 +157,15 @@ class ScanViewController: UIViewController {
                 ProgressHUD.dismiss()
                 self.scanDidComplete?(result)
             } else {
-                ProgressHUD.error("unrecognized".innerLocalized())
+//                ProgressHUD.error("unrecognized".innerLocalized())
+                ProgressHUD.dismiss()
+                
+                if let handler = OIMApi.showTipHandle {
+                                
+                    handler("unrecognized".innerLocalized(), { res in
+                       
+                    })
+                }
             }
         }
     }

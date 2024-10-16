@@ -276,13 +276,15 @@ public class InputPasswordViewController: UIViewController {
             let p2 = againPswTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
             
             if p1 != p2 {
-                ProgressHUD.error("twicePwdNoSame".localized())
+//                ProgressHUD.error("twicePwdNoSame".localized())
+                SuperToast.show(title: "twicePwdNoSame".localized())
                 return
             }
             
             if usedFor == .register {
                 guard let name = nameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), !name.isEmpty else {
-                    ProgressHUD.error( "plsEnterYourX".localizedFormat("nickname".localized()))
+//                    ProgressHUD.error( "plsEnterYourX".localizedFormat("nickname".localized()))
+                    SuperToast.show(title: "plsEnterYourX".localizedFormat("nickname".localized()))
                     return
                 }
                 ProgressHUD.animate()
@@ -303,13 +305,16 @@ public class InputPasswordViewController: UIViewController {
                                                  nickName: name,
                                                  email: operateType == .email ? basicInfo["accout"]! : nil,
                                                  invitationCode: basicInfo["invitationCode"]) { (errCode, errMsg) in
+                    
+                    ProgressHUD.dismiss()
                     if errMsg != nil {
-                        ProgressHUD.error(String(errCode).localized())
+//                        ProgressHUD.error(String(errCode).localized())
+                        SuperToast.show(title: String(errCode).localized())
                     } else {
                         AccountViewModel.loginIM(uid: AccountViewModel.baseUser.userID,
                                                  imToken: AccountViewModel.baseUser.imToken,
                                                  chatToken: AccountViewModel.baseUser.chatToken) { [weak self] errCode, errMsg in
-                            
+                           
                             if let userID = AccountViewModel.userID {
 //                                GeTuiSdk.bindAlias(userID, andSequenceNum: "im")
                             }
@@ -334,12 +339,15 @@ public class InputPasswordViewController: UIViewController {
                         ProgressHUD.success("changed".localized() + "success".localized())
                         self.navigationController?.popToRootViewController(animated: true)
                     } else {
-                        ProgressHUD.error(String(errCode).localized())
+//                        ProgressHUD.error(String(errCode).localized())
+                        SuperToast.show(title: String(errCode).localized())
                     }
+                    ProgressHUD.dismiss()
                 }
             }
         } else {
-            ProgressHUD.error("plsEnterRightX".localizedFormat("password".localized()))
+//            ProgressHUD.error("plsEnterRightX".localizedFormat("password".localized()))
+            SuperToast.show(title: "plsEnterRightX".localizedFormat("password".localized()))
         }
     }
 }

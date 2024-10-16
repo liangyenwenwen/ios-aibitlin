@@ -46,7 +46,8 @@ class SetMuteViewController: UITableViewController {
                     self.onSave?(self.seconds)
                     self.navigationController?.popViewController(animated: true)
                 } else {
-                    ProgressHUD.error()
+//                    ProgressHUD.error()
+                    ProgressHUD.dismiss()
                 }
             }
         }).disposed(by: disposeBag)

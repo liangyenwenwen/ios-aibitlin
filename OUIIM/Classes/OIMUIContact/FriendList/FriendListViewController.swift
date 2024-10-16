@@ -200,12 +200,12 @@ open class FriendListViewController: UIViewController {
             vc.hidesBottomBarWhenPushed = true
             self?.navigationController?.pushViewController(vc, animated: true)
             
-//            if let handler = OIMApi.gotoNewFriendHandle {
-//                
-//                handler(self!, { res in
-//                   
-//                })
-//            }
+            if let handler = OIMApi.gotoNewFriendHandle {
+                
+                handler(self!, { res in
+                   
+                })
+            }
             
         }
         r.newGroupClick = { [weak self] in

@@ -305,9 +305,11 @@ class LoginViewController: UIViewController {
             
             AccountViewModel.requestCode(phone: phone, areaCode: sself.areaCode, useFor: .login) { (errCode, errMsg) in
                 if errMsg != nil {
-                    ProgressHUD.error(errCode == -1 ? errMsg : String(errCode).localized())
+//                    ProgressHUD.error(errCode == -1 ? errMsg : String(errCode).localized())
+                    SuperToast.show(title: errCode == -1 ? errMsg : String(errCode).localized())
                 } else {
-                    ProgressHUD.success("发送".localized() + "成功".localized())
+//                    ProgressHUD.success("发送".localized() + "成功".localized())
+                    SuperToast.show(title: "发送".localized() + "成功".localized())
                 }
             }
         }
