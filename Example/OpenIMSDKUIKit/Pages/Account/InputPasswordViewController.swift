@@ -336,7 +336,8 @@ public class InputPasswordViewController: UIViewController {
                                                password: psw) { [weak self] (errCode, errMsg) in
                     
                     if errCode == 0, let `self` = self {
-                        ProgressHUD.success("changed".localized() + "success".localized())
+//                        ProgressHUD.success("changed".localized() + "success".localized())
+                        SuperToast.show(title: "changed".localized() + "success".localized())
                         self.navigationController?.popToRootViewController(animated: true)
                     } else {
 //                        ProgressHUD.error(String(errCode).localized())

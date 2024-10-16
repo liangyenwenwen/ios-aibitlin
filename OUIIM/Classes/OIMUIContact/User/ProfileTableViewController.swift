@@ -181,7 +181,13 @@ open class ProfileTableViewController: UITableViewController {
             navigationController?.pushViewController(vc, animated: true)
         case .identifier:
             UIPasteboard.general.string = _viewModel.userInfoRelay.value?.userID
-            ProgressHUD.success("ID复制成功")
+//            ProgressHUD.success("ID复制成功")
+            if let handler = OIMApi.showTipHandle {
+                            
+                handler("ID已复制".innerLocalized(), { res in
+                   
+                })
+            }
         default:
             break
         }

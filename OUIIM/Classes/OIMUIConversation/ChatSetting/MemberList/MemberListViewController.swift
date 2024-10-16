@@ -104,7 +104,14 @@ class MemberListViewController: UIViewController {
                 let groupID = self._viewModel.groupInfo.groupID
                 let uids = r.compactMap { $0.ID }
                 IMController.shared.inviteUsersToGroup(groupId: groupID, uids: uids) { [weak vc] in
-                    ProgressHUD.success("invitationSuccessful".innerLocalized())
+//                    ProgressHUD.success("invitationSuccessful".innerLocalized())
+                    ProgressHUD.dismiss()
+                    if let handler = OIMApi.showTipHandle {
+                                    
+                        handler("invitationSuccessful".innerLocalized(), { res in
+                           
+                        })
+                    }
                     vc?.navigationController?.popViewController(animated: true)
                 }
             }

@@ -75,7 +75,15 @@ class ApplyViewController: UIViewController {
         let rightButton = UIBarButtonItem(title: "发送".innerLocalized(), image: UIImage()) { [weak self] in
             guard let self else { return }
             self.viewModel.apply(grouID: self.groupID, userID: userID, reqMsg: inputTextView.text.trimmingCharacters(in: .whitespacesAndNewlines), onSuccess: { [weak self] r in
-                ProgressHUD.success(self?.groupID != nil ? "加群申请已发送".innerLocalized() : "添加好友请求已发送".innerLocalized())
+//                ProgressHUD.success(self?.groupID != nil ? "加群申请已发送".innerLocalized() : "添加好友请求已发送".innerLocalized())
+                
+                if let handler = OIMApi.showTipHandle {
+                                
+                    handler(self?.groupID != nil ? "加群申请已发送".innerLocalized() : "添加好友请求已发送".innerLocalized(), { res in
+                       
+                    })
+                }
+                
                 self?.navigationController?.popViewController(animated: true)
             })
         }

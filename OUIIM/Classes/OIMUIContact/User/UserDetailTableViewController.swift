@@ -50,7 +50,13 @@ class UserDetailTableViewController: UIViewController {
         
         tap.rx.event.subscribe(onNext: { [weak self] _ in
             UIPasteboard.general.string = self?._viewModel.userId
-            ProgressHUD.success("ID已复制".innerLocalized())
+//            ProgressHUD.success("ID已复制".innerLocalized())
+            if let handler = OIMApi.showTipHandle {
+                            
+                handler("ID已复制".innerLocalized(), { res in
+                   
+                })
+            }
         }).disposed(by: _disposeBag)
         
         return v

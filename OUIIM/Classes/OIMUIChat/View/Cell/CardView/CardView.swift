@@ -35,7 +35,7 @@ class CardView: UIView, ContainerCollectionViewCellDelegate {
     lazy var attentionLbl: UIButton = {
         let v = UIButton()
         v.setTitleColor(.white, for: .normal)
-        v.setTitle("关注".localized(), for: .normal)
+        v.setTitle("添加好友".localized(), for: .normal)
         v.titleLabel?.font = UIFont(name: "PingFangSC-Regular", size: 14)
         v.backgroundColor = .init(hexString: "#388CEF")
         v.contentEdgeInsets = UIEdgeInsets(top: 0, left: 18, bottom: 0, right: 18)

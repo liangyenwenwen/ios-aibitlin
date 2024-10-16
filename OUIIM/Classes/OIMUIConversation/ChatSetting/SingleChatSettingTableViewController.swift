@@ -407,7 +407,14 @@ class SingleChatSettingTableViewController: UITableViewController {
                 ProgressHUD.animate(interaction: false)
                 self._viewModel.clearRecord(completion: { _ in
                     NotificationCenter.default.post(name: Notification.Name.clearRecord, object: nil)
-                    ProgressHUD.success("清空成功".innerLocalized())
+//                    ProgressHUD.success("清空成功".innerLocalized())
+                    ProgressHUD.dismiss()
+                    if let handler = OIMApi.showTipHandle {
+                                    
+                        handler("清空成功".innerLocalized(), { res in
+                           
+                        })
+                    }
                 })
             }
         case .burnDuration:

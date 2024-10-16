@@ -65,7 +65,14 @@ class GroupBasicInfoCell: UITableViewCell {
     @objc
     private func handleCopyGesture(_ sender: UITapGestureRecognizer) {
         UIPasteboard.general.string = subLabel.text
-        ProgressHUD.success("复制成功".innerLocalized())
+//        ProgressHUD.success("复制成功".innerLocalized())
+//        ProgressHUD.dismiss()
+        if let handler = OIMApi.showTipHandle {
+                        
+            handler("复制成功".innerLocalized(), { res in
+               
+            })
+        }
     }
     
     lazy var QRCodeButton: UIButton = {

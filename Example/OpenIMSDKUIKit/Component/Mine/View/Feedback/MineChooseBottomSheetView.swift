@@ -271,8 +271,8 @@ class MineChooseBottomSheetView: TGLinearLayout {
                         JNNotificationCenter.shared.post(event)
                         
                         NotificationCenter.default.post(name: Notification.Name("chat.clear.record"), object: nil)
-                        ProgressHUD.success("清空成功".innerLocalized())
-                        
+//                        ProgressHUD.success("清空成功".innerLocalized())
+                        SuperToast.show(title: "清空成功".innerLocalized())
                         GKCover.hide()
                     }
                 }

@@ -256,7 +256,14 @@ extension GroupDetailViewController: UITableViewDelegate, UITableViewDataSource 
             navigationController?.pushViewController(vc, animated: true)
         case .identifier:
             UIPasteboard.general.string = _viewModel.groupId
-            ProgressHUD.success("群聊ID已复制".innerLocalized())
+//            ProgressHUD.success("群聊ID已复制".innerLocalized())
+            
+            if let handler = OIMApi.showTipHandle {
+                            
+                handler("群聊ID已复制".innerLocalized(), { res in
+                   
+                })
+            }
             
         default:
             break

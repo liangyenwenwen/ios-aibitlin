@@ -33,7 +33,14 @@ class GroupChatSettingTableViewController: UITableViewController {
                 self?._viewModel.uploadFile(fullPath: result.fullPath, onProgress: { [weak self] progress in
                     ProgressHUD.progress(progress)
                 }, onComplete: {
-                    ProgressHUD.success("头像上传成功".innerLocalized())
+//                    ProgressHUD.success("头像上传成功".innerLocalized())
+                    ProgressHUD.dismiss()
+                    if let handler = OIMApi.showTipHandle {
+                                    
+                        handler("头像上传成功".innerLocalized(), { res in
+                           
+                        })
+                    }
                 })
             } else {
                 ProgressHUD.dismiss()
@@ -49,7 +56,14 @@ class GroupChatSettingTableViewController: UITableViewController {
                     self?._viewModel.uploadFile(fullPath: result.fullPath, onProgress: { [weak self] progress in
                         ProgressHUD.progress(progress)
                     }, onComplete: {
-                        ProgressHUD.success("头像上传成功".innerLocalized())
+//                        ProgressHUD.success("头像上传成功".innerLocalized())
+                        ProgressHUD.dismiss()
+                        if let handler = OIMApi.showTipHandle {
+                                        
+                            handler("头像上传成功".innerLocalized(), { res in
+                               
+                            })
+                        }
                     })
                 }
             }
@@ -340,7 +354,16 @@ class GroupChatSettingTableViewController: UITableViewController {
                             
                             ProgressHUD.animate()
                             _viewModel.inviteUsersToGroup(uids: r.compactMap({ $0.ID })) { [weak cell, weak vc] in
-                                ProgressHUD.success("invitationSuccessful".innerLocalized())
+//                                ProgressHUD.success("invitationSuccessful".innerLocalized())
+                                
+                                ProgressHUD.dismiss()
+                                if let handler = OIMApi.showTipHandle {
+                                                
+                                    handler("invitationSuccessful".innerLocalized(), { res in
+                                       
+                                    })
+                                }
+                                
                                 cell?.reloadData()
                                 vc?.navigationController?.popViewController(animated: true)
                             }
@@ -527,7 +550,14 @@ class GroupChatSettingTableViewController: UITableViewController {
                 ProgressHUD.animate(interaction: false)
                 self._viewModel.clearRecord(completion: { _ in
                     NotificationCenter.default.post(name: Notification.Name.clearRecord, object: nil)
-                    ProgressHUD.success("清空成功".innerLocalized())
+//                    ProgressHUD.success("清空成功".innerLocalized())
+                    ProgressHUD.dismiss()
+                    if let handler = OIMApi.showTipHandle {
+                                    
+                        handler("清空成功".innerLocalized(), { res in
+                           
+                        })
+                    }
                 })
             }
         case .quitGroup:
