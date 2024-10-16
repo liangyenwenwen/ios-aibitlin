@@ -24,6 +24,16 @@ class SearchFriendIndexViewController: UIViewController {
         return v
     }()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = false
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        navigationController?.navigationBar.isHidden = false
+    }
+    
     private lazy var myQrcodeView: ListTileView = {
         let v = ListTileView()
         v.imageView.image = UIImage(named: "add_friend_Code")

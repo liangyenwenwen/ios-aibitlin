@@ -11,7 +11,8 @@ class SearchFriendViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         definesPresentationContext = true
-        navigationItem.title = "addFriend".innerLocalized()
+//        navigationItem.title = "addFriend".innerLocalized()
+        navigationItem.title = "搜索联系人".localized()
         
         let resultViewController = SearchResultViewController(searchType: .user)
         let searchViewController = UISearchController(searchResultsController: resultViewController)

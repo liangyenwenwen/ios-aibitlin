@@ -42,7 +42,7 @@ class ChangeMessageVC: BaseTitleController {
         return r
     }()
     
-
+    private let _viewModel = MineViewModel()
     
     override func initViews() {
         
@@ -75,6 +75,7 @@ class ChangeMessageVC: BaseTitleController {
     
     
     override func bindData() {
+        
         editView.rx.text.map{ $0!.count > 1}.bind(to: saveBtn.rx.isEnabled).disposed(by: rx.disposeBag)
     }
     
@@ -85,13 +86,19 @@ class ChangeMessageVC: BaseTitleController {
             return _changeType
         }
         set {
+            
+            let user = _viewModel.currentUserRelay.value
+            
             switch newValue {
             case .nickname:
                 title = R.string.localizable.name()
+                editView.text = SuperStringUtil.getUserShowname(showname: user?.nickname ?? "")
             case .userID:
                 title = "Aibitlin ID"
+                editView.text = user?.chatID ?? (user?.userID ?? "")
             case .userIntro:
                 title = R.string.localizable.personalProfile()
+                editView.text = user?.personalProfile
             case .facebook:
                 title = R.string.localizable.homePage("Facebook")
             case .instagram:
