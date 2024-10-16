@@ -94,6 +94,7 @@ class YFRegisterVC: BaseTitleController {
         r.tg_top.equal(appTitleLbl.tg_bottom, offset: 102)
         r.tg_width.equal(.fill)
         r.codeBtn.addTarget(self, action: #selector(sendClick(_:)), for: .touchUpInside)
+        r.isCode()
         return r
     }()
     
@@ -102,8 +103,7 @@ class YFRegisterVC: BaseTitleController {
         r.loginUI()
         r.tg_top.equal(appTitleLbl.tg_bottom, offset: 168)
         r.tg_width.equal(.fill)
-        r.textFieldView.isSecureTextEntry = true
-        r.textFieldView.keyboardType = .asciiCapable
+        r.isPwd()
         return r
     }()
     
@@ -121,8 +121,7 @@ class YFRegisterVC: BaseTitleController {
         r.loginUI()
         r.tg_top.equal(pwdView.tg_bottom, offset: 20)
         r.tg_width.equal(.fill)
-        r.textFieldView.isSecureTextEntry = true
-        r.textFieldView.keyboardType = .asciiCapable
+        r.isPwd()
         return r
     }()
     
@@ -131,6 +130,7 @@ class YFRegisterVC: BaseTitleController {
         r.loginUI()
         r.tg_top.equal(rePwdView.tg_bottom, offset: 20)
         r.tg_width.equal(.fill)
+        r.isUserName()
         return r
     }()
     
@@ -232,7 +232,7 @@ class YFRegisterVC: BaseTitleController {
     
     override func bindData() {
         Observable.combineLatest(phoneView.textFieldView.rx.text.orEmpty, codeView.textFieldView.rx.text.orEmpty, pwdView.textFieldView.rx.text.orEmpty, rePwdView.textFieldView.rx.text.orEmpty, nicknameView.textFieldView.rx.text.orEmpty) {
-            $0.count > 0 && $1.count > 0 && $2.count > 0 && $3.count > 0 && $4.count > 0
+            $0.count > 0 && $1.count > 4 && $2.count > 7 && $3.count > 7 && $4.count > 0
         }
         .bind(to: registerBtn.rx.isEnabled)
         .disposed(by: rx.disposeBag)
@@ -272,11 +272,11 @@ extension YFRegisterVC {
         
         if let phone = phoneView.textFieldView.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines), phone.isEmpty {
             if useType == .usePhone {
-                ProgressHUD.error("plsEnterRightX".localizedFormat("phoneNumber".localized()))
-//                SuperToast.show(title: "plsEnterRightX".localizedFormat("phoneNumber".localized()))
+//                ProgressHUD.error("plsEnterRightX".localizedFormat("phoneNumber".localized()))
+                SuperToast.show(title: "plsEnterRightX".localizedFormat("phoneNumber".localized()))
             } else {
-                ProgressHUD.error("plsEnterRightX".localizedFormat("email".localized()))
-//                SuperToast.show(title: "plsEnterRightX".localizedFormat("email".localized()))
+//                ProgressHUD.error("plsEnterRightX".localizedFormat("email".localized()))
+                SuperToast.show(title: "plsEnterRightX".localizedFormat("email".localized()))
             }
             return
         }

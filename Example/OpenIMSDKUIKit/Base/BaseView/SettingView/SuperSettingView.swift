@@ -293,6 +293,8 @@ extension SuperSettingView {
             textFieldView.keyboardType = .numberPad
             textFieldView.clearButtonMode = .always
             
+            needLimitLength(length: PHONE_MAX_LENGTH)
+            
         } else {
             phoneCodeView.hide()
             titleView.show()
@@ -310,8 +312,29 @@ extension SuperSettingView {
         titleView.font = UIFont(name: "PingFangSC-Medium", size: size)
     }
     
+    
+    
+    func isCode() {
+        needLimitLength(length: CODE_MAX_LENGTH)
+    }
+    
     func isPwd() {
         textFieldView.isSecureTextEntry = true
+        textFieldView.keyboardType = .asciiCapable
+        needLimitLength(length: PASSWORD_MAX_LENGTH)
+    }
+    
+    func isUserName() {
+        needLimitLength(length: USERNAME_MAX_LENGTH)
+    }
+    
+    /// 限制输入长度
+    func needLimitLength(length: Int) {
+        textFieldView.rx.text
+            .orEmpty
+            .map{$0.count > length ? String($0.prefix(length)) : $0 }
+            .bind(to: textFieldView.rx.text)
+            .disposed(by: rx.disposeBag)
     }
     
     

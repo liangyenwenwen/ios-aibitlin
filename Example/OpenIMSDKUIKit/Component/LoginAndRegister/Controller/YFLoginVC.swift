@@ -103,8 +103,7 @@ class YFLoginVC: BaseLogicController {
         r.loginUI()
         r.tg_top.equal(tipLbl.tg_bottom, offset: 102)
         r.tg_width.equal(.fill)
-        r.textFieldView.isSecureTextEntry = true
-        r.textFieldView.keyboardType = .asciiCapable
+        r.isPwd()
         return r
     }()
     
@@ -292,12 +291,20 @@ class YFLoginVC: BaseLogicController {
         
         
         Observable.combineLatest(phoneView.textFieldView.rx.text.orEmpty, pwdView.textFieldView.rx.text.orEmpty) {
-            $0.count > 0  && $1.count > 0
+            $0.count > 0  && $1.count > 7
         }
         .bind(to: loginBtn.rx.isEnabled)
         .disposed(by: rx.disposeBag)
         
+        
+        
+        
     }
+    
+    
+    
+    
+    
 }
 
 
