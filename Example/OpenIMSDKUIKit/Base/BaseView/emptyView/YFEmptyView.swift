@@ -13,7 +13,7 @@ class YFEmptyView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         initUI()
-        isUserInteractionEnabled = false
+//        isUserInteractionEnabled = false
     }
     
     required init?(coder: NSCoder) {
