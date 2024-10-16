@@ -150,7 +150,7 @@
 "loginPwdFormat" = "8 to 20 characters; at least including numbers and letters";
 "passwordLogin" = "Password Login";
 "through" = "Through %@";
-"home" = "AIbitlin";
+"home" = "Aibitlin";
 "contacts" = "Contacts";
 "workbench" = "Discover";
 "mine" = "Mine";
@@ -291,11 +291,11 @@ Toolbox = "Toolbox";
 "I don't have an account" = "";
 "Create a new account" = "Create new account";
 
-"我已阅读并同意AIbitlin《注册协议》" =  "I have read and agreed to the AIbitlin Registration Agreement";
-"我已阅读并同意AIbitlin《隐私协议》《注册协议》" =  "I have read and agreed to the AIbitlin Privacy Agreement and Registration Agreement";
+"我已阅读并同意AIbitlin《注册协议》" =  "I have read and agreed to the Aibitlin Registration Agreement";
+"我已阅读并同意AIbitlin《隐私协议》《注册协议》" =  "I have read and agreed to the Aibitlin Privacy Agreement and Registration Agreement";
 "《隐私协议》" = "Privacy Agreement";
 "《注册协议》" = "Registration Agreement";
-"我已阅读并同意AIbitlin" = "I have read and agreed to the AIbitlin";
+"我已阅读并同意AIbitlin" = "I have read and agreed to the Aibitlin";
 "注册" = "Join in";
 "请勾选协议" = "Please check the agreement";
 "清空聊天记录" = "Clear Message";
@@ -404,7 +404,7 @@ Toolbox = "Toolbox";
 "8-20位，包含数字、字母。" = "8-20 digits, including numbers and letters.";
 "再次输入/再次输入密码" = "Enter again";
 "名字" = "Name";
-"我已阅读并同意AIbitlin《注册协议》" =  "I have read and agreed to the AIbitlin Registration Agreement";
+"我已阅读并同意AIbitlin《注册协议》" =  "I have read and agreed to the Aibitlin Registration Agreement";
 
 //注册页面
 "请验证你的邮箱" = "Please verify your email";

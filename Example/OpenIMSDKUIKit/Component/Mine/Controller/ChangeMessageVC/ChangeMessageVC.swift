@@ -89,7 +89,7 @@ class ChangeMessageVC: BaseTitleController {
             case .nickname:
                 title = R.string.localizable.name()
             case .userID:
-                title = "AIbitlin ID"
+                title = "Aibitlin ID"
             case .userIntro:
                 title = R.string.localizable.personalProfile()
             case .facebook:

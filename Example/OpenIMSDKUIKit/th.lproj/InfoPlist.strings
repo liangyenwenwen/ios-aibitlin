@@ -6,7 +6,7 @@
   Copyright © 2024 rentsoft. All rights reserved.
 */
 
-"CFBundleDisplayName" = "AIbitlin";
+"CFBundleDisplayName" = "Aibitlin";
 
 "NSAppleMusicUsageDescription" = "'กรุณาแตะ 'ตกลง' เพื่ออนุญาตให้เข้าถึงได้ หากคุณไม่ได้รับอนุญาต คุณจะไม่สามารถส่งหรืออัปโหลดรูปภาพและวิดีโอในอัลบั้มท้องถิ่นให้เพื่อนของคุณได้";
 "NSCameraUsageDescription" = "กรุณาแตะ 'ตกลง' เพื่อให้สามารถเข้าถึง. คุณจะไม่สามารถใช้คุณลักษณะเช่นการถ่ายภาพ, บันทึกวิดีโอ, กวาด, ฯลฯ.'โดยไม่ได้รับอนุญาต.";

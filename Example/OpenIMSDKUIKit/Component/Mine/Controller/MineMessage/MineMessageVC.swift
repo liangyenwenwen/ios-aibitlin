@@ -105,7 +105,7 @@ class MineMessageVC: BaseTitleController, UIImagePickerControllerDelegate, UINav
     }()
     
     lazy var userIDView: SuperSettingView = {
-        let r = SuperSettingView.createSetTitleAddContentView("AIbitlin ID：", "Richenda0728") { [weak self] data in
+        let r = SuperSettingView.createSetTitleAddContentView("Aibitlin ID：", "Richenda0728") { [weak self] data in
             self?.changeMessage(.userID)
         }
         r.isMediumFont()

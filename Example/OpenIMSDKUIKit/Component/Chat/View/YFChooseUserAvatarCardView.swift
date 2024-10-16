@@ -12,9 +12,11 @@ import ProgressHUD
 
 class YFChooseUserAvatarCardView: UIView, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    var currentIndex: Int = 0
+    var currentIndex: Int = -1
     var bottomHeight = 672
     var picData: [String]?
+    var isHaveImg: Bool = false
+    var userIconImg: UIImage?
     
     private let _viewModel = MineViewModel()
     
@@ -95,7 +97,8 @@ class YFChooseUserAvatarCardView: UIView, UIImagePickerControllerDelegate, UINav
         r.text = "保存".localized()
         r.textColor = .white
         r.font = .mediumFont(14)
-        r.backgroundColor = .init(hexString: "#388CEF")
+//        r.backgroundColor = .init(hexString: "#388CEF")
+        r.backgroundColor = .init(hexString: "#eaeaea")
         r.corner(23)
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(saveAction))
@@ -286,25 +289,33 @@ class YFChooseUserAvatarCardView: UIView, UIImagePickerControllerDelegate, UINav
         v.setConfigToPickAvatar()
         v.didPhotoSelected = { [weak self] (images: [UIImage], _: [PHAsset]) in
             guard var first = images.first else { return }
-            ProgressHUD.animate()
-            first = first.compress(expectSize: 20 * 1024)
-            let result = FileHelper.shared.saveImage(image: first)
             
-            if result.isSuccess {
-                self?._viewModel.uploadFile(fullPath: result.fullPath, onProgress: { [weak self] progress in
-
-                }, onComplete: { [weak self] code, msg in
-                    if code == 0 {
-                        self?.bottomShow(show: false)
-                        ProgressHUD.dismiss()
-                    } else {
-//                        ProgressHUD.error(msg)
-                        SuperToast.show(title: msg)
-                    }
-                })
-            } else {
-                ProgressHUD.dismiss()
-            }
+            self?.currentIndex = -1
+            self?.isHaveImg = true
+            self?.refrehUI()
+            
+            self?.userIconImg = first
+            self?.topCameraImg.image = first
+            
+//            ProgressHUD.animate()
+//            first = first.compress(expectSize: 20 * 1024)
+//            let result = FileHelper.shared.saveImage(image: first)
+//            
+//            if result.isSuccess {
+//                self?._viewModel.uploadFile(fullPath: result.fullPath, onProgress: { [weak self] progress in
+//
+//                }, onComplete: { [weak self] code, msg in
+//                    if code == 0 {
+//                        self?.bottomShow(show: false)
+//                        ProgressHUD.dismiss()
+//                    } else {
+////                        ProgressHUD.error(msg)
+//                        SuperToast.show(title: msg)
+//                    }
+//                })
+//            } else {
+//                ProgressHUD.dismiss()
+//            }
         }
         
         v.didCameraFinished = { [weak self] (photo: UIImage?, _: URL?) in
@@ -343,34 +354,79 @@ extension YFChooseUserAvatarCardView {
     @objc func imageChanged(sender :UITapGestureRecognizer) {
         let senderview = sender.view as!  systemIconView
         
+        
+        isHaveImg = true
+        
+        
         let senderTag = senderview.tag
         currentIndex = senderTag - 15000
-        for index in 0...9 {
-            
-            let view = viewWithTag(15000 + index)  as!  systemIconView
-            view.layer.borderColor =  index == currentIndex ? UIColor.init(hexString: "#388CEF").cgColor : UIColor.clear.cgColor
-        }
+       
+        refrehUI()
         
         self.topCameraImg.show(picData?[currentIndex] ?? "")
     }
     
-    @objc func saveAction() {
-        print("保存")
+    
+    func refrehUI() {
         
-        if let data = picData {
-            AccountViewModel.updateUserInfo(userID: IMController.shared.uid, faceURL:data[self.currentIndex]) { errCode, errMsg in
-                if errCode != 0 {
-//                    ProgressHUD.error(errMsg)
-                    SuperToast.show(title: errMsg)
-                } else {
-                    print("保存成功")
-                    self.bottomShow(show: false)
-                }
-            }
+        if isHaveImg {
+            trueLbl.backgroundColor = .init(hexString: "#388CEF")
         }
         
-        
+        for index in 0...9 {
+            let view = viewWithTag(15000 + index)  as!  systemIconView
+            view.layer.borderColor =  index == currentIndex ? UIColor.init(hexString: "#388CEF").cgColor : UIColor.clear.cgColor
+        }
     }
+    
+    
+    @objc func saveAction() {
+        
+        if !isHaveImg {
+            return
+        }
+        print("保存")
+  
+        if currentIndex > 0 {
+            if let data = picData {
+                AccountViewModel.updateUserInfo(userID: IMController.shared.uid, faceURL:data[self.currentIndex]) { errCode, errMsg in
+                    if errCode != 0 {
+                        SuperToast.show(title: errMsg)
+                    } else {
+                        print("保存成功")
+                        self.bottomShow(show: false)
+                    }
+                }
+            }
+        } else {
+            
+            uploadImgToAvatar()
+        }
+
+    }
+    
+    func uploadImgToAvatar() {
+        let image = userIconImg!.compress(expectSize: 20 * 1024)
+        let result = FileHelper.shared.saveImage(image: image)
+        if result.isSuccess {
+            ProgressHUD.animate()
+            self._viewModel.uploadFile(fullPath: result.fullPath, onProgress: { [weak self] progress in
+
+            }, onComplete: { [weak self] code, msg in
+                ProgressHUD.dismiss()
+                if code == 0 {
+                    self?.bottomShow(show: false)
+                   
+                } else {
+//                          ProgressHUD.error(msg)
+                    SuperToast.show(title: msg)
+                }
+            })
+        }
+    }
+    
+    
+    
     
     @objc func refreshAction() {
         getPicNet()
@@ -387,7 +443,7 @@ extension YFChooseUserAvatarCardView {
                 
             }
             
-            if data.count > 5 {
+            if self?.currentIndex ?? -1 > -1  {
                 self?.topCameraImg.show(data[self!.currentIndex])
             }
             
@@ -464,23 +520,14 @@ extension YFChooseUserAvatarCardView {
           if var image = info[.editedImage] as? UIImage {
               // 使用image
               
-              ProgressHUD.animate()
+//              ProgressHUD.animate()
+              currentIndex = -1
+              isHaveImg = true
+              refrehUI()
+              userIconImg = image
+              self.topCameraImg.image = image
               
-              image = image.compress(expectSize: 20 * 1024)
-              let result = FileHelper.shared.saveImage(image: image)
-              if result.isSuccess {
-                  self._viewModel.uploadFile(fullPath: result.fullPath, onProgress: { [weak self] progress in
-
-                  }, onComplete: { [weak self] code, msg in
-                      if code == 0 {
-                          self?.bottomShow(show: false)
-                          ProgressHUD.dismiss()
-                      } else {
-//                          ProgressHUD.error(msg)
-                          SuperToast.show(title: msg)
-                      }
-                  })
-              }
+             
               
           }
    

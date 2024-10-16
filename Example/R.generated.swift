@@ -77,12 +77,12 @@ struct _R: Sendable {
     struct infoPlist {
       let source: RswiftResources.StringResource.Source
 
-      /// English translation: AIbitlin
+      /// English translation: Aibitlin
       ///
       /// Key: CFBundleDisplayName
       ///
       /// Locales: English, zh-Hans, en, th
-      var cfBundleDisplayName: RswiftResources.StringResource { .init(key: "CFBundleDisplayName", tableName: "InfoPlist", source: source, developmentValue: "AIbitlin", comment: nil) }
+      var cfBundleDisplayName: RswiftResources.StringResource { .init(key: "CFBundleDisplayName", tableName: "InfoPlist", source: source, developmentValue: "Aibitlin", comment: nil) }
 
       /// English translation: Please click ' OK  'to allow access. If not allowed, you will not be able to send or upload local album images and video content to your friends.
       ///
@@ -934,7 +934,7 @@ struct _R: Sendable {
       /// Locales: en, zh-Hans, th
       var forgetPassword: RswiftResources.StringResource { .init(key: "forgetPassword", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: AIbitlin
+      /// en translation: Aibitlin
       ///
       /// Key: home
       ///
@@ -2152,21 +2152,21 @@ struct _R: Sendable {
       /// Locales: en, th
       var 我已阅读并同意: RswiftResources.StringResource { .init(key: "我已阅读并同意:", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: I have read and agreed to the AIbitlin
+      /// en translation: I have read and agreed to the Aibitlin
       ///
       /// Key: 我已阅读并同意AIbitlin
       ///
       /// Locales: en, th
       var 我已阅读并同意AIbitlin: RswiftResources.StringResource { .init(key: "我已阅读并同意AIbitlin", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: I have read and agreed to the AIbitlin Registration Agreement
+      /// en translation: I have read and agreed to the Aibitlin Registration Agreement
       ///
       /// Key: 我已阅读并同意AIbitlin《注册协议》
       ///
       /// Locales: en, th
       var 我已阅读并同意AIbitlin注册协议: RswiftResources.StringResource { .init(key: "我已阅读并同意AIbitlin《注册协议》", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: I have read and agreed to the AIbitlin Privacy Agreement and Registration Agreement
+      /// en translation: I have read and agreed to the Aibitlin Privacy Agreement and Registration Agreement
       ///
       /// Key: 我已阅读并同意AIbitlin《隐私协议》《注册协议》
       ///

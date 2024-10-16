@@ -6,7 +6,7 @@
   Copyright © 2024 rentsoft. All rights reserved.
 */
 
-"CFBundleDisplayName" = "AIbitlin";
+"CFBundleDisplayName" = "Aibitlin";
 
 
 "NSAppleMusicUsageDescription" = "Please click ' OK  'to allow access. If not allowed, you will not be able to send or upload local album images and video content to your friends.";
