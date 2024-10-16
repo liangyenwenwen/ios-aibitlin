@@ -32,8 +32,18 @@ class YFMineQRCodeVC: BaseTitleController {
 
         refreshUI()
         
+        
+        ///将card 放试图上 并且遮挡
         view.addSubview(saveCard)
+        let coverView = UIView()
+        view.addSubview(coverView)
+        coverView.backgroundColor = .colorBackgroundAPP
+        coverView.snp.makeConstraints { make in
+            make.top.left.right.bottom.equalTo(saveCard)
+        }
+        view.sendSubviewToBack(coverView)
         view.sendSubviewToBack(saveCard)
+        
     }
     
     // MARK: - 张亚飞打的标记 卡片
@@ -309,7 +319,7 @@ class YFMineQRCodeVC: BaseTitleController {
     
     lazy var saveCard: QRCodeSaveCardView = {
         let r = QRCodeSaveCardView()
-        r.isHidden = true
+//        r.isHidden = true
         return r
     }()
     
@@ -390,8 +400,7 @@ extension YFMineQRCodeVC {
         
 
         saveCard.bindData(showname: username, codeImg: codeImgView.image, avater: userAvatarImgView.image, idString: userIDLbl.text)
-
-        saveCard.isHidden = false
+//        saveCard.isHidden = false
         saveViewToPhotoAlbum(view: saveCard.userCardView)
       
     }
@@ -406,9 +415,9 @@ extension YFMineQRCodeVC {
             // 将view渲染到图形上下文中
             if let context = UIGraphicsGetCurrentContext() {
                 view.layer.render(in: context)
-                view.isHidden = true
+//                view.isHidden = true
             } else {
-                view.isHidden = true
+//                view.isHidden = true
             }
             
             // 从图形上下文获取图片
