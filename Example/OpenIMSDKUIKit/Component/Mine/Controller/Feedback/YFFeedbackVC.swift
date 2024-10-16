@@ -178,6 +178,7 @@ class YFFeedbackVC: BaseTitleController {
         r.tg_height.equal(.wrap)
         r.tg_space = PADDING_SMALL
         r.tg_padding = UIEdgeInsets(top: PADDING_SMALL, left: 0, bottom: PADDING_SMALL, right: 0)
+        r.tg_gravity = .vert.center
         let title = ViewFactoryUtil.customTilteLableWrap(imageTitle, font: TEXT_MEDDLE)
         title.font = UIFont(name: "PingFangSC-Medium", size: 16)
         r.addSubview(title)
@@ -220,6 +221,7 @@ class YFFeedbackVC: BaseTitleController {
         if gesture.view!.tag - 6000 == datum.count {
             presentSelectedPictureActionSheet { [weak self] in
                 guard let self else { return }
+                _photoHelper.setConfigToPickAvatar(9 - datum.count)
                 _photoHelper.presentPhotoLibrary(byController: self)
             } cameraHandler: {[weak self] in
                 guard let self else { return }
@@ -231,10 +233,11 @@ class YFFeedbackVC: BaseTitleController {
     private lazy var _photoHelper: PhotoHelper = {
         let v = PhotoHelper()
         v.setConfigToPickAvatar(9)
+        
         v.didPhotoSelected = { [weak self] (images: [UIImage], _: [PHAsset]) in
             guard var first = images.first else { return }
             
-            self?.datum = images
+            self?.datum = self!.datum + images
             self?.refreshUI()
 //            ProgressHUD.animate()
 //            first = first.compress(expectSize: 20 * 1024)
