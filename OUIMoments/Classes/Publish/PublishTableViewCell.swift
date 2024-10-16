@@ -5,7 +5,7 @@ import RxCocoa
 import RxSwift
 
 fileprivate let metaSize = 100.0
-fileprivate let maxLength = 150
+fileprivate let maxLength = 500
 fileprivate let labelTextColor = UIColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
 
 // 输入框

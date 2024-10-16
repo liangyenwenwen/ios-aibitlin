@@ -369,7 +369,12 @@ extension MeHomeController {
     }
     
     @objc func gotoMoments() {
-        let vc = MomentsViewController()
+//        let vc = MomentsViewController()
+//        gotoControllerFromRoot(vc)
+        
+        guard let user: QueryUserInfo = _viewModel.currentUserRelay.value else { return }
+        let vc = OthersViewController(userID: user.userID!, nickname: SuperStringUtil.getUserShowname(showname: user.nickname ?? ""), faceURL: user.faceURL)
+//        navigationController?.pushViewController(vc, animated: true)
         gotoControllerFromRoot(vc)
     }
     
