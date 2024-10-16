@@ -76,6 +76,8 @@ class YFVipNormalView: UIView, StaticViewFactory, ContainerCollectionViewCellDel
         contentLbl.text = controller.source.text
         timeLbl.text = Date.timeString(date: controller.message.date)
         
+//        titleLbl.backgroundColor = .red
+//        contentLbl.backgroundColor = .blue
         
         guard let jsonData = controller.source.text!.data(using: .utf8) else {
                     return
@@ -84,7 +86,7 @@ class YFVipNormalView: UIView, StaticViewFactory, ContainerCollectionViewCellDel
         do {
             let user = try JSONDecoder().decode(systemCustomNotitifyItem.self, from: jsonData)
             print(user.user?.faceURL, user.user?.userID)
-            contentLbl.text = user.count
+            contentLbl.text = user.cont
             if let messageContact = user.user {
                 
                 contactView.update(user:messageContact)
@@ -92,6 +94,14 @@ class YFVipNormalView: UIView, StaticViewFactory, ContainerCollectionViewCellDel
                 
                 timeLbl.snp.makeConstraints { make in
                     make.top.equalTo(contactView.snp_bottom).offset(10)
+                }
+            } else {
+                
+                contactView.isHidden = true
+                print("没有user")
+                
+                timeLbl.snp.makeConstraints { make in
+                    make.top.equalTo(contentLbl.snp_bottom).offset(10)
                 }
             }
             

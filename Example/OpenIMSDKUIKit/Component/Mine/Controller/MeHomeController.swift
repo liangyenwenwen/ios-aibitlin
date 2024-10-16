@@ -80,8 +80,13 @@ class MeHomeController: BaseLogicController {
 //        } else {
 //            userShowId = "\(String(describing: user?.chatID != nil ? user!.chatID! : user!.userID!))"
 //        }
-        userShowId = user?.chatID ?? ""
-        vipTitle.text = "ID: ".localized() + userShowId
+        userShowId = user?.chatID ?? (user?.userID ?? "")
+        if userState.v > 0 {
+            vipTitle.text = "VIP ID: ".localized() + userShowId
+        } else {
+            vipTitle.text = "ID: " + userShowId
+        }
+        
         
         let defaults = UserDefaults.standard
         defaults.set(userState.v, forKey: "vipRank")

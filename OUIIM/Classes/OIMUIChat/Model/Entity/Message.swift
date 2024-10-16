@@ -542,7 +542,7 @@ extension Message: Differentiable {
 
 /// 通知内容
 struct systemCustomNotitifyItem : Codable{
-    var count: String?
+    var cont: String?
     var user: systemCustomNotitifyUser?
 }
 
