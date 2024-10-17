@@ -764,13 +764,13 @@ final class DefaultChatCollectionDataSource: NSObject, ChatCollectionDataSource 
                                  alignment: ChatItemAlignment,
                                  title: String? = nil,
                                  attributeTitle: NSAttributedString? = nil, 
-                                 enableBackgroundColor: Bool = false) -> TitleCollectionCell {
+                                 enableBackgroundColor: Bool = false, needHide: Bool = false) -> TitleCollectionCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TitleCollectionCell.reuseIdentifier, for: indexPath) as! TitleCollectionCell
         
         let bubbleView = cell.customView
         let controller = SystemTipsViewController(text: title,
                                                attributedString: attributeTitle,
-                                                  enableBackgroundColor: enableBackgroundColor)
+                                                  enableBackgroundColor: enableBackgroundColor, needHide: needHide)
         bubbleView.setup(with: controller)
         controller.delegate = reloadDelegate
         cell.delegate = bubbleView
@@ -1093,6 +1093,14 @@ final class DefaultChatCollectionDataSource: NSObject, ChatCollectionDataSource 
 //测试修改
 extension DefaultChatCollectionDataSource: UICollectionViewDataSource {
     
+//    func getSystemNotifySection() {
+//        for items in sections {
+//            items.cells.removeAll{ $0 == .date}
+//        }
+//    }
+    
+    
+    
     public func numberOfSections(in collectionView: UICollectionView) -> Int {
         sections.count
     }
@@ -1142,7 +1150,7 @@ extension DefaultChatCollectionDataSource: UICollectionViewDataSource {
         switch cell {
             
         case let .date(group):
-            let cell = createTipsTitle(collectionView: collectionView, indexPath: indexPath, alignment: cell.alignment, title: group.value, enableBackgroundColor: true)
+            let cell = createTipsTitle(collectionView: collectionView, indexPath: indexPath, alignment: cell.alignment, title: group.value, enableBackgroundColor: true, needHide: isSystemNotify)
             
             return cell
         case let .systemMessage(group):
@@ -1299,8 +1307,12 @@ extension DefaultChatCollectionDataSource: ChatLayoutDelegate {
 //                    return .estimated(CGSize(width: chatLayout.layoutFrame.width, height: chatLayout.layoutFrame.height))
                     return .estimated(CGSize(width: chatLayout.layoutFrame.width, height: 110))
                 }
-            case .date, .systemMessage:
+//            case .date, .systemMessage:
+//                return .estimated(CGSize(width: chatLayout.layoutFrame.width, height: 18))
+            case .systemMessage:
                 return .estimated(CGSize(width: chatLayout.layoutFrame.width, height: 18))
+            case .date:
+                return isSystemNotify ? .estimated(CGSize(width: 0, height: 0)) : .estimated(CGSize(width: chatLayout.layoutFrame.width, height: 18))
             case .typingIndicator:
                 return .estimated(CGSize(width: 60, height: 36))
             case .messageGroup:

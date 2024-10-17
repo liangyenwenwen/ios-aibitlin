@@ -42,7 +42,13 @@ class SystemTipsView: UIView, StaticViewFactory, ContainerCollectionViewCellDele
     }
     
     func apply(_ layoutAttributes: ChatLayoutAttributes) {
+        
+        if controller != nil && controller!.needHide {
+            return
+        }
+        
         setupSize()
+        
     }
 
     func setup(with controller: SystemTipsViewController) {
@@ -78,6 +84,11 @@ class SystemTipsView: UIView, StaticViewFactory, ContainerCollectionViewCellDele
                     .paragraphStyle: paragraphStyle], range: NSMakeRange(0, attr.length))
                 textView.attributedText = attr
             }
+        }
+        
+        if controller.needHide {
+//            textView.isHidden = true
+            textView.text = ""
         }
     }
 

@@ -10,11 +10,14 @@ final class SystemTipsViewController {
     let attributedString: NSAttributedString?
     
     let enableBackgroundColor: Bool
+    
+    let needHide: Bool
 
-    init(text: String? = nil, attributedString: NSAttributedString? = nil, enableBackgroundColor: Bool = false) {
+    init(text: String? = nil, attributedString: NSAttributedString? = nil, enableBackgroundColor: Bool = false, needHide: Bool = false) {
         self.text = text
         self.attributedString = attributedString
         self.enableBackgroundColor = enableBackgroundColor
+        self.needHide = needHide
     }
     
     func action(url: URL) {
