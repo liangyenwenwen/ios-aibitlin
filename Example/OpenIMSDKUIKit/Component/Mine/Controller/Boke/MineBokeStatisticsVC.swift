@@ -250,7 +250,8 @@ class MineBokeStatisticsVC: BaseTitleController {
 extension MineBokeStatisticsVC {
     
     @objc func gotoBlogDetail() {
-        SuperWebController.start((self.navigationController!), uri: boke.userBlogUrl)
+//        SuperWebController.start((self.navigationController!), uri: boke.userBlogUrl)
+        SuperWebController.startAboubBlog(self.navigationController!, blogItem: boke)
     }
     
     

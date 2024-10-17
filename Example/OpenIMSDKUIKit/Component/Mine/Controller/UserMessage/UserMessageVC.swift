@@ -70,6 +70,8 @@ class UserMessageVC: BaseTitleController {
 //        }
         getUserInfo()
         othersSeeMyBlog()
+        
+       
     }
     
     
@@ -119,6 +121,11 @@ class UserMessageVC: BaseTitleController {
         
         self.tableView.reloadData()
         
+        
+        if userInfo?.userID == IMController.shared.uid {
+            superFooterContainer.hide()
+//            footerBtnView.hide()
+        }
         
 //        userHeaderView.setNeedsLayout()
 //        userHeaderView.layoutIfNeeded()
@@ -290,6 +297,9 @@ class UserMessageVC: BaseTitleController {
                             self.footerBtnView.setStyle(.sendMessageAndAttention)
                         }
                         
+//                        if chatUser.userID == IMController.shared.uid {
+//                            self.footerBtnView.hide()
+//                        }
                     }
                 })
             }

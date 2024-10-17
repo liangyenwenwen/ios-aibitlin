@@ -40,7 +40,10 @@ class SuperWebController: BaseTitleController {
         if let blog = blogItem {
             timer?.invalidate()
             timer = nil
-            YFMineNetViewModel.scanBlog(blog: blog, duration: timeCount)
+            if timeCount > 0 {
+                YFMineNetViewModel.scanBlog(blog: blog, duration: timeCount)
+            }
+            
         }
     }
     

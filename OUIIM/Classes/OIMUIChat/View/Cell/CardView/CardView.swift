@@ -41,6 +41,7 @@ class CardView: UIView, ContainerCollectionViewCellDelegate {
         v.contentEdgeInsets = UIEdgeInsets(top: 0, left: 18, bottom: 0, right: 18)
         v.clipsToBounds = true
         v.layer.cornerRadius = 14
+        v.isUserInteractionEnabled = false
         return v
     }()
     

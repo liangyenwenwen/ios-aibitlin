@@ -25,12 +25,12 @@ extension AccountViewModel {
        
         OIMApi.gotoUserMessageHandle = {(vc, userid, nickName, faceUrl, completion: @escaping (String) -> Void) in
             
-            if  userid != IMController.shared.uid {
+//            if  userid != IMController.shared.uid {
                 let messageVC = UserMessageVC()
                 messageVC.hidesBottomBarWhenPushed = true
                 messageVC.userID = userid
                 vc.gotoController(messageVC)
-            }
+//            }
         }
         
         OIMApi.showChatVCShoeethandle = { (vc, userid, completion: @escaping (String) -> Void) in
