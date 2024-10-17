@@ -1964,6 +1964,8 @@ extension ChatViewController: ChatControllerDelegate {
     // MARK: ChatControllerDelegate
     
     func update(with sections: [Section], requiresIsolatedProcess: Bool) {
+        
+        
         processUpdates(with: sections, animated: true, requiresIsolatedProcess: requiresIsolatedProcess)
     }
     

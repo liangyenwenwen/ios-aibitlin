@@ -76,6 +76,7 @@ class YFFileDataUtil {
     // 保存全部数据到本地
     static func saveDataToFile(_ locaType: localBlogType = .star, blogsArr: [blogDetailItem]) -> () {
         let dataWrite = try? JSONEncoder().encode(blogsArr)
+        
         do{
             
             let path = getBlogPath(locaType)

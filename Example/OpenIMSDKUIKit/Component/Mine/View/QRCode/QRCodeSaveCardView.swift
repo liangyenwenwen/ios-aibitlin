@@ -117,6 +117,7 @@ class QRCodeSaveCardView: TGLinearLayout {
     lazy var userIdTitleView: TGLinearLayout = {
         let r = TGLinearLayout(.horz)
         r.tg_width.equal(.wrap)
+        
         r.tg_height.equal(22)
         r.tg_space = 7
         r.tg_gravity = .vert.center

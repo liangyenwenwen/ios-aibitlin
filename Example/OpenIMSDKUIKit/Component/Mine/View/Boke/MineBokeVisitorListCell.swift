@@ -67,6 +67,7 @@ class MineBokeVisitorListCell: BaseTableViewCell {
     
     lazy var username: UILabel = {
         let r = ViewFactoryUtil.customBoldTilteLable("用户姓名", font: TEXT_LARGE)
+        r.numberOfLines = 1
         return r
     }()
     
@@ -111,8 +112,16 @@ class MineBokeVisitorListCell: BaseTableViewCell {
     func bindData(_ model:BlogVisitorListModel) {
         self.visitor = model
         avatarImg.show(model.lookUserTouXiang, "DefaultAvatar")
-        username.text = model.lookUserName
+        username.text = SuperStringUtil.getUserShowname(showname:  model.lookUserName)
+        let tag = SuperStringUtil.getUserTag(showname: model.lookUserName)
+        if tag?.count ?? 0 > 0 {
+            tagLable.show()
+            tagLable.text = tag
+        } else {
+            tagLable.hide()
+        }
         userScanNumber.text = R.string.localizable.visitorCount(model.ciShu > 99 ? "99+" : "\(model.ciShu)")
+
     }
     
 //    func bindData(_ model:BlogVisitorListModel) {

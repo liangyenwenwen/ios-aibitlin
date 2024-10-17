@@ -168,13 +168,13 @@
             filePath = "../OUIIM/Classes/OIMUIChat/ChatViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2260"
-            endingLineNumber = "2260"
+            startingLineNumber = "2262"
+            endingLineNumber = "2262"
             landmarkName = "inputBar(_:didPressSendButtonWith:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "BD9D699F-B035-486F-BBD2-E94825901404 - cc53992602bf40c9"
+                  uuid = "BD9D699F-B035-486F-BBD2-E94825901404 - cc53992602bf4097"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -184,11 +184,11 @@
                   urlString = "file:///Users/mac/Desktop/aibitlin/OUIIM/Classes/OIMUIChat/ChatViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "2260"
-                  endingLineNumber = "2260">
+                  startingLineNumber = "2262"
+                  endingLineNumber = "2262">
                </Location>
                <Location
-                  uuid = "BD9D699F-B035-486F-BBD2-E94825901404 - cc53992602bf40c9"
+                  uuid = "BD9D699F-B035-486F-BBD2-E94825901404 - cc53992602bf4097"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -198,8 +198,8 @@
                   urlString = "file:///Users/mac/Desktop/aibitlin/OUIIM/Classes/OIMUIChat/ChatViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "2260"
-                  endingLineNumber = "2260">
+                  startingLineNumber = "2262"
+                  endingLineNumber = "2262">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -223,47 +223,17 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "3775EC24-E395-4BC4-B53D-1E5DE8B9A119"
+            uuid = "6BE67AA7-E2BA-4531-A5DF-0F515B5C59DB"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "OpenIMSDKUIKit/Component/Mine/Controller/MeHomeController.swift"
+            filePath = "../OUIIM/Classes/OIMUIChat/ChatViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "423"
-            endingLineNumber = "423"
-            landmarkName = "getMyBlog()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "3775EC24-E395-4BC4-B53D-1E5DE8B9A119 - 72687907459ea565"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "IM_NCER.MeHomeController.getMyBlog() -&gt; ()"
-                  moduleName = "IM-NCER"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Desktop/aibitlin/Example/OpenIMSDKUIKit/Component/Mine/Controller/MeHomeController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "424"
-                  endingLineNumber = "424">
-               </Location>
-               <Location
-                  uuid = "3775EC24-E395-4BC4-B53D-1E5DE8B9A119 - b59b11096d73d261"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Array&lt;IM_NCER.blogDetailItem&gt;) -&gt; () in IM_NCER.MeHomeController.getMyBlog() -&gt; ()"
-                  moduleName = "IM-NCER"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Desktop/aibitlin/Example/OpenIMSDKUIKit/Component/Mine/Controller/MeHomeController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "424"
-                  endingLineNumber = "424">
-               </Location>
-            </Locations>
+            startingLineNumber = "2078"
+            endingLineNumber = "2078"
+            landmarkName = "process()"
+            landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

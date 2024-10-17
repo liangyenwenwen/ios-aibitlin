@@ -86,6 +86,8 @@ class YFMineQRCodeVC: BaseTitleController {
         let r = TGLinearLayout(.horz)
         r.tg_width.equal(.wrap)
         r.tg_height.equal(40)
+//        r.tg_left.equal(13)
+//        r.tg_right.equal(-13)
         r.tg_space = 7
         r.tg_gravity = .vert.center
         r.tg_top.equal(38)
@@ -101,9 +103,11 @@ class YFMineQRCodeVC: BaseTitleController {
         let r = UILabel()
         r.tg_width.equal(.wrap)
         r.tg_height.equal(.wrap)
+       
         r.textColor = .black333
         r.font = .mediumFont(15)
         r.text = username
+        r.numberOfLines = 1
         return r
     }()
     
@@ -160,6 +164,7 @@ class YFMineQRCodeVC: BaseTitleController {
     ///用户id展示
     lazy var userIdTitleView: TGLinearLayout = {
         let r = TGLinearLayout(.horz)
+       
         r.tg_width.equal(.wrap)
         r.tg_height.equal(22)
         r.tg_space = 7
