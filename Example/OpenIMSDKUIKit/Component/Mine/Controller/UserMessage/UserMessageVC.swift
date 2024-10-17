@@ -98,21 +98,13 @@ class UserMessageVC: BaseTitleController {
     
     func updataUI() {
         
+        userHeaderView.bindData(userInfo: userInfo)
+        
+        
         let user = SuperStringUtil.getUserState(showname: userInfo?.nickname ?? "")
         
         let userShowname = user.n
-        
-        userHeaderView.username.text = userShowname
-        userHeaderView.userID.text = userInfo?.chatID ?? ""
-//        userHeaderView.userIcon.show(ConversationInfo?.faceURL)
-        userHeaderView.avatarImageView.setAvatar(url: userInfo?.faceURL, text: userShowname)
-        
-        if userInfo?.areaCode != nil {
-            userHeaderView.phoneView.contactLbl.text = userInfo!.areaCode! + userInfo!.phoneNumber!
-        }
-        userHeaderView.emailView.contactLbl.text = userInfo?.email
-        userHeaderView.tagLable.text = SuperStringUtil.getUserTag(showname: userInfo?.nickname ?? "")
-        userHeaderView.userIntroLbl.text = userInfo?.personalProfile
+
         
         sectionBlogTitleLbl.text = R.string.localizable.userBlog(userShowname)
         sectionMomentsTitleLbl.text = R.string.localizable.userMoments(userShowname)

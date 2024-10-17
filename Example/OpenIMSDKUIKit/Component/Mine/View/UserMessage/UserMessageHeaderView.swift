@@ -11,6 +11,8 @@ import OUICore
 
 class UserMessageHeaderView: TGLinearLayout {
 
+    var  userInfoMessage: QueryUserInfo?
+    
     init() {
         super.init(frame: .zero, orientation: .vert)
         innerInit()
@@ -90,6 +92,7 @@ class UserMessageHeaderView: TGLinearLayout {
     
     lazy var username: UILabel = {
         let r = ViewFactoryUtil.customBoldTilteLable("", font: TEXT_LARGE4)
+        r.numberOfLines = 1
         return r
     }()
     
@@ -145,5 +148,40 @@ class UserMessageHeaderView: TGLinearLayout {
 //        r.backgroundColor = .red
         return r
     }()
+    
+    
+    
+    
+    func bindData(userInfo: QueryUserInfo?) {
+        
+        userInfoMessage = userInfo
+        
+        let user = SuperStringUtil.getUserState(showname: userInfo?.nickname ?? "")
+        
+        let userShowname = user.n
+        
+        username.text = userShowname
+        userID.text =  (user.v > 0 ? "VIP ID: ".localized() : "ID:  ")  +  (userInfo?.chatID ?? (userInfo?.userID ?? ""))
+        avatarImageView.setAvatar(url: userInfo?.faceURL, text: userShowname)
+        
+        if userInfo?.areaCode != nil {
+            phoneView.contactLbl.text = userInfo!.areaCode! + "  " + userInfo!.phoneNumber!
+        }
+        emailView.contactLbl.text = userInfo?.email
+        tagLable.text = SuperStringUtil.getUserTag(showname: userInfo?.nickname ?? "")
+        userIntroLbl.text = userInfo?.personalProfile
+        
+        if userInfo?.email == nil || userInfo?.email?.count == 0 {
+            emailView.hide()
+        }
+        
+        if userInfo?.phoneNumber == nil || userInfo?.phoneNumber?.count == 0 {
+            phoneView.hide()
+        }
+        
+    }
+    
+    
+    
     
 }

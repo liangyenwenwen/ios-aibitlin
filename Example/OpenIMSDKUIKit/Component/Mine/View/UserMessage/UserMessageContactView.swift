@@ -50,6 +50,18 @@ class UserMessageContactView: TGLinearLayout {
     
     lazy var rightImg: UIImageView = {
         let r = ViewFactoryUtil.defalutImgView(R.image.copy_icon()!, 20)
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(savecontactLbl))
+        r.isUserInteractionEnabled = true
+        r.addGestureRecognizer(tap)
+                                         
         return r
     }()
+    
+    
+    @objc func savecontactLbl() {
+        UIPasteboard.general.string = contactLbl.text
+        SuperToast.show(title: "复制成功")
+    }
+    
 }
