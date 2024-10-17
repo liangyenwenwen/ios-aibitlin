@@ -82,9 +82,9 @@ class MineBokeEditVC: BaseTitleController, UIImagePickerControllerDelegate, UINa
         }
         r.avatarImageView.hide()
         r.changeIcon.show()
-        r.changeIcon.image = nil
+        r.changeIcon.image = R.image.empty_blog_icon()!
         r.changeIcon.corner(4)
-        r.changeIcon.backgroundColor = .init(hexString: "#f0f2f5")
+//        r.changeIcon.backgroundColor = .init(hexString: "#f0f2f5")
         return r
     }()
     

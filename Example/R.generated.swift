@@ -3500,7 +3500,7 @@ struct _R: Sendable {
     var colorBackground: RswiftResources.ColorResource { .init(name: "ColorBackground", path: [], bundle: bundle) }
   }
 
-  /// This `_R.image` struct is generated, and contains static references to 237 images.
+  /// This `_R.image` struct is generated, and contains static references to 239 images.
   struct image {
     let bundle: Foundation.Bundle
 
@@ -3861,6 +3861,9 @@ struct _R: Sendable {
     /// Image `call_log_video_btn`.
     var call_log_video_btn: RswiftResources.ImageResource { .init(name: "call_log_video_btn", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
+    /// Image `cancle_button_icon`.
+    var cancle_button_icon: RswiftResources.ImageResource { .init(name: "cancle_button_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
     /// Image `change_icon`.
     var change_icon: RswiftResources.ImageResource { .init(name: "change_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
@@ -3938,6 +3941,9 @@ struct _R: Sendable {
 
     /// Image `email_icon`.
     var email_icon: RswiftResources.ImageResource { .init(name: "email_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `empty_blog_icon`.
+    var empty_blog_icon: RswiftResources.ImageResource { .init(name: "empty_blog_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
     /// Image `facebook_icon`.
     var facebook_icon: RswiftResources.ImageResource { .init(name: "facebook_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }

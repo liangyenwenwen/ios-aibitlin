@@ -121,6 +121,8 @@ public class SearchResultViewController: UIViewController, UISearchResultsUpdati
             search(keyword)
             
             lastDate = Date()
+        } else {
+            print(Date().timeIntervalSince1970 - lastDate.timeIntervalSince1970)
         }
        
         

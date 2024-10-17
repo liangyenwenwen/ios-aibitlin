@@ -5,6 +5,7 @@ protocol EditingBottomControllerDelegate: AnyObject {
 
     func deleteMessage()
     func forwardMessage(merge: Bool)
+    func canceleChoose()
 }
 
 final class EditingBottomController {
@@ -19,6 +20,10 @@ final class EditingBottomController {
     
     func forwardAction() {
         delegate?.forwardMessage(merge: true)
+    }
+    
+    func cancleAction() {
+        delegate?.canceleChoose()
     }
 }
 

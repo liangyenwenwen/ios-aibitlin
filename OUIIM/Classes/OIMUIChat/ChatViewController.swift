@@ -2600,6 +2600,11 @@ extension ChatViewController: KeyboardListenerDelegate {
 // MARK: EditingBottomControllerDelegate
 
 extension ChatViewController: EditingBottomControllerDelegate {
+    func canceleChoose() {
+        print("取消")
+        setEditNotEdit(forceEnd: false)
+    }
+    
     func deleteMessage() {
         ProgressHUD.animate()
         chatController.deleteMessage { [weak self] in

@@ -55,6 +55,18 @@ final class EditingBottomView: UIView, StaticViewFactory {
     
     private let textView = UITextView(frame: .zero)
     
+    
+    private lazy var cancleButton: UIButton = {
+        let v = UIButton(type: .system)
+        v.setImage(.init(named: "cancle_button_icon"), for: .normal)
+        v.addTarget(self, action: #selector(cancleButtonTap), for: .touchUpInside)
+        v.layer.cornerRadius = 5
+        v.backgroundColor = .cellBackgroundColor
+        v.tintColor = .c0C1C33
+
+        return v
+    }()
+    
     private lazy var deleteButton: UIButton = {
         let v = UIButton(type: .system)
         v.setImage(UIImage(nameInBundle: "delete_button_icon"), for: .normal)
@@ -98,6 +110,17 @@ final class EditingBottomView: UIView, StaticViewFactory {
         let space = UIView()
         space.backgroundColor = .clear
         
+        let cancleLabel = UILabel()
+        cancleLabel.text = "取消".localized()
+        cancleLabel.textColor = .c0C1C33
+        cancleLabel.font = .f10
+        
+        let cancleStack = UIStackView(arrangedSubviews: [cancleButton, cancleLabel])
+        cancleStack.axis = .vertical
+        cancleStack.spacing = 4
+        cancleStack.alignment = .center
+        
+        
         let deleteLabel = UILabel()
         deleteLabel.text = "删除".innerLocalized()
         deleteLabel.textColor = .c0C1C33
@@ -118,7 +141,7 @@ final class EditingBottomView: UIView, StaticViewFactory {
         forwardStack.spacing = 4
         forwardStack.alignment = .center
         
-        let stack = UIStackView(arrangedSubviews: [UIView(), deleteStack, UIView(), forwardStack, UIView()])
+        let stack = UIStackView(arrangedSubviews: [UIView(), cancleStack, UIView(), deleteStack, UIView(), forwardStack, UIView()])
         stack.distribution = .fillEqually
         stack.alignment = .center
         
@@ -138,8 +161,10 @@ final class EditingBottomView: UIView, StaticViewFactory {
         NSLayoutConstraint.activate([
             deleteButton.widthAnchor.constraint(equalToConstant: 48),
             forwardButton.widthAnchor.constraint(equalToConstant: 48),
+            cancleButton.widthAnchor.constraint(equalToConstant: 48),
             deleteButton.heightAnchor.constraint(equalToConstant: 48),
             forwardButton.heightAnchor.constraint(equalToConstant: 48),
+            cancleButton.heightAnchor.constraint(equalToConstant: 48),
             
             horStack.leadingAnchor.constraint(equalTo: leadingAnchor),
             horStack.topAnchor.constraint(equalTo: topAnchor),
@@ -167,5 +192,11 @@ final class EditingBottomView: UIView, StaticViewFactory {
     @objc
     func forwardButtonTap() {
         controller.forwardAction()
+    }
+    
+    @objc
+    func cancleButtonTap() {
+        controller.cancleAction()
+//        print("取消")
     }
 }
