@@ -86,10 +86,10 @@ class SystemTipsView: UIView, StaticViewFactory, ContainerCollectionViewCellDele
             }
         }
         
-        if controller.needHide {
+//        if controller.needHide {
 //            textView.isHidden = true
-            textView.text = ""
-        }
+//            textView.text = ""
+//        }
     }
 
     private func setupSubviews() {

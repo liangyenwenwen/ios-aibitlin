@@ -6,6 +6,8 @@ public class SearchResultViewController: UIViewController, UISearchResultsUpdati
     
     public var didSelectedItem: ((_ ID: String) -> Void)?
     
+    public var lastDate = Date()
+    
     private lazy var tableView: UITableView = {
         let v = UITableView()
         v.register(SearchResultCell.self, forCellReuseIdentifier: SearchResultCell.className)
@@ -105,13 +107,23 @@ public class SearchResultViewController: UIViewController, UISearchResultsUpdati
     
     private var keyword: String = ""
     
+    
+    
     public func updateSearchResults(for searchController: UISearchController) {
-        let keyword = searchController.searchBar.text?.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard let keyword = keyword, !keyword.isEmpty else {
-            return
-        }
         
-        search(keyword)
+//        print(Date().timeIntervalSince1970 - lastDate.timeIntervalSince1970)
+        
+        if Date().timeIntervalSince1970 - lastDate.timeIntervalSince1970  > 3 {
+            let keyword = searchController.searchBar.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+            guard let keyword = keyword, !keyword.isEmpty else {
+                return
+            }
+            search(keyword)
+            
+            lastDate = Date()
+        }
+       
+        
     }
     
     @objc func search(_ keyword: String) {
@@ -156,7 +168,7 @@ public class SearchResultViewController: UIViewController, UISearchResultsUpdati
                             } else if isEmail {
                                 return [elem.userID : "邮箱".innerLocalized() + ":" + elem.email!]
                             } else {
-                                return [elem.userID : "昵称".innerLocalized() + ":" + elem.nickname!]
+                                return [elem.userID : "昵称".innerLocalized() + ":" + SuperStringUtil.getUserShowname(showname: elem.nickname!)]
                             }
                         }
                     }
