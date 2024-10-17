@@ -116,6 +116,8 @@
 "plsEnterPhoneNumber" = "กรุณากรอกหมายเลขโทรศัพท์ของคุณ";
 "plsEnterEmail" = "กรุณากรอกอีเมล์ของคุณ";
 "password" = "รหัสผ่าน";
+"newpassword" = "รหัสผ่านใหม่";
+"oldpassword" = "รหัสผ่านดั้งเดิม";
 "plsEnterPassword" = "กรุณาใส่รหัสผ่านของคุณ";
 "account" = "บัญชี";
 "plsEnterAccount" = "กรุณากรอกบัญชีของคุณ";

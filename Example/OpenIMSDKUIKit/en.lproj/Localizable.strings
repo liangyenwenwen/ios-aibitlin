@@ -115,6 +115,8 @@
 "plsEnterPhoneNumber" = "Please enter your phone number";
 "plsEnterEmail" = "Please enter your email";
 "password" = "Password";
+"newpassword" = "new password";
+"oldpassword" = "Original password";
 "plsEnterPassword" = "Please enter your password";
 "account" = "Account";
 "plsEnterAccount" = "Please enter your account";

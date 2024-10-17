@@ -167,7 +167,7 @@ struct _R: Sendable {
       var ieXW0yeText: RswiftResources.StringResource { .init(key: "8ie-xW-0ye.text", tableName: "LaunchScreen", source: source, developmentValue: nil, comment: nil) }
     }
 
-    /// This `_R.string.localizable` struct is generated, and contains static references to 471 localization keys.
+    /// This `_R.string.localizable` struct is generated, and contains static references to 473 localization keys.
     struct localizable {
       let source: RswiftResources.StringResource.Source
 
@@ -1032,6 +1032,13 @@ struct _R: Sendable {
       /// Locales: en, zh-Hans, th
       var newUserRegister: RswiftResources.StringResource { .init(key: "newUserRegister", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// en translation: new password
+      ///
+      /// Key: newpassword
+      ///
+      /// Locales: en, zh-Hans, th
+      var newpassword: RswiftResources.StringResource { .init(key: "newpassword", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: Next Step
       ///
       /// Key: nextStep
@@ -1052,6 +1059,13 @@ struct _R: Sendable {
       ///
       /// Locales: en, zh-Hans, th
       var noAccountYet: RswiftResources.StringResource { .init(key: "noAccountYet", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Original password
+      ///
+      /// Key: oldpassword
+      ///
+      /// Locales: en, zh-Hans, th
+      var oldpassword: RswiftResources.StringResource { .init(key: "oldpassword", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Optional
       ///

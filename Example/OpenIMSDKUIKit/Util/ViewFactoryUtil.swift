@@ -385,6 +385,7 @@ extension ViewFactoryUtil {
         titleLbl.tg_width.equal(.wrap)
         sectionHaderView.addSubview(titleLbl)
         titleLbl.tag = 20001
+        titleLbl.numberOfLines = 1
         
         
         let copyImg = ViewFactoryUtil.defalutImgView(R.image.copy_icon()!, 16)

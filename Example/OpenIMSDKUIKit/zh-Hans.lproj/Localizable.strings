@@ -29,6 +29,8 @@
 "plsEnterPhoneNumber" = "请输入您的手机号";
 "plsEnterEmail" = "请输入您的邮箱";
 "password" = "密码";
+"newpassword" = "新密码";
+"oldpassword" = "原始密码";
 "plsEnterPassword" = "请输入您的密码";
 "account" = "账号";
 "plsEnterAccount" = "请输入您的账号";

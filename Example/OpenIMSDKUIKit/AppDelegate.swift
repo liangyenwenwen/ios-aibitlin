@@ -41,9 +41,9 @@ let sdkWSRoute = ""
 //let sdkWSPort = ":10001"
 //let sdkWSRoute = ":10001/msg_gateway_enterprise"
 
-let defaultAppAddress = "imserver.aibitlin.com"
-let defaultIMAddress = "imserver.aibitlin.com"
-let defaultAdminAddress = "imserver.aibitlin.com"
+let defaultAppAddress = "imserver.aibitlin.com/chat"
+let defaultIMAddress = "imserver.aibitlin.com/api"
+let defaultAdminAddress = "imserver.aibitlin.com/msg_gateway"
 
 //let defaultAppAddress = "web.rentsoft.cn"
 //let defaultIMAddress = "web.rentsoft.cn"
@@ -146,8 +146,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 //        ? true : UserDefaults.standard.bool(forKey: useDomainKey)
 //        UserDefaults.standard.setValue(enableDomain, forKey: useDomainKey)
         
-        let enableTLS = false
-        let enableDomain = false
+        let enableTLS = true
+        let enableDomain = true
         UserDefaults.standard.setValue(enableTLS, forKey: useTLSKey)
         UserDefaults.standard.setValue(enableDomain, forKey: useDomainKey)
         // -------设置各种base url-------

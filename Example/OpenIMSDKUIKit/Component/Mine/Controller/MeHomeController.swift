@@ -145,6 +145,7 @@ class MeHomeController: BaseLogicController {
     
     lazy var username: UILabel = {
         let r = ViewFactoryUtil.customBoldTilteLable("", font: TEXT_LARGE4)
+        r.numberOfLines = 1
         return r
     }()
     

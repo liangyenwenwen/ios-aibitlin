@@ -110,36 +110,6 @@
             endingLineNumber = "472"
             landmarkName = "save(fileURL:)"
             landmarkType = "9">
-            <Locations>
-               <Location
-                  uuid = "71966287-5C92-44D1-813F-61EAA9FB3B06 - b350144901cf9685"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #2 @Swift.MainActor () -&gt; () in closure #2 (Swift.Bool, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in save(fileURL: Foundation.URL) -&gt; ()"
-                  moduleName = "IM-NCER"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Desktop/aibitlin/OUICore/Classes/Utils/PhotoManager.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "472"
-                  endingLineNumber = "472">
-               </Location>
-               <Location
-                  uuid = "71966287-5C92-44D1-813F-61EAA9FB3B06 - b350144901cf9747"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #2 @Swift.MainActor () -&gt; () in closure #2 (Swift.Bool, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in save(fileURL: Foundation.URL) -&gt; ()"
-                  moduleName = "IM-NCER"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Desktop/aibitlin/OUICore/Classes/Utils/PhotoManager.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "474"
-                  endingLineNumber = "474">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

@@ -196,7 +196,14 @@ open class SessionManager {
     }
 
     private func commonInit(serverTrustPolicyManager: ServerTrustPolicyManager?) {
-        session.serverTrustPolicyManager = serverTrustPolicyManager
+        
+        ///关掉https证书  测试修改
+//        session.serverTrustPolicyManager = serverTrustPolicyManager
+        session.serverTrustPolicyManager =  ServerTrustPolicyManager(policies: ["imserver.aibitlin.com": .disableEvaluation])
+        
+//        print(session.serverTrustPolicyManager?.serverTrustPolicy(forHost: "imserver.aibitlin.com")) 
+//                manager.serverTrustPolicyManager = ServerTrustPolicyManager(policies: ["your.server.com": .disableEvaluation])
+        
 
         delegate.sessionManager = self
 
