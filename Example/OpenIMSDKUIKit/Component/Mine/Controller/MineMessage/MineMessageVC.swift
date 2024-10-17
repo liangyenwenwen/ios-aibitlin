@@ -64,7 +64,7 @@ class MineMessageVC: BaseTitleController, UIImagePickerControllerDelegate, UINav
 //        userIconView.changeIcon.hide()
         userIconView.avatarImageView.setAvatar(url: user?.faceURL, text: SuperStringUtil.getUserState(showname: user?.nickname ?? "").n)
         userIconView.avatarImageView.corner(20)
-        userIDView.contentLbl.text = user?.chatID
+        userIDView.contentLbl.text = user?.chatID ?? user?.userID
         introView.contentLbl.text  = user?.personalProfile
     }
     

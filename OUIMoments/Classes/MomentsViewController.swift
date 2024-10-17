@@ -408,8 +408,12 @@ extension MomentsViewController: UIScrollViewDelegate {
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         contentOffsetY = scrollView.contentOffset.y
         
+        print(contentOffsetY)
+        
         momentNavBar.navBarView.alpha = contentOffsetY / 150.h
         momentNavBar.titleLabel.alpha = contentOffsetY / 150.h
+//        momentNavBar.backgroundColor?.withAlphaComponent((150.h - contentOffsetY) / 150.h)
+            
         
         if contentOffsetY / 150.h > 0.6 {
             momentNavBar.isScrollUp = true

@@ -17,7 +17,7 @@ public struct ChatViewControllerBuilder {
         let extractedExpr = DefaultChatCollectionDataSource(editNotifier: editNotifier,
                                                             swipeNotifier: swipeNotifier,
                                                             reloadDelegate: messageController,
-                                                            editingDelegate: messageController)
+                                                            editingDelegate: messageController, isSystemNotify: conversation.conversationType == .notification)
         let dataSource = extractedExpr
 
         

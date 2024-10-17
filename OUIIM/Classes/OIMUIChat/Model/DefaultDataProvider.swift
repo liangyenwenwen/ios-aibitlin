@@ -81,6 +81,7 @@ final class DefaultDataProvider: DataProvider {
             
             var r = [anchorMessage!]
             
+//            getHistoryMessageList(reverse: false) { ms in
             getHistoryMessageList(reverse: true) { ms in
                 r = ms + r
                 completion(r)
@@ -102,6 +103,7 @@ final class DefaultDataProvider: DataProvider {
             return
         }
         getHistoryMessageList(reverse: true, completion: completion)
+//        getHistoryMessageList(reverse: false, completion: completion)
     }
     
     func getGroupInfo(groupInfoHandler: @escaping (GroupInfo) -> Void, muteInfoHandler: ((MutedInfo) -> Void)?) {

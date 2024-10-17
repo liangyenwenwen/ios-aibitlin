@@ -311,6 +311,11 @@ final class ChatViewController: UIViewController {
         self.scrollToTop = scrollToTop
         super.init(nibName: nil, bundle: nil)
         
+//        if  self.chatController.getConversation().conversationType == .notification {
+//            self.dataSource.
+//        }
+        
+        
         loadInitialMessages()
         reloadCollectionview()
     }
@@ -693,17 +698,17 @@ final class ChatViewController: UIViewController {
     
     private func setupRefreshControl() {
         
-//        if chatController.getConversation().conversationType == .notification  {
-//            
-//            let footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(handleRefresh))
-//            footer.stateLabel?.isHidden = true
-//            collectionView.mj_footer = footer
-//        } else {
+        if chatController.getConversation().conversationType == .notification  {
+            
+            let footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(handleRefresh))
+            footer.stateLabel?.isHidden = true
+            collectionView.mj_footer = footer
+        } else {
             let header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(handleRefresh))
             header.stateLabel?.isHidden = true
             header.lastUpdatedTimeLabel?.isHidden = true
             collectionView.mj_header = header
-//        }
+        }
         
        
         
@@ -1965,6 +1970,7 @@ extension ChatViewController: ChatControllerDelegate {
     
     func update(with sections: [Section], requiresIsolatedProcess: Bool) {
         
+//        sections = sections.reversed()
         
         processUpdates(with: sections, animated: true, requiresIsolatedProcess: requiresIsolatedProcess)
     }

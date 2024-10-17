@@ -53,7 +53,7 @@ public class PopoverTableViewController: UIViewController, UITableViewDelegate, 
     
     public var topInset = 14.0.h
     
-    public var itemSize: CGSize = CGSize(width: 200, height: 40.h)
+    public var itemSize: CGSize = CGSize(width: 160, height: 40.h)
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

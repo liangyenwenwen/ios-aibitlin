@@ -47,6 +47,8 @@ typealias TextTitleView = ContainerCollectionReusableView<UILabel>
 
 final class DefaultChatCollectionDataSource: NSObject, ChatCollectionDataSource {
     
+    var isSystemNotify: Bool
+    
     private var reloadDelegate: ReloadDelegate
     
     public unowned var gestureDelegate: GestureDelegate?
@@ -72,11 +74,12 @@ final class DefaultChatCollectionDataSource: NSObject, ChatCollectionDataSource 
     init(editNotifier: EditNotifier,
          swipeNotifier: SwipeNotifier,
          reloadDelegate: ReloadDelegate,
-         editingDelegate: EditingAccessoryControllerDelegate) {
+         editingDelegate: EditingAccessoryControllerDelegate, isSystemNotify: Bool) {
         self.reloadDelegate = reloadDelegate
         self.editingDelegate = editingDelegate
         self.editNotifier = editNotifier
         self.swipeNotifier = swipeNotifier
+        self.isSystemNotify = isSystemNotify
     }
     
     deinit {
@@ -1086,6 +1089,8 @@ final class DefaultChatCollectionDataSource: NSObject, ChatCollectionDataSource 
     }
 }
 
+
+//测试修改
 extension DefaultChatCollectionDataSource: UICollectionViewDataSource {
     
     public func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -1093,11 +1098,28 @@ extension DefaultChatCollectionDataSource: UICollectionViewDataSource {
     }
     
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        sections[section].cells.count
+//        sections[section].cells.count
+        if isSystemNotify {
+            sections[(sections.count - 1) - section].cells.count
+        } else {
+            sections[section].cells.count
+        }
+        
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = sections[indexPath.section].cells[indexPath.item]
+        
+//        let cell = sections[indexPath.section].cells[indexPath.item]
+        
+//        var cell : Cell? = nil
+//        
+//        if isSystemNotify {
+//            let cell = sections[(sections.count - 1) - indexPath.section].cells[sections[(sections.count - 1) - indexPath.section].cells.count - 1 - indexPath.item]
+//        } else {
+//            let cell = sections[indexPath.section].cells[indexPath.item]
+//        }
+        
+        let cell = isSystemNotify ? sections[(sections.count - 1) - indexPath.section].cells[sections[(sections.count - 1) - indexPath.section].cells.count - 1 - indexPath.item] : sections[indexPath.section].cells[indexPath.item]
         
         var lastID: String? = nil
         
@@ -1256,7 +1278,8 @@ extension DefaultChatCollectionDataSource: ChatLayoutDelegate {
     public func sizeForItem(_ chatLayout: CollectionViewChatLayout, of kind: ItemKind, at indexPath: IndexPath) -> ItemSize {
         switch kind {
         case .cell:
-            let item = sections[indexPath.section].cells[indexPath.item]
+//            let item = sections[indexPath.section].cells[indexPath.item]
+            let item = isSystemNotify ? sections[(sections.count - 1) - indexPath.section].cells[sections[(sections.count - 1) - indexPath.section].cells.count - 1 - indexPath.item] : sections[indexPath.section].cells[indexPath.item]
             switch item {
             case let .message(message, bubbleType: _):
                 switch message.data {
@@ -1293,7 +1316,8 @@ extension DefaultChatCollectionDataSource: ChatLayoutDelegate {
         case .header:
             return .center
         case .cell:
-            let item = sections[indexPath.section].cells[indexPath.item]
+//            let item = sections[indexPath.section].cells[indexPath.item]
+            let item = isSystemNotify ? sections[(sections.count - 1) - indexPath.section].cells[sections[(sections.count - 1) - indexPath.section].cells.count - 1 - indexPath.item] : sections[indexPath.section].cells[indexPath.item]
             switch item {
             case .date, .systemMessage:
                 return .center
@@ -1315,7 +1339,16 @@ extension DefaultChatCollectionDataSource: ChatLayoutDelegate {
               kind == .cell else {
             return
         }
-        switch sections[indexPath.section].cells[indexPath.item] {
+//        switch sections[indexPath.section].cells[indexPath.item] {
+//        case .typingIndicator:
+//            originalAttributes.transform = .init(scaleX: 0.1, y: 0.1)
+//            originalAttributes.center.x -= originalAttributes.bounds.width / 5
+//        default:
+//            break
+//        }
+        
+        
+        switch isSystemNotify ? sections[(sections.count - 1) - indexPath.section].cells[sections[(sections.count - 1) - indexPath.section].cells.count - 1 - indexPath.item] : sections[indexPath.section].cells[indexPath.item] {
         case .typingIndicator:
             originalAttributes.transform = .init(scaleX: 0.1, y: 0.1)
             originalAttributes.center.x -= originalAttributes.bounds.width / 5
@@ -1329,12 +1362,21 @@ extension DefaultChatCollectionDataSource: ChatLayoutDelegate {
         guard kind == .cell else {
             return
         }
-        switch oldSections[indexPath.section].cells[indexPath.item] {
+        
+        switch isSystemNotify ? oldSections[(oldSections.count - 1) - indexPath.section].cells[oldSections[(oldSections.count - 1) - indexPath.section].cells.count - 1 - indexPath.item] : oldSections[indexPath.section].cells[indexPath.item] {
         case .typingIndicator:
             originalAttributes.transform = .init(scaleX: 0.1, y: 0.1)
             originalAttributes.center.x -= originalAttributes.bounds.width / 5
         default:
             break
         }
+        
+//        switch oldSections[indexPath.section].cells[indexPath.item] {
+//        case .typingIndicator:
+//            originalAttributes.transform = .init(scaleX: 0.1, y: 0.1)
+//            originalAttributes.center.x -= originalAttributes.bounds.width / 5
+//        default:
+//            break
+//        }
     }
 }

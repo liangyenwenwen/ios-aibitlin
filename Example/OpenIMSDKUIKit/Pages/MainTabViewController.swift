@@ -589,6 +589,10 @@ extension MainTabViewController: UITabBarControllerDelegate {
             
             if !view.subviews.contains(_moreView) {
                 
+//                viewController.tabBarItem.
+//                viewControllers?[4].view = (viewControllers?[lastTabBarItemTag])!.view
+//                tabBarController.selectedIndex = 4
+                
                 view.addSubview(_moreView)
                 _moreView.snp.makeConstraints { make in
                     make.top.trailing.leading.equalToSuperview()
