@@ -60,12 +60,16 @@ class YFFileDataUtil {
         
         var datas:[blogDetailItem] = []
         if let dataRead = try?  Data(contentsOf:path) {
+            
                do{
                    datas = try JSONDecoder().decode([blogDetailItem].self, from: dataRead)
                } catch {
                    print(error)
                }
-        } else { }
+        } else {
+            print("解析出错")
+        }
+        
         return datas
     }
 
@@ -77,8 +81,11 @@ class YFFileDataUtil {
             let path = getBlogPath(locaType)
             try dataWrite?.write(to: path)
             print("保存成功")
+            
+            
         } catch {
             print("保存到本地文件失败")
+            
         }
     }
         

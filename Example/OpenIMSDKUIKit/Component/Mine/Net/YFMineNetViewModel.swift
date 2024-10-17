@@ -112,7 +112,7 @@ class YFMineNetViewModel: AccountViewModel {
             let blogVersion = UserDefaults.standard.string(forKey: "blogVersion\(IMUser.userID)") ?? "123"
             
             
-            let body = JsonTool.toJson(fromObject: MineBlogRequest(userId: userId, userBlogVersion: "123")).data(using: .utf8)
+            let body = JsonTool.toJson(fromObject: MineBlogRequest(userId: userId, userBlogVersion: "\(blogVersion)")).data(using: .utf8)
             var req = try! URLRequest(url: API_BLOG_URL + ShowMyMyBlogsAPI + "?userId=\(userId!)" + "&userBlogVersion=\(blogVersion)", method: .post, headers: httpHeaders)
             req.httpBody = body
 

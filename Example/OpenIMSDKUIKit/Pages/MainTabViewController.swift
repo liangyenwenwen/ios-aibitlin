@@ -610,6 +610,8 @@ extension MainTabViewController: UITabBarControllerDelegate {
                     items.append(item)
                 }
                 _moreView.setItems(items)
+            } else {
+                _moreView.bottomShow(show: false)
             }
             
             return false

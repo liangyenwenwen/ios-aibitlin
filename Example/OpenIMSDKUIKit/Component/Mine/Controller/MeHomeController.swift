@@ -52,11 +52,14 @@ class MeHomeController: BaseLogicController {
     }
     
     override func bindData() {
+        
         _viewModel.currentUserRelay.subscribe(onNext: { [weak self] (user: QueryUserInfo?) in
             guard let self, user != nil else { return }
+            
             updateHeaderView()
             
         }).disposed(by: rx.disposeBag)
+        
     }
 
     func updateHeaderView() {
@@ -121,6 +124,7 @@ class MeHomeController: BaseLogicController {
         
 //        userView.addSubview(scanBtn)
         userView.addSubview(settingBtn)
+
     }
 
     lazy var userIcon: UIImageView = {
@@ -187,6 +191,17 @@ class MeHomeController: BaseLogicController {
         r.addTarget(self, action: #selector(settingUserMessage), for: .touchUpInside)
         return r
     }()
+    
+//    lazy var settingIMg: UIImageView = {
+//        let r = ViewFactoryUtil.defalutImgView(R.image.mine_setting_icon()!, 20)
+//        r.tg_right.equal(scanBtn.tg_left, offset: 10)
+//        r.tg_centerY.equal(0)
+//        let tap = UITapGestureRecognizer(target: self, action: #selector(settingUserMessage))
+//        r.isUserInteractionEnabled = true
+//        r.addGestureRecognizer(tap)
+//        
+//        return r
+//    }()
     
     
     lazy var vipView: UIView = {

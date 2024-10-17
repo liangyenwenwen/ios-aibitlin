@@ -692,11 +692,22 @@ final class ChatViewController: UIViewController {
     }
     
     private func setupRefreshControl() {
-        let header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(handleRefresh))
-        header.stateLabel?.isHidden = true
-        header.lastUpdatedTimeLabel?.isHidden = true
         
-        collectionView.mj_header = header
+//        if chatController.getConversation().conversationType == .notification  {
+//            
+//            let footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(handleRefresh))
+//            footer.stateLabel?.isHidden = true
+//            collectionView.mj_footer = footer
+//        } else {
+            let header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(handleRefresh))
+            header.stateLabel?.isHidden = true
+            header.lastUpdatedTimeLabel?.isHidden = true
+            collectionView.mj_header = header
+//        }
+        
+       
+        
+        
     }
     
     @objc private func handleRefresh() {
@@ -712,7 +723,7 @@ final class ChatViewController: UIViewController {
             let animated = !self.isUserInitiatedScrolling
             self.processUpdates(with: sections, animated: false, requiresIsolatedProcess: false) {
                 self.collectionView.mj_header?.endRefreshing()
-
+                self.collectionView.mj_footer?.endRefreshing()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [self] in
                     self.currentControllerActions.options.remove(.loadingPreviousMessages)
                 }
@@ -1957,6 +1968,7 @@ extension ChatViewController: ChatControllerDelegate {
     }
     
     private func processUpdates(with sections: [Section], animated: Bool = true, requiresIsolatedProcess: Bool, completion: (() -> Void)? = nil) {
+        
         guard isViewLoaded else {
             dataSource.sections = sections
             return

@@ -299,7 +299,7 @@ extension MineBokeStatisticsVC {
     }
     
     func showBlogsSurvey() {
-        let paramters : [String: Any] = ["userId": boke.userId, "userBlogId": boke.id]
+        let paramters : [String: Any] = ["userId": boke.userId!, "userBlogId": boke.id!]
 
         YFMineNetViewModel.queryShowBlogsSurvey(paramters: paramters) { [self] data in
             if let data = data {
@@ -315,7 +315,7 @@ extension MineBokeStatisticsVC {
     
     func queryShowBlogsSurveyOneDay(time: String) {
         
-        let paramters : [String: Any] = ["time": time, "userId": boke.userId, "userBlogId": boke.id]
+        let paramters : [String: Any] = ["time": time, "userId": boke.userId!, "userBlogId": boke.id!]
         YFMineNetViewModel.queryShowBlogsSurveyOneDay(paramters: paramters) { [self] data in
             if let data = data {
                 chooseTime = time

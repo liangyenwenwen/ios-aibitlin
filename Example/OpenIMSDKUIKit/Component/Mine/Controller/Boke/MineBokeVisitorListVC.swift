@@ -82,7 +82,7 @@ extension MineBokeVisitorListVC {
     }
     
     func strangersNetWork() {
-        let paramters : [String: Any] = ["time": blogTime!, "userId": boke.userId, "userBlogId": boke.id]
+        let paramters : [String: Any] = ["time": blogTime!, "userId": boke.userId!, "userBlogId": boke.id!]
         
         YFMineNetViewModel.queryShowBlogsSurveyStranger(paramters: paramters) { [self]data in
             datum = data
