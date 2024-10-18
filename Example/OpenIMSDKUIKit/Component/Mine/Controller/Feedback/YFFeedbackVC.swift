@@ -11,17 +11,25 @@ import TangramKit
 import OUICore
 import ProgressHUD
 import MMBAlertsPickers
+import RxSwift
+import RxCocoa
 
 class YFFeedbackVC: BaseTitleController {
 
-    var useType: MyStyle = .useFeedback
+    var reportType: ReportType = .user
     var topViewTitle:String!
     var contentViewTitle:String!
     var imageTitle:String!
     var tempStr:String = ""
     
-    var reportType: MyStyle = .reportUser
+    var blogItem: blogDetailItem!
+    var conversationItem: ConversationInfo!
+    var userItem: QueryUserInfo!
+    
+    private let _viewModel = MineViewModel()
+    
     var reportID: String = ""
+    var reportImgs: String = ""
     
     override func initViews() {
         
@@ -31,7 +39,8 @@ class YFFeedbackVC: BaseTitleController {
         
         setTitle()
         
-        title = useType == .useFeedback ? "反馈".localized() : "举报".localized();
+//        title = useType == .useFeedback ? "反馈".localized() : "举报".localized();
+        title = "举报".localized();
         
         container.tg_padding = UIEdgeInsets(top: PADDING_OUTER, left: PADDING_OUTER, bottom: PADDING_OUTER, right: PADDING_OUTER)
         container.addSubview(meesageView)
@@ -41,7 +50,6 @@ class YFFeedbackVC: BaseTitleController {
 //        container.addSubview(ViewFactoryUtil.smallDivider())
 //        container.addSubview(contentView)
 //        container.addSubview(ViewFactoryUtil.smallDivider())
-//        
 //        container.addSubview(imageView)
         
         superFooterContainerContainer.tg_padding = UIEdgeInsets(top: PADDING_OUTER, left: 10, bottom: 10, right: 10)
@@ -51,6 +59,7 @@ class YFFeedbackVC: BaseTitleController {
         print(self.reportType, self.reportID)
         
         refreshUI()
+        bindData()
     }
     
     
@@ -79,27 +88,34 @@ class YFFeedbackVC: BaseTitleController {
     
     
     func setTitle() {
-        switch useType {
-    
-        case .useFeedback:
-            title = "反馈".localized()
-            topViewTitle = "\("标题".localized())*"
-            contentViewTitle = "\("问题描述".localized())*"
-            imageTitle = "截图".localized()
-        case .useReport:
-            title = R.string.localizable.report()
-            topViewTitle = "\("举报原因".localized())*"
-            contentViewTitle = "\("举报描述".localized())*"
-            imageTitle = "截图证据".localized()
-        default:
-            break
-        }
+        
+        title = R.string.localizable.report()
+        topViewTitle = "\("举报原因".localized())*"
+        contentViewTitle = "\("举报描述".localized())*"
+        imageTitle = "截图证据".localized()
+        
+//        switch useType {
+//    
+//        case .useFeedback:
+//            title = "反馈".localized()
+//            topViewTitle = "\("标题".localized())*"
+//            contentViewTitle = "\("问题描述".localized())*"
+//            imageTitle = "截图".localized()
+//        case .useReport:
+//            title = R.string.localizable.report()
+//            topViewTitle = "\("举报原因".localized())*"
+//            contentViewTitle = "\("举报描述".localized())*"
+//            imageTitle = "截图证据".localized()
+//        default:
+//            break
+//        }
     }
     
     
     lazy var bottomBtn: QMUIButton = {
         let r = ViewFactoryUtil.primaryHalfFilletButton()
         r.setTitle("提交".localized(), for: .normal)
+        r.addTarget(self, action: #selector(toReportAction), for: .touchUpInside)
         return r
     }()
     
@@ -110,14 +126,14 @@ class YFFeedbackVC: BaseTitleController {
         }
         r.isMediumFont()
         r.titleView.changeColor(changeColorStr: "*")
-        if useType == .useReport {
+//        if useType == .useReport {
 //            r.isReport()
-        }
+//        }
         return r
     }()
     
     func reportChoose() {
-        if self.useType == .useReport {
+//        if self.useType == .useReport {
 //            let alert = UIAlertController(title: "举报", message: "举报该账号的原因", preferredStyle: .actionSheet)
 //            
 //            let frameSizes: [String] = ["发布不适当内容对我造成骚扰", "钱财欺诈", "怀疑账号被盗用", "其他"]
@@ -132,8 +148,8 @@ class YFFeedbackVC: BaseTitleController {
 //            //cacel 取消也改变值  defalut 必须选择 alert才会消失
 //            alert.addAction(title: "Done".localized(), style: .cancel)
 //            alert.show()
-            self.showReportSheet()
-        }
+//            self.showReportSheet()
+//        }
     }
     
     func showReportSheet() {
@@ -317,4 +333,113 @@ class YFFeedbackVC: BaseTitleController {
         }
         return v
     }()
+    
+    override func bindData() {
+        topTitleView.needLimitLength(length: 12)
+        contentView.needLimitLengthAboutTextView(length: 256)
+        
+        Observable.combineLatest(topTitleView.textFieldView.rx.text.orEmpty, contentView.textView.rx.text.orEmpty) {
+            $0.count > 0  && $1.count > 0
+        }
+        .bind(to: bottomBtn.rx.isEnabled)
+        .disposed(by: rx.disposeBag)
+    }
+    
+}
+
+
+extension YFFeedbackVC {
+    @objc func toReportAction() {
+        
+        if reportType == .feedback {
+            SuperToast.show(title: "提交成功".localized())
+            return
+        }
+
+        
+        if datum.count == 0 {
+            toReportNet()
+        } else {
+            uploadImageNetWork(index: 0)
+        }
+        
+        
+    }
+    
+    func uploadImageNetWork(index: Int) {
+       
+        if index < datum.count {
+           
+            ProgressHUD.animate()
+            let result = FileHelper.shared.saveImage(image: datum[index] as! UIImage)
+            
+            
+            IMController.shared.uploadFile(fullPath: result.fullPath) { [weak self] progress in
+                
+            } onSuccess: { [weak self] url in
+                if let url = url {
+                   
+                    if index > 0 {
+                        self?.reportImgs = self!.reportImgs + "," + url
+                    } else {
+                        self?.reportImgs = url
+                    }
+                    self?.uploadImageNetWork(index: index + 1)
+                    print(self!.reportImgs)
+                    
+                }
+                ProgressHUD.dismiss()
+            }
+
+        } else {
+            print("\n\n\n所有图片上传完成")
+            toReportNet()
+        }
+        
+        
+        
+    }
+    
+    func toReportNet() {
+        
+        var paramters : [String : Any] = [:]
+        switch reportType {
+        case .blog:
+            paramters = ["blogId": blogItem.id!,
+                         "userBlogUrl": blogItem.userBlogUrl!,
+                         "userBlogIcon": blogItem.userBlogIcon!,
+                         "userBlogName": blogItem.userBlogName!,
+                         "userBlogIntro": blogItem.userBlogIntro!,
+                         "userBlogCreatIp": blogItem.userBlogCreatIp!,
+                         "userBlogCreatAffiliatingArea": blogItem.userBlogIntro!,
+
+                         "reportReason":topTitleView.inputText!,
+                         "reportDescription":contentView.textView.text!,
+                         "reportImgs": reportImgs,
+                         "reportUserId": IMController.shared.uid]
+        case .chatHistory:
+            paramters = [ "beReportedUserId": conversationItem.userID!,
+                          "beReportedUserImg": conversationItem.faceURL ?? "",
+                          "beReportedUserName": conversationItem.showName!,
+                          "reportReason":topTitleView.inputText!,
+                         "reportDescription":contentView.textView.text!,
+                         "reportImgs": reportImgs,
+                         "reportUserId": IMController.shared.uid]
+        case .user:
+            paramters = [ "beReportedUserId": userItem.userID!,
+                          "beReportedUserName": userItem.nickname!,
+                          "beReportedUserImg": userItem.faceURL ?? "",
+//                          "": "",
+                          "reportReason":topTitleView.inputText!,
+                         "reportDescription":contentView.textView.text!,
+                         "reportImgs": reportImgs,
+                         "reportUserId": IMController.shared.uid]
+            default:
+                break
+        }
+        
+        
+        YFMineNetViewModel.reportUserNet(paramters: paramters, reportType: reportType)
+        
+    }
 }

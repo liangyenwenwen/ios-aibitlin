@@ -242,7 +242,7 @@ extension MineBokeListViewController {
             print("举报")
             GKCover.hide()
             let vc = YFFeedbackVC()
-            vc.useType = .useReport
+            vc.reportType = .blog
             self?.gotoController(vc)
             GKCover.hideWithoutAnimation()
         }

@@ -337,6 +337,15 @@ extension SuperSettingView {
             .disposed(by: rx.disposeBag)
     }
     
+    /// 限制输入长度
+    func needLimitLengthAboutTextView(length: Int) {
+        textView.rx.text
+            .orEmpty
+            .map{$0.count > length ? String($0.prefix(length)) : $0 }
+            .bind(to: textFieldView.rx.text)
+            .disposed(by: rx.disposeBag)
+    }
+    
     
     var inputText: String? {
         return textFieldView.text

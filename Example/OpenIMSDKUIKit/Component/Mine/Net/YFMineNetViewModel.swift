@@ -46,6 +46,11 @@ class YFMineNetViewModel: AccountViewModel {
     private static let pictureFindAPI = "/picture/find"
     
     
+    // MARK: - 张亚飞打的标记 举报 AIP
+    private static let reportBlogAddAPI = "/report/reportBlogAdd"
+    private static let reportUserAddAPI = "/report/reportUserAdd"
+    private static let reportChatHistoryAddAPI = "/report/reportChatHistoryAdd"
+    
     private static var httpHeaders : HTTPHeaders = [
         "token":UserDefaults.standard.string(forKey: bussinessTokenKey)!,
         "X-Forwarded-For":"183.156.234.224",
@@ -552,6 +557,8 @@ class YFMineNetViewModel: AccountViewModel {
         
     }
     
+  
+    
     
 }
 
@@ -584,8 +591,52 @@ extension YFMineNetViewModel {
     
 }
 
-
-
+// MARK: - 张亚飞打的标记   举报
+enum ReportType {
+    case  user
+    case  chatHistory
+    case  blog
+    case  feedback
+}
+extension YFMineNetViewModel {
+    
+    static func reportUserNet(paramters:Parameters, reportType:ReportType) {
+        
+        var url = ""
+        switch reportType {
+            case .user:
+                url = API_BLOG_URL + reportUserAddAPI
+            case.chatHistory:
+                url = API_BLOG_URL + reportChatHistoryAddAPI
+            case .blog:
+                url = API_BLOG_URL + reportBlogAddAPI
+            case .feedback:
+                url = ""
+        }
+        
+        
+        Alamofire.request(url, method: .post, parameters: paramters, encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
+            
+            if let data  = dataRequest.data {
+                let strData = String.init(data: data, encoding: String.Encoding.utf8)
+                if let res = JsonTool.fromJson(strData!, toClass: BlogResponse.self) {
+                    
+                    if res.code == 20000  {
+                        SuperToast.show(title: "提交成功".localized())
+                    }
+                    
+                } else {
+                   
+                }
+                
+   
+            }
+        }
+    }
+    
+    
+    
+}
 
 struct PictureFindResponse: Codable {
     var urls : [String]?

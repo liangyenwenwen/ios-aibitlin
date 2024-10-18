@@ -21,7 +21,7 @@ import OUIMoments
 class UserMessageVC: BaseTitleController {
 
     var userID: String = ""
-    var ConversationInfo: ConversationInfo?
+//    var ConversationInfo: ConversationInfo?
     var userInfo: QueryUserInfo?
     
     override func viewWillAppear(_ animated: Bool) {
@@ -227,8 +227,22 @@ class UserMessageVC: BaseTitleController {
             self?.bottomSheetClick(title)
             GKCover.hide()
         }
+        contentView.reportBlock = {[weak self] title in
+            self?.reportAction()
+        }
         GKCover.cover(from: view, contentView: contentView, style: .translucent, showStyle: .bottom, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
     }
+    
+    
+    func reportAction() {
+        let vc = YFFeedbackVC()
+        vc.reportType = .user
+        vc.userItem = userInfo
+        gotoController(vc)
+    }
+    
+    
+    
     
     func bottomSheetClick(_ title: String) {
         if(title == R.string.localizable.modifyRemarks()) {
@@ -236,7 +250,8 @@ class UserMessageVC: BaseTitleController {
         }
         if(title == R.string.localizable.report()) {
             let vc = YFFeedbackVC()
-            vc.useType = .useReport
+            vc.reportType = .user
+            vc.userItem = userInfo
             gotoController(vc)
         }
         
@@ -444,11 +459,11 @@ extension UserMessageVC {
     
     @objc func gotoBokeList() {
         
-        let userShowname = SuperStringUtil.getUserShowname(showname: ConversationInfo?.showName ?? "")
+        let userShowname = SuperStringUtil.getUserShowname(showname: userInfo?.nickname ?? "")
         
         let vc = MineBokeListViewController()
         vc.vcType = .othersBlog
-        vc.othersID = ConversationInfo?.userID
+        vc.othersID = userInfo?.userID
         vc.othersName = userShowname
         gotoController(vc)
         

@@ -16,6 +16,7 @@ import UIKit
 
 class MineChooseBottomSheetView: TGLinearLayout {
     var chooseTitle: ((String) -> ())!
+    var reportBlock: ((String) -> ())?
     var userID: String?
     var conversationInfo: ConversationInfo?
     var currentController: UIViewController?
@@ -160,7 +161,7 @@ class MineChooseBottomSheetView: TGLinearLayout {
                         IMController.shared.imManager.remove(fromBlackList: self.userID!, onSuccess: { r in
                             self.chooseTitle("取消黑名单")
                         })
-//                        self?.chooseTitle("取消黑名单")
+                        
                     }
                 }
                 settingView.isMediumFont(15)
@@ -185,6 +186,12 @@ class MineChooseBottomSheetView: TGLinearLayout {
                         self?.deleteFriend()
                         GKCover.hide()
                     }
+                    
+                    if i == 2 {
+                        self?.reportAction()
+                        GKCover.hide()
+                    }
+                    
                 }
                 settingView.isMediumFont(15)
                 centerContainer.addSubview(settingView)
@@ -209,6 +216,12 @@ class MineChooseBottomSheetView: TGLinearLayout {
                     self.chooseTitle("删除好友".localized())
                 }
             }
+        }
+    }
+    
+    func reportAction() {
+        if reportBlock != nil {
+            reportBlock!("")
         }
     }
     
@@ -335,9 +348,10 @@ class MineChooseBottomSheetView: TGLinearLayout {
                 self?.chooseTitle(titleArr2[i])
                     
                 let vc = YFFeedbackVC()
-                vc.useType = .useReport
-                vc.reportType = .reportUser
-                vc.reportID = (self?.userID)!
+
+                vc.reportType = .chatHistory
+//                vc.reportID = (self?.userID)!
+                vc.conversationItem = self!.conversationInfo
                 self?.currentController?.navigationController?.pushViewController(vc)
                 GKCover.hideWithoutAnimation()
             }
