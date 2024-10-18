@@ -167,7 +167,7 @@ struct _R: Sendable {
       var ieXW0yeText: RswiftResources.StringResource { .init(key: "8ie-xW-0ye.text", tableName: "LaunchScreen", source: source, developmentValue: nil, comment: nil) }
     }
 
-    /// This `_R.string.localizable` struct is generated, and contains static references to 473 localization keys.
+    /// This `_R.string.localizable` struct is generated, and contains static references to 474 localization keys.
     struct localizable {
       let source: RswiftResources.StringResource.Source
 
@@ -1661,6 +1661,13 @@ struct _R: Sendable {
       ///
       /// Locales: en, th
       var 删除成员: RswiftResources.StringResource { .init(key: "删除成员", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Load failed, please pull down refresh and try again
+      ///
+      /// Key: 加载失败，请下拉刷新重试。
+      ///
+      /// Locales: en, th
+      var 加载失败请下拉刷新重试: RswiftResources.StringResource { .init(key: "加载失败，请下拉刷新重试。", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Distrub
       ///
@@ -3500,7 +3507,7 @@ struct _R: Sendable {
     var colorBackground: RswiftResources.ColorResource { .init(name: "ColorBackground", path: [], bundle: bundle) }
   }
 
-  /// This `_R.image` struct is generated, and contains static references to 239 images.
+  /// This `_R.image` struct is generated, and contains static references to 240 images.
   struct image {
     let bundle: Foundation.Bundle
 
@@ -4217,6 +4224,9 @@ struct _R: Sendable {
 
     /// Image `vip_description`.
     var vip_description: RswiftResources.ImageResource { .init(name: "vip_description", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `warnings_icon`.
+    var warnings_icon: RswiftResources.ImageResource { .init(name: "warnings_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
     /// Image `youtube_icon`.
     var youtube_icon: RswiftResources.ImageResource { .init(name: "youtube_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }

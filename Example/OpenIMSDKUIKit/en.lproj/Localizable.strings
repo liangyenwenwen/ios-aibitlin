@@ -620,7 +620,7 @@ SupportShortNumber = "Support setting a minimum %@-digit account ID";
 
 "博客图标未设置" = "Blog icon not set";
 
-
+"加载失败，请下拉刷新重试。" = "Load failed, please pull down refresh and try again";
 
 //"" = "";
 //"" = "";

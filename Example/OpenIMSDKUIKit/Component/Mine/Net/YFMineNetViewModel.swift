@@ -63,6 +63,13 @@ class YFMineNetViewModel: AccountViewModel {
                           userBlogIntro: String?,
                           completionHandler: @escaping CompletionHandler) {
         
+        
+        if !NetworkStatus.isReacheable {
+            SuperToast.show(title: "")
+            return
+        }
+        
+        
 //        ProgressHUD.animate()
         
         

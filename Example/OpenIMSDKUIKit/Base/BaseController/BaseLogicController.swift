@@ -31,6 +31,15 @@ class BaseLogicController: BaseCommentController {
     var scrollView: UIScrollView!
     var scrollViewContainer: TGLinearLayout!
     
+    //断网提示
+//    var noNetView: YFNotNetTopTipView!
+    lazy var noNetView: YFNotNetTopTipView = {
+        let  r = YFNotNetTopTipView()
+        return r
+    }()
+    
+    
+    
     var isHaveEmpty: Bool = false
     lazy var emptyView: YFEmptyView = {
         let r = YFEmptyView()
@@ -130,6 +139,23 @@ class BaseLogicController: BaseCommentController {
     
     func initScrollSafeArea()  {
         initLinearLayoutSafeArea()
+
+        
+        scrollView = UIScrollView()
+        scrollView.showsVerticalScrollIndicator  = false
+        scrollView.tg_width.equal(.fill)
+        scrollView.tg_height.equal(.fill)
+        container.addSubview(scrollView)
+        
+        scrollViewContainer = TGLinearLayout(.vert)
+        scrollViewContainer.tg_width.equal(.fill)
+        scrollViewContainer.tg_height.equal(.wrap)
+        scrollView.addSubview(scrollViewContainer)
+    }
+    func initScrollSafeAreaAboutTip()  {
+        initLinearLayoutSafeArea()
+        
+        container.addSubview(noNetView)
         
         scrollView = UIScrollView()
         scrollView.showsVerticalScrollIndicator  = false

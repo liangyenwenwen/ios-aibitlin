@@ -33,6 +33,7 @@ class YFMineQRCodeVC: BaseTitleController {
         refreshUI()
         
         
+        
         ///将card 放试图上 并且遮挡
         view.addSubview(saveCard)
         let coverView = UIView()

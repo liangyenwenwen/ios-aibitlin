@@ -75,6 +75,8 @@
 		049C64432BEC689100B679C4 /* YFTitleAddUnderlineChooseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049C64422BEC689100B679C4 /* YFTitleAddUnderlineChooseView.swift */; };
 		049C64452BECC62D00B679C4 /* YFRegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049C64442BECC62C00B679C4 /* YFRegisterVC.swift */; };
 		049C64472BECD49700B679C4 /* YFControllerUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049C64462BECD49700B679C4 /* YFControllerUtil.swift */; };
+		049D30222CC1F5DB00649DC4 /* YFNetworkStatusUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049D30212CC1F5DB00649DC4 /* YFNetworkStatusUtil.swift */; };
+		049D30252CC2032800649DC4 /* YFNotNetTopTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049D30242CC2032800649DC4 /* YFNotNetTopTipView.swift */; };
 		04A4BD002BF32F17008FA224 /* YFMineChangePasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A4BCFF2BF32F17008FA224 /* YFMineChangePasswordVC.swift */; };
 		04D2E2052CBE4E5500582B13 /* HDEmptyBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D2E1FF2CBE4E5500582B13 /* HDEmptyBaseView.swift */; };
 		04D2E2062CBE4E5500582B13 /* HDEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D2E2002CBE4E5500582B13 /* HDEmptyView.swift */; };
@@ -250,6 +252,8 @@
 		049C64422BEC689100B679C4 /* YFTitleAddUnderlineChooseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFTitleAddUnderlineChooseView.swift; sourceTree = "<group>"; };
 		049C64442BECC62C00B679C4 /* YFRegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFRegisterVC.swift; sourceTree = "<group>"; };
 		049C64462BECD49700B679C4 /* YFControllerUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFControllerUtil.swift; sourceTree = "<group>"; };
+		049D30212CC1F5DB00649DC4 /* YFNetworkStatusUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFNetworkStatusUtil.swift; sourceTree = "<group>"; };
+		049D30242CC2032800649DC4 /* YFNotNetTopTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFNotNetTopTipView.swift; sourceTree = "<group>"; };
 		04A4BCFF2BF32F17008FA224 /* YFMineChangePasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFMineChangePasswordVC.swift; sourceTree = "<group>"; };
 		04ACD8742CBE90B400EFE179 /* SampleHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleHandler.swift; sourceTree = "<group>"; };
 		04ACD8762CBE90B400EFE179 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -462,6 +466,7 @@
 				04D6A6772C9131ED008193E7 /* YFNetworkUtils.swift */,
 				047BF6B52CA2B6DF00706117 /* YFFileDataUtil.swift */,
 				04DB1E3D2CA6B0C000EE8B8C /* YFDateUtil.swift */,
+				049D30212CC1F5DB00649DC4 /* YFNetworkStatusUtil.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -480,6 +485,7 @@
 		040D85C82BEB8C0A00DCAAB3 /* BaseView */ = {
 			isa = PBXGroup;
 			children = (
+				049D30232CC201F600649DC4 /* notNetTopTipView */,
 				04F5CFC02CBD357B007BC74D /* emptyView */,
 				049C64412BEC682100B679C4 /* ChooseView */,
 				040D85C92BEB8C0A00DCAAB3 /* SettingView */,
@@ -690,6 +696,14 @@
 				049C64422BEC689100B679C4 /* YFTitleAddUnderlineChooseView.swift */,
 			);
 			path = ChooseView;
+			sourceTree = "<group>";
+		};
+		049D30232CC201F600649DC4 /* notNetTopTipView */ = {
+			isa = PBXGroup;
+			children = (
+				049D30242CC2032800649DC4 /* YFNotNetTopTipView.swift */,
+			);
+			path = notNetTopTipView;
 			sourceTree = "<group>";
 		};
 		04ACD8732CBE90B400EFE179 /* ScreenShareBroadcastExtension */ = {
@@ -1501,6 +1515,7 @@
 				04F2D08D2BEE21CA00D5271B /* UserMessageThridView.swift in Sources */,
 				040D860C2BEB8C4200DCAAB3 /* SuperUIImageExtension.swift in Sources */,
 				1790EE6E2921EAFC00C4024A /* CheckBoxTextTableViewCell.swift in Sources */,
+				049D30222CC1F5DB00649DC4 /* YFNetworkStatusUtil.swift in Sources */,
 				043A558C2C8166490041836E /* UserTagTypeView.swift in Sources */,
 				17943358292DB9ED0088B768 /* ScreenLockSettingViewController.swift in Sources */,
 				04D2E2092CBE4E5500582B13 /* UIView+Position.swift in Sources */,
@@ -1616,6 +1631,7 @@
 				040D85EF2BEB8C0B00DCAAB3 /* BaseCommentController.swift in Sources */,
 				04F2D0902BEE21CA00D5271B /* UserMessageHeaderView.swift in Sources */,
 				04F1FCEF2CB67E5000080742 /* YFMineQRCodeVC.swift in Sources */,
+				049D30252CC2032800649DC4 /* YFNotNetTopTipView.swift in Sources */,
 				1790EE742921EAFC00C4024A /* MineViewController.swift in Sources */,
 				040D860D2BEB8C4200DCAAB3 /* SuperUIStringExtension.swift in Sources */,
 				04F2D09D2BEE221400D5271B /* UIView+GKExtension.m in Sources */,

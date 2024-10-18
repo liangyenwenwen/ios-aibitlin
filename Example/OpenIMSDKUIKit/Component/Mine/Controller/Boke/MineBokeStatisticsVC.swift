@@ -16,37 +16,66 @@ class MineBokeStatisticsVC: BaseTitleController {
     var dataNumberArr: [Int] = [0, 0, 0, 0, 0, 0, 0]
     var currentTag : Int = 1206
     var chooseTime: String = "1700-01-01"
+    var isNeedRefresh: Bool = true
     
-    lazy var scrolllView: UIScrollView = {
-        let r = UIScrollView()
-        return r
-    }()
+//    lazy var scrolllView: UIScrollView = {
+//        let r = UIScrollView()
+//        return r
+//    }()
     
    
     override func initViews() {
-        setBackGroundColor(.colorBackgroundAPP)
-        initLinearLayoutSafeArea()
+        
+        super.initViews()
+//        initLinearLayoutSafeArea()
+//        
+//        title = R.string.localizable.blogSituation(boke.userBlogName!)
+//        
+//        container.tg_padding = UIEdgeInsets(top: PADDING_OUTER, left: PADDING_OUTER, bottom: PADDING_OUTER, right: PADDING_OUTER)
+//        container.tg_space = 10
+//        
+//        container.addSubview(bokeBaseView)
+//        container.addSubview(bokeDescription)
+//        bokeDescription.tg_bottom.equal(14)
+//        
+//        container.addSubview(bokeDataView)
+//        bokeDescription.tg_bottom.equal(10)
+//        container.addSubview(bokeChartView)
+//        container.addSubview(visitorView)
+//
+//        
+//        container.addSubview(trueBtn)
+        
+        initScrollSafeAreaAboutTip()
+        
+        scrollView.delegate = self
+        scrollViewContainer.tg_padding = UIEdgeInsets(top: PADDING_OUTER, left: PADDING_OUTER, bottom: PADDING_OUTER, right: PADDING_OUTER)
+        scrollViewContainer.tg_space = 10
         
         title = R.string.localizable.blogSituation(boke.userBlogName!)
         
-        container.tg_padding = UIEdgeInsets(top: PADDING_OUTER, left: PADDING_OUTER, bottom: PADDING_OUTER, right: PADDING_OUTER)
-        container.tg_space = 10
         
-        container.addSubview(bokeBaseView)
-        container.addSubview(bokeDescription)
+        scrollViewContainer.addSubview(bokeBaseView)
+        scrollViewContainer.addSubview(bokeDescription)
         bokeDescription.tg_bottom.equal(14)
         
-        container.addSubview(bokeDataView)
-        bokeDescription.tg_bottom.equal(10)
-        container.addSubview(bokeChartView)
-        container.addSubview(visitorView)
+        scrollViewContainer.addSubview(bokeDataView)
+        scrollViewContainer.tg_bottom.equal(10)
+        scrollViewContainer.addSubview(bokeChartView)
+        scrollViewContainer.addSubview(visitorView)
 
         
-        container.addSubview(trueBtn)
+        scrollViewContainer.addSubview(trueBtn)
+        scrollViewContainer.tg_height.equal(.fill)
         
         updateBokeBase()
         
         showBlogsSurvey()
+        
+        let header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(showBlogsSurvey))
+        header.stateLabel?.isHidden = true
+        header.lastUpdatedTimeLabel?.isHidden = true
+        scrollView.mj_header = header
     }
     
     lazy var bokeBaseView: TGLinearLayout = {
@@ -173,8 +202,8 @@ class MineBokeStatisticsVC: BaseTitleController {
             rowView.tag = 1200 + i
             rowView.update(currentTag: currentTag)
             rowView.chooseCurrentRow = {[weak self] currenttag , time in
-                self?.updateCharts(currentTag: currenttag)
-                self?.queryShowBlogsSurveyOneDay(time: time)
+                
+                self?.queryShowBlogsSurveyOneDay(time: time, tag: currenttag)
             }
             r.addSubview(rowView)
         }
@@ -299,7 +328,20 @@ extension MineBokeStatisticsVC {
         }
     }
     
-    func showBlogsSurvey() {
+   @objc func showBlogsSurvey() {
+        
+        if !NetworkStatus.isReacheable {
+            noNetView.show()
+            isNeedRefresh = true
+            scrollView.mj_header?.endRefreshing()
+ 
+            return
+            
+          
+        } else {
+            noNetView.hide()
+        }
+        
         let paramters : [String: Any] = ["userId": boke.userId!, "userBlogId": boke.id!]
 
         YFMineNetViewModel.queryShowBlogsSurvey(paramters: paramters) { [self] data in
@@ -308,13 +350,21 @@ extension MineBokeStatisticsVC {
                 updateUIWith(data: data)
                 
             }
+            scrollView.mj_header?.endRefreshing()
         } completionHandler: { errCode, errMsg in
-            
+            self.scrollView.mj_header?.endRefreshing()
         }
 
     }
     
-    func queryShowBlogsSurveyOneDay(time: String) {
+    func queryShowBlogsSurveyOneDay(time: String, tag: Int) {
+        
+        if !NetworkStatus.isReacheable {
+            noNetView.show()
+            return
+        } else {
+            noNetView.hide()
+        }
         
         let paramters : [String: Any] = ["time": time, "userId": boke.userId!, "userBlogId": boke.id!]
         YFMineNetViewModel.queryShowBlogsSurveyOneDay(paramters: paramters) { [self] data in
@@ -325,6 +375,8 @@ extension MineBokeStatisticsVC {
                 friendView.numberLbl.text = data.friend.string
                 strangerView.titleLbl.text =  currentTag != 1206 ?  SuperStringUtil.getWeekDay(dateTime: time, isStranger: true).localized() : "今天陌生人好友访客".localized()
                 strangerView.numberLbl.text = data.stranger.string
+                
+                self.updateCharts(currentTag: tag)
             }
         } completionHandler: { errCode, errMsg in
             
@@ -361,6 +413,22 @@ extension MineBokeStatisticsVC {
         }
         
     }
+    
+    
+    
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        print(scrollView.contentOffset.y)
+//        
+//        if isNeedRefresh && scrollView.contentOffset.y < -100 {
+//            showBlogsSurvey()
+//            isNeedRefresh = false
+//        }
+//        
+//        if scrollView.contentOffset.y < 20 {
+//            isNeedRefresh = true
+//        }
+//
+//    }
     
     
 }
@@ -548,7 +616,7 @@ class bokeVisitorNumberView: TGLinearLayout {
     }()
     
     lazy var numberLbl: UILabel = {
-        let r = ViewFactoryUtil.customBoldTilteLable("7,084", font: 18)
+        let r = ViewFactoryUtil.customBoldTilteLable("0", font: 18)
         r.tg_width.equal(.fill)
         r.tg_height.equal(16)
         return r
