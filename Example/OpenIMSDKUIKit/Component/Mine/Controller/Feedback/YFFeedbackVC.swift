@@ -335,7 +335,7 @@ class YFFeedbackVC: BaseTitleController {
     }()
     
     override func bindData() {
-        topTitleView.needLimitLength(length: 12)
+        topTitleView.needLimitLength(length: 32)
         contentView.needLimitLengthAboutTextView(length: 256)
         
         Observable.combineLatest(topTitleView.textFieldView.rx.text.orEmpty, contentView.textView.rx.text.orEmpty) {
