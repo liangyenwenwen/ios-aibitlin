@@ -46,7 +46,7 @@ class MineBokeStatisticsVC: BaseTitleController {
 //        
 //        container.addSubview(trueBtn)
         
-        initScrollSafeAreaAboutTip()
+        initScrollSafeArea(needNetTip: true)
         
         scrollView.delegate = self
         scrollViewContainer.tg_padding = UIEdgeInsets(top: PADDING_OUTER, left: PADDING_OUTER, bottom: PADDING_OUTER, right: PADDING_OUTER)

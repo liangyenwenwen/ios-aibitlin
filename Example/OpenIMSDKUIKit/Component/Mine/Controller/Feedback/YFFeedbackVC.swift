@@ -26,29 +26,57 @@ class YFFeedbackVC: BaseTitleController {
     override func initViews() {
         
         super.initViews()
-        setBackGroundColor(.white)
+        setBackGroundColor(.init(hexString: "#f5f5f5"))
         initLinearLayoutSafeArea()
         
         setTitle()
         
         title = useType == .useFeedback ? "反馈".localized() : "举报".localized();
-        container.addSubview(ViewFactoryUtil.smallDivider(space: 0))
-        container.addSubview(topTitleView)
-        container.addSubview(ViewFactoryUtil.smallDivider())
-        container.addSubview(contentView)
-        container.addSubview(ViewFactoryUtil.smallDivider())
         
-        container.addSubview(imageView)
+        container.tg_padding = UIEdgeInsets(top: PADDING_OUTER, left: PADDING_OUTER, bottom: PADDING_OUTER, right: PADDING_OUTER)
+        container.addSubview(meesageView)
         
-        superFooterContainerContainer.tg_padding = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+//        container.addSubview(ViewFactoryUtil.smallDivider(space: 0))
+//        container.addSubview(topTitleView)
+//        container.addSubview(ViewFactoryUtil.smallDivider())
+//        container.addSubview(contentView)
+//        container.addSubview(ViewFactoryUtil.smallDivider())
+//        
+//        container.addSubview(imageView)
+        
+        superFooterContainerContainer.tg_padding = UIEdgeInsets(top: PADDING_OUTER, left: 10, bottom: 10, right: 10)
         superFooterContainerContainer.addSubview(bottomBtn)
         
-//        var number = Int.random(in: 0...9)po
         
         print(self.reportType, self.reportID)
         
         refreshUI()
     }
+    
+    
+    lazy var meesageView: TGLinearLayout = {
+        
+        let r = TGLinearLayout(.vert)
+        r.tg_width.equal(.fill)
+        r.tg_height.equal(.wrap)
+        r.tg_top.equal(-6)
+        r.backgroundColor = .white
+//        r.tg_padding = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        r.corner(8)
+        
+        r.addSubview(topTitleView)
+        r.addSubview(contentView)
+        r.addSubview(imageView)
+        
+//        topTitleView.backgroundColor = .green
+//        contentView.backgroundColor = .yellow
+//        imageView.backgroundColor = .red
+        
+        return r
+    }()
+    
+    
+    
     
     func setTitle() {
         switch useType {
@@ -77,13 +105,13 @@ class YFFeedbackVC: BaseTitleController {
     
     lazy var topTitleView: SuperSettingView = {
         let r = SuperSettingView.createInput(topViewTitle, placeholder: R.string.localizable.pleaseFillIn()) { [weak self] data in
-            self?.reportChoose()
+//            self?.reportChoose()
             
         }
         r.isMediumFont()
         r.titleView.changeColor(changeColorStr: "*")
         if useType == .useReport {
-            r.isReport()
+//            r.isReport()
         }
         return r
     }()
@@ -143,6 +171,8 @@ class YFFeedbackVC: BaseTitleController {
         r.tg_height.equal(.wrap)
         r.addSubview(picNumberView)
         r.addSubview(picView)
+        r.tg_bottom.equal(10)
+        
         return r
         
     }()
@@ -152,12 +182,12 @@ class YFFeedbackVC: BaseTitleController {
         r.tg_top.equal(PADDING_SMALL)
         r.tg_width.equal(.fill)
         r.tg_height.equal(.wrap)
-        let imageWidth = (UIScreen.main.bounds.width - PADDING_OUTER * 5) / 3
+        let imageWidth = (UIScreen.main.bounds.width - PADDING_OUTER * 4 - 40) / 4
         for i in 0...8 {
             let image = ViewFactoryUtil.defalutImgView(R.image.add_image_icon()!, imageWidth)
             image.contentMode = .scaleAspectFill
-            let left = Int(i % 3) * Int(imageWidth + PADDING_OUTER)
-            let top = Int(i / 3) * Int(imageWidth + PADDING_OUTER)
+            let left = Int(i % 4) * Int(imageWidth + PADDING_OUTER)
+            let top = Int(i / 4) * Int(imageWidth + PADDING_OUTER)
       
             image.corner(2)
             image.tg_left.equal(left)
@@ -199,11 +229,11 @@ class YFFeedbackVC: BaseTitleController {
             let image = view.viewWithTag(i + 6000) as! UIImageView
             if datum.count == 0 && i == 0 {
                 image.show()
-                image.image = R.image.add_image_icon()
+                image.image = R.image.empty_feedBack_icon()
             } else if i <= datum.count && datum.count < 9 {
                 image.show()
                 if i == datum.count {
-                    image.image = R.image.add_image_icon()
+                    image.image = R.image.empty_feedBack_icon()
                 } else {
                     image.image = datum[i] as? UIImage
                 }

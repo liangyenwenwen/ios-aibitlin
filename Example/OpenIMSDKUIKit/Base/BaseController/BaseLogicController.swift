@@ -137,25 +137,12 @@ class BaseLogicController: BaseCommentController {
     
     
     
-    func initScrollSafeArea()  {
+    func initScrollSafeArea(needNetTip: Bool = false)  {
         initLinearLayoutSafeArea()
 
-        
-        scrollView = UIScrollView()
-        scrollView.showsVerticalScrollIndicator  = false
-        scrollView.tg_width.equal(.fill)
-        scrollView.tg_height.equal(.fill)
-        container.addSubview(scrollView)
-        
-        scrollViewContainer = TGLinearLayout(.vert)
-        scrollViewContainer.tg_width.equal(.fill)
-        scrollViewContainer.tg_height.equal(.wrap)
-        scrollView.addSubview(scrollViewContainer)
-    }
-    func initScrollSafeAreaAboutTip()  {
-        initLinearLayoutSafeArea()
-        
-        container.addSubview(noNetView)
+        if needNetTip {
+            container.addSubview(noNetView)
+        }
         
         scrollView = UIScrollView()
         scrollView.showsVerticalScrollIndicator  = false

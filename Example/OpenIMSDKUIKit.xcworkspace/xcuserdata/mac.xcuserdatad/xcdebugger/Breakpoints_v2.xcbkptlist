@@ -316,5 +316,51 @@
             landmarkType = "21">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "117B3BDE-B5ED-4440-9126-633BA65101F2"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "OpenIMSDKUIKit/Component/Mine/Controller/Feedback/YFFeedbackVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "293"
+            endingLineNumber = "293"
+            landmarkName = "_photoHelper"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "117B3BDE-B5ED-4440-9126-633BA65101F2 - 67f449ce08f16535"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; OUICore.PhotoHelper in IM_NCER.YFFeedbackVC._photoHelper.getter : OUICore.PhotoHelper"
+                  moduleName = "IM-NCER"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Desktop/aibitlin/Example/OpenIMSDKUIKit/Component/Mine/Controller/Feedback/YFFeedbackVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "293"
+                  endingLineNumber = "293">
+               </Location>
+               <Location
+                  uuid = "117B3BDE-B5ED-4440-9126-633BA65101F2 - 88f7224ff9a0380f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Optional&lt;__C.UIImage&gt;, Swift.Optional&lt;Foundation.URL&gt;) -&gt; () in closure #1 () -&gt; OUICore.PhotoHelper in IM_NCER.YFFeedbackVC._photoHelper.getter : OUICore.PhotoHelper"
+                  moduleName = "IM-NCER"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Desktop/aibitlin/Example/OpenIMSDKUIKit/Component/Mine/Controller/Feedback/YFFeedbackVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "293"
+                  endingLineNumber = "293">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>
