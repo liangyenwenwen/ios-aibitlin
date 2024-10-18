@@ -408,7 +408,7 @@ extension YFFeedbackVC {
             paramters = ["blogId": blogItem.id!,
                          "userBlogUrl": blogItem.userBlogUrl!,
                          "userBlogIcon": blogItem.userBlogIcon!,
-                         "userBlogName": blogItem.userBlogName!,
+                         "userBlogName": SuperStringUtil.getUserShowname(showname: blogItem.userBlogName!),
                          "userBlogIntro": blogItem.userBlogIntro!,
                          "userBlogCreatIp": blogItem.userBlogCreatIp!,
                          "userBlogCreatAffiliatingArea": blogItem.userBlogIntro!,
@@ -420,14 +420,14 @@ extension YFFeedbackVC {
         case .chatHistory:
             paramters = [ "beReportedUserId": conversationItem.userID!,
                           "beReportedUserImg": conversationItem.faceURL ?? "",
-                          "beReportedUserName": conversationItem.showName!,
+                          "beReportedUserName": SuperStringUtil.getUserShowname(showname: conversationItem.showName!),
                           "reportReason":topTitleView.inputText!,
                          "reportDescription":contentView.textView.text!,
                          "reportImgs": reportImgs,
                          "reportUserId": IMController.shared.uid]
         case .user:
             paramters = [ "beReportedUserId": userItem.userID!,
-                          "beReportedUserName": userItem.nickname!,
+                          "beReportedUserName": SuperStringUtil.getUserShowname(showname: userItem.nickname!),
                           "beReportedUserImg": userItem.faceURL ?? "",
 //                          "": "",
                           "reportReason":topTitleView.inputText!,
