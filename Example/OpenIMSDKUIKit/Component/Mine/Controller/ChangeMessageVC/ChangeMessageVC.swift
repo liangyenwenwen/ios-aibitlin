@@ -70,6 +70,7 @@ class ChangeMessageVC: BaseTitleController {
     lazy var editView: QMUITextView = {
         let r = ViewFactoryUtil.normalTextView()
         r.placeholder = R.string.localizable.pleaseFillIn()
+        r.font = .semiboldFont(20)
         return r
     }()
     

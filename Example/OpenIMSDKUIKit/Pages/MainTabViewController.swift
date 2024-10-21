@@ -601,11 +601,18 @@ extension MainTabViewController: UITabBarControllerDelegate {
                     
 
                 var items = [TabMoreView.MenuItem]()
-                var listArrr:[MoreTabItem] = [MoreTabItem(image: "tool_feedback_icon", title: R.string.localizable.feedback()),
-                                              MoreTabItem(image: "tool_translate_icon", title: R.string.localizable.translate()),
-                                              MoreTabItem(image: "tool_black_list_icon", title: R.string.localizable.blacklist()),
+//                var listArrr:[MoreTabItem] = [MoreTabItem(image: "tool_feedback_icon", title: R.string.localizable.feedback()),
+//                                              MoreTabItem(image: "tool_translate_icon", title: R.string.localizable.translate()),
+//                                              MoreTabItem(image: "tool_black_list_icon", title: R.string.localizable.blacklist()),
+//                                              MoreTabItem(image: "tool_moments_icon", title: "好友动态".localized()),
+//                                              MoreTabItem(image: "tool_more_icon", title: "添加".localized())]
+                
+                var listArrr:[MoreTabItem] = [MoreTabItem(image: "tool_feedback_icon", title: "反馈".localized()),
+                                              MoreTabItem(image: "tool_translate_icon", title: "翻译".localized()),
+                                              MoreTabItem(image: "tool_black_list_icon", title: "黑名单".localized()),
                                               MoreTabItem(image: "tool_moments_icon", title: "好友动态".localized()),
                                               MoreTabItem(image: "tool_more_icon", title: "添加".localized())]
+                
                 for i in 0 ..< listArrr.count {
                     let itemData = listArrr[i]
                     let item = TabMoreView.MenuItem(title: itemData.title, icon: UIImage(named: itemData.image)) { [weak self] in

@@ -89,7 +89,8 @@ class YFFeedbackVC: BaseTitleController {
     
     func setTitle() {
         
-        title = R.string.localizable.report()
+//        title = R.string.localizable.report()
+        title = "举报".localized()
         topViewTitle = "\("举报原因".localized())*"
         contentViewTitle = "\("举报描述".localized())*"
         imageTitle = "截图证据".localized()
@@ -120,8 +121,7 @@ class YFFeedbackVC: BaseTitleController {
     }()
     
     lazy var topTitleView: SuperSettingView = {
-        let r = SuperSettingView.createInput(topViewTitle, placeholder: R.string.localizable.pleaseFillIn()) { [weak self] data in
-//            self?.reportChoose()
+        let r = SuperSettingView.createInput(topViewTitle) { [weak self] data in
             
         }
         r.isMediumFont()
@@ -168,7 +168,7 @@ class YFFeedbackVC: BaseTitleController {
     
     
     lazy var contentView: SuperSettingView = {
-        let r = SuperSettingView.createInputTextView(contentViewTitle, placeholder: R.string.localizable.pleaseFillIn(), min: 75)
+        let r = SuperSettingView.createInputTextView(contentViewTitle, min: 75)
         r.isMediumFont()
         r.titleView.changeColor(changeColorStr: "*")
         r.tg_height.equal(110)

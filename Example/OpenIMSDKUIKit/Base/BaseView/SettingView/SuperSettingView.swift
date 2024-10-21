@@ -466,7 +466,7 @@ extension SuperSettingView{
     }
     
     /// 标题和输入文本TF
-    static func createInput(_ title:String,placeholder:String?=nil, _ min: CGFloat = 80,click: ClickCallback? = nil) -> SuperSettingView {
+    static func createInput(_ title:String,placeholder:String? = "请输入".localized(), _ min: CGFloat = 80,click: ClickCallback? = nil) -> SuperSettingView {
         let result = SuperSettingView()
 //        result.tg_padding = UIEdgeInsets(top: PADDING_MEDDLE, left: PADDING_OUTER, bottom: PADDING_MEDDLE, right: PADDING_OUTER)
         

@@ -276,7 +276,8 @@ class MeHomeController: BaseLogicController {
         bokeView.tg_height.equal(.wrap)
         container.addSubview(bokeView)
         
-        let bokeHeader = ViewFactoryUtil.sectionHeaderView(title: R.string.localizable.meBlog(), isHaveMore: true)
+//        let bokeHeader = ViewFactoryUtil.sectionHeaderView(title: R.string.localizable.meBlog(), isHaveMore: true)
+        let bokeHeader = ViewFactoryUtil.sectionHeaderView(title: "我的博客".localized(), isHaveMore: true)
         bokeHeader.tg_height.equal(44)
         let tap = UITapGestureRecognizer(target: self, action: #selector(gotoMyBokeList))
         bokeHeader.addGestureRecognizer(tap)

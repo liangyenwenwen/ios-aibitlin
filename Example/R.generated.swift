@@ -167,7 +167,7 @@ struct _R: Sendable {
       var ieXW0yeText: RswiftResources.StringResource { .init(key: "8ie-xW-0ye.text", tableName: "LaunchScreen", source: source, developmentValue: nil, comment: nil) }
     }
 
-    /// This `_R.string.localizable` struct is generated, and contains static references to 475 localization keys.
+    /// This `_R.string.localizable` struct is generated, and contains static references to 478 localization keys.
     struct localizable {
       let source: RswiftResources.StringResource.Source
 
@@ -2404,6 +2404,13 @@ struct _R: Sendable {
       /// Locales: en, th
       var 提醒: RswiftResources.StringResource { .init(key: "提醒", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// en translation: Search
+      ///
+      /// Key: 搜索
+      ///
+      /// Locales: en, th
+      var 搜索: RswiftResources.StringResource { .init(key: "搜索", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: Search Groups
       ///
       /// Key: 搜索群聊
@@ -2627,6 +2634,13 @@ struct _R: Sendable {
       ///
       /// Locales: en, th
       var 泰语: RswiftResources.StringResource { .init(key: "泰语", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Language Settings %d
+      ///
+      /// Key: 测试语言
+      ///
+      /// Locales: en, zh-Hans, th
+      var 测试语言: RswiftResources.StringResource1<Int> { .init(key: "测试语言", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Message
       ///
@@ -3064,10 +3078,10 @@ struct _R: Sendable {
 
       /// en translation: Language Settings
       ///
-      /// Key: 语言设置
+      /// Key: 语言和地区
       ///
-      /// Locales: en, th
-      var 语言设置: RswiftResources.StringResource { .init(key: "语言设置", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+      /// Locales: en, zh-Hans, th
+      var 语言和地区: RswiftResources.StringResource { .init(key: "语言和地区", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Voice Call
       ///
@@ -3495,6 +3509,13 @@ struct _R: Sendable {
       ///
       /// Locales: en, th
       var 麦克风已开启: RswiftResources.StringResource { .init(key: "麦克风已开启", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Blacklist
+      ///
+      /// Key: 黑名单
+      ///
+      /// Locales: en, th
+      var 黑名单: RswiftResources.StringResource { .init(key: "黑名单", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
     }
 
     /// This `_R.string.main` struct is generated, and contains static references to 0 localization keys.
@@ -3514,7 +3535,7 @@ struct _R: Sendable {
     var colorBackground: RswiftResources.ColorResource { .init(name: "ColorBackground", path: [], bundle: bundle) }
   }
 
-  /// This `_R.image` struct is generated, and contains static references to 241 images.
+  /// This `_R.image` struct is generated, and contains static references to 242 images.
   struct image {
     let bundle: Foundation.Bundle
 
@@ -4075,6 +4096,9 @@ struct _R: Sendable {
 
     /// Image `mine_language_check`.
     var mine_language_check: RswiftResources.ImageResource { .init(name: "mine_language_check", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `mine_language_icon`.
+    var mine_language_icon: RswiftResources.ImageResource { .init(name: "mine_language_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
     /// Image `mine_logout_icon`.
     var mine_logout_icon: RswiftResources.ImageResource { .init(name: "mine_logout_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }

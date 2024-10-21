@@ -32,15 +32,17 @@ class MineMessageVC: BaseTitleController, UIImagePickerControllerDelegate, UINav
         setBackGroundColor(.colorBackgroundAPP)
         initLinearLayoutSafeArea()
     
-        title = R.string.localizable.myProfile()
+//        title = R.string.localizable.myProfile()
+        title = "MyProfile".localized()
         
         container.tg_padding = UIEdgeInsets(top: PADDING_MEDDLE, left: PADDING_MEDDLE, bottom: PADDING_MEDDLE, right: PADDING_MEDDLE)
         container.tg_space = PADDING_OUTER
         
+//        container.addSubview(ViewFactoryUtil.sectionTilteLbael(R.string.localizable.basicInformation()))
         container.addSubview(ViewFactoryUtil.sectionTilteLbael(R.string.localizable.basicInformation()))
         container.addSubview(accountMessageView)
         
-        container.addSubview(ViewFactoryUtil.sectionTilteLbael(R.string.localizable.socialMediaHomepage(), top: 14))
+//        container.addSubview(ViewFactoryUtil.sectionTilteLbael(R.string.localizable.socialMediaHomepage(), top: 14))
         container.addSubview(bindMessageView)
         
         bindData()

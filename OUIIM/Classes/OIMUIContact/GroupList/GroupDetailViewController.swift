@@ -231,6 +231,7 @@ extension GroupDetailViewController: UITableViewDelegate, UITableViewDataSource 
             
             cell.reloadData()
             
+            
             _viewModel.membersCountRelay.map { "\("nPerson".innerLocalizedFormat(arguments: $0))" }.bind(to: cell.countLabel.rx.text).disposed(by: cell.disposeBag)
             cell.titleLabel.text = rowType.title
             

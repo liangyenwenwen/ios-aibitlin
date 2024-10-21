@@ -88,6 +88,7 @@ class ViewFactoryUtil {
         r.tg_height.equal(.fill)
         r.placeholder = placeholder
         r.placeholderColor = .placeholder
+        
         return r
     }
     

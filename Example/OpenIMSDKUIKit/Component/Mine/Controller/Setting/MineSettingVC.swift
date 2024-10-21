@@ -12,6 +12,16 @@ class MineSettingVC: BaseTitleController {
 
     private let _viewModel = MineViewModel()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = true
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        navigationController?.navigationBar.isHidden = true
+    }
+    
     override func initViews() {
         
         super.initViews()
@@ -26,6 +36,7 @@ class MineSettingVC: BaseTitleController {
         container.addSubview(topContentView)
         topContentView.addSubview(userMessageView)
         topContentView.addSubview(accountAndSafeView)
+        topContentView.addSubview(changeLanguageView)
         topContentView.addSubview(privateView)
         topContentView.addSubview(privateDeletegeView)
         
@@ -58,6 +69,19 @@ class MineSettingVC: BaseTitleController {
         let r = SuperSettingView.create(icon: R.image.mine_safe_icon()!, title: R.string.localizable.accountAndSecurity(), click: { [weak self] data in
             print("账号与安全")
             self?.navigationController?.pushViewController(MineAccountAddSafeVC(), animated: true)
+        })
+        r.isMediumFont()
+        return r
+    }()
+    
+    lazy var changeLanguageView: SuperSettingView = {
+        let r = SuperSettingView.create(icon: R.image.mine_language_icon()!, title: "语言和地区".localized(), click: { [weak self] data in
+            
+            print("测试语言".localizedFormat("啊哈"))
+            print("测试语言".localizedFormat("123123"))
+//            self?.navigationController?.pushViewController(MineAccountAddSafeVC(), animated: true)
+            let vc = LanguageTableViewController()
+            self?.navigationController?.pushViewController(vc, animated: true)
         })
         r.isMediumFont()
         return r

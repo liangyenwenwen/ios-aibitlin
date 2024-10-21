@@ -89,15 +89,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     private let _disposeBag = DisposeBag();
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-//        YFFileDataUtil.deleteAllDataFromFile()
+
+        
         NothingToSeeHere.harmlessFunction()
-//        Bugly.start(withAppId: "f2c07e72cb")
         
         //初始化 自建界面和IM界面的交互
         AccountViewModel.initInteraction()
         
         
         Bugly.start(withAppId: "f2c07e72cb", developmentDevice: true, config: nil)
+        
+        /// 设置默认语言
+//        if (UserDefaults.standard.object(forKey: "appLanguage") == nil) {
+//            UserDefaults.standard.setValue("en", forKey: "appLanguage")
+//            UserDefaults.standard.setValue(["en"], forKey: "AppleLanguages")
+//        }
+        
         
         
         UINavigationBar.appearance().tintColor = .c0C1C33

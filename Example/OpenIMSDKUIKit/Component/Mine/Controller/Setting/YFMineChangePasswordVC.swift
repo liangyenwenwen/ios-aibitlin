@@ -27,6 +27,7 @@ class YFMineChangePasswordVC: BaseTitleController {
     
     
     override func initViews() {
+        
         super.initViews()
         setBackGroundColor(.colorBackgroundAPP)
         initLinearLayoutSafeArea()
@@ -48,6 +49,7 @@ class YFMineChangePasswordVC: BaseTitleController {
         
         updateUI()
         bindData()
+        
     }
     
     
@@ -121,13 +123,13 @@ class YFMineChangePasswordVC: BaseTitleController {
         
         if vcType == .forgetPwdByEmail || vcType == .forgetPwdByEmail {
             Observable.combineLatest(newPwdView.textFieldView.rx.text.orEmpty, rePwdView.textFieldView.rx.text.orEmpty) {
-               $0.count > 0 && $1.count > 0
+               $0.count > 7 && $1.count > 7
             }
             .bind(to: trueBtn.rx.isEnabled)
             .disposed(by: rx.disposeBag)
         } else  {
             Observable.combineLatest(oldPwdView.textFieldView.rx.text.orEmpty, newPwdView.textFieldView.rx.text.orEmpty, rePwdView.textFieldView.rx.text.orEmpty) {
-                $0.count > 0 && $1.count > 0 && $2.count > 0
+                $0.count > 7 && $1.count > 7 && $2.count > 7
             }
             .bind(to: trueBtn.rx.isEnabled)
             .disposed(by: rx.disposeBag)

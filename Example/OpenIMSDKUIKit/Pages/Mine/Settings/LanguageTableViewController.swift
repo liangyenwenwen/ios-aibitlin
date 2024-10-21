@@ -5,6 +5,17 @@ import UIKit
 class LanguageTableViewController: UITableViewController {
     private let rowItems: [[RowType]] = [RowType.allCases]
     
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = false
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        navigationController?.navigationBar.isHidden = false
+    }
+    
     init() {
         super.init(style: .insetGrouped)
     }
@@ -28,6 +39,8 @@ class LanguageTableViewController: UITableViewController {
                 self.tableView.selectRow(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .none)
             }
         }
+        
+        title = "语言和地区".localized()
     }
 
     private func configureTableView() {
@@ -75,20 +88,38 @@ class LanguageTableViewController: UITableViewController {
         switch rowType {
         case .system:
             Localize.resetCurrentLanguageToDefault()
+            break
         case .chineseSimplified:
             Localize.setCurrentLanguage(rowType.rawValue)
+            
+//            UserDefaults.standard.setValue("zh-Hans", forKey: "appLanguage")
+//            UserDefaults.standard.setValue(["zh-Hans"], forKey: "AppleLanguages")
+
+            
         case .english:
             Localize.setCurrentLanguage(rowType.rawValue)
+            
+//            UserDefaults.standard.setValue("en", forKey: "appLanguage")
+//            UserDefaults.standard.setValue(["en"], forKey: "AppleLanguages")
+            
+        case .thai:
+            Localize.setCurrentLanguage(rowType.rawValue)
+            
+//            UserDefaults.standard.setValue("th", forKey: "appLanguage")
+//            UserDefaults.standard.setValue(["th"], forKey: "AppleLanguages")
         }
         
         let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? CheckBoxTextTableViewCell
         cell?.titleLabel.text = RowType.system.title
+        
+        title = "语言和地区".localized()
     }
 
     enum RowType: String, CaseIterable {
         case system
         case chineseSimplified = "zh-Hans"
         case english = "en"
+        case thai = "th"
 
         var title: String {
             switch self {
@@ -98,7 +129,11 @@ class LanguageTableViewController: UITableViewController {
                 return "简体中文"
             case .english:
                 return "English"
+            case .thai:
+                return "ภาษาไทย"
             }
         }
+        
+        
     }
 }
