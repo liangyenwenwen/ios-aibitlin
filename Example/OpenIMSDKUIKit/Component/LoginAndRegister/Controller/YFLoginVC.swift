@@ -352,7 +352,7 @@ extension YFLoginVC {
     func toForgotPassword() {
         
         let vc = MineDeleteAcountAuthenticationVC()
-        vc.vcType = useType == .usePhone ? .forgetPwdbyPhone : .forgetPwdByEmail
+        vc.vcType = useType == .usePhone ? .forgetPwdbyPhoneBylogin : .forgetPwdByEmailBylogin
         navigationController?.pushViewController(vc, animated: true)
     }
     

@@ -9,6 +9,7 @@ import UIKit
 import TangramKit
 import RxSwift
 import RxCocoa
+import ProgressHUD
 
 class MineDeleteAcountAuthenticationVC: BaseTitleController {
 
@@ -38,7 +39,7 @@ class MineDeleteAcountAuthenticationVC: BaseTitleController {
     override func bindData() {
         Observable
             .combineLatest(useTypeView.textFieldView.rx.text.orEmpty, getCodeView.textFieldView.rx.text.orEmpty) {
-                $0.count > 0 && $1.count > 0
+                $0.count > 0 && $1.count > 3
             }
             .bind(to: nextBtn.rx.isEnabled)
             .disposed(by: rx.disposeBag)
@@ -78,6 +79,18 @@ class MineDeleteAcountAuthenticationVC: BaseTitleController {
             useTypeView.phoneCodeView.addGestureRecognizer(tap)
             nextBtn.setTitle(R.string.localizable.nextStep(), for: .normal)
         case .forgetPwdByEmail:
+            title = "忘记密码".localized()
+            sectionLbl.text = "请验证你的邮箱".localized()
+            useTypeView.changePhoneEmail(false)
+            nextBtn.setTitle(R.string.localizable.nextStep(), for: .normal)
+        case .forgetPwdbyPhoneBylogin:
+            title = "忘记密码".localized()
+            sectionLbl.text = "请验证你的手机号".localized()
+            useTypeView.changePhoneEmail(true)
+            let tap = UITapGestureRecognizer(target: self, action: #selector(changePhoneArea))
+            useTypeView.phoneCodeView.addGestureRecognizer(tap)
+            nextBtn.setTitle(R.string.localizable.nextStep(), for: .normal)
+        case .forgetPwdByEmailBylogin:
             title = "忘记密码".localized()
             sectionLbl.text = "请验证你的邮箱".localized()
             useTypeView.changePhoneEmail(false)
@@ -143,6 +156,7 @@ class MineDeleteAcountAuthenticationVC: BaseTitleController {
         let r = SuperSettingView.createInputPhone("手机号", placeholder: "请输入手机号")
         r.phoneCodeLbl.font = UIFont(name: "PingFangSC-Medium", size: 16)
         r.isMediumFont()
+//        r.changePhoneEmail(true)
         return r
     }()
     
@@ -150,6 +164,8 @@ class MineDeleteAcountAuthenticationVC: BaseTitleController {
     lazy var getCodeView: SuperSettingView = {
         let r = SuperSettingView.createInputAboutCode(R.string.localizable.code(), placeholder: R.string.localizable.pleaseFillIn())
         r.isMediumFont()
+        r.isCode()
+        r.codeBtn.addTarget(self, action: #selector(getCodeAction), for: .touchUpInside)
         return r
     }()
     
@@ -162,15 +178,26 @@ class MineDeleteAcountAuthenticationVC: BaseTitleController {
     }()
     
     @objc func gotoNextVC()  {
+        
         if vcType == .usePhone || vcType == .useEmail {
             let vc = MineDeleteAccountReasonVC()
             vc.vcType = vcType
             self.navigationController?.pushViewController(vc, animated: true)
         } else if vcType == .forgetPwdbyPhone || vcType == .forgetPwdByEmail {
             let vc = YFMineChangePasswordVC()
+            if vcType == .forgetPwdbyPhone {
+                vc.areCode = _areaCode
+                vc.phone = useTypeView.inputText
+            } else {
+                vc.email = useTypeView.inputText
+            }
+            vc.code = getCodeView.inputText
             vc.vcType = vcType
             self.navigationController?.pushViewController(vc, animated: true)
         } else {
+            let vc = YFMineChangePasswordVC()
+            vc.vcType = vcType
+            self.navigationController?.pushViewController(vc, animated: true)
             print("修改绑定")
         }
         
@@ -199,6 +226,67 @@ extension MineDeleteAcountAuthenticationVC {
         self.present(alert, animated: true)
     }
     
+    
+    @objc func  getCodeAction() {
+        if vcType == .forgetPwdbyPhoneBylogin || vcType == .forgetPwdByEmailBylogin {
+            requestCodeAboutPwd()
+        }
+    }
+    
+    
+    
+    
+    /// 请求验证码
+    func requestCodeAboutPwd() {
+        view.endEditing(true)
+        
+        if let phone = useTypeView.textFieldView.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines), phone.isEmpty {
+            if vcType == .forgetPwdbyPhoneBylogin {
+//                ProgressHUD.error("plsEnterRightX".localizedFormat("phoneNumber".localized()))
+                SuperToast.show(title: "plsEnterRightX".localizedFormat("phoneNumber".localized()))
+            } else {
+//                ProgressHUD.error("plsEnterRightX".localizedFormat("email".localized()))
+                SuperToast.show(title: "plsEnterRightX".localizedFormat("email".localized()))
+            }
+            return
+        }
+        
+        let invaitationCode = ""
+        startCountDown()
+        
+        AccountViewModel.requestCode(phone: vcType == .forgetPwdbyPhoneBylogin ? useTypeView.inputText : nil, areaCode: _areaCode, email: vcType == .forgetPwdByEmailBylogin ? useTypeView.inputText : nil, invaitationCode: invaitationCode, useFor: .forgotPassword) { [weak self] errCode, _ in
+
+            guard let sself = self else { return }
+            if errCode != 0 {
+//                ProgressHUD.error(String(errCode).localized())
+                SuperToast.show(title: String(errCode).localized())
+                CountDownUtil.cancel()
+                self?.getCodeView.codeBtn.setTitle(R.string.localizable.resend(), for: .normal)
+                self?.getCodeView.codeBtn.isEnabled = true
+            } else {
+                ProgressHUD.dismiss()
+            }
+            ProgressHUD.dismiss()
+        }
+    }
+    
+    /// 开始倒计时
+    func startCountDown() {
+        CountDownUtil.countDown(60) { result in
+            
+            if result == 0 {
+                self.getCodeView.codeBtn.setTitle(R.string.localizable.resend(), for: .normal)
+                self.getCodeView.codeBtn.isEnabled = true
+            } else {
+                self.getCodeView.codeBtn.setTitle(R.string.localizable.resendCount(result), for: .normal)
+            }
+            
+            self.getCodeView.codeBtn.sizeToFit()
+        }
+        
+        // 禁用按钮
+        getCodeView.codeBtn.isEnabled = false
+    }
     
 }
 

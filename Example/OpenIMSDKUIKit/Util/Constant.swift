@@ -45,6 +45,8 @@ enum MyStyle:Int {
     case reportBlog
     case forgetPwdbyPhone
     case forgetPwdByEmail
+    case forgetPwdbyPhoneBylogin
+    case forgetPwdByEmailBylogin
     case bokeVisitorStranger
     case bokeVisitorFriend
     case newAttentionFriend

@@ -18,6 +18,14 @@ class YFMineChangePasswordVC: BaseTitleController {
 
     var vcType: MyStyle?
     
+    var areCode: String?
+    var phone: String?
+    
+    var email: String?
+    
+    var code: String!
+    
+    
     override func initViews() {
         super.initViews()
         setBackGroundColor(.colorBackgroundAPP)
@@ -47,10 +55,6 @@ class YFMineChangePasswordVC: BaseTitleController {
         let r = ViewFactoryUtil.sectionTilteLbael(R.string.localizable.enterTheOriginalPassword())
         return r
     }()
-    
-    
-    
-    
     
     lazy var oldPwdView: SuperSettingView = {
         let r = SuperSettingView.createInput(R.string.localizable.originalPassword(), placeholder: R.string.localizable.pleaseFillIn())
@@ -137,7 +141,7 @@ class YFMineChangePasswordVC: BaseTitleController {
 extension YFMineChangePasswordVC{
     
     func updateUI() {
-        if vcType == .forgetPwdByEmail || vcType == .forgetPwdByEmail   {
+        if vcType == .forgetPwdByEmailBylogin || vcType == .forgetPwdbyPhoneBylogin   {
             originalPasswordHeader.hide()
             oldPwdView.hide()
         }
@@ -177,6 +181,26 @@ extension YFMineChangePasswordVC{
         if vcType == .forgetPwdByEmail || vcType == .forgetPwdByEmail {
             print("重置密码")
             self.navigationController?.popToRootViewController(animated: true)
+        } else if vcType == .forgetPwdByEmailBylogin || vcType == .forgetPwdByEmailBylogin  {
+            print("重置密码")
+            ProgressHUD.animate()
+            AccountViewModel.resetPassword(phone: vcType == .forgetPwdbyPhoneBylogin ? phone : nil,
+                                           areaCode: areCode,
+                                           email: vcType == .forgetPwdByEmailBylogin ? email : nil,
+                                           verificationCode: code,
+                                           password: oldPwdView.inputText!) { [weak self] (errCode, errMsg) in
+                
+                if errCode == 0, let `self` = self {
+//                        ProgressHUD.success("changed".localized() + "success".localized())
+                    SuperToast.show(title: "changed".localized() + "success".localized())
+                    self.navigationController?.popToRootViewController(animated: true)
+                } else {
+//                        ProgressHUD.error(String(errCode).localized())
+                    SuperToast.show(title: String(errCode).localized())
+                    
+                }
+                ProgressHUD.dismiss()
+            }
         } else  {
             print("修改密码")
             if let IMUser = IMController.shared.currentUserRelay.value {
