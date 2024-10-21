@@ -29,8 +29,15 @@ class GroupSettingManageTableViewController: UITableViewController {
         initView()
         bindData()
         _viewModel.initialStatus()
+        
+        
+        navigationController!.navigationBar.backItem?.title = ""
+                               
     }
-
+     
+   
+    
+    
     private func defaultSectionItems() -> [[RowType]] {
         return [
             [.muteAll],

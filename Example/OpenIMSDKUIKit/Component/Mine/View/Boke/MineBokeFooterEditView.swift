@@ -167,7 +167,7 @@ class MineBokeFooterEditView: TGLinearLayout {
         
         
         var shareView = SuperSettingView.onlylTitle("分享给好友".localized(), click: { [weak self] data in
-            print("分享给好友")
+            
         })
         r.addSubview(shareView)
         

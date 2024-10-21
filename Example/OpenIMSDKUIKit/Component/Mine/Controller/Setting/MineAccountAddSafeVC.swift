@@ -67,7 +67,8 @@ class MineAccountAddSafeVC: BaseTitleController {
     
     lazy var changeEmailView: SuperSettingView = {
         let r = SuperSettingView.createSetTitleAddContentView("ChangeEmail".localized(), "") { [weak self] data in
-            self?.toDeleteAcountAuthenticationVC(.changeEmail)
+//            self?.toDeleteAcountAuthenticationVC(.changeEmail)
+            SuperToast.show(title: "开发中".localized())
         }
         r.isMediumFont()
         return r
@@ -76,7 +77,8 @@ class MineAccountAddSafeVC: BaseTitleController {
     
     lazy var changePhoneView: SuperSettingView = {
         let r = SuperSettingView.createSetTitleAddContentView("ChangePhone".localized(), " ") { [weak self] data in
-            self?.toDeleteAcountAuthenticationVC(.changePhone)
+//            self?.toDeleteAcountAuthenticationVC(.changePhone)
+            SuperToast.show(title: "开发中".localized())
         }
         r.isMediumFont()
         return r

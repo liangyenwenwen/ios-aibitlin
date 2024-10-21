@@ -14,6 +14,8 @@ class SearchFriendViewController: UIViewController {
 //        navigationItem.title = "addFriend".innerLocalized()
         navigationItem.title = "搜索联系人".localized()
         
+        navigationController!.navigationBar.backItem?.title = ""
+        
         let resultViewController = SearchResultViewController(searchType: .user)
         let searchViewController = UISearchController(searchResultsController: resultViewController)
         searchViewController.searchResultsUpdater = resultViewController

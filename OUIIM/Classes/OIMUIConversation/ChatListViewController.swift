@@ -321,6 +321,7 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
     private func initView() {
         
         view.addSubview(_tableView)
+        
         let header = UIView()
         _tableView.tableHeaderView = header
         _tableView.snp.makeConstraints { make in
@@ -334,6 +335,8 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
         _headerView.snp.makeConstraints { make in
             make.leading.top.trailing.equalToSuperview()
         }
+        
+        
         
         
     }

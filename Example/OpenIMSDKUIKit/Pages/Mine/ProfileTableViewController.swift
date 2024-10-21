@@ -136,7 +136,7 @@ class ProfileTableViewController: OUIIM.ProfileTableViewController {
             vc.titleLabel.text = "修改昵称".innerLocalized()
             vc.subtitleLabel.text = nil
             vc.avatarView.setAvatar(url: user?.faceURL, text: user?.nickname)
-            vc.nameTextField.text = user?.nickname
+            vc.nameTextField.text = SuperStringUtil.getUserShowname(showname: user?.nickname ?? "")
             vc.completeBtn.rx.tap.subscribe(onNext: { [weak self, weak vc] in
                 guard let text = vc?.nameTextField.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines),
                       !text.isEmpty else { return }

@@ -81,6 +81,14 @@ public class QRCodeViewController: UIViewController {
         navigationItem.title = "qrcode".innerLocalized()
         initView()
         bindData()
+        
+//        let button = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(yourActionMethod))
+//        let button = UIBarButtonItem(image: .init(named: "arrowLeft"), style: .plain, target: self, action: #selector(yourActionMethod))
+//        navigationItem.leftBarButtonItem = button
+    }
+    
+    @objc func yourActionMethod() {
+        self.navigationController?.popViewController(animated: true)
     }
 
     private func initView() {

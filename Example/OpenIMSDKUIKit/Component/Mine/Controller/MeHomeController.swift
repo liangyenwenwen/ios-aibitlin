@@ -65,6 +65,8 @@ class MeHomeController: BaseLogicController {
 
     func updatelanguage() {
         
+//        let  viplbl = vipView.viewWithTag(20001) as! UILabel
+//        viplbl.text = "我的二维码".localized()
         
         
         let  codeTitle = sectionCodeView.viewWithTag(20001) as! UILabel

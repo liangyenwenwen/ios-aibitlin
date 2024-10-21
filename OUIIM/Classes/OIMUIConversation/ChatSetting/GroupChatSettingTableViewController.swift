@@ -79,7 +79,15 @@ class GroupChatSettingTableViewController: UITableViewController {
         configureTableView()
         initView()
         bindData()
+        
+        navigationController!.navigationBar.backItem?.title = ""
+
+        
     }
+    
+    
+
+
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -290,6 +298,7 @@ class GroupChatSettingTableViewController: UITableViewController {
                 vc.subtitleLabel.text = "修改群聊名称后，将在群内通知其他成员。".innerLocalized()
                 vc.avatarView.setAvatar(url: self?._viewModel.groupInfoRelay.value?.faceURL, text: self?._viewModel.groupInfoRelay.value?.groupName)
                 vc.nameTextField.text = self?._viewModel.groupInfoRelay.value?.groupName
+          
                 vc.completeBtn.rx.tap.subscribe(onNext: { [weak self, weak vc] in
                     guard let text = vc?.nameTextField.text, !text.isEmpty else { return }
                     ProgressHUD.animate()
@@ -451,7 +460,7 @@ class GroupChatSettingTableViewController: UITableViewController {
         case .myNameInGroup:
             let cell = tableView.dequeueReusableCell(withIdentifier: OptionTableViewCell.className, for: indexPath) as! OptionTableViewCell
             _viewModel.myInfoInGroup.subscribe(onNext: { [weak cell] (memberInfo: GroupMemberInfo?) in
-                cell?.subtitleLabel.text = memberInfo?.nickname
+                cell?.subtitleLabel.text = SuperStringUtil.getUserState(showname: memberInfo?.nickname ?? "").n
             }).disposed(by: cell.disposeBag)
             cell.titleLabel.text = rowType.title
             return cell
@@ -519,7 +528,8 @@ class GroupChatSettingTableViewController: UITableViewController {
             navigationController?.pushViewController(vc, animated: true)
         case .myNameInGroup:
             let vc = ModifyNicknameViewController()
-            vc.nameTextField.text = _viewModel.myInfoInGroup.value?.nickname
+//            vc.nameTextField.text = _viewModel.myInfoInGroup.value?.nickname
+            vc.nameTextField.text = SuperStringUtil.getUserState(showname: _viewModel.myInfoInGroup.value?.nickname ?? "").n
             vc.avatarView.setAvatar(url: _viewModel.myInfoInGroup.value?.faceURL, text: _viewModel.myInfoInGroup.value?.nickname)
             vc.completeBtn.rx.tap.subscribe(onNext: { [weak self, weak vc] in
                 let text = vc?.nameTextField.text ?? ""

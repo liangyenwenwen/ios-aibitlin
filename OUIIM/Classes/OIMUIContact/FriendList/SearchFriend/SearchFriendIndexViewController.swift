@@ -44,7 +44,7 @@ class SearchFriendIndexViewController: UIViewController {
             guard let user = IMController.shared.currentUserRelay.value else { return }
             
             let vc = QRCodeViewController(idString: IMController.addFriendPrefix.append(string: user.userID))
-            vc.nameLabel.text = user.nickname
+            vc.nameLabel.text = SuperStringUtil.getUserState(showname: user.nickname ?? "").n
             vc.avatarView.setAvatar(url: user.faceURL, text: user.nickname)
             vc.tipLabel.text = "qrcodeHint".innerLocalized()
             self?.navigationController?.pushViewController(vc, animated: true)
@@ -112,6 +112,7 @@ class SearchFriendIndexViewController: UIViewController {
         
         setupSubviews()
         
+        navigationController!.navigationBar.backItem?.title = ""
 //        self.title = ""
     }
     

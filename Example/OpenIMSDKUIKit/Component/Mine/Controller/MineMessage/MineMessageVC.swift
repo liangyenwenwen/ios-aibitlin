@@ -115,7 +115,8 @@ class MineMessageVC: BaseTitleController, UIImagePickerControllerDelegate, UINav
     
     lazy var userIDView: SuperSettingView = {
         let r = SuperSettingView.createSetTitleAddContentView("Aibitlin ID：", "Richenda0728") { [weak self] data in
-            self?.changeMessage(.userID)
+//            self?.changeMessage(.userID)
+            SuperToast.show(title: "开发中".localized())
         }
         r.isMediumFont()
         return r
@@ -127,7 +128,8 @@ class MineMessageVC: BaseTitleController, UIImagePickerControllerDelegate, UINav
 //            self?.changeMessage(.userIntro)
 //        }
         let r = SuperSettingView.createSetTitleAddContentView("PersonalProfile".localized(), "") { [weak self] data in
-            self?.changeMessage(.userIntro)
+//            self?.changeMessage(.userIntro)
+            SuperToast.show(title: "开发中".localized())
         }
         r.isMediumFont()
         return r
