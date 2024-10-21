@@ -39,10 +39,11 @@ class MineMessageVC: BaseTitleController, UIImagePickerControllerDelegate, UINav
         container.tg_space = PADDING_OUTER
         
 //        container.addSubview(ViewFactoryUtil.sectionTilteLbael(R.string.localizable.basicInformation()))
-        container.addSubview(ViewFactoryUtil.sectionTilteLbael(R.string.localizable.basicInformation()))
+        container.addSubview(ViewFactoryUtil.sectionTilteLbael("BasicInformation".localized()))
         container.addSubview(accountMessageView)
         
 //        container.addSubview(ViewFactoryUtil.sectionTilteLbael(R.string.localizable.socialMediaHomepage(), top: 14))
+        container.addSubview(ViewFactoryUtil.sectionTilteLbael("SocialMediaHomepage".localized(), top: 14))
         container.addSubview(bindMessageView)
         
         bindData()
@@ -90,7 +91,10 @@ class MineMessageVC: BaseTitleController, UIImagePickerControllerDelegate, UINav
     }()
     
     lazy var userIconView: SuperSettingView = {
-        let r = SuperSettingView.createSetIcon(R.string.localizable.introTitle(R.string.localizable.photo())) { [weak self] data in
+//        let r = SuperSettingView.createSetIcon(R.string.localizable.introTitle(R.string.localizable.photo())) { [weak self] data in
+//            self?.changeAvatar()
+//        }
+        let r = SuperSettingView.createSetIcon(R.string.localizable.introTitle("Photo".localized())) { [weak self] data in
             self?.changeAvatar()
         }
         r.isMediumFont()
@@ -99,7 +103,10 @@ class MineMessageVC: BaseTitleController, UIImagePickerControllerDelegate, UINav
     
     
     lazy var userNicknameView: SuperSettingView = {
-        let r = SuperSettingView.createSetTitleAddContentView(R.string.localizable.introTitle(R.string.localizable.name()), "荷包蛋小朋友") { [weak self] data in
+//        let r = SuperSettingView.createSetTitleAddContentView(R.string.localizable.introTitle(R.string.localizable.name()), "荷包蛋小朋友") { [weak self] data in
+//            self?.changeMessage(.nickname)
+//        }
+        let r = SuperSettingView.createSetTitleAddContentView("Name".localized(), "荷包蛋小朋友") { [weak self] data in
             self?.changeMessage(.nickname)
         }
         r.isMediumFont()
@@ -116,7 +123,10 @@ class MineMessageVC: BaseTitleController, UIImagePickerControllerDelegate, UINav
     
     
     lazy var introView: SuperSettingView = {
-        let r = SuperSettingView.createSetTitleAddContentView(R.string.localizable.introTitle(R.string.localizable.personalProfile()), "") { [weak self] data in
+//        let r = SuperSettingView.createSetTitleAddContentView(R.string.localizable.introTitle(R.string.localizable.personalProfile()), "") { [weak self] data in
+//            self?.changeMessage(.userIntro)
+//        }
+        let r = SuperSettingView.createSetTitleAddContentView("PersonalProfile".localized(), "") { [weak self] data in
             self?.changeMessage(.userIntro)
         }
         r.isMediumFont()
@@ -145,7 +155,10 @@ class MineMessageVC: BaseTitleController, UIImagePickerControllerDelegate, UINav
     }()
     
     lazy var bindFacebookView: SuperSettingView = {
-        let r = SuperSettingView.createSetTitleAddContentView(R.string.localizable.introTitle(R.string.localizable.homePage("Facebook")), R.string.localizable.notFilledIn()) { [weak self] data in
+//        let r = SuperSettingView.createSetTitleAddContentView(R.string.localizable.introTitle(R.string.localizable.homePage("Facebook")), R.string.localizable.notFilledIn()) { [weak self] data in
+//            self?.changeMessage(.facebook)
+//        }
+        let r = SuperSettingView.createSetTitleAddContentView("IntroTitle".localizedFormat("HomePage".localizedFormat("Facebook")), "NotFilledIn".localized()) { [weak self] data in
             self?.changeMessage(.facebook)
         }
         r.isMediumFont()
@@ -153,8 +166,11 @@ class MineMessageVC: BaseTitleController, UIImagePickerControllerDelegate, UINav
     }()
     
     lazy var bindInstagramView: SuperSettingView = {
-        let r = SuperSettingView.createSetTitleAddContentView(R.string.localizable.introTitle(R.string.localizable.homePage("Instagram")), R.string.localizable.notFilledIn()) { [weak self] data in
-            self?.changeMessage(.instagram)
+//        let r = SuperSettingView.createSetTitleAddContentView(R.string.localizable.introTitle(R.string.localizable.homePage("Instagram")), R.string.localizable.notFilledIn()) { [weak self] data in
+//            self?.changeMessage(.instagram)
+//        }
+        let r = SuperSettingView.createSetTitleAddContentView("IntroTitle".localizedFormat("HomePage".localizedFormat("Instagram")), "NotFilledIn".localized()) { [weak self] data in
+            self?.changeMessage(.facebook)
         }
         r.isMediumFont()
         return r
@@ -162,16 +178,22 @@ class MineMessageVC: BaseTitleController, UIImagePickerControllerDelegate, UINav
     
     
     lazy var bindTikTokView: SuperSettingView = {
-        let r = SuperSettingView.createSetTitleAddContentView(R.string.localizable.introTitle(R.string.localizable.homePage("TikTok")), R.string.localizable.notFilledIn()) { [weak self] data in
-            self?.changeMessage(.tiktok)
+//        let r = SuperSettingView.createSetTitleAddContentView(R.string.localizable.introTitle(R.string.localizable.homePage("TikTok")), R.string.localizable.notFilledIn()) { [weak self] data in
+//            self?.changeMessage(.tiktok)
+//        }
+        let r = SuperSettingView.createSetTitleAddContentView("IntroTitle".localizedFormat("HomePage".localizedFormat("TikTok")), "NotFilledIn".localized()) { [weak self] data in
+            self?.changeMessage(.facebook)
         }
         r.isMediumFont()
         return r
     }()
     
     lazy var bindYouTubeView: SuperSettingView = {
-        let r = SuperSettingView.createSetTitleAddContentView(R.string.localizable.introTitle(R.string.localizable.homePage("YouTube")), R.string.localizable.notFilledIn()) { [weak self] data in
-            self?.changeMessage(.youtube)
+//        let r = SuperSettingView.createSetTitleAddContentView(R.string.localizable.introTitle(R.string.localizable.homePage("YouTube")), R.string.localizable.notFilledIn()) { [weak self] data in
+//            self?.changeMessage(.youtube)
+//        }
+        let r = SuperSettingView.createSetTitleAddContentView("IntroTitle".localizedFormat("HomePage".localizedFormat("YouTube")), "NotFilledIn".localized()) { [weak self] data in
+            self?.changeMessage(.facebook)
         }
         r.isMediumFont()
         return r

@@ -2635,12 +2635,12 @@ struct _R: Sendable {
       /// Locales: en, th
       var 泰语: RswiftResources.StringResource { .init(key: "泰语", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: Language Settings %d
+      /// en translation: Language Settings %@
       ///
       /// Key: 测试语言
       ///
       /// Locales: en, zh-Hans, th
-      var 测试语言: RswiftResources.StringResource1<Int> { .init(key: "测试语言", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+      var 测试语言: RswiftResources.StringResource1<String> { .init(key: "测试语言", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Message
       ///

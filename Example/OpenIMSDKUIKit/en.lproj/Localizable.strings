@@ -624,11 +624,14 @@ SupportShortNumber = "Support setting a minimum %@-digit account ID";
 
 "提交成功" = "Submit successfully";
 
-"测试语言" = "Language Settings %d";
+"测试语言" = "Language Settings %@";
 
 "搜索" = "Search";
 
 "黑名单" = "Blacklist";
+
+
+
 
 //"" = "";
 //"" = "";

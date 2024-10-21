@@ -36,7 +36,8 @@ class ChangeMessageVC: BaseTitleController {
 
     lazy var saveBtn:  QMUIButton = {
         let r = ViewFactoryUtil.linkButton()
-        r.setTitle(R.string.localizable.save(), for: .normal)
+//        r.setTitle(R.string.localizable.save(), for: .normal)
+        r.setTitle("Save".localized(), for: .normal)
         r.setTitleColor(.colorPrimary, for: .normal)
         r.sizeToFit()
         return r
@@ -69,8 +70,9 @@ class ChangeMessageVC: BaseTitleController {
     
     lazy var editView: QMUITextView = {
         let r = ViewFactoryUtil.normalTextView()
-        r.placeholder = R.string.localizable.pleaseFillIn()
-        r.font = .semiboldFont(20)
+//        r.placeholder = R.string.localizable.pleaseFillIn()
+        r.placeholder = "PleaseFillIn".localized()
+        r.font = .semiboldFont(16)
         return r
     }()
     
@@ -92,24 +94,31 @@ class ChangeMessageVC: BaseTitleController {
             
             switch newValue {
             case .nickname:
-                title = R.string.localizable.name()
+//                title = R.string.localizable.name()
+                title = "Name".localized()
                 editView.text = SuperStringUtil.getUserShowname(showname: user?.nickname ?? "")
             case .userID:
                 title = "Aibitlin ID"
                 editView.text = user?.chatID ?? (user?.userID ?? "")
             case .userIntro:
-                title = R.string.localizable.personalProfile()
+//                title = R.string.localizable.personalProfile()
+                title = "PersonalProfile".localized()
                 editView.text = user?.personalProfile
             case .facebook:
-                title = R.string.localizable.homePage("Facebook")
+//                title = R.string.localizable.homePage("Facebook")
+                title = "HomePage".localizedFormat("Facebook")
             case .instagram:
-                title = R.string.localizable.homePage("Instagram")
+//                title = R.string.localizable.homePage("Instagram")
+                title = "HomePage".localizedFormat("Instagram")
             case .tiktok:
-                title = R.string.localizable.homePage("TikTok")
+//                title = R.string.localizable.homePage("TikTok")
+                title = "HomePage".localizedFormat("TikTok")
             case .youtube:
-                title = R.string.localizable.homePage("YouTube") 
+//                title = R.string.localizable.homePage("YouTube") 
+                title = "HomePage".localizedFormat("YouTube")
             case .markFriendname:
-                title = R.string.localizable.modifyRemarks()
+//                title = R.string.localizable.modifyRemarks()
+                title = "ModifyRemarks".localized()
             default:
                 break
             }
