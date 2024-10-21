@@ -68,6 +68,22 @@ open class FriendListViewController: UIViewController {
         contactsViewModel.getGroupApplications()
         contactsViewModel.queryMyDepartmentInfo()
         contactsViewModel.getFrequentUsers()
+        
+        updateLanguage()
+    }
+    
+    func updateLanguage() {
+        
+        _headerNavView.searchView.titleLbl.text = "搜索".localized()
+        
+        let data:[listTableHeader.MenuItem] = [listTableHeader.MenuItem(title: "新的好友".innerLocalized(), icon: UIImage(named: "friend_list_group_icon")),
+                                               listTableHeader.MenuItem(title: "newGroup".innerLocalized(), icon: UIImage(named: "friend_list_group_new_icon")),
+                                               listTableHeader.MenuItem(title: "群聊".localized(), icon: UIImage(named: "friend_list_new_friend_icon"))]
+        headerView.newFriendView.bindData(item: data[0])
+        headerView.newGroupView.bindData(item: data[1])
+        headerView.groupView.bindData(item: data[2])
+        
+        headerView.chooseView.firstLbl.text = "MyFriend".localized()
     }
     
 //    override func viewDidAppear(_ animated: Bool) {
@@ -573,6 +589,8 @@ class listTableHeader: UIView {
         var index = 0
         var lblClick: ((Int) -> Void)!
         
+        var firstLbl: UILabel!
+        
         override init(frame: CGRect) {
             super.init(frame: frame)
             
@@ -582,6 +600,9 @@ class listTableHeader: UIView {
             var lastLbl : UILabel? = nil
             for index  in  0..<Arr.count {
                 let r = UILabel()
+                if (index == 0) {
+                    firstLbl = r
+                }
                 r.text = Arr[index]
                 r.font = index == 0 ? UIFont(name: "PingFangSC-Medium", size: 18) : UIFont(name: "PingFangSC-Medium", size: 14)
                 r.textColor = index == 0 ?  UIColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1) : UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)

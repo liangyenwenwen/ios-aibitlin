@@ -555,10 +555,7 @@ class tableHeaderSearchView: UIView {
             make.centerY.equalToSuperview()
         }
         
-        let titleLbl = UILabel()
-        titleLbl.text = "搜索".localized()
-        titleLbl.font = UIFont(name: "PingFangSC-Regular", size: 13)
-        titleLbl.textColor = UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
+       
         v.addSubview(titleLbl)
         titleLbl.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(39.w)
@@ -570,6 +567,14 @@ class tableHeaderSearchView: UIView {
         v.addGestureRecognizer(tap)
         
         return v
+    }()
+    
+    lazy var titleLbl: UILabel = {
+        let titleLbl = UILabel()
+        titleLbl.text = "搜索".localized()
+        titleLbl.font = UIFont(name: "PingFangSC-Regular", size: 13)
+        titleLbl.textColor = UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
+        return titleLbl
     }()
     
     lazy var rightImg: UIImageView = {

@@ -22,6 +22,8 @@ open class CallRecordsViewController: UIViewController {
         _viewModel.getRecords(true)
         isShow = true
 //        NotificationCenter.default.post(name: Notification.Name("refrehCallLogsbadgeValue"), object: nil, userInfo: ["value": "\(0)"])
+        
+        updateLanguage()
     }
 
     override open func viewDidAppear(_ animated: Bool) {
@@ -51,8 +53,19 @@ open class CallRecordsViewController: UIViewController {
         tableViewAddEmptyView()
     }
     
-    
     func tableViewAddEmptyView() {
+        tableView.ly_emptyView = emptyView
+    }
+    
+    func updateLanguage() {
+        
+        emptyView._titleStr = "空空如也".localized() as NSString
+        allLogsBtn.setTitle("通话记录".localized(), for: .normal)
+        unreadLogsBtn.setTitle("未接来电".localized(), for: .normal)
+    }
+    
+    
+    lazy var emptyView:HDEmptyView  = {
         let emptyV:HDEmptyView = HDEmptyView.emptyActionViewWithImageStr(imageStr: "custom_blank_icon", titleStr: "空空如也".localized() as NSString, detailStr: "", btnTitleStr: "", target: self, action: #selector(reloadBtnAction)) as! HDEmptyView
         
         emptyV.titleLabTextColor = UIColor.red
@@ -61,9 +74,9 @@ open class CallRecordsViewController: UIViewController {
         emptyV.actionBtnIsHidden = true
         emptyV.titleLabFont = UIFont(name: "PingFangSC-Medium", size: 16)!
         emptyV.titleLabTextColor =  UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
-        
-        tableView.ly_emptyView = emptyV
-    }
+        return emptyV
+    }()
+    
     
     @objc func reloadBtnAction() {
         

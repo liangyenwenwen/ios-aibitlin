@@ -38,6 +38,9 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
     
     public func refreshConversations() {
         _viewModel.getAllConversations()
+        
+        _headerView.searchView.titleLbl.text = "搜索".localized()
+        emptyView._titleStr = "空空如也".localized() as NSString
     }
     
     public func refreshUserInfo(userInfo: UserInfo? = nil) {
@@ -114,6 +117,10 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
     }()
     
     func tableViewAddEmptyView() {
+        _tableView.ly_emptyView = emptyView
+    }
+    
+    lazy var emptyView:HDEmptyView  = {
         let emptyV:HDEmptyView = HDEmptyView.emptyActionViewWithImageStr(imageStr: "custom_blank_icon", titleStr: "空空如也".localized() as NSString, detailStr: "", btnTitleStr: "", target: self, action: #selector(reloadBtnAction)) as! HDEmptyView
         
         emptyV.titleLabTextColor = UIColor.red
@@ -122,9 +129,10 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
         emptyV.actionBtnIsHidden = true
         emptyV.titleLabFont = UIFont(name: "PingFangSC-Medium", size: 16)!
         emptyV.titleLabTextColor =  UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
-        
-        _tableView.ly_emptyView = emptyV
-    }
+        return emptyV
+    }()
+    
+    
     
     @objc func reloadBtnAction() {
         
