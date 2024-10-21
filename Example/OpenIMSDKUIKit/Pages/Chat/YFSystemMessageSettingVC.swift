@@ -53,7 +53,7 @@ class YFSystemMessageSettingVC: BaseTitleController {
         container.tg_padding = UIEdgeInsets(top: PADDING_OUTER, left: PADDING_MEDDLE, bottom: PADDING_MEDDLE, right: PADDING_MEDDLE)
         container.tg_space = PADDING_OUTER
         
-        container.addSubview(ViewFactoryUtil.sectionTilteLbael(R.string.localizable.basicInformation()))
+        container.addSubview(ViewFactoryUtil.sectionTilteLbael("BasicInformation".localized()))
         container.addSubview(settingView)
         
         

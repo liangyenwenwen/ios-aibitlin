@@ -29,6 +29,7 @@ class MeHomeController: BaseLogicController {
         
         getMyBlog()
         getMyStarBlog()
+        updatelanguage()
         
     }
     
@@ -62,6 +63,24 @@ class MeHomeController: BaseLogicController {
         
     }
 
+    func updatelanguage() {
+        
+        
+        
+        let  codeTitle = sectionCodeView.viewWithTag(20001) as! UILabel
+        codeTitle.text = "我的二维码".localized()
+        
+        let  monentsTitle = sectionMomentsView.viewWithTag(20001) as! UILabel
+        monentsTitle.text = "我的动态".localized()
+        
+        let  myBlogTitle = sectionMyBlogView.viewWithTag(20001) as! UILabel
+        myBlogTitle.text = "我的博客".localized()
+        
+        let  starBlogTitle = sectionStarBlogView.viewWithTag(20001) as! UILabel
+        starBlogTitle.text = "我收藏的博客".localized()
+        
+    }
+    
     func updateHeaderView() {
         let user = _viewModel.currentUserRelay.value
         
@@ -75,8 +94,8 @@ class MeHomeController: BaseLogicController {
         tagLable.textColor = userState.v > 0  ? .init(hexString: "#7238EF")  : .init(hexString: "#999999")
 //        userID.text = user?.chatID
         
-        print(user?.userID)
-        print(user?.chatID)
+//        print(user?.userID)
+//        print(user?.chatID)
         
 //        if userState.v > 0 {
 //            userShowId = "\(String(describing: user?.chatID != nil ? user!.chatID! : user!.userID!))"
@@ -243,6 +262,11 @@ class MeHomeController: BaseLogicController {
     }
     
     func addCode() {
+
+        container.addSubview(sectionCodeView)
+    }
+    
+    lazy var sectionCodeView: UIView = {
         let codeView = ViewFactoryUtil.sectionHeaderView(R.image.section_QR_code()!, title: "我的二维码".localized(), isHaveMore: true)
         codeView.backgroundColor = .white
         codeView.corner(MEDDLE_RADIUS)
@@ -251,11 +275,17 @@ class MeHomeController: BaseLogicController {
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(gotoCode))
         codeView.addGestureRecognizer(tap)
-        
-        container.addSubview(codeView)
-    }
+        return codeView
+    }()
+    
     
     func addMoments() {
+        
+        container.addSubview(sectionMomentsView)
+    }
+    
+    
+    lazy var sectionMomentsView : UIView = {
         let codeView = ViewFactoryUtil.sectionHeaderView(R.image.section_moments_icon()!, title: "我的动态".localized(), isHaveMore: true)
         codeView.backgroundColor = .white
         codeView.corner(MEDDLE_RADIUS)
@@ -264,9 +294,10 @@ class MeHomeController: BaseLogicController {
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(gotoMoments))
         codeView.addGestureRecognizer(tap)
-        
-        container.addSubview(codeView)
-    }
+        return codeView
+    }()
+    
+    
 
     func addMyBoke() {
         let bokeView = TGLinearLayout(.vert)
@@ -276,15 +307,20 @@ class MeHomeController: BaseLogicController {
         bokeView.tg_height.equal(.wrap)
         container.addSubview(bokeView)
         
-//        let bokeHeader = ViewFactoryUtil.sectionHeaderView(title: R.string.localizable.meBlog(), isHaveMore: true)
+        
+        bokeView.addSubview(sectionMyBlogView)
+              
+        bokeView.addSubview(bokeItemsView)
+    }
+    
+    lazy var sectionMyBlogView: UIView = {
         let bokeHeader = ViewFactoryUtil.sectionHeaderView(title: "我的博客".localized(), isHaveMore: true)
         bokeHeader.tg_height.equal(44)
         let tap = UITapGestureRecognizer(target: self, action: #selector(gotoMyBokeList))
         bokeHeader.addGestureRecognizer(tap)
-        bokeView.addSubview(bokeHeader)
-              
-        bokeView.addSubview(bokeItemsView)
-    }
+        return bokeHeader
+    }()
+    
     
     lazy var bokeItemsView: SectionItemsView = {
         let r = SectionItemsView()
@@ -314,14 +350,20 @@ class MeHomeController: BaseLogicController {
         bokeView.tg_height.equal(.wrap)
         container.addSubview(bokeView)
         
-        let bokeHeader = ViewFactoryUtil.sectionHeaderView(.init(named: "section_star")!,title: "我收藏的博客".localized(), isHaveMore: true)
-        bokeHeader.tg_height.equal(44)
-        let tap = UITapGestureRecognizer(target: self, action: #selector(gotoMyStarBokeList))
-        bokeHeader.addGestureRecognizer(tap)
-        bokeView.addSubview(bokeHeader)
+   
+        bokeView.addSubview(sectionStarBlogView)
               
         bokeView.addSubview(myStarblogItemsView)
     }
+    
+    
+    lazy var sectionStarBlogView: UIView = {
+        let bokeHeader = ViewFactoryUtil.sectionHeaderView(title: "我收藏的博客".localized(), isHaveMore: true)
+        bokeHeader.tg_height.equal(44)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(gotoMyBokeList))
+        bokeHeader.addGestureRecognizer(tap)
+        return bokeHeader
+    }()
     
     lazy var myStarblogItemsView: SectionItemsView = {
         let r = SectionItemsView()

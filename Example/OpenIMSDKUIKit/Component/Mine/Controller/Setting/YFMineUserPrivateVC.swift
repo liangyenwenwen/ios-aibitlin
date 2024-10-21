@@ -20,7 +20,7 @@ class YFMineUserPrivateVC: BaseTitleController {
         setBackGroundColor(.colorBackgroundAPP)
         initLinearLayoutSafeArea()
     
-        title = R.string.localizable.personalPrivacy()
+        title = "PersonalPrivacy".localized()
         
         container.tg_padding = UIEdgeInsets(top: PADDING_MEDDLE, left: PADDING_MEDDLE, bottom: PADDING_MEDDLE, right: PADDING_MEDDLE)
         container.tg_space = PADDING_OUTER
@@ -118,7 +118,7 @@ class YFMineUserPrivateVC: BaseTitleController {
         let r = ViewFactoryUtil.normalLbael()
         switch type {
         case 0:
-            r.text = R.string.localizable.whatWaysCanYouFindMe()
+            r.text = "WhatWaysCanYouFindMe".localized()
         case 1:
             r.text = "是否接收来自陌生人的消息"
         default:

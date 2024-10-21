@@ -52,7 +52,7 @@ class MineBokeStatisticsVC: BaseTitleController {
         scrollViewContainer.tg_padding = UIEdgeInsets(top: PADDING_OUTER, left: PADDING_OUTER, bottom: PADDING_OUTER, right: PADDING_OUTER)
         scrollViewContainer.tg_space = 10
         
-        title = R.string.localizable.blogSituation(boke.userBlogName!)
+        title = "BlogSituation".localizedFormat(boke.userBlogName!)
         
         
         scrollViewContainer.addSubview(bokeBaseView)

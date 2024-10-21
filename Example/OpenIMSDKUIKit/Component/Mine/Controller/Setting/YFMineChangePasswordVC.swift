@@ -32,7 +32,7 @@ class YFMineChangePasswordVC: BaseTitleController {
         setBackGroundColor(.colorBackgroundAPP)
         initLinearLayoutSafeArea()
     
-        title = R.string.localizable.changePassword()
+        title = "ChangePassword".localized()
         
         container.tg_padding = UIEdgeInsets(top: PADDING_MEDDLE, left: PADDING_OUTER, bottom: PADDING_MEDDLE, right: PADDING_OUTER)
         container.tg_space = PADDING_OUTER
@@ -40,7 +40,7 @@ class YFMineChangePasswordVC: BaseTitleController {
         container.addSubview(originalPasswordHeader)
         container.addSubview(oldPwdView)
         
-        container.addSubview(ViewFactoryUtil.sectionTilteLbael(R.string.localizable.enterTheNewPassword()))
+        container.addSubview(ViewFactoryUtil.sectionTilteLbael("EnterTheNewPassword".localized()))
         container.addSubview(newPwdContentView)
         
         container.addSubview(pwdTipLbl)
@@ -54,12 +54,12 @@ class YFMineChangePasswordVC: BaseTitleController {
     
     
     lazy var originalPasswordHeader: UILabel = {
-        let r = ViewFactoryUtil.sectionTilteLbael(R.string.localizable.enterTheOriginalPassword())
+        let r = ViewFactoryUtil.sectionTilteLbael("EnterTheOriginalPassword".localized())
         return r
     }()
     
     lazy var oldPwdView: SuperSettingView = {
-        let r = SuperSettingView.createInput(R.string.localizable.originalPassword(), placeholder: R.string.localizable.pleaseFillIn())
+        let r = SuperSettingView.createInput("OriginalPassword".localized())
         r.isMediumFont()
         r.corner()
         r.tg_bottom.equal(14)
@@ -83,7 +83,7 @@ class YFMineChangePasswordVC: BaseTitleController {
     }()
     
     lazy var newPwdView: SuperSettingView = {
-        let r = SuperSettingView.createInput(R.string.localizable.newPassword(), placeholder: R.string.localizable.pleaseFillIn())
+        let r = SuperSettingView.createInput("NewPassword".localized())
         r.isMediumFont()
         r.isPwd()
         return r
@@ -91,7 +91,7 @@ class YFMineChangePasswordVC: BaseTitleController {
     
     
     lazy var rePwdView: SuperSettingView = {
-        let r = SuperSettingView.createInput(R.string.localizable.enterAgain(), placeholder: R.string.localizable.pleaseFillIn())
+        let r = SuperSettingView.createInput("EnterAgain".localized())
         r.isMediumFont()
         r.isPwd()
         return r
@@ -107,7 +107,7 @@ class YFMineChangePasswordVC: BaseTitleController {
     lazy var trueBtn: QMUIButton = {
         let  r = ViewFactoryUtil.primaryHalfFilletButton()
         r.tg_top.equal(24)
-        r.setTitle(R.string.localizable.confirm(), for: .normal)
+        r.setTitle("Confirm".localized(), for: .normal)
         r.addTarget(self, action: #selector(gotoNextVC), for: .touchUpInside)
         
         return r

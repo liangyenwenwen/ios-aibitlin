@@ -15,7 +15,7 @@ class MineDeleteAccountChooseWayVC: BaseTitleController {
         setBackGroundColor(.colorBackgroundAPP)
         initLinearLayoutSafeArea()
     
-        title = R.string.localizable.identityVerification()
+        title = "IdentityVerification".localized()
         
         container.tg_padding = UIEdgeInsets(top: PADDING_MEDDLE, left: PADDING_MEDDLE, bottom: PADDING_MEDDLE, right: PADDING_MEDDLE)
         container.tg_space = PADDING_OUTER
@@ -44,7 +44,7 @@ class MineDeleteAccountChooseWayVC: BaseTitleController {
     
     
     lazy var phoneView: SuperSettingView = {
-        let r = SuperSettingView.createNoromalView(R.string.localizable.phoneVerification()) { [weak self] data in
+        let r = SuperSettingView.createNoromalView("PhoneVerification".localized()) { [weak self] data in
             self?.toDeleteAcountAuthenticationVC(.usePhone)
         }
         r.isMediumFont()
@@ -52,7 +52,7 @@ class MineDeleteAccountChooseWayVC: BaseTitleController {
     }()
     
     lazy var emailView: SuperSettingView = {
-        let r = SuperSettingView.createNoromalView(R.string.localizable.emailVerification()) { [weak self] data in
+        let r = SuperSettingView.createNoromalView("EmailVerification".localized()) { [weak self] data in
             self?.toDeleteAcountAuthenticationVC(.useEmail)
         }
         r.isMediumFont()

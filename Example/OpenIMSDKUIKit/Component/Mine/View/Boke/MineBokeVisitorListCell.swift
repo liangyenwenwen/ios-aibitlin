@@ -120,7 +120,8 @@ class MineBokeVisitorListCell: BaseTableViewCell {
         } else {
             tagLable.hide()
         }
-        userScanNumber.text = R.string.localizable.visitorCount(model.ciShu > 99 ? "99+" : "\(model.ciShu)")
+//        userScanNumber.text = R.string.localizable.visitorCount(model.ciShu > 99 ? "99+" : "\(model.ciShu)")
+        userScanNumber.text = "VisitorCount".localizedFormat(model.ciShu > 99 ? "99+" : "\(model.ciShu)")
 
     }
     

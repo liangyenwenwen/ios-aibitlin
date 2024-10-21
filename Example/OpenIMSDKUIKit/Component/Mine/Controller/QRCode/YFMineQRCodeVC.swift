@@ -255,7 +255,7 @@ class YFMineQRCodeVC: BaseTitleController {
         lbl.tg_height.equal(.wrap)
         lbl.font = .regularFont(14)
         lbl.textColor = .black333
-        lbl.text = "分享给好友";
+        lbl.text = "分享给好友".localized();
         r.addSubview(lbl)
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(shareCode))
@@ -279,7 +279,7 @@ class YFMineQRCodeVC: BaseTitleController {
         lbl.tg_height.equal(.wrap)
         lbl.font = .regularFont(14)
         lbl.textColor = .black333
-        lbl.text = "保存到手机";
+        lbl.text = "保存到手机".localized();
         r.addSubview(lbl)
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(saveQRCode))

@@ -53,9 +53,9 @@ class MineBokeListViewController: BaseTitleController {
 
         switch vcType {
         case .meBlog:
-            title = R.string.localizable.meBlog()
+            title = "MeBlog".localized()
         case .othersBlog:
-            title = R.string.localizable.userBlog(othersName ?? "")
+            title = "UserBlog".localizedFormat(othersName ?? "")
         case .star:
             title = "我收藏的博客".localized()
         }
@@ -80,7 +80,7 @@ class MineBokeListViewController: BaseTitleController {
     
     lazy var sortBtn:  QMUIButton = {
         let r = ViewFactoryUtil.linkButton()
-        r.setTitle(R.string.localizable.sort(), for: .normal)
+        r.setTitle("Sort".localized(), for: .normal)
         r.setTitleColor(.colorPrimary, for: .normal)
         r.sizeToFit()
         r.rx.tap.subscribe(onNext: { [weak self] _ in
@@ -100,7 +100,7 @@ class MineBokeListViewController: BaseTitleController {
     
     lazy var bottomBtn: QMUIButton = {
         let r = ViewFactoryUtil.primaryHalfFilletButton()
-        r.setTitle(R.string.localizable.add(), for: .normal)
+        r.setTitle("Add".localized(), for: .normal)
         r.imagePosition = .left
         r.setImage(R.image.add_circle_icon()!, for: .normal)
         r.spacingBetweenImageAndTitle = 12
@@ -279,7 +279,7 @@ extension MineBokeListViewController {
             if errCode == 20000 {
                 self.getMyBlog()
             } else {
-                SuperToast.show(title: R.string.localizable.failure())
+                SuperToast.show(title: "failure".localized())
             }
         }
     }
@@ -295,7 +295,7 @@ extension MineBokeListViewController {
                 if errCode == 20000 {
                     self.getMyBlog()
                 } else {
-                    SuperToast.show(title: R.string.localizable.failure())
+                    SuperToast.show(title: "failure".localized())
                 }
             }
         }

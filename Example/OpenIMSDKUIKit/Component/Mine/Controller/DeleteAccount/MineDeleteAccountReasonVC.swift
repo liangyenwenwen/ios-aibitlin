@@ -17,12 +17,12 @@ class MineDeleteAccountReasonVC: BaseTitleController {
         setBackGroundColor(.colorBackgroundAPP)
         initLinearLayoutSafeArea()
     
-        title = R.string.localizable.deleteAccount()
+        title = "DeleteAccount".localized()
         
         container.tg_padding = UIEdgeInsets(top: PADDING_MEDDLE, left: PADDING_MEDDLE, bottom: PADDING_MEDDLE, right: PADDING_MEDDLE)
         container.tg_space = PADDING_OUTER
         
-        container.addSubview(ViewFactoryUtil.sectionTilteLbael(R.string.localizable.reasonForDelete()))
+        container.addSubview(ViewFactoryUtil.sectionTilteLbael("ReasonForDelete".localized()))
         container.addSubview(topContentView)
         
 //        container.addSubview(ViewFactoryUtil.blankView(20))
@@ -50,7 +50,7 @@ class MineDeleteAccountReasonVC: BaseTitleController {
     
     lazy var nextBtn: QMUIButton = {
         let  r = ViewFactoryUtil.primaryHalfFilletButton()
-        r.setTitle(R.string.localizable.deleteAccount(), for: .normal)
+        r.setTitle("DeleteAccount".localized(), for: .normal)
         r.addTarget(self, action: #selector(showSheet), for: .touchUpInside)
         r.tg_top.equal(20)
         return r

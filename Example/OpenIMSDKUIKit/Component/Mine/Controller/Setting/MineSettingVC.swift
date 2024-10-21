@@ -15,6 +15,7 @@ class MineSettingVC: BaseTitleController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
+        updateLanguage()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -28,7 +29,7 @@ class MineSettingVC: BaseTitleController {
         setBackGroundColor(.colorBackgroundAPP)
         initLinearLayoutSafeArea()
     
-        title = R.string.localizable.set()
+        title = "set".localized()
         
         container.tg_padding = UIEdgeInsets(top: PADDING_MEDDLE, left: PADDING_OUTER, bottom: PADDING_MEDDLE, right: PADDING_OUTER)
         container.tg_space = 12
@@ -45,6 +46,19 @@ class MineSettingVC: BaseTitleController {
         
     }
     
+    func updateLanguage() {
+        
+        title = "set".localized()
+        
+        userMessageView.titleView.text = "MyProfile".localized()
+        accountAndSafeView.titleView.text = "AccountAndSecurity".localized()
+        changeLanguageView.titleView.text = "语言和地区".localized()
+        privateView.titleView.text = "PersonalPrivacy".localized()
+        privateDeletegeView.titleView.text = "PoliciesAndTerms".localized()
+        
+        logoOutView.titleView.text = "Logout".localized()
+    }
+    
     lazy var topContentView: TGLinearLayout = {
         let r = TGLinearLayout(.vert)
         r.tg_width.equal(.fill)
@@ -57,7 +71,7 @@ class MineSettingVC: BaseTitleController {
     }()
     
     lazy var userMessageView: SuperSettingView = {
-        let r = SuperSettingView.create(icon: R.image.mine_info_icon()!, title: R.string.localizable.myProfile(), click: { [weak self] data in
+        let r = SuperSettingView.create(icon: R.image.mine_info_icon()!, title: "MyProfile".localized(), click: { [weak self] data in
             print("个人资料")
             self?.navigationController?.pushViewController(MineMessageVC(), animated: true)
         })
@@ -66,7 +80,7 @@ class MineSettingVC: BaseTitleController {
     }()
     
     lazy var accountAndSafeView: SuperSettingView = {
-        let r = SuperSettingView.create(icon: R.image.mine_safe_icon()!, title: R.string.localizable.accountAndSecurity(), click: { [weak self] data in
+        let r = SuperSettingView.create(icon: R.image.mine_safe_icon()!, title: "AccountAndSecurity".localized(), click: { [weak self] data in
             print("账号与安全")
             self?.navigationController?.pushViewController(MineAccountAddSafeVC(), animated: true)
         })
@@ -88,7 +102,7 @@ class MineSettingVC: BaseTitleController {
     }()
     
     lazy var privateView: SuperSettingView = {
-        let r = SuperSettingView.create(icon: R.image.mine_private_icon()!, title: R.string.localizable.personalPrivacy(), click: { [weak self] data in
+        let r = SuperSettingView.create(icon: R.image.mine_private_icon()!, title: "PersonalPrivacy".localized(), click: { [weak self] data in
             print("个人隐私")
             self?.gotoController(YFMineUserPrivateVC.self)
         })
@@ -97,7 +111,7 @@ class MineSettingVC: BaseTitleController {
     }()
     
     lazy var privateDeletegeView: SuperSettingView = {
-        let r = SuperSettingView.create(icon: R.image.mine_delegate_icon()!, title: R.string.localizable.policiesAndTerms(), click: { [weak self] data in
+        let r = SuperSettingView.create(icon: R.image.mine_delegate_icon()!, title: "PoliciesAndTerms".localized(), click: { [weak self] data in
             let language = String.getCurrentLanguage()
             if language.starts(with: "zh")  {
                 SuperWebController.start((self?.navigationController!)!, uri: "https://deal.aibitlin.com/#/pages/privacy/index?lang=zh")
@@ -113,7 +127,7 @@ class MineSettingVC: BaseTitleController {
     
     
     lazy var logoOutView: SuperSettingView = {
-        let r = SuperSettingView.create(icon: R.image.mine_logout_icon()!, title: R.string.localizable.logout(),  ishaveMore:  false, click: { [weak self] data in
+        let r = SuperSettingView.create(icon: R.image.mine_logout_icon()!, title: "Logout".localized(),  ishaveMore:  false, click: { [weak self] data in
             
             self?.logoout()
         })

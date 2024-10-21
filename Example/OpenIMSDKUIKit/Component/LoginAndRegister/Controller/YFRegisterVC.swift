@@ -89,7 +89,7 @@ class YFRegisterVC: BaseTitleController {
 //    }()
     
     lazy var codeView: SuperSettingView = {
-        let r = SuperSettingView.createInputAboutCode(R.string.localizable.code())
+        let r = SuperSettingView.createInputAboutCode("Code".localized())
         r.loginUI()
         r.tg_top.equal(appTitleLbl.tg_bottom, offset: 102)
         r.tg_width.equal(.fill)
@@ -99,7 +99,7 @@ class YFRegisterVC: BaseTitleController {
     }()
     
     lazy var pwdView: SuperSettingView = {
-        let r = SuperSettingView.createInput(R.string.localizable.password(), placeholder: R.string.localizable.pleaseFillIn())
+        let r = SuperSettingView.createInput("password".localized())
         r.loginUI()
         r.tg_top.equal(appTitleLbl.tg_bottom, offset: 168)
         r.tg_width.equal(.fill)
@@ -117,7 +117,7 @@ class YFRegisterVC: BaseTitleController {
     }()
     
     lazy var rePwdView: SuperSettingView = {
-        let r = SuperSettingView.createInput(R.string.localizable.enterAgain(), placeholder: R.string.localizable.pleaseFillIn())
+        let r = SuperSettingView.createInput("EnterAgain".localized())
         r.loginUI()
         r.tg_top.equal(pwdView.tg_bottom, offset: 20)
         r.tg_width.equal(.fill)
@@ -126,7 +126,7 @@ class YFRegisterVC: BaseTitleController {
     }()
     
     lazy var nicknameView: SuperSettingView = {
-        let r = SuperSettingView.createInput(R.string.localizable.name(), placeholder: R.string.localizable.pleaseFillIn())
+        let r = SuperSettingView.createInput("Name".localized())
         r.loginUI()
         r.tg_top.equal(rePwdView.tg_bottom, offset: 20)
         r.tg_width.equal(.fill)
@@ -291,7 +291,7 @@ extension YFRegisterVC {
 //                ProgressHUD.error(String(errCode).localized())
                 SuperToast.show(title: String(errCode).localized())
                 CountDownUtil.cancel()
-                self?.codeView.codeBtn.setTitle(R.string.localizable.resend(), for: .normal)
+                self?.codeView.codeBtn.setTitle("Resend".localized(), for: .normal)
                 self?.codeView.codeBtn.isEnabled = true
             } else {
                 ProgressHUD.dismiss()
@@ -309,10 +309,10 @@ extension YFRegisterVC {
         CountDownUtil.countDown(60) { result in
             
             if result == 0 {
-                self.codeView.codeBtn.setTitle(R.string.localizable.resend(), for: .normal)
+                self.codeView.codeBtn.setTitle("Resend".localized(), for: .normal)
                 self.codeView.codeBtn.isEnabled = true
             } else {
-                self.codeView.codeBtn.setTitle(R.string.localizable.resendCount(result), for: .normal)
+                self.codeView.codeBtn.setTitle("ResendCount".localizedFormat(result), for: .normal)
             }
             
             self.codeView.codeBtn.sizeToFit()

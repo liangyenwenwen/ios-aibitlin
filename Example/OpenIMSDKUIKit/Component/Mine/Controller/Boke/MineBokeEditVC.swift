@@ -24,7 +24,7 @@ class MineBokeEditVC: BaseTitleController, UIImagePickerControllerDelegate, UINa
         setBackGroundColor(.colorBackgroundAPP)
         initLinearLayoutSafeArea()
 
-        title = R.string.localizable.meBlog()
+        title = "MeBlog".localized()
         
         container.tg_padding = UIEdgeInsets(top: PADDING_MEDDLE, left: PADDING_MEDDLE, bottom: PADDING_MEDDLE, right: PADDING_MEDDLE)
         container.addSubview(topContentView)
@@ -89,13 +89,13 @@ class MineBokeEditVC: BaseTitleController, UIImagePickerControllerDelegate, UINa
     }()
     
     lazy var nameView: SuperSettingView = {
-        let r = SuperSettingView.createInput("名称".localized(), placeholder: " \(R.string.localizable.pleaseFillIn())")
+        let r = SuperSettingView.createInput("名称".localized())
 //        r.textFieldView.backgroundColor = .red
         return r
     }()
     
     lazy var introView: SuperSettingView = {
-        let r = SuperSettingView.createInputTextView("简介".localized(), placeholder: R.string.localizable.pleaseFillIn())
+        let r = SuperSettingView.createInputTextView("简介".localized())
         r.tg_height.equal(92)
         r.titleView.tg_top.equal(8)
         r.tg_gravity = .vert.top
@@ -116,7 +116,7 @@ class MineBokeEditVC: BaseTitleController, UIImagePickerControllerDelegate, UINa
     lazy var trueBtn: QMUIButton = {
         let  r = ViewFactoryUtil.primaryHalfFilletButton()
         r.tg_top.equal(20)
-        r.setTitle(R.string.localizable.confirm(), for: .normal)
+        r.setTitle("Confirm".localized(), for: .normal)
         r.addTarget(self, action: #selector(saveBlog), for: .touchUpInside)
         r.tg_bottom.equal(50)
         return r
@@ -227,9 +227,9 @@ extension MineBokeEditVC {
                 if errCode == 20000 {
                     ProgressHUD.dismiss()
                     self.navigationController?.popViewController(animated: true)
-                    SuperToast.show(title: R.string.localizable.success())
+                    SuperToast.show(title: "success".localized())
                 } else {
-                    SuperToast.show(title: R.string.localizable.failure())
+                    SuperToast.show(title: "failure".localized())
                     ProgressHUD.dismiss()
                 }
             }
@@ -249,9 +249,9 @@ extension MineBokeEditVC {
             if errCode == 20000 {
                 ProgressHUD.dismiss()
                 self.navigationController?.popViewController(animated: true)
-                SuperToast.show(title: R.string.localizable.success())
+                SuperToast.show(title: "success".localized())
             } else {
-                SuperToast.show(title: R.string.localizable.failure())
+                SuperToast.show(title: "failure".localized())
                 ProgressHUD.dismiss()
             }
         }

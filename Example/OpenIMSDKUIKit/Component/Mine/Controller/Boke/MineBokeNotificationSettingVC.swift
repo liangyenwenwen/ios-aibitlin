@@ -33,12 +33,12 @@ class MineBokeNotificationSettingVC: BaseTitleController {
         setBackGroundColor(.colorBackgroundAPP)
         initLinearLayoutSafeArea()
     
-        title = R.string.localizable.userNotifiySetting(boke.userBlogName!)
+        title = "UserNotifiySetting".localizedFormat(boke.userBlogName!)
         
         container.tg_padding = UIEdgeInsets(top: PADDING_MEDDLE, left: PADDING_MEDDLE, bottom: PADDING_MEDDLE, right: PADDING_MEDDLE)
         container.tg_space = PADDING_OUTER
         
-        container.addSubview(ViewFactoryUtil.sectionTilteLbael(R.string.localizable.userNotifiySetting("")))
+        container.addSubview(ViewFactoryUtil.sectionTilteLbael("UserNotifiySetting".localizedFormat("")))
         container.addSubview(accountMessageView)
         
     }
@@ -72,7 +72,7 @@ class MineBokeNotificationSettingVC: BaseTitleController {
     }()
     
     lazy var lengthOfStayView: SuperSettingView = {
-        let r = SuperSettingView.createSetTitleAddContentView("停留时长超过多少秒通知我".localized(), R.string.localizable.secondsCount(staytime)) { [weak self] data in
+        let r = SuperSettingView.createSetTitleAddContentView("停留时长超过多少秒通知我".localized(), "SecondsCount".localizedFormat(staytime)) { [weak self] data in
             self!.chooselengthOfStayAction()
         }
         r.isMediumFont()

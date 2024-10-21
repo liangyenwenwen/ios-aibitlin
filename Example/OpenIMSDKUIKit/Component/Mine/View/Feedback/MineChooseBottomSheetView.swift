@@ -127,9 +127,9 @@ class MineChooseBottomSheetView: TGLinearLayout {
     /// 用户信息弹窗
     func addUserMessageUI() {
         topContainer.show()
-        titleLbl.text = "荷包蛋小朋友"
+        titleLbl.text = ""
         tipslbl.show()
-        let titleArr = [R.string.localizable.modifyRemarks()]
+        let titleArr = ["ModifyRemarks".localized()]
         for i in titleArr.indices {
             let settingView = SuperSettingView.createNoromalView(titleArr[i]) { [weak self] _ in
                 self?.chooseTitle(titleArr[i])
@@ -142,7 +142,7 @@ class MineChooseBottomSheetView: TGLinearLayout {
         }
                 
         centerContainer.show()
-        let titleArr2 = ["删除好友".localized(), R.string.localizable.block(), R.string.localizable.report()]
+        let titleArr2 = ["删除好友".localized(), "Block".localized(), "Report".localized()]
         for i in titleArr2.indices {
             // MARK: - 张亚飞打的标记  黑名单处理
             if i == 1 {
@@ -342,7 +342,7 @@ class MineChooseBottomSheetView: TGLinearLayout {
         }
           
         centerContainer.show()
-        let titleArr2 = [R.string.localizable.report()]
+        let titleArr2 = ["Report".localized()]
         for i in titleArr2.indices {
             let settingView = SuperSettingView.onlylTitle(titleArr2[i]) { [weak self] _ in
                 self?.chooseTitle(titleArr2[i])

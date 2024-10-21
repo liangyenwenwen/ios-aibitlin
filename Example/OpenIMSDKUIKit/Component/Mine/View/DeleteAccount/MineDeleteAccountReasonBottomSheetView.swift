@@ -82,7 +82,7 @@ class MineDeleteAccountReasonBottomSheetView: TGLinearLayout {
         let r = ViewFactoryUtil.primaryHalfFilletButton()
         r.backgroundColor = .black999
         r.setTitleColor(.black66, for: .normal)
-        r.setTitle(R.string.localizable.deleteAccount(), for: .normal)
+        r.setTitle("DeleteAccount".localized(), for: .normal)
         return r
     }()
 }

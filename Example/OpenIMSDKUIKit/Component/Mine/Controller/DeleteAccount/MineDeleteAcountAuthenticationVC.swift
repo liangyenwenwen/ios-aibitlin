@@ -22,7 +22,7 @@ class MineDeleteAcountAuthenticationVC: BaseTitleController {
         setBackGroundColor(.colorBackgroundAPP)
         initLinearLayoutSafeArea()
     
-        title = R.string.localizable.deleteAccount()
+        title = "DeleteAccount".localized()
         
         container.tg_padding = UIEdgeInsets(top: PADDING_MEDDLE, left: PADDING_OUTER, bottom: PADDING_MEDDLE, right: PADDING_OUTER)
         container.tg_space = PADDING_OUTER
@@ -48,53 +48,53 @@ class MineDeleteAcountAuthenticationVC: BaseTitleController {
     func refreshUI() {
         switch vcType {
         case .usePhone:
-            title = R.string.localizable.deleteAccount()
-            sectionLbl.text = R.string.localizable.pleaseFillIn()
+            title = "DeleteAccount".localized()
+            sectionLbl.text = "PleaseFillIn".localized()
             useTypeView.changePhoneEmail(true)
             let tap = UITapGestureRecognizer(target: self, action: #selector(changePhoneArea))
             useTypeView.phoneCodeView.addGestureRecognizer(tap)
-            nextBtn.setTitle(R.string.localizable.nextStep(), for: .normal)
+            nextBtn.setTitle("nextStep".localized(), for: .normal)
         case .useEmail:
-            title = R.string.localizable.deleteAccount()
-            sectionLbl.text = R.string.localizable.pleaseFillIn()
+            title = "DeleteAccount".localized()
+            sectionLbl.text = "PleaseFillIn".localized()
             useTypeView.changePhoneEmail(false)
-            nextBtn.setTitle(R.string.localizable.nextStep(), for: .normal)
+            nextBtn.setTitle("nextStep".localized(), for: .normal)
         case .changePhone:
-            title = R.string.localizable.phone()
-            sectionLbl.text = R.string.localizable.pleaseFillIn()
+            title = "Phone".localized()
+            sectionLbl.text = "PleaseFillIn".localized()
             useTypeView.changePhoneEmail(true)
             let tap = UITapGestureRecognizer(target: self, action: #selector(changePhoneArea))
             useTypeView.phoneCodeView.addGestureRecognizer(tap)
-            nextBtn.setTitle(R.string.localizable.nextStep(), for: .normal)
+            nextBtn.setTitle("nextStep".localized(), for: .normal)
         case .changeEmail:
-            title = R.string.localizable.email()
-            sectionLbl.text = R.string.localizable.pleaseFillIn()
+            title = "email".localized()
+            sectionLbl.text = "PleaseFillIn".localized()
             useTypeView.changePhoneEmail(false)
-            nextBtn.setTitle(R.string.localizable.nextStep(), for: .normal)
+            nextBtn.setTitle("nextStep".localized(), for: .normal)
         case .forgetPwdbyPhone:
             title = "忘记密码".localized()
             sectionLbl.text = "请验证你的手机号".localized()
             useTypeView.changePhoneEmail(true)
             let tap = UITapGestureRecognizer(target: self, action: #selector(changePhoneArea))
             useTypeView.phoneCodeView.addGestureRecognizer(tap)
-            nextBtn.setTitle(R.string.localizable.nextStep(), for: .normal)
+            nextBtn.setTitle("nextStep".localized(), for: .normal)
         case .forgetPwdByEmail:
             title = "忘记密码".localized()
             sectionLbl.text = "请验证你的邮箱".localized()
             useTypeView.changePhoneEmail(false)
-            nextBtn.setTitle(R.string.localizable.nextStep(), for: .normal)
+            nextBtn.setTitle("nextStep".localized(), for: .normal)
         case .forgetPwdbyPhoneBylogin:
             title = "忘记密码".localized()
             sectionLbl.text = "请验证你的手机号".localized()
             useTypeView.changePhoneEmail(true)
             let tap = UITapGestureRecognizer(target: self, action: #selector(changePhoneArea))
             useTypeView.phoneCodeView.addGestureRecognizer(tap)
-            nextBtn.setTitle(R.string.localizable.nextStep(), for: .normal)
+            nextBtn.setTitle("nextStep".localized(), for: .normal)
         case .forgetPwdByEmailBylogin:
             title = "忘记密码".localized()
             sectionLbl.text = "请验证你的邮箱".localized()
             useTypeView.changePhoneEmail(false)
-            nextBtn.setTitle(R.string.localizable.nextStep(), for: .normal)
+            nextBtn.setTitle("nextStep".localized(), for: .normal)
         default :
             break
         }
@@ -162,7 +162,7 @@ class MineDeleteAcountAuthenticationVC: BaseTitleController {
     
     
     lazy var getCodeView: SuperSettingView = {
-        let r = SuperSettingView.createInputAboutCode(R.string.localizable.code(), placeholder: R.string.localizable.pleaseFillIn())
+        let r = SuperSettingView.createInputAboutCode("Code".localized())
         r.isMediumFont()
         r.isCode()
         r.codeBtn.addTarget(self, action: #selector(getCodeAction), for: .touchUpInside)
@@ -261,7 +261,7 @@ extension MineDeleteAcountAuthenticationVC {
 //                ProgressHUD.error(String(errCode).localized())
                 SuperToast.show(title: String(errCode).localized())
                 CountDownUtil.cancel()
-                self?.getCodeView.codeBtn.setTitle(R.string.localizable.resend(), for: .normal)
+                self?.getCodeView.codeBtn.setTitle("Resend".localized(), for: .normal)
                 self?.getCodeView.codeBtn.isEnabled = true
             } else {
                 ProgressHUD.dismiss()
@@ -275,10 +275,10 @@ extension MineDeleteAcountAuthenticationVC {
         CountDownUtil.countDown(60) { result in
             
             if result == 0 {
-                self.getCodeView.codeBtn.setTitle(R.string.localizable.resend(), for: .normal)
+                self.getCodeView.codeBtn.setTitle("Resend".localized(), for: .normal)
                 self.getCodeView.codeBtn.isEnabled = true
             } else {
-                self.getCodeView.codeBtn.setTitle(R.string.localizable.resendCount(result), for: .normal)
+                self.getCodeView.codeBtn.setTitle("ResendCount".localizedFormat(result), for: .normal)
             }
             
             self.getCodeView.codeBtn.sizeToFit()

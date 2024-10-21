@@ -11,6 +11,8 @@ import TangramKit
 
 class ViewFactoryUtil {
     
+    static var titleLblSelf = UILabel()
+    
     static func tableView(_ style: UITableView.Style = .plain) -> UITableView {
 //        let r = QMUITableView()
         let r = QMUITableView(frame: .zero, style: style)
@@ -82,7 +84,7 @@ class ViewFactoryUtil {
     }
     
     ///水平 分割线
-    static func normalTextView(_ placeholder: String = R.string.localizable.pleaseFillIn()) -> QMUITextView {
+    static func normalTextView(_ placeholder: String = "PleaseFillIn".localized()) -> QMUITextView {
         let r = QMUITextView()
         r.tg_width.equal(.fill)
         r.tg_height.equal(.fill)
@@ -356,6 +358,7 @@ extension ViewFactoryUtil {
         sectionHaderView.addSubview(leftImg)
         
         let titleLbl = ViewFactoryUtil.customBoldTilteLable(title)
+        titleLblSelf = titleLbl
         titleLbl.tg_centerY.equal(0)
         titleLbl.tg_width.equal(.fill)
         sectionHaderView.addSubview(titleLbl)
@@ -383,6 +386,7 @@ extension ViewFactoryUtil {
         sectionHaderView.addSubview(leftImg)
         
         let titleLbl = ViewFactoryUtil.customBoldTilteLable(title)
+        titleLblSelf = titleLbl
         titleLbl.tg_centerY.equal(0)
         titleLbl.tg_width.equal(.wrap)
         sectionHaderView.addSubview(titleLbl)

@@ -63,7 +63,7 @@ class BottomBtnView: TGLinearLayout {
         rightBtn.hide()
         
         addSubview(centerBtn)
-        centerBtn .setTitle(R.string.localizable.sendMessage(), for: .normal)
+        centerBtn .setTitle("SendMessage".localized(), for: .normal)
     }
     
     func initAttentionUI() {
@@ -72,7 +72,6 @@ class BottomBtnView: TGLinearLayout {
         rightBtn.hide()
         
         addSubview(centerBtn)
-//        centerBtn.setTitle(R.string.localizable.follow(), for: .normal)
         centerBtn.setTitle("添加好友".localized(), for: .normal)
     }
     
@@ -82,11 +81,10 @@ class BottomBtnView: TGLinearLayout {
         rightBtn.show()
         
         addSubview(leftBtn)
-//        leftBtn.setTitle(R.string.localizable.follow(), for: .normal)
         leftBtn.setTitle("添加好友".localized(), for: .normal)
         
         addSubview(rightBtn)
-        rightBtn.setTitle(R.string.localizable.sendMessage(), for: .normal)
+        rightBtn.setTitle("SendMessage".localized(), for: .normal)
     }
 
     lazy var centerBtn: QMUIButton = {

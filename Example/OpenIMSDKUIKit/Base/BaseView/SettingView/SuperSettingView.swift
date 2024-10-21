@@ -167,7 +167,7 @@ class SuperSettingView: TGLinearLayout {
        
         result.hide()
 
-        result.placeholder = R.string.localizable.pleaseFillIn()
+        result.placeholder = "PleaseFillIn".localized()
         result.placeholderColor = .placeholderText
 
         result.font = .mediumFont(14)
@@ -268,10 +268,10 @@ extension SuperSettingView {
         CountDownUtil.countDown(60) { result in
             
             if result == 0 {
-                self.codeBtn.setTitle(R.string.localizable.resend(), for: .normal)
+                self.codeBtn.setTitle("Resend".localized(), for: .normal)
                 self.codeBtn.isEnabled = true
             } else {
-                self.codeBtn.setTitle(R.string.localizable.resendCount(result), for: .normal)
+                self.codeBtn.setTitle("ResendCount".localizedFormat(result), for: .normal)
             }
             
             self.codeBtn.sizeToFit()
@@ -287,7 +287,7 @@ extension SuperSettingView {
             phoneCodeView.show()
             titleView.hide()
 
-            textFieldView.placeholder = R.string.localizable.phone()
+            textFieldView.placeholder = "Phone".localized()
             tempEmail = textFieldView.text!
             textFieldView.text = tempPhone
             textFieldView.keyboardType = .numberPad
@@ -299,8 +299,8 @@ extension SuperSettingView {
             phoneCodeView.hide()
             titleView.show()
 
-            titleView.text = R.string.localizable.email()
-            textFieldView.placeholder = R.string.localizable.pleaseFillIn()
+            titleView.text = "email".localized()
+            textFieldView.placeholder = "PleaseFillIn".localized()
             tempPhone = textFieldView.text!
             textFieldView.text = tempEmail
             textFieldView.keyboardType = .emailAddress
@@ -353,7 +353,7 @@ extension SuperSettingView {
     
     func isReport() {
         textFieldView.isUserInteractionEnabled = false
-        textFieldView.placeholder = R.string.localizable.reasonForReporting()
+        textFieldView.placeholder = "ReasonForReporting".localized()
         moreIconView.show()
     }
 }
@@ -510,7 +510,7 @@ extension SuperSettingView{
     
     
     /// 标题和输入文本TF  获取验证码Code
-    static func createInputAboutCode(_ title:String,placeholder:String = R.string.localizable.pleaseFillIn()) -> SuperSettingView {
+    static func createInputAboutCode(_ title:String,placeholder:String = "PleaseFillIn".localized()) -> SuperSettingView {
         let result = SuperSettingView()
 //        result.tg_padding = UIEdgeInsets(top: PADDING_MEDDLE, left: PADDING_OUTER, bottom: PADDING_MEDDLE, right: PADDING_OUTER)
         

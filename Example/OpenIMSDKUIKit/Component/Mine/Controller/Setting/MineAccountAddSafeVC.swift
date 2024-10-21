@@ -15,7 +15,7 @@ class MineAccountAddSafeVC: BaseTitleController {
         setBackGroundColor(.colorBackgroundAPP)
         initLinearLayoutSafeArea()
     
-        title = R.string.localizable.accountAndSecurity()
+        title =  "AccountAndSecurity".localized()
         
         container.tg_padding = UIEdgeInsets(top: PADDING_MEDDLE, left: PADDING_MEDDLE, bottom: PADDING_MEDDLE, right: PADDING_MEDDLE)
         container.tg_space = PADDING_OUTER
@@ -58,7 +58,7 @@ class MineAccountAddSafeVC: BaseTitleController {
     
     
     lazy var changePwdView: SuperSettingView = {
-        let r = SuperSettingView.createSetTitleAddContentView(R.string.localizable.changePassword(), "") { [weak self] data in
+        let r = SuperSettingView.createSetTitleAddContentView("ChangePassword".localized(), "") { [weak self] data in
             self?.gotoController(YFMineChangePasswordVC.self)
         }
         r.isMediumFont()
@@ -66,7 +66,7 @@ class MineAccountAddSafeVC: BaseTitleController {
     }()
     
     lazy var changeEmailView: SuperSettingView = {
-        let r = SuperSettingView.createSetTitleAddContentView(R.string.localizable.changeEmail(), "") { [weak self] data in
+        let r = SuperSettingView.createSetTitleAddContentView("ChangeEmail".localized(), "") { [weak self] data in
             self?.toDeleteAcountAuthenticationVC(.changeEmail)
         }
         r.isMediumFont()
@@ -75,7 +75,7 @@ class MineAccountAddSafeVC: BaseTitleController {
     
     
     lazy var changePhoneView: SuperSettingView = {
-        let r = SuperSettingView.createSetTitleAddContentView(R.string.localizable.changePhone(), " ") { [weak self] data in
+        let r = SuperSettingView.createSetTitleAddContentView("ChangePhone".localized(), " ") { [weak self] data in
             self?.toDeleteAcountAuthenticationVC(.changePhone)
         }
         r.isMediumFont()
@@ -128,7 +128,7 @@ class MineAccountAddSafeVC: BaseTitleController {
     
     
     lazy var deleteView: SuperSettingView = {
-        let r = SuperSettingView.smallWithIcon(title: R.string.localizable.deleteAccount()) { [weak self] data in
+        let r = SuperSettingView.smallWithIcon(title: "DeleteAccount".localized()) { [weak self] data in
             self?.navigationController?.pushViewController(MineDeleteAccountChooseWayVC(), animated: true)
         }
         r.corner()
@@ -141,11 +141,11 @@ class MineAccountAddSafeVC: BaseTitleController {
         let r = ViewFactoryUtil.normalLbael()
         switch type {
         case 0:
-            r.text = R.string.localizable.accountInformation()
+            r.text = "AccountInformation".localized()
         case 1:
-            r.text = R.string.localizable.bindingThirdPartyAccounts()
+            r.text = "BindingThirdPartyAccounts".localized()
         case 2:
-            r.text = R.string.localizable.deleteAccount()
+            r.text = "DeleteAccount".localized()
         default:
             r.text = ""
         }

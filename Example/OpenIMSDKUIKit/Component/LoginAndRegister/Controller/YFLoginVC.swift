@@ -99,7 +99,7 @@ class YFLoginVC: BaseLogicController {
 //    }()
     
     lazy var pwdView: SuperSettingView = {
-        let r = SuperSettingView.createInput("密码".localized(), placeholder: R.string.localizable.pleaseFillIn())
+        let r = SuperSettingView.createInput("密码".localized())
         r.loginUI()
         r.tg_top.equal(tipLbl.tg_bottom, offset: 102)
         r.tg_width.equal(.fill)
