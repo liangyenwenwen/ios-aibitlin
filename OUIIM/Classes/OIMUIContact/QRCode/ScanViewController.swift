@@ -65,6 +65,25 @@ class ScanViewController: UIViewController {
             print("Torch is not available on this device.")
         }
     }
+    
+    private func closeFlashlight() {
+        guard let device = AVCaptureDevice.default(for: AVMediaType.video) else { return }
+        
+        if device.hasTorch {
+            do {
+                try device.lockForConfiguration()
+
+                
+                device.unlockForConfiguration()
+            } catch {
+                print("Error toggling flashlight: \(error.localizedDescription)")
+            }
+        } else {
+            print("Torch is not available on this device.")
+        }
+    }
+    
+    
 
     private lazy var _photoHelper: PhotoHelper = {
         let v = PhotoHelper()
@@ -131,6 +150,8 @@ class ScanViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
+        
+      
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -149,6 +170,8 @@ class ScanViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: false)
+        
+        closeFlashlight()
     }
     
     private func scanResult(result: String?) {
