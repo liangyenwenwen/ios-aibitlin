@@ -3,8 +3,6 @@ import OUICore
 
 public class QRCodeViewController: UIViewController {
     
-
-    
     override public func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = false

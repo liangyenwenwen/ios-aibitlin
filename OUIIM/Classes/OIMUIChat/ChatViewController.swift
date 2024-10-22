@@ -2761,6 +2761,7 @@ extension ChatViewController: GestureDelegate {
         }
     }
     
+    
     private func starAction(id: String, source: bokeMessageSource) -> PopoverCollectionViewController.MenuItem {
         return PopoverCollectionViewController.MenuItem(title: ToolItem.star.title, image: ToolItem.star.image) { [weak self] in
             print("收藏", source)

@@ -381,7 +381,6 @@ Toolbox = "Toolbox";
 //"访问" = "Access";
 "系统通知设置" = "System Notification Settings";
 
-
 //登录页面
 "登录哎比邻" = "Login to Aibitlin";
 "登录你的账号、与全球用户无障碍聊天。" = "Log in to your account and chat with users around the world without any barriers.";
@@ -632,6 +631,7 @@ SupportShortNumber = "Support setting a minimum %@-digit account ID";
 
 "开发中" = "In Development";
 
+"通知设置" = "%@ Settings";
 
 //"" = "";
 //"" = "";

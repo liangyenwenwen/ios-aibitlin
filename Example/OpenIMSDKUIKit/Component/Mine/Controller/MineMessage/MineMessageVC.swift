@@ -232,9 +232,9 @@ class MineMessageVC: BaseTitleController, UIImagePickerControllerDelegate, UINav
     
     func changeNickName(_ data: String?) {
  
-        ProgressHUD.animate()
+//        ProgressHUD.animate()
         self._viewModel.updateNickname(data!) { [weak self] code, msg in
-            ProgressHUD.dismiss()
+//            ProgressHUD.dismiss()
             if code == 0 {
                 self?.userNicknameView.contentLbl.text = data
                 
@@ -248,15 +248,15 @@ class MineMessageVC: BaseTitleController, UIImagePickerControllerDelegate, UINav
     
     func changeChatID(_ data: String?) {
  
-        ProgressHUD.animate()
+//        ProgressHUD.animate()
         self._viewModel.updateChatID(data!) { [weak self] code, msg in
             ProgressHUD.dismiss()
             if code == 0 {
                 self?.userIDView.contentLbl.text = data
                 
             } else {
-                ProgressHUD.error(msg)
-//                SuperToast.show(title: msg)
+//                ProgressHUD.error(msg)
+                SuperToast.show(title: msg)
             }
   
         }

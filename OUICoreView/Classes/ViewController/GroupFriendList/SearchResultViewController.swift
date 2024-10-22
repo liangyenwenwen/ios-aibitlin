@@ -111,7 +111,7 @@ public class SearchResultViewController: UIViewController, UISearchResultsUpdati
     
     public func updateSearchResults(for searchController: UISearchController) {
         
-//        print(Date().timeIntervalSince1970 - lastDate.timeIntervalSince1970)
+//        print(Date().timeIntervalSince1970 - lastDate.timeIntervalSince1970)  搜索限制
         
         if Date().timeIntervalSince1970 - lastDate.timeIntervalSince1970  > 3 {
             let keyword = searchController.searchBar.text?.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -127,6 +127,8 @@ public class SearchResultViewController: UIViewController, UISearchResultsUpdati
        
         
     }
+    
+    
     
     @objc func search(_ keyword: String) {
         

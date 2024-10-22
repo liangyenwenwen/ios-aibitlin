@@ -37,10 +37,11 @@ class YFFeedbackVC: BaseTitleController {
         setBackGroundColor(.init(hexString: "#f5f5f5"))
         initLinearLayoutSafeArea()
         
-        setTitle()
+       
         
 //        title = useType == .useFeedback ? "反馈".localized() : "举报".localized();
-        title = "举报".localized();
+//        title = "举报".localized();
+        setTitle()
         
         container.tg_padding = UIEdgeInsets(top: PADDING_OUTER, left: PADDING_OUTER, bottom: PADDING_OUTER, right: PADDING_OUTER)
         container.addSubview(meesageView)
@@ -90,10 +91,19 @@ class YFFeedbackVC: BaseTitleController {
     func setTitle() {
         
 //        title = R.string.localizable.report()
-        title = "举报".localized()
-        topViewTitle = "\("举报原因".localized())*"
-        contentViewTitle = "\("举报描述".localized())*"
-        imageTitle = "截图证据".localized()
+        
+        if reportType == .feedback {
+            title = "反馈".localized()
+            topViewTitle = "\("标题".localized())*"
+            contentViewTitle = "\("问题描述".localized())*"
+            imageTitle = "截图".localized()
+        } else {
+            title = "举报".localized()
+            topViewTitle = "\("举报原因".localized())*"
+            contentViewTitle = "\("举报描述".localized())*"
+            imageTitle = "截图证据".localized()
+        }
+        
         
 //        switch useType {
 //    

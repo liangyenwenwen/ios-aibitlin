@@ -662,6 +662,7 @@ extension MainTabViewController: UITabBarControllerDelegate {
         _moreView.bottomShow(show: false, 0)
         if(index == 0) {
             let vc = YFFeedbackVC()
+            vc.reportType = .feedback
             vc.hidesBottomBarWhenPushed = true
             /// 要隐藏nav 不然两个nav
             currentVC.setNavigationBarHidden(false, animated: true)
@@ -690,11 +691,6 @@ extension MainTabViewController: UITabBarControllerDelegate {
             currentVC.pushViewController(vc)
         }
     }
-    
-   
-    
-    
-    
     
 }
 

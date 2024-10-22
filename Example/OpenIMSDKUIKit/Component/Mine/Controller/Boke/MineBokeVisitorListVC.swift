@@ -40,8 +40,6 @@ class MineBokeVisitorListVC: BaseTitleController {
 
 extension MineBokeVisitorListVC {
  
-    
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MineBokeVisitorListCell.className, for: indexPath) as! MineBokeVisitorListCell
         cell.bindData(datum[indexPath.row] as! BlogVisitorListModel)
@@ -56,8 +54,9 @@ extension MineBokeVisitorListVC {
         
     }
 
-    
 }
+
+
 
 extension MineBokeVisitorListVC {
     

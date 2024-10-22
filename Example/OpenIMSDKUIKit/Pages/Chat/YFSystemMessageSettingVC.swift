@@ -34,13 +34,27 @@ class YFSystemMessageSettingVC: BaseTitleController {
     func getConversationInfo() {
         
         print(userID)
-        IMController.shared.getConversation(sessionType: .notification, sourceId: userID!) { [weak self] (conversation: ConversationInfo?) in
+//        IMController.shared.getConversation(sessionType: .c2c, sourceId: userID!) { [weak self] (conversation: ConversationInfo?) in
+//            
+//            
+//        
+//            
+//        }
+        
+        IMController.shared.getConversation(sessionType: .notification, conversationID: userID!) { [weak self] (conversation: ConversationInfo?) in
+            
             guard let conversation else { return }
 
             self?.conversationInfo = conversation
 
+            self?.upChatSwitch.superSwitch.isOn = conversation.isPinned
+            self?.doNotDisturbSwitch.superSwitch.isOn = conversation.recvMsgOpt == .notReceive
+            
+            self?.title = "通知设置".localizedFormat(conversation.showName!)
             
         }
+        
+    
     }
     
     override func initViews() {
@@ -92,6 +106,9 @@ class YFSystemMessageSettingVC: BaseTitleController {
             
         } switchChanged: { [weak self] data in
             
+            
+            SuperToast.show(title: "开发中".localized())
+            
             if data.isOn {
                 print("接收系统通知")
             } else {
@@ -115,7 +132,11 @@ class YFSystemMessageSettingVC: BaseTitleController {
             } else {
                 print("取消免打扰")
             }
-            
+            guard let weakself = self else { return }
+            IMController.shared.setConversationRecvMessageOpt(conversationID: weakself.userID!, status: data.isOn ? .notReceive : .receive) { [weak self] _ in
+                guard let sself = self else { return }
+                sself.changeNotDisturb(isNotReceivew: data.isOn)
+            }
 
         }
         
@@ -148,6 +169,10 @@ class YFSystemMessageSettingVC: BaseTitleController {
     func changeChatTop(isPinned: Bool) {
         print(isPinned ? "------置顶" : "--------取消置顶")
         upChatSwitch.superSwitch.isOn = isPinned
+    }
+    
+    func changeNotDisturb(isNotReceivew: Bool) {
+        doNotDisturbSwitch.superSwitch.isOn = isNotReceivew
     }
     
 }
