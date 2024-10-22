@@ -11,6 +11,30 @@ import CoreLocation
 
 class SuperStringUtil {
     
+    // 验证邮箱
+    static func isEmail(_ email: String) -> Bool {
+        if email.count == 0 {
+            return false
+        }
+        let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
+        let emailTest:NSPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegex)
+        return emailTest.evaluate(with: email)
+    }
+    
+    // 验证手机号
+    static func isPhoneNumber(_ phoneNumber: String) -> Bool {
+        if phoneNumber.count == 0 {
+            return false
+        }
+        let mobile = "^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$"
+        let regexMobile = NSPredicate(format: "SELF MATCHES %@",mobile)
+        if regexMobile.evaluate(with: phoneNumber) == true {
+            return true
+        } else {
+            return false
+        }
+    }
+    
     static func getCurrentLocation() -> String {
         let locationManager = CLLocationManager()
         locationManager.requestWhenInUseAuthorization()

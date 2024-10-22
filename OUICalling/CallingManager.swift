@@ -466,9 +466,9 @@ extension CallingManager {
             tips = "通话邀请被其它客户端拒绝".localized()
         }
         
-        if signalingInfo?.userID == loginUserID {
-            record.success = true
-        }
+//        if signalingInfo?.userID == loginUserID {
+//            record.success = true
+//        }
         
         if #available(iOS 15, *) {
             record.date = Int(round(Date.now.timeIntervalSince1970 * 1000))
@@ -483,6 +483,11 @@ extension CallingManager {
             record.duration = duration
             record.isSingnal = signalingInfo.isSignal
             record.incoming = signalingInfo.invitation.inviterUserID != OIMManager.manager.getLoginUserID()
+            
+            if !record.incoming {
+                record.success = true
+            }
+            
             record.otherSideID = record.incoming ? signalingInfo.invitation.inviterUserID : signalingInfo.invitation.inviteeUserIDList.first
             
             if record.incoming {
