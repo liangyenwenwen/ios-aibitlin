@@ -414,8 +414,10 @@ extension CallingManager {
                 OIMManager.manager.signalingReject(signalingInfo, onSuccess: nil)
             }
             tips = "已拒绝".localized()
+            
         case .beRejected:
             tips = "对方已拒绝".localized()
+            record.success = true  //优化未接来电
         case .calling:
             break
         case .beAccepted:
@@ -444,6 +446,7 @@ extension CallingManager {
         case .beCanceled:
             tips = duration > 0 ? "通话结束".localized() + ":\(timeline)" : "对方取消".localized()
             record.success = duration > 0
+            record.success = true  //优化未接来电
         case .timeout:
             tips = "超时无人接听".localized()
         case .join:
@@ -461,6 +464,10 @@ extension CallingManager {
             tips = "通话邀请被其它客户端接受".localized()
         case .rejectedByOther:
             tips = "通话邀请被其它客户端拒绝".localized()
+        }
+        
+        if signalingInfo?.userID == loginUserID {
+            record.success = true
         }
         
         if #available(iOS 15, *) {
