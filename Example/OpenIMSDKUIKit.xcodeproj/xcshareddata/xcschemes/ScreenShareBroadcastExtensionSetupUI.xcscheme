@@ -16,7 +16,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "04ACD87A2CBE90B400EFE179"
+               BlueprintIdentifier = "04B2664B2CC7C472004AF09F"
                BuildableName = "ScreenShareBroadcastExtensionSetupUI.appex"
                BlueprintName = "ScreenShareBroadcastExtensionSetupUI"
                ReferencedContainer = "container:OpenIMSDKUIKit.xcodeproj">

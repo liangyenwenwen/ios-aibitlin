@@ -45,6 +45,8 @@ pod "SwiftEventBus"
 #富文本框架
 pod "BSText"
 
+pod 'IQKeyboardManagerSwift'
+
 pod 'Bugly'
 
 end

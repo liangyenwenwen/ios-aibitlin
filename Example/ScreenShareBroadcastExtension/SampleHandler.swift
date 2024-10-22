@@ -2,7 +2,7 @@
 //  SampleHandler.swift
 //  ScreenShareBroadcastExtension
 //
-//  Created by mac on 2024/10/15.
+//  Created by mac on 2024/10/22.
 //  Copyright © 2024 rentsoft. All rights reserved.
 //
 

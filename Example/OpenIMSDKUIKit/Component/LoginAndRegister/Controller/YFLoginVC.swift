@@ -289,7 +289,6 @@ class YFLoginVC: BaseLogicController {
     
     override func bindData()  {
         
-        
         Observable.combineLatest(phoneView.textFieldView.rx.text.orEmpty, pwdView.textFieldView.rx.text.orEmpty) {
             $0.count > 0  && $1.count > 7
         }

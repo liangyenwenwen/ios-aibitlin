@@ -28,6 +28,46 @@ PODS:
   - InputBarAccessoryView (6.3.0):
     - InputBarAccessoryView/Core (= 6.3.0)
   - InputBarAccessoryView/Core (6.3.0)
+  - IQKeyboardCore (1.0.5)
+  - IQKeyboardManagerSwift (7.2.0):
+    - IQKeyboardManagerSwift/Appearance (= 7.2.0)
+    - IQKeyboardManagerSwift/Core (= 7.2.0)
+    - IQKeyboardManagerSwift/IQKeyboardReturnKeyHandler (= 7.2.0)
+    - IQKeyboardManagerSwift/IQKeyboardToolbarManager (= 7.2.0)
+    - IQKeyboardManagerSwift/IQTextView (= 7.2.0)
+    - IQKeyboardManagerSwift/Resign (= 7.2.0)
+    - IQKeyboardNotification (= 1.0.3)
+    - IQTextInputViewNotification (= 1.0.5)
+  - IQKeyboardManagerSwift/Appearance (7.2.0):
+    - IQKeyboardManagerSwift/Core
+    - IQKeyboardNotification (= 1.0.3)
+    - IQTextInputViewNotification (= 1.0.5)
+  - IQKeyboardManagerSwift/Core (7.2.0):
+    - IQKeyboardNotification (= 1.0.3)
+    - IQTextInputViewNotification (= 1.0.5)
+  - IQKeyboardManagerSwift/IQKeyboardReturnKeyHandler (7.2.0):
+    - IQKeyboardNotification (= 1.0.3)
+    - IQTextInputViewNotification (= 1.0.5)
+  - IQKeyboardManagerSwift/IQKeyboardToolbarManager (7.2.0):
+    - IQKeyboardManagerSwift/Core
+    - IQKeyboardManagerSwift/IQKeyboardToolbarManager/IQKeyboardToolbar (= 7.2.0)
+    - IQKeyboardNotification (= 1.0.3)
+    - IQTextInputViewNotification (= 1.0.5)
+  - IQKeyboardManagerSwift/IQKeyboardToolbarManager/IQKeyboardToolbar (7.2.0):
+    - IQKeyboardManagerSwift/Core
+    - IQKeyboardNotification (= 1.0.3)
+    - IQTextInputViewNotification (= 1.0.5)
+  - IQKeyboardManagerSwift/IQTextView (7.2.0):
+    - IQKeyboardManagerSwift/IQKeyboardToolbarManager/IQKeyboardToolbar
+    - IQKeyboardNotification (= 1.0.3)
+    - IQTextInputViewNotification (= 1.0.5)
+  - IQKeyboardManagerSwift/Resign (7.2.0):
+    - IQKeyboardManagerSwift/Core
+    - IQKeyboardNotification (= 1.0.3)
+    - IQTextInputViewNotification (= 1.0.5)
+  - IQKeyboardNotification (1.0.3)
+  - IQTextInputViewNotification (1.0.5):
+    - IQKeyboardCore (= 1.0.5)
   - ISEmojiView (0.3.4):
     - Kingfisher (= 7.7.0)
   - JXSegmentedView (1.4.1)
@@ -526,6 +566,7 @@ DEPENDENCIES:
   - Bugly
   - DynamicColor
   - InputBarAccessoryView (from `../3rd`)
+  - IQKeyboardManagerSwift
   - ISEmojiView (from `../3rd`)
   - Kingfisher
   - LiveKitClient (from `https://github.com/livekit/client-sdk-swift.git`, tag `1.1.6`)
@@ -568,6 +609,10 @@ SPEC REPOS:
     - FDFullscreenPopGesture
     - IGListDiffKit
     - IGListKit
+    - IQKeyboardCore
+    - IQKeyboardManagerSwift
+    - IQKeyboardNotification
+    - IQTextInputViewNotification
     - JXSegmentedView
     - Kingfisher
     - Lantern
@@ -648,6 +693,10 @@ SPEC CHECKSUMS:
   IGListDiffKit: 665d6cf43ce726e676013db9c7d6c4294259b6b2
   IGListKit: fd5a5d21935298f5849fa49d426843cff97b77c7
   InputBarAccessoryView: 55a728753108bdba75a036ffe8db291abae5910e
+  IQKeyboardCore: 28c8bf3bcd8ba5aa1570b318cbc4da94b861711e
+  IQKeyboardManagerSwift: 12d6ae3632ef744ccd033c048b566af13cc10d49
+  IQKeyboardNotification: d7382c4466c5a5adef92c7452ebf861b36050088
+  IQTextInputViewNotification: 4381fb828881983205fbee38f17da8a9fe2e835c
   ISEmojiView: 55706bd486072bce5045aeffa4ca0273dead1f88
   JXSegmentedView: cd73555ce2134d1656db2cb383ba9c2f36fb5078
   Kingfisher: f043ac666dfc96c1f37604f93effb45a7ee3a3e1
@@ -694,6 +743,6 @@ SPEC CHECKSUMS:
   ZFPlayer: 5cf39e8d9f0c2394a014b0db4767b5b5a6bffe13
   ZLPhotoBrowser: cd023607d05a72d27a3ae57f50dbf86910713a2c
 
-PODFILE CHECKSUM: 419f65c2b34a8a9a8ca6e4e615c50188d1de0988
+PODFILE CHECKSUM: 0bca91df63285b122696b2359cc93271b6da67cb
 
 COCOAPODS: 1.15.2
