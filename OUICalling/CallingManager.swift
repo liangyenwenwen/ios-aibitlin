@@ -417,7 +417,7 @@ extension CallingManager {
             
         case .beRejected:
             tips = "对方已拒绝".localized()
-            record.success = true  //优化未接来电
+//            record.success = true  //优化未接来电
         case .calling:
             break
         case .beAccepted:
@@ -446,7 +446,7 @@ extension CallingManager {
         case .beCanceled:
             tips = duration > 0 ? "通话结束".localized() + ":\(timeline)" : "对方取消".localized()
             record.success = duration > 0
-            record.success = true  //优化未接来电
+//            record.success = true  //优化未接来电
         case .timeout:
             tips = "超时无人接听".localized()
         case .join:
@@ -484,9 +484,9 @@ extension CallingManager {
             record.isSingnal = signalingInfo.isSignal
             record.incoming = signalingInfo.invitation.inviterUserID != OIMManager.manager.getLoginUserID()
             
-            if !record.incoming {
-                record.success = true
-            }
+//            if !record.incoming {
+//                record.success = true
+//            }
             
             record.otherSideID = record.incoming ? signalingInfo.invitation.inviterUserID : signalingInfo.invitation.inviteeUserIDList.first
             
