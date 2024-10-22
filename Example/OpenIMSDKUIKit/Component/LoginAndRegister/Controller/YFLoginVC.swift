@@ -13,6 +13,7 @@ import RxCocoa
 import RxGesture
 import BSText
 import ProgressHUD
+import IQKeyboardManagerSwift
 
 class YFLoginVC: BaseLogicController {
 
@@ -50,6 +51,8 @@ class YFLoginVC: BaseLogicController {
         container.addSubview(forgotButton)
         
         container.addSubview(delegateView)
+        
+        IQKeyboardManager.shared.enable = true
         
     }
 

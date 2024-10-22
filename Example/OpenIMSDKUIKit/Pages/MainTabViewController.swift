@@ -7,6 +7,7 @@ import RxCocoa
 import ProgressHUD
 import Localize_Swift
 import MJExtension
+import IQKeyboardManagerSwift
 //import GTSDK
 #if ENABLE_MOMENTS
 import OUIMoments
@@ -392,6 +393,8 @@ class MainTabViewController: UITabBarController {
     func loginSuccess(dismiss: Bool = false) {
         let event = EventLoginSucceed()
         JNNotificationCenter.shared.post(event)
+        
+        IQKeyboardManager.shared.enable = false
         
         if !dismiss {
 #if ENABLE_CALL

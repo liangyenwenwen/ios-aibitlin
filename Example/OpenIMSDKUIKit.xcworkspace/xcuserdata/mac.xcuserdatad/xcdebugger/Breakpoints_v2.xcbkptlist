@@ -120,13 +120,13 @@
             filePath = "../OUIIM/Classes/OIMUIChat/ChatViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2268"
-            endingLineNumber = "2268"
+            startingLineNumber = "2271"
+            endingLineNumber = "2271"
             landmarkName = "inputBar(_:didPressSendButtonWith:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "BD9D699F-B035-486F-BBD2-E94825901404 - cc53992602bf43d1"
+                  uuid = "BD9D699F-B035-486F-BBD2-E94825901404 - cc53992602bf437e"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -136,11 +136,11 @@
                   urlString = "file:///Users/mac/Desktop/aibitlin/OUIIM/Classes/OIMUIChat/ChatViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "2268"
-                  endingLineNumber = "2268">
+                  startingLineNumber = "2271"
+                  endingLineNumber = "2271">
                </Location>
                <Location
-                  uuid = "BD9D699F-B035-486F-BBD2-E94825901404 - cc53992602bf43d1"
+                  uuid = "BD9D699F-B035-486F-BBD2-E94825901404 - cc53992602bf437e"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -150,8 +150,8 @@
                   urlString = "file:///Users/mac/Desktop/aibitlin/OUIIM/Classes/OIMUIChat/ChatViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "2268"
-                  endingLineNumber = "2268">
+                  startingLineNumber = "2271"
+                  endingLineNumber = "2271">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -198,10 +198,40 @@
             filePath = "../OUIIM/Classes/OIMUIChat/ChatViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "753"
-            endingLineNumber = "753"
+            startingLineNumber = "756"
+            endingLineNumber = "756"
             landmarkName = "ChatViewController"
             landmarkType = "3">
+            <Locations>
+               <Location
+                  uuid = "BE1BF5D8-FE65-42F9-A7CD-B223DD1A8571 - 1f549ef6db4e0334"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "OUIIM.ChatViewController.showEditBottomView(show: Swift.Bool, messageID: Swift.Optional&lt;Swift.String&gt;) -&gt; ()"
+                  moduleName = "IM-NCER"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Desktop/aibitlin/OUIIM/Classes/OIMUIChat/ChatViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "756"
+                  endingLineNumber = "756">
+               </Location>
+               <Location
+                  uuid = "BE1BF5D8-FE65-42F9-A7CD-B223DD1A8571 - 6a92caff30f3ac2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "default argument 0 of OUIIM.ChatViewController.showEditBottomView(show: Swift.Bool, messageID: Swift.Optional&lt;Swift.String&gt;) -&gt; ()"
+                  moduleName = "IM-NCER"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Desktop/aibitlin/OUIIM/Classes/OIMUIChat/ChatViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "755"
+                  endingLineNumber = "755">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -342,8 +372,8 @@
             filePath = "OpenIMSDKUIKit/Pages/MainTabViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "675"
-            endingLineNumber = "675"
+            startingLineNumber = "678"
+            endingLineNumber = "678"
             landmarkName = "moreTabItemDidSelect(index:)"
             landmarkType = "7">
          </BreakpointContent>
