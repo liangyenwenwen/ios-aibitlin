@@ -31,7 +31,7 @@ class YFChooseUserAvatarCardView: UIView, UIImagePickerControllerDelegate, UINav
         let r = UIImageView()
         r.image = .init(named: "choose_avater_camera")
         r.corner(60)
-        
+        r.contentMode = .scaleAspectFill
         let tap = UITapGestureRecognizer(target: self, action: #selector(changeAvatar))
         r.isUserInteractionEnabled = true
         r.addGestureRecognizer(tap)
@@ -329,11 +329,12 @@ class YFChooseUserAvatarCardView: UIView, UIImagePickerControllerDelegate, UINav
 
                     }, onComplete: { [weak self] code, msg in
                         if code == 0 {
-                            ProgressHUD.dismiss()
+                           
                         } else {
 //                            ProgressHUD.error(msg)
                             SuperToast.show(title: msg)
                         }
+                        ProgressHUD.dismiss()
                     })
                 }
             }
@@ -417,7 +418,6 @@ extension YFChooseUserAvatarCardView {
                     self?.bottomShow(show: false)
                    
                 } else {
-//                          ProgressHUD.error(msg)
                     SuperToast.show(title: msg)
                 }
             })

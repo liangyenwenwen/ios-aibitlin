@@ -70,11 +70,14 @@ class MineViewModel {
     }
 
     func uploadFile(fullPath: String, onProgress: @escaping (CGFloat) -> Void, onComplete: @escaping CallBack.ErrorOptionalReturnVoid) {
+        
         IMController.shared.uploadFile(fullPath: fullPath, onProgress: onProgress) { [weak self] url in
             if let url = url {
                 self?.updateFaceURL(url: url, completion: onComplete)
                 
             }
+            
+            
         }
     }
 }

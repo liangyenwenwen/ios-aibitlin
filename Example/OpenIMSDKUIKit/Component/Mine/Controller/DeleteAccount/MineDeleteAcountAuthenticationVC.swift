@@ -30,6 +30,15 @@ class MineDeleteAcountAuthenticationVC: BaseTitleController {
         container.addSubview(sectionLbl)
         container.addSubview(topContentView)
         
+      
+        
+        
+        if vcType == .forgetPwdbyPhoneBylogin || vcType == .forgetPwdByEmailBylogin {
+            container.addSubview(ViewFactoryUtil.sectionTilteLbael("EnterTheNewPassword".localized()))
+            container.addSubview(newPwdContentView)
+            container.addSubview(pwdTipLbl)
+        }
+        
         container.addSubview(nextBtn)
         
         refreshUI()
@@ -37,12 +46,23 @@ class MineDeleteAcountAuthenticationVC: BaseTitleController {
     }
     
     override func bindData() {
-        Observable
-            .combineLatest(useTypeView.textFieldView.rx.text.orEmpty, getCodeView.textFieldView.rx.text.orEmpty) {
-                $0.count > 0 && $1.count > 3
-            }
-            .bind(to: nextBtn.rx.isEnabled)
-            .disposed(by: rx.disposeBag)
+        
+        if vcType == .forgetPwdbyPhoneBylogin || vcType == .forgetPwdByEmailBylogin {
+            Observable
+                .combineLatest(useTypeView.textFieldView.rx.text.orEmpty, getCodeView.textFieldView.rx.text.orEmpty,  newPwdView.textFieldView.rx.text.orEmpty, rePwdView.textFieldView.rx.text.orEmpty) {
+                    $0.count > 0 && $1.count > 3 && $2.count > 7 && $3.count > 7
+                }
+                .bind(to: nextBtn.rx.isEnabled)
+                .disposed(by: rx.disposeBag)
+        } else {
+            Observable
+                .combineLatest(useTypeView.textFieldView.rx.text.orEmpty, getCodeView.textFieldView.rx.text.orEmpty) {
+                    $0.count > 0 && $1.count > 3
+                }
+                .bind(to: nextBtn.rx.isEnabled)
+                .disposed(by: rx.disposeBag)
+        }
+       
     }
     
     func refreshUI() {
@@ -169,6 +189,43 @@ class MineDeleteAcountAuthenticationVC: BaseTitleController {
         return r
     }()
     
+    lazy var newPwdContentView: TGLinearLayout = {
+        let r = TGLinearLayout(.vert)
+        r.tg_width.equal(.fill)
+        r.tg_height.equal(.wrap)
+        r.tg_space = 1
+        r.corner(MEDDLE_RADIUS)
+        r.backgroundColor = .white
+        
+        r.addSubview(newPwdView)
+        r.addSubview(ViewFactoryUtil.smallDivider())
+        r.addSubview(rePwdView)
+        
+        return r
+    }()
+    
+    lazy var newPwdView: SuperSettingView = {
+        let r = SuperSettingView.createInput("NewPassword".localized())
+        r.isMediumFont()
+        r.isPwd()
+        return r
+    }()
+    
+    
+    lazy var rePwdView: SuperSettingView = {
+        let r = SuperSettingView.createInput("EnterAgain".localized())
+        r.isMediumFont()
+        r.isPwd()
+        return r
+    }()
+    
+    lazy var pwdTipLbl: UILabel = {
+        let r = ViewFactoryUtil.sectionTilteLbael()
+        r.text = "loginPwdFormat".localized()
+        r.tg_top.equal(-6)
+        return r
+    }()
+    
     lazy var nextBtn: QMUIButton = {
         let  r = ViewFactoryUtil.primaryHalfFilletButton()
         r.setTitle("下一步", for: .normal)
@@ -184,16 +241,18 @@ class MineDeleteAcountAuthenticationVC: BaseTitleController {
             vc.vcType = vcType
             self.navigationController?.pushViewController(vc, animated: true)
         } else if vcType == .forgetPwdbyPhoneBylogin || vcType == .forgetPwdByEmailBylogin {
-            let vc = YFMineChangePasswordVC()
-            if vcType == .forgetPwdbyPhoneBylogin {
-                vc.areCode = _areaCode
-                vc.phone = useTypeView.inputText
-            } else {
-                vc.email = useTypeView.inputText
-            }
-            vc.code = getCodeView.inputText
-            vc.vcType = vcType
-            self.navigationController?.pushViewController(vc, animated: true)
+//            let vc = YFMineChangePasswordVC()
+//            if vcType == .forgetPwdbyPhoneBylogin {
+//                vc.areCode = _areaCode
+//                vc.phone = useTypeView.inputText
+//            } else {
+//                vc.email = useTypeView.inputText
+//            }
+//            vc.code = getCodeView.inputText
+//            vc.vcType = vcType
+//            self.navigationController?.pushViewController(vc, animated: true)
+            
+            resetPwd()
         } else {
             let vc = YFMineChangePasswordVC()
             vc.vcType = vcType
@@ -207,6 +266,28 @@ class MineDeleteAcountAuthenticationVC: BaseTitleController {
         //保证定时器释放
         CountDownUtil.cancel()
         print(#file)
+    }
+    
+    func resetPwd() {
+        print("重置密码")
+        ProgressHUD.animate()
+        AccountViewModel.resetPassword(phone: vcType == .forgetPwdbyPhoneBylogin ? useTypeView.inputText : nil,
+                                       areaCode: _areaCode,
+                                       email: vcType == .forgetPwdByEmailBylogin ? useTypeView.inputText : nil,
+                                       verificationCode: getCodeView.inputText!,
+                                       password: newPwdView.inputText!) { [weak self] (errCode, errMsg) in
+            
+            if errCode == 0, let `self` = self {
+//                        ProgressHUD.success("changed".localized() + "success".localized())
+                SuperToast.show(title: "changed".localized() + "success".localized())
+                self.navigationController?.popToRootViewController(animated: true)
+            } else {
+//                        ProgressHUD.error(String(errCode).localized())
+                SuperToast.show(title: String(errCode).localized())
+                
+            }
+            ProgressHUD.dismiss()
+        }
     }
     
 }
