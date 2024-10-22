@@ -18,7 +18,7 @@ class FriendListViewModel {
             self?.myFriends = r
             self?.divideUsersInSection(users: r ?? [])
             
-//            self?.reloadTab.accept(r)
+            self?.reloadTab.accept(r)
         }
     }
     

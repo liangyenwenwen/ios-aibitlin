@@ -379,7 +379,10 @@ Toolbox = "Toolbox";
 "博客置顶" = "Blog top";
 
 //"访问" = "Access";
+"系统通知" = "System Notification";
 "系统通知设置" = "System Notification Settings";
+"VIP专属通知设置" = "VIP Exclusive Notification Settings";
+"VIP专属通知" = "VIP Exclusive Notification";
 
 //登录页面
 "登录哎比邻" = "Login to Aibitlin";

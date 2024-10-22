@@ -121,7 +121,7 @@ class YFMineChangePasswordVC: BaseTitleController {
     
     override func bindData() {
         
-        if vcType == .forgetPwdByEmail || vcType == .forgetPwdByEmail {
+        if vcType == .forgetPwdByEmailBylogin || vcType == .forgetPwdbyPhoneBylogin {
             Observable.combineLatest(newPwdView.textFieldView.rx.text.orEmpty, rePwdView.textFieldView.rx.text.orEmpty) {
                $0.count > 7 && $1.count > 7
             }
@@ -183,14 +183,14 @@ extension YFMineChangePasswordVC{
         if vcType == .forgetPwdByEmail || vcType == .forgetPwdByEmail {
             print("重置密码")
             self.navigationController?.popToRootViewController(animated: true)
-        } else if vcType == .forgetPwdByEmailBylogin || vcType == .forgetPwdByEmailBylogin  {
+        } else if vcType == .forgetPwdByEmailBylogin || vcType == .forgetPwdbyPhoneBylogin  {
             print("重置密码")
             ProgressHUD.animate()
             AccountViewModel.resetPassword(phone: vcType == .forgetPwdbyPhoneBylogin ? phone : nil,
                                            areaCode: areCode,
                                            email: vcType == .forgetPwdByEmailBylogin ? email : nil,
                                            verificationCode: code,
-                                           password: oldPwdView.inputText!) { [weak self] (errCode, errMsg) in
+                                           password: newPwdView.inputText!) { [weak self] (errCode, errMsg) in
                 
                 if errCode == 0, let `self` = self {
 //                        ProgressHUD.success("changed".localized() + "success".localized())

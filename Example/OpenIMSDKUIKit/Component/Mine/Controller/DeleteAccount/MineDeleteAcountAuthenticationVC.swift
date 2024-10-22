@@ -183,9 +183,9 @@ class MineDeleteAcountAuthenticationVC: BaseTitleController {
             let vc = MineDeleteAccountReasonVC()
             vc.vcType = vcType
             self.navigationController?.pushViewController(vc, animated: true)
-        } else if vcType == .forgetPwdbyPhone || vcType == .forgetPwdByEmail {
+        } else if vcType == .forgetPwdbyPhoneBylogin || vcType == .forgetPwdByEmailBylogin {
             let vc = YFMineChangePasswordVC()
-            if vcType == .forgetPwdbyPhone {
+            if vcType == .forgetPwdbyPhoneBylogin {
                 vc.areCode = _areaCode
                 vc.phone = useTypeView.inputText
             } else {

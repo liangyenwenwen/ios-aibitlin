@@ -167,7 +167,7 @@ struct _R: Sendable {
       var ieXW0yeText: RswiftResources.StringResource { .init(key: "8ie-xW-0ye.text", tableName: "LaunchScreen", source: source, developmentValue: nil, comment: nil) }
     }
 
-    /// This `_R.string.localizable` struct is generated, and contains static references to 480 localization keys.
+    /// This `_R.string.localizable` struct is generated, and contains static references to 483 localization keys.
     struct localizable {
       let source: RswiftResources.StringResource.Source
 
@@ -807,6 +807,20 @@ struct _R: Sendable {
       ///
       /// Locales: zh-Hans
       var vipiD: RswiftResources.StringResource { .init(key: "VIP ID: ", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: VIP Exclusive Notification
+      ///
+      /// Key: VIP专属通知
+      ///
+      /// Locales: en, th
+      var vip专属通知: RswiftResources.StringResource { .init(key: "VIP专属通知", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: VIP Exclusive Notification Settings
+      ///
+      /// Key: VIP专属通知设置
+      ///
+      /// Locales: en, th
+      var vip专属通知设置: RswiftResources.StringResource { .init(key: "VIP专属通知设置", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Insufficient VIP level
       ///
@@ -2844,6 +2858,13 @@ struct _R: Sendable {
       ///
       /// Locales: en, th
       var 简介: RswiftResources.StringResource { .init(key: "简介", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: System Notification
+      ///
+      /// Key: 系统通知
+      ///
+      /// Locales: en, th
+      var 系统通知: RswiftResources.StringResource { .init(key: "系统通知", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: System Notification Settings
       ///

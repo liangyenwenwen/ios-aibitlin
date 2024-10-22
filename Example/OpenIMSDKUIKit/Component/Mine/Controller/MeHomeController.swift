@@ -362,7 +362,7 @@ class MeHomeController: BaseLogicController {
     lazy var sectionStarBlogView: UIView = {
         let bokeHeader = ViewFactoryUtil.sectionHeaderView(title: "我收藏的博客".localized(), isHaveMore: true)
         bokeHeader.tg_height.equal(44)
-        let tap = UITapGestureRecognizer(target: self, action: #selector(gotoMyBokeList))
+        let tap = UITapGestureRecognizer(target: self, action: #selector(gotoMyStarBokeList))
         bokeHeader.addGestureRecognizer(tap)
         return bokeHeader
     }()

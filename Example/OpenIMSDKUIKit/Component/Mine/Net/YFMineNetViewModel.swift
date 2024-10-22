@@ -70,7 +70,7 @@ class YFMineNetViewModel: AccountViewModel {
         
         
         if !NetworkStatus.isReacheable {
-            SuperToast.show(title: "")
+//            SuperToast.show(title: "")
             return
         }
         
@@ -107,7 +107,9 @@ class YFMineNetViewModel: AccountViewModel {
                     completionHandler(-1, "Fail")
                 }
             case .failure(let err):
+                ProgressHUD.dismiss()
                 completionHandler(-1, err.localizedDescription)
+               
             }
         }
         

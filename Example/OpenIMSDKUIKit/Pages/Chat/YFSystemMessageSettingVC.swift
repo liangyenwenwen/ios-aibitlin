@@ -50,7 +50,12 @@ class YFSystemMessageSettingVC: BaseTitleController {
             self?.upChatSwitch.superSwitch.isOn = conversation.isPinned
             self?.doNotDisturbSwitch.superSwitch.isOn = conversation.recvMsgOpt == .notReceive
             
-            self?.title = "通知设置".localizedFormat(conversation.showName!)
+//            self?.title = "通知设置".localizedFormat(conversation.showName!)
+            if conversation.userID == "10000" {
+                self?.title = "系统通知设置".localized()
+            } else {
+                self?.title = "VIP专属通知设置".localized()
+            }
             
         }
         
@@ -91,8 +96,8 @@ class YFSystemMessageSettingVC: BaseTitleController {
         r.corner(MEDDLE_RADIUS)
         r.backgroundColor = .white
         
-        r.addSubview(reveiveMessageSwitch)
-        r.addSubview(ViewFactoryUtil.smallDivider())
+//        r.addSubview(reveiveMessageSwitch)
+//        r.addSubview(ViewFactoryUtil.smallDivider())
         r.addSubview(doNotDisturbSwitch)
         r.addSubview(ViewFactoryUtil.smallDivider())
         r.addSubview(upChatSwitch)
