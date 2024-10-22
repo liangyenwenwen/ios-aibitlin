@@ -479,7 +479,7 @@ class YFMineNetViewModel: AccountViewModel {
                                       valueHandler: @escaping (String) -> Void,
                                       completionHandler: @escaping CompletionHandler) {
         
-//        ProgressHUD.animate()
+        ProgressHUD.animate()
         
         let url = SuperStringUtil.netUrl(API_BLOG_URL + vipPurchaseSucceedsAPI, paramters)
         
@@ -488,7 +488,7 @@ class YFMineNetViewModel: AccountViewModel {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 print(strData!)
                 
-//                ProgressHUD.dismiss()
+                ProgressHUD.dismiss()
                 if let data = dataRequest.data {
                     let strData = String.init(data: data, encoding: String.Encoding.utf8)
                     if let res = JsonTool.fromJson(strData!, toClass: BlogResponse.self) {
@@ -500,7 +500,7 @@ class YFMineNetViewModel: AccountViewModel {
                         }
                         
                     } else {
-                        completionHandler(-1, "Failure")
+                        completionHandler(-1, "-1".localized())
                     }
                 }
              
