@@ -232,7 +232,7 @@ class YFRegisterVC: BaseTitleController {
     
     override func bindData() {
         Observable.combineLatest(phoneView.textFieldView.rx.text.orEmpty, codeView.textFieldView.rx.text.orEmpty, pwdView.textFieldView.rx.text.orEmpty, rePwdView.textFieldView.rx.text.orEmpty, nicknameView.textFieldView.rx.text.orEmpty) {
-            $0.count > 0 && $1.count > 4 && $2.count > 7 && $3.count > 7 && $4.count > 0
+            $0.count > 0 && $1.count > 4 && $2.count > 0 && $3.count > 0 && $4.count > 0
         }
         .bind(to: registerBtn.rx.isEnabled)
         .disposed(by: rx.disposeBag)
