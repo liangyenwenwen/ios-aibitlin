@@ -182,6 +182,17 @@ class YFRegisterVC: BaseTitleController {
 //            SuperWebController.start((self?.navigationController!)!, uri: "http://bitswith.com/ys/#/privacyAgreement")
 //        }
 //        
+        
+        // MARK: - 张亚飞打的标记  点击协议内容切换是否同意协议
+        var range1 = agreementString.range(of: "我已阅读并同意AIbitlin《注册协议》".localized())!
+        agreeStr.bs_set(textHighlightRange: agreementString.nsRange(from: range1), color: .placeholder, backgroundColor: nil) { [weak self] _, _, _, _ in
+            
+            if self?.chooseDelegateBtn != nil  {
+                self?.chooseDelegateBtn.isSelected = !(self?.chooseDelegateBtn.isSelected)!
+            }
+            
+        }
+        
         var  range = agreementString.range(of: "《注册协议》".localized())!
         agreeStr.bs_set(textHighlightRange: agreementString.nsRange(from: range), color: .primaryColor, backgroundColor: nil) { [weak self]  containerView, text, range, rect in
 //            ProgressHUD.succeed("注册协议")
@@ -216,6 +227,9 @@ class YFRegisterVC: BaseTitleController {
     
     lazy var tipLbl_delegate: UILabel = {
         let r = ViewFactoryUtil.customTilteLableWrap("我已阅读并同意UnityChat".localized(), font: TEXT_MEDDLE, textColor: .black999)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(chooseStateChange))
+        r.addGestureRecognizer(tap)
+        r.isUserInteractionEnabled = true
         return r
     }()
     
@@ -354,6 +368,10 @@ extension YFRegisterVC {
     
     @objc func chooseDelegate(_ btn: QMUIButton) {
         btn.isSelected = !btn.isSelected
+    }
+    
+    @objc func chooseStateChange() {
+        chooseDelegateBtn.isSelected = !chooseDelegateBtn.isSelected
     }
     
     @objc func register() {
