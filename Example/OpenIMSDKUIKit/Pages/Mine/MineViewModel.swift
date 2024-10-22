@@ -75,9 +75,11 @@ class MineViewModel {
             if let url = url {
                 self?.updateFaceURL(url: url, completion: onComplete)
                 
+            } else {
+                ProgressHUD.dismiss()
+                SuperToast.show(title: "-1".localized())
             }
-            
-            
+
         }
     }
 }
