@@ -294,14 +294,14 @@ class UsersGridView: UIView {
         
         // 邀请者信息
         let avatarView = AvatarView()
-        avatarView.setAvatar(url: inviter?.faceURL, text: inviter?.nickname)
+        avatarView.setAvatar(url: inviter?.faceURL, text: SuperStringUtil.getUserState(showname:inviter?.nickname ?? "").n)
         avatarView.snp.updateConstraints { make in
             make.size.equalTo(50)
         }
         
         let tipsLabel = UILabel()
         tipsLabel.textColor = .white
-        tipsLabel.text = (inviter?.nickname ?? "") + (isVideo ? "invitedVideoCallHint".innerLocalized() : "invitedVoiceCallHint".innerLocalized())
+        tipsLabel.text = SuperStringUtil.getUserState(showname:inviter?.nickname ?? "").n + (isVideo ? "invitedVideoCallHint".innerLocalized() : "invitedVoiceCallHint".innerLocalized())
         
         let countLabel = UILabel()
         countLabel.text = "\(users().count)人正在\(isVideo ? "视频" : "语音")通话中"
