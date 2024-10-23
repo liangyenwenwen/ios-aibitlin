@@ -1,6 +1,8 @@
 
 import OUICore
 import MJRefresh
+import OUICoreView
+import OpenIMSDK
 
 public class OthersViewController: UIViewController {
     
@@ -29,6 +31,41 @@ public class OthersViewController: UIViewController {
         v.tintColor = .white
         
         return v
+    }()
+    
+    lazy var publishBtn: UIButton = {
+        let v = UIButton(type: .custom)
+        v.setImage(UIImage(nameInBundle: "moments_publish_icon"), for: .normal)
+        v.addTarget(self, action: #selector(sendMoments(_:)), for: .touchUpInside)
+        v.tag = 200
+        return v
+    }()
+    
+    lazy var newMsgBtn: UIButton = {
+        let v = UIButton(type: .custom)
+        v.setImage(UIImage(nameInBundle: "moments_new_msg_icon"), for: .normal)
+        v.addTarget(self, action: #selector(newMessageAction), for: .touchUpInside)
+        v.tag = 300
+        return v
+    }()
+    
+    private lazy var menuItems: [PopoverTableViewController.MenuItem] = {
+        let graphicsItem = PopoverTableViewController.MenuItem(title: "发布图文".innerLocalized(), icon: UIImage(nameInBundle: "moments_publish_graphics_icon")) { [weak self] in
+            let vc = PublishViewController {
+                self?.tableView.mj_header?.beginRefreshing()
+            }
+            vc.hidesBottomBarWhenPushed = true
+            self?.navigationController?.pushViewController(vc, animated: true)
+        }
+        let videoItem = PopoverTableViewController.MenuItem(title: "发布视频".innerLocalized(), icon: UIImage(nameInBundle: "moments_publish_video_icon")) { [weak self] in
+            let vc = PublishViewController(forVideo: true) {
+                self?.tableView.mj_header?.beginRefreshing()
+            }
+            vc.hidesBottomBarWhenPushed = true
+            self?.navigationController?.pushViewController(vc, animated: true)
+        }
+        
+        return [graphicsItem, videoItem]
     }()
     
     @objc
@@ -80,6 +117,24 @@ public class OthersViewController: UIViewController {
             make.size.equalTo(40)
         }
         
+        
+        if self.user.userID == Open_im_sdkGetLoginUserID() {
+            view.addSubview(publishBtn)
+            view.addSubview(newMsgBtn)
+            
+            newMsgBtn.snp.makeConstraints { make in
+                make.trailing.equalTo(publishBtn.snp.leading).offset(-16)
+                make.centerY.equalTo(backButton)
+                make.size.equalTo(40)
+            }
+            
+            publishBtn.snp.makeConstraints { make in
+                make.trailing.equalToSuperview().inset(20)
+                make.centerY.equalTo(backButton)
+                make.size.equalTo(40)
+            }
+            
+        }
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
             make.top.equalTo(header.snp.bottom)
@@ -257,5 +312,22 @@ extension OthersViewController: UITableViewDataSource, UITableViewDelegate {
         
         let vc = MomentsViewController(momentID: moment.workMomentID, moments: moment)
         navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+extension OthersViewController {
+    
+    @objc func sendMoments(_ btn: UIButton) {
+        let popover = PopoverTableViewController(items: menuItems)
+        popover.topInset = 0
+        popover.show(in: self, sender: btn, permittedArrowDirections: [], sourceViewReviseOffset: 10)
+    }
+    
+    
+    @objc func newMessageAction() {
+
+        let vc = NewMessageViewController()
+        vc.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }

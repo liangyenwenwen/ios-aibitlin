@@ -29,17 +29,8 @@ class MineBokeListViewController: BaseTitleController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        switch vcType {
-        case .meBlog:
-            getMyBlog()
-        case .othersBlog:
-            othersSeeMyBlog()
-        case .star:
-            self.datum = YFFileDataUtil.readDataToFile()
-//            self.datum = Observable
-            tableView.reloadData()
-            break
-        }
+        
+        refreshData()
     }
     
     override func initViews() {
@@ -72,11 +63,23 @@ class MineBokeListViewController: BaseTitleController {
             superFooterContainerContainer.addSubview(bottomBtn)
         }
         
+        
+        let header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(refreshData))
+        header.stateLabel?.isHidden = true
+        header.lastUpdatedTimeLabel?.isHidden = true
+        tableView.mj_header = header
+        
+        
+        
 //        if vcType == .meBlog {
 //            navView.addRighttItem(sortBtn)
 //        }
 
     }
+    
+    
+    
+    
     
     lazy var sortBtn:  QMUIButton = {
         let r = ViewFactoryUtil.linkButton()
@@ -205,6 +208,31 @@ extension MineBokeListViewController {
     
     
     
+   
+}
+
+extension MineBokeListViewController {
+    
+    @objc func refreshData() {
+        switch vcType {
+        case .meBlog:
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.getMyBlog()
+//            }
+        case .othersBlog:
+            othersSeeMyBlog()
+        case .star:
+            self.datum = YFFileDataUtil.readDataToFile()
+//            self.datum = Observable
+            tableView.reloadData()
+            tableView.mj_header?.endRefreshing()
+            break
+        }
+        
+    }
+    
+    
+    
     func showEdit(_ index: Int)  {
         let contentView = MineBokeFooterEditView(type: vcType)
         contentView.blogItem = datum[index] as! blogDetailItem
@@ -262,8 +290,9 @@ extension MineBokeListViewController {
             YFMineNetViewModel.mineBlog(userId: IMUser.userID) { [weak self] data in
                 self?.datum = data
                 self?.tableView.reloadData()
+                self?.tableView.mj_header?.endRefreshing()
             } completionHandler: { errCode, errMsg in
-                
+                self.tableView.mj_header?.endRefreshing()
             }
         }
     }
@@ -274,14 +303,15 @@ extension MineBokeListViewController {
             YFMineNetViewModel.otherSeeMyBlog(userId: userId) { [weak self] data in
                 self?.datum = data
                 self?.tableView.reloadData()
+                self?.tableView.mj_header?.endRefreshing()
             } completionHandler: { errCode, errMsg in
-                
+                self.tableView.mj_header?.endRefreshing()
             }
         }
     }
     
     func topBlog(item: blogDetailItem) {
-        YFMineNetViewModel.blogTop(paramters: ["sign":item.sign, "blogId":item.id, "userId":item.userId]) { errCode, errMsg in
+        YFMineNetViewModel.blogTop(paramters: ["sign":item.sign!, "blogId":item.id!, "userId":item.userId!]) { errCode, errMsg in
             if errCode == 20000 {
                 self.getMyBlog()
             } else {

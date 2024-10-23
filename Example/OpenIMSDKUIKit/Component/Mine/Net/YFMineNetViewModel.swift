@@ -121,6 +121,10 @@ class YFMineNetViewModel: AccountViewModel {
                          completionHandler: @escaping CompletionHandler) {
         
         
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: <#T##DispatchWorkItem#>)
+        
+        
+        
         if let IMUser = IMController.shared.currentUserRelay.value {
             
             let blogVersion = UserDefaults.standard.string(forKey: "blogVersion\(IMUser.userID)") ?? "123"
@@ -157,14 +161,11 @@ class YFMineNetViewModel: AccountViewModel {
                     }
                     
                     
+                } else {
+                    completionHandler(-1, "Failure")
                 }
             }
-            
         }
-        
-        
-        
-        
         
        
     }
@@ -197,7 +198,10 @@ class YFMineNetViewModel: AccountViewModel {
                 } else {
                     completionHandler(-1, "Failure")
                 }
+            } else {
+                completionHandler(-1, "Failure")
             }
+            
         }
     }
     

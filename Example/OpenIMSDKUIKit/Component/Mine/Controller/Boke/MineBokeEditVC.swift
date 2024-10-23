@@ -252,13 +252,13 @@ extension MineBokeEditVC {
     }
     
     func editBlog() {
-        let paramters : [String: Any] = ["userId": blogItem!.userId,
+        let paramters : [String: Any] = ["userId": blogItem!.userId!,
                          "userBlogUrl": addressView.inputText!,
                          "userBlogIcon": url,
                          "userBlogName": nameView.inputText!,
                          "userBlogIntro": introView.textView.text!,
-                         "sign": blogItem!.sign,
-                         "userBlogId": blogItem!.id]
+                         "sign": blogItem!.sign!,
+                         "userBlogId": blogItem!.id!]
         
         YFMineNetViewModel.editBlog(paramters: paramters) { errCode, errMsg in
             if errCode == 20000 {
