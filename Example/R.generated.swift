@@ -2537,7 +2537,7 @@ struct _R: Sendable {
       /// Locales: en, th
       var 显示在个人主页: RswiftResources.StringResource { .init(key: "显示在个人主页", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: Display on my personal homepage
+      /// en translation: Display on My Personal Homepage
       ///
       /// Key: 显示在我的个人主页
       ///

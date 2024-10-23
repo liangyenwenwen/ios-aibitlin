@@ -345,6 +345,9 @@ extension YFMineQRCodeVC {
         contentView.showAll = true
         contentView.tg_width.equal(.fill)
         contentView.tg_height.equal(350)
+        contentView.hideSheetView = {
+            GKCover.hide()
+        }
         contentView.chooseBoke = { [weak self] item in
             
             var data = YFFileDataUtil.readDataToFile(.recommend)

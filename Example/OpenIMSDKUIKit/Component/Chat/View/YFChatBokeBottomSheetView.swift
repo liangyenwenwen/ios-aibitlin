@@ -16,7 +16,7 @@ import NSObject_Rx
 class YFChatBokeBottomSheetView: TGLinearLayout {
 
     var chooseBoke:((blogDetailItem)->())!
-    
+    var hideSheetView:(()->())!
     var data : [blogDetailItem] =  []
     
     var showAll: Bool  = false
@@ -68,8 +68,8 @@ class YFChatBokeBottomSheetView: TGLinearLayout {
     lazy var cancleBtn: QMUIButton = {
         let r = ViewFactoryUtil.linkButton("取消".localized())
         r.setTitleColor(.placeholder, for: .normal)
-        r.rx.tap.subscribe(onNext: {
-            
+        r.rx.tap.subscribe(onNext: { [self] in
+            hideSheetView()
         }).disposed(by: rx.disposeBag)
         return r
     }()
@@ -83,8 +83,8 @@ class YFChatBokeBottomSheetView: TGLinearLayout {
     lazy var trueBtn: QMUIButton = {
         let r = ViewFactoryUtil.linkButton("确定".localized())
         r.setTitleColor(.primaryColor, for: .normal)
-        r.rx.tap.subscribe(onNext: {
-            
+        r.rx.tap.subscribe(onNext: { [self] in
+            hideSheetView()
         }).disposed(by: rx.disposeBag)
         return r
     }()

@@ -13,6 +13,7 @@ enum localBlogType {
     case star
     case recommend
     case cache
+    case home
 }
 
 
@@ -39,6 +40,13 @@ class YFFileDataUtil {
         filePath!.appendPathComponent("\(Open_im_sdkGetLoginUserID())blogCache.archive")
         return filePath!
     }()
+    
+    static var homefilePath:URL = {
+        let manager = FileManager.default
+        var filePath = manager.urls(for: .documentDirectory, in: .userDomainMask).first
+        filePath!.appendPathComponent("\(Open_im_sdkGetLoginUserID())blogHome.archive")
+        return filePath!
+    }()
         
     static func getBlogPath(_ locaType: localBlogType = .star) -> URL {
         var path: URL? = nil
@@ -49,6 +57,8 @@ class YFFileDataUtil {
                 path = recommendfilePath
             case .cache:
                 path = cachefilePath
+            case .home:
+                path = homefilePath
         }
         return path!
     }
@@ -92,9 +102,14 @@ class YFFileDataUtil {
         
     static func saveOneDataToFile(_ locaType: localBlogType = .star, blogItem:blogDetailItem) ->() {
         var datas = readDataToFile(locaType)
-        datas.removeFirst(where: {$0.userBlogName == blogItem.userBlogName && $0.userBlogUrl == blogItem.userBlogUrl})
+        datas.removeFirst(where: {$0.id == blogItem.id})
         datas.insert(blogItem, at: 0)
         saveDataToFile(locaType, blogsArr: datas)
+    }
+    
+    static func isHaveThisBlog(_ locaType: localBlogType = .star, blogItem:blogDetailItem) -> Bool {
+        var datas = readDataToFile(locaType)
+        return  datas.contains(where: {$0.id == blogItem.id})
     }
 
     @discardableResult

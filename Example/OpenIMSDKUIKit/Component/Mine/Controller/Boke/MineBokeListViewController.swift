@@ -221,9 +221,15 @@ extension MineBokeListViewController {
             GKCover.hideWithoutAnimation()
         }
         
+        ///显示在主页
         contentView.showBokeOnHome = { [weak self] item,show in
-            GKCover.hideWithoutAnimation()
-            print(show)
+//            GKCover.hideWithoutAnimation()
+            if show {
+                YFFileDataUtil.saveOneDataToFile(.home, blogItem: item)
+            } else {
+                YFFileDataUtil.deleteOneDataFromFile(.home, blogItem: item)
+            }
+            
         }
         
         contentView.deleteBoke = { [weak self] item in

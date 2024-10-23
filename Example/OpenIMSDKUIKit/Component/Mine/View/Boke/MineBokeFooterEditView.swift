@@ -20,6 +20,8 @@ class MineBokeFooterEditView: TGLinearLayout {
     var type: blogListVCType!
     var blogItem: blogDetailItem!
     
+    var onHomeSwitch: UISwitch?
+    
     init(type : blogListVCType = .meBlog) {
         super.init(frame: .zero, orientation: .vert)
         self.type = type
@@ -34,6 +36,8 @@ class MineBokeFooterEditView: TGLinearLayout {
     func update() {
         bokeTitle.text = blogItem.userBlogName
         bokeContent.text = blogItem.userBlogIntro
+        
+        onHomeSwitch?.isOn = YFFileDataUtil.isHaveThisBlog(.home, blogItem: blogItem)
     }
     
     func innerInit() {
@@ -150,6 +154,7 @@ class MineBokeFooterEditView: TGLinearLayout {
             print("\(data.isOn)")
             self?.showBokeOnHome(self!.blogItem, data.isOn)
         }
+        onHomeSwitch = showHomeView.superSwitch
         r.addSubview(showHomeView)
         showHomeView.superSwitch.isOn = true
         r.addSubview(ViewFactoryUtil.smallDivider())

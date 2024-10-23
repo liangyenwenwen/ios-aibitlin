@@ -598,38 +598,9 @@ extension MainTabViewController: UITabBarControllerDelegate {
             
             if !view.subviews.contains(_moreView) {
                 
-//                viewController.tabBarItem.
-//                viewControllers?[4].view = (viewControllers?[lastTabBarItemTag])!.view
-//                tabBarController.selectedIndex = 4
+                showMoreView()
                 
-                view.addSubview(_moreView)
-                _moreView.snp.makeConstraints { make in
-                    make.top.trailing.leading.equalToSuperview()
-                    make.bottom.equalToSuperview().offset(-getTabBarHeight())
-                }
-                    
-
-                var items = [TabMoreView.MenuItem]()
-//                var listArrr:[MoreTabItem] = [MoreTabItem(image: "tool_feedback_icon", title: R.string.localizable.feedback()),
-//                                              MoreTabItem(image: "tool_translate_icon", title: R.string.localizable.translate()),
-//                                              MoreTabItem(image: "tool_black_list_icon", title: R.string.localizable.blacklist()),
-//                                              MoreTabItem(image: "tool_moments_icon", title: "好友动态".localized()),
-//                                              MoreTabItem(image: "tool_more_icon", title: "添加".localized())]
-                
-                var listArrr:[MoreTabItem] = [MoreTabItem(image: "tool_feedback_icon", title: "反馈".localized()),
-                                              MoreTabItem(image: "tool_translate_icon", title: "翻译".localized()),
-                                              MoreTabItem(image: "tool_black_list_icon", title: "黑名单".localized()),
-                                              MoreTabItem(image: "tool_moments_icon", title: "好友动态".localized()),
-                                              MoreTabItem(image: "tool_more_icon", title: "添加".localized())]
-                
-                for i in 0 ..< listArrr.count {
-                    let itemData = listArrr[i]
-                    let item = TabMoreView.MenuItem(title: itemData.title, icon: UIImage(named: itemData.image)) { [weak self] in
-                        self?.moreTabItemDidSelect(index: i)
-                    }
-                    items.append(item)
-                }
-                _moreView.setItems(items)
+               
             } else {
                 _moreView.bottomShow(show: false)
             }
@@ -676,6 +647,8 @@ extension MainTabViewController: UITabBarControllerDelegate {
             /// 要隐藏nav 不然两个nav
             currentVC.setNavigationBarHidden(false, animated: true)
             currentVC.pushViewController(vc)
+            
+            return
         }
         
         if(index == 1) {
@@ -683,6 +656,8 @@ extension MainTabViewController: UITabBarControllerDelegate {
             vc.hidesBottomBarWhenPushed = true
             currentVC.setNavigationBarHidden(false, animated: true)
             currentVC.pushViewController(vc)
+            
+            return
         }
         
         if(index == 2) {
@@ -690,6 +665,8 @@ extension MainTabViewController: UITabBarControllerDelegate {
             vc.hidesBottomBarWhenPushed = true
 //            currentVC.setNavigationBarHidden(false, animated: true)
             currentVC.pushViewController(vc)
+            
+            return
         }
         
         if(index == 3) {
@@ -698,8 +675,81 @@ extension MainTabViewController: UITabBarControllerDelegate {
             vc.hidesBottomBarWhenPushed = true
             currentVC.setNavigationBarHidden(false, animated: true)
             currentVC.pushViewController(vc)
+            
+            return
         }
+        
+//        if (index == 4) {
+//           
+//        }
+        
+        let arr = YFFileDataUtil.readDataToFile(.home)
+        
+        if (index > 3 && index < 4 + arr.count) {
+            
+            
+            SuperWebController.startAboubBlog(currentVC, blogItem: arr[index - 4], isRoot: true)
+        } else {
+            showBlogSheet()
+        }
+        
     }
+    
+    
+    
+    func showBlogSheet() {
+        let contentView = YFChatBokeBottomSheetView()
+        contentView.showAll = true
+        contentView.tg_width.equal(.fill)
+        contentView.tg_height.equal(350)
+        contentView.hideSheetView = {
+            GKCover.hide()
+        }
+        contentView.chooseBoke = { [weak self] item in
+            
+            YFFileDataUtil.saveOneDataToFile(.home, blogItem: item)
+            GKCover.hide()
+            self?.showMoreView()
+        }
+        GKCover.cover(from: self.view.window, contentView: contentView, style: .translucent, showStyle: .bottom, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
+    }
+    
+    
+    func showMoreView() {
+        view.addSubview(_moreView)
+        _moreView.snp.makeConstraints { make in
+            make.top.trailing.leading.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-getTabBarHeight())
+        }
+            
+
+        var items = [TabMoreView.MenuItem]()
+
+        
+        var listArrr:[MoreTabItem] = [MoreTabItem(image: "tool_feedback_icon", title: "反馈".localized()),
+                                      MoreTabItem(image: "tool_translate_icon", title: "翻译".localized()),
+                                      MoreTabItem(image: "tool_black_list_icon", title: "黑名单".localized()),
+                                      MoreTabItem(image: "tool_moments_icon", title: "好友动态".localized())]
+        
+        for item in YFFileDataUtil.readDataToFile(.home) {
+            let moreItem =  MoreTabItem(image: item.userBlogIcon ?? "", title: item.userBlogName ?? "")
+            listArrr.append(moreItem)
+        }
+        
+        listArrr.append(MoreTabItem(image: "tool_more_icon", title: "添加".localized()))
+        
+        for i in 0 ..< listArrr.count {
+            let itemData = listArrr[i]
+            let item = TabMoreView.MenuItem(title: itemData.title, icon: itemData.image) { [weak self] in
+                self?.moreTabItemDidSelect(index: i)
+            }
+            items.append(item)
+        }
+        _moreView.setItems(items)
+        
+    }
+    
+    
     
 }
 

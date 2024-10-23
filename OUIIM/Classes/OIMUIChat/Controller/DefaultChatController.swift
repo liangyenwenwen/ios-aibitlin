@@ -999,7 +999,7 @@ final class DefaultChatController: ChatController {
                         result.append(section)
                         return
                     }
-                    if Calendar.current.isDate(prevMessage.date, equalTo: message.date, toGranularity: .hour) {
+                    if Calendar.current.isDate(prevMessage.date , equalTo: message.date, toGranularity: .hour) {
                         section.append(message)
                         result[result.count - 1] = section
                     } else {
