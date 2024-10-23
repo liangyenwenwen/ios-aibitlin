@@ -312,7 +312,7 @@ extension MessageInfo {
         }
         
         func formatUsersName(users: [GroupMemberInfo]) -> String {
-            users.compactMap({ $0.userID == IMController.shared.uid ? "you".innerLocalized() : ($0.nickname ?? $0.userID) }).joined(separator: "、")
+            users.compactMap({ $0.userID == IMController.shared.uid ? "you".innerLocalized() : (SuperStringUtil.getUserShowname(showname: $0.nickname ?? "") ?? $0.userID) }).joined(separator: "、")
         }
         
         func spaceString() -> NSAttributedString {
@@ -369,7 +369,8 @@ extension MessageInfo {
                 let opNickname = notificationElem.opUserIsMe ? "you".innerLocalized() : (opUser.nickname ?? opUser.userID!)
                 
                 let nicknames = formatUsersName(users: users)
-                let str = "invitedJoinGroupNtf".innerLocalizedFormat(arguments: opNickname, nicknames)
+                
+                let str = "invitedJoinGroupNtf".innerLocalizedFormat(arguments: SuperStringUtil.getUserShowname(showname: opNickname), nicknames)
                 
                 result = createAttrString(baseString: str, users: users + [opUser])
             }
