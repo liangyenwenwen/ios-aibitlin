@@ -65,7 +65,6 @@ class FriendListViewModel {
             }
             DispatchQueue.main.async {
                 self?.lettersRelay.accept(ret)
-                self?.reloadTab.accept(users)
             }
         }
     }

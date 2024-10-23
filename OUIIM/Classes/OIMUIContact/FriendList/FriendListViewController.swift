@@ -245,7 +245,8 @@ open class FriendListViewController: UIViewController {
     
     lazy var headerView: listTableHeader = {
         
-        let r = listTableHeader(frame: CGRectMake(0, 0, UIScreen.main.bounds.width, 252+68))
+//        let r = listTableHeader(frame: CGRectMake(0, 0, UIScreen.main.bounds.width, 252+68))
+        let r = listTableHeader(frame: CGRectMake(0, 0, UIScreen.main.bounds.width, 221+68))
         r.addFriendView.bindData(item: listTableHeader.MenuItem(title: "添加好友".innerLocalized(), icon: UIImage(named: "friend_list_add_friend_icon")))
         r.addGroupChatView.bindData(item: listTableHeader.MenuItem(title: "添加群聊".innerLocalized(), icon: UIImage(named: "friend_list_add_group_chat_icon")))
         r.creatGroupChatView.bindData(item: listTableHeader.MenuItem(title: "创建群聊".innerLocalized(), icon: UIImage(named: "friend_list_creat_group_chat_icon")))
@@ -423,7 +424,7 @@ extension FriendListViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     public func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return  _viewModel.contactSections.count > 0 ? _viewModel.contactSections[section].count : 0
+        return  _viewModel.contactSections.count > section ? _viewModel.contactSections[section].count : 0
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
