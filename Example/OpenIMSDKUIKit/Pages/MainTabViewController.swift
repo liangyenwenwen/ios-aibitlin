@@ -594,7 +594,6 @@ extension MainTabViewController: UITabBarControllerDelegate {
         
         
         
-        
         if viewController == viewControllers?[4] {
             
             if !view.subviews.contains(_moreView) {

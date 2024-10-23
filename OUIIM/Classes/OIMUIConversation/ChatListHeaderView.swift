@@ -579,7 +579,8 @@ class tableHeaderSearchView: UIView {
     
     lazy var rightImg: UIImageView = {
         let r = UIImageView()
-        r.image = .init(named: "chat_home_menu")
+        r.image =
+            .init(named: "chat_home_scan")
         let tap = UITapGestureRecognizer(target: self, action: #selector(menuDidSelectAction))
         r.isUserInteractionEnabled = true
         r.addGestureRecognizer(tap)
