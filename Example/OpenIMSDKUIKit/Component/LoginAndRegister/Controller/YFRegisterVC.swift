@@ -182,6 +182,17 @@ class YFRegisterVC: BaseTitleController {
 //            SuperWebController.start((self?.navigationController!)!, uri: "http://bitswith.com/ys/#/privacyAgreement")
 //        }
 //        
+        
+        // MARK: - 张亚飞打的标记  点击协议内容切换是否同意协议
+        var range1 = agreementString.range(of: "我已阅读并同意AIbitlin《注册协议》".localized())!
+        agreeStr.bs_set(textHighlightRange: agreementString.nsRange(from: range1), color: .placeholder, backgroundColor: nil) { [weak self] _, _, _, _ in
+            
+            if self?.chooseDelegateBtn != nil  {
+                self?.chooseDelegateBtn.isSelected = !(self?.chooseDelegateBtn.isSelected)!
+            }
+            
+        }
+        
         var  range = agreementString.range(of: "《注册协议》".localized())!
         agreeStr.bs_set(textHighlightRange: agreementString.nsRange(from: range), color: .primaryColor, backgroundColor: nil) { [weak self]  containerView, text, range, rect in
 //            ProgressHUD.succeed("注册协议")
@@ -216,6 +227,9 @@ class YFRegisterVC: BaseTitleController {
     
     lazy var tipLbl_delegate: UILabel = {
         let r = ViewFactoryUtil.customTilteLableWrap("我已阅读并同意UnityChat".localized(), font: TEXT_MEDDLE, textColor: .black999)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(chooseStateChange))
+        r.addGestureRecognizer(tap)
+        r.isUserInteractionEnabled = true
         return r
     }()
     
@@ -232,7 +246,7 @@ class YFRegisterVC: BaseTitleController {
     
     override func bindData() {
         Observable.combineLatest(phoneView.textFieldView.rx.text.orEmpty, codeView.textFieldView.rx.text.orEmpty, pwdView.textFieldView.rx.text.orEmpty, rePwdView.textFieldView.rx.text.orEmpty, nicknameView.textFieldView.rx.text.orEmpty) {
-            $0.count > 0 && $1.count > 4 && $2.count > 7 && $3.count > 7 && $4.count > 0
+            $0.count > 0 && $1.count > 4 && $2.count > 0 && $3.count > 0 && $4.count > 0
         }
         .bind(to: registerBtn.rx.isEnabled)
         .disposed(by: rx.disposeBag)
@@ -354,6 +368,10 @@ extension YFRegisterVC {
     
     @objc func chooseDelegate(_ btn: QMUIButton) {
         btn.isSelected = !btn.isSelected
+    }
+    
+    @objc func chooseStateChange() {
+        chooseDelegateBtn.isSelected = !chooseDelegateBtn.isSelected
     }
     
     @objc func register() {

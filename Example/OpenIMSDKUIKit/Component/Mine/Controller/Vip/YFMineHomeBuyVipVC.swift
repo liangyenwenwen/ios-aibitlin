@@ -106,11 +106,14 @@ extension YFMineHomeBuyVipVC {
         
         
         if let IMUser = IMController.shared.currentUserRelay.value {
+          
             YFMineNetViewModel.vipPurchaseSucceeds(paramters: ["userId": IMUser.userID ?? "", "vip": vipRank]) { data in
                 self.initVip()
                 
             } completionHandler: { errCode, errMsg in
-            
+                if errCode != 20000 {
+                    SuperToast.show(title: errMsg)
+                }
             }
 
         }

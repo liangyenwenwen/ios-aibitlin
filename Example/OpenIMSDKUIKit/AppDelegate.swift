@@ -6,6 +6,7 @@ import ProgressHUD
 //import GTSDK
 import AlamofireNetworkActivityLogger
 import Bugly
+import IQKeyboardManagerSwift
 
 let kGtAppId = ""
 let kGtAppKey = ""
@@ -90,6 +91,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
 
+        IQKeyboardManager.shared.enable = true
         
         NothingToSeeHere.harmlessFunction()
         

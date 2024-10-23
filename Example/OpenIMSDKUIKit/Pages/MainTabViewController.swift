@@ -7,6 +7,7 @@ import RxCocoa
 import ProgressHUD
 import Localize_Swift
 import MJExtension
+import IQKeyboardManagerSwift
 //import GTSDK
 #if ENABLE_MOMENTS
 import OUIMoments
@@ -261,17 +262,24 @@ class MainTabViewController: UITabBarController {
                 SuperToast.show(title: "请勾选协议".localized())
                 return
             }
-//            guard let phone = controller.phone, !phone.isEmpty else {
-//                if vc?.useType == .usePhone {
-//                    ProgressHUD.error( "填写正确的手机号码".localized())
-//                    SuperToast.show(title:  "填写正确的手机号码".localized())
-//                } else {
-//                    SuperToast.show(title: "填写正确的邮箱".localized())
-//                    ProgressHUD.error( "填写正确的邮箱".localized())
-//                }
-//                return
-//            }
+
+            if vc?.useType == .usePhone {
+
+                if !SuperStringUtil.isPhoneNumber(controller.phone!) {
+                    SuperToast.show(title:  "填写正确的手机号码".localized())
+                    return
+                }
+               
+            } else {
+               
+                if !SuperStringUtil.isEmail(controller.phone!) {
+                    SuperToast.show(title:  "填写正确的邮箱".localized())
+                    return
+                }
+            }
+
             
+
             let psw = controller.password
             let code = controller.verificationCode
             
@@ -301,7 +309,7 @@ class MainTabViewController: UITabBarController {
                 if errMsg != nil {
 //                    ProgressHUD.error(errCode == -1 ? errMsg : String(errCode).localized())
                     ProgressHUD.dismiss()
-                    SuperToast.show(title: errCode == -1 ? errMsg : String(errCode).localized())
+                    SuperToast.show(title: String(errCode).localized())
                     self?.presentLoginController()
                     
                 } else {
@@ -385,6 +393,8 @@ class MainTabViewController: UITabBarController {
     func loginSuccess(dismiss: Bool = false) {
         let event = EventLoginSucceed()
         JNNotificationCenter.shared.post(event)
+        
+        IQKeyboardManager.shared.enable = false
         
         if !dismiss {
 #if ENABLE_CALL

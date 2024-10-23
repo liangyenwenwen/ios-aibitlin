@@ -19,38 +19,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "6B540A71-C1ED-4AB5-8930-FBF3D9C3C8E3"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../OUICalling/CallingBaseViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "736"
-            endingLineNumber = "736"
-            landmarkName = "toggleSpeakerphoneEnabled(enabled:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "9B0152FD-B51A-4C9B-91B3-57824FC40117"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../OUICalling/CallingBaseViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "739"
-            endingLineNumber = "739"
-            landmarkName = "toggleSpeakerphoneEnabled(enabled:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "670A1B61-8572-4065-A2C0-B163CDBFB9DD"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -110,6 +78,36 @@
             endingLineNumber = "69"
             landmarkName = "_photoHelper"
             landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "D8442AD3-1FCB-42E9-9CE6-C3CA23C479DE - e33a9f81fb501a44"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Array&lt;__C.UIImage&gt;, Swift.Array&lt;__C.PHAsset&gt;) -&gt; () in closure #1 () -&gt; OUICore.PhotoHelper in OUIIM.CoustomInputBarAccessoryView._photoHelper.getter : OUICore.PhotoHelper"
+                  moduleName = "IM-NCER"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Desktop/aibitlin/OUIIM/Classes/OIMUIChat/View/InputView/CoustomInputBarAccessoryView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "69"
+                  endingLineNumber = "69">
+               </Location>
+               <Location
+                  uuid = "D8442AD3-1FCB-42E9-9CE6-C3CA23C479DE - 3e4cf46a4455dd4f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Optional&lt;Foundation.Data&gt;, Swift.Bool) -&gt; () in closure #1 (Swift.Array&lt;__C.UIImage&gt;, Swift.Array&lt;__C.PHAsset&gt;) -&gt; () in closure #1 () -&gt; OUICore.PhotoHelper in OUIIM.CoustomInputBarAccessoryView._photoHelper.getter : OUICore.PhotoHelper"
+                  moduleName = "IM-NCER"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Desktop/aibitlin/OUIIM/Classes/OIMUIChat/View/InputView/CoustomInputBarAccessoryView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "70"
+                  endingLineNumber = "70">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -122,10 +120,40 @@
             filePath = "../OUIIM/Classes/OIMUIChat/ChatViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2268"
-            endingLineNumber = "2268"
+            startingLineNumber = "2271"
+            endingLineNumber = "2271"
             landmarkName = "inputBar(_:didPressSendButtonWith:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "BD9D699F-B035-486F-BBD2-E94825901404 - cc53992602bf437e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (OUIIM.CustomAttachment) -&gt; () in closure #1 () -&gt; () in OUIIM.ChatViewController.inputBar(_: InputBarAccessoryView.InputBarAccessoryView, didPressSendButtonWith: Swift.Array&lt;OUIIM.CustomAttachment&gt;) -&gt; ()"
+                  moduleName = "IM-NCER"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Desktop/aibitlin/OUIIM/Classes/OIMUIChat/ChatViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2271"
+                  endingLineNumber = "2271">
+               </Location>
+               <Location
+                  uuid = "BD9D699F-B035-486F-BBD2-E94825901404 - cc53992602bf437e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (OUIIM.CustomAttachment) -&gt; () in closure #1 () -&gt; () in OUIIM.ChatViewController.inputBar(_: InputBarAccessoryView.InputBarAccessoryView, didPressSendButtonWith: Swift.Array&lt;OUIIM.CustomAttachment&gt;) -&gt; ()"
+                  moduleName = "IM-NCER"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Desktop/aibitlin/OUIIM/Classes/OIMUIChat/ChatViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2271"
+                  endingLineNumber = "2271">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -170,10 +198,40 @@
             filePath = "../OUIIM/Classes/OIMUIChat/ChatViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "753"
-            endingLineNumber = "753"
+            startingLineNumber = "756"
+            endingLineNumber = "756"
             landmarkName = "ChatViewController"
             landmarkType = "3">
+            <Locations>
+               <Location
+                  uuid = "BE1BF5D8-FE65-42F9-A7CD-B223DD1A8571 - 1f549ef6db4e0334"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "OUIIM.ChatViewController.showEditBottomView(show: Swift.Bool, messageID: Swift.Optional&lt;Swift.String&gt;) -&gt; ()"
+                  moduleName = "IM-NCER"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Desktop/aibitlin/OUIIM/Classes/OIMUIChat/ChatViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "756"
+                  endingLineNumber = "756">
+               </Location>
+               <Location
+                  uuid = "BE1BF5D8-FE65-42F9-A7CD-B223DD1A8571 - 6a92caff30f3ac2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "default argument 0 of OUIIM.ChatViewController.showEditBottomView(show: Swift.Bool, messageID: Swift.Optional&lt;Swift.String&gt;) -&gt; ()"
+                  moduleName = "IM-NCER"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Desktop/aibitlin/OUIIM/Classes/OIMUIChat/ChatViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "755"
+                  endingLineNumber = "755">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -314,8 +372,8 @@
             filePath = "OpenIMSDKUIKit/Pages/MainTabViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "667"
-            endingLineNumber = "667"
+            startingLineNumber = "678"
+            endingLineNumber = "678"
             landmarkName = "moreTabItemDidSelect(index:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -323,65 +381,65 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "F4BFFD92-79BE-417B-86C2-8504BFCD55D0"
+            uuid = "E792E659-D838-4382-82C1-84AE1E99FAB2"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../OUIIM/Classes/OIMUIChat/ChatViewController.swift"
+            filePath = "OpenIMSDKUIKit/Pages/Chat/YFSystemMessageSettingVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "361"
-            endingLineNumber = "361"
-            landmarkName = "chatViewControllerNav"
+            startingLineNumber = "71"
+            endingLineNumber = "71"
+            landmarkName = "initViews()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "AC7A76BB-C001-4B90-9C60-4290C8495752"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "OpenIMSDKUIKit/Pages/Chat/YFSystemMessageSettingVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "47"
+            endingLineNumber = "47"
+            landmarkName = "getConversationInfo()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B50BAD2B-56D8-4D5F-9E1E-3870BFAB28B9"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "OpenIMSDKUIKit/Component/LoginAndRegister/Controller/YFRegisterVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "374"
+            endingLineNumber = "374"
+            landmarkName = "chooseStateChange()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "94DDE7A2-0F1E-4A3B-AA92-6811D53398C6"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "OpenIMSDKUIKit/Component/LoginAndRegister/Controller/YFRegisterVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "230"
+            endingLineNumber = "230"
+            landmarkName = "tipLbl_delegate"
             landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "90308FCC-B72E-4E2F-B253-0A8E4424CE1E"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../OUIIM/Classes/OIMUIChat/ChatViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "247"
-            endingLineNumber = "247"
-            landmarkName = "settingButtonAction()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "69485547-44B2-4653-A2A0-706CF4BEC843"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../OUIIM/Classes/OIMUIContact/ContactsViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "113"
-            endingLineNumber = "113"
-            landmarkName = "initView()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "A52AAD3E-04ED-4F31-9BFC-EDE7C668A7D9"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../OUICoreView/Classes/ViewController/GroupFriendList/SearchGroup/SearchGroupViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "14"
-            endingLineNumber = "14"
-            landmarkName = "viewDidLoad()"
-            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

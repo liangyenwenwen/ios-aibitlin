@@ -95,14 +95,27 @@ class MineBokeEditVC: BaseTitleController, UIImagePickerControllerDelegate, UINa
     }()
     
     lazy var introView: SuperSettingView = {
-        let r = SuperSettingView.createInputTextView("简介".localized())
-        r.tg_height.equal(92)
-        r.titleView.tg_top.equal(8)
+//        let r = SuperSettingView.createInputTextView("简介".localized())
+//        r.tg_height.equal(92)
+//        r.titleView.tg_top.equal(8)
+//        r.tg_gravity = .vert.top
+//        r.tg_height.equal(80)
+//        
+////        r.textView.backgroundColor = .red
+//        
+//        r.textView.textContainerInset = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 13)
+//        
+//        return r
+        
+        let r = SuperSettingView.createInputTextView("简介".localized(), min: 75)
+        r.isMediumFont()
+//        r.titleView.changeColor(changeColorStr: "*")
+        r.tg_height.equal(110)
         r.tg_gravity = .vert.top
-        
-//        r.textView.backgroundColor = .red
-        
-        r.textView.textContainerInset = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 13)
+        r.titleView.tg_top.equal(21)
+        r.textView.tg_top.equal(14)
+        r.textView.tg_height.equal(80)
+        r.textView.tg_width.equal(.fill)
         
         return r
     }()

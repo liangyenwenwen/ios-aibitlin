@@ -13,6 +13,7 @@ import RxCocoa
 import RxGesture
 import BSText
 import ProgressHUD
+import IQKeyboardManagerSwift
 
 class YFLoginVC: BaseLogicController {
 
@@ -50,6 +51,8 @@ class YFLoginVC: BaseLogicController {
         container.addSubview(forgotButton)
         
         container.addSubview(delegateView)
+        
+        IQKeyboardManager.shared.enable = true
         
     }
 
@@ -225,7 +228,6 @@ class YFLoginVC: BaseLogicController {
         // MARK: - 张亚飞打的标记  点击协议内容切换是否同意协议
         var range = agreementString.range(of: "我已阅读并同意AIbitlin《隐私协议》《注册协议》".localized())!
         agreeStr.bs_set(textHighlightRange: agreementString.nsRange(from: range), color: .placeholder, backgroundColor: nil) { [weak self] _, _, _, _ in
-//            print("21313")
             
             if self?.chooseDelegateBtn != nil  {
                 self?.chooseDelegateBtn.isSelected = !(self?.chooseDelegateBtn.isSelected)!
@@ -288,7 +290,6 @@ class YFLoginVC: BaseLogicController {
     }
     
     override func bindData()  {
-        
         
         Observable.combineLatest(phoneView.textFieldView.rx.text.orEmpty, pwdView.textFieldView.rx.text.orEmpty) {
             $0.count > 0  && $1.count > 7

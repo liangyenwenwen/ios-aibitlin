@@ -114,6 +114,13 @@ class ChatViewControllerNav: UIView {
             systemTitleLbl.text = info.showName
             moreImg.image = .init(named: "mine_setting_icon")
 //            view.backgroundColor = .init(hexString: "#f5f5f5")
+            
+            if info.userID == "10000" {
+                systemTitleLbl.text = "系统通知".localized()
+            } else if info.userID == "10086" {
+                systemTitleLbl.text = "VIP专属通知".localized()
+            }
+            
         }
         
         

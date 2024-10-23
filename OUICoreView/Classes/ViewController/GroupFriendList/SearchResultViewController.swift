@@ -2,7 +2,7 @@ import OUICore
 import RxSwift
 import SnapKit
 
-public class SearchResultViewController: UIViewController, UISearchResultsUpdating {
+public class SearchResultViewController: UIViewController, UISearchResultsUpdating, UISearchBarDelegate {
     
     public var didSelectedItem: ((_ ID: String) -> Void)?
     
@@ -127,6 +127,14 @@ public class SearchResultViewController: UIViewController, UISearchResultsUpdati
        
         
     }
+    
+//    public func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+//        
+//        lastDate = Date() - 3
+//        updateSearchResults(for: seac)
+//    }
+    
+    
     
     
     

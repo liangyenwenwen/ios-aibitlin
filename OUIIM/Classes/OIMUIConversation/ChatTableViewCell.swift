@@ -318,12 +318,23 @@ extension ChatTableViewCell {
 //                updateUI(item: item, needCalculate:  false)
                 
                 tagLable.text = ""
+                
+                
+                
             }else if item.conversationType == .superGroup {
                 updateGroupNumberCount(groupID: item.groupID!, item: item)
                 tagLable.text = "[\(4)]"
                 tagLable.textColor = .init(hexString: "#388CEF")
                 titleLabel.textColor = .init(hexString: "#333333")
             } else {
+                
+               
+                if item.userID == "10000" {
+                    titleLabel.text = "系统通知".localized()
+                } else if item.userID == "10086" {
+                    titleLabel.text = "VIP专属通知".localized()
+                }
+                
                 tagLable.text = ""
                 titleLabel.textColor = .init(hexString: "#333333")
             }

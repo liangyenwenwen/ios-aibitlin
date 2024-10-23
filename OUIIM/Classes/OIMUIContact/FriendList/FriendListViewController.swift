@@ -905,9 +905,9 @@ class listTableHeader: UIView {
         
         
         @objc func changeChooseLbl(sender: UITapGestureRecognizer) {
-            let count = sender.view!.tag - 2000
-            refreshUI(count)
-            lblClick(count)
+//            let count = sender.view!.tag - 2000
+//            refreshUI(count)
+//            lblClick(count)
         }
         
         func refreshUI(_ currentIndex: Int) {

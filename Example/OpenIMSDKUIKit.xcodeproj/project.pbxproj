@@ -259,6 +259,10 @@
 		04ACD8762CBE90B400EFE179 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04ACD87F2CBE90B400EFE179 /* BroadcastSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BroadcastSetupViewController.swift; sourceTree = "<group>"; };
 		04ACD8812CBE90B400EFE179 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		04B266452CC7C472004AF09F /* SampleHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleHandler.swift; sourceTree = "<group>"; };
+		04B266472CC7C472004AF09F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		04B266502CC7C472004AF09F /* BroadcastSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BroadcastSetupViewController.swift; sourceTree = "<group>"; };
+		04B266522CC7C472004AF09F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04D2E1C22CBE4A4900582B13 /* SampleHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleHandler.swift; sourceTree = "<group>"; };
 		04D2E1C42CBE4A4900582B13 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04D2E1CB2CBE4A4900582B13 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -724,6 +728,24 @@
 			path = ScreenShareBroadcastExtensionSetupUI;
 			sourceTree = "<group>";
 		};
+		04B266442CC7C472004AF09F /* ScreenShareBroadcastExtension */ = {
+			isa = PBXGroup;
+			children = (
+				04B266452CC7C472004AF09F /* SampleHandler.swift */,
+				04B266472CC7C472004AF09F /* Info.plist */,
+			);
+			path = ScreenShareBroadcastExtension;
+			sourceTree = "<group>";
+		};
+		04B2664F2CC7C472004AF09F /* ScreenShareBroadcastExtensionSetupUI */ = {
+			isa = PBXGroup;
+			children = (
+				04B266502CC7C472004AF09F /* BroadcastSetupViewController.swift */,
+				04B266522CC7C472004AF09F /* Info.plist */,
+			);
+			path = ScreenShareBroadcastExtensionSetupUI;
+			sourceTree = "<group>";
+		};
 		04D2E1C12CBE4A4900582B13 /* ScreenShareBroadcastExtension */ = {
 			isa = PBXGroup;
 			children = (
@@ -1101,6 +1123,8 @@
 				04E752E42CBE900200492EF6 /* ScreenShareBroadcastExtensioSetupUI */,
 				04ACD8732CBE90B400EFE179 /* ScreenShareBroadcastExtension */,
 				04ACD87E2CBE90B400EFE179 /* ScreenShareBroadcastExtensionSetupUI */,
+				04B266442CC7C472004AF09F /* ScreenShareBroadcastExtension */,
+				04B2664F2CC7C472004AF09F /* ScreenShareBroadcastExtensionSetupUI */,
 				607FACD11AFB9204008FA782 /* Products */,
 				CAC64E6711B5A6903B4FCC8D /* Pods */,
 				641162BB15A7DD76EBF4C191 /* Frameworks */,
@@ -1362,6 +1386,10 @@
 				"${BUILT_PRODUCTS_DIR}/FDFullscreenPopGesture/FDFullscreenPopGesture.framework",
 				"${BUILT_PRODUCTS_DIR}/IGListDiffKit/IGListDiffKit.framework",
 				"${BUILT_PRODUCTS_DIR}/IGListKit/IGListKit.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardCore/IQKeyboardCore.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardNotification/IQKeyboardNotification.framework",
+				"${BUILT_PRODUCTS_DIR}/IQTextInputViewNotification/IQTextInputViewNotification.framework",
 				"${BUILT_PRODUCTS_DIR}/ISEmojiView/ISEmojiView.framework",
 				"${BUILT_PRODUCTS_DIR}/InputBarAccessoryView/InputBarAccessoryView.framework",
 				"${BUILT_PRODUCTS_DIR}/JXSegmentedView/JXSegmentedView.framework",
@@ -1413,6 +1441,10 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FDFullscreenPopGesture.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IGListDiffKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IGListKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardNotification.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQTextInputViewNotification.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ISEmojiView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/InputBarAccessoryView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JXSegmentedView.framework",
