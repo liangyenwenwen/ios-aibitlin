@@ -32,6 +32,12 @@ class MineBokeListCell: BaseTableViewCell {
 //        moreImg.snp.makeConstraints { make in
 //            make.centerY.equalTo(bokeTitle.snp_centerY)
 //        }
+        
+//        contentView.addSubview(moreClickView)
+//        moreClickView.snp.makeConstraints { make in
+//            make.top.left.equalTo(moreImg).offset(-5)
+//            make.right.bottom.equalTo(moreImg).offset(5)
+//        }
     }
 
     lazy var topView: TGRelativeLayout = {
@@ -75,12 +81,18 @@ class MineBokeListCell: BaseTableViewCell {
         return r
     }()
     
-    
-    
     lazy var moreImg: QMUIButton = {
         let r = ViewFactoryUtil.imageBtn(R.image.tabMoreSelected()!)
         r.tg_centerY.equal(0)
         r.addTarget(self, action: #selector(moreDidClicked), for: .touchUpInside)
+        return r
+    }()
+    
+    lazy var moreClickView: UIView = {
+        let r = UIView()
+        let tap = UITapGestureRecognizer(target: self, action: #selector(moreDidClicked))
+        r.addGestureRecognizer(tap)
+        r.backgroundColor = .red.withAlphaComponent(0.3)
         return r
     }()
     

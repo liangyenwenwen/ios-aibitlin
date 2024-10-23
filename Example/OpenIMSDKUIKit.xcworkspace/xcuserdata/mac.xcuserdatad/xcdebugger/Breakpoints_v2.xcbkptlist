@@ -97,52 +97,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "BD9D699F-B035-486F-BBD2-E94825901404"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../OUIIM/Classes/OIMUIChat/ChatViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2271"
-            endingLineNumber = "2271"
-            landmarkName = "inputBar(_:didPressSendButtonWith:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "BD9D699F-B035-486F-BBD2-E94825901404 - cc53992602bf437e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (OUIIM.CustomAttachment) -&gt; () in closure #1 () -&gt; () in OUIIM.ChatViewController.inputBar(_: InputBarAccessoryView.InputBarAccessoryView, didPressSendButtonWith: Swift.Array&lt;OUIIM.CustomAttachment&gt;) -&gt; ()"
-                  moduleName = "IM-NCER"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Desktop/aibitlin/OUIIM/Classes/OIMUIChat/ChatViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "2271"
-                  endingLineNumber = "2271">
-               </Location>
-               <Location
-                  uuid = "BD9D699F-B035-486F-BBD2-E94825901404 - cc53992602bf437e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (OUIIM.CustomAttachment) -&gt; () in closure #1 () -&gt; () in OUIIM.ChatViewController.inputBar(_: InputBarAccessoryView.InputBarAccessoryView, didPressSendButtonWith: Swift.Array&lt;OUIIM.CustomAttachment&gt;) -&gt; ()"
-                  moduleName = "IM-NCER"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Desktop/aibitlin/OUIIM/Classes/OIMUIChat/ChatViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "2271"
-                  endingLineNumber = "2271">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "4E3AE76B-C5CE-40FD-9424-95BD24B83551"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
