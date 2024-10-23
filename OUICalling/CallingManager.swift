@@ -50,6 +50,9 @@ public class CallingManager: NSObject {
     public var roomParticipantChangedHandler: ValueChangedHandler<OIMParticipantConnectedInfo>?
     public var endCallingHandler: ValueChangedHandler<OIMMessageInfo>?
     
+    ///用来做筛选
+    public var lastDate: Int = 0
+    
     // 调用后初始化监听等
     public func start() {
         OIMManager.callbacker.addSignalingListener(listener: self)
@@ -372,6 +375,10 @@ extension CallingManager {
     // 关闭界面操作
     private func update(state: CallingState, duration: Int = 0) {
         print("\(#function): state:\(state)")
+        
+        
+      
+        
         if state == .beAccepted || state == .disConnect {
             if state == .beAccepted {
                 if let liveURL, let token {
@@ -400,6 +407,12 @@ extension CallingManager {
         let loginUserID = OIMManager.manager.getLoginUserID()
         var tips = ""
         var record = CallRecord()
+        
+        if #available(iOS 15, *) {
+            record.date = Int(round(Date.now.timeIntervalSince1970 * 1000))
+        } else {
+            record.date = Int(round(Date.init().timeIntervalSince1970 * 1000))
+        }
         
         switch state {
         case .normal:
@@ -470,11 +483,7 @@ extension CallingManager {
 //            record.success = true
 //        }
         
-        if #available(iOS 15, *) {
-            record.date = Int(round(Date.now.timeIntervalSince1970 * 1000))
-        } else {
-            record.date = Int(round(Date.init().timeIntervalSince1970 * 1000))
-        }
+        
         // 创建记录
         if let signalingInfo {
             record.nickname = others?.first?.nickname
@@ -495,32 +504,36 @@ extension CallingManager {
                 record.faceURL = inviter?.faceURL
             }
             
-            
-            
-            if signalingInfo.isSignal, !tips.isEmpty {
-                // 目前仅支持单聊
-                Self.saveRrecord(record: record)
-     
-                do {
-                    if !tips.isEmpty {
-                        let param = ["customType": 901,
-                                     "data": ["duration": duration,
-                                              "state": state.rawValue,
-                                              "type": signalingInfo.invitation.mediaType,
-                                              "msg": tips
-                                             ]
-                        ] as [String : Any]
-                        
-                        let dataStr = String.init(data: try JSONSerialization.data(withJSONObject: param),
-                                                  encoding: .utf8)!
-                        
-                        let msg = OIMMessageInfo.createCustomMessage(dataStr, extension: nil, description: nil)
-                        insertCallingMessage(msg, signaling: signalingInfo, state: state)
+            if record.date - lastDate > 1000 {
+                lastDate = record.date
+                if signalingInfo.isSignal, !tips.isEmpty {
+                    // 目前仅支持单聊
+                    Self.saveRrecord(record: record)
+         
+                    do {
+                        if !tips.isEmpty {
+                            let param = ["customType": 901,
+                                         "data": ["duration": duration,
+                                                  "state": state.rawValue,
+                                                  "type": signalingInfo.invitation.mediaType,
+                                                  "msg": tips
+                                                 ]
+                            ] as [String : Any]
+                            
+                            let dataStr = String.init(data: try JSONSerialization.data(withJSONObject: param),
+                                                      encoding: .utf8)!
+                            
+                            let msg = OIMMessageInfo.createCustomMessage(dataStr, extension: nil, description: nil)
+                            insertCallingMessage(msg, signaling: signalingInfo, state: state)
+                        }
+                    } catch (let e) {
+                        print("catch \(e)")
                     }
-                } catch (let e) {
-                    print("catch \(e)")
                 }
+                
             }
+            
+            
         }
 
         // 关闭界面，销毁room等

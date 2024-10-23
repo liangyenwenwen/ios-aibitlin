@@ -16,6 +16,8 @@ class MomentRefreshHeader: MJRefreshHeader {
     override func prepare() {
         super.prepare()
         
+        
+        
         ignoredScrollViewContentInsetTop = -40.h
         mj_h = kHeaderHeight
         

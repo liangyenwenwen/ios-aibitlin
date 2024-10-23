@@ -19,6 +19,7 @@
 + (instancetype)footerWithRefreshingBlock:(MJRefreshComponentAction)refreshingBlock
 {
     MJRefreshFooter *cmp = [[self alloc] init];
+    
     cmp.refreshingBlock = refreshingBlock;
     return cmp;
 }
