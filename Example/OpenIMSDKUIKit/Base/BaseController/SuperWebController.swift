@@ -9,7 +9,7 @@ import UIKit
 import WebKit
 import TangramKit
 
-class SuperWebController: BaseTitleController {
+class SuperWebController: BaseTitleController, WKNavigationDelegate {
     var uri:String?
     var content:String?
     
@@ -25,6 +25,7 @@ class SuperWebController: BaseTitleController {
         addRightImageButton(R.image.close()!.withTintColor())
         
         container.addSubview(webView)
+        webView.navigationDelegate = self
         
         container.addSubview(progressView)
         
@@ -114,6 +115,10 @@ class SuperWebController: BaseTitleController {
         webView.addObserver(self, forKeyPath: "estimatedProgress", options: .new, context: nil)
     }
     
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: any Error) {
+        
+    }
+    
     /// KVO监听回调
     /// - Parameters:
     ///   - keyPath: <#keyPath description#>
@@ -151,6 +156,8 @@ class SuperWebController: BaseTitleController {
             }
         }
     }
+    
+    
     
     /// 拦截点击返回按钮
     override func leftBtnClick(_ sender: QMUIButton) {

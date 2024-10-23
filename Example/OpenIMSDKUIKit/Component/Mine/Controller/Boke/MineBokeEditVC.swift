@@ -73,6 +73,7 @@ class MineBokeEditVC: BaseTitleController, UIImagePickerControllerDelegate, UINa
     
     lazy var addressView: SuperSettingView = {
         let r = SuperSettingView.createInput("地址".localized(), placeholder: " 请输入以https://开头的地址".localized())
+        r.needLimitLength(length: 255)
         return r
     }()
     
@@ -91,6 +92,7 @@ class MineBokeEditVC: BaseTitleController, UIImagePickerControllerDelegate, UINa
     lazy var nameView: SuperSettingView = {
         let r = SuperSettingView.createInput("名称".localized())
 //        r.textFieldView.backgroundColor = .red
+        r.needLimitLength(length: 50)
         return r
     }()
     
@@ -116,7 +118,7 @@ class MineBokeEditVC: BaseTitleController, UIImagePickerControllerDelegate, UINa
         r.textView.tg_top.equal(14)
         r.textView.tg_height.equal(80)
         r.textView.tg_width.equal(.fill)
-        
+        r.needLimitLengthAboutTextView(length: 500)
         return r
     }()
     
