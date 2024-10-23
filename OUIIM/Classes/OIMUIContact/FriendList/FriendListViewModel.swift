@@ -18,7 +18,7 @@ class FriendListViewModel {
             self?.myFriends = r
             self?.divideUsersInSection(users: r ?? [])
             
-            self?.reloadTab.accept(r)
+            
         }
     }
     
@@ -65,6 +65,7 @@ class FriendListViewModel {
             }
             DispatchQueue.main.async {
                 self?.lettersRelay.accept(ret)
+                self?.reloadTab.accept(users)
             }
         }
     }

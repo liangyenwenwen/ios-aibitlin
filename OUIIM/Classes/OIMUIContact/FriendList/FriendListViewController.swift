@@ -392,6 +392,7 @@ open class FriendListViewController: UIViewController {
         }).disposed(by: _disposeBag)
         
         _viewModel.reloadTab.subscribe(onNext: { [weak self] (values: [UserInfo]) in
+//            self?.resultC.dataList = values
             self?._tableView.reloadData()
         }).disposed(by: _disposeBag)
         
@@ -401,10 +402,10 @@ open class FriendListViewController: UIViewController {
         contactsViewModel.newFriendCountRelay.map { "\($0 > 99 ? "99+" : "\($0)")" }.bind(to: headerView.newFriendView.unreadLabel.rx.text).disposed(by: _disposeBag)
         contactsViewModel.newGroupCountRelay.map { "\($0 > 99 ? "99+" : "\($0)")" }.bind(to: headerView.newGroupView.unreadLabel.rx.text).disposed(by: _disposeBag)
         contactsViewModel.frequentContacts.asDriver().drive { [weak self] _ in
-//            self?.tableView.reloadData()
+            self?._tableView.reloadData()
         }.disposed(by: _disposeBag)
         contactsViewModel.companyDepartments.asDriver().drive { [weak self] _ in
-//            self?.tableView.reloadData()
+            self?._tableView.reloadData()
         }.disposed(by: _disposeBag)
         contactsViewModel.getFriendApplications()
         contactsViewModel.getGroupApplications()
@@ -422,7 +423,7 @@ extension FriendListViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     public func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return _viewModel.contactSections[section].count
+        return  _viewModel.contactSections.count > 0 ? _viewModel.contactSections[section].count : 0
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
