@@ -7,6 +7,7 @@
 
 #import "CallbackProxy.h"
 
+
 @interface CallbackProxy() {
     OIMSuccessCallback _onSuccess;
     OIMFailureCallback _onError;

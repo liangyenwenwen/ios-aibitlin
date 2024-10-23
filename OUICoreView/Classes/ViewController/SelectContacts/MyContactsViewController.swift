@@ -171,6 +171,7 @@ public class MyContactsViewController: UIViewController {
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         defaultSelectedItems()
+        navigationController?.navigationBar.isHidden = false
     }
     
     private func pushToSearchViewController() {

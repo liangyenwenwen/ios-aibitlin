@@ -30,6 +30,7 @@ public class SearchGroupViewController: UIViewController {
         super.viewWillAppear(animated)
         
         navigationItem.searchController?.isActive = true
+        navigationController?.navigationBar.isHidden = false
     }
     
     public override func viewWillDisappear(_ animated: Bool) {

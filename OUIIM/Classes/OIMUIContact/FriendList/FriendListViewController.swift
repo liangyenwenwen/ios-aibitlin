@@ -2,7 +2,11 @@
 import RxSwift
 import OUICore
 import OUICoreView
+import ProgressHUD
 
+#if ENABLE_LIVE_ROOM
+import OUILive
+#endif
 
 open class FriendListViewController: UIViewController {
     var selectCallBack: ((UserInfo) -> Void)?
@@ -42,9 +46,50 @@ open class FriendListViewController: UIViewController {
         }
         r.searchView.btnClickBlock = { [weak self] in
             guard let self else { return }
-            let vc = AddTableViewController()
-            vc.hidesBottomBarWhenPushed = true
-            self.navigationController?.pushViewController(vc, animated: true)
+//            let vc = AddTableViewController()
+//            vc.hidesBottomBarWhenPushed = true
+//            self.navigationController?.pushViewController(vc, animated: true)
+            let vc = ScanViewController()
+                        vc.scanDidComplete = { [weak self] (result: String) in
+                            if result.contains(IMController.addFriendPrefix) {
+            //                    self?.navigationController?.popViewController(animated: false)
+            //
+            //                    let uid = result.replacingOccurrences(of: IMController.addFriendPrefix, with: "")
+            //                    let vc = UserDetailTableViewController(userId: uid, groupId: nil)
+            //                    vc.hidesBottomBarWhenPushed = true
+            //                    self?.navigationController?.pushViewController(vc, animated: true)
+                                
+                                self?.navigationController?.popViewController(animated: false)
+                                let uid = result.replacingOccurrences(of: IMController.addFriendPrefix, with: "")
+                                if let handler = OIMApi.gotoUserMessageHandle {
+                                    handler(self!, uid, "", "",{res in
+
+                                    })
+                                }
+                            } else if result.contains(IMController.joinGroupPrefix) {
+                                self?.navigationController?.popViewController(animated: false)
+
+                                let groupID = result.replacingOccurrences(of: IMController.joinGroupPrefix, with: "")
+                                let vc = GroupDetailViewController(groupId: groupID)
+                                vc.hidesBottomBarWhenPushed = true
+                                self?.navigationController?.pushViewController(vc, animated: true)
+                            } else {
+            //                    ProgressHUD.error("unrecognized".innerLocalized())
+                                
+                                ProgressHUD.dismiss()
+                                
+                                if let handler = OIMApi.showTipHandle {
+                                                
+                                    handler("unrecognized".innerLocalized(), { res in
+                                       
+                                    })
+                                }
+                                
+                                self?.navigationController?.popViewController(animated: true)
+                            }
+                        }
+                        vc.hidesBottomBarWhenPushed = true
+                        self.navigationController?.pushViewController(vc, animated: true)
         }
         return r
     }()
@@ -75,6 +120,10 @@ open class FriendListViewController: UIViewController {
     func updateLanguage() {
         
         _headerNavView.searchView.titleLbl.text = "搜索".localized()
+        headerView.addFriendView.bindData(item: listTableHeader.MenuItem(title: "添加好友".innerLocalized(), icon: UIImage(named: "friend_list_add_friend_icon")))
+        headerView.addGroupChatView.bindData(item: listTableHeader.MenuItem(title: "添加群聊".innerLocalized(), icon: UIImage(named: "friend_list_add_group_chat_icon")))
+        headerView.creatGroupChatView.bindData(item: listTableHeader.MenuItem(title: "创建群聊".innerLocalized(), icon: UIImage(named: "friend_list_creat_group_chat_icon")))
+        headerView.videoMettingView.bindData(item: listTableHeader.MenuItem(title: "视频会议".innerLocalized(), icon: UIImage(named: "friend_list_video_metting_icon")))
         
         let data:[listTableHeader.MenuItem] = [listTableHeader.MenuItem(title: "新的好友".innerLocalized(), icon: UIImage(named: "friend_list_group_icon")),
                                                listTableHeader.MenuItem(title: "newGroup".innerLocalized(), icon: UIImage(named: "friend_list_group_new_icon")),
@@ -196,7 +245,11 @@ open class FriendListViewController: UIViewController {
     
     lazy var headerView: listTableHeader = {
         
-        let r = listTableHeader(frame: CGRectMake(0, 0, UIScreen.main.bounds.width, 252))
+        let r = listTableHeader(frame: CGRectMake(0, 0, UIScreen.main.bounds.width, 252+68))
+        r.addFriendView.bindData(item: listTableHeader.MenuItem(title: "添加好友".innerLocalized(), icon: UIImage(named: "friend_list_add_friend_icon")))
+        r.addGroupChatView.bindData(item: listTableHeader.MenuItem(title: "添加群聊".innerLocalized(), icon: UIImage(named: "friend_list_add_group_chat_icon")))
+        r.creatGroupChatView.bindData(item: listTableHeader.MenuItem(title: "创建群聊".innerLocalized(), icon: UIImage(named: "friend_list_creat_group_chat_icon")))
+        r.videoMettingView.bindData(item: listTableHeader.MenuItem(title: "视频会议".innerLocalized(), icon: UIImage(named: "friend_list_video_metting_icon")))
         let data:[listTableHeader.MenuItem] = [listTableHeader.MenuItem(title: "新的好友".innerLocalized(), icon: UIImage(named: "friend_list_group_icon")),
                                                listTableHeader.MenuItem(title: "newGroup".innerLocalized(), icon: UIImage(named: "friend_list_group_new_icon")),
                                                listTableHeader.MenuItem(title: "群聊".localized(), icon: UIImage(named: "friend_list_new_friend_icon"))]
@@ -205,6 +258,47 @@ open class FriendListViewController: UIViewController {
         r.groupView.bindData(item: data[2])
         r.lblClick = { [weak self] index in
             print("-----" , index)
+        }
+        r.addFriendClick = { [weak self] in
+            
+            print("-----" , "addFriendClick")
+            let vc = SearchFriendViewController()
+            vc.hidesBottomBarWhenPushed = true
+            self?.navigationController?.pushViewController(vc, animated: true)
+            vc.didSelectedItem = { [weak self] id in
+                if let handler = OIMApi.gotoUserMessageHandle {
+                    handler(self!, id, "", "",{res in
+
+                    })
+                }
+            }
+            
+        }
+        r.addGroupChatClick = { [weak self] in
+            
+            print("-----" , "addGroupChatClick")
+            let vc = SearchGroupViewController()
+            vc.hidesBottomBarWhenPushed = true
+            self?.navigationController?.pushViewController(vc, animated: true)
+            vc.didSelectedItem = { [weak self] id in
+                let vc = GroupDetailViewController(groupId: id)
+                self?.navigationController?.pushViewController(vc, animated: true)
+            }
+            
+        }
+        r.creatGroupChatClick = { [weak self] in
+            
+            print("-----" , "creatGroupChatClick")
+            self?.creatGroupChat(groupType: .working)
+            
+        }
+        r.videoMettingClick = { [weak self] in
+            
+            print("-----" , "videoMettingClick")
+            let vc = LiveRecordsViewController()
+            vc.hidesBottomBarWhenPushed = true
+            self?.navigationController?.pushViewController(vc, animated: true)
+            
         }
         r.friendClick = { [weak self] in
             
@@ -247,7 +341,46 @@ open class FriendListViewController: UIViewController {
 //        r.searchView.addGestureRecognizer(tap)
         return r
     }()
-
+    
+    private func creatGroupChat(groupType: GroupType = .normal) {
+        
+#if ENABLE_ORGANIZATION
+        let vc = MyContactsViewController(types: [.friends, .staff], multipleSelected: true)
+#else
+        let vc = MyContactsViewController(types: [.friends], multipleSelected: true, enableChangeSelectedModel: true)
+#endif
+        vc.selectedContact(blocked: [IMController.shared.uid]) { [weak self] (r: [ContactInfo]) in
+            guard let self else { return }
+            
+            let users = r.map {UserInfo(userID: $0.ID!, nickname: $0.name, faceURL: $0.faceURL)}
+            
+            if users.count > 1 {
+                let vc = NewGroupViewController(users: users, groupType: .working)
+                navigationController?.pushViewController(vc, animated: true)
+            } else {
+                guard let userID = users.first?.userID else { return }
+                ProgressHUD.animate()
+                createSingleChat(userID: userID) { [self] c in
+                    ProgressHUD.dismiss()
+                    let vc = ChatViewControllerBuilder().build(c, hiddenInputBar: c.conversationType == .notification)
+                    vc.hidesBottomBarWhenPushed = true
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+            }
+        }
+        vc.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    private func createSingleChat(userID: String, onComplete: @escaping (ConversationInfo) -> Void) {
+        
+        IMController.shared.getConversation(sessionType: .c2c, sourceId: userID) { [weak self] (conversation: ConversationInfo?) in
+            guard let conversation else { return }
+            
+            onComplete(conversation)
+        }
+    }
+    
     private func bindData() {
         
         _viewModel.lettersRelay.distinctUntilChanged().subscribe(onNext: { [weak self] (values: [String]) in
@@ -337,6 +470,10 @@ extension FriendListViewController: UITableViewDataSource, UITableViewDelegate {
 
 
 class listTableHeader: UIView {
+    var addFriendClick: (() -> Void)!
+    var addGroupChatClick: (() -> Void)!
+    var creatGroupChatClick: (() -> Void)!
+    var videoMettingClick: (() -> Void)!
     var friendClick: (() -> Void)!
     var groupClick: (() -> Void)!
     var lblClick: ((Int) -> Void)!
@@ -346,7 +483,12 @@ class listTableHeader: UIView {
         super.init(frame: frame)
         
         backgroundColor = .white
-        
+        let width = (UIScreen.main.bounds.size.width - 16*2 - 8*3)/4
+
+        addSubview(addFriendView)
+        addSubview(addGroupChatView)
+        addSubview(creatGroupChatView)
+        addSubview(videoMettingView)
         addSubview(newFriendView)
         addSubview(groupView)
         addSubview(newGroupView)
@@ -358,30 +500,48 @@ class listTableHeader: UIView {
 //            make.height.equalTo(34)
 //        }
         
-        
+        addFriendView.snp.makeConstraints { make in
+            make.left.equalTo(16)
+            make.width.equalTo(width)
+            make.height.equalTo(58)
+            make.top.equalTo(0)
+        }
+        addGroupChatView.snp.makeConstraints { make in
+            make.left.equalTo(addFriendView.snp_right).offset(8)
+            make.width.height.top.equalTo(addFriendView)
+        }
+        creatGroupChatView.snp.makeConstraints { make in
+            make.left.equalTo(addGroupChatView.snp_right).offset(8)
+            make.width.height.top.equalTo(addFriendView)
+        }
+        videoMettingView.snp.makeConstraints { make in
+            make.left.equalTo(creatGroupChatView.snp_right).offset(8)
+            make.width.height.top.equalTo(addFriendView)
+        }
         newFriendView.snp.makeConstraints { make in
             make.left.right.equalToSuperview()
             make.height.equalTo(59)
-            make.top.equalTo(0)
+            make.top.equalTo(addFriendView.snp_bottom).offset(10)
         }
         
         newGroupView.snp.makeConstraints { make in
             make.left.right.equalToSuperview()
-            make.top.equalTo(59)
+            make.top.equalTo(newFriendView.snp_bottom)
             make.height.equalTo(59)
         }
         
         groupView.snp.makeConstraints { make in
             make.left.right.equalToSuperview()
-            make.top.equalTo(118)
+            make.top.equalTo(newGroupView.snp_bottom)
             make.height.equalTo(59)
         }
         
         chooseView.snp.makeConstraints { make in
-            make.top.equalTo(190)
+            make.top.equalTo(groupView.snp_bottom)
             make.left.right.equalToSuperview()
             make.height.equalTo(44)
         }
+        
         
     }
     
@@ -428,6 +588,54 @@ class listTableHeader: UIView {
 //        return v
 //    }()
     
+    lazy var addFriendView:ButtonItem = {
+        let r = ButtonItem()
+        r.clipsToBounds = true
+        r.layer.cornerRadius = 8
+        r.backgroundColor = .init(hexString: "#F3F5F9")
+        r.tag = 2096
+        r.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(chooseTopView(_:)))
+        r.addGestureRecognizer(tap)
+        return r
+    }()
+    
+    lazy var addGroupChatView:ButtonItem = {
+        let r = ButtonItem()
+        r.clipsToBounds = true
+        r.layer.cornerRadius = 8
+        r.backgroundColor = .init(hexString: "#F3F5F9")
+        r.tag = 2097
+        r.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(chooseTopView(_:)))
+        r.addGestureRecognizer(tap)
+        return r
+    }()
+    
+    lazy var creatGroupChatView:ButtonItem = {
+        let r = ButtonItem()
+        r.clipsToBounds = true
+        r.layer.cornerRadius = 8
+        r.backgroundColor = .init(hexString: "#F3F5F9")
+        r.tag = 2098
+        r.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(chooseTopView(_:)))
+        r.addGestureRecognizer(tap)
+        return r
+    }()
+    
+    lazy var videoMettingView:ButtonItem = {
+        let r = ButtonItem()
+        r.clipsToBounds = true
+        r.layer.cornerRadius = 8
+        r.backgroundColor = .init(hexString: "#F3F5F9")
+        r.tag = 2099
+        r.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(chooseTopView(_:)))
+        r.addGestureRecognizer(tap)
+        return r
+    }()
+
     
     lazy var newFriendView: ItemView = {
         let r = ItemView()
@@ -467,9 +675,17 @@ class listTableHeader: UIView {
     
     @objc func chooseTopView(_ sender: UITapGestureRecognizer) {
         
-        if sender.view?.tag == 2100 {
+        if sender.view?.tag == 2096 {
+            addFriendClick()
+        }else if sender.view?.tag == 2097 {
+            addGroupChatClick()
+        } else if sender.view?.tag == 2098 {
+            creatGroupChatClick()
+        } else if sender.view?.tag == 2099 {
+            videoMettingClick()
+        }  else if sender.view?.tag == 2100 {
             friendClick()
-        } else if sender.view?.tag == 2102 {
+        }  else if sender.view?.tag == 2102 {
             groupClick()
         } else {
             newGroupClick()
@@ -484,7 +700,49 @@ class listTableHeader: UIView {
             self.icon = icon
         }
     }
-    
+    class ButtonItem: UIView{
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            
+            addSubview(iconImageView)
+            addSubview(titleLabel)
+            
+            iconImageView.snp.makeConstraints { make in
+                make.top.equalTo(9)
+                make.width.height.equalTo(24)
+                make.centerX.equalToSuperview()
+            }
+            
+            titleLabel.snp.makeConstraints { make in
+                make.top.equalTo(37)
+                make.height.equalTo(10)
+                make.centerX.equalToSuperview()
+            }
+        }
+        
+        @available(*, unavailable)
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        let iconImageView: UIImageView = {
+            let v = UIImageView()
+            return v
+        }()
+
+        let titleLabel: UILabel = {
+            let v = UILabel()
+            v.font =  UIFont(name: "PingFangSC-Medium", size: 11)
+//            v.textColor = UIColor(red: 0.533, green: 0.533, blue: 0.533, alpha: 1)
+            v.textColor = .init(hexString: "#333333")
+            return v
+        }()
+        
+        func bindData(item :MenuItem) {
+            iconImageView.image = item.icon
+            titleLabel.text = item.title
+        }
+    }
     class ItemView: UIView {
         
         override init(frame: CGRect) {

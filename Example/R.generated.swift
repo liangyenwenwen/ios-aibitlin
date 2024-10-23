@@ -3549,7 +3549,7 @@ struct _R: Sendable {
     var colorBackground: RswiftResources.ColorResource { .init(name: "ColorBackground", path: [], bundle: bundle) }
   }
 
-  /// This `_R.image` struct is generated, and contains static references to 242 images.
+  /// This `_R.image` struct is generated, and contains static references to 247 images.
   struct image {
     let bundle: Foundation.Bundle
 
@@ -3925,6 +3925,9 @@ struct _R: Sendable {
     /// Image `chat_home_menu`.
     var chat_home_menu: RswiftResources.ImageResource { .init(name: "chat_home_menu", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
+    /// Image `chat_home_scan`.
+    var chat_home_scan: RswiftResources.ImageResource { .init(name: "chat_home_scan", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
     /// Image `chat_menu_add_friend_icon`.
     var chat_menu_add_friend_icon: RswiftResources.ImageResource { .init(name: "chat_menu_add_friend_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
@@ -4003,6 +4006,15 @@ struct _R: Sendable {
     /// Image `feedback_icon`.
     var feedback_icon: RswiftResources.ImageResource { .init(name: "feedback_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
+    /// Image `friend_list_add_friend_icon`.
+    var friend_list_add_friend_icon: RswiftResources.ImageResource { .init(name: "friend_list_add_friend_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `friend_list_add_group_chat_icon`.
+    var friend_list_add_group_chat_icon: RswiftResources.ImageResource { .init(name: "friend_list_add_group_chat_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `friend_list_creat_group_chat_icon`.
+    var friend_list_creat_group_chat_icon: RswiftResources.ImageResource { .init(name: "friend_list_creat_group_chat_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
     /// Image `friend_list_group_icon`.
     var friend_list_group_icon: RswiftResources.ImageResource { .init(name: "friend_list_group_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
@@ -4011,6 +4023,9 @@ struct _R: Sendable {
 
     /// Image `friend_list_new_friend_icon`.
     var friend_list_new_friend_icon: RswiftResources.ImageResource { .init(name: "friend_list_new_friend_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `friend_list_video_metting_icon`.
+    var friend_list_video_metting_icon: RswiftResources.ImageResource { .init(name: "friend_list_video_metting_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
     /// Image `guide1`.
     var guide1: RswiftResources.ImageResource { .init(name: "guide1", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }

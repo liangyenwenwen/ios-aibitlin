@@ -10,6 +10,7 @@ public class LiveRecordsViewController: UIViewController {
     
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = false
         _viewModel.getRecords()
     }
 
