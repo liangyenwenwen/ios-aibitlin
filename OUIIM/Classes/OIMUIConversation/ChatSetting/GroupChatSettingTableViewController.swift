@@ -336,7 +336,7 @@ class GroupChatSettingTableViewController: UITableViewController {
                     cell.levelLabel.text = item.roleLevelString
                 }
                 
-                cell.nameLabel.text = item.nickname
+                cell.nameLabel.text = SuperStringUtil.getUserState(showname: item.nickname ?? "").n
                 
                 return cell
             }.disposed(by: cell.disposeBag)

@@ -141,8 +141,9 @@ class ApplicationViewController: UIViewController {
             nickName = groupApplication.nickname
         }
         
+        let userstate = SuperStringUtil.getUserState(showname: nickName ?? "")
         avatarView.setAvatar(url: faceURL, text: nickName, onTap: nil)
-        nickNameLabel.text = nickName
+        nickNameLabel.text = userstate.n
         descTextView.text = viewModel.requestDescString
         descTextView.isHidden = viewModel.requestDescString.isEmpty
         
