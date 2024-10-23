@@ -993,19 +993,33 @@ final class DefaultChatController: ChatController {
                 .map { self.convertMessage($0) }
                 .reduce(into: [[Message]]()) { result, message in
                     guard var section = result.last,
-                          let prevMessage = section.last
+//                          let prevMessage = section.last
+                          let prevMessage = section.first
                     else {
                         let section = [message]
                         result.append(section)
                         return
                     }
-                    if Calendar.current.isDate(prevMessage.date, equalTo: message.date, toGranularity: .hour) {
+                    
+                    // 使用Calendar类和Component进行计算
+                    let calendar = Calendar.current
+                    let components = calendar.dateComponents([.minute], from: prevMessage.date, to: message.date)
+                    let minutes = components.minute
+                    if minutes ?? 0 < 10 {
                         section.append(message)
                         result[result.count - 1] = section
                     } else {
                         let section = [message]
                         result.append(section)
                     }
+                    
+//                    if Calendar.current.isDate(prevMessage.date, equalTo: message.date, toGranularity: .hour) {
+//                        section.append(message)
+//                        result[result.count - 1] = section
+//                    } else {
+//                        let section = [message]
+//                        result.append(section)
+//                    }
                 }
             
             let cells = messagesSplitByDay.enumerated().map { index, messages -> [Cell] in // 按天划分
