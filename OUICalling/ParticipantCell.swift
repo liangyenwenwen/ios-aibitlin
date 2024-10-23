@@ -227,8 +227,8 @@ open class ParticipantCell: UICollectionViewCell {
                 // listen to events
                 participant.add(delegate: self)
                 setFirstVideoTrack()
-                infoView.nameLabel.text = participant.showName
-                infoView.avatarView.setAvatar(url: participant.faceURL, text: participant.showName)
+                infoView.nameLabel.text = SuperStringUtil.getUserState(showname:participant.showName ?? "").n
+                infoView.avatarView.setAvatar(url: participant.faceURL, text: SuperStringUtil.getUserState(showname:participant.showName ?? "").n)
                 // 展示主持人
                 let isHoster = participant.isHoster
                 infoView.hosterImageView.isHidden = !isHoster
