@@ -493,9 +493,9 @@ extension CallingManager {
             record.isSingnal = signalingInfo.isSignal
             record.incoming = signalingInfo.invitation.inviterUserID != OIMManager.manager.getLoginUserID()
             
-//            if !record.incoming {
-//                record.success = true
-//            }
+            if !record.incoming {
+                record.success = true
+            }
             
             record.otherSideID = record.incoming ? signalingInfo.invitation.inviterUserID : signalingInfo.invitation.inviteeUserIDList.first
             
