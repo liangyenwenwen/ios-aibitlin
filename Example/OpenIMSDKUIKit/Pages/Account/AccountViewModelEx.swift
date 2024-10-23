@@ -92,6 +92,9 @@ extension AccountViewModel {
             let contentView = YFChatBokeBottomSheetView()
             contentView.tg_width.equal(.fill)
             contentView.tg_height.equal(350)
+            contentView.hideSheetView = {
+                GKCover.hide()
+            }
             contentView.chooseBoke = { item in
 //                let result = "\(item.userBlogName)####\(item.userBlogIcon)####\(item.userBlogUrl)####\(item.userBlogIntro)"
                 
@@ -105,9 +108,7 @@ extension AccountViewModel {
                 } catch {
                     print(error.localizedDescription)
                 }
-                
-                
-//                completion(result)
+
                 GKCover.hide()
             }
             GKCover.cover(from: vc.view.window, contentView: contentView, style: .translucent, showStyle: .bottom, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)

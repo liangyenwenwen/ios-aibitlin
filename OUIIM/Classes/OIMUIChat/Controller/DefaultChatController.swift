@@ -999,8 +999,7 @@ final class DefaultChatController: ChatController {
                         let section = [message]
                         result.append(section)
                         return
-                    }
-                    
+                    }                    
                     // 使用Calendar类和Component进行计算
                     let calendar = Calendar.current
                     let components = calendar.dateComponents([.minute], from: prevMessage.date, to: message.date)

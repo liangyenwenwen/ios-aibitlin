@@ -77,16 +77,16 @@ class TabMoreView: UIView {
 
 //        let heightRow = (items.count - 1) / 4  + 1
         
-        let height = 196
+        let height = 16 + (items.count + 3) / 4 * 90
         let width = Int(frame_width - 32)
         scrollView!.contentSize = CGSize(width: width, height: height)
         
-//        let bottomHeight = height > 400 ? 400 : height
-//        self.bottomHeight = bottomHeight
-        self.bottomHeight = 252
+        let bottomHeight = height  + 56 > 400 ? 400 : height  + 56
+        self.bottomHeight = bottomHeight
+//        self.bottomHeight = 400
         
         bottomView.snp.updateConstraints { make in
-            make.height.equalTo(252)
+            make.height.equalTo(self.bottomHeight)
         }
         bottomShow(show: true)
     }
@@ -182,7 +182,8 @@ class TabMoreView: UIView {
             make.leading.equalTo(16)
             make.trailing.equalTo(-16)
 //            make.bottom.trailing.equalToSuperview()
-            make.height.equalTo(196)
+//            make.height.equalTo(196)
+            make.bottom.equalTo(-20)
         }
     }
     
@@ -207,9 +208,9 @@ class TabMoreView: UIView {
     
     public struct MenuItem {
         let title: String
-        let icon: UIImage?
+        let icon: String
         let action: () -> Void
-        public init(title: String, icon: UIImage?, action: @escaping () -> Void) {
+        public init(title: String, icon: String, action: @escaping () -> Void) {
             self.title = title
             self.icon = icon
             self.action = action
@@ -219,7 +220,7 @@ class TabMoreView: UIView {
     
     class ItemView: UIView {
         
-        private var itemData:MenuItem = MenuItem(title: "标题", icon: nil) {
+        private var itemData:MenuItem = MenuItem(title: "标题", icon: "") {
             
         }
         
@@ -228,6 +229,7 @@ class TabMoreView: UIView {
         }
         let iconImageView: UIImageView = {
             let v = UIImageView()
+            v.corner(3)
             return v
         }()
 
@@ -267,7 +269,13 @@ class TabMoreView: UIView {
         
         func setData(item :MenuItem) {
             itemData = item
-            iconImageView.image = item.icon
+            if item.icon.contains(".com") {
+                iconImageView.show(item.icon)
+            } else {
+                iconImageView.image = .init(named: item.icon)
+            }
+            
+            
             titleLabel.text = item.title
         }
         
