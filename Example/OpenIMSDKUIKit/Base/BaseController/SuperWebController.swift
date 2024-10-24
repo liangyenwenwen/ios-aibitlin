@@ -32,6 +32,10 @@ class SuperWebController: BaseTitleController, WKNavigationDelegate {
         if blogItem != nil {
             timeCountCalcatue()
         }
+        
+        if !NetworkStatus.isReacheable {
+            SuperToast.show(title: "-1".localized())
+        }
       
     }
     
@@ -116,6 +120,8 @@ class SuperWebController: BaseTitleController, WKNavigationDelegate {
     }
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: any Error) {
+        
+        print("网页加载失败\(error.localizedDescription)")
         
     }
     

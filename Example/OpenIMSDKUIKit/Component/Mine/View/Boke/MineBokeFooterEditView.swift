@@ -78,7 +78,8 @@ class MineBokeFooterEditView: TGLinearLayout {
         bokeMessageContainer.addSubview(bokeTitle)
         bokeMessageContainer.addSubview(bokeContent)
         
-        r.addSubview(cancleBtn)
+//        r.addSubview(cancleBtn)
+        r.addSubview(cancleView)
         return r
     }()
     
@@ -109,13 +110,32 @@ class MineBokeFooterEditView: TGLinearLayout {
         return r
     }()
     
-    lazy var cancleBtn: QMUIButton = {
-        let r = ViewFactoryUtil.imageBtn(R.image.close_cirle_icon()!)
-        r.rx.tap.subscribe(onNext: {
-            
-            GKCover.hide()
-        })
-        .disposed(by: rx.disposeBag)
+    
+    lazy var cancleView: TGLinearLayout = {
+        let r = TGLinearLayout(.vert)
+        r.tg_width.equal(50)
+        r.tg_height.equal(43)
+        r.tg_gravity = .horz.right
+//        r.backgroundColor = .red
+        r.addSubview(cancleBtn)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(gkcoverHide))
+        r.isUserInteractionEnabled = true
+        r.addGestureRecognizer(tap)
+        return r
+    }()
+    
+    @objc func gkcoverHide() {
+        GKCover.hide()
+    }
+    
+    lazy var cancleBtn: UIImageView = {
+//        let r = ViewFactoryUtil.imageBtn(R.image.close_cirle_icon()!)
+        let r = ViewFactoryUtil.defalutImgView(R.image.close_cirle_icon()!, 30)
+//        r.rx.tap.subscribe(onNext: {
+//            
+//            GKCover.hide()
+//        })
+//        .disposed(by: rx.disposeBag)
         return r
     }()
     

@@ -24,7 +24,7 @@ class MineBokeListCell: BaseTableViewCell {
         container.addSubview(bokeMessageContainer)
 //        bokeMessageContainer.backgroundColor = .red
         
-//        container.addSubview(moreImg)
+        container.addSubview(moreView)
         
         container.tg_gravity = .vert.center
         
@@ -81,10 +81,31 @@ class MineBokeListCell: BaseTableViewCell {
         return r
     }()
     
+    lazy var moreView: TGLinearLayout = {
+        let r = TGLinearLayout(.horz)
+        r.tg_width.equal(50)
+        r.tg_height.equal(50)
+        r.tg_centerY.equal(-19)
+//        r.backgroundColor = .red
+        r.addSubview(moreImg)
+        r.tg_gravity = .center
+        let tap = UITapGestureRecognizer(target: self, action: #selector(moreDidClicked))
+        r.isUserInteractionEnabled = true
+        r.addGestureRecognizer(tap)
+//        r.addTarget(self, action: #selector(moreDidClicked), for: .touchUpInside)
+        return r
+    }()
+    
+    
+    
     lazy var moreImg: QMUIButton = {
         let r = ViewFactoryUtil.imageBtn(R.image.tabMoreSelected()!)
-        r.tg_centerY.equal(0)
-        r.addTarget(self, action: #selector(moreDidClicked), for: .touchUpInside)
+//        r.tg_centerY.equal(-19)
+        r.isUserInteractionEnabled = false
+//        r.backgroundColor = .green
+//        r.tg_centerY.equal(<#T##origin: Int##Int#>)
+//        r.centerYAnchor.constraint(equalTo: bokeTitle.centerYAnchor)
+//        r.addTarget(self, action: #selector(moreDidClicked), for: .touchUpInside)
         return r
     }()
     
@@ -101,7 +122,7 @@ class MineBokeListCell: BaseTableViewCell {
         let r = TGLinearLayout(.vert)
         r.tg_width.equal(.fill)
         r.tg_height.equal(.wrap)
-        r.tg_space = PADDING_MEDDLE
+        r.tg_space = PADDING_OUTER
         r.clipsToBounds = true
         
         r.addSubview(bokeTitleAddStateView)
@@ -115,12 +136,12 @@ class MineBokeListCell: BaseTableViewCell {
     lazy var bokeTitleAddStateView: TGLinearLayout = {
         let r = TGLinearLayout(.horz)
         r.tg_width.equal(.fill)
-        r.tg_height.equal(.wrap)
+        r.tg_height.equal(19)
         r.tg_space = PADDING_MEDDLE
         r.addSubview(blogStateImg)
         r.addSubview(bokeTitle)
         
-        r.addSubview(moreImg)
+//        r.addSubview(moreImg)
         
 //        r.backgroundColor = .red
 //        r.addSubview(stateLbl)
@@ -159,6 +180,7 @@ class MineBokeListCell: BaseTableViewCell {
         r.numberOfLines = 1
         r.tg_width.equal(.fill)
         r.tg_right.equal(80)
+        r.tg_height.equal(12)
         return r
     }()
     
@@ -177,6 +199,7 @@ class MineBokeListCell: BaseTableViewCell {
         case .wait:
             blogStateLbl.hide()
             stateLbl.show()
+            blogStateImg.show()
             blogStateLbl.text = "处理中".localized()
             stateLbl.text = "处理中".localized()
             stateLbl.textColor = .orange
@@ -185,6 +208,7 @@ class MineBokeListCell: BaseTableViewCell {
         case .refuse:
             blogStateLbl.hide()
             stateLbl.show()
+            blogStateImg.show()
             blogStateLbl.text = "拒绝".localized()
             stateLbl.text = "拒绝".localized()
             stateLbl.textColor = .red
@@ -193,6 +217,7 @@ class MineBokeListCell: BaseTableViewCell {
         case .limit:
             blogStateLbl.hide()
             stateLbl.show()
+            blogStateImg.show()
             blogStateLbl.text = "受限制".localized()
             stateLbl.text = "受限制".localized()
             stateLbl.textColor = .red

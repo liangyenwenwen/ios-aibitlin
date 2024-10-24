@@ -132,6 +132,9 @@ final class ContentContainerView<ContentView: UIView>: UIView {
             titleLabel.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor, constant: -8),
             titleLabel.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),
             
+            ///限制太长的名字
+            titleLabel.widthAnchor.constraint(lessThanOrEqualToConstant: UIScreen.main.bounds.width - 80),
+            
             contentStack.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4),
             contentStack.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor, constant: 8),
             contentStack.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor, constant: -8),

@@ -19,6 +19,8 @@ class SuperSettingView: TGLinearLayout {
     var tempPhone: String = ""
     var tempEmail: String = ""
     
+    var isNeedExpendClickArea: Bool = true
+    
     init() {
         super.init(frame: CGRect.zero, orientation: .horz)
         initViews()
@@ -50,6 +52,10 @@ class SuperSettingView: TGLinearLayout {
         addSubview(self.codeBtn)
         addSubview(self.moreIconView)
         
+//        let tap = UITapGestureRecognizer(target: self, action: #selector(expendClickAction))
+//        isUserInteractionEnabled = true
+//        addGestureRecognizer(tap)
+        
     }
     
     func initListeners() {
@@ -63,6 +69,8 @@ class SuperSettingView: TGLinearLayout {
     @objc func onTapClick(_ data:UITapGestureRecognizer) {
         if let r = click {
             r(data.qmui_targetView!)
+        } else if isNeedExpendClickArea {
+            self.textFieldView.becomeFirstResponder()
         }
     }
     
@@ -101,11 +109,12 @@ class SuperSettingView: TGLinearLayout {
         return r
     }()
     
+    /// 手机号 前缀试图
     lazy var phoneCodeView: TGLinearLayout = {
         let r = TGLinearLayout(.horz)
         r.tg_gravity = .vert.center
         r.tg_width.equal(.fill)
-        r.tg_height.equal(.wrap)
+        r.tg_height.equal(.fill)
         r.tg_space = PADDING_MEDDLE
         r.addSubview(phoneCodeLbl)
         r.addSubview(ViewFactoryUtil.defalutImgView(R.image.smallGrayBottomArrow()!, 10))
@@ -619,5 +628,16 @@ extension SuperSettingView{
         backgroundColor = .colorBackgroundAPP
         corner(23)
     }
+    
+    
+   @objc func expendClickAction() {
+       
+       if isNeedExpendClickArea {
+           if self.textFieldView.isShow() {
+               self.textFieldView.becomeFirstResponder()
+           }
+       }
+    }
+    
     
 }

@@ -1651,7 +1651,7 @@ extension ChatViewController: ChatControllerDelegate {
     // MARK: - 张亚飞打的标记  点击消息
     func didTapContent(with id: String, data: Message.Data) {
         popover?.dismiss()
-
+        print("-------------------------\(id)")
         func filterMediaSource(completion: @escaping ([MediaResource]) -> Void) {
             chatController.searchLocalMediaMessage { ms in
                 let r = ms.flatMap { msg in

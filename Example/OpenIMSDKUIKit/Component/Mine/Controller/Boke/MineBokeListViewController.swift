@@ -294,6 +294,7 @@ extension MineBokeListViewController {
             } completionHandler: { errCode, errMsg in
                 self.tableView.mj_header?.endRefreshing()
             }
+            
         }
     }
     
