@@ -61,6 +61,7 @@ public class BaseIGListViewController: UIViewController {
         collectionView.snp.makeConstraints { make in
             make.leading.bottom.trailing.equalToSuperview()
             make.top.equalToSuperview().offset(-(UIApplication.safeAreaInsets.top + UIApplication.statusBarHeight))
+//            make.top.equalTo(222.h)
         }
     }
     

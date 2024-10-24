@@ -240,7 +240,7 @@ class SuperSettingView: TGLinearLayout {
     lazy var codeBtn: QMUIButton = {
         let r = ViewFactoryUtil.linkButton()
 
-        r.setTitle(" 发送验证码 ".localized(), for: .normal)
+        r.setTitle(" 获取验证码 ".localized(), for: .normal)
         r.setTitleColor(.primaryColor, for: .normal)
         r.hide()
         r.sizeToFit()

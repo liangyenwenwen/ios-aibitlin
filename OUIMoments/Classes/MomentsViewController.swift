@@ -410,15 +410,20 @@ extension MomentsViewController: UIScrollViewDelegate {
         
         print(contentOffsetY)
         
-        momentNavBar.navBarView.alpha = contentOffsetY / 150.h
-        momentNavBar.titleLabel.alpha = contentOffsetY / 150.h
+//        momentNavBar.navBarView.alpha = 1
+//        momentNavBar.titleLabel.alpha = contentOffsetY / 150.h
+//        
+//        momentNavBar.titleLabel.alpha = 0
+//        
 //        momentNavBar.backgroundColor?.withAlphaComponent((150.h - contentOffsetY) / 150.h)
             
         
-        if contentOffsetY / 150.h > 0.6 {
+        if contentOffsetY > 222.h - (UIApplication.safeAreaInsets.top + UIApplication.statusBarHeight){
             momentNavBar.isScrollUp = true
+            momentNavBar.backgroundColor = .white
         } else {
             momentNavBar.isScrollUp = false
+            momentNavBar.backgroundColor = .clear
         }
     }
 }

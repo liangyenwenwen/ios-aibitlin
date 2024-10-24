@@ -67,7 +67,7 @@ class GroupApplicationTableViewController: UITableViewController {
                 
                 guard let self else { return cell }
                 
-                cell.nameLabel.text = item.nickname
+                cell.nameLabel.text = SuperStringUtil.getUserState(showname: item.nickname ?? "").n
                 if let reason = item.reqMsg {
                     cell.setApply(reason: reason)
                 }

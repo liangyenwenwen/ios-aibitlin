@@ -349,7 +349,7 @@ extension MessageInfo {
             if let notificationElem, let user = notificationElem.entrantUser {
                 
                 let nickname = notificationElem.opUserIsMe ? "you".innerLocalized() : (user.nickname ?? user.userID!)
-                let str = "joinGroupNtf".innerLocalizedFormat(arguments: nickname)
+                let str = "joinGroupNtf".innerLocalizedFormat(arguments: SuperStringUtil.getUserShowname(showname: nickname))
                 
                 result = createAttrString(baseString: str, users: [user])
             }

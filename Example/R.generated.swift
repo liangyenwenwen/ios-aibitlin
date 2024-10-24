@@ -167,7 +167,7 @@ struct _R: Sendable {
       var ieXW0yeText: RswiftResources.StringResource { .init(key: "8ie-xW-0ye.text", tableName: "LaunchScreen", source: source, developmentValue: nil, comment: nil) }
     }
 
-    /// This `_R.string.localizable` struct is generated, and contains static references to 485 localization keys.
+    /// This `_R.string.localizable` struct is generated, and contains static references to 484 localization keys.
     struct localizable {
       let source: RswiftResources.StringResource.Source
 
@@ -177,13 +177,6 @@ struct _R: Sendable {
       ///
       /// Locales: en, th
       var 发送: RswiftResources.StringResource { .init(key: " 发送", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
-
-      /// en translation:  Send 
-      ///
-      /// Key:  发送验证码 
-      ///
-      /// Locales: en, th
-      var 发送验证码: RswiftResources.StringResource { .init(key: " 发送验证码 ", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Address starting with https://
       ///
@@ -3006,13 +2999,6 @@ struct _R: Sendable {
       /// Locales: en, th
       var 英文: RswiftResources.StringResource { .init(key: "英文", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: Send
-      ///
-      /// Key: 获取验证码
-      ///
-      /// Locales: en, th
-      var 获取验证码: RswiftResources.StringResource { .init(key: "获取验证码", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
-
       /// en translation: Denied, Access Forbidden
       ///
       /// Key: 被拒绝，禁止访问
@@ -3453,6 +3439,13 @@ struct _R: Sendable {
       ///
       /// Locales: en, th
       var 邮箱地址: RswiftResources.StringResource { .init(key: "邮箱地址", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Reset Password
+      ///
+      /// Key: 重置密码
+      ///
+      /// Locales: en, th
+      var 重置密码: RswiftResources.StringResource { .init(key: "重置密码", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Reset gesture password
       ///

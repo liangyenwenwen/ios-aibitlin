@@ -8,7 +8,8 @@ class MomentNavBar: UIView {
     
     lazy var navBarView: UIView = {
         let v = UIView(frame: bounds)
-        v.backgroundColor = UIColor(red: 239, green: 239, blue: 239, alpha: 1.0)
+//        v.backgroundColor = UIColor(red: 239, green: 239, blue: 239, alpha: 1.0)
+        v.backgroundColor = .clear
         v.alpha = 0
         return v
     }()
@@ -69,7 +70,9 @@ class MomentNavBar: UIView {
     }
 
     func setupView() {
-
+        
+        
+        
         addSubview(navBarView)
         addSubview(titleLabel)
         addSubview(backBtn)

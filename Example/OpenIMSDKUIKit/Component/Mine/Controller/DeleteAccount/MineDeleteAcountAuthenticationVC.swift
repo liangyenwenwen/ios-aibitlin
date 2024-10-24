@@ -109,12 +109,12 @@ class MineDeleteAcountAuthenticationVC: BaseTitleController {
             useTypeView.changePhoneEmail(true)
             let tap = UITapGestureRecognizer(target: self, action: #selector(changePhoneArea))
             useTypeView.phoneCodeView.addGestureRecognizer(tap)
-            nextBtn.setTitle("nextStep".localized(), for: .normal)
+            nextBtn.setTitle("重置密码".localized(), for: .normal)
         case .forgetPwdByEmailBylogin:
             title = "忘记密码".localized()
             sectionLbl.text = "请验证你的邮箱".localized()
             useTypeView.changePhoneEmail(false)
-            nextBtn.setTitle("nextStep".localized(), for: .normal)
+            nextBtn.setTitle("重置密码".localized(), for: .normal)
         default :
             break
         }
