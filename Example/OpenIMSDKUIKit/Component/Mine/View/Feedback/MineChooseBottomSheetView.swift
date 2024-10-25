@@ -50,7 +50,7 @@ class MineChooseBottomSheetView: TGLinearLayout {
         backgroundColor = .colorBackgroundAPP
         
         addSubview(topView)
-        addSubview(tipslbl)
+//        addSubview(tipslbl)
         
         addSubview(topContainer)
         addSubview(centerContainer)
@@ -61,8 +61,20 @@ class MineChooseBottomSheetView: TGLinearLayout {
         r.tg_width.equal(.fill)
         r.tg_height.equal(.wrap)
         r.tg_gravity = .vert.center
+        r.tg_space = 7
+        r.addSubview(userIcon)
         r.addSubview(titleLbl)
         r.addSubview(closeBtn)
+        return r
+    }()
+    
+    
+    lazy var userIcon: UIImageView = {
+        let r = UIImageView()
+        r.tg_width.equal(24)
+        r.tg_height.equal(24)
+        r.corner(4)
+        r.backgroundColor = .red
         return r
     }()
     
@@ -72,12 +84,12 @@ class MineChooseBottomSheetView: TGLinearLayout {
         return r
     }()
     
-    lazy var tipslbl: UILabel = {
-        let r = ViewFactoryUtil.sectionTilteLbael("ID:")
-        r.tg_top.equal(-5)
-        r.hide()
-        return r
-    }()
+//    lazy var tipslbl: UILabel = {
+//        let r = ViewFactoryUtil.sectionTilteLbael("ID:")
+//        r.tg_top.equal(-5)
+//        r.hide()
+//        return r
+//    }()
     
     lazy var closeBtn: QMUIButton = {
         let r = ViewFactoryUtil.imageBtn(R.image.close_cirle_icon()!, 28)
@@ -126,9 +138,21 @@ class MineChooseBottomSheetView: TGLinearLayout {
     
     /// 用户信息弹窗
     func addUserMessageUI() {
+        
+        IMController.shared.getConversation(sessionType: .c2c, sourceId: userID!) { [weak self] (conversation: ConversationInfo?) in
+            guard let conversation else { return }
+            
+            let userShowname = SuperStringUtil.getUserShowname(showname: conversation.showName ?? "")
+            
+            self?.conversationInfo = conversation
+            self?.titleLbl.text = userShowname
+            self?.userIcon.show(conversation.faceURL)
+
+        }
+        
         topContainer.show()
-        titleLbl.text = ""
-        tipslbl.show()
+
+//        tipslbl.show()
         let titleArr = ["ModifyRemarks".localized()]
         for i in titleArr.indices {
             let settingView = SuperSettingView.createNoromalView(titleArr[i]) { [weak self] _ in
@@ -237,7 +261,7 @@ class MineChooseBottomSheetView: TGLinearLayout {
             
             self?.conversationInfo = conversation
             self?.titleLbl.text = userShowname
-            self?.tipslbl.text = "ID:\(String(describing: conversation.userID!))"
+            self?.userIcon.show(conversation.faceURL)
             self?.chatTopView?.superSwitch.isOn = conversation.isPinned
             print(conversation.conversationID)
             if conversation.ex?.count ?? 0 > 2 {
@@ -248,7 +272,7 @@ class MineChooseBottomSheetView: TGLinearLayout {
         
         topContainer.show()
         titleLbl.text = "用户名".localized()
-        tipslbl.show()
+//        tipslbl.show()
         let titleArr = ["置顶聊天".localized(), "聊天自动翻译".localized(), "清空聊天记录".localized()]
         for i in titleArr.indices {
             if i == 0 {

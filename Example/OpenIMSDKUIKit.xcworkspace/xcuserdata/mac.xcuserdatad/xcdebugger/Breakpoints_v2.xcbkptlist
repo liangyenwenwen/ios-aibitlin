@@ -120,10 +120,40 @@
             filePath = "OpenIMSDKUIKit/Component/Mine/View/Feedback/MineChooseBottomSheetView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "227"
-            endingLineNumber = "227"
-            landmarkName = "reportAction()"
+            startingLineNumber = "251"
+            endingLineNumber = "251"
+            landmarkName = "deleteFriend()"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "F616B823-8B3D-4373-BCE9-F86F4ACBFC83 - 1e34cd5279d16ac6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;OUICore.ConversationInfo&gt;) -&gt; () in IM_NCER.MineChooseBottomSheetView.addChatVCUI() -&gt; ()"
+                  moduleName = "IM-NCER"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Desktop/aibitlin/Example/OpenIMSDKUIKit/Component/Mine/View/Feedback/MineChooseBottomSheetView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "251"
+                  endingLineNumber = "251">
+               </Location>
+               <Location
+                  uuid = "F616B823-8B3D-4373-BCE9-F86F4ACBFC83 - 9d26ca0772081f77"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "IM_NCER.MineChooseBottomSheetView.reportAction() -&gt; ()"
+                  moduleName = "IM-NCER"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Desktop/aibitlin/Example/OpenIMSDKUIKit/Component/Mine/View/Feedback/MineChooseBottomSheetView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "251"
+                  endingLineNumber = "251">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
