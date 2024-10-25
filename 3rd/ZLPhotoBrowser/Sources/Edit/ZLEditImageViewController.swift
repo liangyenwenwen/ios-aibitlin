@@ -100,6 +100,9 @@ open class ZLEditImageViewController: UIViewController {
     
     private var editImageAdjustRef: UIImage?
     
+    private var firstEdit: Bool = true//该图片第一次裁剪
+
+    
     private lazy var containerView: UIView = {
         let view = UIView()
         view.clipsToBounds = true
@@ -526,6 +529,10 @@ open class ZLEditImageViewController: UIViewController {
         
         let width = drawLineWidth / mainScrollView.zoomScale * toImageScale
         defaultDrawPathWidth = width
+        if tools.contains(.clip) && firstEdit{
+            clipBtnClick()
+            firstEdit = false
+        }
     }
     
     override open func viewDidLayoutSubviews() {
