@@ -100,7 +100,7 @@ public class MomentsViewController: BaseIGListViewController {
             collectionView.mj_header?.beginRefreshing()
         }
         
-        adapter.scrollViewDelegate = self
+//        adapter.scrollViewDelegate = self
         
         if userID != nil {
             // If it is a circle of friends with a specified user ID, block the release button
@@ -136,6 +136,7 @@ public class MomentsViewController: BaseIGListViewController {
             if let sectionController = adapter.sectionController(for: objects.first) as? MomentsHeaderController {
                 sectionController.updateInfo(info: info)
             }
+            headView.bindViewModel(info)
         }).disposed(by: disposeBag)
         
         viewModel.momentsChangedRelay.subscribe(onNext: { [weak self] m in
@@ -235,6 +236,7 @@ extension MomentsViewController {
             
             let controller = MomentsListController()
             guard let info = object as? MomentsInfo else { return controller }
+//            headView.bindViewModel(info)
             
             controller.onTap = { [weak self] action in
                 guard let self else {return}
@@ -405,27 +407,27 @@ fileprivate extension MomentsViewController {
 
 // MARK: - <UIScrollViewDelegate>
 
-extension MomentsViewController: UIScrollViewDelegate {
-    
-    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        contentOffsetY = scrollView.contentOffset.y
-        
-        print(contentOffsetY)
-        
-//        momentNavBar.navBarView.alpha = 1
-//        momentNavBar.titleLabel.alpha = contentOffsetY / 150.h
+//extension MomentsViewController: UIScrollViewDelegate {
+//    
+//    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        contentOffsetY = scrollView.contentOffset.y
 //        
-//        momentNavBar.titleLabel.alpha = 0
+//        print(contentOffsetY)
 //        
-//        momentNavBar.backgroundColor?.withAlphaComponent((150.h - contentOffsetY) / 150.h)
-            
-        
-        if contentOffsetY > 222.h - (UIApplication.safeAreaInsets.top + UIApplication.statusBarHeight){
-            momentNavBar.isScrollUp = true
-            momentNavBar.backgroundColor = .white
-        } else {
-            momentNavBar.isScrollUp = false
-            momentNavBar.backgroundColor = .clear
-        }
-    }
-}
+////        momentNavBar.navBarView.alpha = 1
+////        momentNavBar.titleLabel.alpha = contentOffsetY / 150.h
+////        
+////        momentNavBar.titleLabel.alpha = 0
+////        
+////        momentNavBar.backgroundColor?.withAlphaComponent((150.h - contentOffsetY) / 150.h)
+//            
+//        
+//        if contentOffsetY > 222.h - (UIApplication.safeAreaInsets.top + UIApplication.statusBarHeight){
+//            momentNavBar.isScrollUp = true
+//            momentNavBar.backgroundColor = .white
+//        } else {
+//            momentNavBar.isScrollUp = false
+//            momentNavBar.backgroundColor = .clear
+//        }
+//    }
+//}

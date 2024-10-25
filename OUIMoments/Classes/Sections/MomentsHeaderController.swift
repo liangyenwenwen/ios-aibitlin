@@ -62,7 +62,7 @@ extension MomentsHeaderController: ListBindingSectionControllerDataSource, ListB
         guard let object = object as? HeaderInfo else { return [] }
         var results: [ListDiffable] = []
 
-        results.append(HeaderType.header.rawValue as ListDiffable)
+//        results.append(HeaderType.header.rawValue as ListDiffable)
         
         if (object.newMsgCount > 0) {
             results.append(HeaderType.newMessage.rawValue as ListDiffable)
@@ -73,24 +73,24 @@ extension MomentsHeaderController: ListBindingSectionControllerDataSource, ListB
     func sectionController(_ sectionController: ListBindingSectionController<ListDiffable>, cellForViewModel viewModel: Any, at index: Int) -> UICollectionViewCell & ListBindable {
         
         let viewModel = HeaderType(rawValue: viewModel as! String)!
-        switch viewModel {
-        case .header:
-            return momentHeaderCell(at: index)
-        case .newMessage:
+//        switch viewModel {
+//        case .header:
+//            return momentHeaderCell(at: index)
+//        case .newMessage:
             return momentsNewMessageCell(at: index)
-        }
+//        }
     }
     
     func sectionController(_ sectionController: ListBindingSectionController<ListDiffable>, sizeForViewModel viewModel: Any, at index: Int) -> CGSize {
         guard let object = object as? HeaderInfo else { fatalError() }
-        let viewModel = HeaderType(rawValue: viewModel as! String)!
+//        let viewModel = HeaderType(rawValue: viewModel as! String)!
         let width: CGFloat = collectionContext!.containerSize(for: self).width
-        switch viewModel {
-        case .header:
-            return CGSize(width: width, height: 222.h + UIApplication.safeAreaInsets.top + UIApplication.statusBarHeight)
-        case .newMessage:
+//        switch viewModel {
+//        case .header:
+//            return CGSize(width: width, height: 222.h + UIApplication.safeAreaInsets.top + UIApplication.statusBarHeight)
+//        case .newMessage:
             return CGSize(width: width, height: 44.h)
-        }
+//        }
     }
     
     func sectionController(_ sectionController: ListBindingSectionController<ListDiffable>, didSelectItemAt index: Int, viewModel: Any) {
