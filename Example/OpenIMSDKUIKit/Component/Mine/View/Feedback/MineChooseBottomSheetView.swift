@@ -281,8 +281,7 @@ class MineChooseBottomSheetView: TGLinearLayout {
                 
                 let settingView = SuperSettingView.onlylTitle(titleArr[i]) { [weak self] _ in
 //                    self?.chooseTitle(titleArr[i])
-                    let vc = UIApplication.shared.keyWindow?.rootViewController
-                    vc?.presentAlert(title: "确认清空所有聊天记录吗？".innerLocalized()) {
+                    self?.currentController?.presentAlert(title: "确认清空所有聊天记录吗？".innerLocalized()) {
                         guard let weakself = self else { return }
                         IMController.shared.clearC2CHistoryMessages(conversationID: weakself.conversationInfo?.conversationID ?? "") { [weak self] _ in
                             guard let sself = self else { return }
