@@ -124,36 +124,6 @@
             endingLineNumber = "251"
             landmarkName = "deleteFriend()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "F616B823-8B3D-4373-BCE9-F86F4ACBFC83 - 1e34cd5279d16ac6"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;OUICore.ConversationInfo&gt;) -&gt; () in IM_NCER.MineChooseBottomSheetView.addChatVCUI() -&gt; ()"
-                  moduleName = "IM-NCER"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Desktop/aibitlin/Example/OpenIMSDKUIKit/Component/Mine/View/Feedback/MineChooseBottomSheetView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "251"
-                  endingLineNumber = "251">
-               </Location>
-               <Location
-                  uuid = "F616B823-8B3D-4373-BCE9-F86F4ACBFC83 - 9d26ca0772081f77"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "IM_NCER.MineChooseBottomSheetView.reportAction() -&gt; ()"
-                  moduleName = "IM-NCER"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Desktop/aibitlin/Example/OpenIMSDKUIKit/Component/Mine/View/Feedback/MineChooseBottomSheetView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "251"
-                  endingLineNumber = "251">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -249,6 +219,22 @@
             startingLineNumber = "1203"
             endingLineNumber = "1203"
             landmarkName = "scrollToBottom(animated:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0C96F8A4-84CA-41E0-8791-0157D9CD5B14"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../OUIIM/Classes/OIMUIChat/Controller/DefaultChatController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "436"
+            endingLineNumber = "436"
+            landmarkName = "joinMeetingMidway(isVedio:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

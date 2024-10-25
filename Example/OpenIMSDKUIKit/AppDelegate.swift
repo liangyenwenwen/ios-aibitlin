@@ -108,6 +108,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 //        }
         
         
+        print(YFNetworkUtils.getIPAddress())
+//        print(YFNetworkUtils.getIPAddress2())
+        
+        YFNetworkUtils.getPublicIPAddress { ip in
+            
+            print(ip)
+            
+            
+        }
+        
         
         UINavigationBar.appearance().tintColor = .c0C1C33
         UINavigationBar.appearance().isTranslucent = true

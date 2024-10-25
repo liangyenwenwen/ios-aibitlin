@@ -13,6 +13,7 @@ import ProgressHUD
 import RxSwift
 import Network
 import ProgressHUD
+import OpenIMSDK
 
 class YFMineNetViewModel: AccountViewModel {
     
@@ -530,7 +531,7 @@ class YFMineNetViewModel: AccountViewModel {
                             let defaults = UserDefaults.standard
                             defaults.set(String.getCurrentLanguageFirst(), forKey: "blogLanguage\(uid)")
                         }
-                        
+                        UserDefaults.standard.set("0", forKey: "blogVersion\(Open_im_sdkGetLoginUserID())")
                     } else {
                        
                     }
@@ -554,6 +555,7 @@ class YFMineNetViewModel: AccountViewModel {
                         defaults.set(String.getCurrentLanguageFirst(), forKey: "blogLanguage\(uid)")
                     }
                     
+                    UserDefaults.standard.set("0", forKey: "blogVersion\(Open_im_sdkGetLoginUserID())")
                 } else {
                    
                 }

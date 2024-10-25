@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import Network
 
 class YFNetworkUtils {
     
@@ -41,6 +41,125 @@ class YFNetworkUtils {
 //        return "1.1.1.1"
     }
     
+//    static func getIPAddress() -> String? {
+//        var ipAddress: String?
+//        
+//        let monitor = NWPathMonitor()
+//        let queue = DispatchQueue(label: "NetworkMonitor")
+//        
+//        monitor.pathUpdateHandler = { path in
+//            if let ipv4Interface = path.availableInterfaces.filter({ $0.type == .wifi || $0.type == .wiredEthernet }).first,
+//               let ipv4Address = ipv4Interface.ipv4Addresses.first
+//            {
+//                ipAddress = ipv4Address
+//            }
+//        }
+//        
+//        monitor.start(queue: queue)
+//        
+//        return ipAddress
+//    }
     
+    
+//    static func getIPAddress() -> String?  {
+//        let task = Process()
+//        task.launchPath = "/usr/sbin/ifconfig"
+//        task.arguments = ["en0"]
+//         
+//        let pipe = Pipe()
+//        task.standardOutput = pipe
+//        task.launch()
+//         
+//        let data = pipe.fileHandleForReading.readDataToEndOfFile()
+//        let output = String(data: data, encoding: .utf8)
+//        let lines = output?.components(separatedBy: .newlines)
+//         
+//        var ipAddress: String?
+//        if let lines = lines {
+//            for line in lines {
+//                if line.contains("inet "),
+//                   let range = line.range(of: "inet ") {
+//                    let start = line.index(range.upperBound, offsetBy: 1)
+//                    let end = line.index(range.upperBound, offsetBy: 14)
+//                    ipAddress = String(line[start..<end])
+//                    break
+//                }
+//            }
+//        }
+//         
+//        return ipAddress
+//    }
+    
+    
+    static func getPublicIPAddress(completion: @escaping (String?) -> Void) {
+
+            let url = URL(string: "https://httpbin.org/ip")!
+
+            let task = URLSession.shared.dataTask(with: url) { data, response, error in
+
+                if let error = error {
+
+                    print("Error fetching public IP: \(error.localizedDescription)")
+
+                    completion(nil)
+
+                    return
+
+                }
+
+                guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+
+                    print("Invalid response")
+
+                    completion(nil)
+
+                    return
+
+                }
+
+                guard let data = data else {
+
+                    print("No data in response")
+
+                    completion(nil)
+
+                    return
+
+                }
+
+                guard let ipString = String(data: data, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines) else {
+
+                    print("Failed to decode IP address")
+
+                    completion(nil)
+
+                    return
+
+                }
+
+                guard let jsonData = ipString.data(using: .utf8) else { return  }
+
+                do {
+
+                        if let jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any],
+
+                           let origin = jsonObject["origin"] as? String {
+
+                            completion(origin)
+
+                        }
+
+                    } catch {
+
+                        print(error)
+
+                    }
+
+            }
+
+            task.resume()
+
+        }
+
     
 }
