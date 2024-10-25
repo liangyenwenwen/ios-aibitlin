@@ -298,6 +298,19 @@ extension IMController {
         }
     }
     
+    public func getMoreGroupListBy(id: String) -> Observable<[OIMGroupInfo]?> {
+        return Observable<[OIMGroupInfo]?>.create { observer in
+            Self.shared.imManager.getSpecifiedGroupsInfo([id], onSuccess: { (groups: [OIMGroupInfo]?) in
+                observer.onNext(groups)
+                observer.onCompleted()
+            }, onFailure: { (code: Int, msg: String?) in
+                observer.onError(NetError(code: code, message: msg))
+            })
+            
+            return Disposables.create()
+        }
+    }
+    
     public func getJoinedGroupList(completion: @escaping ([GroupInfo]) -> Void) {
         Self.shared.imManager.getJoinedGroupListWith { (groups: [OIMGroupInfo]?) in
             guard let groups = groups else {
