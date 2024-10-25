@@ -238,7 +238,6 @@ public class AvatarView: UIView {
             if faceUrlArr.count > 0 {
                 
                 setGroupImgWithFaceURls(faceUrlArr: faceUrlArr, groupID: item.groupID!)
-//                setGroupImgWithFaceURls(faceUrlArr: [faceUrlArr[0]], groupID: item.groupID!)
                 groupAvatarImageView.backgroundColor = .cE8EAEF
             } else {
                 
