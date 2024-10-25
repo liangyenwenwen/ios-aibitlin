@@ -30,6 +30,19 @@ public class BaseIGListViewController: UIViewController {
                 
         return v
     }()
+    lazy var headView: MomentHeaderCell = {
+        let v = MomentHeaderCell()
+//        v.bindViewModel(object!)
+//        v.onTap = {[weak self] action in
+//            switch action {
+//            case .avatar:
+//                self?.onTap?(action)
+//            default:
+//                break
+//            }
+//        }
+        return v
+    }()
     
     lazy var adapter: ListAdapter = {
         let adapter = ListAdapter(updater: ListAdapterUpdater(), viewController: self)
@@ -53,14 +66,20 @@ public class BaseIGListViewController: UIViewController {
         
         self.fd_prefersNavigationBarHidden = true
         self.modalPresentationCapturesStatusBarAppearance = false
-        
+        view.addSubview(headView)
         view.addSubview(collectionView)
         adapter.collectionView = collectionView
         adapter.dataSource = self
         
+        
+        headView.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview()
+            make.top.equalToSuperview().offset(-(UIApplication.safeAreaInsets.top + UIApplication.statusBarHeight))
+            make.height.equalTo(222.h + UIApplication.safeAreaInsets.top + UIApplication.statusBarHeight)
+        }
         collectionView.snp.makeConstraints { make in
             make.leading.bottom.trailing.equalToSuperview()
-            make.top.equalToSuperview().offset(-(UIApplication.safeAreaInsets.top + UIApplication.statusBarHeight))
+            make.top.equalTo(headView.snp_bottom)
 //            make.top.equalTo(222.h)
         }
     }
