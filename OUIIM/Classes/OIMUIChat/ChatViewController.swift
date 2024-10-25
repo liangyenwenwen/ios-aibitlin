@@ -309,6 +309,7 @@ final class ChatViewController: UIViewController {
         self.swipeNotifier = swipeNotifier
         self.hiddenInputBar = hiddenInputBar
         self.scrollToTop = scrollToTop
+//        self.scrollToTop = true
         super.init(nibName: nil, bundle: nil)
         
 //        if  self.chatController.getConversation().conversationType == .notification {
@@ -379,7 +380,9 @@ final class ChatViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        if chatController.getConversation().conversationType == .notification  {
+            scrollToTop = true
+        }
         
 //        if #available(iOS 13.0, *) {
 //            view.backgroundColor = .systemBackground
@@ -397,7 +400,10 @@ final class ChatViewController: UIViewController {
         chatLayout.settings.interItemSpacing = 10
         chatLayout.settings.interSectionSpacing = 4
         chatLayout.settings.additionalInsets = UIEdgeInsets(top: 8, left: 5, bottom: 8, right: 5)
-        chatLayout.keepContentOffsetAtBottomOnBatchUpdates = !scrollToTop
+       
+            chatLayout.keepContentOffsetAtBottomOnBatchUpdates = !scrollToTop
+        
+        
         chatLayout.processOnlyVisibleItemsOnAnimatedBatchUpdates = false
         
         collectionView = UICollectionView(frame: view.frame, collectionViewLayout: chatLayout)
@@ -611,6 +617,14 @@ final class ChatViewController: UIViewController {
             titleView.mainLabel.text = info.showName
             view.backgroundColor = .init(hexString: "#f5f5f5")
             navigationItem.rightBarButtonItems = [settingButton]
+            
+            
+//            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:1 inSection:0];
+//            [collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionTop animated:true];
+            
+//            let indexPath = IndexPath(row: 1, section: 0)
+//            collectionView.scrollToItem(at: indexPath, at: .top, animated: false)
+            
         }
     }
     
