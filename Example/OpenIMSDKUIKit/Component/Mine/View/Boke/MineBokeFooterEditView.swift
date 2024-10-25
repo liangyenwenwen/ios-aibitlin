@@ -10,6 +10,11 @@ import TangramKit
 import RxSwift
 import RxCocoa
 
+
+import OUIIM
+import OUICore
+import ProgressHUD
+
 class MineBokeFooterEditView: TGLinearLayout {
 
     var editBoke : ((blogDetailItem)->Void)!

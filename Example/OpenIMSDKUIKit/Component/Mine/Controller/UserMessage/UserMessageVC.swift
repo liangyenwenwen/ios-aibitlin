@@ -224,6 +224,7 @@ class UserMessageVC: BaseTitleController {
         contentView.tg_width.equal(.fill)
         contentView.tg_height.equal(350)
         contentView.addUserMessageUI()
+        contentView.currentController = self
         contentView.chooseTitle = { [weak self] title in
             print(title)
             self?.bottomSheetClick(title)

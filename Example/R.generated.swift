@@ -167,7 +167,7 @@ struct _R: Sendable {
       var ieXW0yeText: RswiftResources.StringResource { .init(key: "8ie-xW-0ye.text", tableName: "LaunchScreen", source: source, developmentValue: nil, comment: nil) }
     }
 
-    /// This `_R.string.localizable` struct is generated, and contains static references to 484 localization keys.
+    /// This `_R.string.localizable` struct is generated, and contains static references to 487 localization keys.
     struct localizable {
       let source: RswiftResources.StringResource.Source
 
@@ -891,6 +891,27 @@ struct _R: Sendable {
       ///
       /// Locales: en, zh-Hans, th
       var defaultVerificationCode: RswiftResources.StringResource1<String> { .init(key: "defaultVerificationCode", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Are you sure you want to delete the blog?
+      ///
+      /// Key: deletBookTip
+      ///
+      /// Locales: en, zh-Hans, th
+      var deletBookTip: RswiftResources.StringResource { .init(key: "deletBookTip", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Are you sure you want to delete this friend?
+      ///
+      /// Key: deletFriendTip
+      ///
+      /// Locales: en, zh-Hans, th
+      var deletFriendTip: RswiftResources.StringResource { .init(key: "deletFriendTip", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Are you sure you want to delete this dynamic?
+      ///
+      /// Key: deletMomentTip
+      ///
+      /// Locales: en, zh-Hans, th
+      var deletMomentTip: RswiftResources.StringResource { .init(key: "deletMomentTip", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: E-mail
       ///

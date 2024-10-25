@@ -261,10 +261,14 @@ extension MineBokeListViewController {
         }
         
         contentView.deleteBoke = { [weak self] item in
-            GKCover.hideWithoutAnimation()
             print("删除")
-
-            self?.deleteBlog(item: item)
+//            GKCover.hideWithoutAnimation()
+//            self?.deleteBlog(item: item)
+            self?.presentAlert(title: "deletBookTip".localized()) { [weak self] in
+                GKCover.hideWithoutAnimation()
+                self?.deleteBlog(item: item)
+            }
+            
         }
         
         contentView.topBlog = { [weak self] item in

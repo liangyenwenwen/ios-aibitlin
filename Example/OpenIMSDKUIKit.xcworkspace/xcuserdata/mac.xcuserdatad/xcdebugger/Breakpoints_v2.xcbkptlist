@@ -62,36 +62,38 @@
             endingLineNumber = "69"
             landmarkName = "_photoHelper"
             landmarkType = "24">
-            <Locations>
-               <Location
-                  uuid = "D8442AD3-1FCB-42E9-9CE6-C3CA23C479DE - e33a9f81fb501a44"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Array&lt;__C.UIImage&gt;, Swift.Array&lt;__C.PHAsset&gt;) -&gt; () in closure #1 () -&gt; OUICore.PhotoHelper in OUIIM.CoustomInputBarAccessoryView._photoHelper.getter : OUICore.PhotoHelper"
-                  moduleName = "IM-NCER"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Desktop/aibitlin/OUIIM/Classes/OIMUIChat/View/InputView/CoustomInputBarAccessoryView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "69"
-                  endingLineNumber = "69">
-               </Location>
-               <Location
-                  uuid = "D8442AD3-1FCB-42E9-9CE6-C3CA23C479DE - 3e4cf46a4455dd4f"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #2 (Swift.Optional&lt;Foundation.Data&gt;, Swift.Bool) -&gt; () in closure #1 (Swift.Array&lt;__C.UIImage&gt;, Swift.Array&lt;__C.PHAsset&gt;) -&gt; () in closure #1 () -&gt; OUICore.PhotoHelper in OUIIM.CoustomInputBarAccessoryView._photoHelper.getter : OUICore.PhotoHelper"
-                  moduleName = "IM-NCER"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Desktop/aibitlin/OUIIM/Classes/OIMUIChat/View/InputView/CoustomInputBarAccessoryView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "70"
-                  endingLineNumber = "70">
-               </Location>
-            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4E3AE76B-C5CE-40FD-9424-95BD24B83551"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../OUIIM/Classes/OIMUIChat/View/Cell/VipView/YFVipNormalView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "109"
+            endingLineNumber = "109"
+            landmarkName = "reloadData()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BE1BF5D8-FE65-42F9-A7CD-B223DD1A8571"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../OUIIM/Classes/OIMUIChat/ChatViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "756"
+            endingLineNumber = "756"
+            landmarkName = "setEditNotEdit(forceEnd:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -152,8 +154,8 @@
             filePath = "OpenIMSDKUIKit/Component/Mine/View/Feedback/MineChooseBottomSheetView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "227"
-            endingLineNumber = "227"
+            startingLineNumber = "230"
+            endingLineNumber = "230"
             landmarkName = "MineChooseBottomSheetView"
             landmarkType = "3">
          </BreakpointContent>
@@ -305,16 +307,64 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D2462A2E-AAFB-4CB2-8CA7-E438D1AB1514"
+            uuid = "C1694679-8DB9-4B66-9744-FA5063D8E08E"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../OUIIM/Classes/OIMUIChat/ChatViewController.swift"
+            filePath = "OpenIMSDKUIKit/Component/Mine/View/Boke/MineBokeFooterEditView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1203"
-            endingLineNumber = "1203"
-            landmarkName = "scrollToBottom(animated:completion:)"
+            startingLineNumber = "222"
+            endingLineNumber = "222"
+            landmarkName = "deleteBtn"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4C4D406C-650F-4D24-93AD-E5D46D135751"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "OpenIMSDKUIKit/Component/Mine/Controller/Boke/MineBokeListViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "272"
+            endingLineNumber = "272"
+            landmarkName = "showEdit(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "278E39ED-EBBD-4D78-826C-182435EFD72A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../OUIMoments/Classes/Sections/MomentsListController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "122"
+            endingLineNumber = "122"
+            landmarkName = "momentCommentCell(at:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7C08A67C-0E47-44C6-988D-DFB425CB4C62"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "OpenIMSDKUIKit/Component/Mine/View/Feedback/MineChooseBottomSheetView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "301"
+            endingLineNumber = "301"
+            landmarkName = "addChatVCUI()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

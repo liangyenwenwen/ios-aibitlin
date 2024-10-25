@@ -286,17 +286,19 @@ extension MomentsViewController {
                 
                 if commentID == nil {
                     // Delete a post.
-                    ProgressHUD.animate(interaction: false)
-                    self.viewModel.delete(momentID: info.workMomentID) { success in
-                        if success {
-                            self.objects.removeAll { (element) -> Bool in
-                                guard let ele = element as? MomentsInfo else {
-                                    return false
+                    presentAlert(title: "deletMomentTip".localized()) { [weak self] in
+                        ProgressHUD.animate(interaction: false)
+                        self?.viewModel.delete(momentID: info.workMomentID) { success in
+                            if success {
+                                self?.objects.removeAll { (element) -> Bool in
+                                    guard let ele = element as? MomentsInfo else {
+                                        return false
+                                    }
+                                    return ele.workMomentID == info.workMomentID
                                 }
-                                return ele.workMomentID == info.workMomentID
+                                self?.adapter.performUpdates(animated: true, completion: nil)
+                                ProgressHUD.dismiss()
                             }
-                            self.adapter.performUpdates(animated: true, completion: nil)
-                            ProgressHUD.dismiss()
                         }
                     }
                 } else {

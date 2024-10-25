@@ -183,8 +183,11 @@ class MineChooseBottomSheetView: TGLinearLayout {
                 let settingView = SuperSettingView.onlylTitle(titleArr2[i]) { [weak self] _ in
 //                    self?.chooseTitle(titleArr2[i])
                     if i == 0 {
-                        self?.deleteFriend()
-                        GKCover.hide()
+                        self?.currentController?.presentAlert(title: "deletFriendTip".localized()) { [weak self] in
+                            self?.deleteFriend()
+                            GKCover.hide()
+                        }
+                        
                     }
                     
                     if i == 2 {
@@ -274,20 +277,25 @@ class MineChooseBottomSheetView: TGLinearLayout {
                 topContainer.addSubview(settingView)
                 
             } else if i == 2 {
+                
+                
                 let settingView = SuperSettingView.onlylTitle(titleArr[i]) { [weak self] _ in
 //                    self?.chooseTitle(titleArr[i])
-                    
-                    guard let weakself = self else { return }
-                    IMController.shared.clearC2CHistoryMessages(conversationID: weakself.conversationInfo?.conversationID ?? "") { [weak self] _ in
-                        guard let sself = self else { return }
-                        let event = EventRecordClear(conversationId: weakself.conversationInfo?.conversationID ?? "")
-                        JNNotificationCenter.shared.post(event)
-                        
-                        NotificationCenter.default.post(name: Notification.Name("chat.clear.record"), object: nil)
-//                        ProgressHUD.success("清空成功".innerLocalized())
-                        SuperToast.show(title: "清空成功".innerLocalized())
-                        GKCover.hide()
+                    let vc = UIApplication.shared.keyWindow?.rootViewController
+                    vc?.presentAlert(title: "确认清空所有聊天记录吗？".innerLocalized()) {
+                        guard let weakself = self else { return }
+                        IMController.shared.clearC2CHistoryMessages(conversationID: weakself.conversationInfo?.conversationID ?? "") { [weak self] _ in
+                            guard let sself = self else { return }
+                            let event = EventRecordClear(conversationId: weakself.conversationInfo?.conversationID ?? "")
+                            JNNotificationCenter.shared.post(event)
+                            
+                            NotificationCenter.default.post(name: Notification.Name("chat.clear.record"), object: nil)
+    //                        ProgressHUD.success("清空成功".innerLocalized())
+                            SuperToast.show(title: "清空成功".innerLocalized())
+                            GKCover.hide()
+                        }
                     }
+                    
                 }
                 settingView.isMediumFont(15)
                 topContainer.addSubview(settingView)
@@ -357,6 +365,7 @@ class MineChooseBottomSheetView: TGLinearLayout {
             }
             settingView.isMediumFont(15)
             centerContainer.addSubview(settingView)
+            
         }
     }
     

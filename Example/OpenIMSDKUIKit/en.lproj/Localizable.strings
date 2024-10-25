@@ -194,6 +194,11 @@
 "accountException" = "Your account has been logged in to another device; please change your password in time.";
 
 
+"deletBookTip" = "Are you sure you want to delete the blog?";
+"deletMomentTip" = "Are you sure you want to delete this dynamic?";
+"deletFriendTip" = "Are you sure you want to delete this friend?";
+
+
 
 //网络相关
 ErrorNetworkUnknownHost = "Server not found";
