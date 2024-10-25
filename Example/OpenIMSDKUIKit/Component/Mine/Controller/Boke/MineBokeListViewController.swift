@@ -10,6 +10,7 @@ import RxSwift
 import RxCocoa
 import OUICore
 import NSObject_Rx
+import OUICoreView
 
 
 
@@ -269,6 +270,31 @@ extension MineBokeListViewController {
                 self?.deleteBlog(item: item)
             }
             
+        }
+        
+        contentView.shareBlog = { [weak self] blogItem in
+            print(blogItem.userBlogName)
+            
+            let vc = MyContactsViewController(types: [.friends])
+            vc.allowsSelecteAll = false
+            
+            vc.selectedContact { [weak self, weak vc] info in
+                guard let self, let vc, let user = info.first else { return }
+
+                IMController.shared.sendBokeMessage(boke: blogItem.toBokeElem(), to: user.ID!, conversationType: .c2c) { _ in
+                    
+                } onComplete: { _ in
+                    vc.dismiss(animated: true)
+                    GKCover.hideWithoutAnimation()
+                    SuperToast.show(title: "sentSuccess".localized())
+                    
+                }
+
+                
+            }
+            
+            let nav = UINavigationController(rootViewController: vc)
+            self?.present(nav, animated: true)
         }
         
         contentView.topBlog = { [weak self] item in
