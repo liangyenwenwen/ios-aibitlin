@@ -48,7 +48,7 @@ open class AccountViewModel {
         OIMApi.queryFriendsWithCompletionHandler = { (keywords, completion: @escaping ([UserInfo]) -> Void) in
             AccountViewModel.queryFriends(content: keywords.first!, valueHandler: { users in
                 let result = users.compactMap {
-                    UserInfo(userID: $0.userID!, nickname: $0.nickname, phoneNumber: $0.phoneNumber, email: $0.email)
+                    UserInfo(userID: $0.userID!, nickname: $0.nickname, phoneNumber: $0.phoneNumber, email: $0.email, faceURL: $0.faceURL)
                 }
                 completion(result)
             }, completionHandler: { errCode, _ in

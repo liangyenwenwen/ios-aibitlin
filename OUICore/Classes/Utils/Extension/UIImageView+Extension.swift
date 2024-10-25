@@ -82,6 +82,7 @@ extension UIImageView {
             }
             return
         }
+        
         kf.setImage(with: url, placeholder: UIImage.init(named: placeHolder ?? "DefaultAvatar"))
     }
     

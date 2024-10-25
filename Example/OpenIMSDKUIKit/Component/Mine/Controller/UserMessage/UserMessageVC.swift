@@ -24,6 +24,8 @@ class UserMessageVC: BaseTitleController {
 //    var ConversationInfo: ConversationInfo?
     var userInfo: QueryUserInfo?
     
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -490,7 +492,13 @@ extension UserMessageVC {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        
+        if self.userInfo != nil {
+            return 2
+        } else {
+            return 0
+        }
+        
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

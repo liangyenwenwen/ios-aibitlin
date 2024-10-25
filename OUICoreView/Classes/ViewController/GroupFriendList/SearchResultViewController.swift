@@ -11,10 +11,15 @@ public class SearchResultViewController: UIViewController, UISearchResultsUpdati
     private lazy var tableView: UITableView = {
         let v = UITableView()
         v.register(SearchResultCell.self, forCellReuseIdentifier: SearchResultCell.className)
+        v.register(YFSeacrhListFriendListCell.self, forCellReuseIdentifier: YFSeacrhListFriendListCell.className)
         v.rowHeight = UITableView.automaticDimension
         v.dataSource = self
         v.delegate = self
         v.backgroundColor = .clear
+        
+        if _searchType == .user {
+            v.separatorStyle = .none
+        }
         
         if #available(iOS 15.0, *) {
             v.sectionHeaderTopPadding = 0
@@ -47,6 +52,14 @@ public class SearchResultViewController: UIViewController, UISearchResultsUpdati
             tableView.reloadData()
         }
     }
+    
+    var usersList = [UserInfo]() {
+        willSet {
+            usersList = newValue
+            tableView.reloadData()
+        }
+    }
+    
     private let _disposebag = DisposeBag()
     private let _searchType: SearchType
     private var userInfo: FullUserInfo?
@@ -170,19 +183,21 @@ public class SearchResultViewController: UIViewController, UISearchResultsUpdati
                         let isPhone = self.isPhoneNumber(keyword)
                         let isEmail = self.isEmail(keyword)
                         
-                        self.dataList = res.map { elem in
-                            if isNumber {
-                                if isPhone {
-                                    return [elem.userID : "手机号".innerLocalized() + ":" + elem.phoneNumber!]
-                                } else {
-                                    return [elem.userID : "ID:" + elem.userID]
-                                }
-                            } else if isEmail {
-                                return [elem.userID : "邮箱".innerLocalized() + ":" + elem.email!]
-                            } else {
-                                return [elem.userID : "昵称".innerLocalized() + ":" + SuperStringUtil.getUserShowname(showname: elem.nickname!)]
-                            }
-                        }
+                        self.usersList = res
+                        
+//                        self.dataList = res.map { elem in
+//                            if isNumber {
+//                                if isPhone {
+//                                    return [elem.userID : "手机号".innerLocalized() + ":" + elem.phoneNumber!]
+//                                } else {
+//                                    return [elem.userID : "ID:" + elem.userID]
+//                                }
+//                            } else if isEmail {
+//                                return [elem.userID : "邮箱".innerLocalized() + ":" + elem.email!]
+//                            } else {
+//                                return [elem.userID : "昵称".innerLocalized() + ":" + SuperStringUtil.getUserShowname(showname: elem.nickname!)]
+//                            }
+//                        }
                     }
                 })
             } else {
@@ -235,10 +250,25 @@ public class SearchResultViewController: UIViewController, UISearchResultsUpdati
 
 extension SearchResultViewController: UITableViewDelegate, UITableViewDataSource {
     public func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-        return dataList.count
+        
+        if _searchType == .user {
+            return usersList.count
+        } else {
+            return dataList.count
+        }
+        
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        
+        if _searchType == .user {
+            let cell = tableView.dequeueReusableCell(withIdentifier: YFSeacrhListFriendListCell.className, for: indexPath) as! YFSeacrhListFriendListCell
+            let user = usersList[indexPath.row]
+            cell.bindData(user: user)
+            return cell
+        }
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultCell.className, for: indexPath) as! SearchResultCell
         let info = dataList[indexPath.row]
         
@@ -249,9 +279,141 @@ extension SearchResultViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     public func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let info = dataList[indexPath.row]
-        if let id = info.keys.first {
-            didSelectedItem?(id)
+        
+        if _searchType == .user {
+            let user = usersList[indexPath.row]
+            didSelectedItem?(user.userID)
+        } else {
+            let info = dataList[indexPath.row]
+            if let id = info.keys.first {
+                didSelectedItem?(id)
+            }
         }
+        
     }
 }
+
+
+
+class YFSeacrhListFriendListCell: UITableViewCell {
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        initUI()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    lazy var leftIconImg: UIImageView = {
+        let r = UIImageView()
+        r.clipsToBounds = true
+        r.layer.cornerRadius = 28
+        r.contentMode = .scaleAspectFill
+        r.image = .init(named: "DefaultAvatar")
+        return r
+    }()
+    
+    lazy var titleLbl: UILabel = {
+        let r = UILabel()
+        r.text = "username"
+        r.textColor = .init(hexString: "#333333")
+        r.font = UIFont(name: "PingFangSC-Semibold", size: 16)
+        r.textAlignment = .left
+        return r
+    }()
+    
+    
+    lazy var tagsLbl: UILabel = {
+        let r = UILabel()
+        r.text = "tag"
+        r.textColor = .init(hexString: "#7238EF")
+        r.font = UIFont(name: "PingFangSC-Semibold", size: 11)
+        r.textAlignment = .left
+        return r
+    }()
+
+    
+    lazy var userIdLbl: UILabel = {
+        let r = UILabel()
+        r.text = "ID:"
+        r.textColor = .init(hexString: "#666666")
+        r.font = UIFont(name: "PingFangSC-Regular", size: 14)
+        r.textAlignment = .left
+        return r
+    }()
+
+
+    func initUI() {
+        contentView.addSubview(leftIconImg)
+        contentView.addSubview(tagsLbl)
+        contentView.addSubview(titleLbl)
+        contentView.addSubview(userIdLbl)
+
+        
+        
+        leftIconImg.snp.makeConstraints { make in
+            make.left.equalTo(16)
+            make.width.height.equalTo(56)
+//            make.centerY.equalToSuperview()
+            make.top.equalTo(8)
+            make.bottom.equalTo(-8)
+        }
+        
+        tagsLbl.snp.makeConstraints { make in
+            make.left.equalTo(leftIconImg.snp_right).offset(13)
+            make.centerY.equalTo(leftIconImg)
+            make.height.equalTo(12)
+        }
+        
+        titleLbl.snp.makeConstraints { make in
+            make.left.equalTo(leftIconImg.snp_right).offset(13)
+            make.bottom.equalTo(tagsLbl.snp_top).offset(-7)
+            make.height.equalTo(17)
+            make.right.equalToSuperview().inset(16)
+        }
+        
+        userIdLbl.snp.makeConstraints { make in
+            make.left.equalTo(leftIconImg.snp_right).offset(13)
+            make.top.equalTo(tagsLbl.snp_bottom).offset(7)
+            make.height.equalTo(14)
+            make.right.equalToSuperview().inset(16)
+        }
+        
+    }
+    
+    
+    func  bindData(user: UserInfo) {
+        titleLbl.text = SuperStringUtil.getUserState(showname: user.nickname!).n
+        titleLbl.textColor = SuperStringUtil.getUserState(showname: user.nickname!).v > 0 ? .init(hexString: "#FF3939") : .init(hexString: "#333333")
+        if let tag  = SuperStringUtil.getUserTag(showname: user.nickname!) {
+            tagsLbl.text = tag
+            tagsLbl.snp.makeConstraints { make in
+                make.height.equalTo(12)
+            }
+            userIdLbl.snp.makeConstraints { make in
+                make.top.equalTo(tagsLbl.snp_bottom).offset(7)
+            }
+            titleLbl.snp.makeConstraints { make in
+                make.bottom.equalTo(tagsLbl.snp_top).offset(-7)
+            }
+        } else {
+            tagsLbl.text = nil
+            tagsLbl.snp.makeConstraints { make in
+                make.height.equalTo(0)
+            }
+            userIdLbl.snp.makeConstraints { make in
+                make.top.equalTo(tagsLbl.snp_bottom).offset(3.5)
+            }
+            titleLbl.snp.makeConstraints { make in
+                make.bottom.equalTo(tagsLbl.snp_top).offset(-3.5)
+            }
+        }
+        print("+++++\(user.faceURL)")
+        leftIconImg.setImageAbout(string: user.faceURL, placeHolder: "DefaultAvatar")
+        userIdLbl.text = "ID:\(user.userID!)"
+    }
+    
+}
+
