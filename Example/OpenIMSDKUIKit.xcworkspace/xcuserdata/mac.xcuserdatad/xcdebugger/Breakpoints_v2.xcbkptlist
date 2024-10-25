@@ -122,8 +122,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "227"
             endingLineNumber = "227"
-            landmarkName = "MineChooseBottomSheetView"
-            landmarkType = "3">
+            landmarkName = "reportAction()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

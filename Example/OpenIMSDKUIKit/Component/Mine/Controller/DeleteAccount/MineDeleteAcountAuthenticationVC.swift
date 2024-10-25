@@ -205,7 +205,7 @@ class MineDeleteAcountAuthenticationVC: BaseTitleController {
     }()
     
     lazy var newPwdView: SuperSettingView = {
-        let r = SuperSettingView.createInput("NewPassword".localized())
+        let r = SuperSettingView.createInput("输入密码".localized())
         r.isMediumFont()
         r.isPwd()
         return r
