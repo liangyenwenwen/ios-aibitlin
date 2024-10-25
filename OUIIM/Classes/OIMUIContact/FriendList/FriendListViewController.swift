@@ -776,8 +776,9 @@ class listTableHeader: UIView {
             unreadLabel.snp.makeConstraints { make in
                 make.right.equalTo(-10)
                 make.centerY.equalToSuperview()
-                make.width.equalTo(30)
-                make.height.equalTo(24)
+//                make.width.equalTo(30)
+//                make.height.equalTo(24)
+                make.width.greaterThanOrEqualTo(unreadLabel.snp.height)
             }
         }
         

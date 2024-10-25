@@ -64,28 +64,28 @@
             landmarkType = "24">
             <Locations>
                <Location
-                  uuid = "D8442AD3-1FCB-42E9-9CE6-C3CA23C479DE - e33a9f81fb501a44"
+                  uuid = "D8442AD3-1FCB-42E9-9CE6-C3CA23C479DE - a07c6d4ec299fc59"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "closure #1 (Swift.Array&lt;__C.UIImage&gt;, Swift.Array&lt;__C.PHAsset&gt;) -&gt; () in closure #1 () -&gt; OUICore.PhotoHelper in OUIIM.CoustomInputBarAccessoryView._photoHelper.getter : OUICore.PhotoHelper"
                   moduleName = "IM-NCER"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Desktop/aibitlin/OUIIM/Classes/OIMUIChat/View/InputView/CoustomInputBarAccessoryView.swift"
+                  urlString = "file:///Users/mac/Documents/AIbitlin/OUIIM/Classes/OIMUIChat/View/InputView/CoustomInputBarAccessoryView.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "69"
                   endingLineNumber = "69">
                </Location>
                <Location
-                  uuid = "D8442AD3-1FCB-42E9-9CE6-C3CA23C479DE - 3e4cf46a4455dd4f"
+                  uuid = "D8442AD3-1FCB-42E9-9CE6-C3CA23C479DE - 7d0a06a57d9c3b5c"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "closure #2 (Swift.Optional&lt;Foundation.Data&gt;, Swift.Bool) -&gt; () in closure #1 (Swift.Array&lt;__C.UIImage&gt;, Swift.Array&lt;__C.PHAsset&gt;) -&gt; () in closure #1 () -&gt; OUICore.PhotoHelper in OUIIM.CoustomInputBarAccessoryView._photoHelper.getter : OUICore.PhotoHelper"
                   moduleName = "IM-NCER"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Desktop/aibitlin/OUIIM/Classes/OIMUIChat/View/InputView/CoustomInputBarAccessoryView.swift"
+                  urlString = "file:///Users/mac/Documents/AIbitlin/OUIIM/Classes/OIMUIChat/View/InputView/CoustomInputBarAccessoryView.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "70"
@@ -331,6 +331,54 @@
             startingLineNumber = "634"
             endingLineNumber = "634"
             landmarkName = "expendClickAction()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E411953A-513D-4679-86D9-0662BBEB5F02"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../OUICoreView/Classes/ViewController/GroupFriendList/SearchGroup/SearchGroupViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "47"
+            endingLineNumber = "47"
+            landmarkName = "didPresentSearchController(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9E1948DD-C714-486E-81FD-9889C77E2F4C"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../OUICoreView/Classes/ViewController/GroupFriendList/SearchGroup/SearchGroupViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "16"
+            endingLineNumber = "16"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BE89454B-10D3-4C7E-A3C0-91651D1723E5"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../OUICoreView/Classes/ViewController/GroupFriendList/SearchGroup/SearchGroupViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
+            landmarkName = "viewWillDisappear(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

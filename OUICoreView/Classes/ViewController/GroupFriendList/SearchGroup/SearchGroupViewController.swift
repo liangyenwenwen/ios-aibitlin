@@ -19,6 +19,7 @@ public class SearchGroupViewController: UIViewController {
         searchViewController.hidesNavigationBarDuringPresentation = false
         searchViewController.automaticallyShowsCancelButton = false
         searchViewController.delegate = self
+        
 
         navigationItem.searchController = searchViewController
         navigationItem.hidesSearchBarWhenScrolling = false
@@ -36,7 +37,7 @@ public class SearchGroupViewController: UIViewController {
     public override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        view.endEditing(true)
+//        view.endEditing(true)
     }
 }
 

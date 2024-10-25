@@ -34,8 +34,8 @@ class MineBokeFooterEditView: TGLinearLayout {
     }
     
     func update() {
+        bokeCoveImage.show(blogItem.userBlogIcon)
         bokeTitle.text = blogItem.userBlogName
-        bokeContent.text = blogItem.userBlogIntro
         
         onHomeSwitch?.isOn = YFFileDataUtil.isHaveThisBlog(.home, blogItem: blogItem)
     }
@@ -47,7 +47,7 @@ class MineBokeFooterEditView: TGLinearLayout {
         tg_height.equal(.wrap)
         tg_space = PADDING_OUTER
         tg_gravity = .horz.center
-        tg_padding = UIEdgeInsets(top: PADDING_LARGE2, left: PADDING_MEDDLE, bottom: PADDING_MEDDLE, right: PADDING_MEDDLE)
+        tg_padding = UIEdgeInsets(top: 15, left: PADDING_MEDDLE, bottom: PADDING_MEDDLE, right: PADDING_MEDDLE)
         backgroundColor = .colorBackgroundAPP
         
         
@@ -71,12 +71,13 @@ class MineBokeFooterEditView: TGLinearLayout {
     lazy var topContainer: TGLinearLayout = {
         let r = TGLinearLayout(.horz)
         r.tg_width.equal(.fill)
-        r.tg_height.equal(.wrap)
+//        r.tg_height.equal(.wrap)
+        r.tg_height.equal(30)
         r.tg_space = PADDING_MEDDLE
         
         r.addSubview(bokeMessageContainer)
+        bokeMessageContainer.addSubview(bokeCoveImage)
         bokeMessageContainer.addSubview(bokeTitle)
-        bokeMessageContainer.addSubview(bokeContent)
         
 //        r.addSubview(cancleBtn)
         r.addSubview(cancleView)
@@ -84,37 +85,42 @@ class MineBokeFooterEditView: TGLinearLayout {
     }()
     
     lazy var bokeMessageContainer: TGLinearLayout = {
-        let r = TGLinearLayout(.vert)
+        let r = TGLinearLayout(.horz)
         r.tg_width.equal(.fill)
-        r.tg_height.equal(.wrap)
+//        r.tg_height.equal(.wrap)
+        r.tg_height.equal(30)
         r.tg_space = PADDING_MEDDLE
         r.clipsToBounds = true
+        return r
+    }()
+    lazy var bokeCoveImage: UIImageView = {
+        let r = UIImageView()
+        r.clipsToBounds = true
+        r.contentMode = .scaleAspectFill
+        r.layer.cornerRadius = 4
+        r.tg_width.equal(30)
+        r.tg_height.equal(30)
+        r.tg_centerY.equal(0)
         return r
     }()
     
     lazy var bokeTitle: UILabel = {
         let r = ViewFactoryUtil.normalLbael()
+//        let r = UILabel()
         r.text = "标题".localized()
         r.textColor = .colorOnBackground
         r.font = .systemFont(ofSize: TEXT_LARGE)
+//        r.tg_left.equal(30)
+//        r.tg_centerY.equal(10)
+        r.tg_height.equal(30)
+//        r.tg_right.equal(100)
         return r
     }()
-    
-    lazy var bokeContent: UILabel = {
-        let r = ViewFactoryUtil.normalLbael()
-        r.text = "内容".localized()
-        r.numberOfLines = 1
-        r.tg_width.equal(.fill)
-        r.textColor = .placeholder
-        r.font = .systemFont(ofSize: TEXT_SMALL)
-        return r
-    }()
-    
     
     lazy var cancleView: TGLinearLayout = {
         let r = TGLinearLayout(.vert)
         r.tg_width.equal(50)
-        r.tg_height.equal(43)
+        r.tg_height.equal(30)
         r.tg_gravity = .horz.right
 //        r.backgroundColor = .red
         r.addSubview(cancleBtn)
