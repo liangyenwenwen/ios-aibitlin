@@ -22,6 +22,7 @@ class MineBokeFooterEditView: TGLinearLayout {
     var deleteBoke : ((blogDetailItem)->Void)!
     var reportBoke : ((blogDetailItem)->Void)!
     var topBlog : ((blogDetailItem)->Void)!
+    var shareBlog: ((blogDetailItem)->Void)!
     var type: blogListVCType!
     var blogItem: blogDetailItem!
     
@@ -203,7 +204,7 @@ class MineBokeFooterEditView: TGLinearLayout {
         
         
         var shareView = SuperSettingView.onlylTitle("分享给好友".localized(), click: { [weak self] data in
-            
+            self!.shareBlog(self!.blogItem)
         })
         r.addSubview(shareView)
         

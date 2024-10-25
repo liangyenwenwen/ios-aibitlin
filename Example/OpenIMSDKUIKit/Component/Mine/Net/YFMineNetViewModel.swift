@@ -792,4 +792,10 @@ struct blogDetailItem: Codable {
         }
     }
     
+    func toBokeElem() -> BokeElem {
+        let source = self
+        let blog =  BokeElem(id: source.id, sign: source.sign, userBlogUrl: source.userBlogUrl, userBlogIntro: source.userBlogIntro, userBlogName: source.userBlogName, userBlogCreatIp: source.userBlogCreatIp, userBlogCreatAffiliatingArea: source.userBlogCreatAffiliatingArea, userBlogOrder: source.userBlogOrder, userId: source.userId, isDelete: source.isDelete, creationTime: source.creationTime, userBlogIcon: source.userBlogIcon, changeTime: source.changeTime)
+        
+        return blog
+    }
 }
