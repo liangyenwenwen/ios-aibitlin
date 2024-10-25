@@ -91,6 +91,7 @@ class YFNetworkUtils {
 //    }
     
     
+    /// 获取公共ip
     static func getPublicIPAddress(completion: @escaping (String?) -> Void) {
 
             let url = URL(string: "https://httpbin.org/ip")!
