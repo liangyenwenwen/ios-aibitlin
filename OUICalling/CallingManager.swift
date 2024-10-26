@@ -508,6 +508,7 @@ extension CallingManager {
                 lastDate = record.date
                 if signalingInfo.isSignal, !tips.isEmpty {
                     // 目前仅支持单聊
+                    record.isUnRead = !record.success
                     Self.saveRrecord(record: record)
          
                     do {
@@ -622,14 +623,17 @@ extension CallingManager {
         
         getRecords()
         var allRecords = CallingManager.getRecords()
-        var missedRecords = allRecords.filter { $0.success == false}
+//        var missedRecords = allRecords.filter { $0.success == false}
+        var missedRecords = allRecords.filter { $0.isUnRead == true}
         
-        /// 获取已读的未接通话数量
-        let readNumber = UserDefaults.standard.integer(forKey: recordsNumberKey)
+//        /// 获取已读的未接通话数量
+//        let readNumber = UserDefaults.standard.integer(forKey: recordsNumberKey)
+//        
+//        let showNumber = missedRecords.count - readNumber
+//        
+//        NotificationCenter.default.post(name: Notification.Name("refrehCallLogsbadgeValue"), object: nil, userInfo: ["value": "\(showNumber)"])
         
-        let showNumber = missedRecords.count - readNumber
-        
-        NotificationCenter.default.post(name: Notification.Name("refrehCallLogsbadgeValue"), object: nil, userInfo: ["value": "\(showNumber)"])
+        NotificationCenter.default.post(name: Notification.Name("refrehCallLogsbadgeValue"), object: nil, userInfo: ["value": "\(missedRecords.count)"])
         
     }
     
@@ -656,7 +660,7 @@ extension CallingManager {
     }
     
     
-    // 获取本地的音视频记录
+    /// 获取本地的音视频记录
     static public func getRecords() -> [CallRecord] {
         let recordsKey = "\(Open_im_sdkGetLoginUserID())-com.calling.records.key"
         
@@ -668,6 +672,26 @@ extension CallingManager {
         
         return []
     }
+    
+    /// 将本地记录标记为已读
+    static public func allReadRecords(){
+        let recordsKey = "\(Open_im_sdkGetLoginUserID())-com.calling.records.key"
+        if let jsonStr = UserDefaults.standard.string(forKey: recordsKey) {
+            var records = CallRecord.fromJson(jsonStr)
+            for record in records {
+                record.isUnRead = false
+            }
+            NotificationCenter.default.post(name: Notification.Name("refrehCallLogsbadgeValue"), object: nil, userInfo: ["value": "\(0)"])
+            
+            let result = Array<CallRecord>.toJson(fromObject: records)
+            UserDefaults.standard.set(result, forKey: recordsKey)
+            UserDefaults.standard.synchronize()
+        }
+
+        
+    }
+    
+    
 }
 
 // MARK: 监听函数
@@ -775,6 +799,7 @@ public class CallRecord: Codable {
     public var duration: Int = 0
     public var isSingnal: Bool = true
     public var isChoose: Bool = false
+    public var isUnRead: Bool = false
     
     public func typeStr() -> String {
         return type == "audio" ? "语音通话".innerLocalized() : "视频通话".innerLocalized()

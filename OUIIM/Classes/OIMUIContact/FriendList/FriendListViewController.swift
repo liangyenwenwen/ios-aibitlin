@@ -40,9 +40,21 @@ open class FriendListViewController: UIViewController {
         let r =  YFChatHomeSearchNav()
         r.backgroundColor = .white
         r.searchView.searchBlock = { [weak self]  in
-            let vc = GlobalSearchViewController()
+//            let vc = GlobalSearchViewController()
+//            vc.hidesBottomBarWhenPushed = true
+//            self?.navigationController?.pushViewController(vc, animated: true)
+            
+            print("-----" , "addFriendClick")
+            let vc = SearchFriendViewController()
             vc.hidesBottomBarWhenPushed = true
             self?.navigationController?.pushViewController(vc, animated: true)
+            vc.didSelectedItem = { [weak self] id in
+                if let handler = OIMApi.gotoUserMessageHandle {
+                    handler(self!, id, "", "",{res in
+
+                    })
+                }
+            }
         }
         r.searchView.btnClickBlock = { [weak self] in
             guard let self else { return }
@@ -50,46 +62,46 @@ open class FriendListViewController: UIViewController {
 //            vc.hidesBottomBarWhenPushed = true
 //            self.navigationController?.pushViewController(vc, animated: true)
             let vc = ScanViewController()
-                        vc.scanDidComplete = { [weak self] (result: String) in
-                            if result.contains(IMController.addFriendPrefix) {
-            //                    self?.navigationController?.popViewController(animated: false)
-            //
-            //                    let uid = result.replacingOccurrences(of: IMController.addFriendPrefix, with: "")
-            //                    let vc = UserDetailTableViewController(userId: uid, groupId: nil)
-            //                    vc.hidesBottomBarWhenPushed = true
-            //                    self?.navigationController?.pushViewController(vc, animated: true)
-                                
-                                self?.navigationController?.popViewController(animated: false)
-                                let uid = result.replacingOccurrences(of: IMController.addFriendPrefix, with: "")
-                                if let handler = OIMApi.gotoUserMessageHandle {
-                                    handler(self!, uid, "", "",{res in
+            vc.scanDidComplete = { [weak self] (result: String) in
+                if result.contains(IMController.addFriendPrefix) {
+//                    self?.navigationController?.popViewController(animated: false)
+//
+//                    let uid = result.replacingOccurrences(of: IMController.addFriendPrefix, with: "")
+//                    let vc = UserDetailTableViewController(userId: uid, groupId: nil)
+//                    vc.hidesBottomBarWhenPushed = true
+//                    self?.navigationController?.pushViewController(vc, animated: true)
+                    
+                    self?.navigationController?.popViewController(animated: false)
+                    let uid = result.replacingOccurrences(of: IMController.addFriendPrefix, with: "")
+                    if let handler = OIMApi.gotoUserMessageHandle {
+                        handler(self!, uid, "", "",{res in
 
-                                    })
-                                }
-                            } else if result.contains(IMController.joinGroupPrefix) {
-                                self?.navigationController?.popViewController(animated: false)
+                        })
+                    }
+                } else if result.contains(IMController.joinGroupPrefix) {
+                    self?.navigationController?.popViewController(animated: false)
 
-                                let groupID = result.replacingOccurrences(of: IMController.joinGroupPrefix, with: "")
-                                let vc = GroupDetailViewController(groupId: groupID)
-                                vc.hidesBottomBarWhenPushed = true
-                                self?.navigationController?.pushViewController(vc, animated: true)
-                            } else {
-            //                    ProgressHUD.error("unrecognized".innerLocalized())
-                                
-                                ProgressHUD.dismiss()
-                                
-                                if let handler = OIMApi.showTipHandle {
-                                                
-                                    handler("unrecognized".innerLocalized(), { res in
-                                       
-                                    })
-                                }
-                                
-                                self?.navigationController?.popViewController(animated: true)
-                            }
-                        }
-                        vc.hidesBottomBarWhenPushed = true
-                        self.navigationController?.pushViewController(vc, animated: true)
+                    let groupID = result.replacingOccurrences(of: IMController.joinGroupPrefix, with: "")
+                    let vc = GroupDetailViewController(groupId: groupID)
+                    vc.hidesBottomBarWhenPushed = true
+                    self?.navigationController?.pushViewController(vc, animated: true)
+                } else {
+//                    ProgressHUD.error("unrecognized".innerLocalized())
+                    
+                    ProgressHUD.dismiss()
+                    
+                    if let handler = OIMApi.showTipHandle {
+                                    
+                        handler("unrecognized".innerLocalized(), { res in
+                           
+                        })
+                    }
+                    
+                    self?.navigationController?.popViewController(animated: true)
+                }
+            }
+            vc.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(vc, animated: true)
         }
         return r
     }()
