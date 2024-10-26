@@ -193,9 +193,9 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
         if !tapTab {
             navigationController?.setNavigationBarHidden(true, animated: true)
         }
-        self.refreshConversations()
-        
-        _tableView.reloadData()
+//        self.refreshConversations()
+//        
+//        _tableView.reloadData()
         
     }
 
