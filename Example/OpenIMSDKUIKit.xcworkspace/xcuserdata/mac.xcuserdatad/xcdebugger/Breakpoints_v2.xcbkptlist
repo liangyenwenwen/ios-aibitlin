@@ -62,36 +62,6 @@
             endingLineNumber = "69"
             landmarkName = "_photoHelper"
             landmarkType = "24">
-            <Locations>
-               <Location
-                  uuid = "D8442AD3-1FCB-42E9-9CE6-C3CA23C479DE - c3719c89708c1c13"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Array&lt;__C.UIImage&gt;, Swift.Array&lt;__C.PHAsset&gt;) -&gt; () in closure #1 () -&gt; OUICore.PhotoHelper in OUIIM.CoustomInputBarAccessoryView._photoHelper.getter : OUICore.PhotoHelper"
-                  moduleName = "IM-NCER"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/%E9%A1%B9%E7%9B%AE/OUIIM/Classes/OIMUIChat/View/InputView/CoustomInputBarAccessoryView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "69"
-                  endingLineNumber = "69">
-               </Location>
-               <Location
-                  uuid = "D8442AD3-1FCB-42E9-9CE6-C3CA23C479DE - 1e07f762cf89db9a"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #2 (Swift.Optional&lt;Foundation.Data&gt;, Swift.Bool) -&gt; () in closure #1 (Swift.Array&lt;__C.UIImage&gt;, Swift.Array&lt;__C.PHAsset&gt;) -&gt; () in closure #1 () -&gt; OUICore.PhotoHelper in OUIIM.CoustomInputBarAccessoryView._photoHelper.getter : OUICore.PhotoHelper"
-                  moduleName = "IM-NCER"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/%E9%A1%B9%E7%9B%AE/OUIIM/Classes/OIMUIChat/View/InputView/CoustomInputBarAccessoryView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "70"
-                  endingLineNumber = "70">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -268,106 +238,6 @@
             endingLineNumber = "7"
             landmarkName = "LocationSearchResultsViewController"
             landmarkType = "3">
-            <Locations>
-               <Location
-                  uuid = "5DD869E2-60F6-4CB5-82C8-AC53241BD97D - a6eee2fed8f36b0a"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "MMBAlertsPickers.LocationSearchResultsViewController.isShowingHistory.getter : Swift.Bool"
-                  moduleName = "MMBAlertsPickers"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/%E9%A1%B9%E7%9B%AE/Example/Pods/MMBAlertsPickers/Source/Pickers/Location/LocationSearchResultsViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0">
-               </Location>
-               <Location
-                  uuid = "5DD869E2-60F6-4CB5-82C8-AC53241BD97D - 32cd5c4a72c0095"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "MMBAlertsPickers.LocationSearchResultsViewController.isShowingHistory.setter : Swift.Bool"
-                  moduleName = "MMBAlertsPickers"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/%E9%A1%B9%E7%9B%AE/Example/Pods/MMBAlertsPickers/Source/Pickers/Location/LocationSearchResultsViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "7"
-                  endingLineNumber = "7">
-               </Location>
-               <Location
-                  uuid = "5DD869E2-60F6-4CB5-82C8-AC53241BD97D - 68d6356aa2530ee4"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "MMBAlertsPickers.LocationSearchResultsViewController.isShowingHistory.modify : Swift.Bool"
-                  moduleName = "MMBAlertsPickers"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/%E9%A1%B9%E7%9B%AE/Example/Pods/MMBAlertsPickers/Source/Pickers/Location/LocationSearchResultsViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "7"
-                  endingLineNumber = "7">
-               </Location>
-               <Location
-                  uuid = "5DD869E2-60F6-4CB5-82C8-AC53241BD97D - 93b55e667f971224"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "MMBAlertsPickers.LocationSearchResultsViewController.isShowingHistory.modify : Swift.Bool with unmangled suffix &quot;.resume.0&quot;"
-                  moduleName = "MMBAlertsPickers"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/%E9%A1%B9%E7%9B%AE/Example/Pods/%3Ccompiler-generated%3E"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0">
-               </Location>
-               <Location
-                  uuid = "5DD869E2-60F6-4CB5-82C8-AC53241BD97D - 319f2930bda4944"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "MMBAlertsPickers.LocationSearchResultsViewController.init(style: __C.UITableViewStyle) -&gt; MMBAlertsPickers.LocationSearchResultsViewController"
-                  moduleName = "MMBAlertsPickers"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/%E9%A1%B9%E7%9B%AE/Example/Pods/MMBAlertsPickers/Source/Pickers/Location/LocationSearchResultsViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "7"
-                  endingLineNumber = "7">
-               </Location>
-               <Location
-                  uuid = "5DD869E2-60F6-4CB5-82C8-AC53241BD97D - 3b3ade497292490e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "MMBAlertsPickers.LocationSearchResultsViewController.init(nibName: Swift.Optional&lt;Swift.String&gt;, bundle: Swift.Optional&lt;__C.NSBundle&gt;) -&gt; MMBAlertsPickers.LocationSearchResultsViewController"
-                  moduleName = "MMBAlertsPickers"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/%E9%A1%B9%E7%9B%AE/Example/Pods/MMBAlertsPickers/Source/Pickers/Location/LocationSearchResultsViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "7"
-                  endingLineNumber = "7">
-               </Location>
-               <Location
-                  uuid = "5DD869E2-60F6-4CB5-82C8-AC53241BD97D - f2aab1173f9b6074"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "MMBAlertsPickers.LocationSearchResultsViewController.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;MMBAlertsPickers.LocationSearchResultsViewController&gt;"
-                  moduleName = "MMBAlertsPickers"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/%E9%A1%B9%E7%9B%AE/Example/Pods/MMBAlertsPickers/Source/Pickers/Location/LocationSearchResultsViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "7"
-                  endingLineNumber = "7">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -398,38 +268,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "14"
             endingLineNumber = "14"
-            landmarkName = "addLocalePicker(type:selection:)"
+            landmarkName = "addLocalePicker(type:chooseTitle:searchStr:selection:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "0E4593EE-B796-40FD-909D-3985D931CCA2 - f879fb3b309a72d5"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__C.UIAlertController.addLocalePicker(type: MMBAlertsPickers.LocalePickerViewController.Kind, selection: (Swift.Optional&lt;MMBAlertsPickers.LocaleInfo&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "MMBAlertsPickers"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/%E9%A1%B9%E7%9B%AE/Example/Pods/MMBAlertsPickers/Source/Pickers/Locale/LocalePickerViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "14"
-                  endingLineNumber = "14">
-               </Location>
-               <Location
-                  uuid = "0E4593EE-B796-40FD-909D-3985D931CCA2 - ff3753d15f7846e9"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (__C.UIAlertAction) -&gt; () in __C.UIAlertController.addLocalePicker(type: MMBAlertsPickers.LocalePickerViewController.Kind, selection: (Swift.Optional&lt;MMBAlertsPickers.LocaleInfo&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "MMBAlertsPickers"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/%E9%A1%B9%E7%9B%AE/Example/Pods/MMBAlertsPickers/Source/Pickers/Locale/LocalePickerViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "12"
-                  endingLineNumber = "12">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

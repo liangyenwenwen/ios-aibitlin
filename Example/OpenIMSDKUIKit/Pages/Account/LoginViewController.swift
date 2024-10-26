@@ -160,7 +160,7 @@ class LoginViewController: UIViewController {
         t.rx.tap.subscribe(onNext: { [weak self] _ in
             guard let sself = self else { return }
             let alert = UIAlertController(style: .actionSheet, title: "Phone Codes")
-            alert.addLocalePicker(type: .phoneCode) {[weak self] info in
+            alert.addLocalePicker(type: .phoneCode, chooseTitle: "choose".localized(),searchStr: "搜索".localized()) {[weak self] info in
                 // action with selected object
                 guard let phoneCode = info?.phoneCode else {return}
                 self?._areaCode = phoneCode

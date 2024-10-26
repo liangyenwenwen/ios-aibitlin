@@ -158,6 +158,7 @@
 "mine" = "Mine";
 "email" = "E-mail";
 "cancel" = "Cancel";
+"choose" = "Select";
 "sentSuccess" = "Sent Successfully";
 "success" = "Successfully";
 "failure" = "Failed";

@@ -71,6 +71,7 @@
 "mine" = "我的";
 "email" = "邮箱";
 "cancel" = "取消";
+"choose" = "选择";
 "sentSuccess" = "发送成功";
 "success" = "成功";
 "failure" = "失败";

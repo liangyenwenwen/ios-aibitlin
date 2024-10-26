@@ -167,7 +167,7 @@ struct _R: Sendable {
       var ieXW0yeText: RswiftResources.StringResource { .init(key: "8ie-xW-0ye.text", tableName: "LaunchScreen", source: source, developmentValue: nil, comment: nil) }
     }
 
-    /// This `_R.string.localizable` struct is generated, and contains static references to 488 localization keys.
+    /// This `_R.string.localizable` struct is generated, and contains static references to 489 localization keys.
     struct localizable {
       let source: RswiftResources.StringResource.Source
 
@@ -870,6 +870,13 @@ struct _R: Sendable {
       ///
       /// Locales: en, zh-Hans, th
       var cancel: RswiftResources.StringResource { .init(key: "cancel", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Select
+      ///
+      /// Key: choose
+      ///
+      /// Locales: en, zh-Hans, th
+      var choose: RswiftResources.StringResource { .init(key: "choose", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Confirm Password
       ///

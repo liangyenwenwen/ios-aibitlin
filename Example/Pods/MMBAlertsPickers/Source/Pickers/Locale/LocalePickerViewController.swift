@@ -8,15 +8,15 @@ extension UIAlertController {
     ///   - type: country, phoneCode or currency
     ///   - action: for selected locale
     
-    public func addLocalePicker(type: LocalePickerViewController.Kind, selection: @escaping LocalePickerViewController.Selection) {
+    public func addLocalePicker(type: LocalePickerViewController.Kind,chooseTitle:String? = nil, searchStr: String? = nil, selection: @escaping LocalePickerViewController.Selection) {
         var info: LocaleInfo?
         let selection: LocalePickerViewController.Selection = selection
-        let buttonSelect: UIAlertAction = UIAlertAction(title: "Select".localized, style: .default) { action in
+        let buttonSelect: UIAlertAction = UIAlertAction(title: chooseTitle ?? "Select".localized, style: .default) { action in
             selection(info)
         }
         buttonSelect.isEnabled = false
         
-        let vc = LocalePickerViewController(type: type) { new in
+        let vc = LocalePickerViewController(type: type,searchStr: searchStr) { new in
             info = new
             buttonSelect.isEnabled = new != nil
         }
@@ -43,7 +43,7 @@ final public class LocalePickerViewController: UIViewController {
         case phoneCode
         case currency
     }
-    
+    fileprivate var searchStr: String?
     fileprivate var type: Kind
     fileprivate var selection: Selection?
     
@@ -68,7 +68,7 @@ final public class LocalePickerViewController: UIViewController {
         $0.searchBar.searchBarStyle = .minimal
         $0.searchBar.textField?.textColor = .black
         $0.searchBar.textField?.clearButtonMode = .whileEditing
-        $0.searchBar.textField?.placeholder = "Search".localized
+        $0.searchBar.textField?.placeholder = searchStr ?? "Search".localized
         return $0
     }(UISearchController(searchResultsController: nil))
     
@@ -92,8 +92,9 @@ final public class LocalePickerViewController: UIViewController {
     
     // MARK: Initialize
     
-    required public init(type: Kind, selection: @escaping Selection) {
+    required public init(type: Kind, searchStr: String?, selection: @escaping Selection) {
         self.type = type
+        self.searchStr = searchStr
         self.selection = selection
         super.init(nibName: nil, bundle: nil)
     }
