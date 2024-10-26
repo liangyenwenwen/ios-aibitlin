@@ -77,6 +77,15 @@ class YFCallRecordsListCell: UITableViewCell {
     }()
     
     
+    lazy var unReadView: UIView = {
+        let r = UIView()
+        r.backgroundColor = .init(hexString: "#FD5344")
+        r.clipsToBounds = true
+        r.layer.cornerRadius = 4
+        return r
+    }()
+    
+    
     
     
     func initUI() {
@@ -85,7 +94,7 @@ class YFCallRecordsListCell: UITableViewCell {
         contentView.addSubview(recordTypeImg)
         contentView.addSubview(stateLbl)
         contentView.addSubview(timeLbl)
-        
+        contentView.addSubview(unReadView)
         
         contentView.addSubview(audioView)
         contentView.addSubview(videoView)
@@ -119,6 +128,12 @@ class YFCallRecordsListCell: UITableViewCell {
             make.left.equalTo(titleLbl.snp_right).offset(20)
         }
         
+        unReadView.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.width.height.equalTo(8)
+            make.right.equalTo(-12)
+        }
+        
         videoView.snp.makeConstraints { make in
             make.right.equalToSuperview().inset(12)
             make.top.bottom.equalToSuperview()
@@ -130,6 +145,8 @@ class YFCallRecordsListCell: UITableViewCell {
             make.top.bottom.equalToSuperview()
             make.width.equalTo(52)
         }
+        
+        
         
     }
     
@@ -152,11 +169,14 @@ class YFCallRecordsListCell: UITableViewCell {
             timeLbl.isHidden = true
             videoView.isHidden = false
             audioView.isHidden = false
+            unReadView.isHidden = true
         } else {
             backgroundColor = .white
             timeLbl.isHidden = false
             videoView.isHidden = true
             audioView.isHidden = true
+            
+            unReadView.isHidden = !model.isUnRead
         }
     }
     

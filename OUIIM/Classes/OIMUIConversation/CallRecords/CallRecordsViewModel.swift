@@ -14,14 +14,14 @@ import OUILive
 
 class CallRecordsViewModel {
     
-    #if ENABLE_CALL
+#if ENABLE_CALL
     // 0 所有通话 1 未接通话 2 未结束会议
     let tabSelected: BehaviorRelay<Int> = .init(value: 0)
     let items: BehaviorRelay<[Any]> = .init(value: [])
     let allRecordsRelay: BehaviorRelay<[CallRecord]> = .init(value: [])
     
     var currentTabSelected: Int = 0
-
+    
     private let _disposeBag = DisposeBag()
     private var allRecords: [CallRecord] = []
     private var missedRecords: [CallRecord] = []
@@ -40,23 +40,30 @@ class CallRecordsViewModel {
         }).disposed(by: _disposeBag)
         
     }
-
+    
     func getRecords(_ needClear: Bool = false) {
         allRecords = CallingManager.getRecords()
-//        getMeetings()
+        //        getMeetings()
         missedRecords = allRecords.filter { $0.success == false}
         allRecordsRelay.accept(allRecords)
         tabSelected.accept(self.currentTabSelected)
         
-        if (needClear) {
-            let recordsNumberKey = "\(Open_im_sdkGetLoginUserID())-com.calling.records.unread.key"
-            UserDefaults.standard.set(missedRecords.count, forKey: recordsNumberKey)
-            NotificationCenter.default.post(name: Notification.Name("refrehCallLogsbadgeValue"), object: nil, userInfo: ["value": "\(0)"])
-        }
-       
+        //        if (needClear) {
+        //            let recordsNumberKey = "\(Open_im_sdkGetLoginUserID())-com.calling.records.unread.key"
+        //            UserDefaults.standard.set(missedRecords.count, forKey: recordsNumberKey)
+        //            NotificationCenter.default.post(name: Notification.Name("refrehCallLogsbadgeValue"), object: nil, userInfo: ["value": "\(0)"])
+        //        }
         
-//        NotificationCenter.default.post(name: Notification.Name("refrehCallLogsbadgeValue"), object: nil, userInfo: ["value": "\(0)"])
+        
+        //        NotificationCenter.default.post(name: Notification.Name("refrehCallLogsbadgeValue"), object: nil, userInfo: ["value": "\(0)"])
     }
+    
+    
+    func clearUnRecord() {
+        CallingManager.allReadRecords()
+    }
+    
+    
     
     func deleteRecord(record : CallRecord) {
         CallingManager.deleteRrecord(record: record)

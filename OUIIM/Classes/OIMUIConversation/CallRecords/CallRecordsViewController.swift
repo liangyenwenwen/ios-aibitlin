@@ -34,6 +34,8 @@ open class CallRecordsViewController: UIViewController {
     open override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         isShow = false
+        
+        _viewModel.clearUnRecord()
     }
 
     open override func viewDidLoad() {
