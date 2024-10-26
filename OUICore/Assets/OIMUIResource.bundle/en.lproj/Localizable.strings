@@ -264,7 +264,9 @@
 "展开" = "Expand";
 "收起" = "Put away";
 "条新消息" = "new message";
-"没有更多动态了" = "No more updates";
+"已经全部加载完毕" = "No more updates";
+"点击或上拉加载更多" = "Tap or pull up to load more";
+"正在加载更多的数据..." = "Loading...";
 "还没有动态，发布一条吧" = "No activity yet, post one";
 "动态不见了" = "Moments is missing";
 "从通讯录选择" = "Select from Contacts";

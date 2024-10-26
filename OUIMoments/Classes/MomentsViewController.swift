@@ -184,7 +184,7 @@ public class MomentsViewController: BaseIGListViewController {
                         }
                     } else {
                         if var footer = self.collectionView.mj_footer as? MJRefreshAutoNormalFooter {
-                            footer.setTitle("没有更多动态了".innerLocalized(), for: .noMoreData)
+                            footer.setTitle("已经全部加载完毕".innerLocalized(), for: .noMoreData)
                             footer.endRefreshingWithNoMoreData()
                         }
                     }
@@ -198,7 +198,7 @@ public class MomentsViewController: BaseIGListViewController {
                 if ms.isEmpty || ms.count < self.viewModel.pageCount {
                     // Brand new without data, when there is data, the text of the footer needs to be corrected
                     if var footer = self.collectionView.mj_footer as? MJRefreshAutoNormalFooter {
-                        footer.setTitle("没有更多动态了".innerLocalized(), for: .noMoreData)
+                        footer.setTitle("已经全部加载完毕".innerLocalized(), for: .noMoreData)
                         footer.endRefreshingWithNoMoreData()
                     }
                 } else {
@@ -224,6 +224,8 @@ public class MomentsViewController: BaseIGListViewController {
             })
             footer.isAutomaticallyRefresh = false
             collectionView.mj_footer = footer
+            footer.setTitle("点击或上拉加载更多".innerLocalized(), for: .idle)
+            footer.setTitle("正在加载更多的数据...".innerLocalized(), for: .refreshing)
         }
     }
 }
@@ -408,20 +410,20 @@ fileprivate extension MomentsViewController {
 // MARK: - <UIScrollViewDelegate>
 
 //extension MomentsViewController: UIScrollViewDelegate {
-//    
+//
 //    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
 //        contentOffsetY = scrollView.contentOffset.y
-//        
+//
 //        print(contentOffsetY)
-//        
+//
 ////        momentNavBar.navBarView.alpha = 1
 ////        momentNavBar.titleLabel.alpha = contentOffsetY / 150.h
-////        
+////
 ////        momentNavBar.titleLabel.alpha = 0
-////        
+////
 ////        momentNavBar.backgroundColor?.withAlphaComponent((150.h - contentOffsetY) / 150.h)
-//            
-//        
+//
+//
 //        if contentOffsetY > 222.h - (UIApplication.safeAreaInsets.top + UIApplication.statusBarHeight){
 //            momentNavBar.isScrollUp = true
 //            momentNavBar.backgroundColor = .white

@@ -163,7 +163,7 @@ public class OthersViewController: UIViewController {
                         }
                     } else {
                         if var footer = self.tableView.mj_footer as? MJRefreshAutoNormalFooter {
-                            footer.setTitle("没有更多动态了".innerLocalized(), for: .noMoreData)
+                            footer.setTitle("已经全部加载完毕".innerLocalized(), for: .noMoreData)
                             footer.endRefreshingWithNoMoreData()
                         }
                     }
@@ -176,7 +176,7 @@ public class OthersViewController: UIViewController {
                 if ms.isEmpty || ms.count < self.viewModel.pageCount {
                     // Brand new without data, when there is data, the text of the footer needs to be corrected
                     if var footer = self.tableView.mj_footer as? MJRefreshAutoNormalFooter {
-                        footer.setTitle("没有更多动态了".innerLocalized(), for: .noMoreData)
+                        footer.setTitle("已经全部加载完毕".innerLocalized(), for: .noMoreData)
                         footer.endRefreshingWithNoMoreData()
                     }
                 } else {
@@ -197,6 +197,8 @@ public class OthersViewController: UIViewController {
             self?.viewModel.loadMoments(loadMore: true, split: true)
         })
         footer.isAutomaticallyRefresh = false
+        footer.setTitle("点击或上拉加载更多".innerLocalized(), for: .idle)
+        footer.setTitle("正在加载更多的数据...".innerLocalized(), for: .refreshing)
         tableView.mj_footer = footer
     }
 }
