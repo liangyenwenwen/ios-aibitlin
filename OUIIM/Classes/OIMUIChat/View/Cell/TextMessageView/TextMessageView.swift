@@ -128,7 +128,7 @@ class TextMessageView: UIView, ContainerCollectionViewCellDelegate {
             }
         }
         
-        textView.textColor = .init(hexString: "#333333")
+//        textView.textColor = .init(hexString: "#333333")
 //        textView.backgroundColor = controller.type == .incoming ? .init(hexString: "#EAEAEA") : .init(hexString: "#dae9ff")
 //        textView.backgroundColor = .clear
        
@@ -178,7 +178,7 @@ class TextMessageView: UIView, ContainerCollectionViewCellDelegate {
         //添加图标
         var attachment = NSTextAttachment()
         attachment.image = .init(named: "translate_text_icon")
-        attachment.bounds = CGRect(x: 0, y: 0, width: 16, height: 16)
+        attachment.bounds = CGRect(x: 0, y: -2, width: 16, height: 16)
         let imageStr = NSAttributedString(attachment: attachment)
         textAttrStr.append(imageStr)
         
@@ -186,11 +186,11 @@ class TextMessageView: UIView, ContainerCollectionViewCellDelegate {
 //        let transText = NSAttributedString(string: "\("Translation function is under development".localized())\n", attributes: [.foregroundColor: UIColor.c0C1C33,
 //                                                                                    .font: UIFont.f17])
         let translateStr = controller!.messageEx!
-        let transText = NSAttributedString(string: "\(translateStr)\n", attributes: [.foregroundColor: UIColor.c0C1C33,
+        let transText = NSAttributedString(string: " "+"\(translateStr)\n", attributes: [.foregroundColor: UIColor.c0C1C33,
                                                                                     .font: UIFont.f17])
         textAttrStr.append(transText)
         //添加正式文本
-        let messageText = NSAttributedString(string: "\(controller!.text!)", attributes: [.foregroundColor: UIColor.c333333,
+        let messageText = NSAttributedString(string: "\(controller!.text!)", attributes: [.foregroundColor: UIColor.c666666,
             .font: UIFont.f14])
         textAttrStr.append(messageText)
         

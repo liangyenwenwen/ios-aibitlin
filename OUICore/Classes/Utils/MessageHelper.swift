@@ -116,10 +116,10 @@ public struct MessageHelper {
                     print(message.sendID)
                     var attachment = NSTextAttachment()
                     attachment.image = .init(named: "translate_text_icon")
-                    attachment.bounds = CGRect(x: 0, y: 0, width: 14, height: 14)
+                    attachment.bounds = CGRect(x: 0, y: -2, width: 14, height: 14)
                     let imageStr = NSAttributedString(attachment: attachment)
                     ret.insert(imageStr, at: 0)
-
+                    ret.insert(NSAttributedString(string: " "), at: 1)
                 }
 //            }
             
