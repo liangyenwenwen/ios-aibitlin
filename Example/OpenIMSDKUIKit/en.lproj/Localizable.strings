@@ -197,7 +197,7 @@
 
 "deletBookTip" = "Are you sure you want to delete the blog?";
 "deletMomentTip" = "Are you sure you want to delete this dynamic?";
-"deletFriendTip" = "Are you sure you want to delete this friend?";
+"deletFriendTip" = "Are you sure you want to terminate your friendship?";
 
 
 
@@ -325,6 +325,7 @@ Toolbox = "Toolbox";
 "选择举报该账号的原因" = "Reasons for report the account";
 "添加好友" = "Add friend";
 "删除好友" = "Delete Friend";
+"解除好友关系" = "unfriend";
 //"消息" = "Messages";
 
 "用户名" = "Username";

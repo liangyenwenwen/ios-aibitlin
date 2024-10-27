@@ -167,7 +167,7 @@ struct _R: Sendable {
       var ieXW0yeText: RswiftResources.StringResource { .init(key: "8ie-xW-0ye.text", tableName: "LaunchScreen", source: source, developmentValue: nil, comment: nil) }
     }
 
-    /// This `_R.string.localizable` struct is generated, and contains static references to 489 localization keys.
+    /// This `_R.string.localizable` struct is generated, and contains static references to 490 localization keys.
     struct localizable {
       let source: RswiftResources.StringResource.Source
 
@@ -906,7 +906,7 @@ struct _R: Sendable {
       /// Locales: en, zh-Hans, th
       var deletBookTip: RswiftResources.StringResource { .init(key: "deletBookTip", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: Are you sure you want to delete this friend?
+      /// en translation: Are you sure you want to terminate your friendship?
       ///
       /// Key: deletFriendTip
       ///
@@ -3068,6 +3068,13 @@ struct _R: Sendable {
       ///
       /// Locales: en, th
       var 解锁设置: RswiftResources.StringResource { .init(key: "解锁设置", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: unfriend
+      ///
+      /// Key: 解除好友关系
+      ///
+      /// Locales: en, th
+      var 解除好友关系: RswiftResources.StringResource { .init(key: "解除好友关系", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Setting Information
       ///

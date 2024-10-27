@@ -109,7 +109,7 @@
 
 "deletBookTip" = "您确定要删除博客吗？";
 "deletMomentTip" = "您确定要删除该条动态吗？";
-"deletFriendTip" = "您确定要删除该好友吗？";
+"deletFriendTip" = "您确定要解除好友关系吗？";
 
 //网络相关
 ErrorNetworkUnknownHost = "找不到服务器";

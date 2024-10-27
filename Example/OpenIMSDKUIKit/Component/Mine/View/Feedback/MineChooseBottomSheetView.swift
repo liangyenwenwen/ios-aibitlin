@@ -18,6 +18,7 @@ class MineChooseBottomSheetView: TGLinearLayout {
     var chooseTitle: ((String) -> ())!
     var reportBlock: ((String) -> ())?
     var userID: String?
+    var isFriend: Bool = false
     var conversationInfo: ConversationInfo?
     var currentController: UIViewController?
     
@@ -74,7 +75,7 @@ class MineChooseBottomSheetView: TGLinearLayout {
         r.tg_width.equal(24)
         r.tg_height.equal(24)
         r.corner(4)
-        r.backgroundColor = .red
+//        r.backgroundColor = .red
         return r
     }()
     
@@ -166,10 +167,11 @@ class MineChooseBottomSheetView: TGLinearLayout {
         }
                 
         centerContainer.show()
-        let titleArr2 = ["删除好友".localized(), "Block".localized(), "Report".localized()]
+//        let titleArr2 = ["Block".localized(), "Report".localized(),"解除好友关系".localized()]
+        let titleArr2 = isFriend == true ?["Block".localized(), "Report".localized(),"解除好友关系".localized()]:["Block".localized(), "Report".localized()]
         for i in titleArr2.indices {
             // MARK: - 张亚飞打的标记  黑名单处理
-            if i == 1 {
+            if i == 0 {
                 let settingView = SuperSettingView.create(title: titleArr2[i]) { _ in
                     
                 } switchChanged: { [weak self] data in
@@ -206,7 +208,7 @@ class MineChooseBottomSheetView: TGLinearLayout {
             } else {
                 let settingView = SuperSettingView.onlylTitle(titleArr2[i]) { [weak self] _ in
 //                    self?.chooseTitle(titleArr2[i])
-                    if i == 0 {
+                    if i == 2 {
                         self?.currentController?.presentAlert(title: "deletFriendTip".localized()) { [weak self] in
                             self?.deleteFriend()
                             GKCover.hide()
@@ -214,7 +216,7 @@ class MineChooseBottomSheetView: TGLinearLayout {
                         
                     }
                     
-                    if i == 2 {
+                    if i == 1 {
                         self?.reportAction()
                         GKCover.hide()
                     }
@@ -240,7 +242,7 @@ class MineChooseBottomSheetView: TGLinearLayout {
                 IMController.shared.deleteConversation(conversationID: conv.conversationID) { _ in
                     
 //                    self.currentController?.navigationController?.popToRootViewController(animated: true)
-                    self.chooseTitle("删除好友".localized())
+                    self.chooseTitle("解除好友关系".localized())
                 }
             }
         }

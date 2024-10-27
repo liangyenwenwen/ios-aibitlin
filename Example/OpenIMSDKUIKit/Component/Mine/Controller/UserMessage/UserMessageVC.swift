@@ -23,6 +23,7 @@ class UserMessageVC: BaseTitleController {
     var userID: String = ""
 //    var ConversationInfo: ConversationInfo?
     var userInfo: QueryUserInfo?
+    var isFriend:Bool = false//是否是好友关系
     
     
     
@@ -126,6 +127,7 @@ class UserMessageVC: BaseTitleController {
         
         if userInfo?.userID == IMController.shared.uid {
             superFooterContainer.hide()
+            moreBtn.hide()
 //            footerBtnView.hide()
         }
         
@@ -154,14 +156,16 @@ class UserMessageVC: BaseTitleController {
     }
     
     func addMore() {
-        let r = ViewFactoryUtil.imageBtn(R.image.tabMoreSelected()!.withTintColor())
-        r.tintColor = .white
-        navView.addRighttItem(r)
-        r.rx.tap.subscribe(onNext: { [weak self] in
+        navView.addRighttItem(moreBtn)
+        moreBtn.rx.tap.subscribe(onNext: { [weak self] in
             self?.showBottomSheet()
         }).disposed(by: rx.disposeBag)
     }
-
+    lazy var moreBtn: QMUIButton = {
+        let r = ViewFactoryUtil.imageBtn(R.image.tabMoreSelected()!.withTintColor())
+        r.tintColor = .white
+        return r
+    }()
     //上面添加高度 为了tableview不在nav下面
     lazy var tableHeaderView: TGLinearLayout = {
         let r = TGLinearLayout(.vert)
@@ -222,7 +226,12 @@ class UserMessageVC: BaseTitleController {
         let contentView = MineChooseBottomSheetView()
         contentView.userID = userID
         contentView.tg_width.equal(.fill)
-        contentView.tg_height.equal(350)
+        contentView.isFriend = isFriend
+        if isFriend == true{
+            contentView.tg_height.equal(350)
+        }else{
+            contentView.tg_height.equal(300)
+        }
         contentView.addUserMessageUI()
         contentView.currentController = self
         contentView.chooseTitle = { [weak self] title in
@@ -258,7 +267,7 @@ class UserMessageVC: BaseTitleController {
             gotoController(vc)
         }
         
-        if(title == "删除好友".localized()) {
+        if(title == "解除好友关系".localized()) {
             
             // MARK: - 张亚飞打的标记  刷新首页
             let navController = self.tabBarController?.children.first as? UINavigationController;
@@ -307,11 +316,9 @@ class UserMessageVC: BaseTitleController {
                     guard let self else { return }
                     
                     if let chatUser = users.first {
+                        isFriend = !(chatUser.allowAddFriend == 1 && sdkUser.friendInfo == nil)
                         
-                        var chatAllowAddFriend = chatUser.allowAddFriend == 1 && sdkUser.friendInfo == nil
-//                        var groupAllowAddFriend = true
-                        
-                        if chatAllowAddFriend == true {
+                        if isFriend == true {
                             self.footerBtnView.setStyle(.sendMessageAndAttention)
                         }
                         
