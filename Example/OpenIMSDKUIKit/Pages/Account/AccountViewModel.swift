@@ -106,7 +106,8 @@ open class AccountViewModel {
         
         var req = try! URLRequest(url: API_BASE_URL + LoginAPI, method: .post)
         req.httpBody = body
-        req.addValue(UUID().uuidString, forHTTPHeaderField: "operationID")
+//        req.addValue(UUID().uuidString, forHTTPHeaderField: "operationID")
+        req.addValue(String(Int(Date().timeIntervalSince1970)), forHTTPHeaderField: "operationID")
         req.addValue(String.getCurrentLanguageHeader(), forHTTPHeaderField: "language")
 
         Alamofire.request(req).responseString { (response: DataResponse<String>) in
@@ -170,7 +171,8 @@ open class AccountViewModel {
         
         var req = try! URLRequest(url: API_BASE_URL + RegisterAPI, method: .post)
         req.httpBody = body
-        req.addValue(UUID().uuidString, forHTTPHeaderField: "operationID")
+        //        req.addValue(UUID().uuidString, forHTTPHeaderField: "operationID")
+        req.addValue(String(Int(Date().timeIntervalSince1970)), forHTTPHeaderField: "operationID")
         req.addValue(String.getCurrentLanguageHeader(), forHTTPHeaderField: "language")
         
         
@@ -205,7 +207,8 @@ open class AccountViewModel {
         var req = try! URLRequest(url: API_BASE_URL + CodeAPI, method: .post)
         req.httpBody = body
         
-        req.addValue(UUID().uuidString, forHTTPHeaderField: "operationID")
+        //        req.addValue(UUID().uuidString, forHTTPHeaderField: "operationID")
+        req.addValue(String(Int(Date().timeIntervalSince1970)), forHTTPHeaderField: "operationID")
 //        let language = String.getCurrentLanguage()[0...1].lowercased()
         req.addValue(String.getCurrentLanguageHeader(), forHTTPHeaderField: "language")
         
@@ -239,7 +242,8 @@ open class AccountViewModel {
         
         var req = try! URLRequest(url: API_BASE_URL + VerifyCodeAPI, method: .post)
         req.httpBody = body
-        req.addValue(UUID().uuidString, forHTTPHeaderField: "operationID")
+        //        req.addValue(UUID().uuidString, forHTTPHeaderField: "operationID")
+        req.addValue(String(Int(Date().timeIntervalSince1970)), forHTTPHeaderField: "operationID")
         req.addValue(String.getCurrentLanguageHeader(), forHTTPHeaderField: "language")
         
         Alamofire.request(req).responseString { (response: DataResponse<String>) in
@@ -275,7 +279,8 @@ open class AccountViewModel {
         
         var req = try! URLRequest(url: API_BASE_URL + ResetPasswordAPI, method: .post)
         req.httpBody = body
-        req.addValue(UUID().uuidString, forHTTPHeaderField: "operationID")
+        //        req.addValue(UUID().uuidString, forHTTPHeaderField: "operationID")
+        req.addValue(String(Int(Date().timeIntervalSince1970)), forHTTPHeaderField: "operationID")
         req.addValue(String.getCurrentLanguageHeader(), forHTTPHeaderField: "language")
         
         Alamofire.request(req).responseString { (response: DataResponse<String>) in
@@ -304,7 +309,8 @@ open class AccountViewModel {
         var req = try! URLRequest(url: API_BASE_URL + ChangePasswordAPI, method: .post)
         req.httpBody = body
         req.addValue(UserDefaults.standard.string(forKey: bussinessTokenKey)!, forHTTPHeaderField: "token")
-        req.addValue(UUID().uuidString, forHTTPHeaderField: "operationID")
+        //        req.addValue(UUID().uuidString, forHTTPHeaderField: "operationID")
+        req.addValue(String(Int(Date().timeIntervalSince1970)), forHTTPHeaderField: "operationID")
         req.addValue(String.getCurrentLanguageHeader(), forHTTPHeaderField: "language")
         
         Alamofire.request(req).responseString { (response: DataResponse<String>) in
@@ -361,7 +367,8 @@ open class AccountViewModel {
         var req = try! URLRequest(url: API_BASE_URL + UpdateUserInfoAPI, method: .post)
         req.httpBody = body
         req.addValue(UserDefaults.standard.string(forKey: bussinessTokenKey)!, forHTTPHeaderField: "token")
-        req.addValue(UUID().uuidString, forHTTPHeaderField: "operationID")
+        //        req.addValue(UUID().uuidString, forHTTPHeaderField: "operationID")
+        req.addValue(String(Int(Date().timeIntervalSince1970)), forHTTPHeaderField: "operationID")
         req.addValue(String.getCurrentLanguageHeader(), forHTTPHeaderField: "language")
         
         
@@ -398,7 +405,8 @@ open class AccountViewModel {
         var req = try! URLRequest(url: API_BASE_URL + QueryUserInfoAPI, method: .post)
         req.httpBody = body
         req.addValue(UserDefaults.standard.string(forKey: bussinessTokenKey)!, forHTTPHeaderField: "token")
-        req.addValue(UUID().uuidString, forHTTPHeaderField: "operationID")
+        //        req.addValue(UUID().uuidString, forHTTPHeaderField: "operationID")
+        req.addValue(String(Int(Date().timeIntervalSince1970)), forHTTPHeaderField: "operationID")
         
         Alamofire.request(req).responseString(encoding: .utf8) { (response: DataResponse<String>) in
             switch response.result {
@@ -433,7 +441,8 @@ open class AccountViewModel {
         var req = try! URLRequest(url: API_BASE_URL + SearchUserFullInfoAPI, method: .post)
         req.httpBody = body
         req.addValue(UserDefaults.standard.string(forKey: bussinessTokenKey)!, forHTTPHeaderField: "token")
-        req.addValue(UUID().uuidString, forHTTPHeaderField: "operationID")
+        //        req.addValue(UUID().uuidString, forHTTPHeaderField: "operationID")
+        req.addValue(String(Int(Date().timeIntervalSince1970)), forHTTPHeaderField: "operationID")
         req.addValue(String.getCurrentLanguageHeader(), forHTTPHeaderField: "language")
         
         Alamofire.request(req).responseString(encoding: .utf8) { (response: DataResponse<String>) in
@@ -504,11 +513,13 @@ open class AccountViewModel {
     
     // 获取配置
     static func getClientConfig(completion: ((ClientConfigData?) -> Void)? = nil) {
-        let body = try! JSONSerialization.data(withJSONObject: ["operationID": UUID().uuidString], options: .prettyPrinted)
+//        let body = try! JSONSerialization.data(withJSONObject: ["operationID": UUID().uuidString], options: .prettyPrinted)
+        let body = try! JSONSerialization.data(withJSONObject: ["operationID":String(Int(Date().timeIntervalSince1970))], options: .prettyPrinted)
         
         var req = try! URLRequest(url: ADMIN_BASE_URL + GetClientConfigAPI, method: .post)
         req.httpBody = body
-        req.addValue(UUID().uuidString, forHTTPHeaderField: "operationID")
+//        req.addValue(UUID().uuidString, forHTTPHeaderField: "operationID")
+        req.addValue(String(Int(Date().timeIntervalSince1970)), forHTTPHeaderField: "operationID")
         req.addValue(String.getCurrentLanguageHeader(), forHTTPHeaderField: "language")
         
         Alamofire.request(req).responseString(encoding: .utf8) { (response: DataResponse<String>) in

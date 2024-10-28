@@ -280,72 +280,130 @@ class MineMessageVC: BaseTitleController, UIImagePickerControllerDelegate, UINav
     
     
     func changeAvatar() {
-        presentSelectedPictureActionSheet { [weak self] in
-            guard let self else { return }
-            _photoHelper.presentPhotoLibrary(byController: self)
-        } cameraHandler: {[weak self] in
-            guard let self else { return }
-//            _photoHelper.presentCamera(byController: self)
-            
-            presentCamera()
-        }
+        
+//        presentSelectedPictureActionSheet { [weak self] in
+//            guard let self else { return }
+//            _photoHelper.presentPhotoLibrary(byController: self)
+//        } cameraHandler: {[weak self] in
+//            guard let self else { return }
+////            _photoHelper.presentCamera(byController: self)
+//            
+//            presentCamera()
+//        }
+        _photoHelper.setConfigToMultipleSelected(forVideo: false, maxSelectCount: 1)
+        _photoHelper.showSelectMetaSheet(byController: self)
     }
     
     
+//    private lazy var _photoHelper: PhotoHelper = {
+//        let v = PhotoHelper()
+//        v.setConfigToPickAvatar()
+//        v.didPhotoSelected = { [weak self] (images: [UIImage], _: [PHAsset]) in
+//            guard var first = images.first else { return }
+//            ProgressHUD.animate()
+//            first = first.compress(expectSize: 20 * 1024)
+//            let result = FileHelper.shared.saveImage(image: first)
+//            
+//            if result.isSuccess {
+//                self?._viewModel.uploadFile(fullPath: result.fullPath, onProgress: { [weak self] progress in
+////                    ProgressHUD.progress(progress)
+//                }, onComplete: { [weak self] code, msg in
+//                    if code == 0 {
+//                        self?.user?.faceURL = "file://" + result.fullPath
+//                        self?.userIconView.iconView.image = first
+//                        
+//                    } else {
+////                        ProgressHUD.error(msg)
+//                        SuperToast.show(title: msg)
+//                    }
+//                    ProgressHUD.dismiss()
+//                })
+//            } else {
+//                ProgressHUD.dismiss()
+//            }
+//        }
+//        
+//        v.didCameraFinished = { [weak self] (photo: UIImage?, _: URL?) in
+//            guard let sself = self else { return }
+//            if var photo {
+//                ProgressHUD.animate()
+//                
+//                photo = photo.compress(expectSize: 20 * 1024)
+//                let result = FileHelper.shared.saveImage(image: photo)
+//                if result.isSuccess {
+//                    self?._viewModel.uploadFile(fullPath: result.fullPath, onProgress: { [weak self] progress in
+////                        ProgressHUD.progress(progress)
+//                    }, onComplete: { [weak self] code, msg in
+//                        if code == 0 {
+//                            self?.user?.faceURL = "file://" + result.fullPath
+//                            self?.userIconView.iconView.image = photo
+//                           
+//                        } else {
+////                            ProgressHUD.error(msg)
+//                            SuperToast.show(title: msg)
+//                        }
+//                        ProgressHUD.dismiss()
+//                    })
+//                }
+//            }
+//        }
+//        return v
+//    }()
+   
     private lazy var _photoHelper: PhotoHelper = {
-        let v = PhotoHelper()
-        v.setConfigToPickAvatar()
-        v.didPhotoSelected = { [weak self] (images: [UIImage], _: [PHAsset]) in
-            guard var first = images.first else { return }
-            ProgressHUD.animate()
-            first = first.compress(expectSize: 20 * 1024)
-            let result = FileHelper.shared.saveImage(image: first)
-            
-            if result.isSuccess {
-                self?._viewModel.uploadFile(fullPath: result.fullPath, onProgress: { [weak self] progress in
-//                    ProgressHUD.progress(progress)
-                }, onComplete: { [weak self] code, msg in
-                    if code == 0 {
-                        self?.user?.faceURL = "file://" + result.fullPath
-                        self?.userIconView.iconView.image = first
-                        
-                    } else {
-//                        ProgressHUD.error(msg)
-                        SuperToast.show(title: msg)
-                    }
-                    ProgressHUD.dismiss()
-                })
-            } else {
-                ProgressHUD.dismiss()
-            }
-        }
-        
-        v.didCameraFinished = { [weak self] (photo: UIImage?, _: URL?) in
-            guard let sself = self else { return }
-            if var photo {
+            let v = PhotoHelper()
+            v.setConfigToMultipleSelected()
+            v.didPhotoSelected = { [weak self] (images: [UIImage], assets: [PHAsset]) in
+                guard var first = images.first else { return }
                 ProgressHUD.animate()
+                first = first.compress(expectSize: 20 * 1024)
+                let result = FileHelper.shared.saveImage(image: first)
                 
-                photo = photo.compress(expectSize: 20 * 1024)
-                let result = FileHelper.shared.saveImage(image: photo)
                 if result.isSuccess {
                     self?._viewModel.uploadFile(fullPath: result.fullPath, onProgress: { [weak self] progress in
-//                        ProgressHUD.progress(progress)
+    //                    ProgressHUD.progress(progress)
                     }, onComplete: { [weak self] code, msg in
                         if code == 0 {
                             self?.user?.faceURL = "file://" + result.fullPath
-                            self?.userIconView.iconView.image = photo
-                           
+                            self?.userIconView.iconView.image = first
+                            
                         } else {
-//                            ProgressHUD.error(msg)
+    //                        ProgressHUD.error(msg)
                             SuperToast.show(title: msg)
                         }
                         ProgressHUD.dismiss()
                     })
+                } else {
+                    ProgressHUD.dismiss()
                 }
             }
-        }
-        return v
-    }()
+            
+            v.didCameraFinished = { [weak self] (photo: UIImage?, videoPath: URL?) in
+                guard let sself = self else { return }
+                if var photo {
+                    ProgressHUD.animate()
+                    
+                    photo = photo.compress(expectSize: 20 * 1024)
+                    let result = FileHelper.shared.saveImage(image: photo)
+                    if result.isSuccess {
+                        self?._viewModel.uploadFile(fullPath: result.fullPath, onProgress: { [weak self] progress in
+    //                        ProgressHUD.progress(progress)
+                        }, onComplete: { [weak self] code, msg in
+                            if code == 0 {
+                                self?.user?.faceURL = "file://" + result.fullPath
+                                self?.userIconView.iconView.image = photo
+                               
+                            } else {
+    //                            ProgressHUD.error(msg)
+                                SuperToast.show(title: msg)
+                            }
+                            ProgressHUD.dismiss()
+                        })
+                    }
+                }
+            }
+            return v
+        }()
     
     
     //    , UIImagePickerControllerDelegate, UINavigationControllerDelegate  private let _viewModel = MineViewModel()
