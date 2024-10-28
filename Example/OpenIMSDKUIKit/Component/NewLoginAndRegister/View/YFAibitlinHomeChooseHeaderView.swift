@@ -1,31 +1,35 @@
 //
-//  YFLoginChooseHeaderView.swift
+//  YFAibitlinHomeChooseHeaderView.swift
 //  OpenIMSDKUIKit_Example
 //
-//  Created by mac on 2024/5/9.
+//  Created by mac on 2024/10/28.
 //  Copyright © 2024 rentsoft. All rights reserved.
 //
 
-import UIKit
+import Foundation
 import TangramKit
 
-class YFLoginChooseHeaderView: TGRelativeLayout {
+enum AibitlinHomeChooseHeaderType {
+    case login
+    case register
+    case findPwd
+}
+
+class YFAibitlinHomeChooseHeaderView: TGRelativeLayout {
+    var changeTypeClick:((Int)->Void)!
+    var back:(()->Void)?
     
-    var changeTypeClick:((MyStyle)->Void)!
-    var back:(()->Void)!
+    var headerType: AibitlinHomeChooseHeaderType!
+    var currentIndex: Int = 0
     
-    /// 使用邮箱 或者手机号
-    var useType: MyStyle!
-    /// 注册还是登录
-    var vcType: MyStyle!
-    
-    init(useType: MyStyle = .usePhone, vcType: MyStyle = .isLogin) {
+    init(headerType: AibitlinHomeChooseHeaderType) {
         super.init(frame: CGRect.zero)
-        self.useType = useType
-        self.vcType = vcType
+        self.headerType = headerType
+       
         initViews()
+        updateTitle()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -37,22 +41,20 @@ class YFLoginChooseHeaderView: TGRelativeLayout {
         
         addSubview(bottomLine)
         addSubview(container)
-        if vcType == .isLogin {
-            container.addSubview(centerContainer)
-            centerContainer.addSubview(emailView)
-            centerContainer.addSubview(phoneView)
-        } else {
-            container.addSubview(leftContainer)
-            
-            container.addSubview(centerContainer)
-            centerContainer.addSubview(emailView)
-            centerContainer.addSubview(phoneView)
-            addLeftImageButton(R.image.arrowLeft()!.withTintColor())
-            
-            container.addSubview(rightContainer)
-        }
+
+        container.addSubview(leftContainer)
+        
+        container.addSubview(centerContainer)
+        centerContainer.addSubview(leftView)
+        centerContainer.addSubview(rightView)
+        
+        addLeftImageButton(R.image.arrowLeft()!.withTintColor())
+        
+        container.addSubview(rightContainer)
+      
         
         refreshUI()
+        
     }
     
     lazy var container: TGLinearLayout = {
@@ -67,7 +69,7 @@ class YFLoginChooseHeaderView: TGRelativeLayout {
         r.tg_bottom.equal(0)
         r.tg_width.equal(.fill)
         r.tg_height.equal(1)
-        r.backgroundColor = .placeholder
+        r.backgroundColor = .init(hexString: "#EAEAEA")
         return r
     }()
     
@@ -97,46 +99,41 @@ class YFLoginChooseHeaderView: TGRelativeLayout {
     private lazy var centerContainer: TGLinearLayout = {
         let r = TGLinearLayout(.horz)
         r.tg_width.equal(.fill)
+//        r.tg_left.equal(70)
+//        r.tg_right.equal(70)
         r.tg_height.equal(.fill)
-        
-        if vcType == .isRegister {
-            r.tg_space = PADDING_LARGE2
-        }
+        r.tg_space = PADDING_LARGE2
         return r
     }()
     
-    lazy var emailView: YFTitleAddUnderlineChooseView = {
+    lazy var leftView: YFTitleAddUnderlineChooseView = {
         let r = YFTitleAddUnderlineChooseView()
         r.tg_width.equal(.fill)
         r.tg_height.equal(.fill)
-//        r.setData(vcType == .isLogin ? "使用邮箱登录" : "使用邮箱注册")
         r.setData("UseEmail".localized())
         r.viewClick = { [weak self] in
-            self?.useType = .useEmail
+            self?.currentIndex = 0
             self?.refreshUI()
-            self?.changeTypeClick(.useEmail)
+            self?.changeTypeClick(0)
         }
         return r
     }()
     
-    lazy var phoneView: YFTitleAddUnderlineChooseView = {
+    lazy var rightView: YFTitleAddUnderlineChooseView = {
         let r = YFTitleAddUnderlineChooseView()
         r.tg_width.equal(.fill)
         r.tg_height.equal(.fill)
 //        r.setData(vcType == .isLogin ? "使用手机号登录" : "使用手机号注册", true)
         r.setData("UsePhone".localized())
         r.viewClick = { [weak self] in
-            self?.useType = .usePhone
+            self?.currentIndex = 1
             self?.refreshUI()
-//            self?.changeTypeClick(.usePhone)
+            self?.changeTypeClick(1)
         }
         return r
     }()
     
-    func refreshUI()  {
-        emailView.refresUI(useType == .useEmail)
-        phoneView.refresUI(useType == .usePhone)
-    }
+    
     
     @discardableResult
     func addLeftImageButton(_ data:UIImage) -> QMUIButton {
@@ -145,11 +142,39 @@ class YFLoginChooseHeaderView: TGRelativeLayout {
         leftContainer.addSubview(r)
         return r
     }
+   
+
+    
+}
+
+extension YFAibitlinHomeChooseHeaderView {
+    
+    func updateTitle() {
+        switch self.headerType {
+        case .login:
+            leftView.setData("验证码登录")
+            rightView.setData("密码登录")
+        case .register:
+            leftView.setData("使用邮箱注册")
+            rightView.setData("使用手机号注册")
+        case .findPwd:
+            leftView.setData("使用邮箱找回")
+            rightView.setData("使用手机号找回")
+        case .none:
+            break
+        }
+    }
+    
+    func refreshUI()  {
+        leftView.refresUI(currentIndex == 0)
+        rightView.refresUI(currentIndex == 1)
+        
+        
+    }
     
     @objc func leftBtnClick(_ sender: QMUIButton) {
         print(#function)
         CountDownUtil.cancel()
-        back()
+        back?()
     }
-
 }

@@ -147,6 +147,7 @@ extension ViewFactoryUtil  {
         r.tg_height.equal(.wrap)
         r.font = UIFont(name: "PingFangSC-Medium", size: font)
         r.text = title
+        titleLblSelf = r
         return r
     }
     

@@ -10,12 +10,13 @@ import Foundation
 import TangramKit
 import BSText
 import UIKit
+import IQKeyboardManagerSwift
 
 class YFAibitlinHome: BaseLogicController {
     
     var loginArr: [HomeLoginType] = [.phone, .email, .facebook, .apple, .google, .sacnCode]
     var chinaArr: [HomeLoginType] = [.phone, .email, .apple, .sacnCode]
-    var isChina: Bool = true
+    var isChina: Bool = false
     
     var facebookView:YFAibitlinHomeLoginTypeView?
     var googleView:YFAibitlinHomeLoginTypeView?
@@ -66,6 +67,7 @@ class YFAibitlinHome: BaseLogicController {
         superFooterContainerContainer.addSubview(delegateView)
         superFooterContainer.backgroundColor  = .white
         
+        IQKeyboardManager.shared.enable = true
         
         refrehUI()
         
@@ -132,9 +134,6 @@ class YFAibitlinHome: BaseLogicController {
 
     }()
     
-    
-    
-   
     
     lazy var delegateView: TGLinearLayout = {
         let r = TGLinearLayout(.horz)
@@ -236,6 +235,14 @@ extension YFAibitlinHome {
     
     func loginTypeDidSelect(loginType: HomeLoginType) {
         print(loginType.titleName)
+        switch loginType {
+        case .phone:
+            phoneLoginAction()
+        case .email:
+            emailLoginAction()
+        default:
+            SuperToast.show(title: "开发中".localized())
+        }
     }
     
     func refrehUI() {
@@ -248,6 +255,15 @@ extension YFAibitlinHome {
             googleView?.show()
             thridView.hide()
         }
+    }
+    
+    
+    func phoneLoginAction() {
+        gotoController(YFPhoneLoginVC.self)
+    }
+    
+    func emailLoginAction() {
+        gotoController(YFEmailLoginVC.self)
     }
     
 }

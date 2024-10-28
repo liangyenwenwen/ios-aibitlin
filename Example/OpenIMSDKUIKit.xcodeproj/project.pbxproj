@@ -78,6 +78,9 @@
 		049D30222CC1F5DB00649DC4 /* YFNetworkStatusUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049D30212CC1F5DB00649DC4 /* YFNetworkStatusUtil.swift */; };
 		049D30252CC2032800649DC4 /* YFNotNetTopTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049D30242CC2032800649DC4 /* YFNotNetTopTipView.swift */; };
 		04A4BD002BF32F17008FA224 /* YFMineChangePasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A4BCFF2BF32F17008FA224 /* YFMineChangePasswordVC.swift */; };
+		04C394412CCF85A500181F6B /* YFPhoneLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C394402CCF85A500181F6B /* YFPhoneLoginVC.swift */; };
+		04C394432CCF874300181F6B /* YFAibitlinHomeChooseHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C394422CCF874300181F6B /* YFAibitlinHomeChooseHeaderView.swift */; };
+		04C394452CCFADF500181F6B /* YFEmailLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C394442CCFADF500181F6B /* YFEmailLoginVC.swift */; };
 		04D2E2052CBE4E5500582B13 /* HDEmptyBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D2E1FF2CBE4E5500582B13 /* HDEmptyBaseView.swift */; };
 		04D2E2062CBE4E5500582B13 /* HDEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D2E2002CBE4E5500582B13 /* HDEmptyView.swift */; };
 		04D2E2072CBE4E5500582B13 /* HDRunTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D2E2012CBE4E5500582B13 /* HDRunTime.swift */; };
@@ -269,6 +272,9 @@
 		04B266472CC7C472004AF09F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04B266502CC7C472004AF09F /* BroadcastSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BroadcastSetupViewController.swift; sourceTree = "<group>"; };
 		04B266522CC7C472004AF09F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		04C394402CCF85A500181F6B /* YFPhoneLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFPhoneLoginVC.swift; sourceTree = "<group>"; };
+		04C394422CCF874300181F6B /* YFAibitlinHomeChooseHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFAibitlinHomeChooseHeaderView.swift; sourceTree = "<group>"; };
+		04C394442CCFADF500181F6B /* YFEmailLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFEmailLoginVC.swift; sourceTree = "<group>"; };
 		04D2E1C22CBE4A4900582B13 /* SampleHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleHandler.swift; sourceTree = "<group>"; };
 		04D2E1C42CBE4A4900582B13 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04D2E1CB2CBE4A4900582B13 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -823,6 +829,8 @@
 			isa = PBXGroup;
 			children = (
 				04DA67912CCF2ACB00FCA60C /* YFAibitlinHome.swift */,
+				04C394402CCF85A500181F6B /* YFPhoneLoginVC.swift */,
+				04C394442CCFADF500181F6B /* YFEmailLoginVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -831,6 +839,7 @@
 			isa = PBXGroup;
 			children = (
 				04DA67932CCF2B2100FCA60C /* YFAibitlinHomeView.swift */,
+				04C394422CCF874300181F6B /* YFAibitlinHomeChooseHeaderView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1632,16 +1641,19 @@
 				040D85AB2BEB87B800DCAAB3 /* R.generated.swift in Sources */,
 				040D860B2BEB8C4200DCAAB3 /* SuperUIViewExtension.swift in Sources */,
 				04F533F22BF84C8C005D0405 /* TestDataUtil.swift in Sources */,
+				04C394452CCFADF500181F6B /* YFEmailLoginVC.swift in Sources */,
 				040D85F62BEB8C0B00DCAAB3 /* BaseId.swift in Sources */,
 				04F5CFC32CBD35A4007BC74D /* YFEmptyView.swift in Sources */,
 				04F2D08C2BEE21CA00D5271B /* MineBokeListViewController.swift in Sources */,
 				040D44272C894E78007DB6FB /* MineBokeStatisticsVC.swift in Sources */,
 				04D5C1ED2C93DF72005EBF86 /* YFMineNetViewModel.swift in Sources */,
 				04F4EE792C8C2B180028E895 /* YFMineHomeBuyVipVC.swift in Sources */,
+				04C394432CCF874300181F6B /* YFAibitlinHomeChooseHeaderView.swift in Sources */,
 				04DB1E3E2CA6B0C000EE8B8C /* YFDateUtil.swift in Sources */,
 				17C4BBAA28CA1220003782EF /* Array+deduplicate.swift in Sources */,
 				04F2D0892BEE21CA00D5271B /* MineSettingVC.swift in Sources */,
 				0419D4052C019350009CBE94 /* SuperUICollectionViewExtension.swift in Sources */,
+				04C394412CCF85A500181F6B /* YFPhoneLoginVC.swift in Sources */,
 				04F2D08F2BEE21CA00D5271B /* UsermessageBokeListCell.swift in Sources */,
 				04D2E2072CBE4E5500582B13 /* HDRunTime.swift in Sources */,
 				17B11A442ABD28C600DB8980 /* NavigationController.swift in Sources */,
