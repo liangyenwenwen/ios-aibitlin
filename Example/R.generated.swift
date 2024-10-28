@@ -2670,11 +2670,11 @@ struct _R: Sendable {
       /// Locales: en, th
       var 注册哎比邻: RswiftResources.StringResource { .init(key: "注册哎比邻", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: Register
+      /// en translation: Create an Account
       ///
       /// Key: 注册账号
       ///
-      /// Locales: en, th
+      /// Locales: en, zh-Hans, th
       var 注册账号: RswiftResources.StringResource { .init(key: "注册账号", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Note: Once an account is deleted, it cannot be restored
@@ -3626,7 +3626,7 @@ struct _R: Sendable {
     var colorBackground: RswiftResources.ColorResource { .init(name: "ColorBackground", path: [], bundle: bundle) }
   }
 
-  /// This `_R.image` struct is generated, and contains static references to 246 images.
+  /// This `_R.image` struct is generated, and contains static references to 247 images.
   struct image {
     let bundle: Foundation.Bundle
 
@@ -3948,6 +3948,9 @@ struct _R: Sendable {
     /// Image `add_search_friend_icon`.
     var add_search_friend_icon: RswiftResources.ImageResource { .init(name: "add_search_friend_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
+    /// Image `app_icon_home`.
+    var app_icon_home: RswiftResources.ImageResource { .init(name: "app_icon_home", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
     /// Image `appicon_horz`.
     var appicon_horz: RswiftResources.ImageResource { .init(name: "appicon_horz", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
@@ -4182,8 +4185,8 @@ struct _R: Sendable {
     /// Image `login_type_email`.
     var login_type_email: RswiftResources.ImageResource { .init(name: "login_type_email", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
-    /// Image `login_type_facebok`.
-    var login_type_facebok: RswiftResources.ImageResource { .init(name: "login_type_facebok", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+    /// Image `login_type_facebook`.
+    var login_type_facebook: RswiftResources.ImageResource { .init(name: "login_type_facebook", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
     /// Image `login_type_google`.
     var login_type_google: RswiftResources.ImageResource { .init(name: "login_type_google", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }

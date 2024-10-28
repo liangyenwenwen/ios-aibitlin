@@ -176,11 +176,7 @@ class YFRegisterVC: BaseTitleController {
         let agreeStr = NSMutableAttributedString(string: agreementString, attributes: attributes)
         agreeStr.bs_font = .systemFont(ofSize: TEXT_MEDDLE)
         agreeStr.bs_color = .placeholder
-//        var range = agreementString.range(of: "《隐私协议》".localized())!
-//        agreeStr.bs_set(textHighlightRange: agreementString.nsRange(from: range), color: .primaryColor, backgroundColor: nil) { [weak self] containerView, text, range, rect in
-////            ProgressHUD.succeed("隐私协议")
-//            SuperWebController.start((self?.navigationController!)!, uri: "http://bitswith.com/ys/#/privacyAgreement")
-//        }
+
 //        
         
         // MARK: - 张亚飞打的标记  点击协议内容切换是否同意协议
@@ -195,12 +191,7 @@ class YFRegisterVC: BaseTitleController {
         
         var  range = agreementString.range(of: "《注册协议》".localized())!
         agreeStr.bs_set(textHighlightRange: agreementString.nsRange(from: range), color: .primaryColor, backgroundColor: nil) { [weak self]  containerView, text, range, rect in
-//            ProgressHUD.succeed("注册协议")
-//            if String.getCurrentLanguage().starts(with: "zh")  {
-//                SuperWebController.start((self?.navigationController!)!, uri: "http://bitswith.com/ys/#/userZH")
-//            } else {
-//                SuperWebController.start((self?.navigationController!)!, uri: "http://bitswith.com/ys/#/userAgreement")
-//            }
+
             
             let language = String.getCurrentLanguage()
             if language.starts(with: "zh")  {

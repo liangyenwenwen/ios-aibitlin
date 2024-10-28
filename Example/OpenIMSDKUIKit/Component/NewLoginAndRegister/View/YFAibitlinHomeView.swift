@@ -60,11 +60,11 @@ enum HomeLoginType {
         case .sacnCode:
             return "扫码登录"
         case .wechat:
-            return ""
+            return "使用微信登录"
         case .qq:
-            return ""
+            return "使用qq登录"
         case .alipay:
-            return ""
+            return "使用阿里登录"
         }
     }
 }

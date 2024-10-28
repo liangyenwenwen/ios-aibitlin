@@ -64,6 +64,9 @@ let PADDING_OUTER:CGFloat = 16
 ///24
 let PADDING_LARGE2:CGFloat = 24
 
+///27
+let PADDING_LARGE_HOME:CGFloat = 27
+
 /// 文本尺寸
 /// 8
 let TEXT_TAG:CGFloat = 8

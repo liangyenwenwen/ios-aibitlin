@@ -162,17 +162,12 @@ class YFLoginVC: BaseLogicController {
         r.tg_height.equal(.wrap)
         r.tg_width.equal(.fill)
         r.tg_bottom.equal(40)
-//        r.tg_gravity = .vert.top
+
         r.tg_space = PADDING_SMALL
         r.clipsToBounds = true
         
         r.addSubview(chooseDelegateBtn)
-//        r.addSubview(tipLbl_delegate)
-//        r.addSubview(privateDelegateBtn)
-//        r.addSubview(registerDelegateBtn)
-        
-        
-        
+
         r.addSubview(agreementView)
         return r
     }()

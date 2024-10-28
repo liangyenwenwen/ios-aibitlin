@@ -7,7 +7,247 @@
 //
 
 import Foundation
+import TangramKit
+import BSText
+import UIKit
 
 class YFAibitlinHome: BaseLogicController {
+    
+    var loginArr: [HomeLoginType] = [.phone, .email, .facebook, .apple, .google, .sacnCode]
+    var chinaArr: [HomeLoginType] = [.phone, .email, .apple, .sacnCode]
+    var isChina: Bool = true
+    
+    var facebookView:YFAibitlinHomeLoginTypeView?
+    var googleView:YFAibitlinHomeLoginTypeView?
+    
+    override func initViews() {
+        super.initViews()
+        setBackGroundColor(.white)
+        initLinearLayoutSafeArea()
+        container.tg_padding = UIEdgeInsets(top: 0, left: PADDING_LARGE_HOME, bottom: 0, right: PADDING_LARGE_HOME)
+        container.tg_space = 14
+        
+        container.addSubview(appIcon)
+        container.addSubview(tipLbl)
+        
+        
+        
+        for (index, type) in loginArr.enumerated() {
+            let typeView = YFAibitlinHomeLoginTypeView.bulidWith(loginType: type)
+            typeView.tag = 10000 + index
+            typeView.selectBlock = { [weak self] type in
+                self?.loginTypeDidSelect(loginType: type)
+            }
+            
+            if type == .google {
+                googleView = typeView
+            }
+            
+            if type == .facebook {
+                facebookView = typeView
+            }
+            
+            container.addSubview(typeView)
+        }
+        
+        container.addSubview(thridView)
+       
+        
+        let lineView = UIView()
+        lineView.backgroundColor = .init(hexString: "#F5F5F5")
+        lineView.tg_width.equal(.fill)
+        lineView.tg_height.equal(1)
+        lineView.tg_top.equal(20)
+        container.addSubview(lineView)
+        
+        container.addSubview(registerAndFindwordView)
+        
+        superFooterContainerContainer.tg_padding = UIEdgeInsets(top: 0, left: PADDING_LARGE_HOME, bottom: 0, right: PADDING_LARGE_HOME)
+        superFooterContainerContainer.addSubview(delegateView)
+        superFooterContainer.backgroundColor  = .white
+        
+        
+        refrehUI()
+        
+    }
+    
+    lazy var appIcon: UIImageView = {
+        let r = UIImageView()
+        r.tg_width.equal(100)
+        r.tg_height.equal(44)
+        r.tg_top.equal(116)
+        r.tg_centerX.equal(0)
+        r.image = .init(named: "app_icon_home")
+        return r
+    }()
+    
+    lazy var tipLbl: UILabel = {
+        let r = UILabel()
+        r.text = "登录你的账号、与全球用户无障碍聊天。".localized()
+        r.textColor = .init(hexString: "#999999")
+        r.font = .mediumFont(14)
+        r.tg_top.equal(10)
+        r.tg_bottom.equal(40)
+        r.tg_centerX.equal(0)
+        r.tg_width.equal(.wrap)
+        r.tg_height.equal(.wrap)
+        return r
+    }()
+    
+    lazy var thridView: YFAibitlinHomeLoginThridView = {
+        let r = YFAibitlinHomeLoginThridView()
+        r.tg_top.equal(20)
+        r.selectBlock = { [weak self] type in
+            self?.loginTypeDidSelect(loginType: type)
+        }
+        return r
+    }()
+    
+    lazy var registerAndFindwordView: TGLinearLayout = {
+        let r = TGLinearLayout(.horz)
+        r.tg_width.equal(.fill)
+        r.tg_height.equal(.wrap)
+        r.tg_gravity = .between
+        r.addSubview(registerBtn)
+        r.addSubview(forgotButton)
+        return r
+    }()
+    
+    lazy var registerBtn: QMUIButton = {
+        let r = ViewFactoryUtil.linkButton("注册账号".localized())
+        r.setTitleColor(.init(hexString: "#333333"), for: .normal)
+//        r.addTarget(self, action: #selector(gotoRegister), for: .touchUpInside)
+        return r
+    }()
+    
+    // MARK: - 张亚飞打的标记 添加找回密码
+    lazy var forgotButton: UIButton = {
+        
+        let r = ViewFactoryUtil.linkButton("忘记密码".localized())
+        r.setTitleColor(.init(hexString: "#333333"), for: .normal)
+        r.rx.tap.subscribe(onNext: { [unowned self] _ in
+//            toForgotPassword()
+        }).disposed(by: rx.disposeBag)
+        return r
+
+    }()
+    
+    
+    
+   
+    
+    lazy var delegateView: TGLinearLayout = {
+        let r = TGLinearLayout(.horz)
+        r.tg_height.equal(.wrap)
+        r.tg_width.equal(.fill)
+//        r.tg_bottom.equal(40)
+
+        r.tg_space = PADDING_SMALL
+        r.clipsToBounds = true
+        
+        r.addSubview(chooseDelegateBtn)
+
+        r.addSubview(agreementView)
+        return r
+    }()
+    
+    lazy var agreementView: BSLabel = {
+        let r = BSLabel()
+        r.tg_top.equal(2)
+        r.tg_width.equal(.fill)
+        r.tg_height.equal(.wrap)
+        r.textAlignment = .left
+        r.numberOfLines = 0
+        r.isUserInteractionEnabled = true
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 3 // 自定义行间距值
+        let attributes: [NSAttributedString.Key: Any] = [
+            .paragraphStyle: paragraphStyle,
+        ]
+        
+        let agreementString = "我已阅读并同意AIbitlin《隐私协议》《注册协议》".localized()
+        let agreeStr = NSMutableAttributedString(string: agreementString, attributes: attributes)
+        agreeStr.bs_font = .systemFont(ofSize: TEXT_MEDDLE)
+        agreeStr.bs_color = .placeholder
+        
+        
+        // MARK: - 张亚飞打的标记  点击协议内容切换是否同意协议
+        var range = agreementString.range(of: "我已阅读并同意AIbitlin《隐私协议》《注册协议》".localized())!
+        agreeStr.bs_set(textHighlightRange: agreementString.nsRange(from: range), color: .placeholder, backgroundColor: nil) { [weak self] _, _, _, _ in
+            
+            if self?.chooseDelegateBtn != nil  {
+                self?.chooseDelegateBtn.isSelected = !(self?.chooseDelegateBtn.isSelected)!
+            }
+            
+        }
+        
+        
+        range = agreementString.range(of: "《隐私协议》".localized())!
+        agreeStr.bs_set(textHighlightRange: agreementString.nsRange(from: range), color: .primaryColor, backgroundColor: nil) { [weak self] containerView, text, range, rect in
+//            ProgressHUD.succeed("隐私协议")
+            
+            let language = String.getCurrentLanguage()
+            if language.starts(with: "zh")  {
+                SuperWebController.start((self?.navigationController!)!, uri: "https://deal.aibitlin.com/#/pages/privacy/index?lang=zh")
+            } else if language.starts(with: "th"){
+                SuperWebController.start((self?.navigationController!)!, uri: "https://deal.aibitlin.com/#/pages/privacy/index?lang=Thai")
+            } else {
+                SuperWebController.start((self?.navigationController!)!, uri: "https://deal.aibitlin.com/#/pages/privacy/index?lang=en")
+            }
+            
+
+        }
+        
+        range = agreementString.range(of: "《注册协议》".localized())!
+        agreeStr.bs_set(textHighlightRange: agreementString.nsRange(from: range), color: .primaryColor, backgroundColor: nil) { [weak self]  containerView, text, range, rect in
+
+            let language = String.getCurrentLanguage()
+            if language.starts(with: "zh")  {
+                SuperWebController.start((self?.navigationController!)!, uri: "https://deal.aibitlin.com/#/pages/registration/index?lang=zh")
+            } else if language.starts(with: "th"){
+                SuperWebController.start((self?.navigationController!)!, uri: "https://deal.aibitlin.com/#/pages/registration/index?lang=Thai")
+            } else {
+                SuperWebController.start((self?.navigationController!)!, uri: "https://deal.aibitlin.com/#/pages/registration/index?lang=en")
+            }
+        }
+       
+        r.attributedText = agreeStr
+        
+        return r
+    }()
+    
+    
+    lazy var chooseDelegateBtn: QMUIButton = {
+        let r = ViewFactoryUtil.imageBtn(R.image.checked()!, 20)
+        r.setImage(R.image.checked()!, for: .selected)
+        r.setImage(R.image.check()!, for: .normal)
+        r.addTarget(self, action: #selector(chooseDelegate(_:)), for: .touchUpInside)
+        return r
+    }()
+    
+}
+
+extension YFAibitlinHome {
+    
+    @objc func chooseDelegate(_ btn: QMUIButton)  {
+        btn.isSelected = !btn.isSelected
+    }
+    
+    func loginTypeDidSelect(loginType: HomeLoginType) {
+        print(loginType.titleName)
+    }
+    
+    func refrehUI() {
+        if isChina {
+            facebookView?.hide()
+            googleView?.hide()
+            thridView.show()
+        } else {
+            facebookView?.show()
+            googleView?.show()
+            thridView.hide()
+        }
+    }
     
 }
