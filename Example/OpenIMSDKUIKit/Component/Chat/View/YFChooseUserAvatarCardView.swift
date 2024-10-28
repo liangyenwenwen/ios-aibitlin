@@ -446,7 +446,7 @@ extension YFChooseUserAvatarCardView {
         }
         print("保存")
   
-        if currentIndex > 0 {
+        if currentIndex > -1 {
             if let data = picData {
                 AccountViewModel.updateUserInfo(userID: IMController.shared.uid, faceURL:data[self.currentIndex]) { errCode, errMsg in
                     if errCode != 0 {
