@@ -57,7 +57,8 @@ class YFMineNetViewModel: AccountViewModel {
         "X-Forwarded-For":"183.156.234.224",
         "Authorization":"eyJ1c2VySW5mbyI6InVzZXJCbG9nWWFuWmhlbmdUb2tlbiJ9",
         "Content-Type":"application/json",
-        "operationID":UUID().uuidString,
+//        "operationID":UUID().uuidString,
+        "operationID":String(Int(Date().timeIntervalSince1970)),
     ]
     
    // MARK: - 张亚飞打的标记   博客接口

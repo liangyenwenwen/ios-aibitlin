@@ -283,64 +283,123 @@ class YFChooseUserAvatarCardView: UIView, UIImagePickerControllerDelegate, UINav
         
     }
     
-    private lazy var _photoHelper: PhotoHelper = {
-        let v = PhotoHelper()
-        v.setConfigToPickAvatar()
-        v.didPhotoSelected = { [weak self] (images: [UIImage], _: [PHAsset]) in
-            guard var first = images.first else { return }
-            
-            self?.currentIndex = -1
-            self?.isHaveImg = true
-            self?.refrehUI()
-            
-            self?.userIconImg = first
-            self?.topCameraImg.image = first
-            
-//            ProgressHUD.animate()
-//            first = first.compress(expectSize: 20 * 1024)
-//            let result = FileHelper.shared.saveImage(image: first)
+//    private lazy var _photoHelper: PhotoHelper = {
+//        let v = PhotoHelper()
+//        v.setConfigToPickAvatar()
+//        v.didPhotoSelected = { [weak self] (images: [UIImage], _: [PHAsset]) in
+//            guard var first = images.first else { return }
 //            
-//            if result.isSuccess {
-//                self?._viewModel.uploadFile(fullPath: result.fullPath, onProgress: { [weak self] progress in
+//            self?.currentIndex = -1
+//            self?.isHaveImg = true
+//            self?.refrehUI()
+//            
+//            self?.userIconImg = first
+//            self?.topCameraImg.image = first
+//            
+////            ProgressHUD.animate()
+////            first = first.compress(expectSize: 20 * 1024)
+////            let result = FileHelper.shared.saveImage(image: first)
+////            
+////            if result.isSuccess {
+////                self?._viewModel.uploadFile(fullPath: result.fullPath, onProgress: { [weak self] progress in
+////
+////                }, onComplete: { [weak self] code, msg in
+////                    if code == 0 {
+////                        self?.bottomShow(show: false)
+////                        ProgressHUD.dismiss()
+////                    } else {
+//////                        ProgressHUD.error(msg)
+////                        SuperToast.show(title: msg)
+////                    }
+////                })
+////            } else {
+////                ProgressHUD.dismiss()
+////            }
+//        }
+//        
+//        v.didCameraFinished = { [weak self] (photo: UIImage?, _: URL?) in
+//            guard let sself = self else { return }
+//            if var photo {
+//                ProgressHUD.animate()
+//                
+//                photo = photo.compress(expectSize: 20 * 1024)
+//                let result = FileHelper.shared.saveImage(image: photo)
+//                if result.isSuccess {
+//                    self?._viewModel.uploadFile(fullPath: result.fullPath, onProgress: { [weak self] progress in
 //
-//                }, onComplete: { [weak self] code, msg in
-//                    if code == 0 {
-//                        self?.bottomShow(show: false)
+//                    }, onComplete: { [weak self] code, msg in
+//                        if code == 0 {
+//                           
+//                        } else {
+////                            ProgressHUD.error(msg)
+//                            SuperToast.show(title: msg)
+//                        }
 //                        ProgressHUD.dismiss()
-//                    } else {
-////                        ProgressHUD.error(msg)
-//                        SuperToast.show(title: msg)
-//                    }
-//                })
-//            } else {
-//                ProgressHUD.dismiss()
+//                    })
+//                }
 //            }
-        }
-        
-        v.didCameraFinished = { [weak self] (photo: UIImage?, _: URL?) in
-            guard let sself = self else { return }
-            if var photo {
-                ProgressHUD.animate()
+//        }
+//        return v
+//    }()
+    
+    private lazy var _photoHelper: PhotoHelper = {
+            let v = PhotoHelper()
+            v.setConfigToMultipleSelected()
+            v.didPhotoSelected = { [weak self] (images: [UIImage], assets: [PHAsset]) in
+                guard var first = images.first else { return }
                 
-                photo = photo.compress(expectSize: 20 * 1024)
-                let result = FileHelper.shared.saveImage(image: photo)
-                if result.isSuccess {
-                    self?._viewModel.uploadFile(fullPath: result.fullPath, onProgress: { [weak self] progress in
+                self?.currentIndex = -1
+                self?.isHaveImg = true
+                self?.refrehUI()
+                
+                self?.userIconImg = first
+                self?.topCameraImg.image = first
+                
+    //            ProgressHUD.animate()
+    //            first = first.compress(expectSize: 20 * 1024)
+    //            let result = FileHelper.shared.saveImage(image: first)
+    //
+    //            if result.isSuccess {
+    //                self?._viewModel.uploadFile(fullPath: result.fullPath, onProgress: { [weak self] progress in
+    //
+    //                }, onComplete: { [weak self] code, msg in
+    //                    if code == 0 {
+    //                        self?.bottomShow(show: false)
+    //                        ProgressHUD.dismiss()
+    //                    } else {
+    ////                        ProgressHUD.error(msg)
+    //                        SuperToast.show(title: msg)
+    //                    }
+    //                })
+    //            } else {
+    //                ProgressHUD.dismiss()
+    //            }
+            }
+            
+            v.didCameraFinished = { [weak self] (photo: UIImage?, videoPath: URL?) in
+                guard let sself = self else { return }
+                if var photo {
+                    ProgressHUD.animate()
+                    
+                    photo = photo.compress(expectSize: 20 * 1024)
+                    let result = FileHelper.shared.saveImage(image: photo)
+                    if result.isSuccess {
+                        self?._viewModel.uploadFile(fullPath: result.fullPath, onProgress: { [weak self] progress in
 
-                    }, onComplete: { [weak self] code, msg in
-                        if code == 0 {
-                           
-                        } else {
-//                            ProgressHUD.error(msg)
-                            SuperToast.show(title: msg)
-                        }
-                        ProgressHUD.dismiss()
-                    })
+                        }, onComplete: { [weak self] code, msg in
+                            if code == 0 {
+                               
+                            } else {
+    //                            ProgressHUD.error(msg)
+                                SuperToast.show(title: msg)
+                            }
+                            ProgressHUD.dismiss()
+                        })
+                    }
                 }
             }
-        }
         return v
-    }()
+        }()
     
     
 }
@@ -387,7 +446,7 @@ extension YFChooseUserAvatarCardView {
         }
         print("保存")
   
-        if currentIndex > 0 {
+        if currentIndex > -1 {
             if let data = picData {
                 AccountViewModel.updateUserInfo(userID: IMController.shared.uid, faceURL:data[self.currentIndex]) { errCode, errMsg in
                     if errCode != 0 {
@@ -459,14 +518,16 @@ extension YFChooseUserAvatarCardView {
 //        NotificationCenter.default.post(name: Notification.Name("homeChooseUserIcon"), object: nil)
         
         if let currentController = findController() {
-            currentController.presentSelectedPictureActionSheet { [weak self] in
-                guard let self else { return }
-                _photoHelper.presentPhotoLibrary(byController: currentController)
-            } cameraHandler: {[weak self] in
-                guard let self else { return }
-//                _photoHelper.presentCamera(byController: currentController)
-                presentCamera()
-            }
+//            currentController.presentSelectedPictureActionSheet { [weak self] in
+//                guard let self else { return }
+//                _photoHelper.presentPhotoLibrary(byController: currentController)
+//            } cameraHandler: {[weak self] in
+//                guard let self else { return }
+////                _photoHelper.presentCamera(byController: currentController)
+//                presentCamera()
+//            }
+            _photoHelper.setConfigToMultipleSelected(forVideo: false, maxSelectCount: 1)
+            _photoHelper.showSelectMetaSheet(byController: currentController)
         }
         
     }

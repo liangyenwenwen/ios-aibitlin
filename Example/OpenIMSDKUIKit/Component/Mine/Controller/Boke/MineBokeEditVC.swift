@@ -139,42 +139,69 @@ class MineBokeEditVC: BaseTitleController, UIImagePickerControllerDelegate, UINa
     
     
     
+//    private lazy var _photoHelper: PhotoHelper = {
+//        let v = PhotoHelper()
+//        v.setConfigToPickAvatar()
+//        v.didPhotoSelected = { [weak self] (images: [UIImage], _: [PHAsset]) in
+//            guard var first = images.first else { return }
+//            ProgressHUD.animate()
+//            first = first.compress(expectSize: 20 * 1024)
+//            let result = FileHelper.shared.saveImage(image: first)
+//            
+//            if result.isSuccess {
+//                IMController.shared.uploadFile(fullPath: result.fullPath) { [weak self] progress in
+//                    
+//                } onSuccess: { [weak self] url in
+//                    if let url = url {
+//                        print(url)
+//                        self?.url = url
+//                        self?.iconView.changeIcon.image = first
+//                        
+//                    }
+//                    
+//                    ProgressHUD.dismiss()
+//                }
+//
+//            } else {
+//                
+//                ProgressHUD.dismiss()
+//            }
+//        }
+//        
+//        v.didCameraFinished = { [weak self] (photo: UIImage?, _: URL?) in
+//            guard let sself = self else { return }
+//            if var photo {
+//                ProgressHUD.animate()
+//                
+//                photo = photo.compress(expectSize: 20 * 1024)
+//                let result = FileHelper.shared.saveImage(image: photo)
+//                if result.isSuccess {
+//                    IMController.shared.uploadFile(fullPath: result.fullPath) { [weak self] progress in
+//                        
+//                    } onSuccess: { [weak self] url in
+//                        if let url = url {
+//                            print(url)
+//                            self?.url = url
+//                            self?.iconView.changeIcon.image = photo
+//                            
+//                        }
+//                        ProgressHUD.dismiss()
+//                    }
+//                }
+//                
+//            }
+//        }
+//        return v
+//    }()
     private lazy var _photoHelper: PhotoHelper = {
-        let v = PhotoHelper()
-        v.setConfigToPickAvatar()
-        v.didPhotoSelected = { [weak self] (images: [UIImage], _: [PHAsset]) in
-            guard var first = images.first else { return }
-            ProgressHUD.animate()
-            first = first.compress(expectSize: 20 * 1024)
-            let result = FileHelper.shared.saveImage(image: first)
-            
-            if result.isSuccess {
-                IMController.shared.uploadFile(fullPath: result.fullPath) { [weak self] progress in
-                    
-                } onSuccess: { [weak self] url in
-                    if let url = url {
-                        print(url)
-                        self?.url = url
-                        self?.iconView.changeIcon.image = first
-                        
-                    }
-                    
-                    ProgressHUD.dismiss()
-                }
-
-            } else {
-                
-                ProgressHUD.dismiss()
-            }
-        }
-        
-        v.didCameraFinished = { [weak self] (photo: UIImage?, _: URL?) in
-            guard let sself = self else { return }
-            if var photo {
+            let v = PhotoHelper()
+            v.setConfigToMultipleSelected()
+            v.didPhotoSelected = { [weak self] (images: [UIImage], assets: [PHAsset]) in
+                guard var first = images.first else { return }
                 ProgressHUD.animate()
+                first = first.compress(expectSize: 20 * 1024)
+                let result = FileHelper.shared.saveImage(image: first)
                 
-                photo = photo.compress(expectSize: 20 * 1024)
-                let result = FileHelper.shared.saveImage(image: photo)
                 if result.isSuccess {
                     IMController.shared.uploadFile(fullPath: result.fullPath) { [weak self] progress in
                         
@@ -182,17 +209,44 @@ class MineBokeEditVC: BaseTitleController, UIImagePickerControllerDelegate, UINa
                         if let url = url {
                             print(url)
                             self?.url = url
-                            self?.iconView.changeIcon.image = photo
+                            self?.iconView.changeIcon.image = first
                             
                         }
+                        
                         ProgressHUD.dismiss()
                     }
+
+                } else {
+                    
+                    ProgressHUD.dismiss()
                 }
-                
             }
-        }
-        return v
-    }()
+            
+            v.didCameraFinished = { [weak self] (photo: UIImage?, videoPath: URL?) in
+                guard let sself = self else { return }
+                if var photo {
+                    ProgressHUD.animate()
+                    
+                    photo = photo.compress(expectSize: 20 * 1024)
+                    let result = FileHelper.shared.saveImage(image: photo)
+                    if result.isSuccess {
+                        IMController.shared.uploadFile(fullPath: result.fullPath) { [weak self] progress in
+                            
+                        } onSuccess: { [weak self] url in
+                            if let url = url {
+                                print(url)
+                                self?.url = url
+                                self?.iconView.changeIcon.image = photo
+                                
+                            }
+                            ProgressHUD.dismiss()
+                        }
+                    }
+                    
+                }
+            }
+            return v
+        }()
     
     
     override func bindData() {
@@ -230,7 +284,7 @@ extension MineBokeEditVC {
         }
         
         if !SuperStringUtil.isUrl(addressView.inputText, showTip: true) {
-            
+            SuperToast.show(title: "请输入正确网址".localized())
             return
         }
         
@@ -274,54 +328,61 @@ extension MineBokeEditVC {
     
     
     func changeAvatar() {
-        presentSelectedPictureActionSheet { [weak self] in
-            guard let self else { return }
-            _photoHelper.presentPhotoLibrary(byController: self)
-        } cameraHandler: {[weak self] in
-            guard let self else { return }
-//            _photoHelper.presentCamera(byController: self)
-            presentCamera()
-        }
+        
+//        presentSelectedPictureActionSheet { [weak self] in
+//            guard let self else { return }
+//            _photoHelper.presentPhotoLibrary(byController: self)
+//        } cameraHandler: {[weak self] in
+//            guard let self else { return }
+////            _photoHelper.presentCamera(byController: self)
+//            presentCamera()
+//        }
+        
+        
+        _photoHelper.setConfigToMultipleSelected(forVideo: false, maxSelectCount: 1)
+        _photoHelper.showSelectMetaSheet(byController: self)
+        
+        
     }
     
     
     
     //    , UIImagePickerControllerDelegate, UINavigationControllerDelegate  private let _viewModel = MineViewModel()
         
-        func presentCamera() {
-             
-
-                let imagePicker = UIImagePickerController()
-                imagePicker.delegate = self
-                imagePicker.sourceType = .camera
-                imagePicker.allowsEditing = true
-         
-                // 检查相机权限
-                if UIImagePickerController.isSourceTypeAvailable(.camera) {
-                    // 检查相机权限
-                    switch AVCaptureDevice.authorizationStatus(for: .video) {
-                    case .authorized:
-                        // 已授权，可以直接调用相机
-                        present(imagePicker, animated: true, completion: nil)
-                    case .notDetermined:
-                        // 未询问过用户授权，请求授权
-                        AVCaptureDevice.requestAccess(for: .video) { granted in
-                            if granted {
-                                DispatchQueue.main.async {
-                                    self.present(imagePicker, animated: true, completion: nil)
-                                }
-                            }
-                        }
-                    default:
-                        // 无权限，可以提示用户或者跳转到设置页面
-                        print("无权限访问相机")
-                    }
-                } else {
-                    // 设备无相机，提示用户或者进行错误处理
-                    print("设备无相机")
-                }
-            
-        }
+//        func presentCamera() {
+//             
+//
+//                let imagePicker = UIImagePickerController()
+//                imagePicker.delegate = self
+//                imagePicker.sourceType = .camera
+//                imagePicker.allowsEditing = true
+//         
+//                // 检查相机权限
+//                if UIImagePickerController.isSourceTypeAvailable(.camera) {
+//                    // 检查相机权限
+//                    switch AVCaptureDevice.authorizationStatus(for: .video) {
+//                    case .authorized:
+//                        // 已授权，可以直接调用相机
+//                        present(imagePicker, animated: true, completion: nil)
+//                    case .notDetermined:
+//                        // 未询问过用户授权，请求授权
+//                        AVCaptureDevice.requestAccess(for: .video) { granted in
+//                            if granted {
+//                                DispatchQueue.main.async {
+//                                    self.present(imagePicker, animated: true, completion: nil)
+//                                }
+//                            }
+//                        }
+//                    default:
+//                        // 无权限，可以提示用户或者跳转到设置页面
+//                        print("无权限访问相机")
+//                    }
+//                } else {
+//                    // 设备无相机，提示用户或者进行错误处理
+//                    print("设备无相机")
+//                }
+//            
+//        }
         
         // MARK: - UIImagePickerControllerDelegate
           func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {

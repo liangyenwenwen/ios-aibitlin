@@ -275,20 +275,24 @@ class YFFeedbackVC: BaseTitleController {
     @objc func addPic(gesture: UITapGestureRecognizer) {
         print(gesture.view?.tag ?? "11111")
         if gesture.view!.tag - 6000 == datum.count {
-            presentSelectedPictureActionSheet { [weak self] in
-                guard let self else { return }
-                _photoHelper.setConfigToPickAvatar(9 - datum.count)
-                _photoHelper.presentPhotoLibrary(byController: self)
-            } cameraHandler: {[weak self] in
-                guard let self else { return }
-                _photoHelper.presentCamera(byController: self)
-            }
+//            presentSelectedPictureActionSheet { [weak self] in
+//                guard let self else { return }
+//                _photoHelper.setConfigToPickAvatar(9 - datum.count)
+//                _photoHelper.presentPhotoLibrary(byController: self)
+//            } cameraHandler: {[weak self] in
+//                guard let self else { return }
+//                _photoHelper.presentCamera(byController: self)
+//            }
+            _photoHelper.setConfigToMultipleSelected(forVideo: false, maxSelectCount: 9 - datum.count)
+            _photoHelper.showSelectMetaSheet(byController: self)
         }
     }
     
     private lazy var _photoHelper: PhotoHelper = {
         let v = PhotoHelper()
-        v.setConfigToPickAvatar(9)
+//        v.setConfigToPickAvatar(9)
+        v.setConfigToMultipleSelected()
+
         
         v.didPhotoSelected = { [weak self] (images: [UIImage], _: [PHAsset]) in
             guard var first = images.first else { return }
