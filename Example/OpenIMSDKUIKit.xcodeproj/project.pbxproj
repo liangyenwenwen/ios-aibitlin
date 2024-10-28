@@ -89,6 +89,8 @@
 		04D8BF802C8AB00100C1244E /* MineBokeNotificationSettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D8BF7F2C8AB00100C1244E /* MineBokeNotificationSettingVC.swift */; };
 		04D8BF822C8AD0AA00C1244E /* MineBokeVisitorListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D8BF812C8AD0AA00C1244E /* MineBokeVisitorListCell.swift */; };
 		04D8BF842C8AD7EC00C1244E /* MineBokeVisitorListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D8BF832C8AD7EC00C1244E /* MineBokeVisitorListVC.swift */; };
+		04DA67922CCF2ACB00FCA60C /* YFAibitlinHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DA67912CCF2ACB00FCA60C /* YFAibitlinHome.swift */; };
+		04DA67942CCF2B2100FCA60C /* YFAibitlinHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DA67932CCF2B2100FCA60C /* YFAibitlinHomeView.swift */; };
 		04DB1E3E2CA6B0C000EE8B8C /* YFDateUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DB1E3D2CA6B0C000EE8B8C /* YFDateUtil.swift */; };
 		04ECEC5F2CBD1DC10005495F /* RunTimeAbout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ECEC5E2CBD1DC10005495F /* RunTimeAbout.swift */; };
 		04F1FCEF2CB67E5000080742 /* YFMineQRCodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F1FCEE2CB67E5000080742 /* YFMineQRCodeVC.swift */; };
@@ -283,6 +285,8 @@
 		04D8BF7F2C8AB00100C1244E /* MineBokeNotificationSettingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineBokeNotificationSettingVC.swift; sourceTree = "<group>"; };
 		04D8BF812C8AD0AA00C1244E /* MineBokeVisitorListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineBokeVisitorListCell.swift; sourceTree = "<group>"; };
 		04D8BF832C8AD7EC00C1244E /* MineBokeVisitorListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineBokeVisitorListVC.swift; sourceTree = "<group>"; };
+		04DA67912CCF2ACB00FCA60C /* YFAibitlinHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFAibitlinHome.swift; sourceTree = "<group>"; };
+		04DA67932CCF2B2100FCA60C /* YFAibitlinHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFAibitlinHomeView.swift; sourceTree = "<group>"; };
 		04DB1E3D2CA6B0C000EE8B8C /* YFDateUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFDateUtil.swift; sourceTree = "<group>"; };
 		04E752DA2CBE900200492EF6 /* SampleHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleHandler.swift; sourceTree = "<group>"; };
 		04E752DC2CBE900200492EF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -806,6 +810,31 @@
 			path = Net;
 			sourceTree = "<group>";
 		};
+		04DA678E2CCF2A4F00FCA60C /* NewLoginAndRegister */ = {
+			isa = PBXGroup;
+			children = (
+				04DA67902CCF2A7B00FCA60C /* View */,
+				04DA678F2CCF2A7000FCA60C /* Controller */,
+			);
+			path = NewLoginAndRegister;
+			sourceTree = "<group>";
+		};
+		04DA678F2CCF2A7000FCA60C /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				04DA67912CCF2ACB00FCA60C /* YFAibitlinHome.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		04DA67902CCF2A7B00FCA60C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				04DA67932CCF2B2100FCA60C /* YFAibitlinHomeView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		04E752D92CBE900200492EF6 /* ScreenShareBroadcastExtensio */ = {
 			isa = PBXGroup;
 			children = (
@@ -839,6 +868,7 @@
 				040347782BEF053100C7C4EF /* More */,
 				04F2D0632BEE21CA00D5271B /* Mine */,
 				049C643A2BEC602E00B679C4 /* LoginAndRegister */,
+				04DA678E2CCF2A4F00FCA60C /* NewLoginAndRegister */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -1569,6 +1599,7 @@
 				049C64452BECC62D00B679C4 /* YFRegisterVC.swift in Sources */,
 				04D8BF842C8AD7EC00C1244E /* MineBokeVisitorListVC.swift in Sources */,
 				04F2D08D2BEE21CA00D5271B /* UserMessageThridView.swift in Sources */,
+				04DA67922CCF2ACB00FCA60C /* YFAibitlinHome.swift in Sources */,
 				040D860C2BEB8C4200DCAAB3 /* SuperUIImageExtension.swift in Sources */,
 				1790EE6E2921EAFC00C4024A /* CheckBoxTextTableViewCell.swift in Sources */,
 				049D30222CC1F5DB00649DC4 /* YFNetworkStatusUtil.swift in Sources */,
@@ -1627,6 +1658,7 @@
 				040D85E92BEB8C0B00DCAAB3 /* BottomBtnView.swift in Sources */,
 				1790EE762921EAFC00C4024A /* ConfigViewController.swift in Sources */,
 				040D85F42BEB8C0B00DCAAB3 /* Meta.swift in Sources */,
+				04DA67942CCF2B2100FCA60C /* YFAibitlinHomeView.swift in Sources */,
 				0420C71E2BEB78CC0005F5B8 /* ProfileTableViewController.swift in Sources */,
 				0411DD272C05CCB800EDD135 /* SuperDialogController.swift in Sources */,
 				04F2D0932BEE21CA00D5271B /* MineBokeListCell.swift in Sources */,

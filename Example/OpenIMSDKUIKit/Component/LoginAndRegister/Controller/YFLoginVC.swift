@@ -45,6 +45,8 @@ class YFLoginVC: BaseLogicController {
 //        container.addSubview(emailView)
         container.addSubview(pwdView)
         
+//        container.addSubview(YFAibitlinHomeLoginTypeView.bulidWith(loginType: .google))
+//        container.addSubview(YFAibitlinHomeLoginThridView())
         
         container.addSubview(loginBtn)
         container.addSubview(registerContainer)
