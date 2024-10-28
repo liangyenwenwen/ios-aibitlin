@@ -20,12 +20,12 @@ target 'OpenIMSDKUIKit_Example' do
   
   pod 'Localize-Swift', '~> 3.2'
   pod 'RxGesture', '~> 4.0.4'
-  pod 'ProgressHUD'
+  pod 'ProgressHUD', :git => 'https://github.com/std-s/ProgressHUD.git'
   pod 'MMBAlertsPickers'
   pod 'SGCodeTextField'
 #  pod 'JXPatternLock'
   pod 'AlamofireNetworkActivityLogger'
-#  pod 'GTSDK', '2.7.1.0-noidfa'
+  pod 'GTSDK', '2.7.1.0-noidfa'
 
 
 pod "QMUIKit", '4.5.1'
@@ -53,7 +53,7 @@ end
 
 # 开启会议后有屏幕分享功能才会使用该target
 target 'ScreenShareBroadcastExtension' do
-  pod 'LiveKitClient', :git => 'https://github.com/livekit/client-sdk-swift.git', :tag => '1.1.6'
+#  pod 'LiveKitClient', :git => 'https://github.com/livekit/client-sdk-swift.git', :tag => '1.1.6'
 #  pod 'LiveKitClient', :git => 'https://github.com/livekit/client-sdk-swift.git', :tag => '2.0.14'
 #  pod 'LiveKitWebRTC', :git => 'https://github.com/livekit/webrtc-xcframework.git', :tag => '125.6422.07'
 end
@@ -108,9 +108,13 @@ post_install do |installer|
 #          end
 #
           if target.name == 'LiveKitClient'
-            # 开启会议后有屏幕分享功能才会使用该target
-            config.build_settings['APPLICATION_EXTENSION_API_ONLY'] = "NO"
-          end
+              # 开启会议后有屏幕分享功能才会使用该target
+              config.build_settings['APPLICATION_EXTENSION_API_ONLY'] = "NO"
+              target.build_configurations.each do |config|
+                config.build_settings['OTHER_SWIFT_FLAGS'] ||= ['$(inherited)']
+                config.build_settings['OTHER_SWIFT_FLAGS'] << '-enable-experimental-feature AccessLevelOnImport'
+              end
+            end
     end
   end
 end

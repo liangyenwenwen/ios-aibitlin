@@ -1,6 +1,0 @@
-framework module LiveKitClient {
-  umbrella header "LiveKitClient-iOS17.5-umbrella.h"
-
-  export *
-  module * { export * }
-}

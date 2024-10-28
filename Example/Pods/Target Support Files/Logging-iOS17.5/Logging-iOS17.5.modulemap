@@ -1,6 +1,0 @@
-framework module Logging {
-  umbrella header "Logging-iOS17.5-umbrella.h"
-
-  export *
-  module * { export * }
-}

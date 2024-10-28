@@ -3,6 +3,7 @@ import RxSwift
 import SnapKit
 import RxCocoa
 import OUICore
+import AVFAudio
 
 enum LiveBottomBarAction {
     case mute   // 静音
@@ -17,31 +18,35 @@ class LiveBottomBar: UIView {
     let disposeBag = DisposeBag()
     
     private let bgColor = UIColor(red: 34 / 255.0, green: 34 / 255.0, blue: 34 / 255.0, alpha: 1)
+    private var audioPlayer: AVAudioPlayer?
+
     // 静音按钮
     private lazy var audioButton: UIButton = {
         let v = LayoutButton(imagePosition: .top)
         
-        v.setTitle("开启静音".innerLocalized(), for: .normal)
-        v.setTitle("取消静音".innerLocalized(), for: .selected)
-        v.setTitle("开启静音".innerLocalized(), for: .disabled)
-
-        v.titleLabel?.font = .systemFont(ofSize: 10)
+        v.setTitle("meetingMute".innerLocalized(), for: .normal)
+        v.setTitle("meetingUnmute".innerLocalized(), for: .selected)
+        v.setTitle("meetingMute".innerLocalized(), for: .disabled)
+        v.setFont(.systemFont(ofSize: 10))
         
         v.setImage(UIImage(nameInBundle: "live_room_audio_on_icon"), for: .normal)
         v.setImage(UIImage(nameInBundle: "live_room_audio_off_icon"), for: .selected)
         v.setImage(UIImage(nameInBundle: "live_room_audio_off_icon"), for: [.disabled, .selected])
-                        
+        
         v.rx.tap.throttle(.seconds(1), scheduler: MainScheduler.instance).subscribe(onNext: { [weak self] _ in
             guard let self else { return }
             // 房主允许私自解除静音
             if onTap?(.mute) == true {
+                let path =
                 audioTurnOn = !audioTurnOn
                 v.isSelected = audioTurnOn
+                playMusic(name: "meeting_mic_turn_on")
             } else {
                 // 如果房主不允许私自解除禁音，本地只能关闭
                 if audioTurnOn {
                     audioTurnOn = !audioTurnOn
                     v.isSelected = !audioTurnOn
+                    playMusic(name: "meeting_mic_turn_off")
                 }
             }
             
@@ -49,6 +54,20 @@ class LiveBottomBar: UIView {
         
         return v
     }()
+    
+    private func playMusic(name: String) {
+        if let bundle = ViewControllerFactory.getBundle(), let path = bundle.path(forResource: name, ofType: "mp3") {
+            let url = URL(fileURLWithPath: path)
+            
+            do {
+                audioPlayer = try AVAudioPlayer(contentsOf: url)
+                audioPlayer?.prepareToPlay()
+                audioPlayer?.play()
+            } catch {
+                print("Error: Could not load audio file")
+            }
+        }
+    }
     
     // 开启视频
     private lazy var videoButton: UIButton = {

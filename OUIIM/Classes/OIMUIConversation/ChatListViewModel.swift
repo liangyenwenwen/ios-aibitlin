@@ -141,9 +141,9 @@ class ChatListViewModel {
             guard let sself = self else { return }
             sself.removeConversation(event.conversationId)
         }
-#if ENABLE_LIVE_ROOM
-        IMController.shared.addRoomSignalingListener()
-#endif
+//#if ENABLE_LIVE_ROOM
+//        IMController.shared.addRoomSignalingListener()
+//#endif
         
         NotificationCenter.default.addObserver(self, selector: #selector(appWillTerminate), name: UIApplication.willTerminateNotification, object: nil)
     }

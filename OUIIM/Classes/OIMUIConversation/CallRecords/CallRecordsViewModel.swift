@@ -2,7 +2,6 @@
 import OUICore
 import RxRelay
 import RxSwift
-import OpenIMSDK
 
 #if ENABLE_CALL
 import OUICalling
@@ -14,71 +13,47 @@ import OUILive
 
 class CallRecordsViewModel {
     
-#if ENABLE_CALL
+    #if ENABLE_CALL
     // 0 所有通话 1 未接通话 2 未结束会议
     let tabSelected: BehaviorRelay<Int> = .init(value: 0)
     let items: BehaviorRelay<[Any]> = .init(value: [])
     let allRecordsRelay: BehaviorRelay<[CallRecord]> = .init(value: [])
-    
-    var currentTabSelected: Int = 0
-    
+
     private let _disposeBag = DisposeBag()
     private var allRecords: [CallRecord] = []
     private var missedRecords: [CallRecord] = []
-    private var missedMeetingRecords: [MeetingInfo] = []
+
     init() {
         tabSelected.subscribe(onNext: { [weak self] (index: Int) in
             guard let sself = self else { return }
-            sself.currentTabSelected = index
             if index == 0 {
                 self?.items.accept(sself.allRecords)
             } else if index == 1 {
                 self?.items.accept(sself.missedRecords)
-            } else {
-                self?.items.accept(sself.missedMeetingRecords)
             }
+//            else {
+//                self?.items.accept(sself.missedMeetingRecords)
+//            }
         }).disposed(by: _disposeBag)
-        
     }
-    
-    func getRecords(_ needClear: Bool = false) {
+
+    func getRecords() {
         allRecords = CallingManager.getRecords()
-        //        getMeetings()
+//        getMeetings()
         missedRecords = allRecords.filter { $0.success == false}
         allRecordsRelay.accept(allRecords)
-        tabSelected.accept(self.currentTabSelected)
-        
-        //        if (needClear) {
-        //            let recordsNumberKey = "\(Open_im_sdkGetLoginUserID())-com.calling.records.unread.key"
-        //            UserDefaults.standard.set(missedRecords.count, forKey: recordsNumberKey)
-        //            NotificationCenter.default.post(name: Notification.Name("refrehCallLogsbadgeValue"), object: nil, userInfo: ["value": "\(0)"])
-        //        }
-        
-        
-        //        NotificationCenter.default.post(name: Notification.Name("refrehCallLogsbadgeValue"), object: nil, userInfo: ["value": "\(0)"])
+        tabSelected.accept(0)
     }
     
+//    func getMeetings() {
+//        IMController.shared.signalingGetMeetings { [weak self] r in
+//            guard let `self` = self else { return }
+//            self.missedMeetingRecords = r
+//        }
+//    }
     
-    func clearUnRecord() {
-        CallingManager.allReadRecords()
-    }
-    
-    
-    
-    func deleteRecord(record : CallRecord) {
-        CallingManager.deleteRrecord(record: record)
-        
-    }
-    
-    func getMeetings() {
-        IMController.shared.signalingGetMeetings { [weak self] r in
-            guard let `self` = self else { return }
-            self.missedMeetingRecords = r
-        }
-    }
-    
-    func joinMeeting(meetingID: String, onSuccess: @escaping SignalingInfoOptionalReturnVoid, onFailure: @escaping CallBack.ErrorOptionalReturnVoid) {
-        IMController.shared.signalingJoinMeeting(meetingID: meetingID, onSuccess: onSuccess, onFailure: onFailure)
-    }
+//    func joinMeeting(meetingID: String, onSuccess: @escaping SignalingInfoOptionalReturnVoid, onFailure: @escaping CallBack.ErrorOptionalReturnVoid) {
+//        IMController.shared.signalingJoinMeeting(meetingID: meetingID, onSuccess: onSuccess, onFailure: onFailure)
+//    }
     #endif
 }

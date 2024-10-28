@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 LiveKit
+ * Copyright 2024 LiveKit
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,10 +15,14 @@
  */
 
 import Foundation
-import WebRTC
 
-extension RTCMediaConstraints {
+#if swift(>=5.9)
+internal import LiveKitWebRTC
+#else
+@_implementationOnly import LiveKitWebRTC
+#endif
 
+extension LKRTCMediaConstraints {
     //    static let defaultOfferConstraints = RTCMediaConstraints(
     //        mandatoryConstraints: [
     //            kRTCMediaConstraintsOfferToReceiveAudio: kRTCMediaConstraintsValueFalse,
@@ -27,7 +31,7 @@ extension RTCMediaConstraints {
     //        optionalConstraints: nil
     //    )
 
-    static let defaultPCConstraints = DispatchQueue.liveKitWebRTC.sync { RTCMediaConstraints(
+    static let defaultPCConstraints = DispatchQueue.liveKitWebRTC.sync { LKRTCMediaConstraints(
         mandatoryConstraints: nil,
         optionalConstraints: ["DtlsSrtpKeyAgreement": kRTCMediaConstraintsValueTrue]
     ) }

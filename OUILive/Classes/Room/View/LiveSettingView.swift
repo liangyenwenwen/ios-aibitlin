@@ -8,7 +8,7 @@ enum LiveSettingType: CaseIterable {
     case participantCanUnmuteSelf(Bool)       //成员是否能自己解除禁言
     case participantCanEnableVideo(Bool)  //成员是否能开启视频
     case onlyHostShareScreen(Bool)        //仅主持人可共享屏幕
-    case onlyHostInviteUser(Bool)         //仅主持人可邀请用户
+//    case onlyHostInviteUser(Bool)         //仅主持人可邀请用户
     case joinDisableMicrophone(Bool)      //加入是否默认关麦克风
     
     var title: String {
@@ -19,8 +19,8 @@ enum LiveSettingType: CaseIterable {
             return "允许成员开启视频".innerLocalized()
         case .onlyHostShareScreen:
             return "仅主持人可以分享屏幕".innerLocalized()
-        case .onlyHostInviteUser:
-            return "仅主持人可邀请会议成员".innerLocalized()
+//        case .onlyHostInviteUser:
+//            return "仅主持人可邀请会议成员".innerLocalized()
         case .joinDisableMicrophone:
             return "成员入会静音".innerLocalized()
         }
@@ -30,7 +30,7 @@ enum LiveSettingType: CaseIterable {
 class LiveSettingView: UIView {
     
     let disposeBag = DisposeBag()
-    var onCompletion: ((SettingInfo) -> Void)!
+    var onCompletion: ((MeetingSetting) -> Void)?
     var onTap: (() -> Void)?
     
     private lazy var titleLabel: UILabel = {
@@ -46,15 +46,8 @@ class LiveSettingView: UIView {
         
         v.rx.tap.subscribe (onNext: { [weak self] in
             guard let self else { return }
-            let info = SettingInfo()
-            info.roomID = settingInfo.roomID
-            info.participantCanUnmuteSelf = settingInfo.participantCanUnmuteSelf
-            info.participantCanEnableVideo = settingInfo.participantCanEnableVideo
-            info.onlyHostShareScreen = settingInfo.onlyHostShareScreen
-            info.onlyHostInviteUser = settingInfo.onlyHostInviteUser
-            info.joinDisableMicrophone = settingInfo.joinDisableMicrophone
             
-            onCompletion?(info)
+            onCompletion?(settingInfo)
         }).disposed(by: disposeBag)
       
         return v
@@ -83,15 +76,16 @@ class LiveSettingView: UIView {
         return v
     }()
     
-    init(onCompletion: @escaping ((SettingInfo) -> Void)) {
+    init() {
         super.init(frame: .zero)
-        self.onCompletion = onCompletion
         backgroundColor = .clear
         
         let tap = UITapGestureRecognizer()
         addGestureRecognizer(tap)
         tap.rx.event.subscribe(onNext: { [weak self] _ in
-            self?.onTap?()
+            guard let self else { return }
+            
+            onTap?()
         }).disposed(by: disposeBag)
         
         // 被点穿了，简单的阻止下
@@ -135,13 +129,13 @@ class LiveSettingView: UIView {
         contentView.addRoundedCorners(corners: [.topLeft, .topRight], radius: 14)
     }
     
-    var settingInfo: SettingInfo! {
+    var settingInfo: MeetingSetting! {
         didSet {
-            LiveSettingType.allCases = [.participantCanUnmuteSelf(settingInfo.participantCanUnmuteSelf ?? false),
-                                        .participantCanEnableVideo(settingInfo.participantCanEnableVideo ?? false),
-                                        .onlyHostShareScreen(settingInfo.onlyHostShareScreen ?? false),
-                                        .onlyHostInviteUser(settingInfo.onlyHostInviteUser ?? false),
-                                        .joinDisableMicrophone(settingInfo.joinDisableMicrophone ?? false)]
+            LiveSettingType.allCases = [.participantCanUnmuteSelf(settingInfo.canParticipantsUnmuteMicrophone ?? false),
+                                        .participantCanEnableVideo(settingInfo.canParticipantsEnableCamera ?? false),
+                                        .onlyHostShareScreen(!settingInfo.canParticipantsShareScreen ?? false),
+//                                        .onlyHostInviteUser(true),
+                                        .joinDisableMicrophone(settingInfo.disableMicrophoneOnJoin ?? false)]
             tableView.reloadData()
         }
     }
@@ -162,27 +156,27 @@ extension LiveSettingView: UITableViewDelegate, UITableViewDataSource {
         case .participantCanUnmuteSelf(let value):
             cell.trailingSwitch.isOn = value
             cell.onSwitch = {[weak self] isOn in
-                self?.settingInfo.participantCanUnmuteSelf = isOn
+                self?.settingInfo.canParticipantsUnmuteMicrophone = isOn
             }
         case .participantCanEnableVideo(let value):
             cell.trailingSwitch.isOn = value
             cell.onSwitch = {[weak self] isOn in
-                self?.settingInfo.participantCanEnableVideo = isOn
+                self?.settingInfo.canParticipantsEnableCamera = isOn
             }
         case .onlyHostShareScreen(let value):
             cell.trailingSwitch.isOn = value
             cell.onSwitch = {[weak self] isOn in
-                self?.settingInfo.onlyHostShareScreen = isOn
+                self?.settingInfo.canParticipantsShareScreen = !isOn
             }
-        case .onlyHostInviteUser(let value):
-            cell.trailingSwitch.isOn = value
-            cell.onSwitch = {[weak self] isOn in
-                self?.settingInfo.onlyHostInviteUser = isOn
-            }
+//        case .onlyHostInviteUser(let value):
+//            cell.trailingSwitch.isOn = value
+//            cell.onSwitch = {[weak self] isOn in
+//                self?.settingInfo.onlyHostInviteUser = isOn
+//            }
         case .joinDisableMicrophone(let value):
             cell.trailingSwitch.isOn = value
             cell.onSwitch = {[weak self] isOn in
-                self?.settingInfo.joinDisableMicrophone = isOn
+                self?.settingInfo.disableMicrophoneOnJoin = isOn
             }
         }
         

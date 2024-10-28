@@ -164,7 +164,7 @@ public class IMController: NSObject {
     public let customBusinessSubject: PublishSubject<[String: Any]?> = .init()
     public let organizationUpdated: PublishSubject<String?> = .init()
     // 连接状态
-    public let connectionRelay: BehaviorRelay<ConnectionStatus> = .init(value: .connecting)
+    public let connectionRelay: BehaviorRelay<(ConnectionStatus)> = .init(value: .connecting)
     // online status
     public let userStatusSubject: BehaviorSubject<UserStatusInfo?> = .init(value: nil)
     // input states

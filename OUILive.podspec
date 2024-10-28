@@ -33,4 +33,6 @@ Pod::Spec.new do |s|
   s.dependency 'OUICore'
   s.dependency 'OUICoreView'
   s.dependency 'OUICalling'
+  s.dependency 'Alamofire'
+  s.dependency 'SwiftProtobuf'
 end

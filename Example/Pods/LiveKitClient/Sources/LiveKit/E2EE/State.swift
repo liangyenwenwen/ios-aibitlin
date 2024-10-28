@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 LiveKit
+ * Copyright 2024 LiveKit
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,12 @@
  */
 
 import Foundation
-import WebRTC
+
+#if swift(>=5.9)
+internal import LiveKitWebRTC
+#else
+@_implementationOnly import LiveKitWebRTC
+#endif
 
 @objc
 public enum E2EEState: Int {
@@ -28,8 +33,8 @@ public enum E2EEState: Int {
     case internal_error
 }
 
-extension E2EEState {
-    public func toString() -> String {
+public extension E2EEState {
+    func toString() -> String {
         switch self {
         case .new: return "new"
         case .ok: return "ok"

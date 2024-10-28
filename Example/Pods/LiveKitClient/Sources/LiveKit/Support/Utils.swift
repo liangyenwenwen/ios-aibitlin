@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 LiveKit
+ * Copyright 2024 LiveKit
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,19 +14,21 @@
  * limitations under the License.
  */
 
-import Foundation
-import WebRTC
-import Promises
+#if swift(>=5.9)
+internal import LiveKitWebRTC
+#else
+@_implementationOnly import LiveKitWebRTC
+#endif
 
-internal typealias DebouncFunc = () -> Void
+typealias DebouncFunc = () -> Void
 
-internal enum OS {
+enum OS {
     case macOS
     case iOS
 }
 
 extension OS: CustomStringConvertible {
-    internal var description: String {
+    var description: String {
         switch self {
         case .macOS: return "macOS"
         case .iOS: return "iOS"
@@ -34,8 +36,7 @@ extension OS: CustomStringConvertible {
     }
 }
 
-internal func format(bps: UInt64) -> String {
-
+func format(bps: UInt64) -> String {
     let bpsDivider: Double = 1000
     let ordinals = ["", "K", "M", "G", "T", "P", "E"]
 
@@ -50,22 +51,21 @@ internal func format(bps: UInt64) -> String {
     return String(rate.rounded(to: 2)) + ordinals[ordinal] + "bps"
 }
 
-internal class Utils {
-
+class Utils {
     private static let processInfo = ProcessInfo()
 
     /// Returns current OS.
-    internal static func os() -> OS {
-        #if os(macOS)
-        .macOS
-        #elseif os(iOS)
+    static func os() -> OS {
+        #if os(iOS) || os(visionOS) || os(tvOS)
         .iOS
+        #elseif os(macOS)
+        .macOS
         #endif
     }
 
     /// Returns os version as a string.
     /// format: `12.1`, `15.3.1`, `15.0.1`
-    internal static func osVersionString() -> String {
+    static func osVersionString() -> String {
         let osVersion = processInfo.operatingSystemVersion
         var versions = [osVersion.majorVersion]
         if osVersion.minorVersion != 0 || osVersion.patchVersion != 0 {
@@ -74,29 +74,13 @@ internal class Utils {
         if osVersion.patchVersion != 0 {
             versions.append(osVersion.patchVersion)
         }
-        return versions.map({ String($0) }).joined(separator: ".")
+        return versions.map { String($0) }.joined(separator: ".")
     }
 
     /// Returns a model identifier.
     /// format: `MacBookPro18,3`, `iPhone13,3` or `iOSSimulator,arm64`
-    internal static func modelIdentifier() -> String? {
-        #if os(macOS)
-        let service = IOServiceGetMatchingService(kIOMasterPortDefault,
-                                                  IOServiceMatching("IOPlatformExpertDevice"))
-        defer { IOObjectRelease(service) }
-
-        guard let modelData = IORegistryEntryCreateCFProperty(service,
-                                                              "model" as CFString,
-                                                              kCFAllocatorDefault,
-                                                              0).takeRetainedValue() as? Data else {
-            return nil
-        }
-
-        return modelData.withUnsafeBytes({ (pointer: UnsafeRawBufferPointer) -> String? in
-            guard let cString = pointer.baseAddress?.assumingMemoryBound(to: UInt8.self) else { return nil }
-            return String(cString: cString)
-        })
-        #elseif os(iOS)
+    static func modelIdentifier() -> String? {
+        #if os(iOS) || os(visionOS) || os(tvOS)
         var systemInfo = utsname()
         uname(&systemInfo)
         let machineMirror = Mirror(reflecting: systemInfo.machine)
@@ -109,10 +93,27 @@ internal class Utils {
             return "iOSSimulator,\(identifier)"
         }
         return identifier
+        #elseif os(macOS)
+        let service = IOServiceGetMatchingService(kIOMasterPortDefault,
+                                                  IOServiceMatching("IOPlatformExpertDevice"))
+        defer { IOObjectRelease(service) }
+
+        guard let modelData = IORegistryEntryCreateCFProperty(service,
+                                                              "model" as CFString,
+                                                              kCFAllocatorDefault,
+                                                              0).takeRetainedValue() as? Data
+        else {
+            return nil
+        }
+
+        return modelData.withUnsafeBytes { (pointer: UnsafeRawBufferPointer) -> String? in
+            guard let cString = pointer.baseAddress?.assumingMemoryBound(to: UInt8.self) else { return nil }
+            return String(cString: cString)
+        }
         #endif
     }
 
-    internal static func networkTypeString() -> String? {
+    static func networkTypeString() -> String? {
         // wifi, wired, cellular, vpn, empty if not known
         guard let interface = ConnectivityListener.shared.activeInterfaceType() else {
             return nil
@@ -126,7 +127,7 @@ internal class Utils {
         }
     }
 
-    internal static func buildUrl(
+    static func buildUrl(
         _ url: String,
         _ token: String,
         connectOptions: ConnectOptions? = nil,
@@ -135,7 +136,6 @@ internal class Utils {
         validate: Bool = false,
         forceSecure: Bool = false
     ) -> URL? {
-
         // use default options if nil
         let connectOptions = connectOptions ?? ConnectOptions()
 
@@ -155,9 +155,10 @@ internal class Utils {
 
         // if already ending with `rtc` or `validate`
         // and is not a dir, remove it
-        if !parsedUrl.hasDirectoryPath
-            && !pathSegments.isEmpty
-            && ["rtc", "validate"].contains(pathSegments.last!) {
+        if !parsedUrl.hasDirectoryPath,
+           !pathSegments.isEmpty,
+           ["rtc", "validate"].contains(pathSegments.last!)
+        {
             pathSegments.removeLast()
         }
         // add the correct segment
@@ -174,10 +175,10 @@ internal class Utils {
             URLQueryItem(name: "access_token", value: token),
             URLQueryItem(name: "protocol", value: connectOptions.protocolVersion.description),
             URLQueryItem(name: "sdk", value: "swift"),
-            URLQueryItem(name: "version", value: LiveKit.version),
+            URLQueryItem(name: "version", value: LiveKitSDK.version),
             // Additional client info
             URLQueryItem(name: "os", value: String(describing: os())),
-            URLQueryItem(name: "os_version", value: osVersionString())
+            URLQueryItem(name: "os_version", value: osVersionString()),
         ]
 
         if let modelIdentifier = modelIdentifier() {
@@ -189,45 +190,38 @@ internal class Utils {
         }
 
         // only for quick-reconnect
-        queryItems.append(URLQueryItem(name: "reconnect", value: .quick == reconnectMode ? "1" : "0"))
+        queryItems.append(URLQueryItem(name: "reconnect", value: reconnectMode == .quick ? "1" : "0"))
         queryItems.append(URLQueryItem(name: "auto_subscribe", value: connectOptions.autoSubscribe ? "1" : "0"))
         queryItems.append(URLQueryItem(name: "adaptive_stream", value: adaptiveStream ? "1" : "0"))
-
-        if let publish = connectOptions.publishOnlyMode {
-            queryItems.append(URLQueryItem(name: "publish", value: publish))
-        }
 
         builder.queryItems = queryItems
 
         return builder.url
     }
 
-    internal static func createDebounceFunc(on queue: DispatchQueue,
-                                            wait: TimeInterval,
-                                            onCreateWorkItem: ((DispatchWorkItem) -> Void)? = nil,
-                                            fnc: @escaping @convention(block) () -> Void) -> DebouncFunc {
-        var workItem: DispatchWorkItem?
-        return {
-            workItem?.cancel()
-            workItem = DispatchWorkItem { fnc() }
-            onCreateWorkItem?(workItem!)
-            queue.asyncAfter(deadline: .now() + wait, execute: workItem!)
-        }
-    }
-
-    internal static func computeEncodings(
+    static func computeVideoEncodings(
         dimensions: Dimensions,
         publishOptions: VideoPublishOptions?,
-        isScreenShare: Bool = false
-    ) -> [RTCRtpEncodingParameters] {
-
+        isScreenShare: Bool = false,
+        overrideVideoCodec: VideoCodec? = nil
+    ) -> [LKRTCRtpEncodingParameters] {
         let publishOptions = publishOptions ?? VideoPublishOptions()
         let preferredEncoding: VideoEncoding? = isScreenShare ? publishOptions.screenShareEncoding : publishOptions.encoding
         let encoding = preferredEncoding ?? dimensions.computeSuggestedPreset(in: dimensions.computeSuggestedPresets(isScreenShare: isScreenShare))
 
-        guard publishOptions.simulcast else {
-            return [Engine.createRtpEncodingParameters(encoding: encoding, scaleDownBy: 1)]
+        let videoCodec = overrideVideoCodec ?? publishOptions.preferredCodec
+
+        if let videoCodec, videoCodec.isSVC {
+            // SVC mode
+            logger.log("Using SVC mode", type: Utils.self)
+            return [RTC.createRtpEncodingParameters(encoding: encoding, scalabilityMode: .L3T3_KEY)]
+        } else if !publishOptions.simulcast {
+            // Not-simulcast mode
+            logger.log("Simulcast not enabled", type: Utils.self)
+            return [RTC.createRtpEncodingParameters(encoding: encoding)]
         }
+
+        // Continue to simulcast encoding computation...
 
         let baseParameters = VideoParameters(dimensions: dimensions,
                                              encoding: encoding)
@@ -242,7 +236,7 @@ internal class Utils {
         let midPreset = presets[safe: 1]
 
         var resultPresets = [baseParameters]
-        if dimensions.max >= 960, let midPreset = midPreset {
+        if dimensions.max >= 960, let midPreset {
             resultPresets = [lowPreset, midPreset, baseParameters]
         } else if dimensions.max >= 480 {
             resultPresets = [lowPreset, baseParameters]
@@ -252,20 +246,33 @@ internal class Utils {
     }
 }
 
-internal extension Collection {
+extension Collection {
     /// Returns the element at the specified index if it is within bounds, otherwise nil.
     subscript(safe index: Index) -> Element? {
-        return indices.contains(index) ? self[index] : nil
+        indices.contains(index) ? self[index] : nil
     }
 }
 
-internal extension MutableCollection {
+extension MutableCollection {
     subscript(safe index: Index) -> Element? {
         get { indices.contains(index) ? self[index] : nil }
         set {
-            if let newValue = newValue, indices.contains(index) {
+            if let newValue, indices.contains(index) {
                 self[index] = newValue
             }
         }
     }
+}
+
+func computeAttributesDiff(oldValues: [String: String], newValues: [String: String]) -> [String: String] {
+    let allKeys = Set(oldValues.keys).union(newValues.keys)
+    var diff = [String: String]()
+
+    for key in allKeys {
+        if oldValues[key] != newValues[key] {
+            diff[key] = newValues[key] ?? ""
+        }
+    }
+
+    return diff
 }

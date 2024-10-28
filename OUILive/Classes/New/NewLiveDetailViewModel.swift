@@ -3,26 +3,43 @@ import OUICore
 
 class NewLiveDetailViewModel {
     
-    private var meetingInfo: MeetingInfo!
+    var meetingInfo: MeetingInfoSetting!
+    private let repository = MeetingRepository()
     
-    init(meetingInfo: MeetingInfo) {
+    init(meetingInfo: MeetingInfoSetting) {
         self.meetingInfo = meetingInfo
     }
     
+    var isMine: Bool {
+        meetingInfo.hostUserID == IMController.shared.uid
+    }
     
-    func getHosterInfo(completion: @escaping ((_ name: String) -> Void)) {
-        guard let hostUserID = meetingInfo?.hostUserID else { return }
-        IMController.shared.getUserInfo(uids: [hostUserID]) { [weak self] r in
-            completion(r.first?.showName ?? "")
+    func getHosterInfo() -> String {
+        meetingInfo.creatorNickname
+    }
+    
+    func getDetail(completion: @escaping (() -> Void)) {
+        Task {
+            let m = await repository.getMeetingInfo(meetingID: meetingInfo.meetingID, userID: IMController.shared.uid)
+            
+            await MainActor.run {
+                meetingInfo = m
+                completion()
+            }
         }
     }
     
-    func joinMeeting(_ completion: @escaping (InvitationResultInfo) -> Void, onFailure: @escaping CallBack.ErrorOptionalReturnVoid) {
-        IMController.shared.signalingJoinMeeting(meetingID: meetingInfo.roomID, participantNickname: IMController.shared.currentUserRelay.value?.nickname){ invitation in
-            print("\(invitation)")
-            completion(invitation)
-        } onFailure: {(errCode, errMsg) in
-            onFailure(errCode, errMsg)
+    func joinMeeting(_ completion: @escaping (LiveKit) -> Void, onFailure: @escaping CallBack.ErrorOptionalReturnVoid) {
+        Task {
+            let result = await repository.joinMeeting(meetingID: meetingInfo.meetingID, userID: IMController.shared.uid)
+            
+            await MainActor.run {
+                if result != nil {
+                    completion(result!)
+                } else {
+                    onFailure(-1, nil)
+                }
+            }
         }
     }
     
@@ -33,17 +50,24 @@ class NewLiveDetailViewModel {
                                                                      "inviterNickname": IMController.shared.currentUserRelay.value?.nickname,
                                                                      "inviterFaceURL": IMController.shared.currentUserRelay.value?.faceURL,
                                                                      "subject": meetingInfo.meetingName,
-                                                                     "id": meetingInfo.roomID,
-                                                                     "start": meetingInfo.startTime,
-                                                                     "duration": meetingInfo.endTime - meetingInfo.startTime])
+                                                                     "id": meetingInfo.meetingID,
+                                                                     "start": meetingInfo.scheduledTime,
+                                                                     "duration": meetingInfo.duration])
         IMController.shared.sendMessage(message: message, to: desID, conversationType: conversationType) { r in
             print("result: \(r)")
         }
     }
     
     func closeRoom(_ completion: @escaping CallBack.StringOptionalReturnVoid) {
-        IMController.shared.signalingCloseMeeting(meetingID: meetingInfo.roomID, onSuccess: completion, onFailure: { (code, msg) in
+        Task {
+            let result = await repository.endMeeting(meetingID: meetingInfo!.meetingID, userID: IMController.shared.uid, endType: .cancelType)
             
-        })
+            await MainActor.run {
+                if result {
+                    completion("")
+                } else {
+                }
+            }
+        }
     }
 }

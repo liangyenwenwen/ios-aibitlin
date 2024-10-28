@@ -171,4 +171,48 @@ extension Date {
         }
         return destinationDateNow!
     }
+    
+    static public func formatTime(seconds: Int) -> String {
+        // Define constants for time units
+        let minutesInHour = 60
+        let secondsInMinute = 60
+        let secondsInHour = minutesInHour * secondsInMinute
+        
+        // Handle special case for 0 seconds
+        if seconds == 0 {
+            return "nSeconds".innerLocalizedFormat(arguments: "0")
+        }
+        
+        // Calculate hours and minutes
+        let hours = seconds / secondsInHour
+        let minutes = (seconds % secondsInHour) / secondsInMinute
+        let remainingSeconds = seconds % secondsInMinute
+        
+        // Format the output based on the time values
+        if hours > 0 {
+            if minutes > 0 {
+                let totalHours = Double(seconds) / Double(secondsInHour)
+                // Only show decimal part if it is not zero
+                if totalHours.truncatingRemainder(dividingBy: 1) == 0 {
+                    return "nHour".innerLocalizedFormat(arguments: String(Int(totalHours)))
+                } else {
+                    return "nHour".innerLocalizedFormat(arguments: String(totalHours))
+                }
+            } else {
+                return "nHour".innerLocalizedFormat(arguments: String(hours))
+            }
+        } else if minutes > 0 {
+            let totalMinutes = Double(seconds) / Double(secondsInMinute)
+            // Only show decimal part if it is not zero
+            if totalMinutes.truncatingRemainder(dividingBy: 1) == 0 {
+                return "nMinute".innerLocalizedFormat(arguments: String(Int(totalMinutes)))
+            } else {
+                
+                return "nMinute".innerLocalizedFormat(arguments: String(totalMinutes))
+            }
+        } else {
+            return "nSeconds".innerLocalizedFormat(arguments: String(remainingSeconds))
+        }
+    }
 }
+

@@ -21,7 +21,6 @@ class LiveParticipantVideoCell: ParticipantCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         videoView.layoutMode = .fit
-        videoView.mirrorMode = .off
         
         addSubview(toggleCameraButton)
         toggleCameraButton.snp.makeConstraints { make in

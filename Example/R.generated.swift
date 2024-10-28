@@ -16,6 +16,7 @@ struct _R: Sendable {
   var color: color { .init(bundle: bundle) }
   var image: image { .init(bundle: bundle) }
   var entitlements: entitlements { .init() }
+  var file: file { .init(bundle: bundle) }
   var nib: nib { .init(bundle: bundle) }
   var storyboard: storyboard { .init(bundle: bundle) }
 
@@ -32,6 +33,9 @@ struct _R: Sendable {
     .init(bundle: bundle)
   }
   func image(bundle: Foundation.Bundle) -> image {
+    .init(bundle: bundle)
+  }
+  func file(bundle: Foundation.Bundle) -> file {
     .init(bundle: bundle)
   }
   func nib(bundle: Foundation.Bundle) -> nib {
@@ -4374,9 +4378,18 @@ struct _R: Sendable {
 
   /// This `_R.entitlements` struct is generated, and contains static references to 1 properties.
   struct entitlements {
+    let apsEnvironment: String = "development"
     let comAppleSecurityApplicationGroups = comAppleSecurityApplicationGroups()
     struct comAppleSecurityApplicationGroups {
     }
+  }
+
+  /// This `_R.file` struct is generated, and contains static references to 1 resource files.
+  struct file {
+    let bundle: Foundation.Bundle
+
+    /// Resource file `customSound.mp3`.
+    var customSoundMp3: RswiftResources.FileResource { .init(name: "customSound", pathExtension: "mp3", bundle: bundle, locale: LocaleReference.none) }
   }
 
   /// This `_R.nib` struct is generated, and contains static references to 2 nibs.

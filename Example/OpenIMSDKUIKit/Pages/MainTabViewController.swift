@@ -8,7 +8,7 @@ import ProgressHUD
 import Localize_Swift
 import MJExtension
 import IQKeyboardManagerSwift
-//import GTSDK
+import GTSDK
 #if ENABLE_MOMENTS
 import OUIMoments
 #endif
@@ -433,7 +433,7 @@ class MainTabViewController: UITabBarController {
     
     func pushBindAlias(_ bind: Bool = true) {
         if let userID = AccountViewModel.userID {
-//            bind ? GeTuiSdk.bindAlias(userID, andSequenceNum: "im") : GeTuiSdk.unbindAlias(userID, andSequenceNum: "im", andIsSelf: true)
+            bind ? GeTuiSdk.bindAlias(userID, andSequenceNum: "im") : GeTuiSdk.unbindAlias(userID, andSequenceNum: "im", andIsSelf: true)
         }
     }
     

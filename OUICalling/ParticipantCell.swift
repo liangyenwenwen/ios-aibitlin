@@ -67,7 +67,7 @@ open class ParticipantCellDefaultView: UIView {
         return v
     }()
     
-    lazy var hosterImageView: UIImageView = {
+    public lazy var hosterImageView: UIImageView = {
         let v = UIImageView(image: UIImage(nameInBundle: "hoster_icon"))
         v.isHidden = true
         
@@ -162,16 +162,7 @@ open class ParticipantCell: UICollectionViewCell {
         return v
     }()
     
-    public let videoView: VideoView = {
-        let r = VideoView()
-        r.layoutMode = .fill
-        r.backgroundColor = .darkGray
-        r.clipsToBounds = true
-        r.isUserInteractionEnabled = false
-        r.subviews.map({ $0.isUserInteractionEnabled = false })
-        
-        return r
-    }()
+    public var videoView: VideoView!
     
     // 开启视频后，常态展示
     public lazy var infoView: ParticipantCellDefaultView = {
@@ -227,11 +218,8 @@ open class ParticipantCell: UICollectionViewCell {
                 // listen to events
                 participant.add(delegate: self)
                 setFirstVideoTrack()
-                infoView.nameLabel.text = SuperStringUtil.getUserState(showname:participant.showName ?? "").n
-                infoView.avatarView.setAvatar(url: participant.faceURL, text: SuperStringUtil.getUserState(showname:participant.showName ?? "").n)
-                // 展示主持人
-                let isHoster = participant.isHoster
-                infoView.hosterImageView.isHidden = !isHoster
+                infoView.nameLabel.text = participant.showName
+                infoView.avatarView.setAvatar(url: participant.faceURL, text: participant.showName)
                 // 调用join room后，视频显示为false
                 if videoForceEnable {
                     isVideoEnable = true
@@ -240,7 +228,7 @@ open class ParticipantCell: UICollectionViewCell {
                 }
                 
                 isMicEnable = participant.isMicrophoneEnabled()
-                print("member's info:\(participant.metadataMap)")
+                print("member's info:\(participant.identityString)")
                 // make sure the cell will call layoutSubviews()
                 setNeedsLayout()
             }
@@ -256,6 +244,8 @@ open class ParticipantCell: UICollectionViewCell {
         super.init(frame: frame)
         print("\(String(describing: self)) init, instances: \(Self.instanceCounter)")
         backgroundColor = .systemGray4
+        
+        videoView = setupVideoView()
         
         contentView.addSubview(scrollView)
         scrollView.addSubview(videoView)
@@ -302,6 +292,17 @@ open class ParticipantCell: UICollectionViewCell {
         Self.instanceCounter -= 1
         
         print("\(String(describing: self)) deinit, instances: \(Self.instanceCounter)")
+    }
+    
+    private func setupVideoView() -> VideoView {
+        let r = VideoView()
+        r.layoutMode = .fill
+        r.backgroundColor = .darkGray
+        r.clipsToBounds = true
+        r.isUserInteractionEnabled = false
+        r.subviews.map({ $0.isUserInteractionEnabled = false })
+        
+        return r
     }
     
     @objc private func handleDoubleTap(_ gesture: UITapGestureRecognizer) {
@@ -355,6 +356,12 @@ open class ParticipantCell: UICollectionViewCell {
     public override func prepareForReuse() {
         super.prepareForReuse()
         print("prepareForReuse, cellId: \(cellId)")
+        
+        videoView.removeFromSuperview()
+        videoView = nil
+        videoView = setupVideoView()
+        scrollView.addSubview(videoView)
+        
         infoView.hosterImageView.isHidden = true
         participant = nil
         loadingView.isHidden = true
@@ -383,7 +390,9 @@ open class ParticipantCell: UICollectionViewCell {
     }
     
     private func setFirstVideoTrack() {
-        var track = participant?.videoTracks.first?.track as? VideoTrack
+        var track = participant?.firstScreenShareVideoTrack ?? participant?.firstCameraVideoTrack
+        
+        print("\(#function) : \(track)")
         videoView.track = track
         isVideoEnable = track != nil
     }
@@ -408,27 +417,27 @@ open class ParticipantCell: UICollectionViewCell {
 }
 
 extension ParticipantCell: ParticipantDelegate {
-    public func participant(_ participant: RemoteParticipant, didSubscribe publication: RemoteTrackPublication, track: Track) {
+    public func participant(_ participant: RemoteParticipant, didSubscribeTrack publication: RemoteTrackPublication) {
         print("\(#function)")
         DispatchQueue.main.async { [weak self] in
             self?.setFirstVideoTrack()
         }
     }
     
-    public func participant(_ participant: RemoteParticipant, didUnsubscribe publication: RemoteTrackPublication, track: Track) {
+    public func participant(_ participant: RemoteParticipant, didUnsubscribeTrack publication: RemoteTrackPublication) {
         print("\(#function)")
         DispatchQueue.main.async { [weak self] in
             self?.setFirstVideoTrack()
         }
     }
     
-    public func participant(_ participant: Participant, didUpdate speaking: Bool) {
+    public func participant(_ participant: Participant, didUpdateIsSpeaking speaking: Bool) {
         DispatchQueue.main.async { [weak self] in
             self?.speakingView.isHidden = !speaking
         }
     }
     
-    public func participant(_ participant: Participant, didUpdate publication: TrackPublication, muted: Bool) {
+    public func participant(_ participant: Participant, trackPublication publication: TrackPublication, didUpdateIsMuted muted: Bool) {
         print("\(#function) muted \(String(describing: participant.showName)) - \(publication.kind) status:\(!muted)")
         DispatchQueue.main.async { [weak self] in
             if publication.kind == .audio {
@@ -439,11 +448,11 @@ extension ParticipantCell: ParticipantDelegate {
         }
     }
     
-    public func participant(_ participant: RemoteParticipant, didUpdate publication: RemoteTrackPublication, streamState: StreamState) {
+    public func participant(_ participant: RemoteParticipant, trackPublication publication: RemoteTrackPublication, didUpdateStreamState streamState: StreamState) {
         print("\(#function) stream state:\(streamState)")
     }
     
-    public func participant(_ participant: Participant, didUpdate connectionQuality: ConnectionQuality) {
+    public func participant(_ participant: Participant, didUpdateConnectionQuality connectionQuality: ConnectionQuality) {
         print("\(#function) stream state:\(connectionQuality)")
     }
 }
@@ -506,23 +515,8 @@ extension Participant {
         return nil
     }
     
-    public var roomMetadataMap: [String: Any]? {
-        if let roomMetadata = room.metadata {
-            let data = try? (JSONSerialization.jsonObject(with: (roomMetadata.data(using: .utf8))!, options: .mutableContainers) as! [String: Any])
-            return data
-        }
-        
-        return nil
-    }
-    
-    public var isHoster: Bool {
-        if roomMetadataMap != nil {
-            if let hostID = roomMetadataMap!["hostUserID"] as? String, hostID == identity {
-                return true
-            }
-        }
-        
-        return false
+    public var identityString: String? {
+        identity?.stringValue
     }
 }
 

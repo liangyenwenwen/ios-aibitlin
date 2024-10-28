@@ -4,18 +4,15 @@ import OUICoreView
 import SnapKit
 import LiveKitClient
 import AVFAudio
-import Promises
 import OUICalling
 import RxSwift
 import ProgressHUD
+import SwiftProtobuf
 
 public class LiveRoomViewController: UIViewController {
     
     let disposeBag = DisposeBag()
     
-    internal var cameraTrackState: TrackPublishState = .notPublished()
-    internal var microphoneTrackState: TrackPublishState = .notPublished()
-    internal var screenShareTrackState: TrackPublishState = .notPublished()
     internal let sdk = DispatchQueue(label: "LiveRoom", qos: .userInitiated)
     private var audioPlayer: AVAudioPlayer?
     
@@ -26,7 +23,7 @@ public class LiveRoomViewController: UIViewController {
     }
 
     var room: Room!
-    var invitationInfo: InvitationResultInfo!
+    var invitationInfo: LiveKit!
     var liveTimer: Timer?
     var liveDuration: Int = 0
     
@@ -36,15 +33,49 @@ public class LiveRoomViewController: UIViewController {
     
     @objc public var onInvitedHandler:(() -> Void)?
     
-    public init(invitationInfo: InvitationResultInfo) {
+    var onClose: (() -> Void)?
+    
+    init(invitationInfo: LiveKit) {
         super.init(nibName: nil, bundle: nil)
         self.invitationInfo = invitationInfo
         viewModel = LiveRoomViewModel(invitationSingling: invitationInfo)
+        LiveRoomStateManager.manager.currentRoom = self
     }
     
-    public static func showIn(viewController: UIViewController, invitationInfo: InvitationResultInfo) {
+    init(url: String, token: String) {
+        super.init(nibName: nil, bundle: nil)
+        var livekit = LiveKit()
+        livekit.url = url
+        livekit.token = token
+        
+        self.invitationInfo = livekit
+        viewModel = LiveRoomViewModel(invitationSingling: invitationInfo)
+        LiveRoomStateManager.manager.currentRoom = self
+    }
+    
+    static func showIn(viewController: UIViewController, invitationInfo: LiveKit, onClose: (() -> Void)? = nil) {
         let vc = LiveRoomViewController(invitationInfo: invitationInfo)
         vc.isPresented = true
+        vc.onClose = onClose
+        LiveRoomStateManager.manager.currentRoom = vc
+        
+        let nav = UINavigationController(rootViewController: vc)
+        nav.modalPresentationStyle = .overCurrentContext
+
+        UIViewController.currentViewController().present(nav, animated: true)
+    }
+    
+    public static func showIn(viewController: UIViewController, url: String, token: String, onClose: (() -> Void)? = nil) {
+        
+        var livekit = LiveKit()
+        livekit.url = url
+        livekit.token = token
+        
+        let vc = LiveRoomViewController(invitationInfo: livekit)
+        vc.isPresented = true
+        vc.onClose = onClose
+        LiveRoomStateManager.manager.currentRoom = vc
+        
         let nav = UINavigationController(rootViewController: vc)
         nav.modalPresentationStyle = .overCurrentContext
 
@@ -55,8 +86,21 @@ public class LiveRoomViewController: UIViewController {
         LiveRoomStateManager.manager.isBusy
     }
     
-    public static func dismiss() {
-        UIViewController.currentViewController().dismiss(animated: false)
+    public static func forceDismiss() {
+        if LiveRoomStateManager.manager.currentRoom?.viewModel.meetingInfo?.hosterIsSelf == true {
+            LiveRoomStateManager.manager.currentRoom?.viewModel.endMeeting(onSuccess: { _ in
+                
+            }, onFailure: { errCode, errMsg in
+                
+            })
+        } else {
+            LiveRoomStateManager.manager.currentRoom?.viewModel.leaveMeeting(onSuccess: { _ in
+                
+            }, onFailure: { errCode, errMsg in
+                
+            })
+        }
+        LiveRoomStateManager.manager.currentRoom?.dismiss()
     }
     
     required init?(coder: NSCoder) {
@@ -65,7 +109,12 @@ public class LiveRoomViewController: UIViewController {
     
     deinit {
         isPresented = false
-        room.disconnect()
+        
+        if let room {
+            Task {
+                await room.disconnect()
+            }
+        }
         liveTimer?.invalidate()
         liveTimer = nil
         UIApplication.shared.isIdleTimerDisabled = false
@@ -128,17 +177,15 @@ public class LiveRoomViewController: UIViewController {
             case .screenShare:
                 let can = setting.screenShareCanEnable
                 if can {
-                    if screenShareTrackState.isPublished {
+                    if room.localParticipant.firstScreenShareVideoTrack != nil {
                         unpublish(source: .screenShareVideo) { [self] in
                             DispatchQueue.main.async { [self] in
                                 self.toggleCameraEnabled(v.videoTurnOn)
                             }
                         }
                     } else {
-                        unpublish(source: .camera) { [self] in
-                            DispatchQueue.main.async { [self] in
-                                self.toggleScreenShareEnable()
-                            }
+                        DispatchQueue.main.async { [self] in
+                            self.toggleScreenShareEnable()
                         }
                     }
                     contentView.reloadLeadingParticipants()
@@ -162,22 +209,20 @@ public class LiveRoomViewController: UIViewController {
     // 设置界面
     lazy var settingView: LiveSettingView = {
         
-        let v = LiveSettingView() { [weak self] setting in
+        let v = LiveSettingView()
+        v.onCompletion = { [weak self] setting in
             // 设置结果
             ProgressHUD.animate()
             Task {
                 let result = await self?.viewModel.updateMeetingInfo(info: setting)
                 if result == true {
                     self?.showSettingView()
-                    ProgressHUD.dismiss()
+                    await MainActor.run {
+                        ProgressHUD.dismiss()
+                    }
                 } else {
-//                    ProgressHUD.error("setupFailed".innerLocalized())
-                    ProgressHUD.dismiss()
-                    if let handler = OIMApi.showTipHandle {
-                                    
-                        handler("setupFailed".innerLocalized(), { res in
-                           
-                        })
+                    await MainActor.run {
+                        ProgressHUD.error("setupFailed".innerLocalized())
                     }
                 }
             }
@@ -196,7 +241,7 @@ public class LiveRoomViewController: UIViewController {
     lazy var roomInfoView: LiveRoomInfoView = {
         let v = LiveRoomInfoView()
         v.onTap = { [weak self] in
-            UIPasteboard.general.string = self?.viewModel.meetingInfo?.roomID
+            UIPasteboard.general.string = self?.viewModel.meetingInfo?.meetingID
         }
         v.isHidden = true
         
@@ -276,17 +321,17 @@ public class LiveRoomViewController: UIViewController {
 //        }
         
         contentView.participantHandler = { [weak self] index in
-            guard let `self` = self else { return nil}
+            guard let self else { return nil}
             let p = allParticipants[index]
             
-            return (p, p.isSelf)
+            return (p, p.isSelf, p.identityString == viewModel.meetingInfo?.hostUserID)
         }
         
         contentView.leadingParticipantHandler = { [weak self] in
             guard let self, allParticipants.count > leadingIndex else { return nil }
             let p = allParticipants[leadingIndex]
             
-            return (p, p.isSelf)
+            return (p, p.isSelf, p.identityString == viewModel.meetingInfo?.hostUserID)
         }
         
         contentView.onTap = { [weak self] (action) in
@@ -294,10 +339,15 @@ public class LiveRoomViewController: UIViewController {
             
             switch action {
             case .camera:
-                switchCameraPosition()
+                Task {
+                    await self.switchCameraPosition()
+                }
             case .doubleTap(let index):
                 let obj = allParticipants[index]
-                scrollToBeWatchParticipant(beWatchID: obj.identity)
+                
+                if let identiry = obj.identityString {
+                    scrollToBeWatchParticipant(beWatchID: identiry)
+                }
             case .cell(let index):
                 navBar.isHidden = !navBar.isHidden
                 bottomBar.isHidden = !bottomBar.isHidden
@@ -308,7 +358,7 @@ public class LiveRoomViewController: UIViewController {
         }
         
         contentView.hosterName = { [weak self] in
-            return self?.viewModel.meetingInfo?.hosterName
+            return self?.viewModel.meetingInfo?.creatorNickname
         }
         /*
         // 成员列表缩略图
@@ -390,25 +440,25 @@ public class LiveRoomViewController: UIViewController {
             self?.dismiss()
         }).disposed(by: disposeBag)
         
-        viewModel.meetingStreamChangeRelay.subscribe(onNext: { [weak self] event in
-            guard let `self` = self, let event = event else { return }
-
-            if (event.streamType == "audio") {
-                self.toggleMicrophoneEnabled(!event.mute)
-            } else {
-                self.toggleCameraEnabled(!event.mute)
-            }
-        }).disposed(by: disposeBag)
+//        viewModel.meetingStreamChangeRelay.subscribe(onNext: { [weak self] event in
+//            guard let `self` = self, let event = event else { return }
+//
+//            if (event.streamType == "audio") {
+//                self.toggleMicrophoneEnabled(!event.mute)
+//            } else {
+//                self.toggleCameraEnabled(!event.mute)
+//            }
+//        }).disposed(by: disposeBag)
     }
     
     // 刷新人
     func setParticipants() {
         var allParticipants = ([room.localParticipant] + room.remoteParticipants.map { $0.value } as [Participant?])
             .compactMap {$0}
-            .filter {$0.identity != viewModel.meetingInfo?.roomID}
+            .filter {$0.identityString != viewModel.meetingInfo?.meetingID}
         // 大于两人才有这个逻辑，小于两人的时候类似音视频聊天
 //        if allParticipants.count > 2 {
-            let i = allParticipants.firstIndex(where: { $0.identity == viewModel.meetingInfo?.hostUserID })
+            let i = allParticipants.firstIndex(where: { $0.identityString == viewModel.meetingInfo?.hostUserID })
             if let i = i {
                 let obj = allParticipants[i]
                 allParticipants.remove(at: i)
@@ -425,7 +475,7 @@ public class LiveRoomViewController: UIViewController {
     
     // 滚动到指定观看的人
     func scrollToBeWatchParticipant(beWatchID: String) {
-        if let index = allParticipants.firstIndex(where: { $0.identity == beWatchID}) {
+        if let index = allParticipants.firstIndex(where: { $0.identityString == beWatchID}) {
             leadingIndex = index
             DispatchQueue.main.async { [self] in
                 contentView.reloadLeadingParticipants()
@@ -441,8 +491,7 @@ public class LiveRoomViewController: UIViewController {
         
         // 刷新下数据
         if show {
-            let JSON = JsonTool.toJson(fromObject: viewModel.meetingInfo)
-            settingView.settingInfo = JsonTool.fromJson(JSON, toClass: SettingInfo.self)
+            settingView.settingInfo = viewModel.meetingInfo?.setting
         }
         settingView.isHidden = false
         settingView.snp.updateConstraints { make in
@@ -472,41 +521,33 @@ public class LiveRoomViewController: UIViewController {
             memberListViewController = LiveMemberListViewController()
             
             memberListViewController!.onTap = { [weak self] action in
+                guard let self else { return }
+                
                 switch action {
                 case .invite:
-                    self?.toInvite()
+                    toInvite()
                 case .muteAll(let isMuted):
-                    self?.viewModel.meetingInfo?.isMuteAllMicrophone = isMuted
-                    let m = MeetingInfo()
-                    m.isMuteAllMicrophone = isMuted
                     Task {
-                        await self?.viewModel.updateMeetingInfo(info: m)
+                        let result = await self.viewModel.operateAllStream(microphoneOnEntry: !isMuted)
+                        
+                        if !result {
+                            ProgressHUD.error("setupFailed".innerLocalized())
+                        }
                     }
                 }
             }
-            
-            var tempParticipants: [Participant] = []
-            
+                        
             memberListViewController!.numberOfitems = { [weak self] in
                 guard let `self` = self, !self.allParticipants.isEmpty else { return 0 }
-                // 将置顶的放在最上面
-                tempParticipants.removeAll()
-                let pinedUsers = self.viewModel.meetingInfo?.pinedUserIDList ?? []
-                self.allParticipants.forEach { p in
-                    if pinedUsers.contains(where: { $0 == p.identity}) {
-                        tempParticipants.insert(p, at: 0)
-                    } else {
-                        tempParticipants.append(p)
-                    }
-                }
-                return tempParticipants.count
+      
+                return allParticipants.count
             }
             
             memberListViewController!.participantForRowAt = { [weak self] index in
                 guard let `self` = self, let meetingInfo = self.viewModel.meetingInfo else { fatalError() }
-                let p = tempParticipants[index]
-                let isPined = meetingInfo.pinedUserIDList?.contains(where: { $0 == p.identity }) ?? false
-                let allSeeHim = meetingInfo.beWatchedUserIDList?.contains(where: { $0 == p.identity }) ?? false
+                let p = allParticipants[index]
+                let isPined = false
+                let allSeeHim = false
                 let showOperate = meetingInfo.hosterIsSelf
                 
                 return (p, isPined, showOperate, allSeeHim)
@@ -514,51 +555,32 @@ public class LiveRoomViewController: UIViewController {
             
             memberListViewController!.participantDidOperated = { [weak self] (index, operate) in
                 guard let `self` = self else { return }
-                let p = tempParticipants[index]
+                let p = allParticipants[index]
                 switch operate {
                 case .audio(let isMuted):
                     if p.isSelf {
                         toggleMicrophoneEnabled(!isMuted)
                     } else {
-                        self.viewModel.updateUserInfo(userID: p.identity, streamType: "audio", mute: isMuted)
+                        guard let identiry = p.identityString else { return }
+                        
+                        self.viewModel.updateUserInfo(userID: identiry, streamType: "audio", mute: isMuted)
                     }
                 case .video(let isMuted):
                     if p.isSelf {
-                        toggleCameraEnabled(!isMuted)
+                        Task {
+                            await self.toggleCameraEnabled(!isMuted)
+                        }
                     } else {
-                        self.viewModel.updateUserInfo(userID: p.identity, streamType: "video", mute: isMuted)
+                        guard let identiry = p.identityString else { return }
+                        
+                        self.viewModel.updateUserInfo(userID: identiry, streamType: "video", mute: isMuted)
                     }
                 case .more:
                     break
                 case .pined(_):
-                    let index = viewModel.meetingInfo?.pinedUserIDList?.firstIndex(where: { $0 == p.identity })
-                    let update = MeetingInfo()
-                    if index == nil {
-                        update.reducePinedUserIDList = viewModel.meetingInfo?.pinedUserIDList
-                        update.addPinedUserIDList = [p.identity]
-                    } else {
-                        update.reducePinedUserIDList = [p.identity]
-                    }
-                    
-                    Task {
-                        await self.viewModel.updateMeetingInfo(info: update)
-                    }
-                    self.showMemberListView()
+                    break
                 case .allSeeHim(_):
-                    let index = viewModel.meetingInfo?.beWatchedUserIDList?.firstIndex(where: { $0 == p.identity })
-                    let update = MeetingInfo()
-                    if index == nil {
-                        update.reduceBeWatchedUserIDList = viewModel.meetingInfo?.beWatchedUserIDList
-                        update.addBeWatchedUserIDList = [p.identity]
-                    } else {
-                        leadingIndex = 0
-                        update.reduceBeWatchedUserIDList = [p.identity]
-                    }
-                    
-                    Task {
-                        await self.viewModel.updateMeetingInfo(info: update)
-                    }
-                    self.showMemberListView()
+                    break
                 }
             }
         }
@@ -578,11 +600,11 @@ public class LiveRoomViewController: UIViewController {
         
         if show {
             guard let meetingInfo = self.viewModel.meetingInfo else { return }
-            roomInfoView.nameLabel.text = meetingInfo.hosterName ?? "" + "发起的视频会议".innerLocalized()
-            roomInfoView.IDLabel.text = "会议号".innerLocalized() + ":" + meetingInfo.roomID
-            roomInfoView.hostLabel.text = "主持人".innerLocalized() + ":" + (meetingInfo.hosterName ?? "")
-            roomInfoView.beginLabel.text = "开始时间".innerLocalized() + ":" + Date.timeString(timeInterval: TimeInterval(meetingInfo.startTime * 1000))
-            roomInfoView.durationLabel.text = "会议时长".innerLocalized() + ":" + String((meetingInfo.endTime - meetingInfo.startTime) / 60 / 60) + "小时".innerLocalized()
+            roomInfoView.nameLabel.text = "meetingInitiatorIs".innerLocalizedFormat(arguments: meetingInfo.creatorNickname)
+            roomInfoView.IDLabel.text = "meetingNoIs".innerLocalizedFormat(arguments: meetingInfo.meetingID)
+            roomInfoView.hostLabel.text = "meetingHostIs".innerLocalizedFormat(arguments: meetingInfo.creatorNickname)
+            roomInfoView.beginLabel.text = "meetingStartTimeIs".innerLocalizedFormat(arguments: Date.timeString(timeInterval: TimeInterval(meetingInfo.scheduledTime)))
+            roomInfoView.durationLabel.text = "meetingDurationIs".innerLocalizedFormat(arguments: Date.formatTime(seconds: Int(meetingInfo.duration)))
         }
         
         roomInfoView.isHidden = false
@@ -607,36 +629,37 @@ public class LiveRoomViewController: UIViewController {
     func updateGroupMetadata(metadata: String?, joing: Bool = false) {
         guard let metadata = metadata, !metadata.isEmpty else { return }
         print("房间情况: \(metadata)")
-        let r = JsonTool.fromJson(metadata, toClass: SettingInfo.self)!
+        guard let r = try? MeetingMetadata(jsonString: metadata).detail else { return }
+        
         DispatchQueue.main.async { [self] in
             // 导航栏
             self.navBar.nameLabel.text = r.meetingName
             // 设置界面
-            self.settingView.settingInfo = r
+            self.settingView.settingInfo = r.setting
             // 成员列表
             var canInvite = true
-            if !r.hosterIsSelf {
-                canInvite = !(r.onlyHostInviteUser ?? false)
-            }
+//            if !r.hosterIsSelf {
+//                canInvite = !(r.onlyHostInviteUser ?? false)
+//            }
             
             memberListViewController?.updateButtonStatus(canInvite: canInvite, canMuteAll: r.hosterIsSelf)
             memberListViewController?.reloadData()
             
             // 有被置顶观看的，需要设置下
-            if let beWatchedUserIDList = r.beWatchedUserIDList, !beWatchedUserIDList.isEmpty {
-                scrollToBeWatchParticipant(beWatchID: beWatchedUserIDList.first!)
-            }
+//            if let beWatchedUserIDList = r.beWatchedUserIDList, !beWatchedUserIDList.isEmpty {
+//                scrollToBeWatchParticipant(beWatchID: beWatchedUserIDList.first!)
+//            }
             // 设置摄像头等
             self.operateHardware(r, whileJoing: joing)
             
-            r.roomID = r.roomID
+//            r.roomID = r.roomID
             viewModel.meetingInfo = r
             viewModel.getHosterInfo()
         }
     }
     
     // 操作硬件部分
-    func operateHardware(_ r: SettingInfo, whileJoing: Bool = false) {
+    func operateHardware(_ r: MeetingInfoSetting, whileJoing: Bool = false) {
         DispatchQueue.main.async { [self] in
             
             var enableAudio = true
@@ -644,15 +667,15 @@ public class LiveRoomViewController: UIViewController {
             var enableScreenShare = true
             
             // 房主是否允许开启视频/音频
-            let canEnableAudio = !(r.isMuteAllMicrophone ?? false)
-            let canEnableVideo = !(r.isMuteAllVideo ?? false)
-            let canEnableScreenShare = !(r.onlyHostShareScreen ?? false)
+            let canEnableAudio = false //!(r.isMuteAllMicrophone ?? false)
+            let canEnableVideo = false //!(r.isMuteAllVideo ?? false)
+            let canEnableScreenShare = r.screenShareCanEnable
             
             // 房主亦受控制 + 成员操作
             if canEnableAudio {
                 // 成员
                 if whileJoing {
-                    enableAudio = !(r.joinDisableMicrophone ?? false)
+                    enableAudio = r.enableAudioWhileJoining
                 } else {
                     enableAudio = bottomBar.audioTurnOn
                 }
@@ -663,7 +686,7 @@ public class LiveRoomViewController: UIViewController {
             if canEnableVideo {
                 // 成员
                 if whileJoing {
-                    enableVideo = !(r.joinDisableVideo ?? false)
+                    enableVideo = r.enableVideoWhileJoining
                 } else {
                     enableVideo = bottomBar.videoTurnOn
                 }
@@ -695,9 +718,9 @@ public class LiveRoomViewController: UIViewController {
                 // 底部按钮
                 self.bottomBar.updateButtonStatus(audio: enableAudio && r.audioCanEnable,
                                                   audioIsEnable: r.audioCanEnable,
-                                                  video: enableVideo, 
+                                                  video: enableVideo,
                                                   videoIsEnable: r.videoCanEnable,
-                                                  screenShare: enableScreenShare, 
+                                                  screenShare: enableScreenShare,
                                                   screenShareIsEnable: r.screenShareCanEnable,
                                                   setting: r.hosterIsSelf)
             }
@@ -714,7 +737,7 @@ public class LiveRoomViewController: UIViewController {
             onInvitedHandler?()
         } else {
             let vc = MyContactsViewController(types: [.friends, .groups, .recent], multipleSelected: true)
-            vc.selectedContact() { [weak self] result in
+            vc.selectedContact() { [weak self, weak vc] result in
                 guard let self else { return }
                 
                 presentAlert(useRoot: false, title: "确认发送邀请吗？".innerLocalized()) {
@@ -732,29 +755,34 @@ public class LiveRoomViewController: UIViewController {
                                 viewModel.sendMeetingMessage(desID: contact.ID!, conversationType: .c2c)
                             }
                         }
-                    }                
-                    self.navigationController?.popViewController(animated: false)
+                    }
+                    vc?.dismiss(animated: true)
                 }
             }
             
-            navigationController?.pushViewController(vc, animated: false)
+            let nav = UINavigationController(rootViewController: vc)
+            UIViewController.currentViewController().present(nav, animated: false)
         }
     }
     
     func end() {
         // 如果是会议的host，需要选择时离开会议还是结束会议
         if viewModel.meetingInfo?.hosterIsSelf == true {
-            presentActionSheet(useRoot: false, action1Title: "离开会议".innerLocalized(), action1Handler: { [weak self] in
-                self?.dismiss()
-            }, action2Title: "结束会议".innerLocalized()) { [weak self] in
-                self?.viewModel.endMeeting(onSuccess: { [weak self] r in
+            presentActionSheet(useRoot: false, action1Title: "leaveMeeting".innerLocalized(), action1Handler: { [weak self] in
+                self?.viewModel.leaveMeeting(onSuccess: { [self] r in
+                    self?.dismiss()
+                }, onFailure: { errCode, errMsg in
+                    
+                })
+            }, action2Title: "endMeeting".innerLocalized()) { [weak self] in
+                self?.viewModel.endMeeting(onSuccess: { [self] r in
                     self?.dismiss()
                 }, onFailure: { errCode, errMsg in
                     
                 })
             }
         } else {
-            presentAlert(useRoot: false, title: "确认离开该会议吗？".innerLocalized()) { [weak self] in
+            presentAlert(useRoot: false, title: "leaveMeetingConfirmHint".innerLocalized()) { [weak self] in
                 self?.dismiss()
             }
         }
@@ -763,8 +791,11 @@ public class LiveRoomViewController: UIViewController {
     private func dismiss() {
         isPresented = false
         rotateScreen(rotation: .portrait)
+        removeMiniWindow()
+        onClose?()
         
         dismiss(animated: true)
+        LiveRoomStateManager.manager.currentRoom = nil
     }
     
     private func rotateScreen(rotation: UIInterfaceOrientationMask) {
@@ -796,29 +827,45 @@ public class LiveRoomViewController: UIViewController {
 }
 
 extension LiveRoomViewController: RoomDelegate {
-    public func room(_ room: Room, didUpdate connectionState: ConnectionState, oldValue: ConnectionState) {
+
+    public func room(_ room: Room, didDisconnectWithError error: Error?) {
+        print("\(#function) - \(error)")
+        DispatchQueue.main.async { [self] in
+            self.presentAlert(useRoot: false, title: "meetingClosedHint".innerLocalized(), cancelTitle: nil) { [weak self] in
+                self?.dismiss()
+            }
+        }
+    }
+    
+    public func room(_ room: Room, didUpdateConnectionState connectionState: ConnectionState, from oldValue: ConnectionState) {
         print("connection state did update: \(connectionState)")
         DispatchQueue.main.async { [self] in
+            if connectionState == .connecting || connectionState == .reconnecting {
+                navBar.endButton.isEnabled = false
+            } else {
+                navBar.endButton.isEnabled = true
+            }
+            
             // 房主挂断不展示提示
             if case .disconnected = connectionState, viewModel.meetingInfo?.hosterIsSelf != true {
-                presentAlert(useRoot: false, title: "会议已关闭或已断开链接，确定离开吗？".innerLocalized()) { [weak self] in
+                presentAlert(useRoot: false, title: "meetingClosedHint".innerLocalized()) { [weak self] in
                     self?.dismiss()
                 }
             }
         }
     }
 
-    public func room(_ room: Room, localParticipant: LocalParticipant, didPublish publication: LocalTrackPublication) {
+    public func room(_ room: Room, participant localParticipant: LocalParticipant, didPublishTrack publication: LocalTrackPublication) {
         setParticipants()
         beginCount()
     }
     
-    public func room(_ room: Room, didUpdate metadata: String?) {
+    public func room(_ room: Room, didUpdateMetadata metadata: String?) {
         print("\(#function) \(metadata)")
         updateGroupMetadata(metadata: metadata)
     }
 
-    public func room(_ room: Room, participantDidLeave participant: RemoteParticipant) {
+    public func room(_ room: Room, participantDidDisconnect participant: RemoteParticipant) {
         print("participant did leave")
         // 如果大屏是离开的这个人，需要重置下leadingIndex
         if let first = allParticipants.firstIndex(where: { $0.identity == participant.identity }), first == leadingIndex {
@@ -827,40 +874,104 @@ extension LiveRoomViewController: RoomDelegate {
         setParticipants()
     }
 
-    public func room(_ room: Room, participantDidJoin participant: RemoteParticipant) {
-        print("participant did join")
+    public func room(_ room: Room, participantDidConnect participant: RemoteParticipant) {
+        print("\(#function)")
         setParticipants()
     }
 
-    public func room(_ room: Room, participant: RemoteParticipant, didSubscribe publication: RemoteTrackPublication, track: Track) {
-        print("didSubscribe:\(participant.identity)")
+    public func room(_ room: Room, participant: RemoteParticipant, didSubscribeTrack publication: RemoteTrackPublication) {
+        print("\(#function):\(participant.identity)")
         setParticipants()
     }
 
-    public func room(_ room: Room, participant: RemoteParticipant, didUnpublish publication: RemoteTrackPublication) {
-        print("didUnpublish:\(participant.identity)")
+    public func room(_ room: Room, participant: RemoteParticipant, didUnpublishTrack publication: RemoteTrackPublication) {
+        print("\(#function):\(participant.identity)")
     }
 
-    public func room(_ room: Room, participant: RemoteParticipant, didUnsubscribe publication: RemoteTrackPublication, track: Track) {
-        print("didUnsubscribe:\(participant.identity)")
+    public func room(_ room: Room, participant: RemoteParticipant, didUnsubscribeTrack publication: RemoteTrackPublication) {
+        print("\(#function):\(participant.identity)")
     }
     
-    public func room(_ room: Room, didUpdate speakers: [Participant]) {
-        if let p = speakers.max(by: { $0.audioLevel > $1.audioLevel }), viewModel.meetingInfo?.beWatchedUserIDList?.isEmpty == true, leadingIndex == 0 {
-            scrollToBeWatchParticipant(beWatchID: p.identity)
+    public func room(_ room: Room, didUpdateSpeakingParticipants speakers: [Participant]) {
+        if let p = speakers.max(by: { $0.audioLevel > $1.audioLevel }), /*viewModel.meetingInfo?.beWatchedUserIDList?.isEmpty == true,*/ leadingIndex == 0, let identity = p.identityString {
+            scrollToBeWatchParticipant(beWatchID: identity)
         }
     }
     
-    public func room(_ room: Room, participant: Participant, didUpdate publication: TrackPublication, muted: Bool) {
+    public func room(_ room: Room, participant: Participant, trackPublication publication: TrackPublication, didUpdateIsMuted muted: Bool) {
         print("\(#function) \(String(describing: participant.showName)) - \(publication.kind) status:\(!muted)")
 //        setParticipants()
-        
         if participant.isSelf {
             if publication.kind == .audio {
                 toggleMicrophoneEnabled(!muted)
             } else {
-                toggleCameraEnabled(!muted)
+                Task {
+                  await toggleCameraEnabled(!muted)
+                }
             }
+        }
+    }
+    
+    public func room(_ room: Room, participant: RemoteParticipant?, didReceiveData data: Data, forTopic topic: String) {
+        do {
+            let result = try NotifyMeetingData(serializedBytes: data)
+            
+            let localIdentity = room.localParticipant.identityString
+            
+            guard result.kickOffMeetingData.userID != localIdentity else {
+                dismiss()
+                
+                return
+            }
+            
+            let streamOperateData = result.streamOperateData
+            
+            if streamOperateData.operation.isEmpty || result.operatorUserID == localIdentity {
+                return
+            }
+            
+            guard let operateUser = streamOperateData.operation.first(where: ({ $0.userID == localIdentity })) else { return }
+            
+            if operateUser.hasCameraOnEntry {
+                let cameraOnEntry = operateUser.cameraOnEntry
+                
+                if (cameraOnEntry) {
+                    DispatchQueue.main.async { [self] in
+                        presentAlert(useRoot: false, title: "requestXDoHint".innerLocalizedFormat(arguments: "meetingOpenVideo".innerLocalized()),
+                                     cancelTitle: "keepClose".innerLocalized()) {
+                            Task {
+                                try await room.localParticipant.setCamera(enabled: cameraOnEntry)
+                            }
+                        }
+                    }
+                } else {
+                    Task {
+                        try await room.localParticipant.setCamera(enabled: cameraOnEntry)
+                    }
+                }
+            }
+            
+            if operateUser.hasMicrophoneOnEntry {
+                  let microphoneOnEntry = operateUser.microphoneOnEntry
+
+                  if (microphoneOnEntry) {
+                      DispatchQueue.main.async { [self] in
+                          presentAlert(useRoot: false, title: "requestXDoHint".innerLocalizedFormat(arguments: "meetingUnmute".innerLocalized()),
+                                       cancelTitle: "keepClose".innerLocalized()) {
+                              Task {
+                                  try await room.localParticipant.setMicrophone(enabled: microphoneOnEntry)
+                              }
+                          }
+                      }
+                  } else {
+                      Task {
+                          try await room.localParticipant.setMicrophone(enabled: microphoneOnEntry)
+                      }
+                  }
+                }
+                    
+        } catch {
+            print("\(#function): throw an error: \(error.localizedDescription)")
         }
     }
 }
@@ -868,30 +979,33 @@ extension LiveRoomViewController: RoomDelegate {
 extension LiveRoomViewController {
     // 链接服务器
     func connectSever() {
-        if let url = invitationInfo.liveURL, let token = invitationInfo.token {
-            let roomOptions = RoomOptions(
-                defaultCameraCaptureOptions: CameraCaptureOptions(
-                    dimensions: .h540_169
-                ),
-                defaultScreenShareCaptureOptions: ScreenShareCaptureOptions(
-                    useBroadcastExtension: true),
-                adaptiveStream: true,
-                dynacast: true,
-                suspendLocalVideoTracksInBackground: false
-            )
-            room = Room(delegate: self, roomOptions: roomOptions)
-            ProgressHUD.animate(interaction: true)
-            room.connect(url, token, roomOptions: roomOptions).then { [weak self] r in
+        let url = invitationInfo.url
+        let token = invitationInfo.token
+        let roomOptions = RoomOptions(
+            defaultCameraCaptureOptions: CameraCaptureOptions(
+                dimensions: .h540_169
+            ),
+            defaultScreenShareCaptureOptions: ScreenShareCaptureOptions(
+                useBroadcastExtension: true),
+            adaptiveStream: true,
+            dynacast: true,
+            suspendLocalVideoTracksInBackground: false
+        )
+        room = Room(delegate: self, roomOptions: roomOptions)
+        ProgressHUD.animate(interaction: true)
+        do {
+            Task {
+                try await room.connect(url: url, token: token, roomOptions: roomOptions)
+                updateGroupMetadata(metadata: room.metadata, joing: true)
                 ProgressHUD.dismiss()
-                self?.updateGroupMetadata(metadata: r.metadata, joing: true)
-            }.catch { e in
-                // failed to connect
-                ProgressHUD.dismiss()
-                print("Failed to  connet: \(e)")
-                self.navigationController?.popViewController(animated: true)
             }
+        } catch (let error) {
+            ProgressHUD.dismiss()
+            print("\(#function): \(error)")
+            navigationController?.popViewController(animated: true)
         }
     }
+    
     
     // 链接时间
     func beginCount(fire: Bool = true) {
@@ -920,153 +1034,107 @@ extension LiveRoomViewController {
     
     // 麦克风可用
     func toggleMicrophoneEnabled(_ enable: Bool? = nil) {
-        guard let localParticipant = room.localParticipant, !microphoneTrackState.isBusy else {
-            return
-        }
-        
-        self.microphoneTrackState = .busy(isPublishing: !self.microphoneTrackState.isPublished)
-        let e = enable ?? !localParticipant.isMicrophoneEnabled()
-        print("======麦克风状态:\(e) --- 入参:\(enable)")
-        
-        localParticipant.setMicrophone(enabled: e).then(on: sdk) { publication in
-            DispatchQueue.main.async {
-                if let publication = publication {
-                    self.microphoneTrackState = .published(publication)
-                    self.bottomBar.updateButtonStatus(audio: e)
+        Task {
+            do {
+                let e = enable ?? !room.localParticipant.isMicrophoneEnabled()
+                
+                if let publication = try await room.localParticipant.setMicrophone(enabled: e) {
+                    bottomBar.updateButtonStatus(audio: e)
                 } else {
-                    self.microphoneTrackState = .notPublished()
+                    
                 }
+            } catch (let error) {
+                print("\(#function) throw an error: \(error)")
             }
-            print("Successfully published microphone")
-        }.catch(on: sdk) { error in
-            self.microphoneTrackState = .notPublished(error: error)
-            print("Failed to publish microphone, error: \(error)")
         }
     }
     
     func fixPublisherWhenDisableVideoAndAudio() {
-        guard let localParticipant = room.localParticipant else {
-            return
-        }
-        
-        localParticipant.setMicrophone(enabled: true).then(on: sdk) { publication in
-            DispatchQueue.main.async { [self] in
-                if let publication = publication {
-                    self.microphoneTrackState = .published(publication)
-                    
-                    localParticipant.setMicrophone(enabled: false).then(on: sdk) { publication in
-                        DispatchQueue.main.async {
-                            if let publication = publication {
-                                self.microphoneTrackState = .published(publication)
-                                self.bottomBar.updateButtonStatus(audio: false)
-                            } else {
-                                self.microphoneTrackState = .notPublished()
-                            }
-                        }
-                        print("Successfully published microphone")
-                    }.catch(on: sdk) { error in
-                        self.microphoneTrackState = .notPublished(error: error)
-                        print("Failed to publish microphone, error: \(error)")
-                    }
-                } else {
-                    self.microphoneTrackState = .notPublished()
+        Task {
+            do {
+                guard let publication = try await room.localParticipant.setMicrophone(enabled: true) else { return }
+                
+                if let publication = try await room.localParticipant.setMicrophone(enabled: false) {
+                   bottomBar.updateButtonStatus(audio: false)
                 }
+            } catch (let error) {
+                print("\(#function) throw an error: \(error)")
             }
-            print("Successfully published microphone")
-        }.catch(on: sdk) { error in
-            self.microphoneTrackState = .notPublished(error: error)
-            print("Failed to publish microphone, error: \(error)")
         }
     }
     
     // 旋转摄像头
     @discardableResult
-    func switchCameraPosition() -> Promise<Bool> {
-        guard case .published(let publication) = cameraTrackState,
-              let track = publication.track as? LocalVideoTrack,
-              let cameraCapturer = track.capturer as? CameraCapturer
+    func switchCameraPosition() async -> Bool {
+        
+        guard let track = room.localParticipant.firstCameraPublication?.track as? LocalVideoTrack,
+              let cameraCapturer = track.capturer as? CameraCapturer,
+              (try? await CameraCapturer.canSwitchPosition()) == true
         else {
-            return Promise(TrackError.state(message: "Track or a CameraCapturer doesn't exist"))
+            print("Track or a CameraCapturer doesn't exist")
+            return false
         }
         
-        return cameraCapturer.switchCameraPosition()
+        do {
+            return try await cameraCapturer.switchCameraPosition()
+        } catch (let error) {
+            print("\(#function) throw an error: \(error)")
+            return false
+        }
     }
     
     // 摄像头是否可用
     func toggleCameraEnabled(_ enable: Bool? = nil) {
-        guard let localParticipant = room.localParticipant, !cameraTrackState.isBusy else {
-            return
-        }
-        
-        self.cameraTrackState = .busy(isPublishing: !self.cameraTrackState.isPublished)
-        let e = enable ?? !localParticipant.isCameraEnabled()
-        print("======摄像头状态:\(e) --- 入参:\(enable)")
-        
-        localParticipant.setCamera(enabled: e).then(on: sdk) { publication in
-            DispatchQueue.main.async {
-                if let publication = publication {
-                    self.cameraTrackState = .published(publication)
-                    self.bottomBar.updateButtonStatus(video: e, screenShare: !e)
-                } else {
-                    self.cameraTrackState = .notPublished()
+        Task {
+            do {
+                let e = enable ?? !room.localParticipant.isCameraEnabled()
+                
+                if let publication = try await room.localParticipant.setCamera(enabled: e) {
+                    bottomBar.updateButtonStatus(video: e, screenShare: !e)
                 }
+            } catch (let error) {
+                
             }
         }
     }
     
     func unpublish(source: Track.Source, completion: (() -> Void)? = nil) {
-        DispatchQueue.main.async { [self] in 
-            if source == .camera, cameraTrackState.isPublished {
-                if case .published(let p) = cameraTrackState {
-                    room.localParticipant?.unpublish(publication: p)
-                    print("======localParticipant.unpublish")
-                    cameraTrackState = .notPublished()
-                    room.localParticipant?.setCamera(enabled: false).then(on: sdk) { _ in
-                        completion?()
-                    }
-                }
-            } else {
-                completion?()
-            }
+            guard let publication = room.localParticipant.trackPublications.first(where: { $0.value.source == source })?.value as? LocalTrackPublication else { return }
             
-            if source == .screenShareVideo, screenShareTrackState.isPublished {
-                if case .published(let p) = screenShareTrackState {
-                    room.localParticipant?.unpublish(publication: p)
-                    print("======localParticipant.unpublish")
-                    screenShareTrackState = .notPublished()
-                    room.localParticipant?.setScreenShare(enabled: false).then(on: sdk) { _ in
+            do {
+                Task {
+                    try await room.localParticipant.unpublish(publication: publication)
+                    
+                    if source == .camera {
+                        try await room.localParticipant.setCamera(enabled: false)
+                        
+                        completion?()
+                    } else {
+                        try await room.localParticipant.setScreenShare(enabled: false)
+                        
                         completion?()
                     }
                 }
-            } else {
+            } catch (let error) {
+                print("\(#function) throw an error:\(error)")
                 completion?()
             }
-        }
     }
     
     // 屏幕分享是否可用
     func toggleScreenShareEnable(_ enable: Bool? = nil)  {
-        guard let localParticipant = room.localParticipant, !screenShareTrackState.isBusy else {
-            return
-        }
-        
-        self.screenShareTrackState = .busy(isPublishing: !self.screenShareTrackState.isPublished)
-        let e = enable ?? !localParticipant.isScreenShareEnabled()
-        print("======屏幕分享状态:\(e) --- 入参:\(enable)")
-        
-        localParticipant.setScreenShare(enabled: e).then(on: sdk) { publication in
-            DispatchQueue.main.async {
-                if let publication = publication {
-                    self.screenShareTrackState = .published(publication)
-                    self.bottomBar.updateButtonStatus(video: !e, screenShare: e)
-                } else {
-                    self.screenShareTrackState = .notPublished()
+        do {
+            Task {
+                let e = enable ?? !room.localParticipant.isScreenShareEnabled()
+                if e {
+                    await try room.localParticipant.setCamera(enabled: false)
+                }
+                if let publication = try await room.localParticipant.setScreenShare(enabled: e) {
+                    bottomBar.updateButtonStatus(video: !e, screenShare: e)
                 }
             }
-            print("Successfully published microphone")
-        }.catch(on: sdk) { error in
-            self.screenShareTrackState = .notPublished(error: error)
-            print("Failed to publish microphone, error: \(error)")
+        } catch (let error) {
+            print("\(#function) throw an error:\(error)")
         }
     }
     
@@ -1080,7 +1148,7 @@ extension LiveRoomViewController {
                 try session.setCategory(.playAndRecord, mode: .default, options: .allowBluetooth)
                 try session.overrideOutputAudioPort(.none)
             } else {
-                try session.setCategory(.playAndRecord, mode: .default, options: [.allowBluetooth, .defaultToSpeaker])
+                try session.setCategory(.playAndRecord, mode: .default, options: .defaultToSpeaker)
                 try session.overrideOutputAudioPort(.speaker)
             }
             try session.setActive(true)
@@ -1105,6 +1173,7 @@ public class LiveRoomStateManager {
     
     public var isBusy: Bool = false
     public var error: Error? = nil
+    public var currentRoom: LiveRoomViewController?
 }
 
 class CustomTransition: NSObject, UIViewControllerAnimatedTransitioning {
