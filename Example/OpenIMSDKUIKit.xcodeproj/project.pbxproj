@@ -81,6 +81,8 @@
 		04C394412CCF85A500181F6B /* YFPhoneLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C394402CCF85A500181F6B /* YFPhoneLoginVC.swift */; };
 		04C394432CCF874300181F6B /* YFAibitlinHomeChooseHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C394422CCF874300181F6B /* YFAibitlinHomeChooseHeaderView.swift */; };
 		04C394452CCFADF500181F6B /* YFEmailLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C394442CCFADF500181F6B /* YFEmailLoginVC.swift */; };
+		04C394472CCFB3ED00181F6B /* YFNewRegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C394462CCFB3ED00181F6B /* YFNewRegisterVC.swift */; };
+		04C394492CCFBC1C00181F6B /* YFRetrievePasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C394482CCFBC1C00181F6B /* YFRetrievePasswordVC.swift */; };
 		04D2E2052CBE4E5500582B13 /* HDEmptyBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D2E1FF2CBE4E5500582B13 /* HDEmptyBaseView.swift */; };
 		04D2E2062CBE4E5500582B13 /* HDEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D2E2002CBE4E5500582B13 /* HDEmptyView.swift */; };
 		04D2E2072CBE4E5500582B13 /* HDRunTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D2E2012CBE4E5500582B13 /* HDRunTime.swift */; };
@@ -275,6 +277,8 @@
 		04C394402CCF85A500181F6B /* YFPhoneLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFPhoneLoginVC.swift; sourceTree = "<group>"; };
 		04C394422CCF874300181F6B /* YFAibitlinHomeChooseHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFAibitlinHomeChooseHeaderView.swift; sourceTree = "<group>"; };
 		04C394442CCFADF500181F6B /* YFEmailLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFEmailLoginVC.swift; sourceTree = "<group>"; };
+		04C394462CCFB3ED00181F6B /* YFNewRegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFNewRegisterVC.swift; sourceTree = "<group>"; };
+		04C394482CCFBC1C00181F6B /* YFRetrievePasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFRetrievePasswordVC.swift; sourceTree = "<group>"; };
 		04D2E1C22CBE4A4900582B13 /* SampleHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleHandler.swift; sourceTree = "<group>"; };
 		04D2E1C42CBE4A4900582B13 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04D2E1CB2CBE4A4900582B13 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -831,6 +835,8 @@
 				04DA67912CCF2ACB00FCA60C /* YFAibitlinHome.swift */,
 				04C394402CCF85A500181F6B /* YFPhoneLoginVC.swift */,
 				04C394442CCFADF500181F6B /* YFEmailLoginVC.swift */,
+				04C394462CCFB3ED00181F6B /* YFNewRegisterVC.swift */,
+				04C394482CCFBC1C00181F6B /* YFRetrievePasswordVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1651,6 +1657,7 @@
 				04C394432CCF874300181F6B /* YFAibitlinHomeChooseHeaderView.swift in Sources */,
 				04DB1E3E2CA6B0C000EE8B8C /* YFDateUtil.swift in Sources */,
 				17C4BBAA28CA1220003782EF /* Array+deduplicate.swift in Sources */,
+				04C394492CCFBC1C00181F6B /* YFRetrievePasswordVC.swift in Sources */,
 				04F2D0892BEE21CA00D5271B /* MineSettingVC.swift in Sources */,
 				0419D4052C019350009CBE94 /* SuperUICollectionViewExtension.swift in Sources */,
 				04C394412CCF85A500181F6B /* YFPhoneLoginVC.swift in Sources */,
@@ -1718,6 +1725,7 @@
 				04F2D0852BEE21CA00D5271B /* MineDeleteAccountReasonVC.swift in Sources */,
 				040D44252C882AE8007DB6FB /* YFSystemMessageSettingVC.swift in Sources */,
 				040D85EC2BEB8C0B00DCAAB3 /* BaseWebController.swift in Sources */,
+				04C394472CCFB3ED00181F6B /* YFNewRegisterVC.swift in Sources */,
 				04D6A6782C9131ED008193E7 /* YFNetworkUtils.swift in Sources */,
 				040D860A2BEB8C4200DCAAB3 /* SuperUIViewControllerExtension.swift in Sources */,
 				1790EE722921EAFC00C4024A /* MineViewModel.swift in Sources */,

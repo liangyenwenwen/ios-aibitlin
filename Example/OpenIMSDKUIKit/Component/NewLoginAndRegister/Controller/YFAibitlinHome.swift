@@ -58,7 +58,7 @@ class YFAibitlinHome: BaseLogicController {
         lineView.backgroundColor = .init(hexString: "#F5F5F5")
         lineView.tg_width.equal(.fill)
         lineView.tg_height.equal(1)
-        lineView.tg_top.equal(20)
+        lineView.tg_top.equal(10)
         container.addSubview(lineView)
         
         container.addSubview(registerAndFindwordView)
@@ -118,7 +118,7 @@ class YFAibitlinHome: BaseLogicController {
     lazy var registerBtn: QMUIButton = {
         let r = ViewFactoryUtil.linkButton("注册账号".localized())
         r.setTitleColor(.init(hexString: "#333333"), for: .normal)
-//        r.addTarget(self, action: #selector(gotoRegister), for: .touchUpInside)
+        r.addTarget(self, action: #selector(gotoRegister), for: .touchUpInside)
         return r
     }()
     
@@ -128,7 +128,7 @@ class YFAibitlinHome: BaseLogicController {
         let r = ViewFactoryUtil.linkButton("忘记密码".localized())
         r.setTitleColor(.init(hexString: "#333333"), for: .normal)
         r.rx.tap.subscribe(onNext: { [unowned self] _ in
-//            toForgotPassword()
+            toForgotPassword()
         }).disposed(by: rx.disposeBag)
         return r
 
@@ -257,6 +257,11 @@ extension YFAibitlinHome {
         }
     }
     
+    @objc func gotoRegister() {
+        let vc = YFNewRegisterVC()
+        gotoController(vc)
+    }
+    
     
     func phoneLoginAction() {
         gotoController(YFPhoneLoginVC.self)
@@ -264,6 +269,10 @@ extension YFAibitlinHome {
     
     func emailLoginAction() {
         gotoController(YFEmailLoginVC.self)
+    }
+    
+    func toForgotPassword() {
+        gotoController(YFRetrievePasswordVC.self)
     }
     
 }

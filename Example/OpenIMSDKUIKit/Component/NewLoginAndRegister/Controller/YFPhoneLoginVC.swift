@@ -59,8 +59,6 @@ class YFPhoneLoginVC: BaseLogicController {
             self?.navigationController?.popViewController()
         }
         r.changeTypeClick =  { [weak self] currentIndex in
-//            self?.useType = type
-//            self?.phoneView.changePhoneEmail(type == .usePhone)
             self?.isUseCode = currentIndex == 0
             if currentIndex == 0 {
                 self?.pwdView.hide()

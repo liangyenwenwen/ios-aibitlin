@@ -152,14 +152,14 @@ extension YFAibitlinHomeChooseHeaderView {
     func updateTitle() {
         switch self.headerType {
         case .login:
-            leftView.setData("验证码登录")
-            rightView.setData("密码登录")
+            leftView.setData("验证码登录".localized())
+            rightView.setData("密码登录".localized())
         case .register:
-            leftView.setData("使用邮箱注册")
-            rightView.setData("使用手机号注册")
+            leftView.setData("使用邮箱注册".localized())
+            rightView.setData("使用手机号注册".localized())
         case .findPwd:
-            leftView.setData("使用邮箱找回")
-            rightView.setData("使用手机号找回")
+            leftView.setData("使用邮箱找回".localized())
+            rightView.setData("使用手机号找回".localized())
         case .none:
             break
         }

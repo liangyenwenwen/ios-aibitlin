@@ -17,7 +17,6 @@ class SuperToast {
     static func show(title: String?)  {
         
         let hud = MBProgressHUD.showAdded(to: AppDelegate.shared.window!, animated: true)
-//        let hud = MBProgressHUD.showAdded(to: AppDelegate.shared.window!.rootViewController!.view, animated: true)
         hud.mode = .text
         
         //背景颜色
@@ -30,19 +29,15 @@ class SuperToast {
         hud.label.font = .mediumFont(16)
         hud.label.numberOfLines = 0
         hud.label.text = title
-//        hud.label.text = "测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本"
         
         hud.label.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview().inset(8)
             make.left.right.equalToSuperview().inset(20)
         }
         
-        let offsetY = -hud.frame.height/CGFloat(2) + CGFloat(80)
-//        let offsetY = CGFloat(-134)
-        
         //显示到屏幕顶部
+        let offsetY = -hud.frame.height/CGFloat(2) + CGFloat(80)
         hud.offset = CGPoint(x: 0, y: offsetY)
-//        hud.offset = CGPoint(x: 0, y: -UIScreen.main.bounds.height / 2)
         
         hud.removeFromSuperViewOnHide = true
         hud.hide(animated: true, afterDelay: 1.5)

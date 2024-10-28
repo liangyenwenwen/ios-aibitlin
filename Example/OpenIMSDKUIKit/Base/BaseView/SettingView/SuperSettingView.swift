@@ -305,7 +305,7 @@ extension SuperSettingView {
             phoneCodeView.hide()
             titleView.show()
 
-            titleView.text = "email".localized()
+            titleView.text = "输入邮箱".localized()
             textFieldView.placeholder = "输入邮箱".localized()
             tempPhone = textFieldView.text!
             textFieldView.text = tempEmail
