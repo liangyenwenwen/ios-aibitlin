@@ -697,7 +697,7 @@ extension CallingManager {
         }
         
         if  let lastRecord = records.first {
-            if lastRecord.otherSideID == record.otherSideID && lastRecord.incoming == record.incoming{
+            if lastRecord.otherSideID == record.otherSideID && lastRecord.incoming == record.incoming && lastRecord.type == record.type{
                 
                 if lastRecord.incoming {
                     
@@ -752,10 +752,13 @@ extension CallingManager {
         var missedRecords = allRecords.filter { $0.isUnRead == true}
         
     
-//        var missCount = 0
+        var missCount = 0
+        for item in missedRecords {
+            missCount += item.unReadCount
+        }
         
         
-        NotificationCenter.default.post(name: Notification.Name("refrehCallLogsbadgeValue"), object: nil, userInfo: ["value": "\(missedRecords.count)"])
+        NotificationCenter.default.post(name: Notification.Name("refrehCallLogsbadgeValue"), object: nil, userInfo: ["value": "\(missCount)"])
         
     }
     
@@ -1011,7 +1014,7 @@ public class CallRecord: Codable {
     /// 合并同类型消息数量
     public var sameCount: Int = 1
     ///合并统计未读数量
-    public var unReadCount: Int = 0
+    public var unReadCount: Int = 1
     
     public func typeStr() -> String {
         return type == "audio" ? "语音通话".innerLocalized() : "视频通话".innerLocalized()
