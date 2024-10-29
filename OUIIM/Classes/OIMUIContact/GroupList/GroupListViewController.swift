@@ -50,7 +50,7 @@ class GroupListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "我的群组".innerLocalized()
+        navigationItem.title = "我的群聊".localized()
         view.backgroundColor = .viewBackgroundColor
         
         initView()
