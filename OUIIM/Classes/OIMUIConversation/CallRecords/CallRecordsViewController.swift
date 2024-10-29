@@ -164,15 +164,15 @@ open class CallRecordsViewController: UIViewController {
     private func bindData() {
         // 注册对名为"refrehCallLogs"的通知的观察  刷新界面
         NotificationCenter.default.addObserver(self, selector: #selector(handleNotification), name: Notification.Name("refrehCallLogs"), object: nil)
-        allRecordsBtn.rx.tap.subscribe(onNext: { [weak self] in
+
+        
+        allLogsBtn.rx.tap.subscribe(onNext: { [weak self] in
             self?._viewModel.tabSelected.accept(0)
         }).disposed(by: _disposeBag)
         
-        missedRecordsBtn.rx.tap.subscribe(onNext: { [weak self] in
+        unreadLogsBtn.rx.tap.subscribe(onNext: { [weak self] in
             self?._viewModel.tabSelected.accept(1)
         }).disposed(by: _disposeBag)
-        
-        
         
         _viewModel.tabSelected.subscribe(onNext: { [weak self] index in
             self?.allLogsBtn.backgroundColor = index == 0 ? .white : .clear
