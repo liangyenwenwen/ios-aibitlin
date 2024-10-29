@@ -155,7 +155,7 @@ class YFCallRecordsListCell: UITableViewCell {
     
     func update(model: CallRecord, indexRow: Int, currentRow: Int) {
         
-        titleLbl.text = SuperStringUtil.getUserState(showname: model.nickname!).n
+        titleLbl.text = SuperStringUtil.getUserState(showname: model.nickname ?? "").n
         leftIconImg.setImageAbout(string: model.faceURL, placeHolder: "DefaultAvatar")
         timeLbl.text =   MessageHelper.convertList(timestamp_ms: model.date)
 //        model.formatDateStr()
