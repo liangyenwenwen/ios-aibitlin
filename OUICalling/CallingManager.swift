@@ -54,6 +54,9 @@ public class CallingManager: NSObject {
     public var roomParticipantChangedHandler: ValueChangedHandler<OIMParticipantConnectedInfo>?
     public var endCallingHandler: ValueChangedHandler<OIMMessageInfo>?
     
+    ///用来做筛选
+    public var lastDate: Int = 0
+    
     // 调用后初始化监听等
     public func start() {
         OIMManager.callbacker.addSignalingListener(listener: self)
@@ -465,11 +468,156 @@ public class CallingManager: NSObject {
 // MARK: 状态变更，消息记录保存
 extension CallingManager {
     // 关闭界面操作
+//    private func update(state: CallingState, duration: Int = 0) {
+//        print("\(#function): state:\(state)")
+//        if state == .beAccepted || state == .disConnect {
+//            if state == .beAccepted {
+//                if let liveURL, let token, signalingInfo?.isSignal == true {
+//                    senderViewController?.connectRoom(liveURL: liveURL, token: token)
+//                }
+//            } else {
+//                isPresented = false
+//            }
+//            return
+//        }
+//        
+//        isPresented = false
+//        
+//        var timeline = "00:00"
+//        
+//        if duration > 0 {
+//            let m = duration / 60
+//            let s = duration % 60
+//            
+//            if m > 99 {
+//                timeline = String(format: "%d:%02d", m, s)
+//            } else {
+//                timeline = String(format: "%02d:%02d", m, s)
+//            }
+//        }
+//        let loginUserID = OIMManager.manager.getLoginUserID()
+//        var tips = ""
+//        var record = CallRecord()
+//        
+//        switch state {
+//        case .normal:
+//            break
+//        case .call:
+//            break
+//        case .beCalled:
+//            break
+//        case .reject:
+//            signalingInfo?.userID = loginUserID
+//            if let signalingInfo {
+//                OIMManager.manager.signalingReject(signalingInfo, onSuccess: nil)
+//            }
+//            tips = "已拒绝".localized()
+//        case .beRejected:
+//            tips = "对方已拒绝".localized()
+//        case .calling:
+//            break
+//        case .beAccepted:
+//            break
+//        case .hangup:
+//            signalingInfo?.userID = loginUserID
+//            if let signalingInfo {
+//                OIMManager.manager.signalingHungUp(signalingInfo, onSuccess: nil)
+//            }
+//            tips = "通话结束".localized() + ":\(timeline)"
+//            record.success = true
+//        case .connecting:
+//            break
+//        case .noReply:
+//            signalingInfo?.userID = loginUserID
+//            if let signalingInfo, signalingInfo.isSignal {
+//                OIMManager.manager.signalingCancel(signalingInfo, onSuccess: nil)
+//            }
+//            tips = "无响应".localized()
+//        case .cancel:
+//            signalingInfo?.userID = loginUserID
+//            if let signalingInfo {
+//                OIMManager.manager.signalingCancel(signalingInfo, onSuccess: nil)
+//            }
+//            tips = "已取消".localized()
+//        case .beCanceled:
+//            tips = duration > 0 ? "通话结束".localized() + ":\(timeline)" : "对方取消".localized()
+//            record.success = duration > 0
+//        case .timeout:
+//            tips = "超时无人接听".localized()
+//        case .join:
+//            break
+//        case .beHangup:
+//            if duration > 0 {
+//                tips = "通话结束".localized() + ":\(timeline)"
+//                record.success = true
+//            }
+//        case .disConnect:
+//            break
+//        case .connectFailure:
+//            tips = "connectionFailed".localized()
+//        case .accessByOther:
+//            tips = "通话邀请被其它客户端接受".localized()
+//        case .rejectedByOther:
+//            tips = "通话邀请被其它客户端拒绝".localized()
+//        }
+//        
+//        if #available(iOS 15, *) {
+//            record.date = Int(round(Date.now.timeIntervalSince1970 * 1000))
+//        } else {
+//            record.date = Int(round(Date.init().timeIntervalSince1970 * 1000))
+//        }
+//        // 创建记录
+//        if let signalingInfo {
+//            record.nickname = others?.first?.nickname
+//            record.type = signalingInfo.isVideo ? "video": "audio"
+//            record.faceURL = others?.first?.faceURL
+//            record.duration = duration
+//            record.isSingnal = signalingInfo.isSignal
+//            record.incoming = signalingInfo.invitation.inviterUserID != OIMManager.manager.getLoginUserID()
+//            record.otherSideID = record.incoming ? signalingInfo.invitation.inviterUserID : signalingInfo.invitation.inviteeUserIDList.first
+//            
+//            if signalingInfo.isSignal, !tips.isEmpty {
+//                // 目前仅支持单聊
+//                record.isUnRead = !record.success
+//                Self.saveRrecord(record: record)
+//     
+//                do {
+//                    if !tips.isEmpty {
+//                        let param = ["customType": 901,
+//                                     "data": ["duration": duration,
+//                                              "state": state.rawValue,
+//                                              "type": signalingInfo.invitation.mediaType,
+//                                              "msg": tips
+//                                             ]
+//                        ] as [String : Any]
+//                        
+//                        let dataStr = String.init(data: try JSONSerialization.data(withJSONObject: param),
+//                                                  encoding: .utf8)!
+//                        
+//                        let msg = OIMMessageInfo.createCustomMessage(dataStr, extension: nil, description: nil)
+//                        insertCallingMessage(msg, signaling: signalingInfo, state: state)
+//                    }
+//                } catch (let e) {
+//                    print("catch \(e)")
+//                }
+//            }
+//        }
+//
+//        // 关闭界面，销毁room等
+//        reciverViewController?.dismiss()
+//        reciverViewController = nil
+//        senderViewController?.dismiss()
+//        senderViewController = nil
+//    }
     private func update(state: CallingState, duration: Int = 0) {
         print("\(#function): state:\(state)")
+        
+        
+      
+        
         if state == .beAccepted || state == .disConnect {
             if state == .beAccepted {
-                if let liveURL, let token, signalingInfo?.isSignal == true {
+                if let liveURL, let token {
                     senderViewController?.connectRoom(liveURL: liveURL, token: token)
                 }
             } else {
@@ -496,6 +644,12 @@ extension CallingManager {
         var tips = ""
         var record = CallRecord()
         
+        if #available(iOS 15, *) {
+            record.date = Int(round(Date.now.timeIntervalSince1970 * 1000))
+        } else {
+            record.date = Int(round(Date.init().timeIntervalSince1970 * 1000))
+        }
+        
         switch state {
         case .normal:
             break
@@ -509,8 +663,10 @@ extension CallingManager {
                 OIMManager.manager.signalingReject(signalingInfo, onSuccess: nil)
             }
             tips = "已拒绝".localized()
+            
         case .beRejected:
             tips = "对方已拒绝".localized()
+//            record.success = true  //优化未接来电
         case .calling:
             break
         case .beAccepted:
@@ -539,6 +695,7 @@ extension CallingManager {
         case .beCanceled:
             tips = duration > 0 ? "通话结束".localized() + ":\(timeline)" : "对方取消".localized()
             record.success = duration > 0
+//            record.success = true  //优化未接来电
         case .timeout:
             tips = "超时无人接听".localized()
         case .join:
@@ -551,18 +708,16 @@ extension CallingManager {
         case .disConnect:
             break
         case .connectFailure:
-            tips = "connectionFailed".localized()
+            tips = "链接失败".localized()
         case .accessByOther:
             tips = "通话邀请被其它客户端接受".localized()
         case .rejectedByOther:
             tips = "通话邀请被其它客户端拒绝".localized()
         }
         
-        if #available(iOS 15, *) {
-            record.date = Int(round(Date.now.timeIntervalSince1970 * 1000))
-        } else {
-            record.date = Int(round(Date.init().timeIntervalSince1970 * 1000))
-        }
+
+        
+        
         // 创建记录
         if let signalingInfo {
             record.nickname = others?.first?.nickname
@@ -571,33 +726,49 @@ extension CallingManager {
             record.duration = duration
             record.isSingnal = signalingInfo.isSignal
             record.incoming = signalingInfo.invitation.inviterUserID != OIMManager.manager.getLoginUserID()
+            
+            if !record.incoming {
+                record.success = true
+            }
+            
             record.otherSideID = record.incoming ? signalingInfo.invitation.inviterUserID : signalingInfo.invitation.inviteeUserIDList.first
             
-            if signalingInfo.isSignal, !tips.isEmpty {
-                // 目前仅支持单聊
-                record.isUnRead = !record.success
-                Self.saveRrecord(record: record)
-     
-                do {
-                    if !tips.isEmpty {
-                        let param = ["customType": 901,
-                                     "data": ["duration": duration,
-                                              "state": state.rawValue,
-                                              "type": signalingInfo.invitation.mediaType,
-                                              "msg": tips
-                                             ]
-                        ] as [String : Any]
-                        
-                        let dataStr = String.init(data: try JSONSerialization.data(withJSONObject: param),
-                                                  encoding: .utf8)!
-                        
-                        let msg = OIMMessageInfo.createCustomMessage(dataStr, extension: nil, description: nil)
-                        insertCallingMessage(msg, signaling: signalingInfo, state: state)
-                    }
-                } catch (let e) {
-                    print("catch \(e)")
-                }
+            if record.incoming {
+                record.nickname = inviter?.nickname
+                record.faceURL = inviter?.faceURL
             }
+            
+            if record.date - lastDate > 1000 {
+                lastDate = record.date
+                if signalingInfo.isSignal, !tips.isEmpty {
+                    // 目前仅支持单聊
+                    record.isUnRead = !record.success
+                    Self.saveRrecord(record: record)
+         
+                    do {
+                        if !tips.isEmpty {
+                            let param = ["customType": 901,
+                                         "data": ["duration": duration,
+                                                  "state": state.rawValue,
+                                                  "type": signalingInfo.invitation.mediaType,
+                                                  "msg": tips
+                                                 ]
+                            ] as [String : Any]
+                            
+                            let dataStr = String.init(data: try JSONSerialization.data(withJSONObject: param),
+                                                      encoding: .utf8)!
+                            
+                            let msg = OIMMessageInfo.createCustomMessage(dataStr, extension: nil, description: nil)
+                            insertCallingMessage(msg, signaling: signalingInfo, state: state)
+                        }
+                    } catch (let e) {
+                        print("catch \(e)")
+                    }
+                }
+                
+            }
+            
+            
         }
 
         // 关闭界面，销毁room等
@@ -606,6 +777,8 @@ extension CallingManager {
         senderViewController?.dismiss()
         senderViewController = nil
     }
+    
+    
 }
 
 // MARK: 插入消息
@@ -689,6 +862,21 @@ extension CallingManager {
         NotificationCenter.default.post(name: Notification.Name("refrehCallLogsbadgeValue"), object: nil, userInfo: ["value": "\(missedRecords.count)"])
         
     }
+    
+    // 删除通话记录
+    static public func deleteRrecord(record: CallRecord) {
+        let recordsKey = "\(Open_im_sdkGetLoginUserID())-com.calling.records.key"
+        var allRecords = CallingManager.getRecords()
+        
+        allRecords.removeAll(where: {$0.date == record.date})
+        
+        let result = Array<CallRecord>.toJson(fromObject: allRecords)
+        UserDefaults.standard.set(result, forKey: recordsKey)
+        UserDefaults.standard.synchronize()
+        
+        NotificationCenter.default.post(name: Notification.Name("refrehCallLogs"), object: nil)
+    }
+    
     /// 将本地记录标记为已读
     static public func allReadRecords(){
         let recordsKey = "\(Open_im_sdkGetLoginUserID())-com.calling.records.key"
@@ -719,6 +907,7 @@ extension CallingManager {
         
         return []
     }
+
 }
 
 // MARK: 监听函数

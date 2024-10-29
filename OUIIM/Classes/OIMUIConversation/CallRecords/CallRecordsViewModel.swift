@@ -51,6 +51,12 @@ class CallRecordsViewModel {
         CallingManager.allReadRecords()
     }
     
+    func deleteRecord(record : CallRecord) {
+        CallingManager.deleteRrecord(record: record)
+        
+    }
+    
+    
 //    func getMeetings() {
 //        IMController.shared.signalingGetMeetings { [weak self] r in
 //            guard let `self` = self else { return }

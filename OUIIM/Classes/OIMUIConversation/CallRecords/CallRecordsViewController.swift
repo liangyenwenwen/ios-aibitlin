@@ -278,49 +278,40 @@ extension CallRecordsViewController: UITableViewDelegate, UITableViewDataSource 
             print("audio")
             self.startCalling(record: temp, isVideo: false)
         }
-//        else if model is MeetingInfo, let model = model as? MeetingInfo {
-//            cell.titleLabel.text = model.meetingName
-//            cell.subtitleLabel.text = "\(Date.timeString(timeInterval: model.startTime * 1000)) - \(Date.timeString(timeInterval: model.endTime * 1000))"
-//            cell.avatarImageView.setAvatar(url: nil, text: nil, placeHolder: "live_room_record_icon")
-//            let now = Date().timeIntervalSince1970
-//            if now > model.endTime {
-//                cell.trainingLabel.text =  "[已结束]"
-//            } else if now < model.startTime {
-//                cell.trainingLabel.text =  "[未开始]"
-//            } else {
-//                cell.trainingLabel.text =  "[已开始]"
-//            }
-//
-//            cell.titleLabel.textColor = .red
-//            cell.subtitleLabel.textColor = .red
-//            cell.trainingLabel.textColor = .red
-//        }
+
         return cell
     }
     
-    public    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)  {
+        
         let record = _viewModel.items.value[indexPath.row]
         
-#if ENABLE_LIVE_ROOM
-        if CallingManager.isBusy || LiveRoomViewController.isBusy {
-            presentAlert(title: "callingBusy".innerLocalized())
-            
-            return
-        }
-#else
-        if CallingManager.isBusy {
-            presentAlert(title: "callingBusy".innerLocalized())
-            
-            return
-        }
-#endif
-        
         if record is CallRecord {
-            // 吊起拨打电话界面
-            startCalling(record: record as! CallRecord)
-        } else {
             
+            if currentRow == indexPath.row {
+                currentRow = -1
+            } else {
+                currentRow = indexPath.row
+            }
+            
+            self.tableView.reloadData()
         }
+        
     }
+    
+    
+    public func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let deleteAction = UITableViewRowAction(style: .default, title: "删除".localized()) { res, index in
+            print(res, index)
+            
+            self._viewModel.deleteRecord(record: self._viewModel.items.value[indexPath.row] as! CallRecord)
+        }
+        return [deleteAction]
+    }
+    
+    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 72
+    }
+    
 }
 #endif
