@@ -158,7 +158,6 @@ class YFCallRecordsListCell: UITableViewCell {
         titleLbl.text = SuperStringUtil.getUserState(showname: model.nickname ?? "").n
         leftIconImg.setImageAbout(string: model.faceURL, placeHolder: "DefaultAvatar")
         timeLbl.text =   MessageHelper.convertList(timestamp_ms: model.date)
-//        model.formatDateStr()
         
         stateLbl.text =  model.success ? model.inOrOutStr() + model.durationStr() : model.inOrOutStr()
         titleLbl.textColor = model.success ? .init(hexString: "#333333") :  .init(hexString: "#FF3939")

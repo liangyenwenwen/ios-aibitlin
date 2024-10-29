@@ -171,7 +171,7 @@ struct _R: Sendable {
       var ieXW0yeText: RswiftResources.StringResource { .init(key: "8ie-xW-0ye.text", tableName: "LaunchScreen", source: source, developmentValue: nil, comment: nil) }
     }
 
-    /// This `_R.string.localizable` struct is generated, and contains static references to 491 localization keys.
+    /// This `_R.string.localizable` struct is generated, and contains static references to 493 localization keys.
     struct localizable {
       let source: RswiftResources.StringResource.Source
 
@@ -2331,6 +2331,13 @@ struct _R: Sendable {
       /// Locales: en, th
       var 我的群组: RswiftResources.StringResource { .init(key: "我的群组", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// en translation: My Group Chat
+      ///
+      /// Key: 我的群聊
+      ///
+      /// Locales: en, th
+      var 我的群聊: RswiftResources.StringResource { .init(key: "我的群聊", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: SCREENSHOTS
       ///
       /// Key: 截图
@@ -2533,6 +2540,13 @@ struct _R: Sendable {
       ///
       /// Locales: en, th
       var 新用户注册: RswiftResources.StringResource { .init(key: "新用户注册", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: New Group Chat Request
+      ///
+      /// Key: 新的群聊申请
+      ///
+      /// Locales: en, th
+      var 新的群聊申请: RswiftResources.StringResource { .init(key: "新的群聊申请", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Japanese
       ///

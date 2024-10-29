@@ -1109,6 +1109,7 @@ public class CallRecord: Codable {
     public var isSingnal: Bool = true
     public var isChoose: Bool = false
     public var isUnRead: Bool = false
+    public var sameCount: Int = 1
     
     public func typeStr() -> String {
         return type == "audio" ? "语音通话".innerLocalized() : "视频通话".innerLocalized()
