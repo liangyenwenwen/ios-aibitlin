@@ -18,6 +18,8 @@ class CallRecordsViewModel {
     let tabSelected: BehaviorRelay<Int> = .init(value: 0)
     let items: BehaviorRelay<[Any]> = .init(value: [])
     let allRecordsRelay: BehaviorRelay<[CallRecord]> = .init(value: [])
+    
+    var currentTabSelected: Int = 0
 
     private let _disposeBag = DisposeBag()
     private var allRecords: [CallRecord] = []
@@ -26,6 +28,7 @@ class CallRecordsViewModel {
     init() {
         tabSelected.subscribe(onNext: { [weak self] (index: Int) in
             guard let sself = self else { return }
+            sself.currentTabSelected = index
             if index == 0 {
                 self?.items.accept(sself.allRecords)
             } else if index == 1 {
@@ -42,7 +45,10 @@ class CallRecordsViewModel {
 //        getMeetings()
         missedRecords = allRecords.filter { $0.success == false}
         allRecordsRelay.accept(allRecords)
-        tabSelected.accept(0)
+        tabSelected.accept(self.currentTabSelected)
+    }
+    func clearUnRecord() {
+        CallingManager.allReadRecords()
     }
     
 //    func getMeetings() {
