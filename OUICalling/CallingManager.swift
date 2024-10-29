@@ -595,9 +595,11 @@ extension CallingManager {
             if record.incoming {
                 record.nickname = inviter?.nickname
                 record.faceURL = inviter?.faceURL
+            } else {
+                
             }
             
-            if record.date - lastDate > 1000 {
+            if record.date - lastDate > 500 {
                 lastDate = record.date
                 if signalingInfo.isSignal, !tips.isEmpty {
                     // 目前仅支持单聊
@@ -689,6 +691,7 @@ extension CallingManager {
     
     // 通话结束保存本地的音视频记录
     static public func saveRrecord(record: CallRecord) {
+        
         let recordsKey = "\(Open_im_sdkGetLoginUserID())-com.calling.records.key"
         var records: [CallRecord] = []
         
@@ -704,6 +707,18 @@ extension CallingManager {
                     if lastRecord.duration > 0 && record.duration > 0 {
                         
                         lastRecord.sameCount += 1
+                        lastRecord.date = record.date
+                        
+                        var historyArr:[CallRecord] = []
+                        if lastRecord.historyLogs.count == 0 {
+                            historyArr.append(lastRecord)
+                        } else {
+                            historyArr = CallRecord.fromJson(lastRecord.historyLogs)
+                        }
+                        historyArr.append(record)
+                        
+                        let histroryLogs =  Array<CallRecord>.toJson(fromObject: historyArr)
+                        lastRecord.historyLogs = histroryLogs
                         
                         records[0] = lastRecord
                         
@@ -712,7 +727,20 @@ extension CallingManager {
                         lastRecord.sameCount += 1
                         lastRecord.unReadCount += 1
                         lastRecord.isUnRead = true
+                        lastRecord.date = record.date
                         
+                        var historyArr:[CallRecord] = []
+                        if lastRecord.historyLogs.count == 0 {
+                            historyArr.append(lastRecord)
+                        } else {
+                            historyArr = CallRecord.fromJson(lastRecord.historyLogs)
+                        }
+                        historyArr.append(record)
+                        
+                        let histroryLogs =  Array<CallRecord>.toJson(fromObject: historyArr)
+                        lastRecord.historyLogs = histroryLogs
+                        
+                        print(histroryLogs)
                         
                         records[0] = lastRecord
                         
@@ -726,6 +754,18 @@ extension CallingManager {
                     lastRecord.isUnRead = false
                     lastRecord.sameCount += 1
                     lastRecord.unReadCount += 1
+                    lastRecord.date = record.date
+                    
+                    var historyArr:[CallRecord] = []
+                    if lastRecord.historyLogs.count == 0 {
+                        historyArr.append(lastRecord)
+                    } else {
+                        historyArr = CallRecord.fromJson(lastRecord.historyLogs)
+                    }
+                    historyArr.append(record)
+                    
+                    let histroryLogs =  Array<CallRecord>.toJson(fromObject: historyArr)
+                    lastRecord.historyLogs = histroryLogs
                     
                     records[0] = lastRecord
                 }
@@ -743,6 +783,7 @@ extension CallingManager {
         UserDefaults.standard.synchronize()
         calculateCount()
     }
+    
     static func calculateCount() {
         let recordsNumberKey = "\(Open_im_sdkGetLoginUserID())-com.calling.records.unread.key"
         
@@ -1015,6 +1056,8 @@ public class CallRecord: Codable {
     public var sameCount: Int = 1
     ///合并统计未读数量
     public var unReadCount: Int = 1
+    ///存储聊天记录
+    public var historyLogs: String = ""
     
     public func typeStr() -> String {
         return type == "audio" ? "语音通话".innerLocalized() : "视频通话".innerLocalized()
@@ -1053,7 +1096,14 @@ public class CallRecord: Codable {
         return formatter.string(from: date)
     }
     
-    static func fromJson(_ json: String) -> [CallRecord] {
+    public func formatDateAboutYMDStr() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        let date = Date.init(timeIntervalSince1970: TimeInterval(date / 1000))
+        return formatter.string(from: date)
+    }
+    
+    public static func fromJson(_ json: String) -> [CallRecord] {
         let decoder = JSONDecoder()
         do {
             let result = try decoder.decode([CallRecord].self, from: json.data(using: .utf8)!)

@@ -3640,7 +3640,7 @@ struct _R: Sendable {
     var colorBackground: RswiftResources.ColorResource { .init(name: "ColorBackground", path: [], bundle: bundle) }
   }
 
-  /// This `_R.image` struct is generated, and contains static references to 247 images.
+  /// This `_R.image` struct is generated, and contains static references to 248 images.
   struct image {
     let bundle: Foundation.Bundle
 
@@ -3997,6 +3997,9 @@ struct _R: Sendable {
 
     /// Image `call_log_auido_btn`.
     var call_log_auido_btn: RswiftResources.ImageResource { .init(name: "call_log_auido_btn", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `call_log_history_btn`.
+    var call_log_history_btn: RswiftResources.ImageResource { .init(name: "call_log_history_btn", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
     /// Image `call_log_video`.
     var call_log_video: RswiftResources.ImageResource { .init(name: "call_log_video", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }

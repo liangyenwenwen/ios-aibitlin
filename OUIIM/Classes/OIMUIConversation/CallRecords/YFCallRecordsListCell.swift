@@ -76,6 +76,12 @@ class YFCallRecordsListCell: UITableViewCell {
         return r
     }()
     
+    lazy var historyView: rightBtnView = {
+        let r = rightBtnView()
+        r.centerImg.image = .init(named: "call_log_history_btn")
+        return r
+    }()
+    
     
     lazy var unReadView: UIView = {
         let r = UIView()
@@ -98,6 +104,7 @@ class YFCallRecordsListCell: UITableViewCell {
         
         contentView.addSubview(audioView)
         contentView.addSubview(videoView)
+        contentView.addSubview(historyView)
         
         leftIconImg.snp.makeConstraints { make in
             make.left.equalTo(16)
@@ -146,6 +153,12 @@ class YFCallRecordsListCell: UITableViewCell {
             make.width.equalTo(52)
         }
         
+        historyView.snp.makeConstraints { make in
+            make.right.equalTo(audioView.snp_left)
+            make.top.bottom.equalToSuperview()
+            make.width.equalTo(52)
+        }
+        
         
         
     }
@@ -170,11 +183,15 @@ class YFCallRecordsListCell: UITableViewCell {
             videoView.isHidden = false
             audioView.isHidden = false
             unReadView.isHidden = true
+            
+            historyView.isHidden = model.sameCount == 1
+            
         } else {
             backgroundColor = .white
             timeLbl.isHidden = false
             videoView.isHidden = true
             audioView.isHidden = true
+            historyView.isHidden = true
             
             unReadView.isHidden = !model.isUnRead
         }
