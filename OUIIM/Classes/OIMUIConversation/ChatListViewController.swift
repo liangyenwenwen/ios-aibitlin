@@ -421,6 +421,10 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
             self?.toChat(conversation: conversation)
             
         }).disposed(by: _disposeBag)
+        _tableView.rx.itemSelected.subscribe(onNext: {[weak self] (indexPath) in
+            print("点击\(indexPath)")
+            self?._tableView.deselectRow(at: indexPath, animated: true)
+        }).disposed(by: _disposeBag)
 
         _viewModel.loginUserPublish.subscribe(onNext: { [weak self] (userInfo: UserInfo?) in
 //            self?._headerView.avatarImageView.setAvatar(url: userInfo?.faceURL?.defaultThumbnailURLString, text: userInfo?.nickname, onTap: nil)
