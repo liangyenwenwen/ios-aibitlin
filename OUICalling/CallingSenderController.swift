@@ -597,10 +597,14 @@ extension RoomViewController: RoomDelegate {
         setParticipants()
         
         let identityString = participant.identityString
-        
-        DispatchQueue.main.async { [self] in
-            onAction?(.participantDidDisconnect(identityString!, linkingDuration))
+        if identityString?.isEmpty == false{
+            DispatchQueue.main.async { [self] in
+                onAction?(.participantDidDisconnect(identityString!, linkingDuration))
+            }
         }
+//        DispatchQueue.main.async { [self] in
+//            onAction?(.participantDidDisconnect(identityString!, linkingDuration))
+//        }
     }
     
     public func room(_ room: Room, participantDidConnect participant: RemoteParticipant) {
