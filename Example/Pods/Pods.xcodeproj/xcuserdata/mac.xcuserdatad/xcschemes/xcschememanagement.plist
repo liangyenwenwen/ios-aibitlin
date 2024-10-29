@@ -49,6 +49,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>GTSDK.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>IGListDiffKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -134,12 +139,17 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>LiveKitClient-iOS13.0.xcscheme</key>
+		<key>LiveKitClient-Privacy.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>LiveKitClient-iOS17.5.xcscheme</key>
+		<key>LiveKitClient.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>LiveKitWebRTC.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -149,12 +159,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Logging-iOS13.0.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Logging-iOS17.5.xcscheme</key>
+		<key>Logging.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -259,47 +264,12 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>ProgressHUD-ProgressHUD.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>ProgressHUD.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>PromisesObjC-iOS13.0-FBLPromises_Privacy.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>PromisesObjC-iOS13.0.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>PromisesObjC-iOS17.5-FBLPromises_Privacy.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>PromisesObjC-iOS17.5.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>PromisesSwift-iOS13.0-Promises_Privacy.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>PromisesSwift-iOS13.0.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>PromisesSwift-iOS17.5-Promises_Privacy.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>PromisesSwift-iOS17.5.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -404,22 +374,12 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>SwiftProtobuf-iOS13.0-SwiftProtobuf.xcscheme</key>
+		<key>SwiftProtobuf-SwiftProtobuf.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>SwiftProtobuf-iOS13.0.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>SwiftProtobuf-iOS17.5-SwiftProtobuf.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>SwiftProtobuf-iOS17.5.xcscheme</key>
+		<key>SwiftProtobuf.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -439,16 +399,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>WebRTC-SDK-iOS13.0.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>WebRTC-SDK-iOS17.5.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>YYImage.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -460,6 +410,11 @@
 			<false/>
 		</dict>
 		<key>ZLPhotoBrowser.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>ZXSDK-Noidfa.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>

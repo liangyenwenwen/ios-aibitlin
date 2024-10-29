@@ -31,9 +31,6 @@ enum CallingState: String {
 public typealias ValueChangedHandler<T> = (_ value: T) -> Void
 
 public class CallingManager: NSObject {
-    
-    static var refreshBlock:(() -> Void)?
-    
     private let disposeBag = DisposeBag()
     private var signalingInfo: OIMSignalingInfo?
     
@@ -41,6 +38,13 @@ public class CallingManager: NSObject {
     private var reciverViewController: CallingReceiverController? // 接收人
     private var inviter: CallingUserInfo? // 邀请者
     private var others: [CallingUserInfo]?// 被邀请者
+    // Invited list
+    private var inviteeUsersID: [String] = []
+    // in the livekit room
+    private var participantsID: [String] = []
+    private var currentIsGroup = false
+    private var currentGroupID: String?
+    
     private var isPresented: Bool = false // 是否弹出界面
     private var liveURL: String?
     private var token: String?
@@ -68,13 +72,23 @@ public class CallingManager: NSObject {
     }
     
     public func forceDismiss() {
+        guard Self.isBusy else { return }
+        
+        if let signalingInfo {
+            if inviteeUsersID.contains(OIMManager.manager.getLoginUserID()) {
+                OIMManager.manager.signalingHungUp(signalingInfo, onSuccess: nil)
+            }
+        }
+        
         if let senderViewController {
-            senderViewController.removeMiniWindow()
+            senderViewController.dismiss()
         }
         
         if let reciverViewController {
-            reciverViewController.removeMiniWindow()
+            reciverViewController.dismiss()
         }
+        
+        CallingManager.manager.isPresented = false
     }
     
     static public var isBusy: Bool {
@@ -104,6 +118,24 @@ public class CallingManager: NSObject {
         senderViewController!.onHungup = { [weak self] duration in
             self?.update(state: .hangup, duration: duration)
         }
+        
+        senderViewController!.onAction = { [weak self] action in
+            guard let self else { return }
+            
+            switch action {
+            case .participantDidConnect(let userID):
+                if !participantsID.contains(userID) {
+                    participantsID.append(userID)
+                }
+            case .participantDidDisconnect(let userID, let duration):
+                if currentIsGroup {
+                    inviteeUsersID.removeAll(where: { $0 == userID })
+                    participantsID.removeAll(where: { $0 == userID })
+                } else {
+                    update(state: .beHangup, duration: duration ?? 0)
+                }
+            }
+        }
     }
     
     private func setupReciverViewController() {
@@ -120,7 +152,7 @@ public class CallingManager: NSObject {
         reciverViewController!.onAccepted = { [weak self] in
             if let signalingInfo = self?.signalingInfo {
                 OIMManager.manager.signalingAccept(signalingInfo) { info in
-                    self?.reciverViewController!.connectRoom(liveURL: info!.liveURL, token: info!.token)
+                    self?.reciverViewController?.connectRoom(liveURL: info!.liveURL, token: info!.token)
                 }
             }
         }
@@ -133,8 +165,22 @@ public class CallingManager: NSObject {
             self?.update(state: .hangup, duration: duration)
         }
         
-        reciverViewController!.onBeHungup = { [weak self] duration in
-            self?.update(state: .beHangup, duration: duration)
+        reciverViewController!.onAction = { [weak self] action in
+            guard let self else { return }
+            
+            switch action {
+            case .participantDidConnect(let userID):
+                if !participantsID.contains(userID) {
+                    participantsID.append(userID)
+                }
+            case .participantDidDisconnect(let userID, let duration):
+                if currentIsGroup {
+                    inviteeUsersID.removeAll(where: { $0 == userID })
+                    participantsID.removeAll(where: { $0 == userID })
+                } else {
+                    update(state: .beHangup, duration: duration ?? 0)
+                }
+            }
         }
     }
     
@@ -155,7 +201,9 @@ public class CallingManager: NSObject {
                                    groupID: signalingInfo.invitation.groupID,
                                    incoming: true)
             } else {
-                if isPresented {
+                if isPresented,
+                    reciverViewController?.isConnected() == false,
+                    senderViewController?.isConnected() == false {
                     reciverViewController?.dismiss()
                     reciverViewController = nil
                     isPresented = false
@@ -163,6 +211,14 @@ public class CallingManager: NSObject {
             }
         } onFailure: { code, msg in
             print("code:\(code), msg:\(msg)")
+        }
+    }
+    
+    public func signalingGetInvitation(by roomID: String, onSuccess: @escaping (_ url: String, _ token: String) -> Void) {
+        OIMManager.manager.signalingGetToken(byRoomID: roomID) { signalingInfo in
+            guard let signalingInfo else { return }
+            
+            onSuccess(signalingInfo.liveURL, signalingInfo.token)
         }
     }
     
@@ -181,6 +237,10 @@ public class CallingManager: NSObject {
             return
         }
         
+        inviteeUsersID = othersID
+        currentIsGroup = groupID?.isEmpty == false
+        currentGroupID = groupID
+        
         if isPresented {
             return
         }
@@ -193,7 +253,7 @@ public class CallingManager: NSObject {
             invite(othersID: othersID, isVideo: isVideo, groupID: groupID) { [weak self] canStart in
                 guard let self, canStart else { return }
                 
-                getUsersInfo([inviterID] + othersID) { [weak self] r in
+                getUsersInfo([inviterID] + othersID, groupID: groupID) { [weak self] r in
                     guard let `self` else { return }
                     
                     self.inviter = r.first
@@ -212,7 +272,7 @@ public class CallingManager: NSObject {
         } else {
             // 收到音视频邀请
             setupReciverViewController()
-            getUsersInfo([inviterID] + othersID) { [weak self] r in
+            getUsersInfo([inviterID] + othersID, groupID: groupID) { [weak self] r in
                 guard let `self` else { return }
                 self.inviter = r.first
                 self.others = Array(r.dropFirst())
@@ -244,6 +304,10 @@ public class CallingManager: NSObject {
             }
             return
         }
+        
+        inviteeUsersID = others.map({ $0.userID })
+        currentIsGroup = groupID?.isEmpty == false
+        currentGroupID = groupID
         
         if isPresented {
             return
@@ -286,6 +350,7 @@ public class CallingManager: NSObject {
         info.inviteeUserIDList = othersID
         info.groupID = groupID ?? ""
         info.mediaType = isVideo ? "video" : "audio"
+        info.timeout = 20
         
         var offlinePushInfo = OIMOfflinePushInfo()
         
@@ -298,7 +363,9 @@ public class CallingManager: NSObject {
                 completion(true)
                 self?.liveURL = url
                 self?.token = token
-//                self?.senderViewController!.connectRoom(liveURL: url, token: token)
+                if groupID != nil {
+                    self?.senderViewController!.connectRoom(liveURL: url, token: token)
+                }
             } else {
                 completion(false)
                 
@@ -315,6 +382,11 @@ public class CallingManager: NSObject {
                     self.isPresented = false
                     self.senderViewController?.dismiss()
                 }
+            } else if code == 35001 {
+                showAlert(message: "callingBusy".localized()) { [self] in
+                    self.isPresented = false
+                    self.senderViewController?.dismiss()
+                }
             } else {
                 showAlert(message: msg ?? "SignalingInvite throw error:" + "\(code)") { [self] in
                     self.isPresented = false
@@ -327,6 +399,9 @@ public class CallingManager: NSObject {
     
     // 中途进入房间
     public func joinRoom(isVideo: Bool = true, roomID: String, liveURL: String, token: String) {
+        
+        currentIsGroup = false
+        currentGroupID = roomID
         
         if isPresented {
             return
@@ -341,23 +416,42 @@ public class CallingManager: NSObject {
     }
     
     // 从sdk获取用户基础信息
-    private func getUsersInfo(_ usersID: [String], callback: @escaping ([CallingUserInfo]) -> Void) {
+    private func getUsersInfo(_ usersID: [String], groupID: String?, callback: @escaping ([CallingUserInfo]) -> Void) {
         
-        OIMManager.manager.getUsersInfo(usersID) { (infos: [OIMFullUserInfo]?) in
-            guard let infos else {
-                callback([])
-                return
+        if groupID?.isEmpty == false {
+            OIMManager.manager.getSpecifiedGroupMembersInfo(groupID!, usersID: usersID) { members in
+                let us = members!.compactMap({ CallingUserInfo(userID: $0.userID, nickname: $0.nickname, faceURL: $0.faceURL )})
+                
+                callback(us)
             }
-            
-            let us = infos.map { info in
-                var u = CallingUserInfo()
-                u.nickname = info.nickname
-                u.faceURL = info.faceURL
-                u.userID = info.userID
-                return u
+        } else {
+            var tempUserIDs: [String] = usersID
+            OIMManager.manager.getSpecifiedFriendsInfo(usersID) { friends in
+                
+                var us = friends?.compactMap({ CallingUserInfo(userID: $0.userID, nickname: $0.nickname, faceURL: $0.faceURL )}) ?? []
+                tempUserIDs.removeAll(where: { id in
+                    us.contains(where: { $0.userID == id }) == true
+                })
+                
+                guard !tempUserIDs.isEmpty else {
+                    callback(us)
+                    
+                    return
+                }
+                OIMManager.manager.getUsersInfo(tempUserIDs) { infos in
+                    guard let infos else {
+                        callback(us)
+                        
+                        return
+                    }
+                    
+                    us += infos.compactMap({ CallingUserInfo(userID: $0.userID, nickname: $0.nickname, faceURL: $0.faceURL )})
+                    
+                    callback(us)
+                }
+                
+                
             }
-            
-            callback(us)
         }
     }
     
@@ -373,6 +467,147 @@ public class CallingManager: NSObject {
 // MARK: 状态变更，消息记录保存
 extension CallingManager {
     // 关闭界面操作
+//    private func update(state: CallingState, duration: Int = 0) {
+//        print("\(#function): state:\(state)")
+//        if state == .beAccepted || state == .disConnect {
+//            if state == .beAccepted {
+//                if let liveURL, let token, signalingInfo?.isSignal == true {
+//                    senderViewController?.connectRoom(liveURL: liveURL, token: token)
+//                }
+//            } else {
+//                isPresented = false
+//            }
+//            return
+//        }
+//        
+//        isPresented = false
+//        
+//        var timeline = "00:00"
+//        
+//        if duration > 0 {
+//            let m = duration / 60
+//            let s = duration % 60
+//            
+//            if m > 99 {
+//                timeline = String(format: "%d:%02d", m, s)
+//            } else {
+//                timeline = String(format: "%02d:%02d", m, s)
+//            }
+//        }
+//        let loginUserID = OIMManager.manager.getLoginUserID()
+//        var tips = ""
+//        var record = CallRecord()
+//        
+//        switch state {
+//        case .normal:
+//            break
+//        case .call:
+//            break
+//        case .beCalled:
+//            break
+//        case .reject:
+//            signalingInfo?.userID = loginUserID
+//            if let signalingInfo {
+//                OIMManager.manager.signalingReject(signalingInfo, onSuccess: nil)
+//            }
+//            tips = "已拒绝".localized()
+//        case .beRejected:
+//            tips = "对方已拒绝".localized()
+//        case .calling:
+//            break
+//        case .beAccepted:
+//            break
+//        case .hangup:
+//            signalingInfo?.userID = loginUserID
+//            if let signalingInfo {
+//                OIMManager.manager.signalingHungUp(signalingInfo, onSuccess: nil)
+//            }
+//            tips = "通话结束".localized() + ":\(timeline)"
+//            record.success = true
+//        case .connecting:
+//            break
+//        case .noReply:
+//            signalingInfo?.userID = loginUserID
+//            if let signalingInfo, signalingInfo.isSignal {
+//                OIMManager.manager.signalingCancel(signalingInfo, onSuccess: nil)
+//            }
+//            tips = "无响应".localized()
+//        case .cancel:
+//            signalingInfo?.userID = loginUserID
+//            if let signalingInfo {
+//                OIMManager.manager.signalingCancel(signalingInfo, onSuccess: nil)
+//            }
+//            tips = "已取消".localized()
+//        case .beCanceled:
+//            tips = duration > 0 ? "通话结束".localized() + ":\(timeline)" : "对方取消".localized()
+//            record.success = duration > 0
+//        case .timeout:
+//            tips = "超时无人接听".localized()
+//        case .join:
+//            break
+//        case .beHangup:
+//            if duration > 0 {
+//                tips = "通话结束".localized() + ":\(timeline)"
+//                record.success = true
+//            }
+//        case .disConnect:
+//            break
+//        case .connectFailure:
+//            tips = "connectionFailed".localized()
+//        case .accessByOther:
+//            tips = "通话邀请被其它客户端接受".localized()
+//        case .rejectedByOther:
+//            tips = "通话邀请被其它客户端拒绝".localized()
+//        }
+//        
+//        if #available(iOS 15, *) {
+//            record.date = Int(round(Date.now.timeIntervalSince1970 * 1000))
+//        } else {
+//            record.date = Int(round(Date.init().timeIntervalSince1970 * 1000))
+//        }
+//        // 创建记录
+//        if let signalingInfo {
+//            record.nickname = others?.first?.nickname
+//            record.type = signalingInfo.isVideo ? "video": "audio"
+//            record.faceURL = others?.first?.faceURL
+//            record.duration = duration
+//            record.isSingnal = signalingInfo.isSignal
+//            record.incoming = signalingInfo.invitation.inviterUserID != OIMManager.manager.getLoginUserID()
+//            record.otherSideID = record.incoming ? signalingInfo.invitation.inviterUserID : signalingInfo.invitation.inviteeUserIDList.first
+//            
+//            if signalingInfo.isSignal, !tips.isEmpty {
+//                // 目前仅支持单聊
+//                record.isUnRead = !record.success
+//                Self.saveRrecord(record: record)
+//     
+//                do {
+//                    if !tips.isEmpty {
+//                        let param = ["customType": 901,
+//                                     "data": ["duration": duration,
+//                                              "state": state.rawValue,
+//                                              "type": signalingInfo.invitation.mediaType,
+//                                              "msg": tips
+//                                             ]
+//                        ] as [String : Any]
+//                        
+//                        let dataStr = String.init(data: try JSONSerialization.data(withJSONObject: param),
+//                                                  encoding: .utf8)!
+//                        
+//                        let msg = OIMMessageInfo.createCustomMessage(dataStr, extension: nil, description: nil)
+//                        insertCallingMessage(msg, signaling: signalingInfo, state: state)
+//                    }
+//                } catch (let e) {
+//                    print("catch \(e)")
+//                }
+//            }
+//        }
+//
+//        // 关闭界面，销毁room等
+//        reciverViewController?.dismiss()
+//        reciverViewController = nil
+//        senderViewController?.dismiss()
+//        senderViewController = nil
+//    }
     private func update(state: CallingState, duration: Int = 0) {
         print("\(#function): state:\(state)")
         
@@ -479,9 +714,7 @@ extension CallingManager {
             tips = "通话邀请被其它客户端拒绝".localized()
         }
         
-//        if signalingInfo?.userID == loginUserID {
-//            record.success = true
-//        }
+
         
         
         // 创建记录
@@ -543,6 +776,8 @@ extension CallingManager {
         senderViewController?.dismiss()
         senderViewController = nil
     }
+    
+    
 }
 
 // MARK: 插入消息
@@ -585,15 +820,10 @@ extension CallingManager {
                                                    onSuccess: { [weak self] message in
                 guard let self, let message else { return }
                 endCallingHandler?(message)
-                
-                
             }) { code, msg in
                 print("单聊插入本地失败:\(code), \(msg)")
             }
         }
-        
-        
-        
         
     }
     
@@ -611,13 +841,8 @@ extension CallingManager {
         let result = Array<CallRecord>.toJson(fromObject: records)
         UserDefaults.standard.set(result, forKey: recordsKey)
         UserDefaults.standard.synchronize()
-        
-        
-       
         calculateCount()
-        
     }
-    
     static func calculateCount() {
         let recordsNumberKey = "\(Open_im_sdkGetLoginUserID())-com.calling.records.unread.key"
         
@@ -628,18 +853,14 @@ extension CallingManager {
         
 //        /// 获取已读的未接通话数量
 //        let readNumber = UserDefaults.standard.integer(forKey: recordsNumberKey)
-//        
+//
 //        let showNumber = missedRecords.count - readNumber
-//        
+//
 //        NotificationCenter.default.post(name: Notification.Name("refrehCallLogsbadgeValue"), object: nil, userInfo: ["value": "\(showNumber)"])
         
         NotificationCenter.default.post(name: Notification.Name("refrehCallLogsbadgeValue"), object: nil, userInfo: ["value": "\(missedRecords.count)"])
         
     }
-    
-    
-    
-    
     
     // 删除通话记录
     static public func deleteRrecord(record: CallRecord) {
@@ -652,25 +873,7 @@ extension CallingManager {
         UserDefaults.standard.set(result, forKey: recordsKey)
         UserDefaults.standard.synchronize()
         
-//        if let block = refreshBlock {
-//            block()
-//        }
-        
         NotificationCenter.default.post(name: Notification.Name("refrehCallLogs"), object: nil)
-    }
-    
-    
-    /// 获取本地的音视频记录
-    static public func getRecords() -> [CallRecord] {
-        let recordsKey = "\(Open_im_sdkGetLoginUserID())-com.calling.records.key"
-        
-        if let jsonStr = UserDefaults.standard.string(forKey: recordsKey) {
-            var records = CallRecord.fromJson(jsonStr)
-            
-            return records
-        }
-        
-        return []
     }
     
     /// 将本地记录标记为已读
@@ -691,42 +894,120 @@ extension CallingManager {
         
     }
     
-    
+    // 获取本地的音视频记录
+    static public func getRecords() -> [CallRecord] {
+        let recordsKey = "\(Open_im_sdkGetLoginUserID())-com.calling.records.key"
+        
+        if let jsonStr = UserDefaults.standard.string(forKey: recordsKey) {
+            var records = CallRecord.fromJson(jsonStr)
+            
+            return records
+        }
+        
+        return []
+    }
+
 }
 
 // MARK: 监听函数
 
 extension CallingManager: OIMSignalingListener {
+    
+    func removeInvite(userID: String, isTimeout: Bool = false, isInviterHungup: Bool = false) {
+        
+        inviteeUsersID.removeAll(where: { $0 == userID })
+        
+        let leftParticipantCount = participantsID.count;
+        var canClose = false
+
+        if isInviterHungup, leftParticipantCount < 2 {
+            canClose = true
+        } else if leftParticipantCount < 2 {
+            let p = participantsID.first
+            let isLeftInviter = p == signalingInfo?.invitation.inviterUserID
+            
+            if isLeftInviter {
+                if inviteeUsersID.isEmpty {
+                    canClose = true
+                }
+            } else {
+                canClose = true
+            }
+        }
+        
+        if canClose {
+            if isTimeout {
+                if let signalingInfo {
+                    OIMManager.manager.signalingCancel(signalingInfo, onSuccess: nil)
+                }
+            }
+            
+            if let senderViewController {
+                senderViewController.dismiss()
+            }
+            
+            if let reciverViewController {
+                reciverViewController.dismiss()
+            }
+            
+            signalingInfo = nil
+            isPresented = false
+        }
+        
+        iLogger.print("\(#function) left participant: \(inviteeUsersID.map({ $0 }))", keyAndValues: [userID, isTimeout, isInviterHungup, canClose])
+    }
     public func onReceiveNewInvitation(_ signalingInfo: OIMSignalingInfo) {
         self.signalingInfo = signalingInfo
+        
         startLiveChat(inviterID: signalingInfo.invitation.inviterUserID,
                       othersID: signalingInfo.invitation.inviteeUserIDList,
                       isVideo: signalingInfo.isVideo,
                       groupID: signalingInfo.invitation.groupID,
                       incoming: true)
+        
+        inviteeUsersID = signalingInfo.invitation.inviteeUserIDList
+        iLogger.print("\(#function) participant: \(inviteeUsersID.map({ $0 }))")
     }
     
     public func onRoomParticipantConnected(_ connectedInfo: OIMParticipantConnectedInfo) {
+        if !currentIsGroup || connectedInfo.groupID != currentGroupID {
+            return
+        }
+        
+        iLogger.print("\(#function) participant: \(connectedInfo.participant.map({ $0.userInfo.userID }))")
+        
         roomParticipantChangedHandler?(connectedInfo)
+        
+        participantsID = connectedInfo.participant.compactMap({ $0.userInfo.userID })
     }
     
     public func onRoomParticipantDisconnected(_ disconnectedInfo: OIMParticipantConnectedInfo) {
+        if !currentIsGroup || disconnectedInfo.groupID != currentGroupID {
+            return
+        }
+        
+        iLogger.print("\(#function) participant: \(disconnectedInfo.participant.map({ $0.userInfo.userID }))")
+        
         roomParticipantChangedHandler?(disconnectedInfo)
         // 最后一个人就关闭群聊
-        if !disconnectedInfo.invitation.groupID.isEmpty, (disconnectedInfo.participant == nil || disconnectedInfo.participant.count == 1) {
-            update(state: .hangup)
+        if !disconnectedInfo.invitation.groupID.isEmpty, (disconnectedInfo.participant == nil || disconnectedInfo.participant.count == 1), inviteeUsersID.count == 1 {
+            update(state: .beHangup)
             reciverViewController?.dismiss()
         }
+        
+        participantsID = disconnectedInfo.participant.compactMap({ $0.userInfo.userID })
     }
     
     public func onInviteeAccepted(_ signalingInfo: OIMSignalingInfo) {
-        print("Accepted：\(signalingInfo)")
+        iLogger.print("\(#function)", keyAndValues: [signalingInfo.userID, signalingInfo.invitation.inviteeUserIDList])
+        
         self.signalingInfo = signalingInfo
         update(state: .beAccepted)
     }
     
     public func onInviteeRejected(_ signalingInfo: OIMSignalingInfo) {
-        print("Rejected：\(signalingInfo)")
+        iLogger.print("\(#function)", keyAndValues: [signalingInfo.userID, signalingInfo.invitation.inviteeUserIDList])
+
         self.signalingInfo = signalingInfo
         if signalingInfo.isSignal {
             update(state: .beRejected)
@@ -734,16 +1015,26 @@ extension CallingManager: OIMSignalingListener {
             others?.removeAll(where: { $0.userID == signalingInfo.userID })
             senderViewController?.reloadUsers()
         }
+        
+        if currentIsGroup, signalingInfo.invitation.groupID == currentGroupID {
+            removeInvite(userID: signalingInfo.userID)
+        }
     }
     
     public func onInvitationCancelled(_ signalingInfo: OIMSignalingInfo) {
-        print("Cancelled：\(signalingInfo)")
+        iLogger.print("\(#function)", keyAndValues: [signalingInfo.userID, signalingInfo.invitation.inviteeUserIDList])
+
         self.signalingInfo = signalingInfo
         update(state: .beCanceled)
+        
+        if currentIsGroup, signalingInfo.invitation.groupID == currentGroupID {
+            removeInvite(userID: signalingInfo.userID)
+        }
     }
     
     public func onInvitationTimeout(_ signalingInfo: OIMSignalingInfo) {
-        print("Timeout：\(signalingInfo)")
+        iLogger.print("\(#function)", keyAndValues: [signalingInfo.userID, signalingInfo.invitation.inviteeUserIDList])
+
         self.signalingInfo = signalingInfo
         if signalingInfo.isSignal {
             update(state: .noReply)
@@ -751,29 +1042,47 @@ extension CallingManager: OIMSignalingListener {
             others?.removeAll(where: { $0.userID == signalingInfo.userID })
             senderViewController?.reloadUsers()
         }
+        
+        if currentIsGroup, signalingInfo.invitation.groupID == currentGroupID {
+            removeInvite(userID: signalingInfo.userID, isTimeout: true)
+        }
     }
     
     public func onHunguUp(_ signalingInfo: OIMSignalingInfo) {
-        print("HunguUp：\(signalingInfo)")
+        iLogger.print("\(#function)", keyAndValues: [signalingInfo.userID, signalingInfo.invitation.inviteeUserIDList])
+
         self.signalingInfo = signalingInfo
-        if signalingInfo.isSignal {
-            var duration = (senderViewController?.duration ?? reciverViewController?.duration) ?? 0
-            update(state: .beHangup, duration: duration)
+        // livekit disconnect after the hungup singnaling
+//        if signalingInfo.isSignal {
+//            var duration = (senderViewController?.duration ?? reciverViewController?.duration) ?? 0
+//            update(state: .beHangup, duration: duration)
+//        }
+        
+        if !signalingInfo.isSignal, currentIsGroup, signalingInfo.invitation.groupID == currentGroupID {
+            removeInvite(userID: signalingInfo.userID, isInviterHungup: signalingInfo.userID == signalingInfo.invitation.inviterUserID)
         }
     }
     
     public func onInviteeAccepted(byOtherDevice signalingInfo: OIMSignalingInfo) {
+        iLogger.print("\(#function)", keyAndValues: [signalingInfo.userID, signalingInfo.invitation.inviteeUserIDList])
+
         self.signalingInfo = signalingInfo
         update(state: .accessByOther)
     }
     
     public func onInviteeRejected(byOtherDevice signalingInfo: OIMSignalingInfo) {
+        iLogger.print("\(#function)", keyAndValues: [signalingInfo.userID, signalingInfo.invitation.inviteeUserIDList])
+
         self.signalingInfo = signalingInfo
         if signalingInfo.isSignal {
             update(state: .rejectedByOther)
         } else {
             others?.removeAll(where: { $0.userID == signalingInfo.userID })
             senderViewController?.reloadUsers()
+        }
+        
+        if currentIsGroup, signalingInfo.invitation.groupID == currentGroupID {
+            removeInvite(userID: signalingInfo.userID)
         }
     }
 }
@@ -800,6 +1109,7 @@ public class CallRecord: Codable {
     public var isSingnal: Bool = true
     public var isChoose: Bool = false
     public var isUnRead: Bool = false
+    public var sameCount: Int = 1
     
     public func typeStr() -> String {
         return type == "audio" ? "语音通话".innerLocalized() : "视频通话".innerLocalized()

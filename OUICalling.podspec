@@ -41,7 +41,6 @@ Pod::Spec.new do |s|
   s.dependency 'RxSwift'
   s.dependency 'lottie-ios'
   s.dependency 'LiveKitClient'
-  s.dependency 'Kingfisher'
   s.dependency 'ProgressHUD'
   s.dependency 'OUICore'
   s.dependency 'Reachability'

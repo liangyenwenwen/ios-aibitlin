@@ -359,7 +359,7 @@ extension MessageInfo {
                 let opNickname = notificationElem.opUserIsMe ? "you".innerLocalized() : (opUser.nickname ?? opUser.userID!)
 
                 let nicknames = formatUsersName(users: users)
-                let str = "kickedGroupNtf".innerLocalizedFormat(arguments: nicknames, opNickname)
+                let str = "kickedGroupNtf".innerLocalizedFormat(arguments: nicknames, SuperStringUtil.getUserState(showname: opNickname).n)
                 
                 result = createAttrString(baseString: str, users: users + [opUser])
             }

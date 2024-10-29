@@ -13,6 +13,8 @@ import RxSwift
 import TangramKit
 import UIKit
 import BSText
+import GTSDK
+
 
 class YFRegisterVC: BaseTitleController {
     /// 使用邮箱 或者手机号
@@ -436,7 +438,7 @@ extension YFRegisterVC {
                 { [weak self] _, _ in
                     
                     if let userID = AccountViewModel.userID {
-                        //                                GeTuiSdk.bindAlias(userID, andSequenceNum: "im")
+                          GeTuiSdk.bindAlias(userID, andSequenceNum: "im")
                     }
                     UserDefaults.standard.setValue(self?.useType.rawValue, forKey: loginTypeKey)
                     UserDefaults.standard.synchronize()

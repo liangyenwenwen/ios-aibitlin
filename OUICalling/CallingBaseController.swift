@@ -1,7 +1,16 @@
 import UIKit
 import Localize_Swift
+import Kingfisher
+
+public enum CallingActionType {
+    case participantDidDisconnect(_ userID: String, _ duration: Int?)
+    case participantDidConnect(_ userID: String)
+}
 
 public class CallingBaseController: UIViewController {
+    
+    public var onAction:((_ action: CallingActionType) -> Void)?
+    
     /**
      接收按钮
      */
@@ -18,10 +27,6 @@ public class CallingBaseController: UIViewController {
      挂断按钮
      */
     @objc public var onHungup: ((_ duration: Int) -> Void)?
-    /**
-     有成员离开
-     */
-    @objc public var onBeHungup: ((_ duration: Int) -> Void)?
     /**
      邀请按钮
      */
@@ -53,6 +58,8 @@ public class CallingBaseController: UIViewController {
      挂断、拒绝等关闭界面
      */
     @objc public func dismiss() {}
+    
+    public func isConnected() -> Bool { false }
     
     public override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)

@@ -90,11 +90,11 @@ class LiveContentView: UIView {
     var onTap: ((_ action: LiveContentViewAction) -> Void)?
     var numberOfItems: (() -> Int)!
     var itemSize: (() -> CGSize)?
-    var participantHandler: ((_ index: Int) -> (Participant?, Bool)?)! // 第一个参数：成员信息，第二个：展示是否是自己
+    var participantHandler: ((_ index: Int) -> (Participant?, Bool, Bool)?)! // 第一个参数：成员信息，第二个：展示是否是自己, the third: is host
     
     var hosterName: (() -> String?)?
     let disposeBag = DisposeBag()
-    var leadingParticipantHandler: (() -> (Participant?, Bool)?)! // The big screen member in the first position
+    var leadingParticipantHandler: (() -> (Participant?, Bool, Bool)?)! // The big screen member in the first position
     
     lazy var collectionView: UICollectionView = {
         print("creating UICollectionView...")
@@ -326,7 +326,7 @@ extension LiveContentView: UICollectionViewDataSource, UICollectionViewDelegate 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(LiveParticipantVideoCell.self),
                                                       for: indexPath) as! LiveParticipantVideoCell
         
-        var participant: (Participant?, Bool)?
+        var participant: (Participant?, Bool, Bool)?
         
         if indexPath.section == 0 {
             participant = leadingParticipantHandler?()
@@ -350,10 +350,12 @@ extension LiveContentView: UICollectionViewDataSource, UICollectionViewDelegate 
         if let participant = participant {
             let p = participant.0
             let isSelf = participant.1
+            let isHost = participant.2
             
             cellReference.add(cell)
             cell.participant = p
             cell.toggleCameraButton.isHidden = !isSelf
+            cell.infoView.hosterImageView.isHidden = !isHost
             
             cell.onTap = { [weak self] action in
                 guard let self else { return }

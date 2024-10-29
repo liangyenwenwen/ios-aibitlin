@@ -7,7 +7,7 @@ import ProgressHUD
 class NewFriendListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "新的好友".innerLocalized()
+        navigationItem.title = "新的好友请求".innerLocalized()
         view.backgroundColor = .systemGroupedBackground
         
         initView()

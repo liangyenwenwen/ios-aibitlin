@@ -49,6 +49,8 @@ extension UIColor {
     public static let cF1F1F1 = #colorLiteral(red: 0.9450980392, green: 0.9450980392, blue: 0.9450980392, alpha: 1)
     public static let c666666 = #colorLiteral(red: 0.4, green: 0.4, blue: 0.4, alpha: 1)
     public static let cE6F0FC = #colorLiteral(red: 0.9019607843, green: 0.9411764706, blue: 0.9882352941, alpha: 1)
+    public static let c1B2236 = #colorLiteral(red: 0.1058823529, green: 0.1333333333, blue: 0.2117647059, alpha: 1)
+    public static let c00D66A = #colorLiteral(red: 0, green: 0.8392156863, blue: 0.4156862745, alpha: 1)
     public static let viewBackgroundColor = UIColor.systemGroupedBackground
     public static let cellBackgroundColor = UIColor.tertiarySystemBackground
     public static let sepratorColor = UIColor.tertiarySystemGroupedBackground
@@ -68,8 +70,29 @@ extension Int {
 
 public struct StandardUI {
     public static let tailSize: CGFloat = 5
-    public static let maxWidthRate: CGFloat = 0.65
+    public static let maxWidthRate: CGFloat = 0.85
     public static let cornerRadius = 5.0
     public static let margin_22: CGFloat = 22
     public static let avatarWidth: CGFloat = 44.w
+}
+
+public struct iLogger {
+    static public func print(_ text: String,
+                             fileName: String? = nil,
+                             functionName: String? = nil,
+                             line: Int = 0,
+                             msgs: String? = nil,
+                             err: String? = nil,
+                             keyAndValues: [Any] = [],
+                             onlyConsole: Bool = false) {
+        Task {
+            
+            let t = "native/iOS/[\(functionName ?? "")]: \(text), \(!keyAndValues.isEmpty ? keyAndValues.map({ "\($0)" }).joined(separator: ", ") : "")"
+            NSLog("[log] %@", t)
+            
+            if !onlyConsole {
+//                await IMController.shared.logs(fileName: fileName, line: line, msgs: t, err: err, keyAndValues: keyAndValues)
+            }
+        }
+    }
 }

@@ -1,6 +1,0 @@
-framework module Promises {
-  umbrella header "PromisesSwift-iOS17.5-umbrella.h"
-
-  export *
-  module * { export * }
-}

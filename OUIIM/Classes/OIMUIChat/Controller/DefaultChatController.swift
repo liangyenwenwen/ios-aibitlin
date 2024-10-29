@@ -432,9 +432,9 @@ final class DefaultChatController: ChatController {
     
     func joinMeetingMidway(isVedio: Bool) {
 #if ENABLE_LIVE_ROOM
-        IMController.shared.signalingGetInvitation(by: receiverId, onSuccess: { [weak self] info in
-            CallingManager.manager.joinRoom(isVideo: isVedio, roomID: info.roomID!, liveURL: info.liveURL!, token: info.token!)
-        })
+        CallingManager.manager.signalingGetInvitation(by: receiverId) { [self] url, token in
+            CallingManager.manager.joinRoom(isVideo: isVedio, roomID: receiverId, liveURL: url, token: token)
+        }
 #endif
     }
     

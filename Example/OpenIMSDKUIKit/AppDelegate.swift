@@ -3,14 +3,14 @@ import OUICore
 import Localize_Swift
 import RxSwift
 import ProgressHUD
-//import GTSDK
+import GTSDK
 import AlamofireNetworkActivityLogger
 import Bugly
 import IQKeyboardManagerSwift
 
-let kGtAppId = ""
-let kGtAppKey = ""
-let kGtAppSecret = ""
+let kGtAppId = "aaG9GXroFD6J5AdyPp59E7"
+let kGtAppKey = "z4bVbPVLys7OgGEvIQMDA5"
+let kGtAppSecret = "DK6becO4GU6d0YZ8EDQtw2"
 
 #if ENABLE_ORGANIZATION
 let bussinessPort = ":50010"
@@ -46,6 +46,10 @@ let defaultAppAddress = "imserver.aibitlin.com/chat"
 let defaultIMAddress = "imserver.aibitlin.com/api"
 let defaultAdminAddress = "imserver.aibitlin.com/msg_gateway"
 
+//let defaultAppAddress = "192.168.7.126"
+//let defaultIMAddress = "192.168.7.126"
+//let defaultAdminAddress = "192.168.7.126"
+
 //let defaultAppAddress = "web.rentsoft.cn"
 //let defaultIMAddress = "web.rentsoft.cn"
 //let defaultAdminAddress = "web.rentsoft.cn"
@@ -71,7 +75,7 @@ let defaultAdminAddress = "imserver.aibitlin.com/msg_gateway"
 //IM_WS = "ws://demo.aibitlin.com:10001";
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate,GeTuiSdkDelegate {
     
     var backgroundTaskIdentifier: UIBackgroundTaskIdentifier?
     var orientation = UIInterfaceOrientationMask.portrait
@@ -202,8 +206,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             NotificationCenter.default.post(name: .init("logout"), object: nil)
         }
         
-//        GeTuiSdk.start(withAppId: kGtAppId, appKey: kGtAppKey, appSecret: kGtAppSecret, delegate: self)
-//        GeTuiSdk.registerRemoteNotification([.alert, .badge, .sound])
+        GeTuiSdk.start(withAppId: kGtAppId, appKey: kGtAppKey, appSecret: kGtAppSecret, delegate: self)
+        GeTuiSdk.registerRemoteNotification([.alert, .badge, .sound])
         
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1) { [self] in
             if let rootViewController = window?.rootViewController {

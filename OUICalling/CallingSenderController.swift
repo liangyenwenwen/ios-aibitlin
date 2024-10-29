@@ -70,6 +70,7 @@ public class CallingSenderController: CallingBaseController {
             signal!.onDisconnect = onDisconnect
             signal!.onConnectFailure = onConnectFailure
             signal!.onInvitedOthers = onInvitedOthers
+            signal!.onAction = onAction
             
             signal!.modalPresentationStyle = .overCurrentContext
             UIViewController.currentViewController().present(signal!, animated: true)
@@ -84,6 +85,7 @@ public class CallingSenderController: CallingBaseController {
             room!.onDisconnect = onDisconnect
             room!.onConnectFailure = onConnectFailure
             room!.onInvitedOthers = onInvitedOthers
+            room!.onAction = onAction
             
             room!.modalPresentationStyle = .overCurrentContext
             UIViewController.currentViewController().present(room!, animated: true)
@@ -115,7 +117,7 @@ class SignalViewController: CallingBaseViewController {
         let nameLabel = UILabel()
         nameLabel.layer.cornerRadius = 6
         nameLabel.layer.masksToBounds = true
-        nameLabel.text = SuperStringUtil.getUserState(showname: inviter?.nickname ?? "").n
+        nameLabel.text = SuperStringUtil.getUserShowname(showname: inviter?.nickname ?? "")
         nameLabel.font = .systemFont(ofSize: 28)
         nameLabel.textAlignment = .center
         nameLabel.textColor = .white
@@ -157,45 +159,86 @@ class SignalViewController: CallingBaseViewController {
 }
 
 extension SignalViewController: RoomDelegate {
-    func room(_ room: Room, didUpdate connectionState: ConnectionState, oldValue: ConnectionState) {
+    func room(_ room: Room, didFailToConnectWithError error: LiveKitError?) {
+        onConnectFailure?()
+        dismiss()
+    }
+    
+    func room(_ room: Room, didUpdateConnectionState connectionState: ConnectionState, from oldValue: ConnectionState) {
         print("connection state did update")
         DispatchQueue.main.async { [self] in
             if case .disconnected = connectionState {
-                self.cameraTrackState = .notPublished()
-                self.microphoneTrackState = .notPublished()
-                
-                if let error = connectionState.disconnectedWithError {
-                    self.onConnectFailure?()
-                    self.dismiss()
-                }
+ 
             }
         }
     }
     
-    func room(_ room: Room, localParticipant: LocalParticipant, didPublish publication: LocalTrackPublication) {
-        guard let track = publication.track as? VideoTrack else {
+    func roomIsReconnecting(_ room: Room) {
+        iLogger.print("\(#function)")
+        poorNetwork = true
+    }
+    
+    func roomDidReconnect(_ room: Room) {
+        iLogger.print("\(#function)")
+        poorNetwork = false
+    }
+    
+    func room(_ room: Room, participantDidConnect participant: RemoteParticipant) {
+        iLogger.print("\(#function): \(participant.metadata)")
+    }
+    
+    func room(_ room: Room, participantDidDisconnect participant: RemoteParticipant) {
+        iLogger.print("\(#function): \(participant.metadata)")
+        
+        let identityString = participant.identityString
+        
+        if poorNetwork {
+            ProgressHUD.text("callingInterruption".localized()) {
+                DispatchQueue.main.async { [self] in
+                    onAction?(.participantDidDisconnect(identityString!, linkingDuration))
+                }
+            }
+        } else {
+            DispatchQueue.main.async { [self] in
+                onAction?(.participantDidDisconnect(identityString!, linkingDuration))
+            }
+        }
+    }
+    
+    func room(_ room: Room, participant: Participant, didUpdateConnectionQuality quality: ConnectionQuality) {
+        iLogger.print("\(#function): participant: \(participant.metadata) quality: \(quality)")
+        guard room.connectionState != .disconnected else { return }
+        
+        if quality == .lost || quality == .poor {
+            poorNetwork = true
+            
+            let isMine = participant.identity == room.localParticipant.identity
+            
+            ProgressHUD.text(isMine ? "networkNotStable".localized() : "otherNetworkNotStableHint".localized())
+        } else {
+            poorNetwork = false
+        }
+    }
+    
+    func room(_ room: Room, participant localParticipant: LocalParticipant, didPublishTrack publication: LocalTrackPublication) {
+        guard let track = localParticipant.firstCameraVideoTrack else {
             print("sender did publish track return")
             return
         }
         
-        DispatchQueue.main.async { [self] in
-            self.smallVideoView.track = track
+        DispatchQueue.main.async { [self, track] in
+//            self.smallVideoView.track = track
+            smallTrack = track
         }
     }
     
-    func room(_ room: Room, participantDidJoin participant: RemoteParticipant) {
-        print("participant did join")
-    }
-    
-    func room(_ room: Room, participantDidLeave participant: RemoteParticipant) {
-        print("participant did leave")
-    }
-    
-    public func room(_ room: Room, participant: RemoteParticipant, didSubscribe publication: RemoteTrackPublication, track: Track) {
-        DispatchQueue.main.async { [self] in
+    func room(_ room: Room, participant: RemoteParticipant, didSubscribeTrack publication: RemoteTrackPublication) {
+        print("\(#function)")
+        DispatchQueue.main.async { [self, participant] in
             if isVideo {
-                if let track = track as? VideoTrack {
-                    bigVideoView.track = track
+                if let track = participant.firstCameraVideoTrack {
+//                    bigVideoView.track = track
+                    bigTrack = track
                 }
                 verStackView?.isHidden = true
                 onlineFuncButtons()
@@ -205,8 +248,9 @@ extension SignalViewController: RoomDelegate {
         }
     }
     
-    func room(_ room: Room, participant: RemoteParticipant, didUnsubscribe publication: RemoteTrackPublication, track: Track) {
-        if linkedTimer != nil, participant.identity == users().last?.userID {
+    func room(_ room: Room, participant: RemoteParticipant, didUnsubscribeTrack publication: RemoteTrackPublication) {
+        print("\(#function)")
+        if linkedTimer != nil, participant.identity?.stringValue == users().last?.userID {
             linkedTimer = nil
             DispatchQueue.main.async { [self] in
 //                if !room.allParticipants.isEmpty {
@@ -216,14 +260,15 @@ extension SignalViewController: RoomDelegate {
         }
     }
     
-    func room(_ room: Room, participant: Participant, didUpdate publication: TrackPublication, muted: Bool) {
-        print("\(#function) muted \(String(describing: participant.showName)) - \(publication.kind) status:\(!muted)")
+    func room(_ room: Room, participant: Participant, trackPublication publication: TrackPublication, didUpdateIsMuted muted: Bool) {
+        print("\(#function) \(String(describing: participant.showName)) 操作了 \(publication.kind == .video ? "视频" : "音频") 目前状态:\(muted ? "关闭麦克风" : "开启了麦克风")  --- \(publication.source)")
         
-        if publication.kind == .video {
+        if publication.kind == .video, publication.source != .microphone {
+
             DispatchQueue.main.async { [self] in
-                let participantUser = CallingUserInfo(userID: participant.identity, nickname: participant.showName, faceURL: participant.faceURL)
+                let participantUser = CallingUserInfo(userID: participant.identity?.stringValue, nickname: participant.showName, faceURL: participant.faceURL)
                 
-                if let user = users().first, participant.identity == user.userID {
+                if let user = users().first, participant.identity?.stringValue == user.userID {
                     remoteMuted = muted
                     
                     if smallViewIsMe {
@@ -233,7 +278,7 @@ extension SignalViewController: RoomDelegate {
                         smallDisableVideoImageView.isHidden = !muted
                         setupSmallPlaceholerView(user: participantUser)
                     }
-                } else if let user = inviter().first, participant.identity == user.userID {
+                } else if let user = inviter().first, participant.identity?.stringValue == user.userID {
                     localMuted = muted
                     
                     if smallViewIsMe {
@@ -396,7 +441,7 @@ class RoomViewController: CallingBaseViewController {
         super.viewDidLoad()
         // When starting a group video, first display the profile picture.
         remoteParticipants = users()
-        
+        playSounds()
         room.add(delegate: self)
         setupView()
         onlineFuncButtons()
@@ -418,11 +463,11 @@ class RoomViewController: CallingBaseViewController {
     }
     
     private func setParticipants() {
-        let p = self.room.remoteParticipants.values.filter { $0.identity != self.groupID } // 有一个groupid 的监听者
+        let p = self.room.remoteParticipants.values.filter { $0.identity?.stringValue != self.groupID } // 有一个groupid 的监听者
         // 进场，替换掉链接中的obj
         for (i, item) in remoteParticipants.enumerated() {
             if let temp = item as? CallingUserInfo {
-                if let obj = p.first(where: { $0.identity == temp.userID }) {
+                if let obj = p.first(where: { $0.identityString == temp.userID }) {
                     remoteParticipants[i] = obj
                 }
             } else if let temp = item as? RemoteParticipant {
@@ -522,38 +567,110 @@ extension RoomViewController: UICollectionViewDataSource {
 }
 
 extension RoomViewController: RoomDelegate {
-    func room(_ room: Room, didUpdate connectionState: ConnectionState, oldValue: ConnectionState) {
-        print("connection state did update")
+    
+    func room(_ room: Room, didFailToConnectWithError error: LiveKitError?) {
+        print("\(#function)")
+        onConnectFailure?()
+        self.dismiss()
+    }
+    
+    func room(_ room: Room, didUpdateConnectionState connectionState: ConnectionState, from oldValue: ConnectionState) {
+        print("\(#function)")
         DispatchQueue.main.async { [self] in
             if case .disconnected = connectionState {
-                self.cameraTrackState = .notPublished()
-                self.microphoneTrackState = .notPublished()
                 self.remoteParticipants = []
                 self.collectionView.reloadData()
-                
-                if let error = connectionState.disconnectedWithError {
-                    self.onConnectFailure?()
-                    self.dismiss()
-                }
             }
         }
     }
     
-    public func room(_ room: Room, localParticipant: LocalParticipant, didPublish publication: LocalTrackPublication) {
+    public func room(_ room: Room, participant localParticipant: LocalParticipant, didPublishTrack publication: LocalTrackPublication) {
+        print("\(#function)")
         DispatchQueue.main.async { [self] in
             collectionView.reloadData()
             linkingTimer()
         }
     }
     
-    public func room(_ room: Room, participantDidLeave participant: RemoteParticipant) {
-        print("participant did leave")
+    public func room(_ room: Room, participantDidDisconnect participant: RemoteParticipant) {
+        iLogger.print("\(#function): \(participant.identityString) \(participant.metadata)")
         setParticipants()
+        
+        let identityString = participant.identityString
+        if identityString?.isEmpty == false{
+            DispatchQueue.main.async { [self] in
+                onAction?(.participantDidDisconnect(identityString!, linkingDuration))
+            }
+        }
+//        DispatchQueue.main.async { [self] in
+//            onAction?(.participantDidDisconnect(identityString!, linkingDuration))
+//        }
     }
     
-    public func room(_ room: Room, participantDidJoin participant: RemoteParticipant) {
-        print("participant did join: \(participant.showName) - \(participant.isMicrophoneEnabled()) - \(participant.isCameraEnabled())")
+    public func room(_ room: Room, participantDidConnect participant: RemoteParticipant) {
+        iLogger.print("\(#function): \(participant.metadata)")
+        
+        stopSounds()
         setParticipants()
+        
+        let identityString = participant.identityString
+        
+        DispatchQueue.main.async { [self] in
+            onAction?(.participantDidConnect(identityString!))
+        }
     }
 }
 
+
+
+class SuperStringUtil {
+    
+  
+    /// 获取用户的信息  博客 公司 vip 名字
+    static func getUserState(showname: String) -> UserState {
+        guard let jsonData = showname.data(using: .utf8) else { return UserState(b: 0, e: 0, v: 0, n: showname)}
+        do {
+            let user = try JSONDecoder().decode(UserState.self, from: jsonData)
+            return user
+        } catch {
+            return  UserState(b: 0, e: 0, v: 0, n: showname)
+        }
+    }
+    
+    static func getUserShowname(showname: String) -> String  {
+        let user = getUserState(showname: showname)
+        return user.n
+    }
+    /// 获取用户的tag
+    static func getUserTag(showname: String) -> String? {
+        guard let jsonData = showname.data(using: .utf8) else { return nil}
+        do {
+            let user = try JSONDecoder().decode(UserState.self, from: jsonData)
+            var reslut = ""
+            if user.v > 0 {
+                reslut.append("V\(user.v)")
+            }
+            
+            if user.b > 0 {
+                reslut.append(reslut.count == 0 ? "\("博客".localized())" : "、\("博客".localized())")
+            }
+            
+            if user.e > 0 {
+                reslut.append(reslut.count == 0 ? "\("企业".localized())" : "、\("企业".localized())")
+            }
+            
+            return reslut.count == 0 ? nil : "[\(reslut)]"
+        } catch {
+            return  nil
+        }
+    }
+    
+}
+
+
+struct UserState: Codable {
+    let b: Int
+    let e: Int
+    let v: Int
+    let n: String
+}

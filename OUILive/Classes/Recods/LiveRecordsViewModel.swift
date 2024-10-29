@@ -3,33 +3,53 @@ import OUICore
 import RxRelay
 import RxSwift
 import OUICalling
+import Alamofire
 
 class LiveRecordsViewModel {
-    let items: BehaviorRelay<[MeetingInfo]> = .init(value: [])
+    let items: BehaviorRelay<[MeetingInfoSetting]> = .init(value: [])
     private let _disposeBag = DisposeBag()
+    private let repository = MeetingRepository()
 
     func getRecords() {
-        IMController.shared.signalingGetMeetings { [weak self] r in
-            guard let `self` = self else { return }
-            let uids = r.map{ $0.hostUserID! }
-            IMController.shared.getUserInfo(uids: uids) { users in
-                for (index, item) in r.enumerated() {
-                    item.hostUserName = users.first(where: {$0.userID == item.hostUserID})?.showName
-                }
-                self.items.accept(r.sorted(by: { $0.startTime > $1.startTime }))
+        Task {
+            let result = await repository.getMeetings(userID: IMController.shared.uid)
+            
+            await MainActor.run {
+                items.accept(result.sorted(by: { $0.scheduledTime > $1.scheduledTime }))
             }
         }
     }
     
-    func createMeeting(completion: @escaping SignalingInfoOptionalReturnVoid) {
-        var name = IMController.shared.currentUserRelay.value!.nickname! + "发起的视频会议"
-        IMController.shared.signalingCreateMeeting(name: name, startTime: Date().timeIntervalSince1970, duration: 3600) { r in
-            completion(r)
-        } onFailure: { errCode, errMsg in
+    func createMeeting(completion: @escaping LiveKitOptionalReturnVoid) {
+        Task {
+            var name = IMController.shared.currentUserRelay.value!.nickname! + "发起的视频会议"
+            
+            var creatInfo = CreatorDefinedMeetingInfo()
+            creatInfo.title = name
+            creatInfo.scheduledTime = Int64(Date().timeIntervalSince1970)
+            creatInfo.meetingDuration = 3600
+            creatInfo.password = ""
+            
+            let result = await repository.createMeeting(type: .quick, creatorUserID: IMController.shared.uid, creatorDefinedMeetingInfo: creatInfo)
+            
+            await MainActor.run {
+                completion(result.cert)
+            }
         }
     }
     
-    func joinMeeting(meetingID: String, onSuccess: @escaping SignalingInfoOptionalReturnVoid, onFailure: @escaping CallBack.ErrorOptionalReturnVoid) {
-        IMController.shared.signalingJoinMeeting(meetingID: meetingID, onSuccess: onSuccess, onFailure: onFailure)
+    func joinMeeting(meetingID: String, onSuccess: @escaping LiveKitOptionalReturnVoid, onFailure: @escaping CallBack.ErrorOptionalReturnVoid) {
+        
+        Task {
+            let result = await repository.joinMeeting(meetingID: meetingID, userID: IMController.shared.uid)
+            
+            await MainActor.run {
+                if result != nil {
+                    onSuccess(result!)
+                } else {
+                    onFailure(-1, nil)
+                }
+            }
+        }
     }
 }

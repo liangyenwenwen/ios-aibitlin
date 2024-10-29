@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 LiveKit
+ * Copyright 2024 LiveKit
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,60 +14,88 @@
  * limitations under the License.
  */
 
-import Foundation
-import WebRTC
-import Promises
+import CoreMedia
+
+#if swift(>=5.9)
+internal import LiveKitWebRTC
+#else
+@_implementationOnly import LiveKitWebRTC
+#endif
 
 @objc
 public class RemoteAudioTrack: Track, RemoteTrack, AudioTrack {
+    // State used to manage AudioRenderers
+    private struct RendererState {
+        var didAttacheAudioRendererAdapter: Bool = false
+        let audioRenderers = MulticastDelegate<AudioRenderer>(label: "AudioRenderer")
+    }
+
+    private lazy var _audioRendererAdapter = AudioRendererAdapter(target: self)
+    private let _rendererState = StateSync(RendererState())
 
     /// Volume with range 0.0 - 1.0
     public var volume: Double {
         get {
-            guard let audioTrack = mediaTrack as? RTCAudioTrack else { return 0 }
+            guard let audioTrack = mediaTrack as? LKRTCAudioTrack else { return 0 }
             return audioTrack.source.volume / 10
         }
         set {
-            guard let audioTrack = mediaTrack as? RTCAudioTrack else { return }
+            guard let audioTrack = mediaTrack as? LKRTCAudioTrack else { return }
             audioTrack.source.volume = newValue * 10
         }
     }
 
     init(name: String,
          source: Track.Source,
-         track: RTCMediaStreamTrack) {
-
+         track: LKRTCMediaStreamTrack,
+         reportStatistics: Bool)
+    {
         super.init(name: name,
                    kind: .audio,
                    source: source,
-                   track: track)
+                   track: track,
+                   reportStatistics: reportStatistics)
     }
 
-    override public func start() -> Promise<Bool> {
-        super.start().then(on: queue) { didStart -> Bool in
-            if didStart {
-                AudioManager.shared.trackDidStart(.remote)
+    public func add(audioRenderer: AudioRenderer) {
+        guard let audioTrack = mediaTrack as? LKRTCAudioTrack else { return }
+
+        _rendererState.mutate {
+            $0.audioRenderers.add(delegate: audioRenderer)
+            if !$0.didAttacheAudioRendererAdapter {
+                audioTrack.add(_audioRendererAdapter)
+                $0.didAttacheAudioRendererAdapter = true
             }
-            return didStart
         }
     }
 
-    override public func stop() -> Promise<Bool> {
-        super.stop().then(on: queue) { didStop -> Bool in
-            if didStop {
-                AudioManager.shared.trackDidStop(.remote)
+    public func remove(audioRenderer: AudioRenderer) {
+        guard let audioTrack = mediaTrack as? LKRTCAudioTrack else { return }
+
+        _rendererState.mutate {
+            $0.audioRenderers.remove(delegate: audioRenderer)
+            if $0.audioRenderers.allDelegates.isEmpty {
+                audioTrack.remove(_audioRendererAdapter)
+                $0.didAttacheAudioRendererAdapter = false
             }
-            return didStop
         }
     }
 
-    public func add(audioRenderer: RTCAudioRenderer) {
-        guard let audioTrack = mediaTrack as? RTCAudioTrack else { return  }
-        audioTrack.add(audioRenderer)
+    // MARK: - Internal
+
+    override func startCapture() async throws {
+        AudioManager.shared.trackDidStart(.remote)
     }
 
-    public func remove(audioRenderer: RTCAudioRenderer) {
-        guard let audioTrack = mediaTrack as? RTCAudioTrack else { return }
-        audioTrack.remove(audioRenderer)
+    override func stopCapture() async throws {
+        AudioManager.shared.trackDidStop(.remote)
+    }
+}
+
+extension RemoteAudioTrack: AudioRenderer {
+    public func render(sampleBuffer: CMSampleBuffer) {
+        _rendererState.audioRenderers.notify { audioRenderer in
+            audioRenderer.render?(sampleBuffer: sampleBuffer)
+        }
     }
 }

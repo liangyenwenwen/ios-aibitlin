@@ -1916,11 +1916,11 @@ extension ChatViewController: ChatControllerDelegate {
 #if ENABLE_LIVE_ROOM
                 ProgressHUD.animate()
                 chatController.joinMeeting(meetingID: value["id"] as! String) { [weak self] invitaion in
-                    guard let self else { return }
-                    
                     ProgressHUD.dismiss()
-                    LiveRoomViewController.showIn(viewController: self, invitationInfo: invitaion)
 
+                    guard let self, let invitaion else { return }
+            
+                    LiveRoomViewController.showIn(viewController: self, url: invitaion.url, token: invitaion.token)
                 } onFailure: { errCode, errMsg in
                     ProgressHUD.dismiss()
                     if errMsg?.contains("roomIsNotExist") == true {

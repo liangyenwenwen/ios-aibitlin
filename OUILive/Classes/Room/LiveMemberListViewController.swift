@@ -279,7 +279,7 @@ class LiveMemberListCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         selectionStyle = .none
         
-        let horSV = UIStackView(arrangedSubviews: [avatarView, nameLabel, audioButton, videoButton, moreButton])
+        let horSV = UIStackView(arrangedSubviews: [avatarView, nameLabel, audioButton, videoButton/*, moreButton*/])
         horSV.spacing = 16
         horSV.alignment = .center
         horSV.distribution = .fill
@@ -339,7 +339,7 @@ class LiveMemberListCell: UITableViewCell {
 }
 
 extension LiveMemberListCell: ParticipantDelegate {
-    public func participant(_ participant: Participant, didUpdate publication: TrackPublication, muted: Bool) {
+    public func participant(_ participant: Participant, trackPublication publication: TrackPublication, didUpdateIsMuted muted: Bool) {
         print("\(#function) \(String(describing: participant.showName)) - \(publication.kind) status:\(!muted)")
         DispatchQueue.main.async { [weak self] in
             if publication.kind == .audio {

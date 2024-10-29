@@ -6,20 +6,22 @@ import RxRelay
 
 class LiveRoomViewModel {
     
-    var invitationSingling: InvitationResultInfo
-    var meetingInfo: SettingInfo?
+    var invitationSingling: LiveKit
+    var meetingInfo: MeetingInfoSetting?
     let disposeBag = DisposeBag()
-    let meetingStreamChangeRelay: BehaviorRelay<MeetingStreamEvent?> = .init(value: nil)
+    //    let meetingStreamChangeRelay: BehaviorRelay<MeetingStreamEvent?> = .init(value: nil)
     let kickedOffline: PublishSubject<Bool> = .init()
-
-    init(invitationSingling: InvitationResultInfo) {
+    
+    private let repository = MeetingRepository()
+    
+    init(invitationSingling: LiveKit) {
         self.invitationSingling = invitationSingling
         
-        IMController.shared.meetingStreamChange.subscribe(onNext: { [weak self] event in
-            if event.roomID == self?.meetingInfo?.roomID {
-                self?.meetingStreamChangeRelay.accept(event)
-            }
-        }).disposed(by: disposeBag)
+        //        IMController.shared.meetingStreamChange.subscribe(onNext: { [weak self] event in
+        //            if event.roomID == self?.meetingInfo?.roomID {
+        //                self?.meetingStreamChangeRelay.accept(event)
+        //            }
+        //        }).disposed(by: disposeBag)
         
         IMController.shared.connectionRelay.subscribe(onNext: { [self] status in
             if status == .kickedOffline {
@@ -29,45 +31,34 @@ class LiveRoomViewModel {
     }
     
     func closeRoom(_ completion: @escaping CallBack.StringOptionalReturnVoid) {
-        IMController.shared.signalingCloseMeeting(meetingID: invitationSingling.roomID!, onSuccess: completion, onFailure: { (code, msg) in
+        Task {
+            await repository.endMeeting(meetingID: meetingInfo!.meetingID, userID: IMController.shared.uid)
             
-        })
-    }
-    
-    func getHosterInfo() {
-        guard let hostUserID = meetingInfo?.hostUserID else { return }
-        IMController.shared.getUserInfo(uids: [hostUserID]) { [weak self] r in
-            self?.meetingInfo?.hosterName = r.first?.showName
-        }
-    }
-    
-    func updateMeetingInfo(info: MeetingInfo? = nil) async -> Bool {
-        if info != nil {
-            info?.roomID = meetingInfo!.roomID
-        }
-        let j = JsonTool.toMap(fromObject: info ?? meetingInfo)
-        print("updateMeetingInfo: \(j)")
-        return await withCheckedContinuation { continuation in
-            IMController.shared.signalingUpdateMeetingInfo(meetingID: meetingInfo!.roomID, param: j) { [self] r in
-                print("result: \(r)")
-                if let r {
-                    var meetingInfoMap = JsonTool.toMap(fromObject: meetingInfo)
-                
-                    for (key, value) in j {
-                        meetingInfoMap[key] = value
-                    }
-                    self.meetingInfo = JsonTool.fromMap(meetingInfoMap, toClass: SettingInfo.self)
-                    continuation.resume(returning: true)
-                } else {
-                    continuation.resume(returning: false)
-                }
+            await MainActor.run {
+                completion("")
             }
         }
     }
-        
+    
+    func getHosterInfo() {
+        meetingInfo?.creatorNickname
+    }
+    
     func updateUserInfo(userID: String, streamType: String? = nil, mute: Bool = true, muteAll: Bool = false, onCompletion:((Bool) -> Void)? = nil) {
-        IMController.shared.signalingOperateStream(meetingID: meetingInfo!.roomID, userID: userID, streamType: streamType, mute: mute, muteAll: muteAll) { r in
-            onCompletion?(r != nil)
+        Task {
+            var setting = PersonalMeetingSetting()
+            
+            if streamType == "audio" {
+                setting.microphoneOnEntry = !mute
+            } else {
+                setting.cameraOnEntry = !mute
+            }
+            
+            let result = await repository.setPersonalSetting(meetingID: meetingInfo!.meetingID, userID: userID, setting: setting)
+            
+            await MainActor.run {
+                onCompletion?(result)
+            }
         }
     }
     
@@ -78,54 +69,57 @@ class LiveRoomViewModel {
                                                                      "inviterNickname": IMController.shared.currentUserRelay.value?.nickname,
                                                                      "inviterFaceURL": IMController.shared.currentUserRelay.value?.faceURL,
                                                                      "subject": meetingInfo.meetingName,
-                                                                     "id": meetingInfo.roomID,
-                                                                     "start": meetingInfo.startTime,
-                                                                     "duration": meetingInfo.endTime - meetingInfo.startTime])
+                                                                     "id": meetingInfo.meetingID,
+                                                                     "start": meetingInfo.scheduledTime,
+                                                                     "duration": meetingInfo.duration])
         IMController.shared.sendMessage(message: message, to: desID, conversationType: conversationType) { r in
             print("result: \(r)")
         }
     }
     
-    func endMeeting(onSuccess: @escaping CallBack.StringOptionalReturnVoid, onFailure: @escaping CallBack.ErrorOptionalReturnVoid)  {
-        IMController.shared.signalingCloseMeeting(meetingID: self.meetingInfo!.roomID, onSuccess: onSuccess, onFailure: onFailure)
-    }
-}
-
-class SettingInfo: MeetingInfo {
-    
-    var hosterName: String?
-
-    var videoCanEnable: Bool {
-        return hosterIsSelf || (participantCanEnableVideo == true) && (isMuteAllVideo != true)
-    }
-    
-    var screenShareCanEnable: Bool {
-        return hosterIsSelf || onlyHostShareScreen != true
-    }
-    
-    var audioCanEnable: Bool {
-        return hosterIsSelf || (participantCanUnmuteSelf == true) && (isMuteAllMicrophone != true)
-    }
-    
-    var enableVideoWhileJoining: Bool {
-        return hosterIsSelf || joinDisableVideo != true
-    }
-    
-    var enableAudioWhileJoining: Bool {
-        return hosterIsSelf || joinDisableMicrophone != true
-    }
-    
-    var hosterIsSelf: Bool {
-        return hostUserID == IMController.shared.uid
-    }
-    
-    var canInvite: Bool {
-        var canInvite = true
-        if !self.hosterIsSelf {
-            canInvite = !(self.onlyHostInviteUser ?? false)
+    func leaveMeeting(onSuccess: @escaping CallBack.StringOptionalReturnVoid, onFailure: @escaping CallBack.ErrorOptionalReturnVoid)  {
+        Task {
+            let result = await repository.leaveMeeting(meetingID: meetingInfo!.meetingID, userID: IMController.shared.uid)
+            
+            await MainActor.run {
+                if result {
+                    onSuccess("")
+                } else {
+                    onFailure(-1, "leave error")
+                }
+            }
         }
+    }
+    
+    func endMeeting(onSuccess: @escaping CallBack.StringOptionalReturnVoid, onFailure: @escaping CallBack.ErrorOptionalReturnVoid)  {
+        Task {
+            let result = await repository.endMeeting(meetingID: meetingInfo!.meetingID, userID: IMController.shared.uid)
+            
+            await MainActor.run {
+                if result {
+                    onSuccess("")
+                } else {
+                    onFailure(-1, "leave error")
+                }
+            }
+        }
+    }
+    
+    func updateMeetingInfo(info: MeetingSetting) async -> Bool {
         
-        return canInvite
+        var update = UpdateMeetingRequest()
+        update.meetingID = meetingInfo!.meetingID
+        update.canParticipantsEnableCamera = info.canParticipantsEnableCamera
+        update.canParticipantsUnmuteMicrophone = info.canParticipantsUnmuteMicrophone
+        update.canParticipantsShareScreen = info.canParticipantsShareScreen
+        update.disableMicrophoneOnJoin = info.disableMicrophoneOnJoin
+        update.disableCameraOnJoin = info.disableCameraOnJoin
+        
+        return await repository.updateMeetingSetting(req: update)
+    }
+    
+    func operateAllStream(microphoneOnEntry: Bool) async -> Bool {
+        await repository.operateAllStream(meetingID: meetingInfo!.meetingID, operatorUserID: IMController.shared.uid, cameraOnEntry: nil, microphoneOnEntry: microphoneOnEntry)
     }
 }
 
@@ -160,26 +154,7 @@ extension Participant {
         return nil
     }
     
-    var roomMetadataMap: [String: Any]? {
-        if let roomMetadata = room.metadata {
-            let data = try? (JSONSerialization.jsonObject(with: (roomMetadata.data(using: .utf8))!, options: .mutableContainers) as! [String: Any])
-            return data
-        }
-        
-        return nil
-    }
-    
-    var isHoster: Bool {
-        if roomMetadataMap != nil {
-            if let hostID = roomMetadataMap!["hostUserID"] as? String, hostID == identity {
-                return true
-            }
-        }
-        
-        return false
-    }
-    
     var isSelf: Bool {
-        return identity == IMController.shared.uid
+        identityString == IMController.shared.uid
     }
 }

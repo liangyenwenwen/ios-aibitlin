@@ -439,10 +439,10 @@ extension ForwardListViewController: UITableViewDelegate, UITableViewDataSource 
                     ProgressHUD.animate()
                     guard let meetingID = source.value?["id"] as? String else { return }
                     viewModel.joinMeeting(meetingID: meetingID) { [self] invitaion in
-                        
+                        guard let invitaion else { return }
                         ProgressHUD.dismiss()
-                        LiveRoomViewController.showIn(viewController: self, invitationInfo: invitaion)
-                        
+                        LiveRoomViewController.showIn(viewController: self, url: invitaion.url, token: invitaion.token)
+
                     } onFailure: { errCode, errMsg in
                         ProgressHUD.dismiss()
                         if errMsg?.contains("roomIsNotExist") == true {

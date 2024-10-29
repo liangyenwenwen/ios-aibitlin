@@ -51,7 +51,7 @@ public class SelectBottomBar: UIView {
     }()
     
     private lazy var selectCountBtn: LayoutButton = {
-        let v = LayoutButton(imagePosition: .right, atSpace: 7)
+        let v = LayoutButton(imagePosition: .trailing, atSpace: 7)
         v.setImage(UIImage(nameInBundle: "common_blue_arrow_up_icon"), for: .normal)
         v.titleLabel?.font = .f14
         v.setTitleColor(.c0089FF, for: .normal)

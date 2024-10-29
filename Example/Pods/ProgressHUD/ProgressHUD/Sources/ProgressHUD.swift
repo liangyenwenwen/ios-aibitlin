@@ -180,6 +180,30 @@ extension ProgressHUD {
 	}
 }
 
+// MARK: - Text
+extension ProgressHUD {
+
+    func text(text: String, interaction: Bool, onDelayDismiss: (() -> Void)?) {
+
+        removeDelayTimer()
+
+        setupWindow()
+        setupBackground(interaction)
+        setupToolbar()
+        setupStatus(text)
+
+        removeLiveIcon()
+        removeStaticImage()
+        removeProgressView()
+        setupDelayTimer(text, nil, onDelayDismiss: onDelayDismiss)
+
+        setupSizesTextOnly(text, margin: 2)
+        setupNotifications()
+        setupPosition()
+        displayHUD()
+    }
+}
+
 // MARK: - Delay Timer
 extension ProgressHUD {
 
@@ -188,13 +212,14 @@ extension ProgressHUD {
 		timerHUD = nil
 	}
 
-	private func setupDelayTimer(_ text: String?, _ delay: TimeInterval?) {
+    private func setupDelayTimer(_ text: String?, _ delay: TimeInterval?, onDelayDismiss: (() -> Void)? = nil) {
 		let count = text?.count ?? 0
 		let delay = delay ?? Double(count) * 0.03 + 1.25
 
 		timerHUD = Timer.scheduledTimer(withTimeInterval: delay, repeats: false) { [weak self] _ in
 			guard let self = self else { return }
 			dismissHUD()
+            onDelayDismiss?()
 		}
 	}
 }
@@ -269,6 +294,7 @@ extension ProgressHUD {
 		}
 
 		toolbarHUD?.backgroundColor = colorHUD
+        toolbarHUD?.barTintColor = colorHUD
 	}
 }
 
@@ -292,7 +318,7 @@ extension ProgressHUD {
 		labelStatus?.text = text
 		labelStatus?.font = fontStatus
 		labelStatus?.textColor = colorStatus
-		labelStatus?.isHidden = (text == nil) ? true : false
+		labelStatus?.isHidden = (text == nil)
 	}
 }
 
@@ -454,12 +480,12 @@ extension ProgressHUD {
 		setupSizes(width, height, center, rect)
 	}
 
-	private func setupSizesTextOnly(_ text: String) {
+    private func setupSizesTextOnly(_ text: String, margin: Double? = nil) {
 		var rect = rectText(text)
-		let base = mediaSize + 2 * marginSize
+		let base = mediaSize + 2 * (margin ?? marginSize)
 
 		let width = max(base, rect.size.width + 2 * marginSize)
-		let height = max(base, rect.size.height + 2 * marginSize)
+		let height = max(base, rect.size.height + 2 * (margin ?? marginSize))
 
 		rect.origin.x = (width - rect.size.width) / 2
 		rect.origin.y = (height - rect.size.height) / 2

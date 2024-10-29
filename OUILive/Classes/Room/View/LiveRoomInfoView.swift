@@ -8,14 +8,14 @@ class LiveRoomInfoView: UIView {
     
     lazy var nameLabel: UILabel = {
         let v = UILabel()
-        v.font = .systemFont(ofSize: 17)
+        v.font = .systemFont(ofSize: 17, weight: .medium)
         v.textColor = .init(red: 22 / 255, green: 25 / 255, blue: 28 / 255, alpha: 1)
         return v
     }()
     
     lazy var IDLabel: UILabel = {
         let v = UILabel()
-        v.font = .systemFont(ofSize: 14)
+        v.font = .f17
         v.textColor = .systemGray3
         return v
     }()
@@ -39,14 +39,14 @@ class LiveRoomInfoView: UIView {
     
     lazy var beginLabel: UILabel = {
         let v = UILabel()
-        v.font = .f14
+        v.font = .f17
         v.textColor = .c0C1C33
         return v
     }()
     
     lazy var durationLabel: UILabel = {
         let v = UILabel()
-        v.font = .f14
+        v.font = .f17
         v.textColor = .c0C1C33
         return v
     }()

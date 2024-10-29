@@ -155,10 +155,9 @@ class YFCallRecordsListCell: UITableViewCell {
     
     func update(model: CallRecord, indexRow: Int, currentRow: Int) {
         
-        titleLbl.text = SuperStringUtil.getUserState(showname: model.nickname!).n
+        titleLbl.text = SuperStringUtil.getUserState(showname: model.nickname ?? "").n
         leftIconImg.setImageAbout(string: model.faceURL, placeHolder: "DefaultAvatar")
         timeLbl.text =   MessageHelper.convertList(timestamp_ms: model.date)
-//        model.formatDateStr()
         
         stateLbl.text =  model.success ? model.inOrOutStr() + model.durationStr() : model.inOrOutStr()
         titleLbl.textColor = model.success ? .init(hexString: "#333333") :  .init(hexString: "#FF3939")
@@ -180,7 +179,7 @@ class YFCallRecordsListCell: UITableViewCell {
         }
     }
     
-    func update(model: MeetingInfo) {
+//    func update(model: MeetingInfo) {
         
 //        cell.titleLabel.text = model.meetingName
 //        cell.subtitleLabel.text = "\(Date.timeString(timeInterval: model.startTime * 1000)) - \(Date.timeString(timeInterval: model.endTime * 1000))"
@@ -193,13 +192,13 @@ class YFCallRecordsListCell: UITableViewCell {
 //        } else {
 //            cell.trainingLabel.text =  "[已开始]"
 //        }
-//        
+//
 //        cell.titleLabel.textColor = .red
 //        cell.subtitleLabel.textColor = .red
 //        cell.trainingLabel.textColor = .red
         
         
-    }
+//    }
     
     
     class rightBtnView: UIView {

@@ -9,14 +9,10 @@ import OUICalling
 class NewLiveDetailViewController: UIViewController {
     
     private let disposeBag = DisposeBag()
-    
-    private var meetingInfo: MeetingInfo!
-    
     private var viewModel: NewLiveDetailViewModel!
     
-    init(meetingInfo: MeetingInfo) {
+    init(meetingInfo: MeetingInfoSetting) {
         super.init(nibName: nil, bundle: nil)
-        self.meetingInfo = meetingInfo
         viewModel = NewLiveDetailViewModel(meetingInfo: meetingInfo)
     }
     
@@ -108,7 +104,7 @@ class NewLiveDetailViewController: UIViewController {
         let v = UIButton(type: .system)
         v.setImage(UIImage(nameInBundle: "live_room_copy_icon"), for: .normal)
         v.rx.tap.subscribe(onNext: { [weak self] _ in
-            UIPasteboard.general.string = self?.meetingInfo.roomID
+            UIPasteboard.general.string = self?.viewModel.meetingInfo.meetingID
         }).disposed(by: disposeBag)
         return v
     }()
@@ -124,7 +120,7 @@ class NewLiveDetailViewController: UIViewController {
     
     lazy var joinButton: UIButton = {
         let v = UIButton(type: .system)
-        v.setTitle("进入会议".innerLocalized(), for: .normal)
+        v.setTitle("enterMeeting".innerLocalized(), for: .normal)
         v.backgroundColor = .systemBlue
         v.setTitleColor(.white, for: .normal)
         v.layer.cornerRadius = 6
@@ -140,27 +136,21 @@ class NewLiveDetailViewController: UIViewController {
             self?.viewModel.joinMeeting({ [weak self] invitaion in
                 ProgressHUD.dismiss()
                 guard let self else { return }
-                LiveRoomViewController.showIn(viewController: self, invitationInfo: invitaion)
                 
-            }, onFailure: { errCode, errMsg in
-                ProgressHUD.dismiss()
-                if errMsg?.contains("roomIsNotExist") == true {
-//                    ProgressHUD.error("会议已经结束！".innerLocalized())
-                    if let handler = OIMApi.showTipHandle {
-                                    
-                        handler("会议已经结束！".innerLocalized(), { res in
-                           
-                        })
-                    }
-                } else {
-//                    ProgressHUD.error("网络异常请稍后再试！".innerLocalized())
-                    if let handler = OIMApi.showTipHandle {
-                                    
-                        handler("网络异常请稍后再试！".innerLocalized(), { res in
-                           
-                        })
-                    }
+                navigationController?.popViewController(animated: true)
+                
+                LiveRoomViewController.showIn(viewController: self, invitationInfo: invitaion) { [self] in
+                    let vc = self.navigationController?.children.first(where: { $0 is LiveRecordsViewController })
                     
+                    if let v = vc as? LiveRecordsViewController {
+                        v._viewModel.getRecords()
+                    }
+                }
+            }, onFailure: { errCode, errMsg in
+                if errMsg?.contains("roomIsNotExist") == true {
+                    ProgressHUD.error("meetingIsOver".innerLocalized())
+                } else {
+                    ProgressHUD.error("networkError".innerLocalized())
                 }
             })
         }).disposed(by: disposeBag)
@@ -175,9 +165,11 @@ class NewLiveDetailViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .viewBackgroundColor
         
+        hosterLabel.text = "meetingOrganizerIs".innerLocalizedFormat(arguments: viewModel.getHosterInfo())
+        
         let shareButton = UIBarButtonItem(image: UIImage(nameInBundle: "live_room_share_icon"), style: .done, target: self, action: #selector(share))
         let moreButton = UIBarButtonItem(image: UIImage(systemName: "ellipsis"), style: .done, target: self, action: #selector(more))
-        navigationItem.setRightBarButtonItems([moreButton, shareButton], animated: false)
+        navigationItem.setRightBarButtonItems(viewModel.isMine ? [moreButton, shareButton] : [shareButton], animated: false)
         
         let container = UIView()
         container.backgroundColor = .cellBackgroundColor
@@ -240,34 +232,32 @@ class NewLiveDetailViewController: UIViewController {
         }
 
         refreshData()
-        
-        viewModel.getHosterInfo { [weak self] name in
-            self?.hosterLabel.text = "发起人".innerLocalized() + ":" + name
-        }
     }
     
     func refreshData()  {
+        guard let meetingInfo = viewModel.meetingInfo else { return }
+        
         nameLabel.text = meetingInfo.meetingName
         
-        let beginItems = Date.timeString(timeInterval: meetingInfo.startTime * 1000).split(separator: " ")
+        let beginItems = Date.timeString(timeInterval: TimeInterval(meetingInfo.scheduledTime)).split(separator: " ")
         beginTimeLabel.text = String(beginItems.last!)
         beginDateLabel.text = String(beginItems.first!)
         
-        let endItems = Date.timeString(timeInterval: meetingInfo.endTime * 1000).split(separator: " ")
+        let endItems = Date.timeString(timeInterval: TimeInterval(meetingInfo.endTime)).split(separator: " ")
         endTimeLabel.text = String(endItems.last!)
         endDateLabel.text = String(endItems.first!)
         
         let now = Date().timeIntervalSince1970
-        if now > meetingInfo.endTime {
+        if now > TimeInterval(meetingInfo.endTime) {
             statusLabel.text =  " " + "已结束".innerLocalized() + " "
-        } else if now < meetingInfo.startTime {
+        } else if now < TimeInterval(meetingInfo.scheduledTime) {
             statusLabel.text =  " " + "未开始".innerLocalized() + " "
         } else {
             statusLabel.text =  " " + "已开始".innerLocalized() + " "
         }
         
-        durationLabel.text = "—" + String((meetingInfo.endTime - meetingInfo.startTime) / 60 / 60) + "小时".innerLocalized() + "—"
-        IDLabel.text = "会议号".innerLocalized() + ":" + meetingInfo.roomID
+        durationLabel.text = "—" + Date.formatTime(seconds: Int(meetingInfo.duration)) + "—"
+        IDLabel.text = "meetingNoIs".innerLocalizedFormat(arguments: meetingInfo.meetingID)
     }
     
     @objc func share() {
@@ -302,18 +292,22 @@ class NewLiveDetailViewController: UIViewController {
     }
     
     @objc func more() {
-        presentActionSheet(action1Title: "修改会议信息".innerLocalized(), action1Handler: { [self] in
-            let vc = NewLiveViewController(operateType: .modify, meetingInfo: meetingInfo) { r in
-                self.meetingInfo = meetingInfo
-                self.refreshData()
+        presentActionSheet(action1Title: "updateMeetingInfo".innerLocalized(), action1Handler: { [weak self] in
+            guard let self else { return }
+            
+            let vc = NewLiveViewController(operateType: .modify, meetingInfo: self.viewModel.meetingInfo) { [self] in
+                self.viewModel.getDetail { [self] in
+                    self.refreshData()
+                }
             }
             self.navigationController?.pushViewController(vc, animated: true)
-        }, action2Title: "取消会议".innerLocalized()) { [self] in
+        }, action2Title: "cancelMeeting".innerLocalized()) { [self] in
             self.viewModel.closeRoom { r in
                 self.navigationController?.popViewController(animated: true)
             }
         }
     }
+    
 }
 
 

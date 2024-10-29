@@ -23,7 +23,7 @@ public class NewLiveViewController: UIViewController {
     
     lazy var joinButton: UIButton = {
         let v = UIButton(type: .system)
-        v.setTitle("进入会议".innerLocalized(), for: .normal)
+        v.setTitle("enterMeeting".innerLocalized(), for: .normal)
         v.backgroundColor = .systemBlue
         v.setTitleColor(.white, for: .normal)
         v.layer.cornerRadius = 6
@@ -45,19 +45,20 @@ public class NewLiveViewController: UIViewController {
     }()
     
     var operateType: OperateType = .booking
-    var meetingInfo: MeetingInfo?
+    var meetingInfo: MeetingInfoSetting?
     let viewModel = NewLiveViewModel()
-    var compeletion: ((MeetingInfo) -> Void)?
+    var compeletion: (() -> Void)?
     
-    public init(operateType: OperateType = .booking, meetingInfo: MeetingInfo? = nil, compeletion: ((MeetingInfo) -> Void)? = nil) {
+    init(operateType: OperateType = .booking, meetingInfo: MeetingInfoSetting? = nil, compeletion: (() -> Void)? = nil) {
         super.init(nibName: nil, bundle: nil)
         self.operateType = operateType
         self.meetingInfo = meetingInfo
         if let m = meetingInfo {
-            viewModel.name = m.meetingName ?? ""
-            viewModel.meetingID = m.roomID
-            viewModel.beginTime = m.startTime
-            viewModel.duration = m.endTime - m.startTime
+            viewModel.name = m.meetingName
+            viewModel.meetingID = m.meetingID
+            viewModel.beginTime = m.scheduledTime
+            viewModel.duration = Double(m.duration)
+            
             self.compeletion = compeletion
         }
     }
@@ -77,28 +78,13 @@ public class NewLiveViewController: UIViewController {
             joinButton.rx.tap.subscribe(onNext: { [weak self] in
                 self?.view.endEditing(true)
                 ProgressHUD.animate()
-                self?.viewModel.createMeeting({ info in
+                self?.viewModel.createMeeting({ [self] in
                     ProgressHUD.dismiss()
-                    guard let `self` = self else { return }
-                    let m = MeetingInfo()
-                    m.meetingName = self.viewModel.name
-                    m.hostUserID = IMController.shared.uid
-                    m.startTime = self.viewModel.beginTime
-                    m.endTime = self.viewModel.beginTime + self.viewModel.duration
-                    m.roomID = info.roomID ?? ""
+                    guard let self else { return }
                     
-                    let vc = NewLiveDetailViewController(meetingInfo: m)
-                    self.navigationController?.pushViewController(vc, animated: true)
+                    self.navigationController?.popViewController(animated: true)
                 }, onFailure: { (errCode, errMsg) in
-                    ProgressHUD.dismiss()
-//                    ProgressHUD.error(errMsg)
-                    
-                    if let handler = OIMApi.showTipHandle {
-                                    
-                        handler("网络异常请稍后再试！".innerLocalized(), { res in
-                           
-                        })
-                    }
+                    ProgressHUD.error(errMsg)
                 })
             }).disposed(by: disposeBag)
         } else if operateType == .modify {
@@ -109,13 +95,11 @@ public class NewLiveViewController: UIViewController {
                 guard let `self` = self else { return }
                 self.view.endEditing(true)
                 ProgressHUD.animate()
-                self.viewModel.updateMeetingInfo(meetingInfo: self.meetingInfo!, completion: { [weak self] r in
+                self.viewModel.updateMeetingInfo() { [self] in
                     ProgressHUD.dismiss()
-                    if r != nil {
-                        self?.compeletion?(r!)
-                        self?.navigationController?.popViewController(animated: true)
-                    }
-                })
+                    self.compeletion?()
+                    self.navigationController?.popViewController(animated: true)
+                }
             }).disposed(by: disposeBag)
         } else {
             joinLiveView()
@@ -131,27 +115,14 @@ public class NewLiveViewController: UIViewController {
                 self?.viewModel.joinMeeting({ [weak self] invitaion in
                     ProgressHUD.dismiss()
                     guard let self else { return }
-                    LiveRoomViewController.showIn(viewController: self, invitationInfo: invitaion)
-                    
-                }, onFailure: { (errCode, errMsg) in
-                    ProgressHUD.dismiss()
-                    if errMsg?.contains("roomIsNotExist") == true {
-//                        ProgressHUD.error("会议已经结束！".innerLocalized())
-                        if let handler = OIMApi.showTipHandle {
-                                        
-                            handler("会议已经结束！".innerLocalized(), { res in
-                               
-                            })
-                        }
-                    } else {
-//                        ProgressHUD.error("网络异常请稍后再试！".innerLocalized())
-                        if let handler = OIMApi.showTipHandle {
-                                        
-                            handler("网络异常请稍后再试！".innerLocalized(), { res in
-                               
-                            })
+                    LiveRoomViewController.showIn(viewController: self, invitationInfo: invitaion) { [self] in
+                        let vc = self.navigationController?.children.first(where: { $0 is LiveRecordsViewController })
+                        
+                        if let v = vc as? LiveRecordsViewController {
+                            v._viewModel.getRecords()
                         }
                     }
+                    
                 })
             }).disposed(by: disposeBag)
         }
@@ -320,7 +291,8 @@ extension NewLiveViewController {
         }
         
         let meetingIDTextField = UITextField()
-        meetingIDTextField.placeholder = "请输入会议号".innerLocalized()
+        meetingIDTextField.keyboardType = .numberPad
+        meetingIDTextField.placeholder = "plsInputMeetingNo".innerLocalized()
         meetingIDTextField.rx.text.orEmpty.changed.subscribe(onNext: { [weak self] text in
             guard let `self` = self else { return }
             self.viewModel.meetingID = text
@@ -328,7 +300,7 @@ extension NewLiveViewController {
         }).disposed(by: disposeBag)
         
         let meetingIDLabel = UILabel()
-        meetingIDLabel.text = "会议号".innerLocalized()
+        meetingIDLabel.text = "meetingNo".innerLocalized()
         meetingIDLabel.font = .f17
         meetingIDLabel.textColor = .c0C1C33
         
