@@ -253,7 +253,7 @@ class MainTabViewController: UITabBarController {
         }
         pushBindAlias(false)
         
-        var isNew = true
+        var isNew = false
         if isNew {
             let vc = YFAibitlinHome()
             vc.modalPresentationStyle = .fullScreen
