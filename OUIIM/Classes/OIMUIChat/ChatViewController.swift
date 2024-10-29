@@ -880,7 +880,7 @@ final class ChatViewController: UIViewController {
 #if ENABLE_CALL
         let conversation = chatController.getConversation()
         if conversation.groupID?.isEmpty == false {
-            let membersVC = SelectContactsViewController(types: [.members], sourceID: conversation.groupID, allowsMultipleSelection: false)
+            let membersVC = SelectContactsViewController(types: [.members], sourceID: conversation.groupID, allowsMultipleSelection: true)
             membersVC.selectedContact(hasSelected: []) { [weak self] _, r in
                 
                 self?.navigationController?.popViewController(animated: false)

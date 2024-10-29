@@ -84,7 +84,7 @@ class SearchContactsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .viewBackgroundColor
-        
+        navigationItem.title = "搜索".innerLocalized()
         if enableChangeSelectedModel {
             let tipsLabel = UILabel()
             tipsLabel.text = "searchResult".innerLocalized()

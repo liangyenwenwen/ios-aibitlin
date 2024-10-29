@@ -197,10 +197,14 @@ open class SelectContactsViewController: UIViewController {
         
         return v
     }()
-    
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = false
+    }
     open override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .viewBackgroundColor
+        navigationItem.title = "choose".localized()
 #if ENABLE_ORGANIZATION
         departmentViewController = DepartmentViewController(department: nil,
                                                             name: "组织架构".innerLocalized(),
@@ -221,7 +225,6 @@ open class SelectContactsViewController: UIViewController {
     private func initView() {
         let backButton = UIBarButtonItem(image: UIImage(nameInBundle: "common_back_icon"), style: .done, target: nil, action: nil)
         navigationItem.leftBarButtonItem = backButton
-        
         backButton.rx.tap.subscribe(onNext: { [weak self] _ in
             guard let self else { return }
             selectedAction(pop: true)

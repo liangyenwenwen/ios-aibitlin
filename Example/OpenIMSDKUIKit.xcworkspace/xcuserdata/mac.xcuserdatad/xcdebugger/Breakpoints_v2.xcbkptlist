@@ -156,8 +156,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "569"
             endingLineNumber = "569"
-            landmarkName = "update(state:duration:)"
-            landmarkType = "7">
+            landmarkName = "CallingManager"
+            landmarkType = "21">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -172,7 +172,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "826"
             endingLineNumber = "826"
-            landmarkName = "removeInvite(userID:isTimeout:isInviterHungup:)"
+            landmarkName = "insertCallingMessage(_:signaling:state:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -188,7 +188,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "853"
             endingLineNumber = "853"
-            landmarkName = "removeInvite(userID:isTimeout:isInviterHungup:)"
+            landmarkName = "calculateCount()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -204,7 +204,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "891"
             endingLineNumber = "891"
-            landmarkName = "onRoomParticipantDisconnected(_:)"
+            landmarkName = "allReadRecords()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -220,8 +220,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "594"
             endingLineNumber = "594"
-            landmarkName = "update(state:duration:)"
-            landmarkType = "7">
+            landmarkName = "CallingManager"
+            landmarkType = "21">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -236,7 +236,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "660"
             endingLineNumber = "660"
-            landmarkName = "insertCallingMessage(_:signaling:state:)"
+            landmarkName = "update(state:duration:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -252,7 +252,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "669"
             endingLineNumber = "669"
-            landmarkName = "insertCallingMessage(_:signaling:state:)"
+            landmarkName = "update(state:duration:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -360,8 +360,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "642"
             endingLineNumber = "642"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "update(state:duration:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
