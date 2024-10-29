@@ -132,7 +132,7 @@ class ReceiverSignalViewController: CallingBaseViewController {
         let nameLabel = UILabel()
         nameLabel.layer.cornerRadius = 6
         nameLabel.layer.masksToBounds = true
-        nameLabel.text = inviter?.nickname
+        nameLabel.text = SuperStringUtil.getUserShowname(showname: inviter?.nickname ?? "")
         nameLabel.font = .systemFont(ofSize: 28)
         nameLabel.textAlignment = .center
         nameLabel.textColor = .white
@@ -343,7 +343,7 @@ class UsersGridView: UIView {
         
         let tipsLabel = UILabel()
         tipsLabel.textColor = .white
-        tipsLabel.text = (inviter?.nickname ?? "") + (isVideo ? "invitedVideoCallHint".innerLocalized() : "invitedVoiceCallHint".innerLocalized())
+        tipsLabel.text = (SuperStringUtil.getUserShowname(showname: inviter?.nickname ?? "")) + (isVideo ? "invitedVideoCallHint".innerLocalized() : "invitedVoiceCallHint".innerLocalized())
         
         let countLabel = UILabel()
         countLabel.text = "\(users().count)人正在\(isVideo ? "视频" : "语音")通话中"
@@ -417,7 +417,7 @@ extension UsersGridView: UICollectionViewDataSource {
         let nameLabel = UILabel()
         nameLabel.layer.cornerRadius = 6
         nameLabel.layer.masksToBounds = true
-        nameLabel.text = info.nickname
+        nameLabel.text = SuperStringUtil.getUserShowname(showname: info.nickname ?? "")
         nameLabel.textAlignment = .center
         nameLabel.textColor = .white
         nameLabel.snp.makeConstraints { make in
