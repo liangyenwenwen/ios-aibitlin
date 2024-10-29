@@ -60,6 +60,13 @@ public class CallingBaseController: UIViewController {
     @objc public func dismiss() {}
     
     public func isConnected() -> Bool { false }
+    
+    public override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        // 发送名为"myNotification"的通知
+        NotificationCenter.default.post(name: Notification.Name("refrehCallLogs"), object: nil)
+    }
 }
 
 // 空隙站位
