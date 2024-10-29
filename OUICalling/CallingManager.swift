@@ -422,7 +422,7 @@ public class CallingManager: NSObject {
                 callback(us)
             }
         } else {
-            var tempUserIDs: [String] = []
+            var tempUserIDs: [String] = usersID
             OIMManager.manager.getSpecifiedFriendsInfo(usersID) { friends in
                 
                 var us = friends?.compactMap({ CallingUserInfo(userID: $0.userID, nickname: $0.nickname, faceURL: $0.faceURL )}) ?? []
@@ -435,7 +435,6 @@ public class CallingManager: NSObject {
                     
                     return
                 }
-                
                 OIMManager.manager.getUsersInfo(tempUserIDs) { infos in
                     guard let infos else {
                         callback(us)
