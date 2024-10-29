@@ -318,13 +318,12 @@ class UserMessageVC: BaseTitleController {
                     if let chatUser = users.first {
                         isFriend = !(chatUser.allowAddFriend == 1 && sdkUser.friendInfo == nil)
                         
-                        if isFriend == true {
+                        if isFriend == false {
                             self.footerBtnView.setStyle(.sendMessageAndAttention)
+                        } else {
+                            self.footerBtnView.setStyle(.sendMessage)
                         }
-                        
-//                        if chatUser.userID == IMController.shared.uid {
-//                            self.footerBtnView.hide()
-//                        }
+
                     }
                 })
             }
