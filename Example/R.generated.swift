@@ -167,7 +167,7 @@ struct _R: Sendable {
       var ieXW0yeText: RswiftResources.StringResource { .init(key: "8ie-xW-0ye.text", tableName: "LaunchScreen", source: source, developmentValue: nil, comment: nil) }
     }
 
-    /// This `_R.string.localizable` struct is generated, and contains static references to 493 localization keys.
+    /// This `_R.string.localizable` struct is generated, and contains static references to 497 localization keys.
     struct localizable {
       let source: RswiftResources.StringResource.Source
 
@@ -1557,6 +1557,13 @@ struct _R: Sendable {
       /// Locales: en, th
       var 俄语: RswiftResources.StringResource { .init(key: "俄语", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// en translation: Save QR Code
+      ///
+      /// Key: 保存到手机
+      ///
+      /// Locales: en, th
+      var 保存到手机: RswiftResources.StringResource { .init(key: "保存到手机", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: Modify Password
       ///
       /// Key: 修改密码
@@ -2046,6 +2053,13 @@ struct _R: Sendable {
       ///
       /// Locales: en, th
       var 处理中: RswiftResources.StringResource { .init(key: "处理中", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Copy successfully
+      ///
+      /// Key: 复制成功
+      ///
+      /// Locales: en, th
+      var 复制成功: RswiftResources.StringResource { .init(key: "复制成功", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Friends' Activity
       ///
@@ -2789,6 +2803,13 @@ struct _R: Sendable {
       /// Locales: en, th
       var 照片: RswiftResources.StringResource { .init(key: "照片", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// en translation: In effect
+      ///
+      /// Key: 生效中
+      ///
+      /// Locales: en, th
+      var 生效中: RswiftResources.StringResource { .init(key: "生效中", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: Biometrics
       ///
       /// Key: 生物识别
@@ -3355,6 +3376,13 @@ struct _R: Sendable {
       ///
       /// Locales: en, th
       var 输入密码: RswiftResources.StringResource { .init(key: "输入密码", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Enter your phone number
+      ///
+      /// Key: 输入手机号
+      ///
+      /// Locales: en, th
+      var 输入手机号: RswiftResources.StringResource { .init(key: "输入手机号", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Enter phone verification code
       ///

@@ -405,7 +405,7 @@ extension YFMineQRCodeVC {
     @objc func copyUserID() {
         UIPasteboard.general.string = userShowId
         
-        SuperToast.show(title: "复制成功")
+        SuperToast.show(title: "复制成功".localized())
     }
     
     
