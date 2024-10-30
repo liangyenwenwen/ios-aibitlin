@@ -169,11 +169,12 @@ class YFCallRecordsListCell: UITableViewCell {
     func update(model: CallRecord, indexRow: Int, currentRow: Int) {
         
         let sameCount = model.sameCount == 1 ? "" : " (\(model.sameCount))"
-        titleLbl.text = SuperStringUtil.getUserState(showname: model.nickname ?? "").n  + "\(sameCount)"
+        
         leftIconImg.setImageAbout(string: model.faceURL, placeHolder: "DefaultAvatar")
         timeLbl.text =   MessageHelper.convertList(timestamp_ms: model.date)
         
         stateLbl.text =  model.success ? model.inOrOutStr() + model.durationStr() : model.inOrOutStr()
+        titleLbl.text = SuperStringUtil.getUserState(showname: model.nickname ?? "").n  + "\(sameCount)"
         titleLbl.textColor = model.success ? .init(hexString: "#333333") :  .init(hexString: "#FF3939")
         recordTypeImg.image = model.type == "audio"  ? .init(named: "call_log_auido") : .init(named: "call_log_video")
         

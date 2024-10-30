@@ -286,7 +286,7 @@ extension CallRecordsViewController: UITableViewDelegate, UITableViewDataSource 
             let records = CallRecord.fromJson(temp.historyLogs)
             print(records)
             
-            
+            self.showLogs(record: temp)
         }
 
         return cell
@@ -323,185 +323,18 @@ extension CallRecordsViewController: UITableViewDelegate, UITableViewDataSource 
         return 72
     }
     
+    
+    func showLogs(record: CallRecord) {
+        
+        let histroyView = CallRecordSameHistoryView.build(record: record)
+        view.window?.addSubview(histroyView)
+        histroyView.updateUI()
+        histroyView.snp.makeConstraints { make in
+            make.left.right.top.bottom.equalToSuperview()
+        }
+        
+    }
+    
 }
 #endif
 
-
-class callRecordSameHistoryView: UIView {
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func initViews() {
-        addSubview(centerView)
-        backgroundColor = .black.withAlphaComponent(0.5)
-        
-        centerView.snp.makeConstraints { make in
-            make.left.right.equalToSuperview().inset(16)
-            make.height.equalTo(306)
-            make.centerY.equalToSuperview()
-        }
-        
-        centerView.addSubview(userIcon)
-        centerView.addSubview(userName)
-        centerView.addSubview(cancelImg)
-        centerView.addSubview(lineView)
-        
-        userIcon.snp.makeConstraints { make in
-            make.top.leading.equalTo(16)
-            make.width.height.equalTo(36)
-        }
-        
-        userName.snp.makeConstraints { make in
-            make.centerY.equalTo(userIcon)
-            make.left.equalTo(userIcon.snp_right).offset(10)
-            make.right.equalTo(-52)
-        }
-        
-        cancelImg.snp.makeConstraints { make in
-            make.right.equalToSuperview().inset(-16)
-            make.width.height.equalTo(28)
-            make.centerY.equalTo(userIcon)
-        }
-        
-        lineView.snp.makeConstraints { make in
-            make.left.right.equalTo(0)
-            make.top.equalTo(65)
-            make.height.equalTo(1)
-        }
-        
-        
-        
-        
-    }
-    
-    lazy var centerView: UIView = {
-        let r = UIView()
-        r.backgroundColor = .white
-        r.clipsToBounds = true
-        r.layer.cornerRadius = 14
-        return r
-    }()
-    
-    lazy var userIcon: UIImageView = {
-        let r = UIImageView()
-        r.corner(radius: 18)
-        return r
-    }()
-    
-    lazy var userName: UILabel = {
-        let r = UILabel()
-        r.font = UIFont(name: "PingFangSC-Semibold", size: 16)
-        return r
-    }()
-    
-    lazy var cancelImg: UIImageView = {
-        let r = UIImageView()
-        return r
-    }()
-    
-    lazy var lineView: UIView = {
-        let r = UIView()
-        r.backgroundColor = .init(hexString: "#EAEAEA")
-        return r
-    }()
-    
-    lazy var tableView: UITableView = {
-        let r = UITableView()
-        r.register(callRecordSameHistoryListCell.self, forCellReuseIdentifier: callRecordSameHistoryListCell.className)
-
-        r.rowHeight = UITableView.automaticDimension
-        r.backgroundColor = .clear
-        return r
-    }()
-    
-}
-
-//, UITableViewDelegate, UITableViewDataSource
-extension callRecordSameHistoryView: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: callRecordSameHistoryListCell.className, for: indexPath) as! callRecordSameHistoryListCell
-        
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 24
-    }
-}
-
-
-class callRecordSameHistoryListCell: UITableViewCell {
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        initUI()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    lazy var leftIconImg: UIImageView = {
-        let r = UIImageView()
-        r.clipsToBounds = true
-        r.contentMode = .scaleAspectFill
-        r.backgroundColor = .red
-        return r
-    }()
-    
-    lazy var titleLbl: UILabel = {
-        let r = UILabel()
-        r.text = "username"
-        r.textColor = .init(hexString: "#666666")
-        r.font = UIFont(name: "PingFangSC-Regular", size: 14)
-        r.textAlignment = .left
-        r.text = "9:11 呼入"
-        return r
-    }()
-    
-    
-    func initUI() {
-        
-        contentView.addSubview(leftIconImg)
-        contentView.addSubview(titleLbl)
-        
-        
-        leftIconImg.snp.makeConstraints { make in
-            make.left.equalTo(16)
-            make.width.height.equalTo(56)
-            make.centerY.equalToSuperview()
-        }
-        
-        titleLbl.snp.makeConstraints { make in
-            make.left.equalTo(leftIconImg.snp_right).offset(13)
-            make.top.equalTo(leftIconImg.snp_top).offset(4)
-            make.height.equalTo(22)
-        }
-        
-        
-        
-    }
-    
-    
-    
-    
-    func bindData(model: CallRecord) {
-        
-        
-    }
-    
-
-    
-    
-    
-    
-}

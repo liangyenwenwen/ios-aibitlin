@@ -1103,6 +1103,13 @@ public class CallRecord: Codable {
         return formatter.string(from: date)
     }
     
+    public func formatDateAboutHMStr() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        let date = Date.init(timeIntervalSince1970: TimeInterval(date / 1000))
+        return formatter.string(from: date)
+    }
+    
     public static func fromJson(_ json: String) -> [CallRecord] {
         let decoder = JSONDecoder()
         do {
