@@ -191,7 +191,7 @@ extension YFMineChangePasswordVC{
                                            email: vcType == .forgetPwdByEmailBylogin ? email : nil,
                                            verificationCode: code,
                                            password: newPwdView.inputText!) { [weak self] (errCode, errMsg) in
-                
+                ProgressHUD.dismiss()
                 if errCode == 0, let `self` = self {
 //                        ProgressHUD.success("changed".localized() + "success".localized())
                     SuperToast.show(title: "changed".localized() + "success".localized())
@@ -201,7 +201,6 @@ extension YFMineChangePasswordVC{
                     SuperToast.show(title: String(errCode).localized())
                     
                 }
-                ProgressHUD.dismiss()
             }
         } else  {
             print("修改密码")

@@ -13,6 +13,7 @@ import OUIIM
 import OUICore
 import OpenIMSDK
 import NSObject_Rx
+import ProgressHUD
 
 #if ENABLE_MOMENTS
 import OUIMoments
@@ -88,15 +89,17 @@ class UserMessageVC: BaseTitleController {
 //            
 //            
 //        }
-        
+        ProgressHUD.animate()
         AccountViewModel.queryUserInfo(userIDList: [userID],
                                        valueHandler: { [weak self] (users: [QueryUserInfo]) in
+            ProgressHUD.dismiss()
             guard let user: QueryUserInfo = users.first else { return }
 //            print(user.nickname, user.phoneNumber, user.email)
             self?.userInfo = user
             self?.updataUI()
         }, completionHandler: {(errCode, errMsg) in
-            
+            SuperToast.show(title: String(errCode).localized())
+            ProgressHUD.dismiss()
         })
         
     }
@@ -402,12 +405,14 @@ class UserMessageVC: BaseTitleController {
 extension UserMessageVC {
     
     func othersSeeMyBlog() {
-        
+        ProgressHUD.animate()
         YFMineNetViewModel.otherSeeMyBlog(userId: userID) { [weak self] data in
+            ProgressHUD.dismiss()
             self?.datum = data
             self?.tableView.reloadData()
         } completionHandler: { errCode, errMsg in
-            
+            ProgressHUD.dismiss()
+            SuperToast.show(title: errMsg?.localized())
         }
 
     }

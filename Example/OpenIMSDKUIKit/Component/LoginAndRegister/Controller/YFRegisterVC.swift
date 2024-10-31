@@ -301,18 +301,16 @@ extension YFRegisterVC {
         startCountDown()
         
         AccountViewModel.requestCode(phone: useType == .usePhone ? phone : nil, areaCode: _areaCode, email: useType == .useEmail ? phone : nil, invaitationCode: invaitationCode, useFor: .register) { [weak self] errCode, _ in
+            ProgressHUD.dismiss()
 
             guard let sself = self else { return }
             if errCode != 0 {
 //                ProgressHUD.error(String(errCode).localized())
                 SuperToast.show(title: String(errCode).localized())
-                CountDownUtil.cancel()
+//                CountDownUtil.cancel()
                 self?.codeView.codeBtn.setTitle("Resend".localized(), for: .normal)
                 self?.codeView.codeBtn.isEnabled = true
-            } else {
-                ProgressHUD.dismiss()
-            }
-            ProgressHUD.dismiss()
+            } 
         }
     }
     
@@ -435,9 +433,8 @@ extension YFRegisterVC {
                                          email: useType == .useEmail ? phone : nil,
                                          invitationCode: "")
         { errCode, errMsg in
-            
+            ProgressHUD.dismiss()
             if errMsg != nil {
-                ProgressHUD.dismiss()
 //                ProgressHUD.error(String(errCode).localized())
                 SuperToast.show(title: String(errCode).localized())
             } else {

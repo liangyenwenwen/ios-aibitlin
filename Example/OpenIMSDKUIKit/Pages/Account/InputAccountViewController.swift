@@ -300,7 +300,7 @@ public class InputAccountViewController: UIViewController {
         ProgressHUD.animate()
         
         AccountViewModel.requestCode(phone: operateType == .phone ? phone : nil, areaCode: areaCode, email: operateType == .email ? phone : nil, invaitationCode: invaitationCode, useFor: usedFor) { [weak self] errCode, errMsg in
-
+            ProgressHUD.dismiss()
             guard let sself = self else { return }
             
             if errCode != 0 {
@@ -316,7 +316,6 @@ public class InputAccountViewController: UIViewController {
                 }
             } else {
                 
-                ProgressHUD.dismiss()
                 let vc = InputCodeViewController(usedFor: sself.usedFor, operateType: sself.operateType)
                 vc.basicInfo = ["accout": sself.phone!,
                                 "areaCode": sself.areaCode,
@@ -324,7 +323,6 @@ public class InputAccountViewController: UIViewController {
                 sself.navigationController?.pushViewController(vc, animated: true)
             }
             
-            ProgressHUD.dismiss()
         }
     }
     

@@ -352,6 +352,7 @@ extension MineBokeStatisticsVC {
             }
             scrollView.mj_header?.endRefreshing()
         } completionHandler: { errCode, errMsg in
+            SuperToast.show(title: errMsg?.localized())
             self.scrollView.mj_header?.endRefreshing()
         }
 
@@ -379,7 +380,7 @@ extension MineBokeStatisticsVC {
                 self.updateCharts(currentTag: tag)
             }
         } completionHandler: { errCode, errMsg in
-            
+            SuperToast.show(title: errMsg?.localized())
         }
     }
     

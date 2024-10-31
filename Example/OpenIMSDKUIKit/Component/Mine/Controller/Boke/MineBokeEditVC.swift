@@ -293,13 +293,14 @@ extension MineBokeEditVC {
         if let IMUser = IMController.shared.currentUserRelay.value {
             ProgressHUD.animate()
             YFMineNetViewModel.blogAudit(userId: IMUser.userID, userBlogUrl: addressView.inputText, userBlogIcon: url, userBlogName: nameView.inputText, userBlogIntro: introView.textView.text) { errCode, errMsg in
+                ProgressHUD.dismiss()
                 if errCode == 20000 {
-                    ProgressHUD.dismiss()
                     self.navigationController?.popViewController(animated: true)
                     SuperToast.show(title: "success".localized())
-                } else {
+                } else if errCode == -1{
+                    SuperToast.show(title: String(errCode).localized())
+                }else{
                     SuperToast.show(title: "failure".localized())
-                    ProgressHUD.dismiss()
                 }
             }
         }
@@ -316,12 +317,10 @@ extension MineBokeEditVC {
         
         YFMineNetViewModel.editBlog(paramters: paramters) { errCode, errMsg in
             if errCode == 20000 {
-                ProgressHUD.dismiss()
                 self.navigationController?.popViewController(animated: true)
                 SuperToast.show(title: "success".localized())
             } else {
-                SuperToast.show(title: "failure".localized())
-                ProgressHUD.dismiss()
+                SuperToast.show(title: errMsg?.localized())
             }
         }
     }

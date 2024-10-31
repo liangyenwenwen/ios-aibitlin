@@ -240,6 +240,7 @@ class MainTabViewController: UITabBarController {
         OUICalling.CallingManager.manager.end()
 #endif
         IMController.shared.currentUserRelay.accept(nil)
+        pushBindAlias(false)
         AccountViewModel.saveUser(uid: nil, imToken: nil, chatToken: nil)
         presentLoginController()
     }
@@ -305,10 +306,9 @@ class MainTabViewController: UITabBarController {
                                        verificationCode: code,
                                        areaCode: controller.areaCode!) {[weak self] (errCode, errMsg) in
                 
-                
+                ProgressHUD.dismiss()
                 if errMsg != nil {
 //                    ProgressHUD.error(errCode == -1 ? errMsg : String(errCode).localized())
-                    ProgressHUD.dismiss()
                     SuperToast.show(title: String(errCode).localized())
                     self?.presentLoginController()
                     

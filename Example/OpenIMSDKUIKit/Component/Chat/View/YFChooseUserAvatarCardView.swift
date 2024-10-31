@@ -448,7 +448,9 @@ extension YFChooseUserAvatarCardView {
   
         if currentIndex > -1 {
             if let data = picData {
+                ProgressHUD.animate()
                 AccountViewModel.updateUserInfo(userID: IMController.shared.uid, faceURL:data[self.currentIndex]) { errCode, errMsg in
+                    ProgressHUD.dismiss()
                     if errCode != 0 {
                         SuperToast.show(title: errMsg)
                     } else {

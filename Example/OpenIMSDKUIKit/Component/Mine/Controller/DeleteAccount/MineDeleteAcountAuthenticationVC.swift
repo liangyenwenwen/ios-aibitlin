@@ -276,7 +276,7 @@ class MineDeleteAcountAuthenticationVC: BaseTitleController {
                                        email: vcType == .forgetPwdByEmailBylogin ? useTypeView.inputText : nil,
                                        verificationCode: getCodeView.inputText!,
                                        password: newPwdView.inputText!) { [weak self] (errCode, errMsg) in
-            
+            ProgressHUD.dismiss()
             if errCode == 0, let `self` = self {
 //                        ProgressHUD.success("changed".localized() + "success".localized())
                 SuperToast.show(title: "changed".localized() + "success".localized())
@@ -286,7 +286,6 @@ class MineDeleteAcountAuthenticationVC: BaseTitleController {
                 SuperToast.show(title: String(errCode).localized())
                 
             }
-            ProgressHUD.dismiss()
         }
     }
     
@@ -336,18 +335,15 @@ extension MineDeleteAcountAuthenticationVC {
         startCountDown()
         
         AccountViewModel.requestCode(phone: vcType == .forgetPwdbyPhoneBylogin ? useTypeView.inputText : nil, areaCode: _areaCode, email: vcType == .forgetPwdByEmailBylogin ? useTypeView.inputText : nil, invaitationCode: invaitationCode, useFor: .forgotPassword) { [weak self] errCode, _ in
-
+            ProgressHUD.dismiss()
             guard let sself = self else { return }
             if errCode != 0 {
 //                ProgressHUD.error(String(errCode).localized())
                 SuperToast.show(title: String(errCode).localized())
-                CountDownUtil.cancel()
+//                CountDownUtil.cancel()
                 self?.getCodeView.codeBtn.setTitle("Resend".localized(), for: .normal)
                 self?.getCodeView.codeBtn.isEnabled = true
-            } else {
-                ProgressHUD.dismiss()
             }
-            ProgressHUD.dismiss()
         }
     }
     

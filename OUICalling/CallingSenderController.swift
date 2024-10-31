@@ -103,7 +103,6 @@ class SignalViewController: CallingBaseViewController {
         setupView()
         room.add(delegate: self)
     }
-    
     func setupView() {
         tipsLabel.text = "waitingVoiceCallHint".innerLocalized()
         let inviter = users().first
@@ -445,8 +444,13 @@ class RoomViewController: CallingBaseViewController {
         room.add(delegate: self)
         setupView()
         onlineFuncButtons()
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+//            Task {
+//                await self.toggleMicrophoneEnabled()
+//            }
+//        }
+        
     }
-    
     private func setupView() {
         view.addSubview(collectionView)
         collectionView.snp.makeConstraints { make in
@@ -461,7 +465,6 @@ class RoomViewController: CallingBaseViewController {
             make.height.equalTo(50)
         }
     }
-    
     private func setParticipants() {
         let p = self.room.remoteParticipants.values.filter { $0.identity?.stringValue != self.groupID } // 有一个groupid 的监听者
         // 进场，替换掉链接中的obj

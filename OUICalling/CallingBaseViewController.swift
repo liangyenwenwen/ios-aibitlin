@@ -670,7 +670,7 @@ public class CallingBaseViewController: CallingBaseController {
     
     internal func stopSounds() {
         ringToneQueue.addOperation { [self] in
-            if audioPlayer.isPlaying {
+            if ((audioPlayer.isPlaying) != nil) {
                 audioPlayer?.pause()
             }
         }
@@ -691,7 +691,7 @@ public class CallingBaseViewController: CallingBaseController {
     }
     
     // 麦克风可用
-    internal func toggleMicrophoneEnabled(forceEnable: Bool? = nil) async -> Bool {
+    public func toggleMicrophoneEnabled(forceEnable: Bool? = nil) async -> Bool {
         let enable = forceEnable ?? !room.localParticipant.isMicrophoneEnabled()
         
         do {

@@ -68,8 +68,9 @@ class ModifyPswViewController: UIViewController {
                 presentAlert(title: "twicePwdNoSame".innerLocalized())
                 return
             }
-            
+            ProgressHUD.animate()
             viewModel.changePassword(current: oldPsw, to: newPsw) { errCode, errMsg in
+                ProgressHUD.dismiss()
                 if errCode != 0 {
                     ProgressHUD.error(errMsg)
                 } else {

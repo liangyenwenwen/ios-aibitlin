@@ -11,6 +11,7 @@ import RxCocoa
 import OUICore
 import NSObject_Rx
 import OUICoreView
+import  ProgressHUD
 
 
 
@@ -316,7 +317,6 @@ extension MineBokeListViewController {
     func getMyBlog() {
         
         if let IMUser = IMController.shared.currentUserRelay.value {
-            
             YFMineNetViewModel.mineBlog(userId: IMUser.userID) { [weak self] data in
                 self?.datum = data
                 self?.tableView.reloadData()
@@ -346,7 +346,7 @@ extension MineBokeListViewController {
             if errCode == 20000 {
                 self.getMyBlog()
             } else {
-                SuperToast.show(title: "failure".localized())
+                SuperToast.show(title: errMsg?.localized())
             }
         }
     }
@@ -362,7 +362,7 @@ extension MineBokeListViewController {
                 if errCode == 20000 {
                     self.getMyBlog()
                 } else {
-                    SuperToast.show(title: "failure".localized())
+                    SuperToast.show(title: errMsg?.localized())
                 }
             }
         }

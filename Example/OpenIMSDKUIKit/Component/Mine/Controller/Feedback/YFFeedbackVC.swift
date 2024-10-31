@@ -364,11 +364,6 @@ class YFFeedbackVC: BaseTitleController {
 
 extension YFFeedbackVC {
     @objc func toReportAction() {
-        
-        if reportType == .feedback {
-            SuperToast.show(title: "提交成功".localized())
-            return
-        }
 
         
         if datum.count == 0 {
@@ -453,7 +448,9 @@ extension YFFeedbackVC {
         }
         
         
-        YFMineNetViewModel.reportUserNet(paramters: paramters, reportType: reportType)
+        YFMineNetViewModel.reportUserNet(paramters: paramters, reportType: reportType,valueHandler: { [weak self] infos in
+            self?.navigationController?.popViewController(animated: true)
+        })
         
     }
 }

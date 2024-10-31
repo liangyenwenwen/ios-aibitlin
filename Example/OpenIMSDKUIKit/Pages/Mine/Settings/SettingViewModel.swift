@@ -26,7 +26,7 @@ class SettingViewModel {
             self?.setVibrationRelay.accept(info.allowVibration == 2)
             self?.setForbbidenAddFriendRelay.accept(info.allowAddFriend == 2)
         }, completionHandler: { (errCode, errMsg) in
-            
+            SuperToast.show(title: String(errCode).localized())
         })
     }
     
