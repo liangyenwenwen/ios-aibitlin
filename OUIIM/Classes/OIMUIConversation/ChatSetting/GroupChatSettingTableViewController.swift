@@ -410,7 +410,7 @@ class GroupChatSettingTableViewController: UITableViewController {
                     if self?._viewModel.groupInfoRelay.value?.lookMemberInfo == 0 {
                         
                         if let handler = OIMApi.gotoUserMessageHandle {
-                            handler(self!, String(userInfo.userID!), "", "",{res in
+                            handler(self!, String(userInfo.userID!), userInfo.nickname ?? "", userInfo.faceURL ?? "",{res in
 
                             })
                         }

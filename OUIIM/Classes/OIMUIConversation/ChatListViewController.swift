@@ -37,10 +37,11 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
     }
     
     public func refreshConversations() {
-        _viewModel.getAllConversations()
+//        _viewModel.getAllConversations()
         
-        _headerView.searchView.titleLbl.text = "搜索".localized()
-        emptyView._titleStr = "空空如也".localized() as NSString
+        _headerView.searchView.titleLbl.text = "搜索".innerLocalized()
+        emptyView._titleStr = "空空如也".innerLocalized() as NSString
+        netWorkTipView.titleLbl.text = "请检查网络是否可用！".innerLocalized()
     }
     
     public func refreshUserInfo(userInfo: UserInfo? = nil) {
@@ -132,10 +133,14 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
         return r
     }()
     
-    
+    lazy var netWorkTipView:ABLNotNetTopTipView = {
+        let r = ABLNotNetTopTipView()
+        r.frame = CGRect(x: 0, y: 0, width: kScreenWidth, height: 44)
+        return r
+    }()
 
     private lazy var _tableView: UITableView = {
-        let v = UITableView(frame: view.frame, style: .grouped)
+        let v = UITableView(frame: view.frame, style: .plain)
         v.register(ChatTableViewCell.self, forCellReuseIdentifier: ChatTableViewCell.className)
         v.delegate = self
         v.separatorStyle = .none
@@ -193,10 +198,9 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
         if !tapTab {
             navigationController?.setNavigationBarHidden(true, animated: true)
         }
-//        self.refreshConversations()
+        self.refreshConversations()
 //        
 //        _tableView.reloadData()
-        
     }
 
     open override func viewDidAppear(_ animated: Bool) {
@@ -212,7 +216,6 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
-
     private func createMenuItems() -> [PopoverTableViewController.MenuItem] {
       
         let scanItem = PopoverTableViewController.MenuItem(title: "扫一扫".innerLocalized(), icon: UIImage(named: "chat_menu_scan_icon")) { [weak self] in
@@ -361,27 +364,44 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
 
     private func initView() {
         
-        view.addSubview(_tableView)
         
-        let header = UIView()
-        _tableView.tableHeaderView = header
+//        let header = UIView()
+//        _tableView.tableHeaderView = header
+        
+        //        if !NetworkStatus.isReacheable {
+        //            noNetView.show()
+        //            isNeedRefresh = true
+        //            scrollView.mj_header?.endRefreshing()
+        //
+        //            return
+        //
+        //
+        //        } else {
+        //            noNetView.hide()
+        //        }
+        view.addSubview(_headerView)
+        view.addSubview(_tableView)
+        _headerView.snp.makeConstraints { make in
+            make.leading.top.trailing.equalToSuperview()
+        }
+        if IMController.shared.netWorkStatus == "hasNetWork"{
+            _tableView.tableHeaderView = nil
+            
+        }else{
+            _tableView.tableHeaderView = netWorkTipView
+        }
         _tableView.snp.makeConstraints { make in
-            make.top.equalTo(kStatusBarHeight + 15)
+//            make.top.equalTo(kStatusBarHeight + 15)
+            make.top.equalTo(_headerView.snp_bottom)
             make.leading.bottom.trailing.equalToSuperview()
         }
         
 //        timeCountDown()
-        
-        view.addSubview(_headerView)
-        _headerView.snp.makeConstraints { make in
-            make.leading.top.trailing.equalToSuperview()
-        }
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshNetWorkStatus(_:)), name: Notification.Name("netWorkStatus"), object: nil)
         
         
         
     }
-    
     private func toChat(conversation: ConversationInfo) {
         let vc = ChatViewControllerBuilder().build(conversation, hiddenInputBar: conversation.conversationType == .notification)
         vc.hidesBottomBarWhenPushed = true
@@ -521,7 +541,15 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
             }
         }
     }
-    
+    @objc func refreshNetWorkStatus(_ notidication: Notification) {
+            if  let userinfo = notidication.userInfo, let netWorkStatus = userinfo["value"] as? String {
+                if netWorkStatus == "hasNetWork"{
+                    _tableView.tableHeaderView = nil
+                }else{
+                    _tableView.tableHeaderView = netWorkTipView
+                }
+            }
+        }
     
     /// 原本为了解决个人头像和群头像问题
     func timeCountDown() {
@@ -540,6 +568,7 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
     }
     
     deinit {
+        NotificationCenter.default.removeObserver(self)
         if timer != nil {
             timer?.invalidate()
         }

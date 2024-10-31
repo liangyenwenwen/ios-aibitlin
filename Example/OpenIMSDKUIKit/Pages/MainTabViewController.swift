@@ -9,6 +9,7 @@ import Localize_Swift
 import MJExtension
 import IQKeyboardManagerSwift
 import GTSDK
+import Alamofire
 #if ENABLE_MOMENTS
 import OUIMoments
 #endif
@@ -22,6 +23,7 @@ private let signupuserKey = "signupuserKey"
 class MainTabViewController: UITabBarController {
     
     private let _viewModel = MineViewModel()
+    private let reachabilityManager = NetworkReachabilityManager()
     
     func clearConversation() {
         conversationViewController.clearRecord()
@@ -148,6 +150,19 @@ class MainTabViewController: UITabBarController {
         
         // 注册对名为"refrehCallLogsbadgeValue"的通知的观察  刷新badgeValue
         NotificationCenter.default.addObserver(self, selector: #selector(refreshBadges(_:)), name: Notification.Name("refrehCallLogsbadgeValue"), object: nil)
+        
+        reachabilityManager?.startListening()
+        reachabilityManager?.listener = { status in
+            switch status {
+            case .notReachable:
+                IMController.shared.netWorkStatus = "noNetWork"
+                NotificationCenter.default.post(name: Notification.Name("netWorkStatus"), object: nil, userInfo: ["value": "noNetWork"])
+            default:
+                IMController.shared.netWorkStatus = "hasNetWork"
+                NotificationCenter.default.post(name: Notification.Name("netWorkStatus"), object: nil, userInfo: ["value": "hasNetWork"])
+                break
+            }
+        }
         
     }
     
@@ -416,7 +431,7 @@ class MainTabViewController: UITabBarController {
             }
             
             updateLanguage(uid: r.userID)
-            
+            pushBindAlias(true)
             ProgressHUD.dismiss()
             
             if dismiss {
@@ -427,8 +442,6 @@ class MainTabViewController: UITabBarController {
                 }
             }
         }
-        
-        pushBindAlias()
     }
     
     func pushBindAlias(_ bind: Bool = true) {

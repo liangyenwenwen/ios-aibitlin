@@ -664,7 +664,7 @@ class QueryUserInfoData: Decodable {
 class QueryUserInfo: UpdateUserInfoRequest {}
 
 class UpdateUserInfoRequest: Codable {
-    let userID: String?
+    var userID: String?
     let chatID: String?
     let account: String?
     let password: String?

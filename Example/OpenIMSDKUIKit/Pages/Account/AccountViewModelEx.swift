@@ -29,6 +29,9 @@ extension AccountViewModel {
                 let messageVC = UserMessageVC()
                 messageVC.hidesBottomBarWhenPushed = true
                 messageVC.userID = userid
+                messageVC.userInfo?.nickname = nickName
+                messageVC.userInfo?.faceURL = faceUrl
+                messageVC.userInfo?.userID = userid
                 vc.gotoController(messageVC)
 //            }
         }

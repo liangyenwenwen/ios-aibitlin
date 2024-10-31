@@ -1701,13 +1701,6 @@ struct _R: Sendable {
       /// Locales: en, th
       var 删除成员: RswiftResources.StringResource { .init(key: "删除成员", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: Load failed, please pull down refresh and try again
-      ///
-      /// Key: 加载失败，请下拉刷新重试。
-      ///
-      /// Locales: en, th
-      var 加载失败请下拉刷新重试: RswiftResources.StringResource { .init(key: "加载失败，请下拉刷新重试。", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
-
       /// en translation: Distrub
       ///
       /// Key: 勿扰模式
@@ -3219,6 +3212,13 @@ struct _R: Sendable {
       ///
       /// Locales: en, th
       var 请填写新的邮箱地址: RswiftResources.StringResource { .init(key: "请填写新的邮箱地址", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Please check if the network is available!
+      ///
+      /// Key: 请检查网络是否可用！
+      ///
+      /// Locales: en, th
+      var 请检查网络是否可用: RswiftResources.StringResource { .init(key: "请检查网络是否可用！", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Please fill in
       ///
