@@ -92,6 +92,7 @@
 "发送" = "Send";
 "复制" = "copy";
 "删除" = "delete";
+"举报" = "report";
 "转发" = "retransmit";
 "合并转发" = "Merge";
 "回复" = "reply";
@@ -360,6 +361,8 @@
 
 "全体禁言" = "Ban all";
 "下载到相簿" = "Download to album";
+
+"请检查网络是否可用！" = "Please check if the network is available!";
 
 
 "draftText" = "Draft";

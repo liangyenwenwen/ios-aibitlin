@@ -13,6 +13,7 @@ import OUIIM
 import OUICore
 import OpenIMSDK
 import NSObject_Rx
+import ProgressHUD
 
 #if ENABLE_MOMENTS
 import OUIMoments
@@ -24,7 +25,10 @@ class UserMessageVC: BaseTitleController {
 //    var ConversationInfo: ConversationInfo?
     var userInfo: QueryUserInfo?
     var isFriend:Bool = false//是否是好友关系
-    
+    lazy var netWorkTipView: YFNotNetTopTipView = {
+        let  r = YFNotNetTopTipView()
+        return r
+    }()
     
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,7 +50,6 @@ class UserMessageVC: BaseTitleController {
         
         addUserBg()
         addMore()
-        
         initTableViewSafeAreCustom(.grouped)
         container.tg_padding = UIEdgeInsets(top: PADDING_MEDDLE, left: PADDING_OUTER, bottom: PADDING_MEDDLE, right: PADDING_OUTER)
         
@@ -73,8 +76,25 @@ class UserMessageVC: BaseTitleController {
 //        }
         getUserInfo()
         othersSeeMyBlog()
+        view.addSubview(netWorkTipView)
+        netWorkTipView.snp_remakeConstraints { make in
+            make.top.equalTo(44 + kStatusBarHeight)
+            make.left.right.equalTo(0)
+            make.height.equalTo(44)
+        }
+        if IMController.shared.netWorkStatus == "hasNetWork"{
+            netWorkTipView.isHidden = true
+            container.tg_padding = UIEdgeInsets(top: PADDING_MEDDLE+44 + kStatusBarHeight, left: PADDING_OUTER, bottom: PADDING_MEDDLE, right: PADDING_OUTER)
+            
+        }else{
+            netWorkTipView.isHidden = false
+            container.tg_padding = UIEdgeInsets(top: PADDING_MEDDLE+44 + kStatusBarHeight+44, left: PADDING_OUTER, bottom: PADDING_MEDDLE, right: PADDING_OUTER)
+        }
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshNetWorkStatus(_:)), name: Notification.Name("netWorkStatus"), object: nil)
         
-       
+        if userInfo?.nickname?.isEmpty == false{
+            updataUI()
+        }
     }
     
     
@@ -88,15 +108,17 @@ class UserMessageVC: BaseTitleController {
 //            
 //            
 //        }
-        
+        ProgressHUD.animate()
         AccountViewModel.queryUserInfo(userIDList: [userID],
                                        valueHandler: { [weak self] (users: [QueryUserInfo]) in
+            ProgressHUD.dismiss()
             guard let user: QueryUserInfo = users.first else { return }
 //            print(user.nickname, user.phoneNumber, user.email)
             self?.userInfo = user
             self?.updataUI()
         }, completionHandler: {(errCode, errMsg) in
-            
+            SuperToast.show(title: String(errCode).localized())
+            ProgressHUD.dismiss()
         })
         
     }
@@ -118,7 +140,6 @@ class UserMessageVC: BaseTitleController {
         
         tableView.tableHeaderView = tableHeaderView
         view.layoutIfNeeded()
-        print(userHeaderView.frame)
         
         
         
@@ -147,8 +168,10 @@ class UserMessageVC: BaseTitleController {
     
     func addUserBg() {
         view.addSubview(topBg)
-        topBg.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 300)
-        
+        topBg.snp_remakeConstraints { make in
+            make.left.top.right.equalTo(0)
+            make.height.equalTo(300)
+        }
         let bottom = UIImageView()
         bottom.image = R.image.user_meesage_top_bg_bottom()
         bottom.frame = CGRect(x: 0, y: 150, width: UIScreen.main.bounds.width, height: 150)
@@ -172,7 +195,7 @@ class UserMessageVC: BaseTitleController {
         r.tg_width.equal(.fill)
         r.tg_height.equal(.wrap)
         r.addSubview(userHeaderView)
-        userHeaderView.tg_top.equal(100)
+        userHeaderView.tg_top.equal(0)
         return r
     }()
     
@@ -209,7 +232,17 @@ class UserMessageVC: BaseTitleController {
             })
         }
     }
-    
+    @objc func refreshNetWorkStatus(_ notidication: Notification) {
+            if  let userinfo = notidication.userInfo, let netWorkStatus = userinfo["value"] as? String {
+                if netWorkStatus == "hasNetWork"{
+                    netWorkTipView.isHidden = true
+                    container.tg_padding = UIEdgeInsets(top: PADDING_MEDDLE+44 + kStatusBarHeight, left: PADDING_OUTER, bottom: PADDING_MEDDLE, right: PADDING_OUTER)
+                }else{
+                    netWorkTipView.isHidden = false
+                    container.tg_padding = UIEdgeInsets(top: PADDING_MEDDLE+44 + kStatusBarHeight+44, left: PADDING_OUTER, bottom: PADDING_MEDDLE, right: PADDING_OUTER)
+                }
+            }
+        }
     func toChat()  {
         
         // MARK: - 张亚飞打的标记  获取会话信息
@@ -393,6 +426,9 @@ class UserMessageVC: BaseTitleController {
         
         
     }
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
     
 //    override func viewWillLayoutSubviews() {
 //        view.layoutIfNeeded()
@@ -402,12 +438,14 @@ class UserMessageVC: BaseTitleController {
 extension UserMessageVC {
     
     func othersSeeMyBlog() {
-        
+        ProgressHUD.animate()
         YFMineNetViewModel.otherSeeMyBlog(userId: userID) { [weak self] data in
+            ProgressHUD.dismiss()
             self?.datum = data
             self?.tableView.reloadData()
         } completionHandler: { errCode, errMsg in
-            
+            ProgressHUD.dismiss()
+            SuperToast.show(title: errMsg?.localized())
         }
 
     }

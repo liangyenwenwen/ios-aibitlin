@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import OUICore
 import TangramKit
 import DynamicColor
 
@@ -46,7 +47,7 @@ class MineBokeStatisticsVC: BaseTitleController {
 //        
 //        container.addSubview(trueBtn)
         
-        initScrollSafeArea(needNetTip: true)
+        initScrollSafeArea(needNetTip: false)
         
         scrollView.delegate = self
         scrollViewContainer.tg_padding = UIEdgeInsets(top: PADDING_OUTER, left: PADDING_OUTER, bottom: PADDING_OUTER, right: PADDING_OUTER)
@@ -76,6 +77,21 @@ class MineBokeStatisticsVC: BaseTitleController {
         header.stateLabel?.isHidden = true
         header.lastUpdatedTimeLabel?.isHidden = true
         scrollView.mj_header = header
+        view.addSubview(noNetView)
+        noNetView.snp_makeConstraints { make in
+            make.top.equalTo(44 + kStatusBarHeight)
+            
+            make.left.right.equalTo(0)
+            make.height.equalTo(44)
+        }
+        if IMController.shared.netWorkStatus == "hasNetWork"{
+            noNetView.isHidden = true
+            scrollViewContainer.tg_padding = UIEdgeInsets(top: PADDING_MEDDLE, left: PADDING_OUTER, bottom: PADDING_OUTER, right: PADDING_OUTER)
+        }else{
+            noNetView.isHidden = false
+            scrollViewContainer.tg_padding = UIEdgeInsets(top: PADDING_MEDDLE + 44, left: PADDING_OUTER, bottom: PADDING_OUTER, right: PADDING_OUTER)
+        }
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshNetWorkStatus(_:)), name: Notification.Name("netWorkStatus"), object: nil)
     }
     
     lazy var bokeBaseView: TGLinearLayout = {
@@ -274,6 +290,20 @@ class MineBokeStatisticsVC: BaseTitleController {
         return r
     }()
     
+    @objc func refreshNetWorkStatus(_ notidication: Notification) {
+            if  let userinfo = notidication.userInfo, let netWorkStatus = userinfo["value"] as? String {
+                if netWorkStatus == "hasNetWork"{
+                    noNetView.isHidden = true
+                    scrollViewContainer.tg_padding = UIEdgeInsets(top: PADDING_MEDDLE, left: PADDING_OUTER, bottom: PADDING_OUTER, right: PADDING_OUTER)
+                }else{
+                    noNetView.isHidden = false
+                    scrollViewContainer.tg_padding = UIEdgeInsets(top: PADDING_MEDDLE + 44, left: PADDING_OUTER, bottom: PADDING_OUTER, right: PADDING_OUTER)
+                }
+            }
+        }
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
 }
 
 extension MineBokeStatisticsVC {
@@ -330,17 +360,17 @@ extension MineBokeStatisticsVC {
     
    @objc func showBlogsSurvey() {
         
-        if !NetworkStatus.isReacheable {
-            noNetView.show()
-            isNeedRefresh = true
-            scrollView.mj_header?.endRefreshing()
- 
-            return
-            
-          
-        } else {
-            noNetView.hide()
-        }
+//        if !NetworkStatus.isReacheable {
+//            noNetView.show()
+//            isNeedRefresh = true
+//            scrollView.mj_header?.endRefreshing()
+// 
+//            return
+//            
+//          
+//        } else {
+//            noNetView.hide()
+//        }
         
         let paramters : [String: Any] = ["userId": boke.userId!, "userBlogId": boke.id!]
 
@@ -352,6 +382,7 @@ extension MineBokeStatisticsVC {
             }
             scrollView.mj_header?.endRefreshing()
         } completionHandler: { errCode, errMsg in
+            SuperToast.show(title: errMsg?.localized())
             self.scrollView.mj_header?.endRefreshing()
         }
 
@@ -359,12 +390,12 @@ extension MineBokeStatisticsVC {
     
     func queryShowBlogsSurveyOneDay(time: String, tag: Int) {
         
-        if !NetworkStatus.isReacheable {
-            noNetView.show()
-            return
-        } else {
-            noNetView.hide()
-        }
+//        if !NetworkStatus.isReacheable {
+//            noNetView.show()
+//            return
+//        } else {
+//            noNetView.hide()
+//        }
         
         let paramters : [String: Any] = ["time": time, "userId": boke.userId!, "userBlogId": boke.id!]
         YFMineNetViewModel.queryShowBlogsSurveyOneDay(paramters: paramters) { [self] data in
@@ -379,7 +410,7 @@ extension MineBokeStatisticsVC {
                 self.updateCharts(currentTag: tag)
             }
         } completionHandler: { errCode, errMsg in
-            
+            SuperToast.show(title: errMsg?.localized())
         }
     }
     
@@ -559,7 +590,6 @@ class chartRowView : TGLinearLayout {
         chartRowView.backgroundColor = isCurrent ? .init(hexString: "#388CEF") : .init(hexString: "#F0F2F5")
         chartNumber.textColor = isCurrent ? .white : .black666
     }
-    
 }
 
 class bokeVisitorNumberView: TGLinearLayout {

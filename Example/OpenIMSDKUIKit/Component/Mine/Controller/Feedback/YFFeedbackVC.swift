@@ -25,6 +25,8 @@ class YFFeedbackVC: BaseTitleController {
     var blogItem: blogDetailItem!
     var conversationItem: ConversationInfo!
     var userItem: QueryUserInfo!
+    var reportCommentUserId:String = ""
+    var commentID:String = ""
     
     private let _viewModel = MineViewModel()
     
@@ -36,8 +38,9 @@ class YFFeedbackVC: BaseTitleController {
         super.initViews()
         setBackGroundColor(.init(hexString: "#f5f5f5"))
         initLinearLayoutSafeArea()
-        
-       
+        if reportType == .moments{
+            navView.hide()
+        }
         
 //        title = useType == .useFeedback ? "反馈".localized() : "举报".localized();
 //        title = "举报".localized();
@@ -364,11 +367,6 @@ class YFFeedbackVC: BaseTitleController {
 
 extension YFFeedbackVC {
     @objc func toReportAction() {
-        
-        if reportType == .feedback {
-            SuperToast.show(title: "提交成功".localized())
-            return
-        }
 
         
         if datum.count == 0 {
@@ -448,12 +446,23 @@ extension YFFeedbackVC {
                          "reportDescription":contentView.textView.text!,
                          "reportImgs": reportImgs,
                          "reportUserId": IMController.shared.uid]
+        case .moments:
+            paramters = [ "beReportedUserId": reportCommentUserId,
+                          "beReportedUserName": "就传你",
+                          "beReportedUserImg": "",
+//                          "": "",
+                          "reportReason":topTitleView.inputText!,
+                         "reportDescription":contentView.textView.text!,
+                         "reportImgs": reportImgs,
+                         "reportUserId": IMController.shared.uid]
             default:
                 break
         }
         
         
-        YFMineNetViewModel.reportUserNet(paramters: paramters, reportType: reportType)
+        YFMineNetViewModel.reportUserNet(paramters: paramters, reportType: reportType,valueHandler: { [weak self] infos in
+            self?.navigationController?.popViewController(animated: true)
+        })
         
     }
 }

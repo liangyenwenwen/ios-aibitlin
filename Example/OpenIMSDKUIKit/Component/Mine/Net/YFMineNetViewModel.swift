@@ -51,10 +51,13 @@ class YFMineNetViewModel: AccountViewModel {
     private static let reportBlogAddAPI = "/report/reportBlogAdd"
     private static let reportUserAddAPI = "/report/reportUserAdd"
     private static let reportChatHistoryAddAPI = "/report/reportChatHistoryAdd"
+    private static let feedBackAddAPI = "/report/problemFeedback/problemFeedbackAdd"
+    private static let reportComentsAddAPI = "/report/reportCircleOfFriendsAdd"
     
+    //"183.156.234.224"
     private static var httpHeaders : HTTPHeaders = [
         "token":UserDefaults.standard.string(forKey: bussinessTokenKey)!,
-        "X-Forwarded-For":"183.156.234.224",
+        "X-Forwarded-For":YFNetworkUtils.getIPAddress()!,
         "Authorization":"eyJ1c2VySW5mbyI6InVzZXJCbG9nWWFuWmhlbmdUb2tlbiJ9",
         "Content-Type":"application/json",
 //        "operationID":UUID().uuidString,
@@ -195,26 +198,26 @@ class YFMineNetViewModel: AccountViewModel {
                     if res.code == 20000  {
                         valueHandler(res.data)
                     } else {
-                        completionHandler(res.code, res.message)
+                        completionHandler(-1, "Failure")
                     }
                 } else {
                     completionHandler(-1, "Failure")
                 }
             } else {
-                completionHandler(-1, "Failure")
+                completionHandler(-1, "-1")
             }
             
         }
     }
     
     static func blogTop(paramters:Parameters, completionHandler: @escaping CompletionHandler) {
-//        ProgressHUD.animate()
+        ProgressHUD.animate()
         
         let url = SuperStringUtil.netUrl(API_BLOG_URL + blogTopAPI, paramters)
         print(url)
         Alamofire.request(url, method: .post, headers: httpHeaders).responseJSON { dataRequest in
             
-//            ProgressHUD.dismiss()
+            ProgressHUD.dismiss()
             
             if let data = dataRequest.data {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
@@ -224,11 +227,13 @@ class YFMineNetViewModel: AccountViewModel {
                     if res.code == 20000  {
                         completionHandler(res.code, res.message)
                     } else {
-                        completionHandler(res.code, res.message)
+                        completionHandler(-1, "Failure")
                     }
                 } else {
                     completionHandler(-1, "Failure")
                 }
+            }else {
+                completionHandler(-1, "-1")
             }
         
         }
@@ -262,8 +267,9 @@ class YFMineNetViewModel: AccountViewModel {
 
                 
                 let url = API_BLOG_URL + addShowBlogsSurveyAPI
+                ProgressHUD.animate()
                 Alamofire.request(url, method: .post, parameters: paramters, encoding: JSONEncoding.default, headers: httpHeaders).responseJSON(completionHandler: { dataRequest in
-                    
+                    ProgressHUD.dismiss()
                     if let data = dataRequest.data {
                         let strData = String.init(data: data, encoding: String.Encoding.utf8)
                         print(strData!)
@@ -281,12 +287,12 @@ class YFMineNetViewModel: AccountViewModel {
     
     static func editBlog(paramters:Parameters, completionHandler: @escaping CompletionHandler) {
         
-//        ProgressHUD.animate()
+        ProgressHUD.animate()
         
         let url = API_BLOG_URL + updateWaitAuditAutoAPI
         Alamofire.request(url, method: .post, parameters: paramters, encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
             
-//            ProgressHUD.dismiss()
+            ProgressHUD.dismiss()
             
             if let data = dataRequest.data {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
@@ -296,23 +302,25 @@ class YFMineNetViewModel: AccountViewModel {
                     if res.code == 20000  {
                         completionHandler(res.code, res.message)
                     } else {
-                        completionHandler(res.code, res.message)
+                        completionHandler(-1, "Failure")
                     }
                 } else {
                     completionHandler(-1, "Failure")
                 }
+            }else{
+                completionHandler(-1, "-1")
             }
         }
     }
     
     static func deleteBlog(paramters:Parameters, completionHandler: @escaping CompletionHandler) {
         
-//        ProgressHUD.animate()
+        ProgressHUD.animate()
         
         let url = SuperStringUtil.netUrl(API_BLOG_URL + deleteBlogAPI, paramters)
         Alamofire.request(url, method: .post, parameters: paramters, encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
             
-//            ProgressHUD.dismiss()
+            ProgressHUD.dismiss()
             
             if let data = dataRequest.data {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
@@ -321,11 +329,13 @@ class YFMineNetViewModel: AccountViewModel {
                     if res.code == 20000  {
                         completionHandler(res.code, res.message)
                     } else {
-                        completionHandler(res.code, res.message)
+                        completionHandler(-1, "Failure")
                     }
                 } else {
                     completionHandler(-1, "Failure")
                 }
+            }else{
+                completionHandler(-1, "-1")
             }
         }
     }
@@ -350,11 +360,13 @@ class YFMineNetViewModel: AccountViewModel {
                     if res.code == 20000  {
                         valueHandler(res.data)
                     } else {
-                        completionHandler(res.code, res.message)
+                        completionHandler(-1, "Failure")
                     }
                 } else {
                     completionHandler(-1, "Failure")
                 }
+            }else{
+                completionHandler(-1, "-1")
             }
         }
     }
@@ -378,12 +390,14 @@ class YFMineNetViewModel: AccountViewModel {
                     if res.code == 20000  {
                         valueHandler(res.data)
                     } else {
-                        completionHandler(res.code, res.message)
+                        completionHandler(-1, "Failure")
                     }
                     
                 } else {
                     completionHandler(-1, "Failure")
                 }
+            }else{
+                completionHandler(-1, "-1")
             }
         }
     }
@@ -407,12 +421,14 @@ class YFMineNetViewModel: AccountViewModel {
                     if res.code == 20000  {
                         valueHandler(res.data)
                     } else {
-                        completionHandler(res.code, res.message)
+                        completionHandler(-1, "Failure")
                     }
                     
                 } else {
                     completionHandler(-1, "Failure")
                 }
+            }else{
+                completionHandler(-1, "-1")
             }
         }
     }
@@ -436,12 +452,14 @@ class YFMineNetViewModel: AccountViewModel {
                     if res.code == 20000  {
                         valueHandler(res.data)
                     } else {
-                        completionHandler(res.code, res.message)
+                        completionHandler(-1, "Failure")
                     }
                     
                 } else {
                     completionHandler(-1, "Failure")
                 }
+            }else{
+                completionHandler(-1, "-1")
             }
         }
     }
@@ -577,8 +595,9 @@ extension YFMineNetViewModel {
      static func pictureFind(valueHandler: @escaping ([String]) -> Void,
                              completionHandler: @escaping CompletionHandler) {
         let url = API_BASE_URL + pictureFindAPI
-         
+         ProgressHUD.animate()
          Alamofire.request(url, method: .post, parameters: [:],encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
+             ProgressHUD.dismiss()
              if let data  = dataRequest.data {
                  let strData = String.init(data: data, encoding: String.Encoding.utf8)
                  print(strData)
@@ -592,8 +611,10 @@ extension YFMineNetViewModel {
                      }
                      
                  } else {
-                    
+                     SuperToast.show(title: "Failure".localized())
                  }
+             }else{
+                 SuperToast.show(title: "-1".localized())
              }
          }
     }
@@ -606,10 +627,11 @@ enum ReportType {
     case  chatHistory
     case  blog
     case  feedback
+    case  moments
 }
 extension YFMineNetViewModel {
     
-    static func reportUserNet(paramters:Parameters, reportType:ReportType) {
+    static func reportUserNet(paramters:Parameters, reportType:ReportType,valueHandler: @escaping (String) -> Void) {
         
         var url = ""
         switch reportType {
@@ -620,7 +642,9 @@ extension YFMineNetViewModel {
             case .blog:
                 url = API_BLOG_URL + reportBlogAddAPI
             case .feedback:
-                url = ""
+                url = API_BLOG_URL + feedBackAddAPI
+        case .moments:
+            url = API_BLOG_URL + reportComentsAddAPI
         }
         
         
@@ -632,13 +656,17 @@ extension YFMineNetViewModel {
                     
                     if res.code == 20000  {
                         SuperToast.show(title: "提交成功".localized())
+                        valueHandler("提交成功")
+                    }else{
+                        SuperToast.show(title: "Failure".localized())
                     }
                     
                 } else {
-                   
+                    SuperToast.show(title: "Failure".localized())
                 }
-                
    
+            }else{
+                SuperToast.show(title: "-1".localized())
             }
         }
     }

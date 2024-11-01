@@ -97,6 +97,32 @@ open class AccountViewModel {
     }
     
     static func loginDemo(phone: String? = nil, account: String? = nil, email: String? = nil, psw: String? = nil, verificationCode: String? = nil, areaCode: String, completionHandler: @escaping CompletionHandler) {
+//        var params = ["areaCode":areaCode,"platform":1] as [String : Any]
+//        if let Phone = phone{
+//            params["phoneNumber"] = Phone
+//        }
+//        if let Account = account{
+//            params["account"] = Account
+//        }
+//        if let Email = email{
+//            params["email"] = Email
+//        }
+//        if let Psw = psw{
+//            params["password"] = Psw.md5()
+//        }
+//        if let VerificationCode = verificationCode{
+//            params["verificationCode"] = VerificationCode
+//        }
+//        ABLNetWorkToos.BussinessPOST(url: LoginAPI, params: params,isLoading:true, success: { (result) in
+//            if let res = JsonTool.fromJson(result, toClass: Response<UserEntity>.self) {
+//                // 登录IM
+//                savePreLoginAccount(phone)
+//                loginIM(uid: res.data!.userID, imToken: res.data!.imToken, chatToken: res.data!.chatToken, completionHandler: completionHandler)
+//            }
+//        }) { (state_code, message) in
+//            
+//        }
+
         let body = JsonTool.toJson(fromObject: Request(phoneNumber: phone,
                                                        account: account,
                                                        email: email,
@@ -111,6 +137,7 @@ open class AccountViewModel {
         req.addValue(String.getCurrentLanguageHeader(), forHTTPHeaderField: "language")
 
         Alamofire.request(req).responseString { (response: DataResponse<String>) in
+            
             switch response.result {
             case .success(let result):
                 if let res = JsonTool.fromJson(result, toClass: Response<UserEntity>.self) {
@@ -637,7 +664,7 @@ class QueryUserInfoData: Decodable {
 class QueryUserInfo: UpdateUserInfoRequest {}
 
 class UpdateUserInfoRequest: Codable {
-    let userID: String?
+    var userID: String?
     let chatID: String?
     let account: String?
     let password: String?

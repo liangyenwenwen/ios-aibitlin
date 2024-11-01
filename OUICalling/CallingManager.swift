@@ -476,7 +476,7 @@ extension CallingManager {
         
         if state == .beAccepted || state == .disConnect {
             if state == .beAccepted {
-                if let liveURL, let token {
+                if let liveURL, let token,currentIsGroup == false {
                     senderViewController?.connectRoom(liveURL: liveURL, token: token)
                 }
             } else {
@@ -933,7 +933,7 @@ extension CallingManager: OIMSignalingListener {
         
         roomParticipantChangedHandler?(disconnectedInfo)
         // 最后一个人就关闭群聊
-        if !disconnectedInfo.invitation.groupID.isEmpty, (disconnectedInfo.participant == nil || disconnectedInfo.participant.count == 1), inviteeUsersID.count == 1 {
+        if !disconnectedInfo.invitation.groupID.isEmpty, (disconnectedInfo.participant == nil || disconnectedInfo.participant.count == 1), inviteeUsersID.count == 0 {
             update(state: .beHangup)
             reciverViewController?.dismiss()
         }

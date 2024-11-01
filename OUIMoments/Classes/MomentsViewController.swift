@@ -316,7 +316,13 @@ extension MomentsViewController {
                     }
                 }
             }
-            
+            controller.onReport  = { [weak self] (commentID) in
+                if let handler = OIMApi.reportMomentsHandle {
+                    handler(self!, info.userID, commentID ?? "",{res in
+
+                    })
+                }
+            }
             return controller
         case is HeaderInfo:
             let section = MomentsHeaderController()

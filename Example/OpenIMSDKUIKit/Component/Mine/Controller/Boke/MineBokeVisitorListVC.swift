@@ -75,7 +75,7 @@ extension MineBokeVisitorListVC {
             datum = data
             tableView.reloadData()
         } completionHandler: { errCode, errMsg in
-        
+            SuperToast.show(title: errMsg?.localized())
         }
 
     }
@@ -87,7 +87,7 @@ extension MineBokeVisitorListVC {
             datum = data
             tableView.reloadData()
         } completionHandler: { errCode, errMsg in
-        
+            SuperToast.show(title: errMsg?.localized())
         }
 
     }

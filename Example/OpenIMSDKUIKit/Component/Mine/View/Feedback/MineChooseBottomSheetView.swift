@@ -177,15 +177,15 @@ class MineChooseBottomSheetView: TGLinearLayout {
                 } switchChanged: { [weak self] data in
                     guard let self = self else {return}
                     if data.isOn {
-//                        self?.chooseTitle("加入黑名单")
-                        IMController.shared.imManager.add(toBlackList: self.userID!) { r in
-                            self.chooseTitle("取消黑名单")
-                        }
-                        
+                        IMController.shared.imManager.add(toBlackList: self.userID!,onSuccess: { message in
+                        },onFailure: { errCode, errorMsg in
+                            data.isOn = !data.isOn
+                        })
                     } else {
                         
-                        IMController.shared.imManager.remove(fromBlackList: self.userID!, onSuccess: { r in
-                            self.chooseTitle("取消黑名单")
+                        IMController.shared.imManager.remove(fromBlackList: self.userID! ,onSuccess: { message in
+                        },onFailure: { errCode, errorMsg in
+                            data.isOn = !data.isOn
                         })
                         
                     }

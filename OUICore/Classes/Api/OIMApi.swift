@@ -26,6 +26,8 @@ public typealias addFriendhandle = ((_ currentVC: UIViewController, _  userID: S
 
 public typealias getUserMessageHandle = ((_  userID: String, _ completion: @escaping ((String) -> Void)) -> Void)
 
+public typealias reportMomentsHandle = ((_ currentVC: UIViewController,_  reportUserID: String,_ commentID:String, _ completion: @escaping ((String) -> Void)) -> Void)
+
 // MARK: - 张亚飞打的标记  更新会话的ex
 public typealias updateConversationEx = ((_ conversationEx : String, _ completion: @escaping ((String) -> Void)) -> Void)
 
@@ -178,6 +180,7 @@ public class OIMApi {
     public static var gotoSystemSettingHandle: gotoSystemSettingHandle?
     public static var addFriendhandle: addFriendhandle?
     public static var updateConversationEx: updateConversationEx?
+    public static var reportMomentsHandle: reportMomentsHandle?
     
     public static var getUserMessageHandle: getUserMessageHandle?
     

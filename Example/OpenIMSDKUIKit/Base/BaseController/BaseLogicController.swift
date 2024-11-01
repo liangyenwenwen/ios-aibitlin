@@ -52,6 +52,7 @@ class BaseLogicController: BaseCommentController {
         r.contentMode = .scaleAspectFill
         return r
     }()
+
     
 //    var datum : BehaviorRelay<[Any]> = .init(value: [])
     

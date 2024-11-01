@@ -95,6 +95,7 @@ class InputCodeViewController: UIViewController {
         countDownButton.clickedBlock = { [weak self] sender in
                         
             guard let `self` = self else { return }
+            countDownButton.isCounting = true
             AccountViewModel.requestCode(phone: operateType == .phone ? phone : nil, areaCode: areaCode, email: operateType == .email ? phone : nil, useFor: self.usedFor) { (errCode, errMsg) in
                 if errCode != 0 {
 //                    ProgressHUD.error(String(errCode).localized())
@@ -102,7 +103,6 @@ class InputCodeViewController: UIViewController {
                 } else {
 //                    ProgressHUD.success("sentSuccess".localized())
                     SuperToast.show(title: "sentSuccess".localized())
-                    countDownButton.isCounting = true
                 }
             }
         }

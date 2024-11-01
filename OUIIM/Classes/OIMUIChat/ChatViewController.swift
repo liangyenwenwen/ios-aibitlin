@@ -297,6 +297,11 @@ final class ChatViewController: UIViewController {
         return v
     }()
     
+    lazy var netWorkTipView:ABLNotNetTopTipView = {
+        let r = ABLNotNetTopTipView()
+        return r
+    }()
+    
     init(chatController: ChatController,
          dataSource: ChatCollectionDataSource,
          editNotifier: EditNotifier,
@@ -337,7 +342,6 @@ final class ChatViewController: UIViewController {
     
     deinit {
         NotificationCenter.default.removeObserver(self)
-        print("\(type(of: self)) - \(#function)")
     }
     
     // MARK: - 张亚飞打的标记  自定义 nav
@@ -350,7 +354,7 @@ final class ChatViewController: UIViewController {
         }
         r.gotoUserBlock = { [weak self] in
             if let handler = OIMApi.gotoUserMessageHandle {
-                handler(self!, String(info.userID!), "", "",{res in
+                handler(self!, String(info.userID!), info.showName ?? "", info.faceURL ?? "",{res in
 
                 })
             }
@@ -437,11 +441,17 @@ final class ChatViewController: UIViewController {
         vStack.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(chatViewControllerNav)
+        view.addSubview(netWorkTipView)
         view.addSubview(vStack)
         
         chatViewControllerNav.snp.makeConstraints { make in
             make.top.left.right.equalTo(0)
             make.height.equalTo(44 + kStatusBarHeight)
+        }
+        netWorkTipView.snp_makeConstraints { make in
+            make.top.equalTo(chatViewControllerNav.snp_bottom)
+            make.left.right.equalTo(0)
+            make.height.equalTo(44)
         }
         
         NSLayoutConstraint.activate([
@@ -463,6 +473,22 @@ final class ChatViewController: UIViewController {
         collectionView.addGestureRecognizer(tapGesture)
         
         NotificationCenter.default.addObserver(self, selector: #selector(loadInitialMessages), name: Notification.Name.clearRecord, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshNetWorkStatus(_:)), name: Notification.Name("netWorkStatus"), object: nil)
+        if IMController.shared.netWorkStatus == "hasNetWork"{
+            netWorkTipView.isHidden = true
+            collectionView .snp_remakeConstraints{ make in
+//                make.left.right.bottom.equalTo(0)
+//                make.top.equalTo(0)
+                make.edges.equalTo(0)
+            }
+            
+        }else{
+            netWorkTipView.isHidden = false
+            collectionView .snp_remakeConstraints{ make in
+                make.left.right.bottom.equalTo(0)
+                make.top.equalTo(44)
+            }
+        }
     }
     
     //测试修改  单聊nav
@@ -553,7 +579,21 @@ final class ChatViewController: UIViewController {
             }
         }
     }
-    
+    @objc func refreshNetWorkStatus(_ notidication: Notification) {
+            if  let userinfo = notidication.userInfo, let netWorkStatus = userinfo["value"] as? String {
+                if netWorkStatus == "hasNetWork"{
+                    netWorkTipView.isHidden = true
+                    collectionView.snp_updateConstraints { make in
+                        make.top.equalTo(0)
+                    }
+                }else{
+                    netWorkTipView.isHidden = false
+                    collectionView.snp_updateConstraints { make in
+                        make.top.equalTo(44)
+                    }
+                }
+            }
+        }
     @objc
     private func loadInitialMessages() {
         guard !currentControllerActions.options.contains(.loadingInitialMessages) else { return }
@@ -1874,7 +1914,7 @@ extension ChatViewController: ChatControllerDelegate {
 //            let vc = UserDetailTableViewController(userId: source.user.id, groupId: chatController.getConversation().groupID, userDetailFor: .card)
 //            navigationController?.pushViewController(vc, animated: true)
             if let handler = OIMApi.gotoUserMessageHandle {
-                                handler(self, source.user.id, "", "",{res in
+                handler(self, source.user.id, source.user.name, source.user.faceURL ?? "",{res in
 
                                 })
                             }
@@ -2952,7 +2992,7 @@ extension ChatViewController: GestureDelegate {
                     self?.chatController.getGroupMembers(userIDs: [user.id], memory: true) { [weak self] mi in
                         guard let self = self else {return}
                         if let handler = OIMApi.gotoUserMessageHandle {
-                            handler(self, user.id, "",  "",{res in
+                            handler(self, user.id, user.name,  user.faceURL ?? "",{res in
 
                                             })
                                         }
@@ -2967,7 +3007,7 @@ extension ChatViewController: GestureDelegate {
 //            navigationController?.pushViewController(vc, animated: true)
             
             if let handler = OIMApi.gotoUserMessageHandle {
-                                handler(self, user.id, "",  "",{res in
+                handler(self, user.id, user.name,  user.faceURL ?? "",{res in
 
                                 })
                             }

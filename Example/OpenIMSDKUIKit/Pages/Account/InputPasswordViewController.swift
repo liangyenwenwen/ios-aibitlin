@@ -7,7 +7,7 @@ import SnapKit
 import ProgressHUD
 import Localize_Swift
 import OUICore
-//import GTSDK
+import GTSDK
 
 public class InputPasswordViewController: UIViewController {
     
@@ -316,7 +316,7 @@ public class InputPasswordViewController: UIViewController {
                                                  chatToken: AccountViewModel.baseUser.chatToken) { [weak self] errCode, errMsg in
                            
                             if let userID = AccountViewModel.userID {
-//                                GeTuiSdk.bindAlias(userID, andSequenceNum: "im")
+                                GeTuiSdk.bindAlias(userID, andSequenceNum: "im")
                             }
                             UserDefaults.standard.setValue(self?.operateType.rawValue, forKey: loginTypeKey)
                             UserDefaults.standard.synchronize()
@@ -334,7 +334,7 @@ public class InputPasswordViewController: UIViewController {
                                                email: operateType == .email ? basicInfo["accout"]! : nil,
                                                verificationCode: basicInfo["verCode"]!,
                                                password: psw) { [weak self] (errCode, errMsg) in
-                    
+                    ProgressHUD.dismiss()
                     if errCode == 0, let `self` = self {
 //                        ProgressHUD.success("changed".localized() + "success".localized())
                         SuperToast.show(title: "changed".localized() + "success".localized())
@@ -343,7 +343,6 @@ public class InputPasswordViewController: UIViewController {
 //                        ProgressHUD.error(String(errCode).localized())
                         SuperToast.show(title: String(errCode).localized())
                     }
-                    ProgressHUD.dismiss()
                 }
             }
         } else {

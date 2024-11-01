@@ -9,6 +9,7 @@ import Localize_Swift
 import MJExtension
 import IQKeyboardManagerSwift
 import GTSDK
+import Alamofire
 #if ENABLE_MOMENTS
 import OUIMoments
 #endif
@@ -22,6 +23,7 @@ private let signupuserKey = "signupuserKey"
 class MainTabViewController: UITabBarController {
     
     private let _viewModel = MineViewModel()
+    private let reachabilityManager = NetworkReachabilityManager()
     
     func clearConversation() {
         conversationViewController.clearRecord()
@@ -149,6 +151,19 @@ class MainTabViewController: UITabBarController {
         // 注册对名为"refrehCallLogsbadgeValue"的通知的观察  刷新badgeValue
         NotificationCenter.default.addObserver(self, selector: #selector(refreshBadges(_:)), name: Notification.Name("refrehCallLogsbadgeValue"), object: nil)
         
+        reachabilityManager?.startListening()
+        reachabilityManager?.listener = { status in
+            switch status {
+            case .notReachable:
+                IMController.shared.netWorkStatus = "noNetWork"
+                NotificationCenter.default.post(name: Notification.Name("netWorkStatus"), object: nil, userInfo: ["value": "noNetWork"])
+            default:
+                IMController.shared.netWorkStatus = "hasNetWork"
+                NotificationCenter.default.post(name: Notification.Name("netWorkStatus"), object: nil, userInfo: ["value": "hasNetWork"])
+                break
+            }
+        }
+        
     }
     
     @objc func refreshBadges(_ notidication: Notification) {
@@ -240,6 +255,7 @@ class MainTabViewController: UITabBarController {
         OUICalling.CallingManager.manager.end()
 #endif
         IMController.shared.currentUserRelay.accept(nil)
+        pushBindAlias(false)
         AccountViewModel.saveUser(uid: nil, imToken: nil, chatToken: nil)
         presentLoginController()
     }
@@ -272,11 +288,42 @@ class MainTabViewController: UITabBarController {
 
                 if vc?.useType == .usePhone {
 
-                    if !SuperStringUtil.isPhoneNumber(controller.phone!) {
-                        SuperToast.show(title:  "填写正确的手机号码".localized())
-                        return
-                    }
+//                    if !SuperStringUtil.isPhoneNumber(controller.phone!) {
+//                        SuperToast.show(title:  "填写正确的手机号码".localized())
+//                        return
+//                    }
                    
+=            let psw = controller.password
+            let code = controller.verificationCode
+            
+//            guard psw?.isEmpty == false || code?.isEmpty == false else {
+//                ProgressHUD.error( "填写正确的密码/验证码")
+//                return
+//            }
+            
+            var account: String?
+            
+            ProgressHUD.animate()
+            let curAccount = vc?.useType == .usePhone ? phone : nil
+            let preAccount = AccountViewModel.perLoginAccount
+            
+            if curAccount != preAccount {
+                self?.clearConversation()
+            }
+            
+            AccountViewModel.loginDemo(phone: vc?.useType == .usePhone ? phone : nil,
+                                       account: account,
+                                       email: vc?.useType == .useEmail ? phone : nil,
+                                       psw: code != nil ? nil : psw,
+                                       verificationCode: code,
+                                       areaCode: controller.areaCode!) {[weak self] (errCode, errMsg) in
+                
+                ProgressHUD.dismiss()
+                if errMsg != nil {
+//                    ProgressHUD.error(errCode == -1 ? errMsg : String(errCode).localized())
+                    SuperToast.show(title: String(errCode).localized())
+                    self?.presentLoginController()
+                    
                 } else {
                    
                     if !SuperStringUtil.isEmail(controller.phone!) {
@@ -363,7 +410,7 @@ class MainTabViewController: UITabBarController {
             }
             
             updateLanguage(uid: r.userID)
-            
+            pushBindAlias(true)
             ProgressHUD.dismiss()
             
             if dismiss {
@@ -374,8 +421,6 @@ class MainTabViewController: UITabBarController {
                 }
             }
         }
-        
-        pushBindAlias()
     }
     
     func pushBindAlias(_ bind: Bool = true) {

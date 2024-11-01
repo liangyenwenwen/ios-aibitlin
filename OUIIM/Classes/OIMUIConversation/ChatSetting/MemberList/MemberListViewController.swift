@@ -256,7 +256,7 @@ class MemberListViewController: UIViewController {
 //            navigationController?.pushViewController(vc, animated: true)
             
             if let handler = OIMApi.gotoUserMessageHandle {
-                handler(self, String(member.userID ?? "”"), "", "",{res in
+                handler(self, String(member.userID ?? "”"), member.nickname ?? "", member.faceURL ?? "",{res in
 
                 })
             }
@@ -278,7 +278,7 @@ class MemberListViewController: UIViewController {
 //                let vc = UserDetailTableViewController(userId: member.userID ?? "", groupId: member.groupID)
 //                navigationController?.pushViewController(vc, animated: true)
                 if let handler = OIMApi.gotoUserMessageHandle {
-                    handler(self, String(member.userID ?? "”"), "", "",{res in
+                    handler(self, String(member.userID ?? "”"), member.nickname ?? "", member.faceURL ?? "",{res in
 
                     })
                 }

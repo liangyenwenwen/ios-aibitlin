@@ -109,6 +109,7 @@
 		03FC315B5B2E2A2BB8C46F6A4DBE82AA /* ReloadDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1BD2A3D64827BBD6EC41B8D0E745647 /* ReloadDelegate.swift */; };
 		043732665F9B4041C26A8C88F4CE86E2 /* QMUIKeyboardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E5CFB1DB86C65767EE978FB3AECDF29 /* QMUIKeyboardManager.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		043C12E812A5A5B8070F14393C1C4CE9 /* VideoParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BD12C70B877460F9D0E78258845570 /* VideoParameters.swift */; };
+		0445BEE42CD3795B00A46558 /* ABLNotNetTopTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445BEE32CD3795B00A46558 /* ABLNotNetTopTipView.swift */; };
 		046D46D2A01941DE01F8AAF69198B6F3 /* ShapeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C427C422896A7D7C4B3B97430AD6178 /* ShapeAnimation.swift */; };
 		04968C77AF8CB469CE27F8BCF5205A18 /* QMUINavigationBarScrollingAnimator.h in Headers */ = {isa = PBXBuildFile; fileRef = 51D604AB1AD897D030DBD57CCCE67AB9 /* QMUINavigationBarScrollingAnimator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		049C5ADAB64851427A6D57F63DA354D3 /* OIMManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 962064C23D7154F3DC3CC320B8308489 /* OIMManager.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
@@ -4519,6 +4520,7 @@
 		04297925DA2FD60F1BA506898E9B4664 /* UIView+IQKeyboardToolbarObjc.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIView+IQKeyboardToolbarObjc.swift"; path = "IQKeyboardManagerSwift/IQKeyboardToolbar/IQKeyboardExtension/UIView+IQKeyboardToolbarObjc.swift"; sourceTree = "<group>"; };
 		04410A3C58D15B90D9FE2B2E79BB77CF /* MathUtils.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MathUtils.swift; path = Sources/SwiftProtobuf/MathUtils.swift; sourceTree = "<group>"; };
 		0442FF1EB06CFFD229BD8EBDFA0AA537 /* ZFPlayer.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = ZFPlayer.modulemap; sourceTree = "<group>"; };
+		0445BEE32CD3795B00A46558 /* ABLNotNetTopTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ABLNotNetTopTipView.swift; sourceTree = "<group>"; };
 		045D08D236C955AE6903470A94FFF016 /* IGListIndexPathResultInternal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IGListIndexPathResultInternal.h; path = Source/IGListDiffKit/Internal/IGListIndexPathResultInternal.h; sourceTree = "<group>"; };
 		0461B3F80FC05957690727254D64DB36 /* Result */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Result; path = Result.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		049A18ADBFEC8C9B09FD3E2C18B3DD94 /* moments_header_bg@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "moments_header_bg@3x.png"; sourceTree = "<group>"; };
@@ -13861,6 +13863,7 @@
 			isa = PBXGroup;
 			children = (
 				02F8F919A7B7F50718663A968A969ED4 /* ChatListHeaderView.swift */,
+				0445BEE32CD3795B00A46558 /* ABLNotNetTopTipView.swift */,
 				A4CEE6B8B97CA9623AC057A5FD7A2C01 /* ChatListViewController.swift */,
 				C48BBA338E958AA264431CD2D6FAA9CB /* ChatListViewModel.swift */,
 				CCF825114AD4391A049EDDF22FC37297 /* ChatTableViewCell.swift */,
@@ -21364,6 +21367,7 @@
 				4235FAEE467BC26E524F6D91DE585A94 /* GlobalSearchViewModel.swift in Sources */,
 				9EE322C722AA2DFBCEC1B0286AC4777A /* GroupAnnounceViewController.swift in Sources */,
 				87F804D719C113FC7F9752F0B614787C /* GroupApplicationTableViewCell.swift in Sources */,
+				0445BEE42CD3795B00A46558 /* ABLNotNetTopTipView.swift in Sources */,
 				5B59D6D6819998D3EE7783F92CA771C5 /* GroupApplicationTableViewController.swift in Sources */,
 				5CE0CD6E3A463D65495B8E96653A01FC /* GroupApplicationViewModel.swift in Sources */,
 				ADA1E3D07A6C78C4F71A8E4D1F7325D9 /* GroupBasicInfoCell.swift in Sources */,

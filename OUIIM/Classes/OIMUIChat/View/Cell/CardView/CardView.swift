@@ -106,7 +106,7 @@ class CardView: UIView, ContainerCollectionViewCellDelegate {
         messageStack.axis = .vertical
         
         
-        let infoStack = UIStackView(arrangedSubviews: [avatarView, messageStack, attentionLbl])
+        let infoStack = UIStackView(arrangedSubviews: [avatarView, messageStack])
         infoStack.spacing = 8
         infoStack.alignment = .center
         
@@ -126,7 +126,6 @@ class CardView: UIView, ContainerCollectionViewCellDelegate {
         
         contentView.addSubview(columStack)
         NSLayoutConstraint.activate([
-            attentionLbl.heightAnchor.constraint(equalToConstant: 28),
             line.heightAnchor.constraint(equalToConstant: 1),
             columStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
             columStack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
@@ -169,7 +168,7 @@ class CardView: UIView, ContainerCollectionViewCellDelegate {
     private func setupSize() {
         UIView.performWithoutAnimation { [self] in
 //            self.contentWidthConstraint?.constant = self.viewPortWidth * StandardUI.maxWidthRate
-            self.contentWidthConstraint?.constant = 280
+            self.contentWidthConstraint?.constant = 200
 //            self.contentHeightConstraint?.constant = 80
 //            self.contentHeightConstraint?.constant = 76
 //            self.contentHeightConstraint?.isActive = true
