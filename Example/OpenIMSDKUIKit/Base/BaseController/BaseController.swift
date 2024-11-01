@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ProgressHUD
 
 class BaseController: UIViewController {
 
@@ -17,6 +18,10 @@ class BaseController: UIViewController {
         initViews()
         initDatum()
         initListeners()
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        ProgressHUD.dismiss()
     }
     
     /// 控件

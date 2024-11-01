@@ -1,6 +1,7 @@
 import OUICore
 import SnapKit
 import RxSwift
+import ProgressHUD
 
 public class ShowSelectedUserViewController: UIViewController {
     private let _disposeBag = DisposeBag()
@@ -59,6 +60,10 @@ public class ShowSelectedUserViewController: UIViewController {
             titleLabel.text = "已选择：".innerLocalized() + String(selectedCount)
         }
     }
+    public override func viewWillDisappear(_ animated: Bool) {
+            super.viewWillDisappear(animated)
+            ProgressHUD.dismiss()
+        }
     public override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground

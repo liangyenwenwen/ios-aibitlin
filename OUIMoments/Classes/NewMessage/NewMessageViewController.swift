@@ -23,7 +23,10 @@ class NewMessageViewController: UIViewController {
     
     let viewModel = NewMessageViewModel()
     let _disposeBag = DisposeBag()
-    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        ProgressHUD.dismiss()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .viewBackgroundColor

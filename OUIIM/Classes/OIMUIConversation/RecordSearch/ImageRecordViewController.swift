@@ -3,6 +3,7 @@ import RxSwift
 import RxDataSources
 import RxRelay
 import OUICore
+import ProgressHUD
 
 class ImageRecordViewController: UIViewController {
     private lazy var contentCollectionView: UICollectionView = {
@@ -42,7 +43,10 @@ class ImageRecordViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
-
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        ProgressHUD.dismiss()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemGroupedBackground

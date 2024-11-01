@@ -1,5 +1,6 @@
 
 import OUICore
+import ProgressHUD
 
 public class SelectContactsResultViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
      var dataList: [ContactInfo] = [] {
@@ -58,6 +59,12 @@ public class SelectContactsResultViewController: UIViewController, UITableViewDa
 
         return v
     }()
+    public override func viewWillDisappear(_ animated: Bool) {
+            super.viewWillDisappear(animated)
+            ProgressHUD.dismiss()
+        }
+
+
 
     public override func viewDidLoad() {
         super.viewDidLoad()

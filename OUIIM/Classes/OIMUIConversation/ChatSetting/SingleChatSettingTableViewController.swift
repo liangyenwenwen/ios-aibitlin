@@ -16,7 +16,10 @@ class SingleChatSettingTableViewController: UITableViewController {
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        ProgressHUD.dismiss()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "聊天设置".innerLocalized()
@@ -287,9 +290,13 @@ class SingleChatSettingTableViewController: UITableViewController {
                 if userInfo.isAddButton {
                     sself.newGroup()
                 } else {
-                    let info = FullUserInfo(userID: userInfo.userID, showName: userInfo.nickname, faceURL: userInfo.faceURL)
-                    let vc = UserDetailTableViewController(userId: userInfo.userID, groupId: sself._viewModel.conversation.groupID, userInfo: info)
-                    self?.navigationController?.pushViewController(vc, animated: true)
+//                    let info = FullUserInfo(userID: userInfo.userID, showName: userInfo.nickname, faceURL: userInfo.faceURL)
+//                    let vc = UserDetailTableViewController(userId: userInfo.userID, groupId: sself._viewModel.conversation.groupID, userInfo: info)
+//                    self?.navigationController?.pushViewController(vc, animated: true)
+                    if let handler = OIMApi.gotoUserMessageHandle {
+                        handler(self!, userInfo.userID!,  userInfo.nickname ?? "", userInfo.faceURL ?? "",{res in
+                        })
+                    }
                 }
             }).disposed(by: cell.disposeBag)
             return cell

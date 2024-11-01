@@ -16,6 +16,7 @@ extension AccountViewModel {
         IMGotoAppVC()
         showBoke()
         showTip()
+        showViewTip()
     }
     
     
@@ -181,6 +182,11 @@ extension AccountViewModel {
     static func  showTip() {
         OIMApi.showTipHandle = { (tips, _: @escaping (String) -> Void) in
             SuperToast.show(title: tips)
+        }
+    }
+    static func  showViewTip() {
+        OIMApi.showTipWithViewHandle = { (view,tips, _: @escaping (String) -> Void) in
+            SuperToast.showWithView(view: view, title: tips)
         }
     }
 }

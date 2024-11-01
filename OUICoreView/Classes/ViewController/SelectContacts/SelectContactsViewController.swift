@@ -201,6 +201,10 @@ open class SelectContactsViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = false
     }
+    open override func viewWillDisappear(_ animated: Bool) {
+            super.viewWillDisappear(animated)
+            ProgressHUD.dismiss()
+        }
     open override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .viewBackgroundColor

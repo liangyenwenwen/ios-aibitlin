@@ -466,8 +466,12 @@ class ListBaseViewController: UIViewController {
             .disposed(by: disposeBag)
         
         friendsTableView.rx.modelSelected(SearchUserInfo.self).subscribe(onNext: { [weak self] (user: SearchUserInfo) in
-            let vc = UserDetailTableViewController(userId: user.userID!)
-            self?.navigationController?.pushViewController(vc, animated: true)
+//            let vc = UserDetailTableViewController(userId: user.userID!)
+//            self?.navigationController?.pushViewController(vc, animated: true)
+            if let handler = OIMApi.gotoUserMessageHandle {
+                handler(self!, user.userID!, user.showName, user.faceURL ?? "",{res in
+                })
+            }
         }).disposed(by: disposeBag)
         
         searchViewModel.groupsRelay.bind(to: groupsTableView.rx.items(cellIdentifier: cellIdentifier, cellType: FriendListUserTableViewCell.self)) { (row, item, cell) in
@@ -534,7 +538,10 @@ class ListBaseViewController: UIViewController {
             self?.toChatView(conversationID: info.conversationID)
         }).disposed(by: disposeBag)
     }
-    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        ProgressHUD.dismiss()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -616,8 +623,12 @@ extension ListBaseViewController: UITableViewDelegate {
                 return
             }
             
-            let vc = UserDetailTableViewController(userId: userID, groupId: nil)
-            self.navigationController?.pushViewController(vc, animated: true)
+//            let vc = UserDetailTableViewController(userId: userID, groupId: nil)
+//            self.navigationController?.pushViewController(vc, animated: true)
+            if let handler = OIMApi.gotoUserMessageHandle {
+                handler(self, userID, "", "",{res in
+                })
+            }
             
         } else if info.model == .groups {
             

@@ -1,6 +1,7 @@
 import OUICore
 import RxSwift
 import SnapKit
+import ProgressHUD
 
 public class SearchResultViewController: UIViewController, UISearchResultsUpdating, UISearchBarDelegate {
     
@@ -83,7 +84,13 @@ public class SearchResultViewController: UIViewController, UISearchResultsUpdati
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+    public override func viewWillDisappear(_ animated: Bool) {
+            super.viewWillDisappear(animated)
+            ProgressHUD.dismiss()
+        }
+
+
+
     public override func viewDidLoad() {
         super.viewDidLoad()
         edgesForExtendedLayout = [UIRectEdge.left, .right, .bottom]
@@ -92,6 +99,7 @@ public class SearchResultViewController: UIViewController, UISearchResultsUpdati
         initView()
         bindData()
     }
+    
     
     private func initView() {
         view.backgroundColor = .groupTableViewBackground

@@ -1,6 +1,7 @@
 
 import RxSwift
 import OUICore
+import ProgressHUD
 
 class SearchContainerViewController: UIViewController {
     private lazy var searchBar: UISearchBar = {
@@ -123,9 +124,9 @@ class SearchContainerViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        ProgressHUD.dismiss()
         searchBar.resignFirstResponder()
     }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .cellBackgroundColor

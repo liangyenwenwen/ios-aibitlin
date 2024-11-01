@@ -4,6 +4,7 @@ import RxSwift
 import RxCocoa
 import SnapKit
 import Localize_Swift
+import ProgressHUD
 
 final class SimpleInputViewController: UIViewController {
     var maxLength = 16
@@ -26,7 +27,10 @@ final class SimpleInputViewController: UIViewController {
         
         return v
     }()
-    
+    override func viewWillDisappear(_ animated: Bool) {
+            super.viewWillDisappear(animated)
+            ProgressHUD.dismiss()
+        }
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white

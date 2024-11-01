@@ -1,6 +1,7 @@
 
 
 import OUICore
+import ProgressHUD
 
 public class FriendListResultViewController: UIViewController, UISearchResultsUpdating, UITableViewDataSource, UITableViewDelegate {
     
@@ -53,6 +54,10 @@ public class FriendListResultViewController: UIViewController, UISearchResultsUp
             make.edges.equalToSuperview()
         }
     }
+    public override func viewWillDisappear(_ animated: Bool) {
+            super.viewWillDisappear(animated)
+            ProgressHUD.dismiss()
+        }
 
     public func updateSearchResults(for searchController: UISearchController) {
         searchArr.removeAll()

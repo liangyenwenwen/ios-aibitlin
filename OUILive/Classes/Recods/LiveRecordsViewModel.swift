@@ -13,7 +13,6 @@ class LiveRecordsViewModel {
     func getRecords() {
         Task {
             let result = await repository.getMeetings(userID: IMController.shared.uid)
-            
             await MainActor.run {
                 items.accept(result.sorted(by: { $0.scheduledTime > $1.scheduledTime }))
             }

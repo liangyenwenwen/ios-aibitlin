@@ -52,7 +52,10 @@ class SetChatBackgroundViewController: UIViewController {
     
     private let disposeBag = DisposeBag()
     private var image: UIImage?
-        
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        ProgressHUD.dismiss()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "setChatBackground".innerLocalized()

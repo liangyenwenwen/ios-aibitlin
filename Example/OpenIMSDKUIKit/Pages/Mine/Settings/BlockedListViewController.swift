@@ -2,6 +2,7 @@
 import RxSwift
 import OUICore
 import OUICoreView
+import ProgressHUD
 
 open class BlockedListViewController: UIViewController {
 
@@ -43,7 +44,10 @@ open class BlockedListViewController: UIViewController {
         super.viewDidAppear(animated)
         navigationItem.hidesSearchBarWhenScrolling = true
     }
-
+    open override func viewWillDisappear(_ animated: Bool) {
+            super.viewWillDisappear(animated)
+            ProgressHUD.dismiss()
+    }
     override open func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "通讯录黑名单".localized()
@@ -53,7 +57,7 @@ open class BlockedListViewController: UIViewController {
         bindData()
         _viewModel.getBlockedList()
     }
-
+    
     private func initView() {
 
         let vStack = UIStackView(arrangedSubviews: [emptyImageView, emptyLabel])

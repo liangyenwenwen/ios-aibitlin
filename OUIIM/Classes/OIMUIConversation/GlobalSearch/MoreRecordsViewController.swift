@@ -2,6 +2,7 @@ import Foundation
 import RxSwift
 import OUICore
 import OUICoreView
+import ProgressHUD
 
 class MoreRecordsViewController: UIViewController {
     
@@ -63,7 +64,10 @@ class MoreRecordsViewController: UIViewController {
     }()
     
     private let viewModel = GlobalSearchViewModel()
-    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        ProgressHUD.dismiss()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .viewBackgroundColor

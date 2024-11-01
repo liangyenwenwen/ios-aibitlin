@@ -27,7 +27,7 @@ class MomentRefreshHeader: MJRefreshHeader {
     
     override func placeSubviews() {
         super.placeSubviews()
-        rotateImageView.frame = CGRect(x: (UIScreen.main.bounds.width-30)/2, y: 0, width: 30, height: 30)
+        rotateImageView.frame = CGRect(x: (UIScreen.main.bounds.width-30)/2, y: -20, width: 30, height: 30)
     }
     
     // MARK: - ScrollViewPanStateDidChange

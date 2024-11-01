@@ -214,6 +214,7 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
     
     override open func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        ProgressHUD.dismiss()
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
     private func createMenuItems() -> [PopoverTableViewController.MenuItem] {

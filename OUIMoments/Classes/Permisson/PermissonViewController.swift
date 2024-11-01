@@ -3,6 +3,7 @@ import OUICore
 import OUICoreView
 import SnapKit
 import RxSwift
+import ProgressHUD
 
 enum PermissionType: Int, CaseIterable {
     case `public` = 0
@@ -64,7 +65,10 @@ class PermissonViewController: UIViewController {
         
         return tableView
     }()
-    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        ProgressHUD.dismiss()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "权限设置".innerLocalized()

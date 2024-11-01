@@ -61,21 +61,21 @@ class Content: Decodable {
 }
 
 class MetaInfo: Decodable {
-    private var _thumb: String?
+    var thumb: String
     var original: String
     
-    var thumb: String {
-        set {
-            _thumb = newValue
-        }
-        
-        get {
-            return _thumb?.isEmpty == false ? _thumb! : original.defaultThumbnailURLString
-        }
-    }
+//    var thumb: String {
+//        set {
+//            _thumb = newValue
+//        }
+//        
+//        get {
+//            return _thumb?.isEmpty == false ? _thumb! : original.defaultThumbnailURLString
+//        }
+//    }
     
     init(thumb: String? = nil, original: String) {
-        self._thumb = thumb
+        self.thumb = thumb ?? original.defaultThumbnailURLString
         self.original = original
     }
 }

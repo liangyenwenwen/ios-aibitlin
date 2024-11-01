@@ -61,7 +61,10 @@ class AboutUsViewController: UIViewController {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
+    override func viewWillDisappear(_ animated: Bool) {
+            super.viewWillDisappear(animated)
+            ProgressHUD.dismiss()
+        }
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "关于我们".localized()

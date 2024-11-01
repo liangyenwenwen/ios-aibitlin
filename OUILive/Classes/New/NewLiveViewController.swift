@@ -66,7 +66,10 @@ public class NewLiveViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+    public override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        ProgressHUD.dismiss()
+    }
     public override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .viewBackgroundColor

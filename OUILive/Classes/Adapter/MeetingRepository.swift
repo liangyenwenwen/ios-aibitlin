@@ -1,6 +1,7 @@
 import Foundation
 import SwiftProtobuf
 import ProgressHUD
+import OUICore
 
 enum CreateMeetingType: Int {
   case quick
@@ -9,7 +10,6 @@ enum CreateMeetingType: Int {
 }
 
 class MeetingRepository {
-    
     func getMeetings(userID: String) async -> [MeetingInfoSetting] {
         do {
             let params: [String : Any] = [
@@ -211,7 +211,17 @@ class MeetingRepository {
             print("API catch error: \(err.message)")
             errorStr = err.message ?? String(err.code)
         }
-        
-        ProgressHUD.error(errorStr)
+//        ProgressHUD.error(errorStr)dcxv
+//        if let handler = OIMApi.showTipHandle {
+//            handler(errorStr, { res in
+//               
+//            })
+//        }
+        DispatchQueue.main.async {
+            if let handler = OIMApi.showTipHandle {
+                handler(errorStr, { res in
+                })
+            }
+        }
     }
 }

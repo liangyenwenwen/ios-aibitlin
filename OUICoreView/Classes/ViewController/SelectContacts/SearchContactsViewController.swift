@@ -3,6 +3,7 @@ import Foundation
 import UIKit
 import OUICore
 import RxSwift
+import ProgressHUD
 
 class SearchContactsViewController: UIViewController {
 
@@ -150,7 +151,7 @@ class SearchContactsViewController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-
+        ProgressHUD.dismiss()
         definesPresentationContext = false
     }
     

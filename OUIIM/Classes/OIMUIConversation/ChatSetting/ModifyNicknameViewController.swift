@@ -1,6 +1,7 @@
 
 import OUICore
 import RxSwift
+import ProgressHUD
 
 open class ModifyNicknameViewController: UIViewController {
     
@@ -62,7 +63,10 @@ open class ModifyNicknameViewController: UIViewController {
     @objc private func handleTap() {
         onComplete?()
     }
-    
+    open override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        ProgressHUD.dismiss()
+    }
     open override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .cellBackgroundColor

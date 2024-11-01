@@ -38,6 +38,8 @@ public typealias reloadCollectionView = ((_ completion: @escaping ((String) -> V
 // MARK: - 张亚飞打的标记  tip
 public typealias showTipHandle = ((_ tips : String, _ completion: @escaping ((String) -> Void)) -> Void)
 
+public typealias showTipWithViewHandle = ((_ view: UIView,_ tips : String, _ completion: @escaping ((String) -> Void)) -> Void)
+
 public class OIMApi {
     
     private static let userOnlineStatus = "/user/get_users_online_status"
@@ -188,6 +190,7 @@ public class OIMApi {
     public static var reloadCollectionView: reloadCollectionView?
     
     public static var showTipHandle: showTipHandle?
+    public static var showTipWithViewHandle: showTipWithViewHandle?
 }
 
 extension OIMApi {

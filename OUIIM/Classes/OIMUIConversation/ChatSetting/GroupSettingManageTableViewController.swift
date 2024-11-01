@@ -19,7 +19,10 @@ class GroupSettingManageTableViewController: UITableViewController {
     }
     
     private var sectionItems: [[RowType]]!
-    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        ProgressHUD.dismiss()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "群聊设置".innerLocalized()

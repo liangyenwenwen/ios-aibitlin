@@ -1,6 +1,7 @@
 import UIKit
 import Localize_Swift
 import Kingfisher
+import ProgressHUD
 
 public enum CallingActionType {
     case participantDidDisconnect(_ userID: String, _ duration: Int?)
@@ -63,7 +64,7 @@ public class CallingBaseController: UIViewController {
     
     public override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
+        ProgressHUD.dismiss()
         // 发送名为"myNotification"的通知
         NotificationCenter.default.post(name: Notification.Name("refrehCallLogs"), object: nil)
     }

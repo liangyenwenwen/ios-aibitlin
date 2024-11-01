@@ -70,7 +70,10 @@ class GroupChatSettingTableViewController: UITableViewController {
         }
         return v
     }()
-    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        ProgressHUD.dismiss()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "群聊设置".innerLocalized()
@@ -579,7 +582,12 @@ class GroupChatSettingTableViewController: UITableViewController {
                         ProgressHUD.animate()
                         self?.navigationController?.popToRootViewController(animated: true)
                     } else {
-                        ProgressHUD.error("networkError".innerLocalized())
+                        if let handler = OIMApi.showTipHandle {
+                            handler("networkError".innerLocalized(), { res in
+                               
+                            })
+                        }
+//                        ProgressHUD.error("networkError".innerLocalized())
                     }
                 }
                 return

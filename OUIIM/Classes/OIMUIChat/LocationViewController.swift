@@ -79,7 +79,10 @@ class LocationViewController: UIViewController, WKScriptMessageHandler {
         super.viewWillAppear(animated)
         locationManager.requestWhenInUseAuthorization()
     }
-    
+    override func viewWillDisappear(_ animated: Bool) {
+            super.viewWillDisappear(animated)
+            ProgressHUD.dismiss()
+    }
     @objc private func onSend() {
         if let desc = locationPoint?.desc, !desc.isEmpty {
             callback?(locationPoint!)

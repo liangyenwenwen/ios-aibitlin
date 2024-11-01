@@ -1,6 +1,7 @@
 
 import RxSwift
 import OUICore
+import ProgressHUD
 
 class SearchFriendViewController: UIViewController {
     
@@ -25,4 +26,11 @@ class SearchFriendViewController: UIViewController {
         super.viewDidAppear(animated)
         searchC.isActive = true
     }
+    override func viewWillDisappear(_ animated: Bool) {
+            super.viewWillDisappear(animated)
+            ProgressHUD.dismiss()
+        }
+
+
+
 }

@@ -1,5 +1,6 @@
 
 import OUICore
+import ProgressHUD
 
 public class GroupListResultViewController: UIViewController, UISearchResultsUpdating, UITableViewDataSource, UITableViewDelegate {
     private let groupPrefix = ":group_"
@@ -44,7 +45,10 @@ public class GroupListResultViewController: UIViewController, UISearchResultsUpd
             make.edges.equalToSuperview()
         }
     }
-
+    public override func viewWillDisappear(_ animated: Bool) {
+            super.viewWillDisappear(animated)
+            ProgressHUD.dismiss()
+        }
     public func updateSearchResults(for searchController: UISearchController) {
         searchArr.removeAll()
         guard let keyword = searchController.searchBar.text?.trimmingCharacters(in: .whitespacesAndNewlines) else { return }

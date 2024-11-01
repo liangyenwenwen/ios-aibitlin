@@ -380,7 +380,6 @@ final class ChatViewController: UIViewController {
         }
         return r
     }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -512,7 +511,7 @@ final class ChatViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
+        ProgressHUD.dismiss()
         setDraft()
         
         IMController.shared.imManager.markConversationMessage(asRead: chatController.getConversation().conversationID) { res in

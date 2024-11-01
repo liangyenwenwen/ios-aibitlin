@@ -28,7 +28,7 @@ open class CallRecordsViewController: UIViewController {
     }
     open override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
+        ProgressHUD.dismiss()
         _viewModel.clearUnRecord()
     }
 

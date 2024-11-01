@@ -3,6 +3,7 @@ import OUICore
 import OUICoreView
 import RxSwift
 import SnapKit
+import ProgressHUD
 
 class PermissionUserListViewController: UIViewController {
     
@@ -34,7 +35,10 @@ class PermissionUserListViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        ProgressHUD.dismiss()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "部分好友可见".innerLocalized()

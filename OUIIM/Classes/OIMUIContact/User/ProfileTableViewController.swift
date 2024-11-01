@@ -57,7 +57,10 @@ open class ProfileTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         getUserOrMemberInfo()
     }
-
+    open override func viewWillDisappear(_ animated: Bool) {
+            super.viewWillDisappear(animated)
+            ProgressHUD.dismiss()
+        }
     private func configureTableView() {
         tableView.register(OptionTableViewCell.self, forCellReuseIdentifier: OptionTableViewCell.className)
         tableView.register(OptionImageTableViewCell.self, forCellReuseIdentifier: OptionImageTableViewCell.className)

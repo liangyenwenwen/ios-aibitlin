@@ -11,8 +11,14 @@ public class LiveRecordsViewController: UIViewController {
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         _viewModel.getRecords()
-    }
+        navigationController?.navigationBar.isHidden = false
 
+        
+    }
+    public override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        ProgressHUD.dismiss()
+    }
     public override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "视频会议".innerLocalized()
@@ -113,7 +119,6 @@ public class LiveRecordsViewController: UIViewController {
         
         return verSV
     }()
-
     private func initView() {
         view.backgroundColor = .systemBackground
         

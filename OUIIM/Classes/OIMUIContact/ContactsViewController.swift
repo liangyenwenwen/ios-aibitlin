@@ -54,7 +54,10 @@ public class ContactsViewController: UITableViewController {
         v.addGestureRecognizer(tap)
         return v
     }()
-
+    override public func viewWillDisappear(_ animated: Bool) {
+            super.viewWillDisappear(animated)
+            ProgressHUD.dismiss()
+    }
     override public func viewDidLoad() {
         super.viewDidLoad()
         configureTableView()

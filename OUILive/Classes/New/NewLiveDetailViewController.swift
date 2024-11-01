@@ -147,10 +147,18 @@ class NewLiveDetailViewController: UIViewController {
                     }
                 }
             }, onFailure: { errCode, errMsg in
+                var errorMessage = ""
                 if errMsg?.contains("roomIsNotExist") == true {
-                    ProgressHUD.error("meetingIsOver".innerLocalized())
+                    errorMessage = "meetingIsOver".innerLocalized()
+//                    ProgressHUD.error("meetingIsOver".innerLocalized())
                 } else {
-                    ProgressHUD.error("networkError".innerLocalized())
+                    errorMessage = "networkError".innerLocalized()
+//                    ProgressHUD.error("networkError".innerLocalized())
+                }
+                if let handler = OIMApi.showTipHandle {
+                    handler(errorMessage, { res in
+                       
+                    })
                 }
             })
         }).disposed(by: disposeBag)
@@ -160,7 +168,10 @@ class NewLiveDetailViewController: UIViewController {
     public override var preferredStatusBarStyle: UIStatusBarStyle {
         .darkContent
     }
-    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        ProgressHUD.dismiss()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .viewBackgroundColor

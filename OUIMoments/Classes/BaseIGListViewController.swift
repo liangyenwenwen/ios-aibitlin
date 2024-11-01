@@ -4,6 +4,7 @@ import IGListKit
 import IGListDiffKit
 import FDFullscreenPopGesture
 import SnapKit
+import ProgressHUD
 
 extension Notification.Name {
     struct list {
@@ -57,9 +58,9 @@ public class BaseIGListViewController: UIViewController {
     
     public override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        ProgressHUD.dismiss()
         self.view.endEditing(true)
     }
-    
     public override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground

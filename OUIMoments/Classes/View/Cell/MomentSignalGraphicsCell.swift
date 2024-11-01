@@ -167,6 +167,9 @@ extension MomentSignalGraphicsCell: ListBindable {
             singleImageView.setImage(with: viewModel.images.first!.thumb, placeHolder: "common_image_placeholder", showIndicator: true)
             let isVideo = viewModel.content?.type == 1
             playButton.isHidden = !isVideo
+            if isVideo == true{
+                singleImageView.setImage(with: viewModel.images.first!.thumb, placeHolder: "common_image_placeholder", showIndicator: true)
+            }
         }
         
         setNeedsLayout()

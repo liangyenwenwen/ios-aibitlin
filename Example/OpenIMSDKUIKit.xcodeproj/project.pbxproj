@@ -65,7 +65,6 @@
 		043A558C2C8166490041836E /* UserTagTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043A55892C8166490041836E /* UserTagTypeView.swift */; };
 		043A558D2C8166490041836E /* UserTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043A558A2C8166490041836E /* UserTagView.swift */; };
 		0445BEE22CD1E04300A46558 /* ABLNetWorkToos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445BEE12CD1E04300A46558 /* ABLNetWorkToos.swift */; };
-		04585F922CCFB4D900BFA8E8 /* customSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 04585F912CCFB4D900BFA8E8 /* customSound.mp3 */; };
 		045B8BF72BF4496D0094E080 /* MineChooseBottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045B8BF62BF4496C0094E080 /* MineChooseBottomSheetView.swift */; };
 		045B8BF92BF481AF0094E080 /* UserMessageBottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045B8BF82BF481AF0094E080 /* UserMessageBottomSheetView.swift */; };
 		045B8BFD2BF4B7070094E080 /* YFChatBokeBottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045B8BFC2BF4B7070094E080 /* YFChatBokeBottomSheetView.swift */; };
@@ -1949,11 +1948,9 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = OpenIMSDKUIKit_Example.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = MJ53XF6GM4;
+				DEVELOPMENT_TEAM = MJ53XF6GM4;
 				ENABLE_BITCODE = NO;
 				EXCLUDED_ARCHS = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1972,7 +1969,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = uniim.com;
 				PRODUCT_NAME = "IM-NCER";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = app1029;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -1996,11 +1992,9 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = OpenIMSDKUIKit_Example.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = MJ53XF6GM4;
+				DEVELOPMENT_TEAM = MJ53XF6GM4;
 				ENABLE_BITCODE = NO;
 				EXCLUDED_ARCHS = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -2019,7 +2013,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = uniim.com;
 				PRODUCT_NAME = "IM-NCER";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = app1029;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;

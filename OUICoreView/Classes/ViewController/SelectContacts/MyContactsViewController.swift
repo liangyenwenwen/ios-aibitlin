@@ -2,6 +2,7 @@ import UIKit
 import OUICore
 import OUICoreView
 import RxSwift
+import ProgressHUD
 
 public enum ContactType: Codable {
     case undefine
@@ -129,7 +130,13 @@ public class MyContactsViewController: UIViewController {
         
         return v
     }()
-    
+    public override func viewWillDisappear(_ animated: Bool) {
+            super.viewWillDisappear(animated)
+            ProgressHUD.dismiss()
+        }
+
+
+
     public override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "通讯录".innerLocalized()

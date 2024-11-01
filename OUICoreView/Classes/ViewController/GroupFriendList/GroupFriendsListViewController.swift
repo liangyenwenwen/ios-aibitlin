@@ -1,6 +1,7 @@
 
 import OUICore
 import RxSwift
+import ProgressHUD
 
 public class GroupFriendsListViewController: UIViewController {
     
@@ -16,6 +17,12 @@ public class GroupFriendsListViewController: UIViewController {
         super.viewDidAppear(animated)
         navigationItem.hidesSearchBarWhenScrolling = true
     }
+    
+    override public func viewWillDisappear(_ animated: Bool) {
+            super.viewWillDisappear(animated)
+            ProgressHUD.dismiss()
+        }
+
     
     public override func viewDidLoad() {
         super.viewDidLoad()

@@ -3,7 +3,7 @@ import OUICore
 import MJRefresh
 import OUICoreView
 import OpenIMSDK
-
+import ProgressHUD
 public class OthersViewController: UIViewController {
     
     private var viewModel: MomentsViewModel!
@@ -99,9 +99,9 @@ public class OthersViewController: UIViewController {
     
     public override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        ProgressHUD.dismiss()
         navigationController?.setNavigationBarHidden(false, animated: false)
     }
-    
     private func setupSubviews() {
         
         view.addSubview(header)

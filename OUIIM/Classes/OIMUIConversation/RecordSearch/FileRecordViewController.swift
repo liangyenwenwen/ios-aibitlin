@@ -2,6 +2,7 @@
 import RxSwift
 import OUICore
 import RxDataSources
+import ProgressHUD
 
 class FileRecordViewController: UIViewController {
     private lazy var _tableView: UITableView = {
@@ -32,7 +33,10 @@ class FileRecordViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
-
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        ProgressHUD.dismiss()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemGroupedBackground

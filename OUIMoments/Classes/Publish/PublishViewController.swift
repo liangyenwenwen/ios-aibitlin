@@ -110,7 +110,10 @@ class PublishViewController: UIViewController {
     
     let rowItems: [RowType] = RowType.allCases
     let viewModel = PublishViewModel()
-    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        ProgressHUD.dismiss()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .viewBackgroundColor

@@ -424,9 +424,9 @@ public class LiveRoomViewController: UIViewController {
     
     public override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        ProgressHUD.dismiss()
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
-    
     public override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         if #available(iOS 16.0, *) {} else {

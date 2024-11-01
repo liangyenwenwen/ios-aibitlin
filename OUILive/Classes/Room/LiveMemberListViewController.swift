@@ -5,6 +5,7 @@ import OUICore
 import OUICoreView
 import RxSwift
 import LiveKitClient
+import ProgressHUD
 
 enum LiveMemberListOperate {
     case invite // 邀请
@@ -116,7 +117,10 @@ class LiveMemberListViewController: UIViewController {
         }
         return v
     }()
-    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        ProgressHUD.dismiss()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .cellBackgroundColor

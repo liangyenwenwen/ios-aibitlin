@@ -15,8 +15,35 @@ class SuperToast {
     /// 1.5秒文字提示
     /// - Parameter title: 提示文字
     static func show(title: String?)  {
-        
         let hud = MBProgressHUD.showAdded(to: AppDelegate.shared.window!, animated: true)
+        hud.mode = .text
+        
+        //背景颜色
+        hud.bezelView.style = .solidColor
+        hud.bezelView.backgroundColor = .black.withAlphaComponent(0.8)
+        hud.bezelView.corner(18)
+        
+        //标题提示文字颜色
+        hud.label.textColor = .white
+        hud.label.font = .mediumFont(16)
+        hud.label.numberOfLines = 0
+        hud.label.text = title
+        
+        hud.label.snp.makeConstraints { make in
+            make.top.bottom.equalToSuperview().inset(8)
+            make.left.right.equalToSuperview().inset(20)
+        }
+        
+        //显示到屏幕顶部
+        let offsetY = -hud.frame.height/CGFloat(2) + CGFloat(80)
+        hud.offset = CGPoint(x: 0, y: offsetY)
+        
+        hud.removeFromSuperViewOnHide = true
+        hud.hide(animated: true, afterDelay: 1.5)
+    }
+    
+    static func showWithView(view:UIView,title: String?)  {
+        let hud = MBProgressHUD.showAdded(to: view, animated: true)
         hud.mode = .text
         
         //背景颜色

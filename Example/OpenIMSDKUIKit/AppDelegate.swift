@@ -134,9 +134,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         barAppearance.setBackIndicatorImage(backImage, transitionMaskImage: backImage)
         UINavigationBar.appearance().standardAppearance = barAppearance
         
-        ProgressHUD.animationType = .circleDotSpinFade
-        ProgressHUD.colorAnimation = .systemBlue
+        ProgressHUD.animationType = .circleBarSpinFade
+        ProgressHUD.colorAnimation = .darkGray
         ProgressHUD.colorBackground = .clear
+        ProgressHUD.colorHUD = .clear
         
         
         if #available(iOS 13.0, *) {
@@ -266,7 +267,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {
-        
+           // 即将收到的
+           UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+           // 已经收到的
+           UNUserNotificationCenter.current().removeAllDeliveredNotifications()
     }
     
     func applicationWillTerminate(_ application: UIApplication) {

@@ -1,5 +1,6 @@
 import RxSwift
 import OUICore
+import ProgressHUD
 
 public class SearchGroupViewController: UIViewController {
     
@@ -36,7 +37,7 @@ public class SearchGroupViewController: UIViewController {
     
     public override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
+        ProgressHUD.dismiss()
 //        view.endEditing(true)
     }
 }

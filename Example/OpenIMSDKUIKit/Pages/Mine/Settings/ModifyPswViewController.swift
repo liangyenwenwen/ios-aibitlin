@@ -35,7 +35,10 @@ class ModifyPswViewController: UIViewController {
     
     private let disposeBag = DisposeBag()
     private let viewModel = SettingViewModel()
-    
+    override func viewWillDisappear(_ animated: Bool) {
+            super.viewWillDisappear(animated)
+            ProgressHUD.dismiss()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "修改密码".innerLocalized()
