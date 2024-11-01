@@ -15,6 +15,8 @@ enum MomentAction {
     case commentDraft(String)
     //  删除
     case delete
+    //  举报
+    case report
     // 点赞/取消
     case thumbup
     //  删除某条评论

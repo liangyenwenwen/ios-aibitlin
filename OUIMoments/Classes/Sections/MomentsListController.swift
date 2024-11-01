@@ -14,6 +14,8 @@ class MomentsListController: ListBindingSectionController<ListDiffable> {
     var onFavor: ((_ thumbup: Bool) -> Void)?
     // Delete activity/comment
     var onDelete: ((_ commentID: String?) -> Void)?
+    //Report
+    var onReport: ((_ commentID: String?) -> Void)?
     // Click Avatar / Permissions List
     var onTap: ((_ action: MomentAction) -> Void)?
     
@@ -89,6 +91,8 @@ class MomentsListController: ListBindingSectionController<ListDiffable> {
                 self.toFavor(m.likesContainsSelf!)
             case .delete:
                 self.toDelete()
+            case .report:
+                self.toReport()
             case .comment(let text):
                 self.toComment(nil, text) // Expand more -> Comments
             case .commentDraft(let text):
@@ -227,6 +231,10 @@ fileprivate extension MomentsListController {
     
     func toDelete(_ commentID: String? = nil) {
         onDelete?( commentID)
+    }
+    
+    func toReport(_ commentID: String? = nil){
+        onReport?(commentID)
     }
     
     func toFavor(_ thumbup: Bool = true) {

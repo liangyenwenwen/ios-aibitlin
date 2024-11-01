@@ -92,6 +92,7 @@
 "发送" = "Send";
 "复制" = "copy";
 "删除" = "delete";
+"举报" = "report";
 "转发" = "retransmit";
 "合并转发" = "Merge";
 "回复" = "reply";

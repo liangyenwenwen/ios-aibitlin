@@ -52,6 +52,7 @@ class YFMineNetViewModel: AccountViewModel {
     private static let reportUserAddAPI = "/report/reportUserAdd"
     private static let reportChatHistoryAddAPI = "/report/reportChatHistoryAdd"
     private static let feedBackAddAPI = "/report/problemFeedback/problemFeedbackAdd"
+    private static let reportComentsAddAPI = "/report/reportCircleOfFriendsAdd"
     
     //"183.156.234.224"
     private static var httpHeaders : HTTPHeaders = [
@@ -626,6 +627,7 @@ enum ReportType {
     case  chatHistory
     case  blog
     case  feedback
+    case  moments
 }
 extension YFMineNetViewModel {
     
@@ -641,6 +643,8 @@ extension YFMineNetViewModel {
                 url = API_BLOG_URL + reportBlogAddAPI
             case .feedback:
                 url = API_BLOG_URL + feedBackAddAPI
+        case .moments:
+            url = API_BLOG_URL + reportComentsAddAPI
         }
         
         

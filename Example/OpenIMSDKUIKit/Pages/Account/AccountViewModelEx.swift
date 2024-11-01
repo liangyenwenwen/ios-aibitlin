@@ -75,6 +75,15 @@ extension AccountViewModel {
             }
 
         }
+        OIMApi.reportMomentsHandle = {(vc, reportUserId, commentID, completion: @escaping (String) -> Void) in
+            let feedbackVC = YFFeedbackVC()
+            feedbackVC.hidesBottomBarWhenPushed = true
+//            feedbackVC.navigationController?.navigationBar.isHidden = true
+            feedbackVC.reportType = .moments
+            feedbackVC.reportCommentUserId = reportUserId
+            feedbackVC.commentID = commentID
+            vc.gotoController(feedbackVC)
+        }
         
     }
     

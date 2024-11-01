@@ -512,7 +512,6 @@ class ZLClipImageViewController: UIViewController {
         clipBoxFrame = frame
         shadowView.clearRect = frame
         overlayView.frame = frame.insetBy(dx: -ZLClipOverlayView.cornerLineWidth, dy: -ZLClipOverlayView.cornerLineWidth)
-        
         mainScrollView.contentInset = UIEdgeInsets(top: frame.minY, left: frame.minX, bottom: mainScrollView.frame.maxY - frame.maxY, right: mainScrollView.frame.maxX - frame.maxX)
         
         let scale = max(frame.height / editImage.size.height, frame.width / editImage.size.width)

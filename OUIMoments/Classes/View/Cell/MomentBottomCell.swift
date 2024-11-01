@@ -23,6 +23,15 @@ class MomentBottomCell: UICollectionViewCell {
         btn.tag = 1
         return btn
     }()
+    private lazy var reportBtn: UIButton = {
+        let btn = UIButton(type: .custom)
+        btn.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+        btn.setTitleColor(.systemBlue, for: .normal)
+        btn.setTitle("举报".innerLocalized(), for: .normal)
+        btn.addTarget(self, action: #selector(click(_:)), for: .touchUpInside)
+        btn.tag = 3
+        return btn
+    }()
     
     lazy var metionLabel: UILabel = {
         let v = UILabel()
@@ -56,7 +65,7 @@ class MomentBottomCell: UICollectionViewCell {
         super.init(frame: frame)
         contentView.backgroundColor = .cellBackgroundColor
         
-        let horSV = UIStackView(arrangedSubviews: [timeLabel, permissionBtn, deleteBtn, UIView(), moreBtn])
+        let horSV = UIStackView(arrangedSubviews: [timeLabel, permissionBtn, deleteBtn,reportBtn, UIView(), moreBtn])
         horSV.alignment = .center
         horSV.spacing = 8
         
@@ -110,6 +119,8 @@ class MomentBottomCell: UICollectionViewCell {
         case 2:
             // permissions
             self.onAction?(nil, .permisson)
+        case 3:
+            self.onAction?(nil,.report)
         default:
             break
         }
@@ -124,6 +135,7 @@ extension MomentBottomCell: ListBindable {
         timeLabel.text = Date.timeString(timeInterval: TimeInterval(viewModel.createTime))
         timeLabel.sizeToFit()
         deleteBtn.isHidden = !viewModel.isMine
+        reportBtn.isHidden = viewModel.isMine
         metionLabel.text = viewModel.atUsers.isEmpty ? nil : "提到了".innerLocalized() + ":" + viewModel.atUsers.map {$0.nickname}.joined(separator: "、")
         
         // Show private/partially visible icons

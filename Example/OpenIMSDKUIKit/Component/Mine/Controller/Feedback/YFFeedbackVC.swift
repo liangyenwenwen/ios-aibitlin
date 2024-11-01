@@ -25,6 +25,8 @@ class YFFeedbackVC: BaseTitleController {
     var blogItem: blogDetailItem!
     var conversationItem: ConversationInfo!
     var userItem: QueryUserInfo!
+    var reportCommentUserId:String = ""
+    var commentID:String = ""
     
     private let _viewModel = MineViewModel()
     
@@ -36,8 +38,9 @@ class YFFeedbackVC: BaseTitleController {
         super.initViews()
         setBackGroundColor(.init(hexString: "#f5f5f5"))
         initLinearLayoutSafeArea()
-        
-       
+        if reportType == .moments{
+            navView.hide()
+        }
         
 //        title = useType == .useFeedback ? "反馈".localized() : "举报".localized();
 //        title = "举报".localized();
@@ -438,6 +441,15 @@ extension YFFeedbackVC {
             paramters = [ "beReportedUserId": userItem.userID!,
                           "beReportedUserName": SuperStringUtil.getUserShowname(showname: userItem.nickname!),
                           "beReportedUserImg": userItem.faceURL ?? "",
+//                          "": "",
+                          "reportReason":topTitleView.inputText!,
+                         "reportDescription":contentView.textView.text!,
+                         "reportImgs": reportImgs,
+                         "reportUserId": IMController.shared.uid]
+        case .moments:
+            paramters = [ "beReportedUserId": reportCommentUserId,
+                          "beReportedUserName": "就传你",
+                          "beReportedUserImg": "",
 //                          "": "",
                           "reportReason":topTitleView.inputText!,
                          "reportDescription":contentView.textView.text!,
