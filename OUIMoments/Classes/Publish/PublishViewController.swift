@@ -269,6 +269,13 @@ extension PublishViewController: UITableViewDataSource, UITableViewDelegate {
                     self.browserImages(index)
                 }
             }
+            cell.deleteImageAction = { [weak self] index in
+                
+                guard let `self` = self else { return }
+                self.viewModel.metas.remove(at: index)
+                self.tableView.reloadData()
+            }
+            
             cell.reloadData()
             
             return cell

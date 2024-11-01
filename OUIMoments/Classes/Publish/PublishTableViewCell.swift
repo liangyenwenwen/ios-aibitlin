@@ -103,6 +103,7 @@ class PublishInputMetaCell: UITableViewCell {
     var showAddButton: (() -> Bool)?
     var addViewOnItem: ((_ index: Int) -> UIView?)?
     var onTap: ((_ index: Int) -> Void)?
+    var deleteImageAction: ((_ index: Int) -> Void)?
     
     func reloadData() {
         metasCollectionView.reloadData()
@@ -145,7 +146,7 @@ extension PublishInputMetaCell: UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView .dequeueReusableCell(withReuseIdentifier: NSStringFromClass(MetaCollectionViewCell.self), for: indexPath) as! MetaCollectionViewCell
-        
+        cell.deleteBtn.isHidden = true
         if showAddButton?() == true, indexPath.item == numberOfItems() {
             cell.imageView.image = UIImage(nameInBundle:"momnets_meta_add_icon")
         }
@@ -163,6 +164,10 @@ extension PublishInputMetaCell: UICollectionViewDelegate, UICollectionViewDataSo
             let url = URL.init(fileURLWithPath: path)
             let data = try! Data.init(contentsOf: url)
             cell.imageView.image = .init(data: data)
+            cell.deleteBtn.isHidden = false
+        }
+        cell.deleteImageClick = {
+            self.deleteImageAction!(indexPath.item)
         }
         return cell
     }
@@ -173,7 +178,7 @@ extension PublishInputMetaCell: UICollectionViewDelegate, UICollectionViewDataSo
 }
 
 class MetaCollectionViewCell: UICollectionViewCell {
-    
+    var deleteImageClick: (() -> Void)?
     lazy var imageView: UIImageView = {
         let v = UIImageView()
         v.layer.masksToBounds = true
@@ -181,14 +186,26 @@ class MetaCollectionViewCell: UICollectionViewCell {
         
         return v
     }()
+    lazy var deleteBtn: UIButton = {
+        let r = UIButton()
+//        r.frame = CGRect(x: imageWidth-20, y: 0, width: 20, height: 20)
+        r.setImage(UIImage(named: "report_icon_delete"), for: .normal)
+        r.addTarget(self, action: #selector(deleteBtnClick), for: .touchUpInside)
+        return r
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
 
         contentView.addSubview(imageView)
+        contentView.addSubview(deleteBtn)
         imageView.snp.makeConstraints { make in
             make.edges.equalToSuperview().inset(4)
             make.size.equalTo(metaSize)
+        }
+        deleteBtn.snp_makeConstraints { make in
+            make.right.top.equalTo(imageView)
+            make.width.height.equalTo(20)
         }
     }
     
@@ -199,6 +216,9 @@ class MetaCollectionViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         imageView.image = nil
+    }
+    @objc func deleteBtnClick(){
+        deleteImageClick?()
     }
 }
 

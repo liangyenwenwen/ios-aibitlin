@@ -51,6 +51,10 @@ class MeHomeController: BaseLogicController {
 //        YFMineNetViewModel.updateLanguage()
         
     }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        settingBtn.addTarget(self, action: #selector(settingUserMessage), for: .touchUpInside)
+    }
     
     override func bindData() {
         
@@ -209,7 +213,6 @@ class MeHomeController: BaseLogicController {
         let r = ViewFactoryUtil.imageBtn(R.image.mine_setting_icon()!, 20)
         r.tg_right.equal(scanBtn.tg_left, offset: 10)
         r.tg_centerY.equal(0)
-        r.addTarget(self, action: #selector(settingUserMessage), for: .touchUpInside)
         return r
     }()
     

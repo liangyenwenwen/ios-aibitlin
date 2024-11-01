@@ -227,6 +227,11 @@ class YFFeedbackVC: BaseTitleController {
             image.isUserInteractionEnabled = true
             image.addGestureRecognizer(gesTap)
             r.addSubview(image)
+            let deleteBtn = ViewFactoryUtil.imageBtn(R.image.report_icon_delete()!, 20)
+            deleteBtn.frame = CGRect(x: imageWidth-20, y: 0, width: 20, height: 20)
+            deleteBtn.tag = 7000+i
+            deleteBtn.addTarget(self, action: #selector(deleteBtnClick(_:)), for: .touchUpInside)
+            image.addSubview(deleteBtn)
         }
         return r
     }()
@@ -256,25 +261,35 @@ class YFFeedbackVC: BaseTitleController {
         picNumberLbl.text = "\(datum.count)/9"
         for i in 0...8 {
             let image = view.viewWithTag(i + 6000) as! UIImageView
+            let btn = image.viewWithTag(i + 7000) as! QMUIButton
             if datum.count == 0 && i == 0 {
                 image.show()
                 image.image = R.image.empty_feedBack_icon()
+                btn.hide()
             } else if i <= datum.count && datum.count < 9 {
                 image.show()
                 if i == datum.count {
                     image.image = R.image.empty_feedBack_icon()
+                    btn.hide()
                 } else {
                     image.image = datum[i] as? UIImage
+                    btn.show()
                 }
             } else if datum.count == 9{
                 image.show()
                 image.image = datum[i] as? UIImage
+                btn.show()
             } else {
                 image.hide()
+                btn.hide()
             }
         }
     }
-    
+    @objc func deleteBtnClick(_ sender: UIButton) {
+        let tag = sender.tag - 7000
+        datum.remove(at: tag)
+        refreshUI()
+    }
     @objc func addPic(gesture: UITapGestureRecognizer) {
         print(gesture.view?.tag ?? "11111")
         if gesture.view!.tag - 6000 == datum.count {

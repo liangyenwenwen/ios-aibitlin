@@ -287,43 +287,41 @@ class MainTabViewController: UITabBarController {
                 }
 
                 if vc?.useType == .usePhone {
-
-//                    if !SuperStringUtil.isPhoneNumber(controller.phone!) {
-//                        SuperToast.show(title:  "填写正确的手机号码".localized())
-//                        return
-//                    }
-                   
-=            let psw = controller.password
-            let code = controller.verificationCode
-            
-//            guard psw?.isEmpty == false || code?.isEmpty == false else {
-//                ProgressHUD.error( "填写正确的密码/验证码")
-//                return
+//            let psw = controller.password
+//            let code = controller.verificationCode
+//            
+////            guard psw?.isEmpty == false || code?.isEmpty == false else {
+////                ProgressHUD.error( "填写正确的密码/验证码")
+////                return
+////            }
+//            
+//            var account: String?
+//            
+//            ProgressHUD.animate()
+//            let curAccount = vc?.useType == .usePhone ? phone : nil
+//            let preAccount = AccountViewModel.perLoginAccount
+//            
+//            if curAccount != preAccount {
+//                self?.clearConversation()
 //            }
-            
-            var account: String?
-            
-            ProgressHUD.animate()
-            let curAccount = vc?.useType == .usePhone ? phone : nil
-            let preAccount = AccountViewModel.perLoginAccount
-            
-            if curAccount != preAccount {
-                self?.clearConversation()
-            }
-            
-            AccountViewModel.loginDemo(phone: vc?.useType == .usePhone ? phone : nil,
-                                       account: account,
-                                       email: vc?.useType == .useEmail ? phone : nil,
-                                       psw: code != nil ? nil : psw,
-                                       verificationCode: code,
-                                       areaCode: controller.areaCode!) {[weak self] (errCode, errMsg) in
-                
-                ProgressHUD.dismiss()
-                if errMsg != nil {
-//                    ProgressHUD.error(errCode == -1 ? errMsg : String(errCode).localized())
-                    SuperToast.show(title: String(errCode).localized())
-                    self?.presentLoginController()
+//            
+//            AccountViewModel.loginDemo(phone: vc?.useType == .usePhone ? phone : nil,
+//                                       account: account,
+//                                       email: vc?.useType == .useEmail ? phone : nil,
+//                                       psw: code != nil ? nil : psw,
+//                                       verificationCode: code,
+//                                       areaCode: controller.areaCode!) {[weak self] (errCode, errMsg) in
+//                
+//                ProgressHUD.dismiss()
+//                if errMsg != nil {
+////                    ProgressHUD.error(errCode == -1 ? errMsg : String(errCode).localized())
+//                    SuperToast.show(title: String(errCode).localized())
+//                    self?.presentLoginController()
                     
+                    if !SuperStringUtil.isPhoneNumber(controller.phone!) {
+                        SuperToast.show(title:  "填写正确的手机号码".localized())
+                        return
+                    }                   
                 } else {
                    
                     if !SuperStringUtil.isEmail(controller.phone!) {
