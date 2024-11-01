@@ -45,6 +45,8 @@ class YFLoginVC: BaseLogicController {
 //        container.addSubview(emailView)
         container.addSubview(pwdView)
         
+//        container.addSubview(YFAibitlinHomeLoginTypeView.bulidWith(loginType: .google))
+//        container.addSubview(YFAibitlinHomeLoginThridView())
         
         container.addSubview(loginBtn)
         container.addSubview(registerContainer)
@@ -160,17 +162,12 @@ class YFLoginVC: BaseLogicController {
         r.tg_height.equal(.wrap)
         r.tg_width.equal(.fill)
         r.tg_bottom.equal(40)
-//        r.tg_gravity = .vert.top
+
         r.tg_space = PADDING_SMALL
         r.clipsToBounds = true
         
         r.addSubview(chooseDelegateBtn)
-//        r.addSubview(tipLbl_delegate)
-//        r.addSubview(privateDelegateBtn)
-//        r.addSubview(registerDelegateBtn)
-        
-        
-        
+
         r.addSubview(agreementView)
         return r
     }()
@@ -183,24 +180,7 @@ class YFLoginVC: BaseLogicController {
         return r
     }()
     
-    lazy var tipLbl_delegate: UILabel = {
-        let  r = ViewFactoryUtil.customTilteLableWrap("我已阅读并同意AIbitlin", font: TEXT_MEDDLE, textColor: .black999)
-        return r
-    }()
-    
-    lazy var privateDelegateBtn: QMUIButton = {
-        let r = ViewFactoryUtil.linkButton("《隐私协议》")
-        r.setTitleColor(.primaryColor, for: .normal)
-        r.addTarget(self, action: #selector(gotoPrivateDelegate), for: .touchUpInside)
-        return r
-    }()
-    
-    lazy var registerDelegateBtn: QMUIButton = {
-        let r = ViewFactoryUtil.linkButton("《注册协议》")
-        r.setTitleColor(.primaryColor, for: .normal)
-        r.addTarget(self, action: #selector(gotoRegisterDelegate), for: .touchUpInside)
-        return r
-    }()
+
     
     lazy var agreementView: BSLabel = {
         let r = BSLabel()
@@ -331,14 +311,7 @@ extension YFLoginVC {
         vc.useType = useType
         gotoController(vc)
     }
-    
-    @objc func gotoPrivateDelegate() {
-        print(#function)
-    }
-    
-    @objc func gotoRegisterDelegate() {
-        print(#function)
-    }
+   
     
     @objc func chooseDelegate(_ btn: QMUIButton)  {
         btn.isSelected = !btn.isSelected

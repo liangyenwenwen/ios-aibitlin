@@ -51,6 +51,10 @@ class MeHomeController: BaseLogicController {
 //        YFMineNetViewModel.updateLanguage()
         
     }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        settingBtn.addTarget(self, action: #selector(settingUserMessage), for: .touchUpInside)
+    }
     
     override func bindData() {
         
@@ -209,7 +213,6 @@ class MeHomeController: BaseLogicController {
         let r = ViewFactoryUtil.imageBtn(R.image.mine_setting_icon()!, 20)
         r.tg_right.equal(scanBtn.tg_left, offset: 10)
         r.tg_centerY.equal(0)
-        r.addTarget(self, action: #selector(settingUserMessage), for: .touchUpInside)
         return r
     }()
     
@@ -360,7 +363,7 @@ class MeHomeController: BaseLogicController {
     
     
     lazy var sectionStarBlogView: UIView = {
-        let bokeHeader = ViewFactoryUtil.sectionHeaderView(title: "我收藏的博客".localized(), isHaveMore: true)
+        let bokeHeader = ViewFactoryUtil.sectionHeaderView(R.image.section_star()!,title: "我收藏的博客".localized(), isHaveMore: true)
         bokeHeader.tg_height.equal(44)
         let tap = UITapGestureRecognizer(target: self, action: #selector(gotoMyStarBokeList))
         bokeHeader.addGestureRecognizer(tap)
@@ -458,7 +461,7 @@ extension MeHomeController {
     @objc func copyUserID() {
         UIPasteboard.general.string = userShowId
         
-        SuperToast.show(title: "复制成功")
+        SuperToast.show(title: "复制成功".localized())
     }
     
     

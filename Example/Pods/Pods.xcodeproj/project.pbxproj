@@ -118,6 +118,7 @@
 		04AAB2FAA3089948D16887EAEEED59D5 /* ic_face_06@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB49523DB728E18ADE8ACB729AA3EA75 /* ic_face_06@3x.png */; };
 		04B92E761977E3D4910B7D123B3032CB /* ConstraintRelatableTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = C192AB85FD86BD598E0EB59B1A32B48B /* ConstraintRelatableTarget.swift */; };
 		04C735E087899BA5455B39D495D14F1D /* JNNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B360B63D9D2BA20122D95E6A67D19B6 /* JNNotificationCenter.swift */; };
+		04D744F62CD1C86A003D609D /* CallRecordSameHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D744F52CD1C86A003D609D /* CallRecordSameHistoryView.swift */; };
 		04E04197684CA332207AB1F58872402D /* RxRelay-RxRelay_Privacy in Resources */ = {isa = PBXBuildFile; fileRef = 0B06FE4EB869890001614655A886414E /* RxRelay-RxRelay_Privacy */; };
 		04F5A924BAF86D173BECD4E9C137E2AE /* ic_recents.png in Resources */ = {isa = PBXBuildFile; fileRef = 67C8FD491F15E0C68FB6D18225CBBD06 /* ic_recents.png */; };
 		04FD8181DA1BCBB43F2DB30EE98A4CD0 /* UIBezierPath+QMUI.m in Sources */ = {isa = PBXBuildFile; fileRef = 38C5930AEC13CCD95A28A0B872C02CAE /* UIBezierPath+QMUI.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
@@ -4528,6 +4529,7 @@
 		04B273531E9B1EFE5DF42BFC4008D6C8 /* UICollectionViewCell+QMUI.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UICollectionViewCell+QMUI.h"; path = "QMUIKit/UIKitExtensions/UICollectionViewCell+QMUI.h"; sourceTree = "<group>"; };
 		04BBE4DF621ADABC80071412BC2DCB89 /* ZFPlayerGestureControl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZFPlayerGestureControl.h; path = ZFPlayer/Classes/Core/ZFPlayerGestureControl.h; sourceTree = "<group>"; };
 		04D08EADECF95D7D773D3736CBECB9D0 /* ZFSmallFloatControlView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZFSmallFloatControlView.h; path = ZFPlayer/Classes/ControlView/ZFSmallFloatControlView.h; sourceTree = "<group>"; };
+		04D744F52CD1C86A003D609D /* CallRecordSameHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallRecordSameHistoryView.swift; sourceTree = "<group>"; };
 		04EE55B62EE71B88CB80B1B51C2C2725 /* UIScrollView+ZLPhotoBrowser.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIScrollView+ZLPhotoBrowser.swift"; sourceTree = "<group>"; };
 		04F76A98AAC7FBC030448B8913A5CC42 /* scan_flashlight_close_icon.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = scan_flashlight_close_icon.png; sourceTree = "<group>"; };
 		053C49A1744B7E4D629E42A94D1709AD /* MJRefreshTrailer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MJRefreshTrailer.m; path = MJRefresh/Base/MJRefreshTrailer.m; sourceTree = "<group>"; };
@@ -12319,6 +12321,7 @@
 				3A3E83D3F37FE01E341C68DEC936E5DD /* CallRecordsViewController.swift */,
 				410F9ACCC16DD34E809A30176A38F84F /* CallRecordsViewModel.swift */,
 				379F1D67016B30CDC68511C0BC070966 /* YFCallRecordsListCell.swift */,
+				04D744F52CD1C86A003D609D /* CallRecordSameHistoryView.swift */,
 			);
 			path = CallRecords;
 			sourceTree = "<group>";
@@ -21287,6 +21290,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04D744F62CD1C86A003D609D /* CallRecordSameHistoryView.swift in Sources */,
 				1E953A61CE749CD0D817126334FE63AE /* AddEntranceTableViewCell.swift in Sources */,
 				4BA90D75CDD6906C47BE71E9EF952498 /* AddTableViewController.swift in Sources */,
 				463B441CA231DCE789B1D6CB486B39B2 /* ApplicationViewController.swift in Sources */,

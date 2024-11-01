@@ -278,14 +278,24 @@ extension CallRecordsViewController: UITableViewDelegate, UITableViewDataSource 
             print("audio")
             self.startCalling(record: temp, isVideo: false)
         }
+        
+        cell.historyView.didClickBlock = {
+            let temp = model as! CallRecord
+            
+//            let records = CallRecord.fromJson(jsonStr)
+            let records = CallRecord.fromJson(temp.historyLogs)
+            print(records)
+            
+            self.showLogs(record: temp)
+        }
 
         return cell
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)  {
         
-        let record = _viewModel.items.value[indexPath.row]
-        
+        let record = _viewModel.items.value[indexPath.row] as! CallRecord
+        print(record.historyLogs)
         if record is CallRecord {
             
             if currentRow == indexPath.row {
@@ -313,5 +323,18 @@ extension CallRecordsViewController: UITableViewDelegate, UITableViewDataSource 
         return 72
     }
     
+    
+    func showLogs(record: CallRecord) {
+        
+        let histroyView = CallRecordSameHistoryView.build(record: record)
+        view.window?.addSubview(histroyView)
+        histroyView.updateUI()
+        histroyView.snp.makeConstraints { make in
+            make.left.right.top.bottom.equalToSuperview()
+        }
+        
+    }
+    
 }
 #endif
+

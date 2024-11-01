@@ -76,6 +76,12 @@ class YFCallRecordsListCell: UITableViewCell {
         return r
     }()
     
+    lazy var historyView: rightBtnView = {
+        let r = rightBtnView()
+        r.centerImg.image = .init(named: "call_log_history_btn")
+        return r
+    }()
+    
     
     lazy var unReadView: UIView = {
         let r = UIView()
@@ -98,6 +104,7 @@ class YFCallRecordsListCell: UITableViewCell {
         
         contentView.addSubview(audioView)
         contentView.addSubview(videoView)
+        contentView.addSubview(historyView)
         
         leftIconImg.snp.makeConstraints { make in
             make.left.equalTo(16)
@@ -146,6 +153,12 @@ class YFCallRecordsListCell: UITableViewCell {
             make.width.equalTo(52)
         }
         
+        historyView.snp.makeConstraints { make in
+            make.right.equalTo(audioView.snp_left)
+            make.top.bottom.equalToSuperview()
+            make.width.equalTo(52)
+        }
+        
         
         
     }
@@ -155,11 +168,13 @@ class YFCallRecordsListCell: UITableViewCell {
     
     func update(model: CallRecord, indexRow: Int, currentRow: Int) {
         
-        titleLbl.text = SuperStringUtil.getUserState(showname: model.nickname ?? "").n
+        let sameCount = model.sameCount == 1 ? "" : " (\(model.sameCount))"
+        
         leftIconImg.setImageAbout(string: model.faceURL, placeHolder: "DefaultAvatar")
         timeLbl.text =   MessageHelper.convertList(timestamp_ms: model.date)
         
         stateLbl.text =  model.success ? model.inOrOutStr() + model.durationStr() : model.inOrOutStr()
+        titleLbl.text = SuperStringUtil.getUserState(showname: model.nickname ?? "").n  + "\(sameCount)"
         titleLbl.textColor = model.success ? .init(hexString: "#333333") :  .init(hexString: "#FF3939")
         recordTypeImg.image = model.type == "audio"  ? .init(named: "call_log_auido") : .init(named: "call_log_video")
         
@@ -169,11 +184,15 @@ class YFCallRecordsListCell: UITableViewCell {
             videoView.isHidden = false
             audioView.isHidden = false
             unReadView.isHidden = true
+            
+            historyView.isHidden = model.sameCount == 1
+            
         } else {
             backgroundColor = .white
             timeLbl.isHidden = false
             videoView.isHidden = true
             audioView.isHidden = true
+            historyView.isHidden = true
             
             unReadView.isHidden = !model.isUnRead
         }

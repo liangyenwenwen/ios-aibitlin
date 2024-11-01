@@ -128,7 +128,7 @@ class YFLoginChooseHeaderView: TGRelativeLayout {
         r.viewClick = { [weak self] in
             self?.useType = .usePhone
             self?.refreshUI()
-            self?.changeTypeClick(.usePhone)
+//            self?.changeTypeClick(.usePhone)
         }
         return r
     }()

@@ -652,9 +652,20 @@ SupportShortNumber = "Support setting a minimum %@-digit account ID";
 
 "输入密码" = "Password";
 
+"注册账号" = "Create an Account";
+
 "新的群聊申请" = "New Group Chat Request";
 
 "我的群聊" = "My Group Chat";
+
+"输入手机号" = "Enter your phone number";
+
+"复制成功" = "Copy successfully";
+
+"生效中" = "In effect";
+
+"保存到手机" = "Save QR Code";
+
 
 
 //"" = "";

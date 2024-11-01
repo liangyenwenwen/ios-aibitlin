@@ -170,6 +170,12 @@ extension UIView {
         maskLayer.path = path.cgPath
         layer.mask = maskLayer
     }
+    
+    public func corner(radius: CGFloat) {
+        layer.masksToBounds = true
+        layer.cornerRadius = radius
+    }
+    
 }
 
 extension UIView {

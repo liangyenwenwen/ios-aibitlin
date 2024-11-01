@@ -244,14 +244,11 @@ class SuperSettingView: TGLinearLayout {
         r.setTitleColor(.primaryColor, for: .normal)
         r.hide()
         r.sizeToFit()
-//        r.addTarget(self, action: #selector(sendClick(_:)), for: .touchUpInside)
         return r
     }()
     
     
-//    deinit {
-//        print(#file)
-//    }
+
 
 }
 
@@ -296,7 +293,7 @@ extension SuperSettingView {
             phoneCodeView.show()
             titleView.hide()
 
-            textFieldView.placeholder = "Phone".localized()
+            textFieldView.placeholder = "输入手机号".localized()
             tempEmail = textFieldView.text!
             textFieldView.text = tempPhone
             textFieldView.keyboardType = .numberPad
@@ -308,8 +305,8 @@ extension SuperSettingView {
             phoneCodeView.hide()
             titleView.show()
 
-            titleView.text = "email".localized()
-            textFieldView.placeholder = "PleaseFillIn".localized()
+            titleView.text = "输入邮箱".localized()
+            textFieldView.placeholder = "输入邮箱".localized()
             tempPhone = textFieldView.text!
             textFieldView.text = tempEmail
             textFieldView.keyboardType = .emailAddress
@@ -325,12 +322,14 @@ extension SuperSettingView {
     
     func isCode() {
         needLimitLength(length: CODE_MAX_LENGTH)
+        textFieldView.placeholder = "输入验证码".localized()
     }
     
     func isPwd() {
         textFieldView.isSecureTextEntry = true
         textFieldView.keyboardType = .asciiCapable
         needLimitLength(length: PASSWORD_MAX_LENGTH)
+        textFieldView.placeholder = "输入密码".localized()
     }
     
     func isUserName() {

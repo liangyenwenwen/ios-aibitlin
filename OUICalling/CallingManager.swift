@@ -467,147 +467,7 @@ public class CallingManager: NSObject {
 // MARK: 状态变更，消息记录保存
 extension CallingManager {
     // 关闭界面操作
-//    private func update(state: CallingState, duration: Int = 0) {
-//        print("\(#function): state:\(state)")
-//        if state == .beAccepted || state == .disConnect {
-//            if state == .beAccepted {
-//                if let liveURL, let token, signalingInfo?.isSignal == true {
-//                    senderViewController?.connectRoom(liveURL: liveURL, token: token)
-//                }
-//            } else {
-//                isPresented = false
-//            }
-//            return
-//        }
-//        
-//        isPresented = false
-//        
-//        var timeline = "00:00"
-//        
-//        if duration > 0 {
-//            let m = duration / 60
-//            let s = duration % 60
-//            
-//            if m > 99 {
-//                timeline = String(format: "%d:%02d", m, s)
-//            } else {
-//                timeline = String(format: "%02d:%02d", m, s)
-//            }
-//        }
-//        let loginUserID = OIMManager.manager.getLoginUserID()
-//        var tips = ""
-//        var record = CallRecord()
-//        
-//        switch state {
-//        case .normal:
-//            break
-//        case .call:
-//            break
-//        case .beCalled:
-//            break
-//        case .reject:
-//            signalingInfo?.userID = loginUserID
-//            if let signalingInfo {
-//                OIMManager.manager.signalingReject(signalingInfo, onSuccess: nil)
-//            }
-//            tips = "已拒绝".localized()
-//        case .beRejected:
-//            tips = "对方已拒绝".localized()
-//        case .calling:
-//            break
-//        case .beAccepted:
-//            break
-//        case .hangup:
-//            signalingInfo?.userID = loginUserID
-//            if let signalingInfo {
-//                OIMManager.manager.signalingHungUp(signalingInfo, onSuccess: nil)
-//            }
-//            tips = "通话结束".localized() + ":\(timeline)"
-//            record.success = true
-//        case .connecting:
-//            break
-//        case .noReply:
-//            signalingInfo?.userID = loginUserID
-//            if let signalingInfo, signalingInfo.isSignal {
-//                OIMManager.manager.signalingCancel(signalingInfo, onSuccess: nil)
-//            }
-//            tips = "无响应".localized()
-//        case .cancel:
-//            signalingInfo?.userID = loginUserID
-//            if let signalingInfo {
-//                OIMManager.manager.signalingCancel(signalingInfo, onSuccess: nil)
-//            }
-//            tips = "已取消".localized()
-//        case .beCanceled:
-//            tips = duration > 0 ? "通话结束".localized() + ":\(timeline)" : "对方取消".localized()
-//            record.success = duration > 0
-//        case .timeout:
-//            tips = "超时无人接听".localized()
-//        case .join:
-//            break
-//        case .beHangup:
-//            if duration > 0 {
-//                tips = "通话结束".localized() + ":\(timeline)"
-//                record.success = true
-//            }
-//        case .disConnect:
-//            break
-//        case .connectFailure:
-//            tips = "connectionFailed".localized()
-//        case .accessByOther:
-//            tips = "通话邀请被其它客户端接受".localized()
-//        case .rejectedByOther:
-//            tips = "通话邀请被其它客户端拒绝".localized()
-//        }
-//        
-//        if #available(iOS 15, *) {
-//            record.date = Int(round(Date.now.timeIntervalSince1970 * 1000))
-//        } else {
-//            record.date = Int(round(Date.init().timeIntervalSince1970 * 1000))
-//        }
-//        // 创建记录
-//        if let signalingInfo {
-//            record.nickname = others?.first?.nickname
-//            record.type = signalingInfo.isVideo ? "video": "audio"
-//            record.faceURL = others?.first?.faceURL
-//            record.duration = duration
-//            record.isSingnal = signalingInfo.isSignal
-//            record.incoming = signalingInfo.invitation.inviterUserID != OIMManager.manager.getLoginUserID()
-//            record.otherSideID = record.incoming ? signalingInfo.invitation.inviterUserID : signalingInfo.invitation.inviteeUserIDList.first
-//            
-//            if signalingInfo.isSignal, !tips.isEmpty {
-//                // 目前仅支持单聊
-//                record.isUnRead = !record.success
-//                Self.saveRrecord(record: record)
-//     
-//                do {
-//                    if !tips.isEmpty {
-//                        let param = ["customType": 901,
-//                                     "data": ["duration": duration,
-//                                              "state": state.rawValue,
-//                                              "type": signalingInfo.invitation.mediaType,
-//                                              "msg": tips
-//                                             ]
-//                        ] as [String : Any]
-//                        
-//                        let dataStr = String.init(data: try JSONSerialization.data(withJSONObject: param),
-//                                                  encoding: .utf8)!
-//                        
-//                        let msg = OIMMessageInfo.createCustomMessage(dataStr, extension: nil, description: nil)
-//                        insertCallingMessage(msg, signaling: signalingInfo, state: state)
-//                    }
-//                } catch (let e) {
-//                    print("catch \(e)")
-//                }
-//            }
-//        }
-//
-//        // 关闭界面，销毁room等
-//        reciverViewController?.dismiss()
-//        reciverViewController = nil
-//        senderViewController?.dismiss()
-//        senderViewController = nil
-//    }
+
     private func update(state: CallingState, duration: Int = 0) {
         print("\(#function): state:\(state)")
         
@@ -735,9 +595,11 @@ extension CallingManager {
             if record.incoming {
                 record.nickname = inviter?.nickname
                 record.faceURL = inviter?.faceURL
+            } else {
+                
             }
             
-            if record.date - lastDate > 1000 {
+            if record.date - lastDate > 500 {
                 lastDate = record.date
                 if signalingInfo.isSignal, !tips.isEmpty {
                     // 目前仅支持单聊
@@ -827,8 +689,10 @@ extension CallingManager {
         
     }
     
+    // MARK: - 张亚飞打的标记  通话结束保存本地的音视频记录
     // 通话结束保存本地的音视频记录
     static public func saveRrecord(record: CallRecord) {
+        
         let recordsKey = "\(Open_im_sdkGetLoginUserID())-com.calling.records.key"
         var records: [CallRecord] = []
         
@@ -836,13 +700,91 @@ extension CallingManager {
             records = CallRecord.fromJson(jsonStr)
         }
         
-        records.insert(record, at: 0)
+        if  let lastRecord = records.first {
+            if lastRecord.otherSideID == record.otherSideID && lastRecord.incoming == record.incoming && lastRecord.type == record.type{
+                
+                if lastRecord.incoming {
+                    
+                    if lastRecord.duration > 0 && record.duration > 0 {
+                        
+                        lastRecord.sameCount += 1
+                        lastRecord.date = record.date
+                        
+                        var historyArr:[CallRecord] = []
+                        if lastRecord.historyLogs.count == 0 {
+                            historyArr.append(lastRecord)
+                        } else {
+                            historyArr = CallRecord.fromJson(lastRecord.historyLogs)
+                        }
+                        historyArr.append(record)
+                        
+                        let histroryLogs =  Array<CallRecord>.toJson(fromObject: historyArr)
+                        lastRecord.historyLogs = histroryLogs
+                        
+                        records[0] = lastRecord
+                        
+                    } else if lastRecord.duration == 0 && record.duration == 0  {
+                        
+                        lastRecord.sameCount += 1
+                        lastRecord.unReadCount += 1
+                        lastRecord.isUnRead = true
+                        lastRecord.date = record.date
+                        
+                        var historyArr:[CallRecord] = []
+                        if lastRecord.historyLogs.count == 0 {
+                            historyArr.append(lastRecord)
+                        } else {
+                            historyArr = CallRecord.fromJson(lastRecord.historyLogs)
+                        }
+                        historyArr.append(record)
+                        
+                        let histroryLogs =  Array<CallRecord>.toJson(fromObject: historyArr)
+                        lastRecord.historyLogs = histroryLogs
+                        
+                        print(histroryLogs)
+                        
+                        records[0] = lastRecord
+                        
+                    } else {
+                        
+                        records.insert(record, at: 0)
+                    }
+                    
+                } else {
+                    
+                    lastRecord.isUnRead = false
+                    lastRecord.sameCount += 1
+                    lastRecord.unReadCount += 1
+                    lastRecord.date = record.date
+                    
+                    var historyArr:[CallRecord] = []
+                    if lastRecord.historyLogs.count == 0 {
+                        historyArr.append(lastRecord)
+                    } else {
+                        historyArr = CallRecord.fromJson(lastRecord.historyLogs)
+                    }
+                    historyArr.append(record)
+                    
+                    let histroryLogs =  Array<CallRecord>.toJson(fromObject: historyArr)
+                    lastRecord.historyLogs = histroryLogs
+                    
+                    records[0] = lastRecord
+                }
+                
+                
+            } else {
+                records.insert(record, at: 0)
+            }
+        } else {
+            records.insert(record, at: 0)
+        }
         
         let result = Array<CallRecord>.toJson(fromObject: records)
         UserDefaults.standard.set(result, forKey: recordsKey)
         UserDefaults.standard.synchronize()
         calculateCount()
     }
+    
     static func calculateCount() {
         let recordsNumberKey = "\(Open_im_sdkGetLoginUserID())-com.calling.records.unread.key"
         
@@ -851,14 +793,14 @@ extension CallingManager {
 //        var missedRecords = allRecords.filter { $0.success == false}
         var missedRecords = allRecords.filter { $0.isUnRead == true}
         
-//        /// 获取已读的未接通话数量
-//        let readNumber = UserDefaults.standard.integer(forKey: recordsNumberKey)
-//
-//        let showNumber = missedRecords.count - readNumber
-//
-//        NotificationCenter.default.post(name: Notification.Name("refrehCallLogsbadgeValue"), object: nil, userInfo: ["value": "\(showNumber)"])
+    
+        var missCount = 0
+        for item in missedRecords {
+            missCount += item.unReadCount
+        }
         
-        NotificationCenter.default.post(name: Notification.Name("refrehCallLogsbadgeValue"), object: nil, userInfo: ["value": "\(missedRecords.count)"])
+        
+        NotificationCenter.default.post(name: Notification.Name("refrehCallLogsbadgeValue"), object: nil, userInfo: ["value": "\(missCount)"])
         
     }
     
@@ -883,6 +825,7 @@ extension CallingManager {
             var records = CallRecord.fromJson(jsonStr)
             for record in records {
                 record.isUnRead = false
+                record.unReadCount = 0
             }
             NotificationCenter.default.post(name: Notification.Name("refrehCallLogsbadgeValue"), object: nil, userInfo: ["value": "\(0)"])
             
@@ -1108,8 +1051,14 @@ public class CallRecord: Codable {
     public var duration: Int = 0
     public var isSingnal: Bool = true
     public var isChoose: Bool = false
+    /// 已读未读
     public var isUnRead: Bool = false
+    /// 合并同类型消息数量
     public var sameCount: Int = 1
+    ///合并统计未读数量
+    public var unReadCount: Int = 1
+    ///存储聊天记录
+    public var historyLogs: String = ""
     
     public func typeStr() -> String {
         return type == "audio" ? "语音通话".innerLocalized() : "视频通话".innerLocalized()
@@ -1148,7 +1097,21 @@ public class CallRecord: Codable {
         return formatter.string(from: date)
     }
     
-    static func fromJson(_ json: String) -> [CallRecord] {
+    public func formatDateAboutYMDStr() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        let date = Date.init(timeIntervalSince1970: TimeInterval(date / 1000))
+        return formatter.string(from: date)
+    }
+    
+    public func formatDateAboutHMStr() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        let date = Date.init(timeIntervalSince1970: TimeInterval(date / 1000))
+        return formatter.string(from: date)
+    }
+    
+    public static func fromJson(_ json: String) -> [CallRecord] {
         let decoder = JSONDecoder()
         do {
             let result = try decoder.decode([CallRecord].self, from: json.data(using: .utf8)!)

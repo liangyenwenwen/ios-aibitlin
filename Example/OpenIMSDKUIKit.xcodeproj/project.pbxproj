@@ -64,8 +64,6 @@
 		0434ABA42CBBC2F7000F9B07 /* QRCodeSaveCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0434ABA32CBBC2F7000F9B07 /* QRCodeSaveCardView.swift */; };
 		043A558C2C8166490041836E /* UserTagTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043A55892C8166490041836E /* UserTagTypeView.swift */; };
 		043A558D2C8166490041836E /* UserTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043A558A2C8166490041836E /* UserTagView.swift */; };
-		0445BEE22CD1E04300A46558 /* ABLNetWorkToos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445BEE12CD1E04300A46558 /* ABLNetWorkToos.swift */; };
-		04585F922CCFB4D900BFA8E8 /* customSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 04585F912CCFB4D900BFA8E8 /* customSound.mp3 */; };
 		045B8BF72BF4496D0094E080 /* MineChooseBottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045B8BF62BF4496C0094E080 /* MineChooseBottomSheetView.swift */; };
 		045B8BF92BF481AF0094E080 /* UserMessageBottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045B8BF82BF481AF0094E080 /* UserMessageBottomSheetView.swift */; };
 		045B8BFD2BF4B7070094E080 /* YFChatBokeBottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045B8BFC2BF4B7070094E080 /* YFChatBokeBottomSheetView.swift */; };
@@ -80,6 +78,11 @@
 		049D30222CC1F5DB00649DC4 /* YFNetworkStatusUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049D30212CC1F5DB00649DC4 /* YFNetworkStatusUtil.swift */; };
 		049D30252CC2032800649DC4 /* YFNotNetTopTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049D30242CC2032800649DC4 /* YFNotNetTopTipView.swift */; };
 		04A4BD002BF32F17008FA224 /* YFMineChangePasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A4BCFF2BF32F17008FA224 /* YFMineChangePasswordVC.swift */; };
+		04C394412CCF85A500181F6B /* YFPhoneLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C394402CCF85A500181F6B /* YFPhoneLoginVC.swift */; };
+		04C394432CCF874300181F6B /* YFAibitlinHomeChooseHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C394422CCF874300181F6B /* YFAibitlinHomeChooseHeaderView.swift */; };
+		04C394452CCFADF500181F6B /* YFEmailLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C394442CCFADF500181F6B /* YFEmailLoginVC.swift */; };
+		04C394472CCFB3ED00181F6B /* YFNewRegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C394462CCFB3ED00181F6B /* YFNewRegisterVC.swift */; };
+		04C394492CCFBC1C00181F6B /* YFRetrievePasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C394482CCFBC1C00181F6B /* YFRetrievePasswordVC.swift */; };
 		04D2E2052CBE4E5500582B13 /* HDEmptyBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D2E1FF2CBE4E5500582B13 /* HDEmptyBaseView.swift */; };
 		04D2E2062CBE4E5500582B13 /* HDEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D2E2002CBE4E5500582B13 /* HDEmptyView.swift */; };
 		04D2E2072CBE4E5500582B13 /* HDRunTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D2E2012CBE4E5500582B13 /* HDRunTime.swift */; };
@@ -91,6 +94,8 @@
 		04D8BF802C8AB00100C1244E /* MineBokeNotificationSettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D8BF7F2C8AB00100C1244E /* MineBokeNotificationSettingVC.swift */; };
 		04D8BF822C8AD0AA00C1244E /* MineBokeVisitorListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D8BF812C8AD0AA00C1244E /* MineBokeVisitorListCell.swift */; };
 		04D8BF842C8AD7EC00C1244E /* MineBokeVisitorListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D8BF832C8AD7EC00C1244E /* MineBokeVisitorListVC.swift */; };
+		04DA67922CCF2ACB00FCA60C /* YFAibitlinHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DA67912CCF2ACB00FCA60C /* YFAibitlinHome.swift */; };
+		04DA67942CCF2B2100FCA60C /* YFAibitlinHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DA67932CCF2B2100FCA60C /* YFAibitlinHomeView.swift */; };
 		04DB1E3E2CA6B0C000EE8B8C /* YFDateUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DB1E3D2CA6B0C000EE8B8C /* YFDateUtil.swift */; };
 		04ECEC5F2CBD1DC10005495F /* RunTimeAbout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ECEC5E2CBD1DC10005495F /* RunTimeAbout.swift */; };
 		04F1FCEF2CB67E5000080742 /* YFMineQRCodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F1FCEE2CB67E5000080742 /* YFMineQRCodeVC.swift */; };
@@ -245,8 +250,6 @@
 		04356FD82CCA38C50001F797 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		043A55892C8166490041836E /* UserTagTypeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTagTypeView.swift; sourceTree = "<group>"; };
 		043A558A2C8166490041836E /* UserTagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTagView.swift; sourceTree = "<group>"; };
-		0445BEE12CD1E04300A46558 /* ABLNetWorkToos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ABLNetWorkToos.swift; sourceTree = "<group>"; };
-		04585F912CCFB4D900BFA8E8 /* customSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = customSound.mp3; sourceTree = "<group>"; };
 		045B8BF62BF4496C0094E080 /* MineChooseBottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineChooseBottomSheetView.swift; sourceTree = "<group>"; };
 		045B8BF82BF481AF0094E080 /* UserMessageBottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMessageBottomSheetView.swift; sourceTree = "<group>"; };
 		045B8BFC2BF4B7070094E080 /* YFChatBokeBottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFChatBokeBottomSheetView.swift; sourceTree = "<group>"; };
@@ -254,22 +257,6 @@
 		046D26952BFF255F00FEA10F /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		047753C52BFDCD27006DBFD3 /* YFTranslateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFTranslateVC.swift; sourceTree = "<group>"; };
 		047BF6B52CA2B6DF00706117 /* YFFileDataUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFFileDataUtil.swift; sourceTree = "<group>"; };
-		0482CFF42CCF77FE0022EBAE /* SampleHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleHandler.swift; sourceTree = "<group>"; };
-		0482CFF62CCF77FE0022EBAE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0482CFFF2CCF77FE0022EBAE /* BroadcastSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BroadcastSetupViewController.swift; sourceTree = "<group>"; };
-		0482D0012CCF77FE0022EBAE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0482D0152CCF79080022EBAE /* SampleHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleHandler.swift; sourceTree = "<group>"; };
-		0482D0172CCF79080022EBAE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0482D0202CCF79080022EBAE /* BroadcastSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BroadcastSetupViewController.swift; sourceTree = "<group>"; };
-		0482D0222CCF79080022EBAE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0482D0362CCF7A500022EBAE /* SampleHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleHandler.swift; sourceTree = "<group>"; };
-		0482D0382CCF7A500022EBAE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0482D0412CCF7A500022EBAE /* BroadcastSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BroadcastSetupViewController.swift; sourceTree = "<group>"; };
-		0482D0432CCF7A500022EBAE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0482D0572CCF7DE50022EBAE /* SampleHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleHandler.swift; sourceTree = "<group>"; };
-		0482D0592CCF7DE50022EBAE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0482D0622CCF7DE50022EBAE /* BroadcastSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BroadcastSetupViewController.swift; sourceTree = "<group>"; };
-		0482D0642CCF7DE50022EBAE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		049B98022CB521360032E7B8 /* YFChooseUserAvatarCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFChooseUserAvatarCardView.swift; sourceTree = "<group>"; };
 		049C643D2BEC619300B679C4 /* YFLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFLoginVC.swift; sourceTree = "<group>"; };
 		049C643F2BEC622300B679C4 /* YFLoginChooseHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFLoginChooseHeaderView.swift; sourceTree = "<group>"; };
@@ -287,10 +274,11 @@
 		04B266472CC7C472004AF09F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04B266502CC7C472004AF09F /* BroadcastSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BroadcastSetupViewController.swift; sourceTree = "<group>"; };
 		04B266522CC7C472004AF09F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		04C04CFF2CCF9EAB00CB3803 /* SampleHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleHandler.swift; sourceTree = "<group>"; };
-		04C04D012CCF9EAB00CB3803 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		04C04D0A2CCF9EAB00CB3803 /* BroadcastSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BroadcastSetupViewController.swift; sourceTree = "<group>"; };
-		04C04D0C2CCF9EAB00CB3803 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		04C394402CCF85A500181F6B /* YFPhoneLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFPhoneLoginVC.swift; sourceTree = "<group>"; };
+		04C394422CCF874300181F6B /* YFAibitlinHomeChooseHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFAibitlinHomeChooseHeaderView.swift; sourceTree = "<group>"; };
+		04C394442CCFADF500181F6B /* YFEmailLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFEmailLoginVC.swift; sourceTree = "<group>"; };
+		04C394462CCFB3ED00181F6B /* YFNewRegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFNewRegisterVC.swift; sourceTree = "<group>"; };
+		04C394482CCFBC1C00181F6B /* YFRetrievePasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFRetrievePasswordVC.swift; sourceTree = "<group>"; };
 		04D2E1C22CBE4A4900582B13 /* SampleHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleHandler.swift; sourceTree = "<group>"; };
 		04D2E1C42CBE4A4900582B13 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04D2E1CB2CBE4A4900582B13 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -307,6 +295,8 @@
 		04D8BF7F2C8AB00100C1244E /* MineBokeNotificationSettingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineBokeNotificationSettingVC.swift; sourceTree = "<group>"; };
 		04D8BF812C8AD0AA00C1244E /* MineBokeVisitorListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineBokeVisitorListCell.swift; sourceTree = "<group>"; };
 		04D8BF832C8AD7EC00C1244E /* MineBokeVisitorListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineBokeVisitorListVC.swift; sourceTree = "<group>"; };
+		04DA67912CCF2ACB00FCA60C /* YFAibitlinHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFAibitlinHome.swift; sourceTree = "<group>"; };
+		04DA67932CCF2B2100FCA60C /* YFAibitlinHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFAibitlinHomeView.swift; sourceTree = "<group>"; };
 		04DB1E3D2CA6B0C000EE8B8C /* YFDateUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFDateUtil.swift; sourceTree = "<group>"; };
 		04E752DA2CBE900200492EF6 /* SampleHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleHandler.swift; sourceTree = "<group>"; };
 		04E752DC2CBE900200492EF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -678,22 +668,6 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
-		0445BEE02CD1DF8B00A46558 /* NetWork */ = {
-			isa = PBXGroup;
-			children = (
-				0445BEE12CD1E04300A46558 /* ABLNetWorkToos.swift */,
-			);
-			path = NetWork;
-			sourceTree = "<group>";
-		};
-		04585F902CCFB4B700BFA8E8 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				04585F912CCFB4D900BFA8E8 /* customSound.mp3 */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
 		045B8BF52BF448880094E080 /* Feedback */ = {
 			isa = PBXGroup;
 			children = (
@@ -728,78 +702,6 @@
 				047753C52BFDCD27006DBFD3 /* YFTranslateVC.swift */,
 			);
 			path = Translate;
-			sourceTree = "<group>";
-		};
-		0482CFF32CCF77FE0022EBAE /* ScreenShareBroadcastExtension */ = {
-			isa = PBXGroup;
-			children = (
-				0482CFF42CCF77FE0022EBAE /* SampleHandler.swift */,
-				0482CFF62CCF77FE0022EBAE /* Info.plist */,
-			);
-			path = ScreenShareBroadcastExtension;
-			sourceTree = "<group>";
-		};
-		0482CFFE2CCF77FE0022EBAE /* ScreenShareBroadcastExtensionSetupUI */ = {
-			isa = PBXGroup;
-			children = (
-				0482CFFF2CCF77FE0022EBAE /* BroadcastSetupViewController.swift */,
-				0482D0012CCF77FE0022EBAE /* Info.plist */,
-			);
-			path = ScreenShareBroadcastExtensionSetupUI;
-			sourceTree = "<group>";
-		};
-		0482D0142CCF79080022EBAE /* ScreenShareBroadcastExtension */ = {
-			isa = PBXGroup;
-			children = (
-				0482D0152CCF79080022EBAE /* SampleHandler.swift */,
-				0482D0172CCF79080022EBAE /* Info.plist */,
-			);
-			path = ScreenShareBroadcastExtension;
-			sourceTree = "<group>";
-		};
-		0482D01F2CCF79080022EBAE /* ScreenShareBroadcastExtensionSetupUI */ = {
-			isa = PBXGroup;
-			children = (
-				0482D0202CCF79080022EBAE /* BroadcastSetupViewController.swift */,
-				0482D0222CCF79080022EBAE /* Info.plist */,
-			);
-			path = ScreenShareBroadcastExtensionSetupUI;
-			sourceTree = "<group>";
-		};
-		0482D0352CCF7A500022EBAE /* ScreenShareBroadcastExtension */ = {
-			isa = PBXGroup;
-			children = (
-				0482D0362CCF7A500022EBAE /* SampleHandler.swift */,
-				0482D0382CCF7A500022EBAE /* Info.plist */,
-			);
-			path = ScreenShareBroadcastExtension;
-			sourceTree = "<group>";
-		};
-		0482D0402CCF7A500022EBAE /* ScreenShareBroadcastExtensionSetupUI */ = {
-			isa = PBXGroup;
-			children = (
-				0482D0412CCF7A500022EBAE /* BroadcastSetupViewController.swift */,
-				0482D0432CCF7A500022EBAE /* Info.plist */,
-			);
-			path = ScreenShareBroadcastExtensionSetupUI;
-			sourceTree = "<group>";
-		};
-		0482D0562CCF7DE50022EBAE /* ScreenShareBroadcastExtension */ = {
-			isa = PBXGroup;
-			children = (
-				0482D0572CCF7DE50022EBAE /* SampleHandler.swift */,
-				0482D0592CCF7DE50022EBAE /* Info.plist */,
-			);
-			path = ScreenShareBroadcastExtension;
-			sourceTree = "<group>";
-		};
-		0482D0612CCF7DE50022EBAE /* ScreenShareBroadcastExtensionSetupUI */ = {
-			isa = PBXGroup;
-			children = (
-				0482D0622CCF7DE50022EBAE /* BroadcastSetupViewController.swift */,
-				0482D0642CCF7DE50022EBAE /* Info.plist */,
-			);
-			path = ScreenShareBroadcastExtensionSetupUI;
 			sourceTree = "<group>";
 		};
 		049C643A2BEC602E00B679C4 /* LoginAndRegister */ = {
@@ -880,24 +782,6 @@
 			path = ScreenShareBroadcastExtensionSetupUI;
 			sourceTree = "<group>";
 		};
-		04C04CFE2CCF9EAB00CB3803 /* ScreenShareBroadcastExtension */ = {
-			isa = PBXGroup;
-			children = (
-				04C04CFF2CCF9EAB00CB3803 /* SampleHandler.swift */,
-				04C04D012CCF9EAB00CB3803 /* Info.plist */,
-			);
-			path = ScreenShareBroadcastExtension;
-			sourceTree = "<group>";
-		};
-		04C04D092CCF9EAB00CB3803 /* ScreenShareBroadcastExtensionSetupUI */ = {
-			isa = PBXGroup;
-			children = (
-				04C04D0A2CCF9EAB00CB3803 /* BroadcastSetupViewController.swift */,
-				04C04D0C2CCF9EAB00CB3803 /* Info.plist */,
-			);
-			path = ScreenShareBroadcastExtensionSetupUI;
-			sourceTree = "<group>";
-		};
 		04D2E1C12CBE4A4900582B13 /* ScreenShareBroadcastExtension */ = {
 			isa = PBXGroup;
 			children = (
@@ -936,6 +820,36 @@
 			path = Net;
 			sourceTree = "<group>";
 		};
+		04DA678E2CCF2A4F00FCA60C /* NewLoginAndRegister */ = {
+			isa = PBXGroup;
+			children = (
+				04DA67902CCF2A7B00FCA60C /* View */,
+				04DA678F2CCF2A7000FCA60C /* Controller */,
+			);
+			path = NewLoginAndRegister;
+			sourceTree = "<group>";
+		};
+		04DA678F2CCF2A7000FCA60C /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				04DA67912CCF2ACB00FCA60C /* YFAibitlinHome.swift */,
+				04C394402CCF85A500181F6B /* YFPhoneLoginVC.swift */,
+				04C394442CCFADF500181F6B /* YFEmailLoginVC.swift */,
+				04C394462CCFB3ED00181F6B /* YFNewRegisterVC.swift */,
+				04C394482CCFBC1C00181F6B /* YFRetrievePasswordVC.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		04DA67902CCF2A7B00FCA60C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				04DA67932CCF2B2100FCA60C /* YFAibitlinHomeView.swift */,
+				04C394422CCF874300181F6B /* YFAibitlinHomeChooseHeaderView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		04E752D92CBE900200492EF6 /* ScreenShareBroadcastExtensio */ = {
 			isa = PBXGroup;
 			children = (
@@ -969,6 +883,7 @@
 				040347782BEF053100C7C4EF /* More */,
 				04F2D0632BEE21CA00D5271B /* Mine */,
 				049C643A2BEC602E00B679C4 /* LoginAndRegister */,
+				04DA678E2CCF2A4F00FCA60C /* NewLoginAndRegister */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -1279,16 +1194,6 @@
 				04B2664F2CC7C472004AF09F /* ScreenShareBroadcastExtensionSetupUI */,
 				04356FCA2CCA38C50001F797 /* ScreenShareBroadcastExtension */,
 				04356FD52CCA38C50001F797 /* ScreenShareBroadcastExtensionSetupUI */,
-				0482CFF32CCF77FE0022EBAE /* ScreenShareBroadcastExtension */,
-				0482CFFE2CCF77FE0022EBAE /* ScreenShareBroadcastExtensionSetupUI */,
-				0482D0142CCF79080022EBAE /* ScreenShareBroadcastExtension */,
-				0482D01F2CCF79080022EBAE /* ScreenShareBroadcastExtensionSetupUI */,
-				0482D0352CCF7A500022EBAE /* ScreenShareBroadcastExtension */,
-				0482D0402CCF7A500022EBAE /* ScreenShareBroadcastExtensionSetupUI */,
-				0482D0562CCF7DE50022EBAE /* ScreenShareBroadcastExtension */,
-				0482D0612CCF7DE50022EBAE /* ScreenShareBroadcastExtensionSetupUI */,
-				04C04CFE2CCF9EAB00CB3803 /* ScreenShareBroadcastExtension */,
-				04C04D092CCF9EAB00CB3803 /* ScreenShareBroadcastExtensionSetupUI */,
 				607FACD11AFB9204008FA782 /* Products */,
 				CAC64E6711B5A6903B4FCC8D /* Pods */,
 				641162BB15A7DD76EBF4C191 /* Frameworks */,
@@ -1306,8 +1211,6 @@
 		607FACD21AFB9204008FA782 /* OpenIMSDKUIKit */ = {
 			isa = PBXGroup;
 			children = (
-				0445BEE02CD1DF8B00A46558 /* NetWork */,
-				04585F902CCFB4B700BFA8E8 /* Resources */,
 				04F2D0952BEE21EC00D5271B /* Vender */,
 				04F2D0622BEE215100D5271B /* Component */,
 				040D85F82BEB8C4200DCAAB3 /* Extension */,
@@ -1486,7 +1389,6 @@
 				0411DD282C05CE3C00EDD135 /* InfoPlist.strings in Resources */,
 				DCE04171283E5BD30095874E /* Localizable.strings in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
-				04585F922CCFB4D900BFA8E8 /* customSound.mp3 in Resources */,
 				17D150AD2B83409C00E0AFB5 /* JKLLockScreenViewController.xib in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
 			);
@@ -1562,9 +1464,9 @@
 				"${BUILT_PRODUCTS_DIR}/JXSegmentedView/JXSegmentedView.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/Lantern/Lantern.framework",
-				"${BUILT_PRODUCTS_DIR}/LiveKitClient/LiveKitClient.framework",
+				"${BUILT_PRODUCTS_DIR}/LiveKitClient-iOS13.0/LiveKitClient.framework",
 				"${BUILT_PRODUCTS_DIR}/Localize-Swift/Localize_Swift.framework",
-				"${BUILT_PRODUCTS_DIR}/Logging/Logging.framework",
+				"${BUILT_PRODUCTS_DIR}/Logging-iOS13.0/Logging.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/MJExtension/MJExtension.framework",
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
@@ -1572,6 +1474,8 @@
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/NSObject+Rx/NSObject_Rx.framework",
 				"${BUILT_PRODUCTS_DIR}/ProgressHUD/ProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/PromisesObjC-iOS13.0/FBLPromises.framework",
+				"${BUILT_PRODUCTS_DIR}/PromisesSwift-iOS13.0/Promises.framework",
 				"${BUILT_PRODUCTS_DIR}/QMUIKit/QMUIKit.framework",
 				"${BUILT_PRODUCTS_DIR}/R.swift/RswiftResources.framework",
 				"${BUILT_PRODUCTS_DIR}/Reachability/Reachability.framework",
@@ -1586,13 +1490,13 @@
 				"${BUILT_PRODUCTS_DIR}/SGCodeTextField/SGCodeTextField.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftEventBus/SwiftEventBus.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftProtobuf/SwiftProtobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftProtobuf-iOS13.0/SwiftProtobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SwifterSwift/SwifterSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/TangramKit/TangramKit.framework",
 				"${BUILT_PRODUCTS_DIR}/YYImage/YYImage.framework",
 				"${BUILT_PRODUCTS_DIR}/ZLPhotoBrowser/ZLPhotoBrowser.framework",
 				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/LiveKitWebRTC/LiveKitWebRTC.framework/LiveKitWebRTC",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/WebRTC-SDK/WebRTC.framework/WebRTC",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -1625,6 +1529,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NSObject_Rx.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Promises.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QMUIKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RswiftResources.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
@@ -1645,7 +1551,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZLPhotoBrowser.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LiveKitWebRTC.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WebRTC.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1708,6 +1614,7 @@
 				049C64452BECC62D00B679C4 /* YFRegisterVC.swift in Sources */,
 				04D8BF842C8AD7EC00C1244E /* MineBokeVisitorListVC.swift in Sources */,
 				04F2D08D2BEE21CA00D5271B /* UserMessageThridView.swift in Sources */,
+				04DA67922CCF2ACB00FCA60C /* YFAibitlinHome.swift in Sources */,
 				040D860C2BEB8C4200DCAAB3 /* SuperUIImageExtension.swift in Sources */,
 				1790EE6E2921EAFC00C4024A /* CheckBoxTextTableViewCell.swift in Sources */,
 				049D30222CC1F5DB00649DC4 /* YFNetworkStatusUtil.swift in Sources */,
@@ -1740,16 +1647,20 @@
 				040D85AB2BEB87B800DCAAB3 /* R.generated.swift in Sources */,
 				040D860B2BEB8C4200DCAAB3 /* SuperUIViewExtension.swift in Sources */,
 				04F533F22BF84C8C005D0405 /* TestDataUtil.swift in Sources */,
+				04C394452CCFADF500181F6B /* YFEmailLoginVC.swift in Sources */,
 				040D85F62BEB8C0B00DCAAB3 /* BaseId.swift in Sources */,
 				04F5CFC32CBD35A4007BC74D /* YFEmptyView.swift in Sources */,
 				04F2D08C2BEE21CA00D5271B /* MineBokeListViewController.swift in Sources */,
 				040D44272C894E78007DB6FB /* MineBokeStatisticsVC.swift in Sources */,
 				04D5C1ED2C93DF72005EBF86 /* YFMineNetViewModel.swift in Sources */,
 				04F4EE792C8C2B180028E895 /* YFMineHomeBuyVipVC.swift in Sources */,
+				04C394432CCF874300181F6B /* YFAibitlinHomeChooseHeaderView.swift in Sources */,
 				04DB1E3E2CA6B0C000EE8B8C /* YFDateUtil.swift in Sources */,
 				17C4BBAA28CA1220003782EF /* Array+deduplicate.swift in Sources */,
+				04C394492CCFBC1C00181F6B /* YFRetrievePasswordVC.swift in Sources */,
 				04F2D0892BEE21CA00D5271B /* MineSettingVC.swift in Sources */,
 				0419D4052C019350009CBE94 /* SuperUICollectionViewExtension.swift in Sources */,
+				04C394412CCF85A500181F6B /* YFPhoneLoginVC.swift in Sources */,
 				04F2D08F2BEE21CA00D5271B /* UsermessageBokeListCell.swift in Sources */,
 				04D2E2072CBE4E5500582B13 /* HDRunTime.swift in Sources */,
 				17B11A442ABD28C600DB8980 /* NavigationController.swift in Sources */,
@@ -1766,6 +1677,7 @@
 				040D85E92BEB8C0B00DCAAB3 /* BottomBtnView.swift in Sources */,
 				1790EE762921EAFC00C4024A /* ConfigViewController.swift in Sources */,
 				040D85F42BEB8C0B00DCAAB3 /* Meta.swift in Sources */,
+				04DA67942CCF2B2100FCA60C /* YFAibitlinHomeView.swift in Sources */,
 				0420C71E2BEB78CC0005F5B8 /* ProfileTableViewController.swift in Sources */,
 				0411DD272C05CCB800EDD135 /* SuperDialogController.swift in Sources */,
 				04F2D0932BEE21CA00D5271B /* MineBokeListCell.swift in Sources */,
@@ -1813,8 +1725,8 @@
 				04F2D0852BEE21CA00D5271B /* MineDeleteAccountReasonVC.swift in Sources */,
 				040D44252C882AE8007DB6FB /* YFSystemMessageSettingVC.swift in Sources */,
 				040D85EC2BEB8C0B00DCAAB3 /* BaseWebController.swift in Sources */,
+				04C394472CCFB3ED00181F6B /* YFNewRegisterVC.swift in Sources */,
 				04D6A6782C9131ED008193E7 /* YFNetworkUtils.swift in Sources */,
-				0445BEE22CD1E04300A46558 /* ABLNetWorkToos.swift in Sources */,
 				040D860A2BEB8C4200DCAAB3 /* SuperUIViewControllerExtension.swift in Sources */,
 				1790EE722921EAFC00C4024A /* MineViewModel.swift in Sources */,
 				040D85EE2BEB8C0B00DCAAB3 /* BaseLogicController.swift in Sources */,
@@ -2058,9 +1970,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = OpenIMSDKUIKit_Example.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = MJ53XF6GM4;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = MJ53XF6GM4;
 				ENABLE_BITCODE = NO;
 				EXCLUDED_ARCHS = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -2079,6 +1993,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = uniim.com;
 				PRODUCT_NAME = "IM-NCER";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = app1029;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;

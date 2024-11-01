@@ -168,7 +168,6 @@ class QRCodeSaveCardView: TGLinearLayout {
     }()
 
     
-    
     lazy var lineView: UIImageView = {
         let r = UIImageView()
         r.image = .init(named: "line_line")

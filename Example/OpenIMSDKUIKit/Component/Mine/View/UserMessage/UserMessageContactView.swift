@@ -61,7 +61,7 @@ class UserMessageContactView: TGLinearLayout {
     
     @objc func savecontactLbl() {
         UIPasteboard.general.string = contactLbl.text
-        SuperToast.show(title: "复制成功")
+        SuperToast.show(title: "复制成功".localized())
     }
     
 }

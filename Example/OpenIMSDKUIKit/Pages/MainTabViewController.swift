@@ -269,138 +269,117 @@ class MainTabViewController: UITabBarController {
         }
         pushBindAlias(false)
         
-        let vc = YFLoginVC()
-        vc.loginBtn.rx.tap.subscribe(onNext: {  [weak vc, weak self] in
-            guard let controller = vc, let phone = controller.phone, !phone.isEmpty else { return }
-            
-            if !controller.chooseDelegateBtn.isSelected {
-//                ProgressHUD.error("请勾选协议".localized())
-                SuperToast.show(title: "请勾选协议".localized())
-                return
-            }
-
-            if vc?.useType == .usePhone {
-
-                if !SuperStringUtil.isPhoneNumber(controller.phone!) {
-                    SuperToast.show(title:  "填写正确的手机号码".localized())
-                    return
-                }
-               
-            } else {
-               
-                if !SuperStringUtil.isEmail(controller.phone!) {
-                    SuperToast.show(title:  "填写正确的邮箱".localized())
-                    return
-                }
-            }
-
-            
-
-            let psw = controller.password
-            let code = controller.verificationCode
-            
-//            guard psw?.isEmpty == false || code?.isEmpty == false else {
-//                ProgressHUD.error( "填写正确的密码/验证码")
-//                return
-//            }
-            
-            var account: String?
-            
-            ProgressHUD.animate()
-            let curAccount = vc?.useType == .usePhone ? phone : nil
-            let preAccount = AccountViewModel.perLoginAccount
-            
-            if curAccount != preAccount {
-                self?.clearConversation()
-            }
-            
-            AccountViewModel.loginDemo(phone: vc?.useType == .usePhone ? phone : nil,
-                                       account: account,
-                                       email: vc?.useType == .useEmail ? phone : nil,
-                                       psw: code != nil ? nil : psw,
-                                       verificationCode: code,
-                                       areaCode: controller.areaCode!) {[weak self] (errCode, errMsg) in
+        var isNew = false
+        if isNew {
+            let vc = YFAibitlinHome()
+            vc.modalPresentationStyle = .fullScreen
+            let nav = UINavigationController.init(rootViewController: vc)
+            nav.modalPresentationStyle = .fullScreen
+            self.present(nav, animated: false)
+        } else {
+            let vc = YFLoginVC()
+            vc.loginBtn.rx.tap.subscribe(onNext: {  [weak vc, weak self] in
+                guard let controller = vc, let phone = controller.phone, !phone.isEmpty else { return }
                 
-                ProgressHUD.dismiss()
-                if errMsg != nil {
-//                    ProgressHUD.error(errCode == -1 ? errMsg : String(errCode).localized())
-                    SuperToast.show(title: String(errCode).localized())
-                    self?.presentLoginController()
-                    
-                } else {
-                    UserDefaults.standard.setValue(vc?.useType.rawValue, forKey: loginTypeKey)
-                    UserDefaults.standard.synchronize()
-                    self?.loginSuccess(dismiss: true)
-//                    if let uid = UserDefaults.standard.object(forKey: AccountViewModel.IMUidKey) as? String {
-//                        self?.updateLanguage(uid: uid)
-//                    }
-//
+                if !controller.chooseDelegateBtn.isSelected {
+                    SuperToast.show(title: "请勾选协议".localized())
+                    return
                 }
-            }
-            
-        }).disposed(by: _disposeBag)
-        vc.modalPresentationStyle = .fullScreen
-        let nav = UINavigationController.init(rootViewController: vc)
-        nav.modalPresentationStyle = .fullScreen
-        
-        self.present(nav, animated: false)
-        
-        return;
-        
-//        let vc = LoginViewController()
-//        vc.loginBtn.rx.tap.subscribe(onNext: { [weak vc, weak self] in
-//            guard let controller = vc, let phone = controller.phone, !phone.isEmpty else { return }
-//            
-//            guard let phone = controller.phone, !phone.isEmpty else {
-//                if vc?.loginType == .phone {
-//                    ProgressHUD.error( "填写正确的手机号码".localized())
-//                } else {
-//                    ProgressHUD.error( "填写正确的邮箱".localized())
-//                }
-//                return
-//            }
-//            
+
+                if vc?.useType == .usePhone {
+
 //            let psw = controller.password
 //            let code = controller.verificationCode
 //            
-//            guard psw?.isEmpty == false || code?.isEmpty == false else {
-//                ProgressHUD.error( "填写正确的密码/验证码")
-//                return
-//            }
+////            guard psw?.isEmpty == false || code?.isEmpty == false else {
+////                ProgressHUD.error( "填写正确的密码/验证码")
+////                return
+////            }
+//            
 //            var account: String?
-//#if ENABLE_ORGANIZATION
-//            account = phone
-//#endif
+//            
 //            ProgressHUD.animate()
-//            let curAccount = vc?.loginType == .phone ? phone : nil
+//            let curAccount = vc?.useType == .usePhone ? phone : nil
 //            let preAccount = AccountViewModel.perLoginAccount
 //            
 //            if curAccount != preAccount {
 //                self?.clearConversation()
 //            }
 //            
-//            AccountViewModel.loginDemo(phone: vc?.loginType == .phone ? phone : nil,
+//            AccountViewModel.loginDemo(phone: vc?.useType == .usePhone ? phone : nil,
 //                                       account: account,
-//                                       email: vc?.loginType == .email ? phone : nil,
+//                                       email: vc?.useType == .useEmail ? phone : nil,
 //                                       psw: code != nil ? nil : psw,
 //                                       verificationCode: code,
-//                                       areaCode: controller.areaCode) {[weak self] (errCode, errMsg) in
+//                                       areaCode: controller.areaCode!) {[weak self] (errCode, errMsg) in
+//                
+//                ProgressHUD.dismiss()
 //                if errMsg != nil {
-//                    ProgressHUD.error(errCode == -1 ? errMsg : String(errCode).localized())
+////                    ProgressHUD.error(errCode == -1 ? errMsg : String(errCode).localized())
+//                    SuperToast.show(title: String(errCode).localized())
 //                    self?.presentLoginController()
-//                } else {
-//                    UserDefaults.standard.setValue(vc?.loginType.rawValue, forKey: loginTypeKey)
-//                    UserDefaults.standard.synchronize()
-//                    self?.loginSuccess(dismiss: true)
-//                }
-//            }
-//        }).disposed(by: _disposeBag)
-//        
-//        vc.modalPresentationStyle = .fullScreen
-//        let nav = UINavigationController.init(rootViewController: vc)
-//        nav.modalPresentationStyle = .fullScreen
-//        
-//        self.present(nav, animated: false)
+                    
+                    if !SuperStringUtil.isPhoneNumber(controller.phone!) {
+                        SuperToast.show(title:  "填写正确的手机号码".localized())
+                        return
+                    }
+                   
+                } else {
+                   
+                    if !SuperStringUtil.isEmail(controller.phone!) {
+                        SuperToast.show(title:  "填写正确的邮箱".localized())
+                        return
+                    }
+                }
+
+                
+
+                let psw = controller.password
+                let code = controller.verificationCode
+                
+
+                
+                var account: String?
+                
+                ProgressHUD.animate()
+                let curAccount = vc?.useType == .usePhone ? phone : nil
+                let preAccount = AccountViewModel.perLoginAccount
+                
+                if curAccount != preAccount {
+                    self?.clearConversation()
+                }
+                
+                AccountViewModel.loginDemo(phone: vc?.useType == .usePhone ? phone : nil,
+                                           account: account,
+                                           email: vc?.useType == .useEmail ? phone : nil,
+                                           psw: code != nil ? nil : psw,
+                                           verificationCode: code,
+                                           areaCode: controller.areaCode!) {[weak self] (errCode, errMsg) in
+                    
+                    
+                    if errMsg != nil {
+                        ProgressHUD.dismiss()
+                        SuperToast.show(title: String(errCode).localized())
+                        self?.presentLoginController()
+                        
+                    } else {
+                        UserDefaults.standard.setValue(vc?.useType.rawValue, forKey: loginTypeKey)
+                        UserDefaults.standard.synchronize()
+                        self?.loginSuccess(dismiss: true)
+
+                    }
+                }
+                
+            }).disposed(by: _disposeBag)
+            vc.modalPresentationStyle = .fullScreen
+            let nav = UINavigationController.init(rootViewController: vc)
+            nav.modalPresentationStyle = .fullScreen
+            self.present(nav, animated: false)
+        }
+        
+        
+        return;
+        
         
         
     }

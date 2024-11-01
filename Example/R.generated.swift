@@ -16,7 +16,6 @@ struct _R: Sendable {
   var color: color { .init(bundle: bundle) }
   var image: image { .init(bundle: bundle) }
   var entitlements: entitlements { .init() }
-  var file: file { .init(bundle: bundle) }
   var nib: nib { .init(bundle: bundle) }
   var storyboard: storyboard { .init(bundle: bundle) }
 
@@ -33,9 +32,6 @@ struct _R: Sendable {
     .init(bundle: bundle)
   }
   func image(bundle: Foundation.Bundle) -> image {
-    .init(bundle: bundle)
-  }
-  func file(bundle: Foundation.Bundle) -> file {
     .init(bundle: bundle)
   }
   func nib(bundle: Foundation.Bundle) -> nib {
@@ -171,7 +167,7 @@ struct _R: Sendable {
       var ieXW0yeText: RswiftResources.StringResource { .init(key: "8ie-xW-0ye.text", tableName: "LaunchScreen", source: source, developmentValue: nil, comment: nil) }
     }
 
-    /// This `_R.string.localizable` struct is generated, and contains static references to 493 localization keys.
+    /// This `_R.string.localizable` struct is generated, and contains static references to 497 localization keys.
     struct localizable {
       let source: RswiftResources.StringResource.Source
 
@@ -1561,6 +1557,13 @@ struct _R: Sendable {
       /// Locales: en, th
       var 俄语: RswiftResources.StringResource { .init(key: "俄语", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// en translation: Save QR Code
+      ///
+      /// Key: 保存到手机
+      ///
+      /// Locales: en, th
+      var 保存到手机: RswiftResources.StringResource { .init(key: "保存到手机", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: Modify Password
       ///
       /// Key: 修改密码
@@ -2043,6 +2046,13 @@ struct _R: Sendable {
       ///
       /// Locales: en, th
       var 处理中: RswiftResources.StringResource { .init(key: "处理中", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Copy successfully
+      ///
+      /// Key: 复制成功
+      ///
+      /// Locales: en, th
+      var 复制成功: RswiftResources.StringResource { .init(key: "复制成功", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Friends' Activity
       ///
@@ -2681,11 +2691,11 @@ struct _R: Sendable {
       /// Locales: en, th
       var 注册哎比邻: RswiftResources.StringResource { .init(key: "注册哎比邻", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: Register
+      /// en translation: Create an Account
       ///
       /// Key: 注册账号
       ///
-      /// Locales: en, th
+      /// Locales: en, zh-Hans, th
       var 注册账号: RswiftResources.StringResource { .init(key: "注册账号", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Note: Once an account is deleted, it cannot be restored
@@ -2785,6 +2795,13 @@ struct _R: Sendable {
       ///
       /// Locales: en, th
       var 照片: RswiftResources.StringResource { .init(key: "照片", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: In effect
+      ///
+      /// Key: 生效中
+      ///
+      /// Locales: en, th
+      var 生效中: RswiftResources.StringResource { .init(key: "生效中", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Biometrics
       ///
@@ -3360,6 +3377,13 @@ struct _R: Sendable {
       /// Locales: en, th
       var 输入密码: RswiftResources.StringResource { .init(key: "输入密码", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// en translation: Enter your phone number
+      ///
+      /// Key: 输入手机号
+      ///
+      /// Locales: en, th
+      var 输入手机号: RswiftResources.StringResource { .init(key: "输入手机号", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: Enter phone verification code
       ///
       /// Key: 输入手机验证码
@@ -3644,7 +3668,7 @@ struct _R: Sendable {
     var colorBackground: RswiftResources.ColorResource { .init(name: "ColorBackground", path: [], bundle: bundle) }
   }
 
-  /// This `_R.image` struct is generated, and contains static references to 247 images.
+  /// This `_R.image` struct is generated, and contains static references to 249 images.
   struct image {
     let bundle: Foundation.Bundle
 
@@ -3966,6 +3990,9 @@ struct _R: Sendable {
     /// Image `add_search_friend_icon`.
     var add_search_friend_icon: RswiftResources.ImageResource { .init(name: "add_search_friend_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
+    /// Image `app_icon_home`.
+    var app_icon_home: RswiftResources.ImageResource { .init(name: "app_icon_home", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
     /// Image `appicon_horz`.
     var appicon_horz: RswiftResources.ImageResource { .init(name: "appicon_horz", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
@@ -3998,6 +4025,9 @@ struct _R: Sendable {
 
     /// Image `call_log_auido_btn`.
     var call_log_auido_btn: RswiftResources.ImageResource { .init(name: "call_log_auido_btn", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `call_log_history_btn`.
+    var call_log_history_btn: RswiftResources.ImageResource { .init(name: "call_log_history_btn", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
     /// Image `call_log_video`.
     var call_log_video: RswiftResources.ImageResource { .init(name: "call_log_video", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
@@ -4191,6 +4221,33 @@ struct _R: Sendable {
     /// Image `login_bg`.
     var login_bg: RswiftResources.ImageResource { .init(name: "login_bg", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
+    /// Image `login_type_alipay`.
+    var login_type_alipay: RswiftResources.ImageResource { .init(name: "login_type_alipay", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `login_type_apple`.
+    var login_type_apple: RswiftResources.ImageResource { .init(name: "login_type_apple", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `login_type_email`.
+    var login_type_email: RswiftResources.ImageResource { .init(name: "login_type_email", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `login_type_facebook`.
+    var login_type_facebook: RswiftResources.ImageResource { .init(name: "login_type_facebook", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `login_type_google`.
+    var login_type_google: RswiftResources.ImageResource { .init(name: "login_type_google", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `login_type_phone`.
+    var login_type_phone: RswiftResources.ImageResource { .init(name: "login_type_phone", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `login_type_qq`.
+    var login_type_qq: RswiftResources.ImageResource { .init(name: "login_type_qq", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `login_type_scan`.
+    var login_type_scan: RswiftResources.ImageResource { .init(name: "login_type_scan", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `login_type_wechat`.
+    var login_type_wechat: RswiftResources.ImageResource { .init(name: "login_type_wechat", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
     /// Image `logo_image`.
     var logo_image: RswiftResources.ImageResource { .init(name: "logo_image", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
@@ -4254,6 +4311,9 @@ struct _R: Sendable {
     /// Image `refresh_blue`.
     var refresh_blue: RswiftResources.ImageResource { .init(name: "refresh_blue", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
+    /// Image `report_icon_delete`.
+    var report_icon_delete: RswiftResources.ImageResource { .init(name: "report_icon_delete", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
     /// Image `save_icon`.
     var save_icon: RswiftResources.ImageResource { .init(name: "save_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
@@ -4274,36 +4334,6 @@ struct _R: Sendable {
 
     /// Image `share_icon`.
     var share_icon: RswiftResources.ImageResource { .init(name: "share_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
-
-    /// Image `system_avatar_0`.
-    var system_avatar_0: RswiftResources.ImageResource { .init(name: "system_avatar_0", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
-
-    /// Image `system_avatar_1`.
-    var system_avatar_1: RswiftResources.ImageResource { .init(name: "system_avatar_1", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
-
-    /// Image `system_avatar_2`.
-    var system_avatar_2: RswiftResources.ImageResource { .init(name: "system_avatar_2", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
-
-    /// Image `system_avatar_3`.
-    var system_avatar_3: RswiftResources.ImageResource { .init(name: "system_avatar_3", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
-
-    /// Image `system_avatar_4`.
-    var system_avatar_4: RswiftResources.ImageResource { .init(name: "system_avatar_4", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
-
-    /// Image `system_avatar_5`.
-    var system_avatar_5: RswiftResources.ImageResource { .init(name: "system_avatar_5", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
-
-    /// Image `system_avatar_6`.
-    var system_avatar_6: RswiftResources.ImageResource { .init(name: "system_avatar_6", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
-
-    /// Image `system_avatar_7`.
-    var system_avatar_7: RswiftResources.ImageResource { .init(name: "system_avatar_7", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
-
-    /// Image `system_avatar_8`.
-    var system_avatar_8: RswiftResources.ImageResource { .init(name: "system_avatar_8", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
-
-    /// Image `system_avatar_9`.
-    var system_avatar_9: RswiftResources.ImageResource { .init(name: "system_avatar_9", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
     /// Image `tab_contact_icon_normal`.
     var tab_contact_icon_normal: RswiftResources.ImageResource { .init(name: "tab_contact_icon_normal", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
@@ -4396,14 +4426,6 @@ struct _R: Sendable {
     let comAppleSecurityApplicationGroups = comAppleSecurityApplicationGroups()
     struct comAppleSecurityApplicationGroups {
     }
-  }
-
-  /// This `_R.file` struct is generated, and contains static references to 1 resource files.
-  struct file {
-    let bundle: Foundation.Bundle
-
-    /// Resource file `customSound.mp3`.
-    var customSoundMp3: RswiftResources.FileResource { .init(name: "customSound", pathExtension: "mp3", bundle: bundle, locale: LocaleReference.none) }
   }
 
   /// This `_R.nib` struct is generated, and contains static references to 2 nibs.
