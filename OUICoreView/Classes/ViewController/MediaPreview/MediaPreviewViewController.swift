@@ -152,6 +152,12 @@ public class MediaPreviewViewController: UIViewController {
                         lanternCell?.imageView.image = image
                         lanternCell?.imageView.setImage(with: resource.url.relativeString, placeholderImage: image, showIndicator: true)
                     }
+                }else{
+                    
+                    lanternCell?.imageView.setImage(with: resource.url.absoluteString) { [weak lanternCell] image in
+                        lanternCell?.imageView.image = image
+                        lanternCell?.imageView.setImage(with: resource.url.relativeString, placeholderImage: image, showIndicator: true)
+                    }
                 }
                 
                 lanternCell?.frameChangedHandler = { [weak self] frame in

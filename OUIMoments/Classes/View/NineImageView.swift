@@ -51,8 +51,13 @@ extension NineImageView: UICollectionViewDataSource, UICollectionViewDelegateFlo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(NineImageViewCell.self), for: indexPath) as! NineImageViewCell
         let item = images[indexPath.item]
-        cell.imageView.setImage(with: item.thumb, placeHolder: "common_image_placeholder", showIndicator: true)
-        cell.imageView.tag = item.thumb.hashValue
+        if item.thumb.isEmpty{
+            cell.imageView.setImage(with: item.original, placeHolder: "common_image_placeholder", showIndicator: true)
+        }else{
+            cell.imageView.setImage(with: item.thumb, placeHolder: "common_image_placeholder", showIndicator: true)
+        }
+        
+        cell.imageView.tag = item.original.hashValue
         
         if isRounds {
             cell.imageView.layer.cornerRadius = 5
@@ -64,7 +69,7 @@ extension NineImageView: UICollectionViewDataSource, UICollectionViewDelegateFlo
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("图片预览\(indexPath)")
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(NineImageViewCell.self), for: indexPath) as! NineImageViewCell
-        let views = images.flatMap({ collectionView.viewWithTag($0.thumb.hashValue )})
+        let views = images.flatMap({ collectionView.viewWithTag($0.original.hashValue )})
         
         if !images.isEmpty {
             onPreviewImages?(images, indexPath, views)

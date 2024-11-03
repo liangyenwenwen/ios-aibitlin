@@ -162,12 +162,12 @@ class YFMineNetViewModel: AccountViewModel {
                             completionHandler(res.code, res.message)
                         }
                     } else {
-                        completionHandler(-1, "Failure")
+                        completionHandler(-1, "failure")
                     }
                     
                     
                 } else {
-                    completionHandler(-1, "Failure")
+                    completionHandler(-1, "failure")
                 }
             }
         }
@@ -198,10 +198,10 @@ class YFMineNetViewModel: AccountViewModel {
                     if res.code == 20000  {
                         valueHandler(res.data)
                     } else {
-                        completionHandler(-1, "Failure")
+                        completionHandler(-1, "failure")
                     }
                 } else {
-                    completionHandler(-1, "Failure")
+                    completionHandler(-1, "failure")
                 }
             } else {
                 completionHandler(-1, "-1")
@@ -227,10 +227,10 @@ class YFMineNetViewModel: AccountViewModel {
                     if res.code == 20000  {
                         completionHandler(res.code, res.message)
                     } else {
-                        completionHandler(-1, "Failure")
+                        completionHandler(-1, "failure")
                     }
                 } else {
-                    completionHandler(-1, "Failure")
+                    completionHandler(-1, "failure")
                 }
             }else {
                 completionHandler(-1, "-1")
@@ -302,10 +302,10 @@ class YFMineNetViewModel: AccountViewModel {
                     if res.code == 20000  {
                         completionHandler(res.code, res.message)
                     } else {
-                        completionHandler(-1, "Failure")
+                        completionHandler(-1, "failure")
                     }
                 } else {
-                    completionHandler(-1, "Failure")
+                    completionHandler(-1, "failure")
                 }
             }else{
                 completionHandler(-1, "-1")
@@ -329,10 +329,10 @@ class YFMineNetViewModel: AccountViewModel {
                     if res.code == 20000  {
                         completionHandler(res.code, res.message)
                     } else {
-                        completionHandler(-1, "Failure")
+                        completionHandler(-1, "failure")
                     }
                 } else {
-                    completionHandler(-1, "Failure")
+                    completionHandler(-1, "failure")
                 }
             }else{
                 completionHandler(-1, "-1")
@@ -360,10 +360,10 @@ class YFMineNetViewModel: AccountViewModel {
                     if res.code == 20000  {
                         valueHandler(res.data)
                     } else {
-                        completionHandler(-1, "Failure")
+                        completionHandler(-1, "failure")
                     }
                 } else {
-                    completionHandler(-1, "Failure")
+                    completionHandler(-1, "failure")
                 }
             }else{
                 completionHandler(-1, "-1")
@@ -390,11 +390,11 @@ class YFMineNetViewModel: AccountViewModel {
                     if res.code == 20000  {
                         valueHandler(res.data)
                     } else {
-                        completionHandler(-1, "Failure")
+                        completionHandler(-1, "failure")
                     }
                     
                 } else {
-                    completionHandler(-1, "Failure")
+                    completionHandler(-1, "failure")
                 }
             }else{
                 completionHandler(-1, "-1")
@@ -421,11 +421,11 @@ class YFMineNetViewModel: AccountViewModel {
                     if res.code == 20000  {
                         valueHandler(res.data)
                     } else {
-                        completionHandler(-1, "Failure")
+                        completionHandler(-1, "failure")
                     }
                     
                 } else {
-                    completionHandler(-1, "Failure")
+                    completionHandler(-1, "failure")
                 }
             }else{
                 completionHandler(-1, "-1")
@@ -452,11 +452,11 @@ class YFMineNetViewModel: AccountViewModel {
                     if res.code == 20000  {
                         valueHandler(res.data)
                     } else {
-                        completionHandler(-1, "Failure")
+                        completionHandler(-1, "failure")
                     }
                     
                 } else {
-                    completionHandler(-1, "Failure")
+                    completionHandler(-1, "failure")
                 }
             }else{
                 completionHandler(-1, "-1")
@@ -491,7 +491,7 @@ class YFMineNetViewModel: AccountViewModel {
                     }
                     
                 } else {
-                    completionHandler(-1, "Failure")
+                    completionHandler(-1, "failure")
                 }
                 
                 
@@ -611,7 +611,7 @@ extension YFMineNetViewModel {
                      }
                      
                  } else {
-                     SuperToast.show(title: "Failure".localized())
+                     SuperToast.show(title: "failure".localized())
                  }
              }else{
                  SuperToast.show(title: "-1".localized())
@@ -658,11 +658,11 @@ extension YFMineNetViewModel {
                         SuperToast.show(title: "提交成功".localized())
                         valueHandler("提交成功")
                     }else{
-                        SuperToast.show(title: "Failure".localized())
+                        SuperToast.show(title: "failure".localized())
                     }
                     
                 } else {
-                    SuperToast.show(title: "Failure".localized())
+                    SuperToast.show(title: "failure".localized())
                 }
    
             }else{

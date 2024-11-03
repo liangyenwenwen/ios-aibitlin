@@ -898,4 +898,9 @@
 
 "视频通话" = "Video call";
 "语音通话" = "Voice call";
+"-1" = "Net Error";
 
+"复制成功" = "Copy successfully";
+"生效中" = "In effect";
+"分享给好友" = "Share with Friends";
+"保存到手机" = "Save QR Code";

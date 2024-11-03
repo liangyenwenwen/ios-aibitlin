@@ -7,7 +7,6 @@ public class SearchResultViewController: UIViewController, UISearchResultsUpdati
     
     public var didSelectedItem: ((_ ID: String) -> Void)?
     
-    public var lastDate = Date()
     
     private lazy var tableView: UITableView = {
         let v = UITableView()
@@ -48,7 +47,6 @@ public class SearchResultViewController: UIViewController, UISearchResultsUpdati
         return v
     }()
     
-    private var debounceTimer: Timer?
     var dataList = [[String: String]]() {
         willSet {
             dataList = newValue
@@ -95,12 +93,9 @@ public class SearchResultViewController: UIViewController, UISearchResultsUpdati
         super.viewDidLoad()
         edgesForExtendedLayout = [UIRectEdge.left, .right, .bottom]
         view.backgroundColor = .viewBackgroundColor
-        
         initView()
         bindData()
     }
-    
-    
     private func initView() {
         view.backgroundColor = .groupTableViewBackground
         
@@ -140,31 +135,17 @@ public class SearchResultViewController: UIViewController, UISearchResultsUpdati
     private var keyword: String = ""
     
     
-    
+    public func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        search(searchBar.text ?? "")
+    }
     public func updateSearchResults(for searchController: UISearchController) {
-        
-//        print(Date().timeIntervalSince1970 - lastDate.timeIntervalSince1970)  搜索限制
-        
-        if _searchType == .user {
-            if Date().timeIntervalSince1970 - lastDate.timeIntervalSince1970  > 3 {
-                let keyword = searchController.searchBar.text?.trimmingCharacters(in: .whitespacesAndNewlines)
-                guard let keyword = keyword, !keyword.isEmpty else {
-                    return
-                }
-                search(keyword)
-                
-                lastDate = Date()
-            } else {
-                print(Date().timeIntervalSince1970 - lastDate.timeIntervalSince1970)
-            }
-        } else {
-            let keyword = searchController.searchBar.text?.trimmingCharacters(in: .whitespacesAndNewlines)
-            guard let keyword = keyword, !keyword.isEmpty else {
-                return
-            }
-            search(keyword)
+        let searchStr = searchController.searchBar.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+        if searchStr == ""{
+            self.usersList.removeAll()
+            self.groupsList.removeAll()
+            self.dataList.removeAll()
+            self.tableView .reloadData()
         }
-        
        
     }
     
@@ -186,9 +167,9 @@ public class SearchResultViewController: UIViewController, UISearchResultsUpdati
         case .group:
             
             
-            
-            
+            ProgressHUD.animate()
             IMController.shared.getGroupListBy(id: keyword).subscribe(onNext: { [weak self] (groupID: String?) in
+                ProgressHUD.dismiss()
                 let shouldHideEmptyView = groupID != nil
                 let shouldHideResultView = groupID == nil
                 
@@ -202,7 +183,16 @@ public class SearchResultViewController: UIViewController, UISearchResultsUpdati
                         self?.updateGroupMessage(groupID: groupID!)
                     }
                 }
-            }).disposed(by: _disposebag)
+            },
+            onError:{ [weak self] (error: Error?) in
+                ProgressHUD.dismiss()
+                OIMApi.showTipHandle
+                if let handler = OIMApi.showTipHandle {
+                    handler("-1".innerLocalized(), { res in
+                    })
+                }
+            }
+            ).disposed(by: _disposebag)
         case .user:
             // 业务层有搜索数据
             if let handler = OIMApi.queryFriendsWithCompletionHandler {
@@ -219,24 +209,12 @@ public class SearchResultViewController: UIViewController, UISearchResultsUpdati
                         let isEmail = self.isEmail(keyword)
                         
                         self.usersList = res
-                        
-//                        self.dataList = res.map { elem in
-//                            if isNumber {
-//                                if isPhone {
-//                                    return [elem.userID : "手机号".innerLocalized() + ":" + elem.phoneNumber!]
-//                                } else {
-//                                    return [elem.userID : "ID:" + elem.userID]
-//                                }
-//                            } else if isEmail {
-//                                return [elem.userID : "邮箱".innerLocalized() + ":" + elem.email!]
-//                            } else {
-//                                return [elem.userID : "昵称".innerLocalized() + ":" + SuperStringUtil.getUserShowname(showname: elem.nickname!)]
-//                            }
-//                        }
                     }
                 })
             } else {
-                IMController.shared.getFriendsBy(id: keyword).subscribe { [weak self] (userInfo: FullUserInfo?) in
+                ProgressHUD.animate()
+                IMController.shared.getFriendsBy(id: keyword).subscribe(onNext: { [weak self] (userInfo: FullUserInfo?) in
+                    ProgressHUD.dismiss()
                     self?.userInfo = userInfo
                     let uid = userInfo?.userID
                     let shouldHideEmptyView = uid != nil
@@ -249,14 +227,20 @@ public class SearchResultViewController: UIViewController, UISearchResultsUpdati
                             self?.dataList = [[uid! :uid!]]
                         }
                     }
-                }.disposed(by: _disposebag)
+                },
+                onError:{ [weak self] (error: Error?) in
+                    ProgressHUD.dismiss()
+                    OIMApi.showTipHandle
+                    if let handler = OIMApi.showTipHandle {
+                        handler("-1".innerLocalized(), { res in
+                        })
+                    }
+                }
+                ).disposed(by: _disposebag)
             }
         }
     }
     
-    deinit {
-        debounceTimer = nil
-    }
     
     // 验证邮箱
     func isEmail(_ email: String) -> Bool {
@@ -341,9 +325,8 @@ extension SearchResultViewController: UITableViewDelegate, UITableViewDataSource
                 didSelectedItem?(id)
             }
         }
-        
+        tableView.deselectRow(at: indexPath, animated: true)
     }
-    
     func updateGroupMessage(groupID: String) {
 
         IMController.shared.getGroupInfo(groupIds: [groupID]) { [weak self] (groupInfos: [GroupInfo]) in

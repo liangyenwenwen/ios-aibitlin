@@ -221,7 +221,6 @@ public class CallingManager: NSObject {
             onSuccess(signalingInfo.liveURL, signalingInfo.token)
         }
     }
-    
     // 发起音视频聊天
     public func startLiveChat(inviterID: String = OIMManager.manager.getLoginUserID(),
                               othersID: [String],
@@ -255,9 +254,18 @@ public class CallingManager: NSObject {
                 
                 getUsersInfo([inviterID] + othersID, groupID: groupID) { [weak self] r in
                     guard let `self` else { return }
+                    var userArray = r
+                    for (index,item) in userArray.enumerated().reversed() {
+                        if item.userID == inviterID {
+                            self.inviter = item
+                            userArray.remove(at: index)
+                            break
+                        }
+                    }
+                    self.others = userArray
+//                    self.inviter = r.first
+//                    self.others = Array(r.dropFirst())
                     
-                    self.inviter = r.first
-                    self.others = Array(r.dropFirst())
                     self.senderViewController!.startLiveChat(inviter: { [weak self] in
                         
                         guard let `self` else { return [] }
@@ -269,6 +277,7 @@ public class CallingManager: NSObject {
                     }, isVideo: isVideo, groupID: groupID)
                 }
             }
+            
         } else {
             // 收到音视频邀请
             setupReciverViewController()

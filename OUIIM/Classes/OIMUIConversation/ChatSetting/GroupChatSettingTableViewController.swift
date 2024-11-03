@@ -316,9 +316,13 @@ class GroupChatSettingTableViewController: UITableViewController {
             cell.QRCodeTapHandler = { [weak self] in
                 guard let self else { return }
                 let vc = QRCodeViewController(idString: IMController.joinGroupPrefix.append(string: self._viewModel.conversation.groupID))
-                vc.avatarView.setAvatar(url: self._viewModel.conversation.faceURL, text: self._viewModel.conversation.showName)
-                vc.nameLabel.text = self._viewModel.conversation.showName
-                vc.tipLabel.text = "groupQrcodeHint".innerLocalized()
+                vc.groupID = self._viewModel.conversation.groupID ?? ""
+                vc.groupName = self._viewModel.conversation.showName ?? ""
+                vc.groupImage = self._viewModel.conversation.faceURL ?? ""
+                vc.groupDetailInfo = groupInfo ?? GroupInfo()
+//                vc.avatarView.setAvatar(url: self._viewModel.conversation.faceURL, text: self._viewModel.conversation.showName)
+//                vc.nameLabel.text = self._viewModel.conversation.showName
+//                vc.tipLabel.text = "groupQrcodeHint".innerLocalized()
                 self.navigationController?.pushViewController(vc, animated: true)
             }
             return cell
