@@ -74,6 +74,12 @@ class MineBokeEditVC: BaseTitleController, UIImagePickerControllerDelegate, UINa
     lazy var addressView: SuperSettingView = {
         let r = SuperSettingView.createInput("地址".localized(), placeholder: " 请输入以https://开头的地址".localized())
         r.needLimitLength(length: 255)
+        r.textFieldView.keyboardType = .emailAddress
+        r.textFieldView.rx.controlEvent(.editingDidEnd).subscribe(onNext: { [unowned self] in
+            let str = r.textFieldView.text?.replacingOccurrences(of: " ", with: "").lowercased()
+            r.textFieldView.text = str
+        }).disposed(by: rx.disposeBag)
+
         return r
     }()
     
