@@ -318,8 +318,10 @@ extension MineBokeListViewController {
         
         if let IMUser = IMController.shared.currentUserRelay.value {
             YFMineNetViewModel.mineBlog(userId: IMUser.userID) { [weak self] data in
-                self?.datum = data
-                self?.tableView.reloadData()
+                DispatchQueue.main.async {
+                    self?.datum = data
+                    self?.tableView.reloadData()
+                }
                 self?.tableView.mj_header?.endRefreshing()
             } completionHandler: { errCode, errMsg in
                 self.tableView.mj_header?.endRefreshing()

@@ -13,13 +13,13 @@ public class SearchGroupViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         definesPresentationContext = true
-//        navigationItem.title = "addGroup".innerLocalized()
-        navigationItem.title = "ID"
+        navigationItem.title = "addGroup".innerLocalized()
 
         
         let searchViewController = UISearchController(searchResultsController: resultViewController)
 //        searchViewController.searchResultsUpdater = resultViewController
-        searchViewController.searchBar.placeholder = "searchIDAddGroup".innerLocalized()
+//        searchViewController.searchBar.placeholder = "searchIDAddGroup".innerLocalized()
+        searchViewController.searchBar.placeholder = "ID"
         searchViewController.obscuresBackgroundDuringPresentation = false
         searchViewController.hidesNavigationBarDuringPresentation = false
         searchViewController.automaticallyShowsCancelButton = false

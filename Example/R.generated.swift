@@ -2509,7 +2509,7 @@ struct _R: Sendable {
       /// Locales: en, th
       var 支持显示博客7日访客数量并显示好友访问数据: RswiftResources.StringResource { .init(key: "支持显示博客7日访客数量并显示好友访问数据", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: Star
+      /// en translation: Collect
       ///
       /// Key: 收藏
       ///

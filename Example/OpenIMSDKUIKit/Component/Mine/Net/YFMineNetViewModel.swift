@@ -102,6 +102,7 @@ class YFMineNetViewModel: AccountViewModel {
 
                     if res.code == 20000  {
                         print("请求成功")
+                        UserDefaults.standard.set("0", forKey: "blogVersion\(Open_im_sdkGetLoginUserID())")
                     } else {
                         print("请求失败")
                     }
@@ -131,8 +132,7 @@ class YFMineNetViewModel: AccountViewModel {
         
         
         if let IMUser = IMController.shared.currentUserRelay.value {
-            
-            let blogVersion = UserDefaults.standard.string(forKey: "blogVersion\(IMUser.userID)") ?? "123"
+            let blogVersion = UserDefaults.standard.string(forKey: "blogVersion\(Open_im_sdkGetLoginUserID())") ?? "0"
             
             
             let body = JsonTool.toJson(fromObject: MineBlogRequest(userId: userId, userBlogVersion: "\(blogVersion)")).data(using: .utf8)
@@ -151,13 +151,20 @@ class YFMineNetViewModel: AccountViewModel {
 
                         if res.code == 20000  {
                             
-                            if res.data.showBlogs?.count ?? 0 > 0 {
+//                            if res.data.showBlogs?.count ?? 0 > 0 {
+//                                valueHandler(res.data.showBlogs!)
+//                                YFFileDataUtil.saveDataToFile(.cache, blogsArr: res.data.showBlogs!)
+//                            } else {
+//                                valueHandler(YFFileDataUtil.readDataToFile(.cache))
+//                            }
+                            UserDefaults.standard.set(res.data.version, forKey: "blogVersion\(Open_im_sdkGetLoginUserID())")
+                            if Int(blogVersion) ==  0 {
                                 valueHandler(res.data.showBlogs!)
                                 YFFileDataUtil.saveDataToFile(.cache, blogsArr: res.data.showBlogs!)
                             } else {
                                 valueHandler(YFFileDataUtil.readDataToFile(.cache))
                             }
-                            UserDefaults.standard.set(res.data.version, forKey: "blogVersion\(IMUser.userID)")
+                            
                         } else {
                             completionHandler(res.code, res.message)
                         }
@@ -301,6 +308,7 @@ class YFMineNetViewModel: AccountViewModel {
                 if let res = JsonTool.fromJson(strData!, toClass: BlogResponse.self) {
 
                     if res.code == 20000  {
+                        UserDefaults.standard.set("0", forKey: "blogVersion\(Open_im_sdkGetLoginUserID())")
                         completionHandler(res.code, res.message)
                     } else {
                         completionHandler(-1, "failure")
@@ -328,6 +336,7 @@ class YFMineNetViewModel: AccountViewModel {
                 if let res = JsonTool.fromJson(strData!, toClass: BlogResponse.self) {
 
                     if res.code == 20000  {
+                        UserDefaults.standard.set("0", forKey: "blogVersion\(Open_im_sdkGetLoginUserID())")
                         completionHandler(res.code, res.message)
                     } else {
                         completionHandler(-1, "failure")
@@ -551,7 +560,7 @@ class YFMineNetViewModel: AccountViewModel {
                             let defaults = UserDefaults.standard
                             defaults.set(String.getCurrentLanguageFirst(), forKey: "blogLanguage\(uid)")
                         }
-                        UserDefaults.standard.set("0", forKey: "blogVersion\(Open_im_sdkGetLoginUserID())")
+//                        UserDefaults.standard.set("0", forKey: "blogVersion\(Open_im_sdkGetLoginUserID())")
                     } else {
                        
                     }
@@ -575,7 +584,7 @@ class YFMineNetViewModel: AccountViewModel {
                         defaults.set(String.getCurrentLanguageFirst(), forKey: "blogLanguage\(uid)")
                     }
                     
-                    UserDefaults.standard.set("0", forKey: "blogVersion\(Open_im_sdkGetLoginUserID())")
+//                    UserDefaults.standard.set("0", forKey: "blogVersion\(Open_im_sdkGetLoginUserID())")
                 } else {
                    
                 }
