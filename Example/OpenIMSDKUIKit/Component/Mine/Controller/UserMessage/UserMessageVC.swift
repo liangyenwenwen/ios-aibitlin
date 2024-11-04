@@ -340,6 +340,7 @@ class UserMessageVC: BaseTitleController {
     }
     
     
+    
     func getOtherSetting() {
         IMController.shared.getUserInfo(uids: [userID], groupID: nil) { [self] users in
             guard let sdkUser = users.first else { return }

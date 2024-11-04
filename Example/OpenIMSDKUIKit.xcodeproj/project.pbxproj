@@ -156,10 +156,6 @@
 		17BCADFC2A8DBA0A0022767D /* AboutUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17BCADFB2A8DBA0A0022767D /* AboutUsViewController.swift */; };
 		17C370972A4D78A400CCB044 /* UnderlineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C370962A4D78A400CCB044 /* UnderlineTextField.swift */; };
 		17C4BBAA28CA1220003782EF /* Array+deduplicate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C4BBA928CA1220003782EF /* Array+deduplicate.swift */; };
-		17D150AA2B83409C00E0AFB5 /* JKLLockScreenNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 17D150A52B83409C00E0AFB5 /* JKLLockScreenNumber.m */; };
-		17D150AB2B83409C00E0AFB5 /* JKLLockScreenPincodeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 17D150A62B83409C00E0AFB5 /* JKLLockScreenPincodeView.m */; };
-		17D150AC2B83409C00E0AFB5 /* JKLLockScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17D150A72B83409C00E0AFB5 /* JKLLockScreenViewController.m */; };
-		17D150AD2B83409C00E0AFB5 /* JKLLockScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17D150A82B83409C00E0AFB5 /* JKLLockScreenViewController.xib */; };
 		17FD41122B66559B008F1485 /* LocalAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD41112B66559B008F1485 /* LocalAuthManager.swift */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
@@ -373,13 +369,6 @@
 		17BCADFB2A8DBA0A0022767D /* AboutUsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsViewController.swift; sourceTree = "<group>"; };
 		17C370962A4D78A400CCB044 /* UnderlineTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnderlineTextField.swift; sourceTree = "<group>"; };
 		17C4BBA928CA1220003782EF /* Array+deduplicate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+deduplicate.swift"; sourceTree = "<group>"; };
-		17D150A32B83409C00E0AFB5 /* JKLLockScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKLLockScreenViewController.h; sourceTree = "<group>"; };
-		17D150A42B83409C00E0AFB5 /* JKLLockScreenPincodeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKLLockScreenPincodeView.h; sourceTree = "<group>"; };
-		17D150A52B83409C00E0AFB5 /* JKLLockScreenNumber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKLLockScreenNumber.m; sourceTree = "<group>"; };
-		17D150A62B83409C00E0AFB5 /* JKLLockScreenPincodeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKLLockScreenPincodeView.m; sourceTree = "<group>"; };
-		17D150A72B83409C00E0AFB5 /* JKLLockScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKLLockScreenViewController.m; sourceTree = "<group>"; };
-		17D150A82B83409C00E0AFB5 /* JKLLockScreenViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JKLLockScreenViewController.xib; sourceTree = "<group>"; };
-		17D150A92B83409C00E0AFB5 /* JKLLockScreenNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKLLockScreenNumber.h; sourceTree = "<group>"; };
 		17D1A3122A5BA59A00183905 /* SampleHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleHandler.swift; sourceTree = "<group>"; };
 		17D1A3142A5BA59A00183905 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		17D1A31B2A5BA8F400183905 /* ScreenShareBroadcastExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ScreenShareBroadcastExtension.entitlements; sourceTree = "<group>"; };
@@ -1171,20 +1160,6 @@
 			path = NavigationControllerPopGesture;
 			sourceTree = "<group>";
 		};
-		17D150A22B83409C00E0AFB5 /* LockScreenViewController */ = {
-			isa = PBXGroup;
-			children = (
-				17D150A32B83409C00E0AFB5 /* JKLLockScreenViewController.h */,
-				17D150A42B83409C00E0AFB5 /* JKLLockScreenPincodeView.h */,
-				17D150A52B83409C00E0AFB5 /* JKLLockScreenNumber.m */,
-				17D150A62B83409C00E0AFB5 /* JKLLockScreenPincodeView.m */,
-				17D150A72B83409C00E0AFB5 /* JKLLockScreenViewController.m */,
-				17D150A82B83409C00E0AFB5 /* JKLLockScreenViewController.xib */,
-				17D150A92B83409C00E0AFB5 /* JKLLockScreenNumber.h */,
-			);
-			path = LockScreenViewController;
-			sourceTree = "<group>";
-		};
 		17D1A3112A5BA59A00183905 /* ScreenShareBroadcastExtension */ = {
 			isa = PBXGroup;
 			children = (
@@ -1328,7 +1303,6 @@
 			children = (
 				1790EE6A2921EAFC00C4024A /* MainTabViewController.swift */,
 				040D44232C882ABA007DB6FB /* Chat */,
-				17D150A22B83409C00E0AFB5 /* LockScreenViewController */,
 				17B11A3E2ABD28C600DB8980 /* NavigationControllerPopGesture */,
 				170E4B2129344C51007A6535 /* Discovery */,
 				1790EE642921EAFC00C4024A /* Account */,
@@ -1410,7 +1384,6 @@
 				0411DD282C05CE3C00EDD135 /* InfoPlist.strings in Resources */,
 				DCE04171283E5BD30095874E /* Localizable.strings in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
-				17D150AD2B83409C00E0AFB5 /* JKLLockScreenViewController.xib in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1631,7 +1604,6 @@
 				17FD41122B66559B008F1485 /* LocalAuthManager.swift in Sources */,
 				042E2A1F2BF5C3B400A90CB6 /* YFOpenIMUtil.swift in Sources */,
 				040D860E2BEB8C4200DCAAB3 /* SuperUIColorExtensionswift.swift in Sources */,
-				17D150AA2B83409C00E0AFB5 /* JKLLockScreenNumber.m in Sources */,
 				049C64452BECC62D00B679C4 /* YFRegisterVC.swift in Sources */,
 				04D8BF842C8AD7EC00C1244E /* MineBokeVisitorListVC.swift in Sources */,
 				04F2D08D2BEE21CA00D5271B /* UserMessageThridView.swift in Sources */,
@@ -1642,7 +1614,6 @@
 				043A558C2C8166490041836E /* UserTagTypeView.swift in Sources */,
 				17943358292DB9ED0088B768 /* ScreenLockSettingViewController.swift in Sources */,
 				04D2E2092CBE4E5500582B13 /* UIView+Position.swift in Sources */,
-				17D150AC2B83409C00E0AFB5 /* JKLLockScreenViewController.m in Sources */,
 				17C370972A4D78A400CCB044 /* UnderlineTextField.swift in Sources */,
 				17B11A422ABD28C600DB8980 /* InterruptNavigationControllerPopGesture.swift in Sources */,
 				1760BE5C2BD9FFAD0096CD1C /* SimpleInputViewController.swift in Sources */,
@@ -1728,7 +1699,6 @@
 				040D86092BEB8C4200DCAAB3 /* SuperUIThemeExtension.swift in Sources */,
 				040D85C52BEB8B0400DCAAB3 /* SuperStringUtil.swift in Sources */,
 				04F2D0872BEE21CA00D5271B /* MineDeleteAccountChooseWayVC.swift in Sources */,
-				17D150AB2B83409C00E0AFB5 /* JKLLockScreenPincodeView.m in Sources */,
 				04ECEC5F2CBD1DC10005495F /* RunTimeAbout.swift in Sources */,
 				17B11A432ABD28C600DB8980 /* NavigationInteractiveTransition.swift in Sources */,
 				17BBFAC42925D4C10025B686 /* CountDownTimerButton.swift in Sources */,
