@@ -82,6 +82,7 @@ class MineChooseBottomSheetView: TGLinearLayout {
     lazy var titleLbl: UILabel = {
         let r = ViewFactoryUtil.customTilteLabelFill("选择举报该账号的原因".localized(), font: 16, textColor: .colorOnBackground)
         r.font = UIFont(name: "PingFangSC-Medium", size: 16)
+        r.numberOfLines = 1
         return r
     }()
     
