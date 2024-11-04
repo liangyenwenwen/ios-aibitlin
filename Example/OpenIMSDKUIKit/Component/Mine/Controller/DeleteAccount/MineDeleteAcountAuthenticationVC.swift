@@ -29,6 +29,9 @@ class MineDeleteAcountAuthenticationVC: BaseTitleController {
         
         container.addSubview(sectionLbl)
         container.addSubview(topContentView)
+        if vcType == .useEmail || vcType == .changeEmail || vcType == .forgetPwdByEmail || vcType == .forgetPwdByEmailBylogin{
+            container.addSubview(codeTipLbl)
+        }
         
       
         
@@ -188,7 +191,13 @@ class MineDeleteAcountAuthenticationVC: BaseTitleController {
         r.codeBtn.addTarget(self, action: #selector(getCodeAction), for: .touchUpInside)
         return r
     }()
-    
+    lazy var codeTipLbl: UILabel = {
+        let r = ViewFactoryUtil.sectionTilteLbael()
+        r.text = "codeFormat".localized()
+        r.tg_top.equal(-6)
+        r.numberOfLines = 0
+        return r
+    }()
     lazy var newPwdContentView: TGLinearLayout = {
         let r = TGLinearLayout(.vert)
         r.tg_width.equal(.fill)

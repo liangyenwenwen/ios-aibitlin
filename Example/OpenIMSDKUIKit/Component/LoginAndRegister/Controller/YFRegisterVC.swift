@@ -39,6 +39,7 @@ class YFRegisterVC: BaseTitleController {
         container.addSubview(appTitleLbl)
         container.addSubview(phoneView)
         container.addSubview(codeView)
+        container.addSubview(codeTipLbl)
         container.addSubview(pwdView)
         container.addSubview(pwdTipLbl)
         container.addSubview(rePwdView)
@@ -99,17 +100,23 @@ class YFRegisterVC: BaseTitleController {
         r.isCode()
         return r
     }()
+    lazy var codeTipLbl: UILabel = {
+        let r = ViewFactoryUtil.sectionTilteLbael()
+        r.text = "codeFormat".localized()
+        r.tg_top.equal(codeView.tg_bottom).offset(10)
+        r.hide()
+        r.numberOfLines = 0
+        return r
+    }()
     
     lazy var pwdView: SuperSettingView = {
         let r = SuperSettingView.createInput("password".localized())
         r.loginUI()
-        r.tg_top.equal(appTitleLbl.tg_bottom, offset: 168)
+        r.tg_top.equal(codeView.tg_bottom, offset: 20)
         r.tg_width.equal(.fill)
         r.isPwd()
         return r
     }()
-    
-   
     
     lazy var pwdTipLbl: UILabel = {
         let r = ViewFactoryUtil.sectionTilteLbael()
@@ -287,6 +294,11 @@ extension YFRegisterVC {
                 SuperToast.show(title: "plsEnterRightX".localizedFormat("email".localized()))
             }
             return
+        }
+        if codeTipLbl.isHidden == true{
+            codeTipLbl.show()
+            self.pwdView.tg_top.equal(self.codeTipLbl.tg_bottom, offset: 10)
+            view.layoutIfNeeded()
         }
         
         let invaitationCode = ""
