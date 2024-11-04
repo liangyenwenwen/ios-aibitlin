@@ -60,6 +60,7 @@
 "plsCompleteInfo" = "请完善个人信息";
 "plsEnterYourNickname" = "请输入您的昵称";
 "setInfo" = "设置信息";
+"codeFormat" = "邮件可能被误标为垃圾邮件，请查看您的垃圾箱";
 "loginPwdFormat" = "8 ～20位，至少包含数字、字母";
 "passwordLogin" = "密码登录";
 "through" = "通过%@";
