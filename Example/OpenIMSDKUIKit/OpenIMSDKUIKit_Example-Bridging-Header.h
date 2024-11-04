@@ -2,7 +2,6 @@
 //  Use this file to import your target's public headers that you would like to expose to Swift.
 //
 
-#import "JKLLockScreenViewController.h"
 
 //腾讯开源UI框架
 #import <QMUIKit/QMUIKit.h>

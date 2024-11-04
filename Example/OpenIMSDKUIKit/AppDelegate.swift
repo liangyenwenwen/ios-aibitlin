@@ -210,21 +210,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         GeTuiSdk.start(withAppId: kGtAppId, appKey: kGtAppKey, appSecret: kGtAppSecret, delegate: self)
         GeTuiSdk.registerRemoteNotification([.alert, .badge, .sound])
         
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1) { [self] in
-            if let rootViewController = window?.rootViewController {
-                let vc = ScreenLockSettingViewController()
-                vc.modalPresentationStyle = .overFullScreen
-                
-                vc.showScreenLock(inController: rootViewController) { [weak self] in
-                    self?.window!.rootViewController!.dismiss(animated: false) {
-                        IMController.shared.logout { _ in
-                            self?.logout()
-                        }
-                    }
-                }
-            }
-        }
-        
         AccountViewModel.getClientConfig()
         
         OIMApi.rotationHandler = { [weak self] o in
@@ -254,16 +239,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func applicationWillEnterForeground(_ application: UIApplication) {
         application.applicationIconBadgeNumber = 0
         UIApplication.shared.endBackgroundTask(self.backgroundTaskIdentifier!);
-        if let rootViewController = window?.rootViewController {
-            
-            ScreenLockSettingViewController().showScreenLock(inController: rootViewController) { [weak self] in
-                self?.window!.rootViewController!.dismiss(animated: false) {
-                    IMController.shared.logout { _ in
-                        self?.logout()
-                    }
-                }
-            }
-        }
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {

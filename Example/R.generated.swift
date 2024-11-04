@@ -4433,18 +4433,14 @@ struct _R: Sendable {
     }
   }
 
-  /// This `_R.nib` struct is generated, and contains static references to 2 nibs.
+  /// This `_R.nib` struct is generated, and contains static references to 1 nibs.
   struct nib {
     let bundle: Foundation.Bundle
-
-    /// Nib `JKLLockScreenViewController`.
-    var jklLockScreenViewController: RswiftResources.NibReference<UIKit.UIView> { .init(name: "JKLLockScreenViewController", bundle: bundle) }
 
     /// Nib `LaunchScreen`.
     var launchScreen: RswiftResources.NibReference<UIKit.UIView> { .init(name: "LaunchScreen", bundle: bundle) }
 
     func validate() throws {
-      if #available(iOS 13.0, *) { if UIKit.UIImage(systemName: "delete.backward.fill") == nil { throw RswiftResources.ValidationError("[R.swift] System image named 'delete.backward.fill' is used in nib 'JKLLockScreenViewController', but couldn't be loaded.") } }
       if UIKit.UIImage(named: "logo_image", in: bundle, compatibleWith: nil) == nil { throw RswiftResources.ValidationError("[R.swift] Image named 'logo_image' is used in nib 'LaunchScreen', but couldn't be loaded.") }
     }
   }
