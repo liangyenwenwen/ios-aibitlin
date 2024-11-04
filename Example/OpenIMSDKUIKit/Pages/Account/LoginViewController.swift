@@ -248,7 +248,7 @@ class LoginViewController: UIViewController {
     
     lazy var loginBtn: UIButton = {
         let v = UIButton(type: .system)
-        v.setTitle("Log in".localized(), for: .normal)
+        v.setTitle("loginApp".localized(), for: .normal)
         v.setTitleColor(.white, for: .normal)
         v.titleLabel?.font = .f20
         v.layer.cornerRadius = DemoUI.cornerRadius
@@ -263,7 +263,7 @@ class LoginViewController: UIViewController {
     
     lazy var loginTypeBtn: UIButton = {
         let v = UIButton(type: .system)
-        v.setTitle("email".localized() + "login".localized(), for: .normal)
+        v.setTitle("email".localized() + "loginApp".localized(), for: .normal)
         v.backgroundColor = .systemGray6
         v.titleLabel?.font = .f20
         v.layer.cornerRadius = DemoUI.cornerRadius
@@ -555,7 +555,7 @@ class LoginViewController: UIViewController {
         phoneTextField.placeholder = "plsEnterPhoneNumber".localized()
         phoneTextField.keyboardType = .phonePad
         phoneLabel.text = "phoneNumber".localized()
-        loginTypeBtn.setTitle("email".localized() + "login".localized(), for: .normal)
+        loginTypeBtn.setTitle("email".localized() + "loginApp".localized(), for: .normal)
     }
     
     func setEmailLogin() {
@@ -564,7 +564,7 @@ class LoginViewController: UIViewController {
         phoneTextField.placeholder = "plsEnterEmail".localized()
         phoneTextField.keyboardType = .default
         phoneLabel.text = "email".localized()
-        loginTypeBtn.setTitle("phoneNumber".localized() + "login".localized(), for: .normal)
+        loginTypeBtn.setTitle("phoneNumber".localized() + "loginApp".localized(), for: .normal)
     }
     
     func showRegisterBottomSheet() {

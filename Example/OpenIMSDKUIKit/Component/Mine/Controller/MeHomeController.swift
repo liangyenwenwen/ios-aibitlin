@@ -53,7 +53,6 @@ class MeHomeController: BaseLogicController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        settingBtn.addTarget(self, action: #selector(settingUserMessage), for: .touchUpInside)
     }
     
     override func bindData() {
@@ -148,7 +147,7 @@ class MeHomeController: BaseLogicController {
 //        userMessageView.addSubview(userID)
         
 //        userView.addSubview(scanBtn)
-        userView.addSubview(settingBtn)
+        userView.addSubview(appSettingBtn)
 
     }
 
@@ -209,10 +208,11 @@ class MeHomeController: BaseLogicController {
         return r
     }()
     
-    lazy var settingBtn: QMUIButton = {
+    lazy var appSettingBtn: QMUIButton = {
         let r = ViewFactoryUtil.imageBtn(R.image.mine_setting_icon()!, 20)
         r.tg_right.equal(scanBtn.tg_left, offset: 10)
         r.tg_centerY.equal(0)
+        r.addTarget(self, action: #selector(settingUserMessage), for: .touchUpInside)
         return r
     }()
     

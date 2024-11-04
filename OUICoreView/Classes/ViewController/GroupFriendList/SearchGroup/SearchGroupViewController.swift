@@ -13,7 +13,9 @@ public class SearchGroupViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         definesPresentationContext = true
-        navigationItem.title = "addGroup".innerLocalized()
+//        navigationItem.title = "addGroup".innerLocalized()
+        navigationItem.title = "ID"
+
         
         let searchViewController = UISearchController(searchResultsController: resultViewController)
 //        searchViewController.searchResultsUpdater = resultViewController

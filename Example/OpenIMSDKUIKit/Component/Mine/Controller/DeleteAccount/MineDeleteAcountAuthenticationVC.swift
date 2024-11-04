@@ -69,26 +69,26 @@ class MineDeleteAcountAuthenticationVC: BaseTitleController {
         switch vcType {
         case .usePhone:
             title = "DeleteAccount".localized()
-            sectionLbl.text = "PleaseFillIn".localized()
+            sectionLbl.text = "请输入".localized()
             useTypeView.changePhoneEmail(true)
             let tap = UITapGestureRecognizer(target: self, action: #selector(changePhoneArea))
             useTypeView.phoneCodeView.addGestureRecognizer(tap)
             nextBtn.setTitle("nextStep".localized(), for: .normal)
         case .useEmail:
             title = "DeleteAccount".localized()
-            sectionLbl.text = "PleaseFillIn".localized()
+            sectionLbl.text = "请输入".localized()
             useTypeView.changePhoneEmail(false)
             nextBtn.setTitle("nextStep".localized(), for: .normal)
         case .changePhone:
             title = "Phone".localized()
-            sectionLbl.text = "PleaseFillIn".localized()
+            sectionLbl.text = "请输入".localized()
             useTypeView.changePhoneEmail(true)
             let tap = UITapGestureRecognizer(target: self, action: #selector(changePhoneArea))
             useTypeView.phoneCodeView.addGestureRecognizer(tap)
             nextBtn.setTitle("nextStep".localized(), for: .normal)
         case .changeEmail:
             title = "email".localized()
-            sectionLbl.text = "PleaseFillIn".localized()
+            sectionLbl.text = "请输入".localized()
             useTypeView.changePhoneEmail(false)
             nextBtn.setTitle("nextStep".localized(), for: .normal)
         case .forgetPwdbyPhone:
@@ -173,7 +173,7 @@ class MineDeleteAcountAuthenticationVC: BaseTitleController {
     }()
     
     lazy var useTypeView: SuperSettingView = {
-        let r = SuperSettingView.createInputPhone("手机号", placeholder: "请输入手机号")
+        let r = SuperSettingView.createInputPhone("手机号".localized(), placeholder: "请输入手机号".localized())
         r.phoneCodeLbl.font = UIFont(name: "PingFangSC-Medium", size: 16)
         r.isMediumFont()
 //        r.changePhoneEmail(true)

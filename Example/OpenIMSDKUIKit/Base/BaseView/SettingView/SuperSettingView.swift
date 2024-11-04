@@ -176,7 +176,7 @@ class SuperSettingView: TGLinearLayout {
        
         result.hide()
 
-        result.placeholder = "PleaseFillIn".localized()
+        result.placeholder = "请输入".localized()
         result.placeholderColor = .placeholderText
 
         result.font = .mediumFont(14)
@@ -305,7 +305,7 @@ extension SuperSettingView {
             phoneCodeView.hide()
             titleView.show()
 
-            titleView.text = "输入邮箱".localized()
+            titleView.text = "邮箱".localized()
             textFieldView.placeholder = "输入邮箱".localized()
             tempPhone = textFieldView.text!
             textFieldView.text = tempEmail
@@ -518,7 +518,7 @@ extension SuperSettingView{
     
     
     /// 标题和输入文本TF  获取验证码Code
-    static func createInputAboutCode(_ title:String,placeholder:String = "PleaseFillIn".localized()) -> SuperSettingView {
+    static func createInputAboutCode(_ title:String,placeholder:String = "请输入".localized()) -> SuperSettingView {
         let result = SuperSettingView()
 //        result.tg_padding = UIEdgeInsets(top: PADDING_MEDDLE, left: PADDING_OUTER, bottom: PADDING_MEDDLE, right: PADDING_OUTER)
         

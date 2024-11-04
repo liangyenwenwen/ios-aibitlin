@@ -132,9 +132,10 @@ class UserMessageVC: BaseTitleController {
         
         let userShowname = user.n
 
-        
-        sectionBlogTitleLbl.text = "UserBlog".localizedFormat(userShowname)
-        sectionMomentsTitleLbl.text =  "UserMoments".localizedFormat(userShowname)
+        sectionBlogTitleLbl.text = "Blog".localized()
+        sectionMomentsTitleLbl.text =  "动态".localized()
+//        sectionBlogTitleLbl.text = "UserBlog".localizedFormat(userShowname)
+//        sectionMomentsTitleLbl.text =  "UserMoments".localizedFormat(userShowname)
         
         
         
@@ -375,7 +376,7 @@ class UserMessageVC: BaseTitleController {
     
     lazy var tableSectionHeader: UIView = {
 //        let r = TGLinearLayout(.vert)
-        let section = ViewFactoryUtil.sectionHeaderView(title: "UserBlog".localizedFormat(""), isHaveMore: true)
+        let section = ViewFactoryUtil.sectionHeaderView(title:"Blog".localized(), isHaveMore: true)
 //        sectionTitleLbl = section.viewWithTag(20001) as! UILabel
 //        if ConversationInfo != nil {
 //            sectionTitleLbl.text = R.string.localizable.userBlog(ConversationInfo?.showName ?? "")
@@ -414,7 +415,7 @@ class UserMessageVC: BaseTitleController {
         }
         
         lazy var sectionView: UIView = {
-            let section = ViewFactoryUtil.sectionHeaderView(title: "UserBlog".localizedFormat(""), isHaveMore: true)
+            let section = ViewFactoryUtil.sectionHeaderView(title: "Blog".localized(), isHaveMore: true)
             section.tg_width.equal(.fill)
             section.tg_height.equal(44)
             section.tg_top.equal(12)
@@ -480,7 +481,7 @@ extension UserMessageVC {
             r.sectionView.layer.maskedCorners  = [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner]
             sectionMomentsTitleLbl = sectionLbl
             if userInfo != nil {
-                sectionLbl.text = "UserMoments".localizedFormat(userShowname)
+                sectionLbl.text = "动态".localized()
             }
             let tap = UITapGestureRecognizer(target: self, action: #selector(gotoMoments))
             r.sectionView.addGestureRecognizer(tap)
@@ -493,7 +494,7 @@ extension UserMessageVC {
             
             sectionBlogTitleLbl = sectionLbl
             if userInfo != nil {
-                sectionLbl.text = "UserBlog".localizedFormat(userShowname)
+                sectionLbl.text = "Blog".localized()
             }
             
             let tap = UITapGestureRecognizer(target: self, action: #selector(gotoBokeList))

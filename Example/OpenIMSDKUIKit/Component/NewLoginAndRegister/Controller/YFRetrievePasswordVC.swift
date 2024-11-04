@@ -115,7 +115,7 @@ class YFRetrievePasswordVC: BaseLogicController {
     }()
     
     lazy var useTypeView: SuperSettingView = {
-        let r = SuperSettingView.createInputPhone("手机号", placeholder: "请输入手机号")
+        let r = SuperSettingView.createInputPhone("手机号".localized(), placeholder: "请输入手机号".localized())
         r.phoneCodeLbl.font = UIFont(name: "PingFangSC-Medium", size: 16)
         r.isMediumFont()
 //        r.changePhoneEmail(true)

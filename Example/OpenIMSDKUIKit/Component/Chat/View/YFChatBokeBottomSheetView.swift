@@ -20,6 +20,7 @@ class YFChatBokeBottomSheetView: TGLinearLayout {
     var data : [blogDetailItem] =  []
     
     var showAll: Bool  = false
+    var isRemoveRecommendData: Bool  = false //是否剔除已推荐博客的数据
     
     init() {
         super.init(frame: .zero, orientation: .vert)
@@ -130,9 +131,22 @@ extension YFChatBokeBottomSheetView {
             
             YFMineNetViewModel.mineBlog(userId: IMUser.userID) { [weak self] data in
                 
-                self?.data = data.filter({ item -> Bool in
+//                self?.data = data.filter({ item -> Bool in
+//                    return item.state == .normal
+//                })
+                var array = data.filter({ item -> Bool in
                     return item.state == .normal
                 })
+                if self?.isRemoveRecommendData == true{
+                    let recommedData = YFFileDataUtil.readDataToFile(.recommend)
+                    for item in recommedData {
+                        array.removeAll(where: { $0.id == item.id })
+                    }
+                    self?.data = array
+                }else{
+                    self?.data = array
+                }
+                
                 self?.tableView.reloadData()
             } completionHandler: { errCode, errMsg in
                 

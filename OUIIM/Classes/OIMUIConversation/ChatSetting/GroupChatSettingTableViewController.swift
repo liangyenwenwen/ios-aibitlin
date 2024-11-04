@@ -295,6 +295,9 @@ class GroupChatSettingTableViewController: UITableViewController {
             cell.enableInput = isAdmin
 
             cell.inputHandler = { [weak self] in
+                if isAdmin == false {
+                    return
+                }
                 
                 let vc = ModifyNicknameViewController()
                 vc.titleLabel.text = "修改群聊名称".innerLocalized()
@@ -643,7 +646,7 @@ class GroupChatSettingTableViewController: UITableViewController {
             case .manage:
                 return "群管理".innerLocalized()
             case .chatRecord:
-                return "viewChatHistory".innerLocalized()
+                return "chatContent".innerLocalized()
             case .setTopOn:
                 return "聊天置顶".innerLocalized()
             case .setDisturbOn:

@@ -728,9 +728,10 @@ class listTableHeader: UIView {
             }
             
             titleLabel.snp.makeConstraints { make in
-                make.top.equalTo(37)
-                make.height.equalTo(10)
-                make.centerX.equalToSuperview()
+                make.top.equalTo(35)
+//                make.height.equalTo(15)
+                make.left.equalTo(5)
+                make.right.equalTo(-5)
             }
         }
         
@@ -749,6 +750,7 @@ class listTableHeader: UIView {
             v.font =  UIFont(name: "PingFangSC-Medium", size: 11)
 //            v.textColor = UIColor(red: 0.533, green: 0.533, blue: 0.533, alpha: 1)
             v.textColor = .init(hexString: "#333333")
+            v.textAlignment = .center
             return v
         }()
         

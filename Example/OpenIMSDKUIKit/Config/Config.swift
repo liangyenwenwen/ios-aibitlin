@@ -61,11 +61,6 @@ class Config {
     //真实项目中一般设置为应用的下载宣传界面，因为目前没有这样的界面，所以就设置为官网地址
     static let USER_QRCODE_URL = "http://www.ixuea.com/?u="
     
-    /// 支付宝支付回调
-    /// 不能和其他应用有重复
-    /// 用于支付宝客户端回调我们应用
-    static let ALIPAY_CALLBACK_SCHEME = "ixueacourse"
-    
     //pragma mark - 聊天
     // 聊天key
     static let IM_KEY = "cpj2xarlct12n"

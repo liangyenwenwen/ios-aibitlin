@@ -388,7 +388,8 @@ public class CallingBaseViewController: CallingBaseController {
     
     @objc func scale() {
         print("缩放到小窗口：\(self.linkingDuration)")
-        self.suspend(coverImageName: "contact_my_friend_icon", tips: self.linkingDuration > 0 ? "通话中".innerLocalized() : nil)
+//        self.suspend(coverImageName: "contact_my_friend_icon", tips: self.linkingDuration > 0 ? "通话中".innerLocalized() : nil)
+        self.suspend(coverImageName: "contact_my_friend_icon", tips: self.linkingDuration > 0 ? "" : nil)
     }
     
     private lazy var micButton: UIButton = {

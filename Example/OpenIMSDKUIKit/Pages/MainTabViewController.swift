@@ -24,6 +24,7 @@ class MainTabViewController: UITabBarController {
     
     private let _viewModel = MineViewModel()
     private let reachabilityManager = NetworkReachabilityManager()
+    var mineNavigationController:NavigationController?
     
     func clearConversation() {
         conversationViewController.clearRecord()
@@ -110,6 +111,7 @@ class MainTabViewController: UITabBarController {
         mineNav.tabBarItem.image = UIImage.init(named: "TabMeSelected_0")?.withRenderingMode(.alwaysOriginal)
         mineNav.tabBarItem.selectedImage = UIImage.init(named: "TabMeSelected_1")?.withRenderingMode(.alwaysOriginal)
         controllers.append(mineNav)
+        mineNavigationController = mineNav
         
         
         let moreNav = UINavigationController.init(rootViewController: UIViewController())
@@ -261,14 +263,11 @@ class MainTabViewController: UITabBarController {
     }
     
     private func presentLoginController() {
-        self.selectedIndex = 0
         viewControllers?.first?.tabBarItem.badgeValue = nil
         if let viewControllers, viewControllers.count > 1 {
             self.viewControllers?[1].tabBarItem.badgeValue = nil
             viewControllers.forEach({ $0.navigationController?.popToRootViewController(animated: false) })
         }
-        pushBindAlias(false)
-        
         var isNew = false
         if isNew {
             let vc = YFAibitlinHome()
@@ -372,7 +371,12 @@ class MainTabViewController: UITabBarController {
             vc.modalPresentationStyle = .fullScreen
             let nav = UINavigationController.init(rootViewController: vc)
             nav.modalPresentationStyle = .fullScreen
-            self.present(nav, animated: false)
+//            self.present(nav, animated: false)
+            self.present(nav, animated: false) {
+                self.selectedIndex = 0
+                self.mineNavigationController?.popToRootViewController(animated: false)
+                
+            }
         }
         
         
@@ -711,7 +715,7 @@ extension MainTabViewController: UITabBarControllerDelegate {
         var listArrr:[MoreTabItem] = [MoreTabItem(image: "tool_feedback_icon", title: "反馈".localized()),
                                       MoreTabItem(image: "tool_translate_icon", title: "翻译".localized()),
                                       MoreTabItem(image: "tool_black_list_icon", title: "黑名单".localized()),
-                                      MoreTabItem(image: "tool_moments_icon", title: "好友动态".localized())]
+                                      MoreTabItem(image: "tool_moments_icon", title: "动态".localized())]
         
         for item in YFFileDataUtil.readDataToFile(.home) {
             let moreItem =  MoreTabItem(image: item.userBlogIcon ?? "", title: item.userBlogName ?? "")

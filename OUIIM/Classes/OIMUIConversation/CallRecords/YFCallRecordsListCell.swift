@@ -38,6 +38,14 @@ class YFCallRecordsListCell: UITableViewCell {
         r.textAlignment = .left
         return r
     }()
+    lazy var countLabel: UILabel = {
+        let r = UILabel()
+        r.text = "username"
+        r.textColor = .init(hexString: "#333333")
+        r.font = UIFont(name: "PingFangSC-Semibold", size: 16)
+        r.textAlignment = .left
+        return r
+    }()
     
     lazy var recordTypeImg: UIImageView = {
         let r = UIImageView()
@@ -97,6 +105,7 @@ class YFCallRecordsListCell: UITableViewCell {
     func initUI() {
         contentView.addSubview(leftIconImg)
         contentView.addSubview(titleLbl)
+        contentView.addSubview(countLabel)
         contentView.addSubview(recordTypeImg)
         contentView.addSubview(stateLbl)
         contentView.addSubview(timeLbl)
@@ -116,6 +125,11 @@ class YFCallRecordsListCell: UITableViewCell {
             make.left.equalTo(leftIconImg.snp_right).offset(13)
             make.top.equalTo(leftIconImg.snp_top).offset(4)
             make.height.equalTo(22)
+            make.right.lessThanOrEqualTo(timeLbl.snp_left).offset(-35)
+        }
+        countLabel.snp.makeConstraints { make in
+            make.left.equalTo(titleLbl.snp_right)
+            make.centerY.equalTo(titleLbl)
         }
         
         recordTypeImg.snp.makeConstraints { make in
@@ -132,7 +146,8 @@ class YFCallRecordsListCell: UITableViewCell {
         timeLbl.snp.makeConstraints { make in
             make.right.equalToSuperview().offset(-30)
             make.centerY.equalTo(titleLbl)
-            make.left.equalTo(titleLbl.snp_right).offset(20)
+//            make.left.equalTo(titleLbl.snp_right).offset(20)
+            make.width.equalTo(85)
         }
         
         unReadView.snp.makeConstraints { make in
@@ -174,8 +189,10 @@ class YFCallRecordsListCell: UITableViewCell {
         timeLbl.text =   MessageHelper.convertList(timestamp_ms: model.date)
         
         stateLbl.text =  model.success ? model.inOrOutStr() + model.durationStr() : model.inOrOutStr()
-        titleLbl.text = SuperStringUtil.getUserState(showname: model.nickname ?? "").n  + "\(sameCount)"
+        titleLbl.text = SuperStringUtil.getUserState(showname: model.nickname ?? "").n
+        countLabel.text = sameCount
         titleLbl.textColor = model.success ? .init(hexString: "#333333") :  .init(hexString: "#FF3939")
+        countLabel.textColor = model.success ? .init(hexString: "#333333") :  .init(hexString: "#FF3939")
         recordTypeImg.image = model.type == "audio"  ? .init(named: "call_log_auido") : .init(named: "call_log_video")
         
         if indexRow == currentRow {

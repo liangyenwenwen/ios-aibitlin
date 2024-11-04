@@ -94,6 +94,7 @@ class ApplicationViewController: UIViewController {
         let pStack = UIStackView(arrangedSubviews: [avatarView, bStack])
         pStack.spacing = 8
         pStack.alignment = .center
+        avatarView.layer.cornerRadius = 23
         
         let btnStack = UIStackView(arrangedSubviews: [refuseButton, acceptButton])
         btnStack.alignment = .center

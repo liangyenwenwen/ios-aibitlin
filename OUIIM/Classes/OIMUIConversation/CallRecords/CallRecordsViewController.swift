@@ -53,7 +53,7 @@ open class CallRecordsViewController: UIViewController {
     func updateLanguage() {
         
         emptyView._titleStr = "空空如也".localized() as NSString
-        allLogsBtn.setTitle("通话记录".localized(), for: .normal)
+        allLogsBtn.setTitle("callRecords".innerLocalized(), for: .normal)
         unreadLogsBtn.setTitle("未接来电".localized(), for: .normal)
     }
     lazy var emptyView:HDEmptyView  = {
@@ -202,7 +202,7 @@ open class CallRecordsViewController: UIViewController {
     
     lazy var allLogsBtn: UIButton = {
         let r = UIButton()
-        r.setTitle("通话记录".localized(), for: .normal)
+        r.setTitle("callRecords".localized(), for: .normal)
         r.setTitleColor(.init(hexString: "#333333"), for: .normal)
         r.backgroundColor = .clear
         r.titleLabel?.font =  UIFont(name: "PingFangSC-Medium", size: 13)

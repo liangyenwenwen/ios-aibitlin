@@ -18,7 +18,7 @@ enum HomeLoginType {
     case sacnCode
     case wechat
     case qq
-    case alipay
+    case ali
     
     var imagename: String {
         switch self{
@@ -39,8 +39,8 @@ enum HomeLoginType {
             return "login_type_wechat"
         case .qq:
             return "login_type_qq"
-        case .alipay:
-            return "login_type_alipay"
+        case .ali:
+            return "login_type_ali"
         }
     }
     
@@ -63,7 +63,7 @@ enum HomeLoginType {
             return "使用微信登录"
         case .qq:
             return "使用qq登录"
-        case .alipay:
+        case .ali:
             return "使用阿里登录"
         }
     }
@@ -161,7 +161,7 @@ class YFAibitlinHomeLoginThridView: TGLinearLayout {
         tg_height.equal(.wrap)
         tg_centerX.equal(0)
         
-        var arr:[HomeLoginType] = [.wechat, .qq, .alipay]
+        var arr:[HomeLoginType] = [.wechat, .qq, .ali]
         for item in arr {
             let r = ItemView.bulidView(loginType: item)
             addSubview(r)

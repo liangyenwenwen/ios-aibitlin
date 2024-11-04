@@ -87,8 +87,8 @@ class YFMineQRCodeVC: BaseTitleController {
         let r = TGLinearLayout(.horz)
         r.tg_width.equal(.wrap)
         r.tg_height.equal(40)
-//        r.tg_left.equal(13)
-//        r.tg_right.equal(-13)
+//        r.tg_left.equal(10)
+//        r.tg_right.equal(-10)
         r.tg_space = 7
         r.tg_gravity = .vert.center
         r.tg_top.equal(38)
@@ -104,6 +104,7 @@ class YFMineQRCodeVC: BaseTitleController {
         let r = UILabel()
         r.tg_width.equal(.wrap)
         r.tg_height.equal(.wrap)
+//        r.textAlignment = .center
        
         r.textColor = .black333
         r.font = .mediumFont(15)
@@ -136,6 +137,12 @@ class YFMineQRCodeVC: BaseTitleController {
         r.tg_height.equal(32)
         r.backgroundColor = .init(hexString: "#F5F5F5")
         r.corner(8)
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 32))
+        r.leftView = paddingView
+        r.leftViewMode = .always
+        r.rightView = paddingView
+        r.rightViewMode = .always
+        
         r.text = username
         return r
     }()
@@ -345,11 +352,11 @@ extension YFMineQRCodeVC {
         contentView.showAll = true
         contentView.tg_width.equal(.fill)
         contentView.tg_height.equal(350)
+        contentView.isRemoveRecommendData = true
         contentView.hideSheetView = {
             GKCover.hide()
         }
         contentView.chooseBoke = { [weak self] item in
-            
             var data = YFFileDataUtil.readDataToFile(.recommend)
             if data.count < 3 {
                 YFFileDataUtil.saveOneDataToFile(.recommend, blogItem: item)

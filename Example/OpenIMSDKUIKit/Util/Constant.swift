@@ -21,9 +21,6 @@ class Constant {
     static let EVENT_BANNER_CLICK = "EVENT_BANNER_CLICK"
     static let EVENT_SELECT_LOCATION = "EVENT_SELECT_LOCATION"
     static let EVENT_ADDRESS_CHANGED = "EVENT_ADDRESS_CHANGED"
-    static let EVENT_PAY_SUCCESS = "EVENT_PAY_SUCCESS"
-    static let EVENT_ALIPAY_PAY_SUCCESS = "EVENT_ALIPAY_PAY_SUCCESS"
-    static let EVENT_WECHAT_PAY_SUCCESS = "EVENT_WECHAT_PAY_SUCCESS"
     static let EVENT_NOTIFICATION_CLICK = "EVENT_NOTIFICATION_CLICK"
     static let EVENT_USER_SELECTED = "EVENT_USER_SELECTED"
     
@@ -115,77 +112,10 @@ let USERNAME_MAX_LENGTH = 32
 let PHONE_MAX_LENGTH = 11
 let CODE_MAX_LENGTH = 6
 
-
-
-/**
- * android
- */
-let PLATFORM_ANDROID = 0
-
-/**
- * ios
- */
-let PLATFORM_IOS = 10
-
-/**
- * web
- */
-let PLATFORM_WEB = 20
-
-/**
- * wap
- */
-let PLATFORM_WAP = 30
-
-/**
- * 支付宝
- */
-let ALIPAY = 10
-
-/**
- * 微信
- */
-let WECHAT = 20
-
-/**
- * 花呗分期
- */
-let HUABEI_STAGE = 30
-
-/**
- * 待支付
- */
-let WAIT_PAY = 0
-
-/**
- * 订单关闭
- */
-let CLOSE = 10
-
-/**
- * 待发货
- */
-let WAIT_SHIPPED = 500
-
-/**
- * 待收货
- */
-let WAIT_RECEIVED = 510
-
-/**
- * 待评价
- */
-let WAIT_COMMENT = 520
-
 /**
  * 完成
  */
 let COMPLETE = 530
-
-/// 支付宝支付回调
-/// 不能和其他应用有重复
-/// 用于支付宝客户端回调我们应用
-let ALIPAY_CALLBACK_SCHEME = "ixueacourse"
 
 let ON_MESSAGE = "ON_MESSAGE"
 let ON_MESSAGE_COUNT_CHANGED = "ON_MESSAGE_COUNT_CHANGED"

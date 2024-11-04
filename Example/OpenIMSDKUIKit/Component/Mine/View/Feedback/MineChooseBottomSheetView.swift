@@ -262,8 +262,9 @@ class MineChooseBottomSheetView: TGLinearLayout {
             let userShowname = SuperStringUtil.getUserShowname(showname: conversation.showName ?? "")
             
             self?.conversationInfo = conversation
-            self?.titleLbl.text = userShowname
-            self?.userIcon.show(conversation.faceURL)
+            self?.titleLbl.text = ""
+//            self?.titleLbl.text = userShowname
+//            self?.userIcon.show(conversation.faceURL)
             self?.chatTopView?.superSwitch.isOn = conversation.isPinned
             print(conversation.conversationID)
             if conversation.ex?.count ?? 0 > 2 {

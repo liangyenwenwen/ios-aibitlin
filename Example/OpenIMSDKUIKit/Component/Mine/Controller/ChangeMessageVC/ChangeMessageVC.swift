@@ -71,7 +71,7 @@ class ChangeMessageVC: BaseTitleController {
     lazy var editView: QMUITextView = {
         let r = ViewFactoryUtil.normalTextView()
 //        r.placeholder = R.string.localizable.pleaseFillIn()
-        r.placeholder = "PleaseFillIn".localized()
+        r.placeholder = "请输入".localized()
         r.font = .semiboldFont(16)
         return r
     }()
@@ -96,6 +96,7 @@ class ChangeMessageVC: BaseTitleController {
             case .nickname:
 //                title = R.string.localizable.name()
                 title = "Name".localized()
+                editView.maximumTextLength = 32
                 editView.text = SuperStringUtil.getUserShowname(showname: user?.nickname ?? "")
             case .userID:
                 title = "Aibitlin ID"

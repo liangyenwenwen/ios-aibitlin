@@ -84,7 +84,7 @@ class ViewFactoryUtil {
     }
     
     ///水平 分割线
-    static func normalTextView(_ placeholder: String = "PleaseFillIn".localized()) -> QMUITextView {
+    static func normalTextView(_ placeholder: String = "请输入".localized()) -> QMUITextView {
         let r = QMUITextView()
         r.tg_width.equal(.fill)
         r.tg_height.equal(.fill)

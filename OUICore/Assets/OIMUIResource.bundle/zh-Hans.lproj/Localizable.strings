@@ -160,7 +160,7 @@
 "scanHint" = "扫描二维码名片";
 "unrecognized" = "无法识别";
 "addFriend" = "添加好友";
-"addFriendHint" = "通过手机号/ID号/昵称搜索添加";
+"addFriendHint" = "ID/名字";
 "createGroup" = "创建群聊";
 "createGroupHint" = "创建群聊，全面使用Aibitlin";
 "addGroup" = "添加群聊";

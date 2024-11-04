@@ -36,8 +36,6 @@
 "plsEnterAccount" = "请输入您的账号";
 "forgetPassword" = "忘记密码";
 "verificationCodeLogin" = "验证码登录";
-"login" = "登录";
-"Log in" = "登录";
 "noAccountYet" = "还没有注册？";
 "loginNow" = "立即登录";
 "registerNow" = "立即注册";
@@ -175,7 +173,6 @@ Name = "名字";
 Code = "验证码";
 PersonalProfile = "个人简介";
 
-"PleaseFillIn" = "请输入";
 NotFilledIn = "未填写";
 
 AccountInformation = "账号信息";

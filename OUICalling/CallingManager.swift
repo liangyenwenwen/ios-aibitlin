@@ -1078,7 +1078,7 @@ public class CallRecord: Codable {
     }
     
     public func inOrOutStr() -> String {
-        return incoming ? "呼入".innerLocalized() : "呼出".innerLocalized()
+        return incoming ? "呼入".localized() : "呼出".localized()
     }
     
     public func durationStr() -> String {

@@ -184,6 +184,11 @@ public class QRCodeViewController: UIViewController {
         r.clipsToBounds = true
         r.layer.cornerRadius = 8
         r.text = groupName
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 32))
+        r.leftView = paddingView
+        r.leftViewMode = .always
+        r.rightView = paddingView
+        r.rightViewMode = .always
         return r
     }()
     
