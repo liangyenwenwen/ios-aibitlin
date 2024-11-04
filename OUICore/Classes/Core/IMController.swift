@@ -170,6 +170,7 @@ public class IMController: NSObject {
     // input states
     public let inputStatusChangedSubject: BehaviorSubject<InputStatusChangedData?> = .init(value: nil)
     
+    public var publicIP = ""
     public var netWorkStatus = "hasNetWork"
     public var uid: String = ""
     public var token: String = ""

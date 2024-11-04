@@ -57,7 +57,7 @@ class YFMineNetViewModel: AccountViewModel {
     //"183.156.234.224"
     private static var httpHeaders : HTTPHeaders = [
         "token":UserDefaults.standard.string(forKey: bussinessTokenKey)!,
-        "X-Forwarded-For":YFNetworkUtils.getIPAddress()!,
+        "X-Forwarded-For":IMController.shared.publicIP,
         "Authorization":"eyJ1c2VySW5mbyI6InVzZXJCbG9nWWFuWmhlbmdUb2tlbiJ9",
         "Content-Type":"application/json",
 //        "operationID":UUID().uuidString,
@@ -268,7 +268,7 @@ class YFMineNetViewModel: AccountViewModel {
                                                 "lookTime":YFDateUtil.getCurrentTime(timeFormat: .YYYYMMDDHHMMSS),
 //                                                "longitudeAndLatitude":SuperStringUtil.getCurrentLocation(),
                                                 "longitudeAndLatitude":"",
-                                                "lookUserIP":YFNetworkUtils.getIPAddress()!,
+                                                "lookUserIP":IMController.shared.publicIP,
                                                 "isNotBlog":userStruct.b,
                                                 "isNotQiYe":userStruct.e,
                                                 "tingLiuShiJian":duration]

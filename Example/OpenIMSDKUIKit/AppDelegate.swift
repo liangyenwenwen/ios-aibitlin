@@ -103,7 +103,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         AccountViewModel.initInteraction()
         
         
-        Bugly.start(withAppId: "f2c07e72cb", developmentDevice: true, config: nil)
+        Bugly.start(withAppId: "3cabab095f", developmentDevice: true, config: nil)
         
         /// 设置默认语言
 //        if (UserDefaults.standard.object(forKey: "appLanguage") == nil) {
@@ -112,15 +112,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 //        }
         
         
-        print(YFNetworkUtils.getIPAddress())
+//        print(YFNetworkUtils.getIPAddress())
 //        print(YFNetworkUtils.getIPAddress2())
+        IMController.shared.publicIP = UserDefaults.standard.string(forKey: "publicIP") ?? "60.177.29.150"
         
-        YFNetworkUtils.getPublicIPAddress { ip in
-            
-            print(ip)
-            
+        YFNetworkUtils.getPublicIP { ip in
+            if let ip = ip{
+                IMController.shared.publicIP = ip
+                UserDefaults.standard.set(ip, forKey: "publicIP")
+            }
             
         }
+        
         
         
         UINavigationBar.appearance().tintColor = .c0C1C33
