@@ -38,12 +38,12 @@ class UserMessageHeaderView: TGLinearLayout {
         
         addTopUserMessage()
         
-        addSubview(phoneView)
-        addSubview(emailView)
+//        addSubview(phoneView)
+//        addSubview(emailView)
         
-        addSubview(userIntroLbl)
+//        addSubview(userIntroLbl)
         
-        addSubview(thridView)
+//        addSubview(thridView)
     }
     
     func addTopUserMessage() {

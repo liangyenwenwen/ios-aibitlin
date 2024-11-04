@@ -51,6 +51,7 @@ class MainTabViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         var controllers: [UIViewController] = []
+        Localize.resetCurrentLanguageToDefault()
         
         // 注册对名为"myNotification"的通知的观察
 //        NotificationCenter.default.addObserver(self, selector: #selector(changeAvatar), name: Notification.Name("homeChooseUserIcon"), object: nil)
@@ -665,19 +666,15 @@ extension MainTabViewController: UITabBarControllerDelegate {
             return
         }
         
-//        if (index == 4) {
-//           
+//        let arr = YFFileDataUtil.readDataToFile(.home)
+//        
+//        if (index > 3 && index < 4 + arr.count) {
+//            
+//            
+//            SuperWebController.startAboubBlog(currentVC, blogItem: arr[index - 4], isRoot: true)
+//        } else {
+//            showBlogSheet()
 //        }
-        
-        let arr = YFFileDataUtil.readDataToFile(.home)
-        
-        if (index > 3 && index < 4 + arr.count) {
-            
-            
-            SuperWebController.startAboubBlog(currentVC, blogItem: arr[index - 4], isRoot: true)
-        } else {
-            showBlogSheet()
-        }
         
     }
     
@@ -722,7 +719,7 @@ extension MainTabViewController: UITabBarControllerDelegate {
             listArrr.append(moreItem)
         }
         
-        listArrr.append(MoreTabItem(image: "tool_more_icon", title: "添加".localized()))
+//        listArrr.append(MoreTabItem(image: "tool_more_icon", title: "添加".localized()))
         
         for i in 0 ..< listArrr.count {
             let itemData = listArrr[i]

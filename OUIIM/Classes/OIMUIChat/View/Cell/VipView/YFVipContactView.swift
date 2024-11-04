@@ -19,7 +19,7 @@ class YFVipContactView: UIView, StaticViewFactory, ContainerCollectionViewCellDe
         v.font = .init(name: "PingFangSC-Semibold", size: 16)
         v.textColor = UIColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
         v.numberOfLines = 0
-        v.text = "VIP购买成功";
+        v.text = "";
         return v
     }()
     
@@ -28,7 +28,7 @@ class YFVipContactView: UIView, StaticViewFactory, ContainerCollectionViewCellDe
         v.font = .init(name: "PingFangSC-Medium", size: 14)
         v.textColor = UIColor(red: 0.4, green: 0.4, blue: 0.4, alpha: 1)
         v.numberOfLines = 1
-        v.text = "您已成功购买VIP2，VIP2有效期：永久有效。您已成功购买VIP2，VIP2有效期：永久有效。您已成功购买VIP2，VIP2有效期：永久有效。"
+        v.text = ""
         return v
     }()
     

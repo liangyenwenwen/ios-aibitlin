@@ -140,7 +140,7 @@ class CoustomInputBarAccessoryView: InputBarAccessoryView {
                 guard let self else { return }
                 item.isSelected = !item.isSelected
                 print("audioButton Tapped:\(item.isSelected)")
-                emojiButton.isSelected = false
+//                emojiButton.isSelected = false
                 moreButton.isSelected = false
                 showAudioInputButtonView(item.isSelected, becomeFirstResponder: true)
             }
@@ -276,7 +276,7 @@ class CoustomInputBarAccessoryView: InputBarAccessoryView {
                 item.isSelected = !item.isSelected
                 print("moreButton Tapped:\(item.isSelected)")
                 showAudioInputButtonView(false)
-                emojiButton.isSelected = false
+//                emojiButton.isSelected = false
                 inputTextView.inputView = item.isSelected ? inputPadView : nil
                 inputTextView.reloadInputViews()
                 inputTextView.becomeFirstResponder()
@@ -380,8 +380,10 @@ class CoustomInputBarAccessoryView: InputBarAccessoryView {
             $0.setImage(UIImage(nameInBundle: "inputbar_pad_send_disable_icon"), for: .disabled)
             $0.setSize(CGSize(width: buttonSize, height: buttonSize), animated: false)
         }
-        setRightStackViewWidthConstant(to: buttonSize * 2 + 8, animated: false)
-        setStackViewItems([emojiButton, moreButton], forStack: .right, animated: false)
+        setRightStackViewWidthConstant(to: buttonSize  + 4, animated: false)
+//        setStackViewItems([emojiButton, moreButton], forStack: .right, animated: false)
+        setStackViewItems([moreButton], forStack: .right, animated: false)
+
     }
     
     private func setupGestureRecognizers() {
@@ -409,9 +411,9 @@ class CoustomInputBarAccessoryView: InputBarAccessoryView {
     // 切换更多按钮与发送按钮
     private func toggleMoreButtonStatus(_ showMore: Bool) {
         if showMore {
-            setStackViewItems([emojiButton, moreButton], forStack: .right, animated: false)
+            setStackViewItems([ moreButton], forStack: .right, animated: false)
         } else {
-            setStackViewItems([emojiButton, sendButton], forStack: .right, animated: false)
+            setStackViewItems([ sendButton], forStack: .right, animated: false)
         }
     }
     
@@ -579,7 +581,7 @@ class CoustomInputBarAccessoryView: InputBarAccessoryView {
         inputTextView.placeholderLabel.setContentHuggingPriority(UILayoutPriority(1), for: .horizontal)
         
         audioButton.isEnabled = enable
-        emojiButton.isEnabled = enable
+//        emojiButton.isEnabled = enable
         moreButton.isEnabled = enable
         sendButton.isEnabled = enable
         
@@ -590,7 +592,7 @@ class CoustomInputBarAccessoryView: InputBarAccessoryView {
     
     public func inputResignFirstResponder() {
         audioButton.isSelected = false
-        emojiButton.isSelected = false
+//        emojiButton.isSelected = false
         moreButton.isSelected = false
         
         inputTextView.resignFirstResponder()
@@ -600,7 +602,7 @@ class CoustomInputBarAccessoryView: InputBarAccessoryView {
     
     public func inputBecomeFirstResponder() {
         audioButton.isSelected = false
-        emojiButton.isSelected = false
+//        emojiButton.isSelected = false
         moreButton.isSelected = false
         
         inputTextView.inputView = nil

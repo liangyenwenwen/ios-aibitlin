@@ -41,14 +41,14 @@ class MineAccountAddSafeVC: BaseTitleController {
         r.backgroundColor = .white
         
         r.addSubview(changePwdView)
-        r.addSubview(ViewFactoryUtil.smallDivider())
+//        r.addSubview(ViewFactoryUtil.smallDivider())
         
         /// APP分离国内外
-        if AppDelegate.shared.isChine {
-            r.addSubview(changePhoneView)
-        } else {
-            r.addSubview(changeEmailView)
-        }
+//        if AppDelegate.shared.isChine {
+//            r.addSubview(changePhoneView)
+//        } else {
+//            r.addSubview(changeEmailView)
+//        }
 //        r.addSubview(changeEmailView)
 //        r.addSubview(ViewFactoryUtil.smallDivider())
 //        r.addSubview(changePhoneView)
@@ -131,7 +131,11 @@ class MineAccountAddSafeVC: BaseTitleController {
     
     lazy var deleteView: SuperSettingView = {
         let r = SuperSettingView.smallWithIcon(title: "DeleteAccount".localized()) { [weak self] data in
-            self?.navigationController?.pushViewController(MineDeleteAccountChooseWayVC(), animated: true)
+            
+//            self?.navigationController?.pushViewController(MineDeleteAccountChooseWayVC(), animated: true)
+            let vc = MineDeleteAcountAuthenticationVC()
+            vc.vcType = .useEmail
+            self?.navigationController?.pushViewController(vc, animated: true)
         }
         r.corner()
         r.isMediumFont()

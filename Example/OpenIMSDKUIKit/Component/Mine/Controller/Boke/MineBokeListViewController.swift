@@ -142,16 +142,17 @@ extension MineBokeListViewController {
         let item = datum[indexPath.row] as! blogDetailItem
         
        
-        if(vcType != .meBlog) {
-//            SuperWebController.start((self.navigationController!), uri: item.userBlogUrl)
-            
-            SuperWebController.startAboubBlog(self.navigationController!, blogItem: item)
-        } else {
-            let vc = MineBokeStatisticsVC()
-//            YFMineNetViewModel.scanBlog(blog: item)
-            vc.boke = item
-            navigationController?.pushViewController(vc)
-        }
+//        if(vcType != .meBlog) {
+////            SuperWebController.start((self.navigationController!), uri: item.userBlogUrl)
+//            
+//            SuperWebController.startAboubBlog(self.navigationController!, blogItem: item)
+//        } else {
+//            let vc = MineBokeStatisticsVC()
+//            vc.boke = item
+//            navigationController?.pushViewController(vc)
+//            SuperWebController.startAboubBlog(self.navigationController!, blogItem: item)
+//        }
+        SuperWebController.startAboubBlog(self.navigationController!, blogItem: item)
         
     }
     
