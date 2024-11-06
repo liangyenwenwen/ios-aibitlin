@@ -2066,7 +2066,6 @@ extension ChatViewController: ChatControllerDelegate {
                     completion?()
                     return
                 }
-                
                 dataSource.sections = data
                 
                 if requiresIsolatedProcess {
@@ -2465,7 +2464,6 @@ extension ChatViewController: CoustomInputBarAccessoryViewDelegate {
             let boke = try JSONDecoder().decode(bokeMessageSource.self, from: jsonData)
             
             let param = ["customType": 10500, "data":["id": boke.id,
-                                                     "sign":boke.sign,
                                                      "userBlogUrl":boke.userBlogUrl,
                                                      "userBlogIntro":boke.userBlogIntro,
                                                      "userBlogName": boke.userBlogName,

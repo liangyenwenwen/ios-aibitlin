@@ -92,74 +92,94 @@ class YFNetworkUtils {
     
     
     /// 获取公共ip
-    static func getPublicIPAddress(completion: @escaping (String?) -> Void) {
-
+//    static func getPublicIPAddress(completion: @escaping (String?) -> Void) {
+//
+//            let url = URL(string: "https://httpbin.org/ip")!
+//
+//            let task = URLSession.shared.dataTask(with: url) { data, response, error in
+//
+//                if let error = error {
+//
+//                    print("Error fetching public IP: \(error.localizedDescription)")
+//
+//                    completion(nil)
+//
+//                    return
+//
+//                }
+//
+//                guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+//
+//                    print("Invalid response")
+//
+//                    completion(nil)
+//
+//                    return
+//
+//                }
+//
+//                guard let data = data else {
+//
+//                    print("No data in response")
+//
+//                    completion(nil)
+//
+//                    return
+//
+//                }
+//
+//                guard let ipString = String(data: data, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines) else {
+//
+//                    print("Failed to decode IP address")
+//
+//                    completion(nil)
+//
+//                    return
+//
+//                }
+//
+//                guard let jsonData = ipString.data(using: .utf8) else { return  }
+//
+//                do {
+//
+//                        if let jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any],
+//
+//                           let origin = jsonObject["origin"] as? String {
+//
+//                            completion(origin)
+//
+//                        }
+//
+//                    } catch {
+//
+//                        print(error)
+//
+//                    }
+//
+//            }
+//
+//            task.resume()
+//
+//        }
+    static func getPublicIP(completion: @escaping (String?) -> Void) {
             let url = URL(string: "https://httpbin.org/ip")!
-
             let task = URLSession.shared.dataTask(with: url) { data, response, error in
-
-                if let error = error {
-
-                    print("Error fetching public IP: \(error.localizedDescription)")
-
+                guard let data = data, error == nil else {
                     completion(nil)
-
                     return
-
                 }
-
-                guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-
-                    print("Invalid response")
-
-                    completion(nil)
-
-                    return
-
-                }
-
-                guard let data = data else {
-
-                    print("No data in response")
-
-                    completion(nil)
-
-                    return
-
-                }
-
-                guard let ipString = String(data: data, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines) else {
-
-                    print("Failed to decode IP address")
-
-                    completion(nil)
-
-                    return
-
-                }
-
-                guard let jsonData = ipString.data(using: .utf8) else { return  }
-
                 do {
-
-                        if let jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any],
-
-                           let origin = jsonObject["origin"] as? String {
-
-                            completion(origin)
-
-                        }
-
-                    } catch {
-
-                        print(error)
-
+                    if let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
+                       let ip = json["origin"] as? String {
+                        completion(ip)
+                    } else {
+                        completion(nil)
                     }
-
+                } catch {
+                    completion(nil)
+                }
             }
-
             task.resume()
-
         }
 
     

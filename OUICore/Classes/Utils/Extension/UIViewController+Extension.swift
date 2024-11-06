@@ -21,6 +21,32 @@ extension UIViewController {
         }
     }
     
+    public func presentNewAlert(useRoot: Bool = true,
+                             title: String? = nil,
+                             confirmTitle: String? = "determine".innerLocalized(),
+                             cancelTitle: String? = "cancel".innerLocalized(),
+                             confirmHandler: (() -> Void)? = nil) {
+        let alertController = AlertViewController(message: title, preferredStyle: .alert)
+        
+        if let cancelTitle {
+            let cancelAction = AlertAction(title: cancelTitle, style: .cancel)
+            
+            alertController.addAction(cancelAction)
+        }
+        
+        if let confirmHandler {
+            alertController.addAction(AlertAction(title: confirmTitle, style: .default, handler: { [weak self] _ in
+                confirmHandler()
+            }))
+        }
+        
+        if useRoot, let root = Self.getRootController() {
+            root.present(alertController, animated: true)
+        } else {
+            currentViewController()!.present(alertController, animated: true)
+        }
+    }
+    
     public func presentActionSheet(useRoot: Bool = true,
                                    title: String? = nil,
                                    action1Title: String,

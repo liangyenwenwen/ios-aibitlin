@@ -20,7 +20,7 @@ class MineBokeNotificationSettingVC: BaseTitleController {
 
     var chooseCount: String = "1"
     var staytime: String = "5"
-    var boke : blogDetailItem!
+    var boke : myBlogShowBlogPOModel!
 
     
     override func viewWillAppear(_ animated: Bool) {
@@ -33,7 +33,7 @@ class MineBokeNotificationSettingVC: BaseTitleController {
         setBackGroundColor(.colorBackgroundAPP)
         initLinearLayoutSafeArea()
     
-        title = "UserNotifiySetting".localizedFormat(boke.userBlogName!)
+        title = "UserNotifiySetting".localizedFormat(boke.myBlogShowBlogPO.userBlogName!)
         
         container.tg_padding = UIEdgeInsets(top: PADDING_MEDDLE, left: PADDING_MEDDLE, bottom: PADDING_MEDDLE, right: PADDING_MEDDLE)
         container.tg_space = PADDING_OUTER

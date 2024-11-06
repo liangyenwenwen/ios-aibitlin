@@ -559,13 +559,13 @@ extension UserMessageVC {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MineBokeListCell.className, for: indexPath) as! MineBokeListCell
         cell.isClean()
-        cell.bindData(datum[indexPath.row] as! blogDetailItem)
+        cell.bindData(datum[indexPath.row] as! myBlogShowBlogPOModel)
         return cell
     }
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let item = datum[indexPath.row] as! blogDetailItem
+        let item = datum[indexPath.row] as! myBlogShowBlogPOModel
 //        SuperWebController.start((self.navigationController!), uri: item.userBlogUrl)
 //        YFMineNetViewModel.scanBlog(blog: item)
 

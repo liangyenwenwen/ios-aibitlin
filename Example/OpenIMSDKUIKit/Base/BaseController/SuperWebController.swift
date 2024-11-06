@@ -13,7 +13,7 @@ class SuperWebController: BaseTitleController, WKNavigationDelegate {
     var uri:String?
     var content:String?
     
-    var blogItem: blogDetailItem?
+    var blogItem: myBlogShowBlogPOModel?
     var timeCount:Int = 0
     var timer: Timer? = nil
 
@@ -236,9 +236,9 @@ extension SuperWebController{
         controller.pushViewController(target, animated: true)
     }
     
-    static func startAboubBlog(_ controller:UINavigationController,blogItem: blogDetailItem, isRoot:Bool = false) {
+    static func startAboubBlog(_ controller:UINavigationController,blogItem: myBlogShowBlogPOModel, isRoot:Bool = false) {
         let target = SuperWebController()
-        target.uri = blogItem.userBlogUrl
+        target.uri = blogItem.myBlogShowBlogPO.userBlogUrl
         target.blogItem = blogItem
         if isRoot {
             target.hidesBottomBarWhenPushed = true

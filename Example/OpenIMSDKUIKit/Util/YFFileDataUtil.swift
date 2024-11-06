@@ -64,15 +64,15 @@ class YFFileDataUtil {
     }
         
     /// 读取全部本地数据
-    static  func readDataToFile(_ locaType: localBlogType = .star) -> [blogDetailItem] {
+    static  func readDataToFile(_ locaType: localBlogType = .star) -> [myBlogShowBlogPOModel] {
         
         let path = getBlogPath(locaType)
         
-        var datas:[blogDetailItem] = []
+        var datas:[myBlogShowBlogPOModel] = []
         if let dataRead = try?  Data(contentsOf:path) {
             
                do{
-                   datas = try JSONDecoder().decode([blogDetailItem].self, from: dataRead)
+                   datas = try JSONDecoder().decode([myBlogShowBlogPOModel].self, from: dataRead)
                } catch {
                    print(error)
                }
@@ -84,7 +84,7 @@ class YFFileDataUtil {
     }
 
     // 保存全部数据到本地
-    static func saveDataToFile(_ locaType: localBlogType = .star, blogsArr: [blogDetailItem]) -> () {
+    static func saveDataToFile(_ locaType: localBlogType = .star, blogsArr: [myBlogShowBlogPOModel]) -> () {
         let dataWrite = try? JSONEncoder().encode(blogsArr)
         
         do{
@@ -100,28 +100,28 @@ class YFFileDataUtil {
         }
     }
         
-    static func saveOneDataToFile(_ locaType: localBlogType = .star, blogItem:blogDetailItem) ->() {
+    static func saveOneDataToFile(_ locaType: localBlogType = .star, blogItem:myBlogShowBlogPOModel) ->() {
         var datas = readDataToFile(locaType)
-        datas.removeFirst(where: {$0.id == blogItem.id})
+        datas.removeFirst(where: {$0.myBlogShowBlogPO.id == blogItem.myBlogShowBlogPO.id})
         datas.insert(blogItem, at: 0)
         saveDataToFile(locaType, blogsArr: datas)
     }
     
-    static func isHaveThisBlog(_ locaType: localBlogType = .star, blogItem:blogDetailItem) -> Bool {
+    static func isHaveThisBlog(_ locaType: localBlogType = .star, blogItem:myBlogShowBlogPOModel) -> Bool {
         var datas = readDataToFile(locaType)
-        return  datas.contains(where: {$0.id == blogItem.id})
+        return  datas.contains(where: {$0.myBlogShowBlogPO.id == blogItem.myBlogShowBlogPO.id})
     }
 
     @discardableResult
-    static func deleteOneDataFromFile(_ locaType: localBlogType = .star, blogItem: blogDetailItem) -> [blogDetailItem] {
+    static func deleteOneDataFromFile(_ locaType: localBlogType = .star, blogItem: myBlogShowBlogPOModel) -> [myBlogShowBlogPOModel] {
         var datas = readDataToFile(locaType)
-        datas.removeFirst(where: {$0.id == blogItem.id})
+        datas.removeFirst(where: {$0.myBlogShowBlogPO.id == blogItem.myBlogShowBlogPO.id})
         saveDataToFile(locaType, blogsArr: datas)
         return datas
     }
     
     static func deleteAllDataFromFile(_ locaType: localBlogType = .star) ->() {
-        let datas:[blogDetailItem] = []
+        let datas:[myBlogShowBlogPOModel] = []
         saveDataToFile(locaType, blogsArr: datas)
     }
     

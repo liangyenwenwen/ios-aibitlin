@@ -156,6 +156,7 @@
 "cancel" = "Cancel";
 "choose" = "Select";
 "sentSuccess" = "Sent Successfully";
+"changed" = "Reset";
 "success" = "Successfully";
 "failure" = "Failed";
 "plsEnterRightX" = "Please enter a valid %@";
@@ -371,6 +372,7 @@ Toolbox = "Toolbox";
 "处理中" = "Processing";
 "拒绝" = "Reject";
 "受限制" = "Limit";
+"更多" = "More";
 "翻译功能开发中" = "Translation function is under development";
 
 "BuyVIP" = "Buy VIP Services";

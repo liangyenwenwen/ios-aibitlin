@@ -13,7 +13,7 @@ import DynamicColor
 
 class MineBokeStatisticsVC: BaseTitleController {
     
-    var boke : blogDetailItem!
+    var boke : myBlogShowBlogPOModel!
     var dataNumberArr: [Int] = [0, 0, 0, 0, 0, 0, 0]
     var currentTag : Int = 1206
     var chooseTime: String = "1700-01-01"
@@ -53,7 +53,7 @@ class MineBokeStatisticsVC: BaseTitleController {
         scrollViewContainer.tg_padding = UIEdgeInsets(top: PADDING_OUTER, left: PADDING_OUTER, bottom: PADDING_OUTER, right: PADDING_OUTER)
         scrollViewContainer.tg_space = 10
         
-        title = "BlogSituation".localizedFormat(boke.userBlogName!)
+        title = "BlogSituation".localizedFormat(boke.myBlogShowBlogPO.userBlogName!)
         
         
         scrollViewContainer.addSubview(bokeBaseView)
@@ -316,11 +316,11 @@ extension MineBokeStatisticsVC {
     
     func updateBokeBase() {
 
-        bokeIcon.show(boke.userBlogIcon)
-        bokeTitleView.text = boke.userBlogName
-        bokeDescription.text = boke.userBlogIntro
+        bokeIcon.show(boke.myBlogShowBlogPO.userBlogIcon)
+        bokeTitleView.text = boke.myBlogShowBlogPO.userBlogName
+        bokeDescription.text = boke.myBlogShowBlogPO.userBlogIntro
         
-        switch boke.state {
+        switch boke.myBlogShowBlogPO.state {
         case .normal:
             bokeStateImage.image = R.image.blog_state_0()!
             bokeStateLabel.text = "可访问".localized()
@@ -372,7 +372,7 @@ extension MineBokeStatisticsVC {
 //            noNetView.hide()
 //        }
         
-        let paramters : [String: Any] = ["userId": boke.userId!, "userBlogId": boke.id!]
+        let paramters : [String: Any] = ["userId": boke.myBlogShowBlogPO.userId!, "userBlogId": boke.myBlogShowBlogPO.id!]
 
         YFMineNetViewModel.queryShowBlogsSurvey(paramters: paramters) { [self] data in
             if let data = data {
@@ -397,7 +397,7 @@ extension MineBokeStatisticsVC {
 //            noNetView.hide()
 //        }
         
-        let paramters : [String: Any] = ["time": time, "userId": boke.userId!, "userBlogId": boke.id!]
+        let paramters : [String: Any] = ["time": time, "userId": boke.myBlogShowBlogPO.userId!, "userBlogId": boke.myBlogShowBlogPO.id!]
         YFMineNetViewModel.queryShowBlogsSurveyOneDay(paramters: paramters) { [self] data in
             if let data = data {
                 chooseTime = time

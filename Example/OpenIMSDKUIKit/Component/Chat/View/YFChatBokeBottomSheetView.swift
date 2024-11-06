@@ -15,9 +15,9 @@ import NSObject_Rx
 
 class YFChatBokeBottomSheetView: TGLinearLayout {
 
-    var chooseBoke:((blogDetailItem)->())!
+    var chooseBoke:((myBlogShowBlogPOModel)->())!
     var hideSheetView:(()->())!
-    var data : [blogDetailItem] =  []
+    var data : [myBlogShowBlogPOModel] =  []
     
     var showAll: Bool  = false
     var isRemoveRecommendData: Bool  = false //是否剔除已推荐博客的数据
@@ -135,12 +135,12 @@ extension YFChatBokeBottomSheetView {
 //                    return item.state == .normal
 //                })
                 var array = data.filter({ item -> Bool in
-                    return item.state == .normal
+                    return item.myBlogShowBlogPO.state == .normal
                 })
                 if self?.isRemoveRecommendData == true{
                     let recommedData = YFFileDataUtil.readDataToFile(.recommend)
                     for item in recommedData {
-                        array.removeAll(where: { $0.id == item.id })
+                        array.removeAll(where: { $0.myBlogShowBlogPO.id == item.myBlogShowBlogPO.id })
                     }
                     self?.data = array
                 }else{

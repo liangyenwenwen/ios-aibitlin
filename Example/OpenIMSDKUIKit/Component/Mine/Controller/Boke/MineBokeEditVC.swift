@@ -17,7 +17,7 @@ class MineBokeEditVC: BaseTitleController, UIImagePickerControllerDelegate, UINa
     private let _viewModel = MineViewModel()
     var url: String = ""
     var isEdit: Bool = false
-    var blogItem: blogDetailItem?
+    var blogItem: myBlogShowBlogPOModel?
     
     override func initViews() {
         super.initViews()
@@ -52,11 +52,11 @@ class MineBokeEditVC: BaseTitleController, UIImagePickerControllerDelegate, UINa
         bindData()
         
         if isEdit {
-            addressView.textFieldView.text = blogItem?.userBlogUrl
-            iconView.changeIcon.show(blogItem?.userBlogIcon)
-            url = blogItem?.userBlogIcon ?? ""
-            nameView.textFieldView.text = blogItem?.userBlogName
-            introView.textView.text = blogItem?.userBlogIntro
+            addressView.textFieldView.text = blogItem?.myBlogShowBlogPO.userBlogUrl
+            iconView.changeIcon.show(blogItem?.myBlogShowBlogPO.userBlogIcon)
+            url = blogItem?.myBlogShowBlogPO.userBlogIcon ?? ""
+            nameView.textFieldView.text = blogItem?.myBlogShowBlogPO.userBlogName
+            introView.textView.text = blogItem?.myBlogShowBlogPO.userBlogIntro
         }
     }
 
@@ -313,13 +313,12 @@ extension MineBokeEditVC {
     }
     
     func editBlog() {
-        let paramters : [String: Any] = ["userId": blogItem!.userId!,
+        let paramters : [String: Any] = ["userId": blogItem!.myBlogShowBlogPO.userId!,
                          "userBlogUrl": addressView.inputText!,
                          "userBlogIcon": url,
                          "userBlogName": nameView.inputText!,
                          "userBlogIntro": introView.textView.text!,
-                         "sign": blogItem!.sign!,
-                         "userBlogId": blogItem!.id!]
+                         "id": blogItem!.myBlogShowBlogPO.id!]
         
         YFMineNetViewModel.editBlog(paramters: paramters) { errCode, errMsg in
             if errCode == 20000 {

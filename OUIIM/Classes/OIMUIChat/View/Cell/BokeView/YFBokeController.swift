@@ -62,7 +62,6 @@ final class YFBokeController {
 //        let changeTime: String?
         
         let parm = ["customType": 10500, "data":["id": source.id,
-                                                 "sign":source.sign,
                                                  "userBlogUrl":source.userBlogUrl,
                                                  "userBlogIntro":source.userBlogIntro,
                                                  "userBlogName": source.userBlogName,

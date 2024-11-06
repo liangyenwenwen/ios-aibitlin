@@ -22,7 +22,7 @@ class YFFeedbackVC: BaseTitleController {
     var imageTitle:String!
     var tempStr:String = ""
     
-    var blogItem: blogDetailItem!
+    var blogItem: myBlogShowBlogPOModel!
     var conversationItem: ConversationInfo!
     var userItem: QueryUserInfo!
     var reportCommentUserId:String = ""
@@ -432,13 +432,14 @@ extension YFFeedbackVC {
         var paramters : [String : Any] = [:]
         switch reportType {
         case .blog:
-            paramters = ["blogId": blogItem.id!,
-                         "userBlogUrl": blogItem.userBlogUrl!,
-                         "userBlogIcon": blogItem.userBlogIcon!,
-                         "userBlogName": SuperStringUtil.getUserShowname(showname: blogItem.userBlogName!),
-                         "userBlogIntro": blogItem.userBlogIntro!,
-                         "userBlogCreatIp": blogItem.userBlogCreatIp!,
-                         "userBlogCreatAffiliatingArea": blogItem.userBlogIntro!,
+            paramters = ["beReportedUserId":blogItem.myBlogShowBlogPO.userId ?? "",
+                         "blogId": blogItem.myBlogShowBlogPO.id!,
+                         "userBlogUrl": blogItem.myBlogShowBlogPO.userBlogUrl!,
+                         "userBlogIcon": blogItem.myBlogShowBlogPO.userBlogIcon!,
+                         "userBlogName": SuperStringUtil.getUserShowname(showname: blogItem.myBlogShowBlogPO.userBlogName!),
+                         "userBlogIntro": blogItem.myBlogShowBlogPO.userBlogIntro!,
+                         "userBlogCreatIp": blogItem.myBlogShowBlogPO.userBlogCreatIp!,
+                         "userBlogCreatAffiliatingArea": blogItem.myBlogShowBlogPO.userBlogIntro!,
 
                          "reportReason":topTitleView.inputText!,
                          "reportDescription":contentView.textView.text!,

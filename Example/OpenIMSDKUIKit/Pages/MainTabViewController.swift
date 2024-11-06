@@ -413,7 +413,9 @@ class MainTabViewController: UITabBarController {
             }
             
             updateLanguage(uid: r.userID)
+//            checkAppVersion(uid:r.userID)
             pushBindAlias(true)
+            UserDefaults.standard.set("0", forKey: "blogVersion\(Open_im_sdkGetLoginUserID())")
             ProgressHUD.dismiss()
             
             if dismiss {
@@ -488,6 +490,38 @@ class MainTabViewController: UITabBarController {
 }
 
 extension MainTabViewController {
+    func checkAppVersion(uid: String){
+        YFMineNetViewModel.checkAppVersion(uid: uid) { data in
+            let appVersion =  UserDefaults.standard.string(forKey: "AppVersion") ?? Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+            let newVersion = data["iosVersion"] as? String
+            if appVersion != newVersion{
+                if data["forceUpdate"] as! Int == 1{
+                    //强制升级
+                    UserDefaults.standard.removeObject(forKey: "AppVersion")
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [self] in
+                        guard let rootViewController = AppDelegate.shared.window?.rootViewController else { return }
+                        rootViewController.presentNewAlert(title: data["versionDescribe"] as? String, confirmTitle: "立即更新") {
+                            if let url = URL(string: data["apkUrl"] as! String) {
+                                UIApplication.shared.open(url)
+                            }
+                        }
+                    }
+                }else{
+                    //普通升级
+                    UserDefaults.standard.set(newVersion, forKey: "AppVersion")
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [self] in
+                        
+                        guard let rootViewController = AppDelegate.shared.window?.rootViewController else { return }
+                        rootViewController.presentNewAlert(title: data["versionDescribe"] as? String, confirmTitle: "立即更新", cancelTitle: "稍后更新") {
+                            if let url = URL(string: data["apkUrl"] as! String) {
+                                UIApplication.shared.open(url)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
     
     // MARK: - 张亚飞打的标记 更新语言
     
@@ -715,7 +749,7 @@ extension MainTabViewController: UITabBarControllerDelegate {
                                       MoreTabItem(image: "tool_moments_icon", title: "动态".localized())]
         
         for item in YFFileDataUtil.readDataToFile(.home) {
-            let moreItem =  MoreTabItem(image: item.userBlogIcon ?? "", title: item.userBlogName ?? "")
+            let moreItem =  MoreTabItem(image: item.myBlogShowBlogPO.userBlogIcon ?? "", title: item.myBlogShowBlogPO.userBlogName ?? "")
             listArrr.append(moreItem)
         }
         

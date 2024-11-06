@@ -16,7 +16,7 @@ import OUIIM
 class YFChatNewFriendListVC: BaseTitleController {
 
     var vcType: MyStyle = .bokeVisitorStranger
-    var boke : blogDetailItem!
+//    var boke : blogDetailItem!
     var blogTime: String!
     var paramters : [String : Any]!
     

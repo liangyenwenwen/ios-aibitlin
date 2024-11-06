@@ -81,7 +81,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     var orientation = UIInterfaceOrientationMask.portrait
     var window: UIWindow?
     
-    var isChine: Bool = true
+    var isChine: Bool = false
     
     open class var shared: AppDelegate {
         get {
@@ -111,14 +111,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 //        }
         
         
-        print(YFNetworkUtils.getIPAddress())
+//        print(YFNetworkUtils.getIPAddress())
 //        print(YFNetworkUtils.getIPAddress2())
-        
-        YFNetworkUtils.getPublicIPAddress { ip in
-            
-            print(ip)
-            
-            
+        IMController.shared.publicIP = UserDefaults.standard.string(forKey: "publicIP") ?? "60.177.29.150"
+        YFNetworkUtils.getPublicIP { ip in
+            if let ip = ip{
+                IMController.shared.publicIP = ip
+                UserDefaults.standard.set(ip, forKey: "publicIP")
+            }
         }
         
         

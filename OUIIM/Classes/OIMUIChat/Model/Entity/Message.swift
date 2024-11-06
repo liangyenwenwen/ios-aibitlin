@@ -272,7 +272,7 @@ struct bokeMessageSource: Hashable, Codable {
 //    var linkUrl: String?
 //    var intro: String?
     let id: Int?
-    let sign: Int?
+    let userBlogSign: Int?
     let userBlogUrl: String?
     let userBlogIntro: String?
     let userBlogName: String?
@@ -286,14 +286,22 @@ struct bokeMessageSource: Hashable, Codable {
     let changeTime: String?
     
     var state: BokeType {
-        switch sign {
-        case 0:
-            return .normal
-        case 1, 4:
+        switch userBlogSign {
+//        case 0:
+//            return .normal
+//        case 1, 4:
+//            return .wait
+//        case 2:
+//            return .refuse
+//        case 3:
+//            return .limit
+        case 1:
             return .wait
         case 2:
-            return .refuse
+            return .normal
         case 3:
+            return .refuse
+        case 4:
             return .limit
             
         default:
@@ -398,7 +406,7 @@ extension CustomMessageSource {
 //            let intro = value["intro"] ?? "intro"
 //            print(intro)
             return OUIIM.bokeMessageSource(id: value["id"] as? Int,
-                                           sign: value["sign"] as? Int,
+                                           userBlogSign: value["userBlogSign"] as? Int,
                                            userBlogUrl: value["userBlogUrl"] as? String,
                                            userBlogIntro: value["userBlogIntro"] as? String,
                                            userBlogName: value["userBlogName"] as? String,
@@ -411,7 +419,7 @@ extension CustomMessageSource {
                                            userBlogIcon: value["userBlogIcon"] as? String,
                                            changeTime: value["changeTime"] as? String)
         }
-        return OUIIM.bokeMessageSource(id: -1, sign: 0, userBlogUrl: "", userBlogIntro: "", userBlogName: "", userBlogCreatIp: "", userBlogCreatAffiliatingArea: "", userBlogOrder: 0, userId: "", isDelete: 0, creationTime: "", userBlogIcon: "", changeTime: "")
+        return OUIIM.bokeMessageSource(id: -1, userBlogSign: 0, userBlogUrl: "", userBlogIntro: "", userBlogName: "", userBlogCreatIp: "", userBlogCreatAffiliatingArea: "", userBlogOrder: 0, userId: "", isDelete: 0, creationTime: "", userBlogIcon: "", changeTime: "")
     }
     
     // MARK: - 张亚飞打的标记   自定义消息加工

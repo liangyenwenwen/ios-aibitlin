@@ -11,8 +11,8 @@ import TangramKit
 /// 最多10个元素
 class SectionItemsView: TGLinearLayout {
 
-    var bokeClick:((blogDetailItem, Bool)->Void)?
-    var commendbokeClick:((blogDetailItem, Bool, Int)->Void)?
+    var bokeClick:((myBlogShowBlogPOModel, Bool)->Void)?
+    var commendbokeClick:((myBlogShowBlogPOModel, Bool, Int)->Void)?
     
     init() {
         super.init(frame: .zero, orientation: .vert)
@@ -49,7 +49,7 @@ class SectionItemsView: TGLinearLayout {
                 let item = topContainer.subviews[index] as! SectionItemView
                 if index < data.count {
                     item.show()
-                    item.bindDataNet(data[index] as! blogDetailItem)
+                    item.bindDataNet(data[index] as! myBlogShowBlogPOModel)
                 } else {
                     item.hide()
                 }
@@ -59,7 +59,7 @@ class SectionItemsView: TGLinearLayout {
             bottomContainer.show()
             for index in topContainer.subviews.indices {
                 let item = topContainer.subviews[index] as! SectionItemView
-                item.bindDataNet(data[index] as! blogDetailItem)
+                item.bindDataNet(data[index] as! myBlogShowBlogPOModel)
                 item.show()
             }
             
@@ -69,9 +69,9 @@ class SectionItemsView: TGLinearLayout {
                     item.show()
                     
                     if data.count > 9 && index == 4 {
-                        item.bindDataNet(data[index + 5] as! blogDetailItem, true)
+                        item.bindDataNet(data[index + 5] as! myBlogShowBlogPOModel, true)
                     } else {
-                        item.bindDataNet(data[index + 5] as! blogDetailItem)
+                        item.bindDataNet(data[index + 5] as! myBlogShowBlogPOModel)
                     }
                     
                 } else {
@@ -84,7 +84,7 @@ class SectionItemsView: TGLinearLayout {
     
     ///更新我的推荐博客
     func updateRecommendData() {
-        let moreBoke = blogDetailItem(id: -1, sign: 0, userBlogUrl: "", userBlogIntro: "", userBlogName: "", userBlogCreatIp: "", userBlogCreatAffiliatingArea: "", userBlogOrder: 0, userId: "", isDelete: 0, creationTime: "", userBlogIcon: "", changeTime: "")
+        let moreBoke = blogDetailItem(id: -1, userBlogSign: 0, userBlogUrl: "", userBlogIntro: "", userBlogName: "", userBlogCreatIp: "", userBlogCreatAffiliatingArea: "", userBlogOrder: 0, userId: "", isDelete: 0, creationTime: "", userBlogIcon: "", changeTime: "")
         
         let data = YFFileDataUtil.readDataToFile(.recommend)
         
@@ -107,7 +107,8 @@ class SectionItemsView: TGLinearLayout {
                 let item = topContainer.subviews[index] as! SectionItemView
                 item.index = data.count
                 item.show()
-                item.bindDataNet(moreBoke, true, isRecommend: true)
+                var model = myBlogShowBlogPOModel(myBlogShowBlogPO: moreBoke)
+                item.bindDataNet(model, true, isRecommend: true)
             }
             
         }
@@ -218,7 +219,7 @@ class SectionItemsView: TGLinearLayout {
 class SectionItemView: TGLinearLayout {
     
     let itemWidth = (SCREEN_WIDTH - PADDING_OUTER * 8) / 5.0
-    var item: blogDetailItem!
+    var item: myBlogShowBlogPOModel!
     var isMore: Bool = false
     var isRecommend: Bool = false
     var index: Int = 0
@@ -313,9 +314,8 @@ class SectionItemView: TGLinearLayout {
         titleLbl.text = bokeItem.title
     }
     
-    func bindDataNet(_ bokeItem: blogDetailItem, _ ismore: Bool = false, isRecommend: Bool = false) {
-
-        switch bokeItem.state {
+    func bindDataNet(_ bokeItem: myBlogShowBlogPOModel, _ ismore: Bool = false, isRecommend: Bool = false) {
+        switch bokeItem.myBlogShowBlogPO.state {
         case .normal:
             blogStateLbl.hide()
             break
@@ -330,20 +330,20 @@ class SectionItemView: TGLinearLayout {
             blogStateLbl.text = "受限制".localized()
         }
         
-        titleLbl.text = bokeItem.userBlogName
-        print(bokeItem.userBlogIcon)
-        topImg.show(bokeItem.userBlogIcon)
-        
-
-        if ismore {
-            topImg.image = R.image.boke_more_icon()
+        titleLbl.text = bokeItem.myBlogShowBlogPO.userBlogName
+        print(bokeItem.myBlogShowBlogPO.userBlogIcon)
+        if !isRecommend,!ismore{
+            topImg.show(bokeItem.myBlogShowBlogPO.userBlogIcon)
         }
         
+        if ismore {
+            topImg.image = R.image.boke_more_icon()
+            titleLbl.text = "更多".localized()
+        }
         if isRecommend {
             topImg.image = R.image.add_recommend_blog_icon()!
             titleLbl.text = ""
         }
-        
         isMore = ismore
         
         item = bokeItem

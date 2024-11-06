@@ -662,7 +662,7 @@ final class DefaultChatController: ChatController {
 //        let boke = BokeElem(title: source.title, iconUrl: source.iconUrl, linkUrl: source.linkUrl, intro: source.intro)
 //        let boke = BokeElem(from: )
         
-        let boke = BokeElem(id: source.id, sign: source.sign, userBlogUrl: source.userBlogUrl, userBlogIntro: source.userBlogIntro, userBlogName: source.userBlogName, userBlogCreatIp: source.userBlogCreatIp, userBlogCreatAffiliatingArea: source.userBlogCreatAffiliatingArea, userBlogOrder: source.userBlogOrder, userId: source.userId, isDelete: source.isDelete, creationTime: source.creationTime, userBlogIcon: source.userBlogIcon, changeTime: source.changeTime)
+        let boke = BokeElem(id: source.id, userBlogSign: source.userBlogSign, userBlogUrl: source.userBlogUrl, userBlogIntro: source.userBlogIntro, userBlogName: source.userBlogName, userBlogCreatIp: source.userBlogCreatIp, userBlogCreatAffiliatingArea: source.userBlogCreatAffiliatingArea, userBlogOrder: source.userBlogOrder, userId: source.userId, isDelete: source.isDelete, creationTime: source.creationTime, userBlogIcon: source.userBlogIcon, changeTime: source.changeTime)
 
         IMController.shared.sendBokeMessage(boke: boke, to: receiverId, conversationType: conversationType) { [weak self] msg in
             self?.appendMessage(msg, completion: completion)
@@ -999,7 +999,7 @@ final class DefaultChatController: ChatController {
                         let section = [message]
                         result.append(section)
                         return
-                    }                    
+                    }
                     // 使用Calendar类和Component进行计算
                     let calendar = Calendar.current
                     let components = calendar.dateComponents([.minute], from: prevMessage.date, to: message.date)
@@ -1066,9 +1066,12 @@ final class DefaultChatController: ChatController {
                     return [.message(message, bubbleType: .normal)]
                 }.joined())
                 
-                if let firstMessage = messages.first {
-                    let dateCell = Cell.date(DateGroup(id: firstMessage.id, date: firstMessage.date))
-                    cells.insert(dateCell, at: 0)
+                if let firstMessage = messages.first  {
+                    let conversation = self.getConversation()
+                    if conversation.conversationType != .notification{
+                        let dateCell = Cell.date(DateGroup(id: firstMessage.id, date: firstMessage.date))
+                        cells.insert(dateCell, at: 0)
+                    }
                 }
                 
                 if self.typingState == .typing,

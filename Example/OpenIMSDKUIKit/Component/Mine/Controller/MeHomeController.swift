@@ -380,7 +380,7 @@ class MeHomeController: BaseLogicController {
                 vc.vcType = .star
                 self?.gotoControllerFromRoot(vc)
             } else {
-                SuperWebController.start((self!.navigationController!), uri: item.userBlogUrl, isRoot: true)
+                SuperWebController.start((self!.navigationController!), uri: item.myBlogShowBlogPO.userBlogUrl, isRoot: true)
             }
         }
         
