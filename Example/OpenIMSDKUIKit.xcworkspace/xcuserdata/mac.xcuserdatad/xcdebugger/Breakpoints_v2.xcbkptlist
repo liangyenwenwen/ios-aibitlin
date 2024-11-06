@@ -215,22 +215,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "522C2C79-757C-425C-962F-ED633127E7C8"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "OpenIMSDKUIKit/Base/BaseView/CommentView/SectionItemsView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "344"
-            endingLineNumber = "344"
-            landmarkName = "bindDataNet(_:_:isRecommend:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "FA37D81F-F4ED-4FF2-9325-E033A3915D72"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -240,7 +224,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "495"
             endingLineNumber = "495"
-            landmarkName = "checkAppVersion(uid:)"
+            landmarkName = "updateLanguage(uid:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
