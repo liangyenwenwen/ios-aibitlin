@@ -72,6 +72,7 @@
 "cancel" = "取消";
 "choose" = "选择";
 "sentSuccess" = "发送成功";
+"changed" = "重置";
 "success" = "成功";
 "failure" = "失败";
 "plsEnterRightX" = "请输入正确的%@";

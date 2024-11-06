@@ -1067,8 +1067,11 @@ final class DefaultChatController: ChatController {
                 }.joined())
                 
                 if let firstMessage = messages.first {
-                    let dateCell = Cell.date(DateGroup(id: firstMessage.id, date: firstMessage.date))
-                    cells.insert(dateCell, at: 0)
+                    let conversation = self.getConversation()
+                    if conversation.conversationType != .notification{
+                        let dateCell = Cell.date(DateGroup(id: firstMessage.id, date: firstMessage.date))
+                        cells.insert(dateCell, at: 0)
+                    }
                 }
                 
                 if self.typingState == .typing,

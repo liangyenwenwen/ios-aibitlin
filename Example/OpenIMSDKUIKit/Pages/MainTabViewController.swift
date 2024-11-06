@@ -414,7 +414,7 @@ class MainTabViewController: UITabBarController {
             updateLanguage(uid: r.userID)
             pushBindAlias(true)
             ProgressHUD.dismiss()
-            
+            UserDefaults.standard.set("0", forKey: "blogVersion\(Open_im_sdkGetLoginUserID())")
             if dismiss {
                 self.dismiss(animated: true) {
 #if ENABLE_CALL

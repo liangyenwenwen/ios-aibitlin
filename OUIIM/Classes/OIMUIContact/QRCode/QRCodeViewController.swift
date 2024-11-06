@@ -499,7 +499,7 @@ public class QRCodeViewController: UIViewController {
     func  getShareCardImg(view:UIView ) -> UIImage? {
         
         // 开始图形上下文
-        UIGraphicsBeginImageContextWithOptions(view.bounds.size,  false, 1.0)
+        UIGraphicsBeginImageContextWithOptions(view.bounds.size,  false, 0.0)
         defer { UIGraphicsEndImageContext() } // 确保上下文能被释放
         
         // 将view渲染到图形上下文中

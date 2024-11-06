@@ -332,13 +332,14 @@ class SectionItemView: TGLinearLayout {
         
         titleLbl.text = bokeItem.userBlogName
         print(bokeItem.userBlogIcon)
-        topImg.show(bokeItem.userBlogIcon)
-        
-
+        if !isRecommend,!ismore{
+            topImg.show(bokeItem.userBlogIcon)
+        }
         if ismore {
             topImg.image = R.image.boke_more_icon()
+            titleLbl.text = "更多".localized()
+            blogStateLbl.hide()
         }
-        
         if isRecommend {
             topImg.image = R.image.add_recommend_blog_icon()!
             titleLbl.text = ""
