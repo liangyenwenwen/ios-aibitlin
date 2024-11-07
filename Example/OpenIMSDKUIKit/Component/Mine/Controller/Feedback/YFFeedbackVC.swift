@@ -22,7 +22,7 @@ class YFFeedbackVC: BaseTitleController {
     var imageTitle:String!
     var tempStr:String = ""
     
-    var blogItem: blogDetailItem!
+    var blogItem: myBlogShowBlogPOModel!
     var conversationItem: ConversationInfo!
     var userItem: QueryUserInfo!
     var reportCommentUserId:String = ""
@@ -109,7 +109,7 @@ class YFFeedbackVC: BaseTitleController {
         
         
 //        switch useType {
-//    
+//
 //        case .useFeedback:
 //            title = "反馈".localized()
 //            topViewTitle = "\("标题".localized())*"
@@ -148,16 +148,16 @@ class YFFeedbackVC: BaseTitleController {
     func reportChoose() {
 //        if self.useType == .useReport {
 //            let alert = UIAlertController(title: "举报", message: "举报该账号的原因", preferredStyle: .actionSheet)
-//            
+//
 //            let frameSizes: [String] = ["发布不适当内容对我造成骚扰", "钱财欺诈", "怀疑账号被盗用", "其他"]
 //            let pickerViewValues: [[String]] = [frameSizes]
 //            let pickerViewSelectedValue: PickerViewViewController.Index = (column: 0, row: frameSizes.firstIndex(of: self.tempStr) ?? 0)
-//            
+//
 //            alert.addPickerView(values: pickerViewValues, initialSelection: pickerViewSelectedValue, withSerchBar: false) { [weak self] vc, picker, index, values  in
 //                self?.tempStr = values[0][index.row]
 //                self?.topTitleView.textFieldView.text =  values[0][index.row]
 //            }
-//            
+//
 //            //cacel 取消也改变值  defalut 必须选择 alert才会消失
 //            alert.addAction(title: "Done".localized(), style: .cancel)
 //            alert.show()
@@ -320,7 +320,7 @@ class YFFeedbackVC: BaseTitleController {
 //            ProgressHUD.animate()
 //            first = first.compress(expectSize: 20 * 1024)
 //            let result = FileHelper.shared.saveImage(image: first)
-//            
+//
 //            if result.isSuccess {
 //                self?._viewModel.uploadFile(fullPath: result.fullPath, onProgress: { [weak self] progress in
 ////                    ProgressHUD.progress(progress)
@@ -345,7 +345,7 @@ class YFFeedbackVC: BaseTitleController {
                 self?.datum.append(photo)
                 self?.refreshUI()
 //                ProgressHUD.animate()
-//                
+//
 //                photo = photo.compress(expectSize: 20 * 1024)
 //                let result = FileHelper.shared.saveImage(image: photo)
 //                if result.isSuccess {
@@ -432,13 +432,14 @@ extension YFFeedbackVC {
         var paramters : [String : Any] = [:]
         switch reportType {
         case .blog:
-            paramters = ["blogId": blogItem.id!,
-                         "userBlogUrl": blogItem.userBlogUrl!,
-                         "userBlogIcon": blogItem.userBlogIcon!,
-                         "userBlogName": SuperStringUtil.getUserShowname(showname: blogItem.userBlogName!),
-                         "userBlogIntro": blogItem.userBlogIntro!,
-                         "userBlogCreatIp": blogItem.userBlogCreatIp!,
-                         "userBlogCreatAffiliatingArea": blogItem.userBlogIntro!,
+            paramters = ["beReportedUserId":blogItem.myBlogShowBlogPO.userId ?? "",
+                         "blogId": blogItem.myBlogShowBlogPO.id!,
+                         "userBlogUrl": blogItem.myBlogShowBlogPO.userBlogUrl!,
+                         "userBlogIcon": blogItem.myBlogShowBlogPO.userBlogIcon!,
+                         "userBlogName": SuperStringUtil.getUserShowname(showname: blogItem.myBlogShowBlogPO.userBlogName!),
+                         "userBlogIntro": blogItem.myBlogShowBlogPO.userBlogIntro!,
+                         "userBlogCreatIp": blogItem.myBlogShowBlogPO.userBlogCreatIp!,
+                         "userBlogCreatAffiliatingArea": blogItem.myBlogShowBlogPO.userBlogIntro!,
 
                          "reportReason":topTitleView.inputText!,
                          "reportDescription":contentView.textView.text!,

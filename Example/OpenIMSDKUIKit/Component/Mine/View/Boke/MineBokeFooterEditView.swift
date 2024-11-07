@@ -17,14 +17,14 @@ import ProgressHUD
 
 class MineBokeFooterEditView: TGLinearLayout {
 
-    var editBoke : ((blogDetailItem)->Void)!
-    var showBokeOnHome : ((blogDetailItem,Bool)->Void)!
-    var deleteBoke : ((blogDetailItem)->Void)!
-    var reportBoke : ((blogDetailItem)->Void)!
-    var topBlog : ((blogDetailItem)->Void)!
-    var shareBlog: ((blogDetailItem)->Void)!
+    var editBoke : ((myBlogShowBlogPOModel)->Void)!
+    var showBokeOnHome : ((myBlogShowBlogPOModel,Bool)->Void)!
+    var deleteBoke : ((myBlogShowBlogPOModel)->Void)!
+    var reportBoke : ((myBlogShowBlogPOModel)->Void)!
+    var topBlog : ((myBlogShowBlogPOModel)->Void)!
+    var shareBlog: ((myBlogShowBlogPOModel)->Void)!
     var type: blogListVCType!
-    var blogItem: blogDetailItem!
+    var blogItem: myBlogShowBlogPOModel!
     
     var onHomeSwitch: UISwitch?
     
@@ -40,8 +40,8 @@ class MineBokeFooterEditView: TGLinearLayout {
     }
     
     func update() {
-        bokeCoveImage.show(blogItem.userBlogIcon)
-        bokeTitle.text = blogItem.userBlogName
+        bokeCoveImage.show(blogItem.myBlogShowBlogPO.userBlogIcon)
+        bokeTitle.text = blogItem.myBlogShowBlogPO.userBlogName
         
         onHomeSwitch?.isOn = YFFileDataUtil.isHaveThisBlog(.home, blogItem: blogItem)
     }

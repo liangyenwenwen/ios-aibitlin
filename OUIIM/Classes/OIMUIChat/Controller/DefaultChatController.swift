@@ -662,7 +662,7 @@ final class DefaultChatController: ChatController {
 //        let boke = BokeElem(title: source.title, iconUrl: source.iconUrl, linkUrl: source.linkUrl, intro: source.intro)
 //        let boke = BokeElem(from: )
         
-        let boke = BokeElem(id: source.id, sign: source.sign, userBlogUrl: source.userBlogUrl, userBlogIntro: source.userBlogIntro, userBlogName: source.userBlogName, userBlogCreatIp: source.userBlogCreatIp, userBlogCreatAffiliatingArea: source.userBlogCreatAffiliatingArea, userBlogOrder: source.userBlogOrder, userId: source.userId, isDelete: source.isDelete, creationTime: source.creationTime, userBlogIcon: source.userBlogIcon, changeTime: source.changeTime)
+        let boke = BokeElem(id: source.id,userBlogSign: source.userBlogSign, userBlogUrl: source.userBlogUrl, userBlogIntro: source.userBlogIntro, userBlogName: source.userBlogName, userBlogCreatIp: source.userBlogCreatIp, userBlogCreatAffiliatingArea: source.userBlogCreatAffiliatingArea, userBlogOrder: source.userBlogOrder, userId: source.userId, isDelete: source.isDelete, creationTime: source.creationTime, userBlogIcon: source.userBlogIcon, changeTime: source.changeTime)
 
         IMController.shared.sendBokeMessage(boke: boke, to: receiverId, conversationType: conversationType) { [weak self] msg in
             self?.appendMessage(msg, completion: completion)

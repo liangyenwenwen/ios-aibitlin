@@ -185,12 +185,12 @@ class MineBokeListCell: BaseTableViewCell {
     }()
     
     
-    func bindData(_ item: blogDetailItem)  {
-        bokeIcon.show(item.userBlogIcon)
-        bokeTitle.text = item.userBlogName
-        bokeContent.text = item.userBlogIntro
+    func bindData(_ item: myBlogShowBlogPOModel)  {
+        bokeIcon.show(item.myBlogShowBlogPO.userBlogIcon)
+        bokeTitle.text = item.myBlogShowBlogPO.userBlogName
+        bokeContent.text = item.myBlogShowBlogPO.userBlogIntro
         
-        switch item.state {
+        switch item.myBlogShowBlogPO.state {
         case .normal:
             blogStateLbl.hide()
             stateLbl.hide()

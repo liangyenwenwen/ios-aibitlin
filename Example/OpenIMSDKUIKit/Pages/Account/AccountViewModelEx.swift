@@ -113,7 +113,7 @@ extension AccountViewModel {
                 
                 let encoder = JSONEncoder()
                 do  {
-                    let jsondata = try encoder.encode(item)
+                    let jsondata = try encoder.encode(item.myBlogShowBlogPO)
                     if let jsonString = String(data: jsondata, encoding: .utf8) {
                         print(jsonString)
                         completion(jsonString)
@@ -145,7 +145,7 @@ extension AccountViewModel {
                     
             do {
                 
-                let boke = try JSONDecoder().decode(blogDetailItem.self, from: jsonData)
+                let boke = try JSONDecoder().decode(myBlogShowBlogPOModel.self, from: jsonData)
                 YFFileDataUtil.saveOneDataToFile(blogItem: boke)
                 
             } catch {

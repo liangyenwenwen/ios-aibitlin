@@ -126,7 +126,7 @@ extension MineBokeListViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         emptyView.hide()
         let cell = tableView.dequeueReusableCell(withIdentifier: MineBokeListCell.className, for: indexPath) as! MineBokeListCell
-        cell.bindData(datum[indexPath.row] as! blogDetailItem)
+        cell.bindData(datum[indexPath.row] as! myBlogShowBlogPOModel)
         cell.editBlock = { [weak self] in
             self?.showEdit(indexPath.row)
         }
@@ -139,7 +139,7 @@ extension MineBokeListViewController {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
      
-        let item = datum[indexPath.row] as! blogDetailItem
+        let item = datum[indexPath.row] as! myBlogShowBlogPOModel
         
        
         if(vcType != .meBlog) {
@@ -237,7 +237,7 @@ extension MineBokeListViewController {
     
     func showEdit(_ index: Int)  {
         let contentView = MineBokeFooterEditView(type: vcType)
-        contentView.blogItem = datum[index] as! blogDetailItem
+        contentView.blogItem = datum[index] as! myBlogShowBlogPOModel
         contentView.update()
         contentView.tg_width.equal(.fill)
         contentView.tg_height.equal(view.frame.height / 2)
@@ -274,7 +274,7 @@ extension MineBokeListViewController {
         }
         
         contentView.shareBlog = { [weak self] blogItem in
-            print(blogItem.userBlogName)
+            print(blogItem.myBlogShowBlogPO.userBlogName)
             
             let vc = MyContactsViewController(types: [.friends])
             vc.allowsSelecteAll = false
@@ -282,7 +282,7 @@ extension MineBokeListViewController {
             vc.selectedContact { [weak self, weak vc] info in
                 guard let self, let vc, let user = info.first else { return }
 
-                IMController.shared.sendBokeMessage(boke: blogItem.toBokeElem(), to: user.ID!, conversationType: .c2c) { _ in
+                IMController.shared.sendBokeMessage(boke: blogItem.myBlogShowBlogPO.toBokeElem(), to: user.ID!, conversationType: .c2c) { _ in
                     
                 } onComplete: { _ in
                     vc.dismiss(animated: true)
@@ -343,8 +343,8 @@ extension MineBokeListViewController {
         }
     }
     
-    func topBlog(item: blogDetailItem) {
-        YFMineNetViewModel.blogTop(paramters: ["sign":item.sign!, "blogId":item.id!, "userId":item.userId!]) { errCode, errMsg in
+    func topBlog(item: myBlogShowBlogPOModel) {
+        YFMineNetViewModel.blogTop(paramters: ["id":item.myBlogShowBlogPO.id!, "userId":item.myBlogShowBlogPO.userId!]) { errCode, errMsg in
             if errCode == 20000 {
                 self.getMyBlog()
             } else {
@@ -353,13 +353,13 @@ extension MineBokeListViewController {
         }
     }
     
-    func deleteBlog(item: blogDetailItem) {
+    func deleteBlog(item: myBlogShowBlogPOModel) {
         
         if vcType == .star {
             datum = YFFileDataUtil.deleteOneDataFromFile(blogItem: item)
             self.tableView.reloadData()
         } else {
-            let parameters: [String:Any] = ["userBlogId":item.id!, "sign":item.sign!]
+            let parameters: [String:Any] = ["id":item.myBlogShowBlogPO.id!,"userId":item.myBlogShowBlogPO.userId!]
             YFMineNetViewModel.deleteBlog(paramters: parameters) { errCode, errMsg in
                 if errCode == 20000 {
                     self.getMyBlog()

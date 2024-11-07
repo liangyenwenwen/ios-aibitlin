@@ -19,25 +19,27 @@ class YFMineNetViewModel: AccountViewModel {
     
 //    static let API_BLOG_URL = "http://192.168.7.107:18898"
 //    public static let API_BLOG_URL = "http://blog.aibitlin.com:18898"
-    public static let API_BLOG_URL = "https://imblog.aibitlin.com"
-
+    public static let API_BLOG_URL = "https://imblogs.aibitlin.com"
     
     
     // MARK: - 张亚飞打的标记 blogAPI
-    private static let BlogAuditAddWaitAuditAutoAPI = "/blog/audit/addWaitAuditAuto"
-    private static let ShowMyMyBlogsAPI = "/Show/My/myBlogs"
-    private static let otherSeeMyBlogAPI = "/Show/My/otherSeeMyBlog"
-    private static let blogTopAPI = "/Show/My/blogTop"
-    private static let updateWaitAuditAutoAPI = "/blog/audit/updateWaitAuditAuto"
-    private static let deleteBlogAPI = "/blog/audit/deleteBlog"
-    private static let queryShowBlogsSurveyAPI = "/show/blogsSurvey/queryShowBlogsSurvey"
-    private static let queryShowBlogsSurveyOneDayAPI = "/show/blogsSurvey/queryShowBlogsSurveyOneDay"
-    private static let queryShowBlogsSurveyFriendsAPI = "/show/blogsSurvey/queryShowBlogsSurveyFriends"
-    private static let queryShowBlogsSurveyStrangerAPI = "/show/blogsSurvey/queryShowBlogsSurveyStranger"
-    private static let addShowBlogsSurveyAPI = "/show/blogsSurvey/addShowBlogsSurvey"
+    private static let BlogAuditAddWaitAuditAutoAPI = "/audit/userBlogs/addUserBlogs" //
+    private static let ShowMyMyBlogsAPI = "/blog/myBlogShow/queryMyBlogShow" //
+    private static let otherSeeMyBlogAPI = "/blog/myBlogShow/queryOtherBlogShow" //
+    private static let blogTopAPI = "/blog/myBlogSettings/putOnTopUserBlogs"
+    private static let updateWaitAuditAutoAPI = "/audit/userBlogs/updateUserBlogs" //
+    private static let deleteBlogAPI = "/audit/userBlogs/delUserBlogs" //
+    private static let queryShowBlogsSurveyAPI = "/blog/myBlogBeBrowsed/queryMyBlogBeBrowsedOverview"//
+    private static let queryShowBlogsSurveyOneDayAPI = "/blog/myBlogBeBrowsed/queryMyBlogBeBrowsedOverviewOne"
+    private static let queryShowBlogsSurveyFriendsAPI = "/blog/myBlogBeBrowsed/queryMyBlogBeBrowsedOverviewFriend"
+    private static let queryShowBlogsSurveyStrangerAPI = "/blog/myBlogBeBrowsed/queryMyBlogBeBrowsedOverviewStranger"
+    private static let addShowBlogsSurveyAPI = "/blog/myBlogBeBrowsed/addMyBlogBeBrowsed" //
     
-    private static let updateUserLanguageAPI = "/user/language/updateUserLanguage"
-    private static let addUserLanguageAPI = "/user/language/addUserLanguage"
+    
+    private static let checkAppVersionAPI = "/version/query"
+    
+    private static let updateUserLanguageAPI = "/audit/userLanguageToken/adduserLanguageToken"
+    private static let addUserLanguageAPI = "/audit/userLanguageToken/adduserLanguageToken"
     
     private static let vipPurchaseInitializeAPI = "/vip/purchase/initialize"
     private static let vipPurchaseSucceedsAPI = "/vip/purchase/succeeds"
@@ -48,9 +50,9 @@ class YFMineNetViewModel: AccountViewModel {
     
     
     // MARK: - 张亚飞打的标记 举报 AIP
-    private static let reportBlogAddAPI = "/report/reportBlogAdd"
-    private static let reportUserAddAPI = "/report/reportUserAdd"
-    private static let reportChatHistoryAddAPI = "/report/reportChatHistoryAdd"
+    private static let reportBlogAddAPI = "/report/reportBlog/reportBlogAdd"
+    private static let reportUserAddAPI = "/report/reportUser/reportUserAdd"
+    private static let reportChatHistoryAddAPI = "/report/reportChatHistory/reportChatHistoryAdd"
     private static let feedBackAddAPI = "/report/problemFeedback/problemFeedbackAdd"
     private static let reportComentsAddAPI = "/report/reportCircleOfFriendsAdd"
     
@@ -123,7 +125,7 @@ class YFMineNetViewModel: AccountViewModel {
      
     /// 我的博客
     static func mineBlog(userId: String?,
-                         valueHandler: @escaping ([blogDetailItem]) -> Void,
+                         valueHandler: @escaping ([myBlogShowBlogPOModel]) -> Void,
                          completionHandler: @escaping CompletionHandler) {
         
         
@@ -135,8 +137,8 @@ class YFMineNetViewModel: AccountViewModel {
             let blogVersion = UserDefaults.standard.string(forKey: "blogVersion\(Open_im_sdkGetLoginUserID())") ?? "0"
             
             
-            let body = JsonTool.toJson(fromObject: MineBlogRequest(userId: userId, userBlogVersion: "\(blogVersion)")).data(using: .utf8)
-            var req = try! URLRequest(url: API_BLOG_URL + ShowMyMyBlogsAPI + "?userId=\(userId!)" + "&userBlogVersion=\(blogVersion)", method: .post, headers: httpHeaders)
+            let body = JsonTool.toJson(fromObject: MineBlogRequest(userId: userId, version: "\(blogVersion)")).data(using: .utf8)
+            var req = try! URLRequest(url: API_BLOG_URL + ShowMyMyBlogsAPI + "?userId=\(userId!)" + "&version=\(blogVersion)", method: .post, headers: httpHeaders)
             req.httpBody = body
 
             Alamofire.request(req).responseJSON { dataRequest in
@@ -159,8 +161,8 @@ class YFMineNetViewModel: AccountViewModel {
 //                            }
                             UserDefaults.standard.set(res.data.version, forKey: "blogVersion\(Open_im_sdkGetLoginUserID())")
                             if Int(blogVersion) ==  0 {
-                                valueHandler(res.data.showBlogs!)
-                                YFFileDataUtil.saveDataToFile(.cache, blogsArr: res.data.showBlogs!)
+                                valueHandler(res.data.myBlogShowJsPOS!)
+                                YFFileDataUtil.saveDataToFile(.cache, blogsArr: res.data.myBlogShowJsPOS!)
                             } else {
                                 valueHandler(YFFileDataUtil.readDataToFile(.cache))
                             }
@@ -184,13 +186,13 @@ class YFMineNetViewModel: AccountViewModel {
  
     /// 其他人看我的博客
     static func otherSeeMyBlog(userId: String?,
-                         valueHandler: @escaping ([blogDetailItem]) -> Void,
+                         valueHandler: @escaping ([myBlogShowBlogPOModel]) -> Void,
                          completionHandler: @escaping CompletionHandler) {
         
 //        ProgressHUD.animate()
         
-        let body = JsonTool.toJson(fromObject: othersBlogRequest(userId: userId)).data(using: .utf8)
-        var req = try! URLRequest(url: API_BLOG_URL + otherSeeMyBlogAPI + "?userId=\(userId!)", method: .post, headers: httpHeaders)
+        let body = JsonTool.toJson(fromObject: othersBlogRequest(userId: Open_im_sdkGetLoginUserID(),beViewedUserId: userId)).data(using: .utf8)
+        var req = try! URLRequest(url: API_BLOG_URL + otherSeeMyBlogAPI + "?userId=\(Open_im_sdkGetLoginUserID())"+"&beViewedUserId=\(userId!)", method: .post, headers: httpHeaders)
         req.httpBody = body
 
         Alamofire.request(req).responseJSON { dataRequest in
@@ -200,7 +202,7 @@ class YFMineNetViewModel: AccountViewModel {
             if let data = dataRequest.data {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 print(strData!)
-                if let res = JsonTool.fromJson(strData!, toClass: BlogListResponse<[blogDetailItem]>.self) {
+                if let res = JsonTool.fromJson(strData!, toClass: BlogListResponse<[myBlogShowBlogPOModel]>.self) {
 
                     if res.code == 20000  {
                         valueHandler(res.data)
@@ -232,6 +234,7 @@ class YFMineNetViewModel: AccountViewModel {
                 if let res = JsonTool.fromJson(strData!, toClass: BlogResponse.self) {
 
                     if res.code == 20000  {
+                        UserDefaults.standard.set("0", forKey: "blogVersion\(Open_im_sdkGetLoginUserID())")
                         completionHandler(res.code, res.message)
                     } else {
                         completionHandler(-1, "failure")
@@ -246,32 +249,37 @@ class YFMineNetViewModel: AccountViewModel {
         }
     }
     // MARK: - 张亚飞打的标记
-    static func scanBlog(blog: blogDetailItem, duration: Int) {
+    static func scanBlog(blog: myBlogShowBlogPOModel, duration: Int) {
         
         if let IMUser = IMController.shared.currentUserRelay.value  {
             
-            if IMUser.userID == blog.userId {
+            if IMUser.userID == blog.myBlogShowBlogPO.userId {
                 return
             }
   
-            IMController.shared.checkFriend(userID: blog.userId!) { [self] r in
+            IMController.shared.checkFriend(userID: blog.myBlogShowBlogPO.userId!) { [self] r in
                 
                 let userStruct = SuperStringUtil.getUserState(showname: IMUser.nickname!)
                 
-                let paramters: [String: Any] = ["userId":blog.userId!,
-                                                "userBlogId":blog.id!,
+                let paramters: [String: Any] = ["userId":blog.myBlogShowBlogPO.userId!,
+                                                "userBlogId":blog.myBlogShowBlogPO.id!,
                                                 "relation":r ? 1 : 2,
                                                 "lookUserId":IMUser.userID!,
                                                 "lookUserTouXiang":IMUser.faceURL ?? "",
                                                 "lookUserName":userStruct.n,
                                                 "lookUserVip":"\(userStruct.v)",
-                                                "lookTime":YFDateUtil.getCurrentTime(timeFormat: .YYYYMMDDHHMMSS),
+                                                "lookTime":YFDateUtil.getCurrentTime(timeFormat: .YYYYMMDD),
 //                                                "longitudeAndLatitude":SuperStringUtil.getCurrentLocation(),
                                                 "longitudeAndLatitude":"",
                                                 "lookUserIP":IMController.shared.publicIP,
                                                 "isNotBlog":userStruct.b,
                                                 "isNotQiYe":userStruct.e,
-                                                "tingLiuShiJian":duration]
+                                                "lengthOfStay":duration,
+                                                "isVip":"2",
+                                                "blogUrl":blog.myBlogShowBlogPO.userBlogUrl ?? "",
+                                                "blogIcon":blog.myBlogShowBlogPO.userBlogIcon ?? "",
+                                                "blogName":blog.myBlogShowBlogPO.userBlogName ?? "",
+                                                "blogIntor":blog.myBlogShowBlogPO.userBlogIntro ?? ""]
 
                 
                 let url = API_BLOG_URL + addShowBlogsSurveyAPI
@@ -545,12 +553,11 @@ class YFMineNetViewModel: AccountViewModel {
     
     static func addUserLanguage(uid: String) {
         
-        
- 
-        let url = SuperStringUtil.netUrl(API_BLOG_URL + addUserLanguageAPI, ["language":String.getCurrentLanguageFirst(), "userId": uid, "imToken":UserDefaults.standard.string(forKey: bussinessTokenKey)!])
+        let param = ["userLanguage":String.getCurrentLanguageFirst(), "userId": uid, "userToken":UserDefaults.standard.string(forKey: bussinessTokenKey)!]
+        let url = SuperStringUtil.netUrl(API_BLOG_URL + addUserLanguageAPI,param)
         
         print(["language":String.getCurrentLanguageFirst(), "userId": uid, "imToken":UserDefaults.standard.string(forKey: bussinessTokenKey)!])
-            Alamofire.request(url, method: .post, encoding: JSONEncoding.default, headers: httpHeaders ).responseJSON { dataRequest in
+            Alamofire.request(url, method: .post,parameters: param, encoding: JSONEncoding.default, headers: httpHeaders ).responseJSON { dataRequest in
                 
                 if let data = dataRequest.data {
                     let strData = String.init(data: data, encoding: String.Encoding.utf8)
@@ -570,11 +577,28 @@ class YFMineNetViewModel: AccountViewModel {
         
     }
     
+    static func checkAppVersion(uid:String,valueHandler: @escaping ([String:Any]) -> Void){
+        let paramters = ["deviceType":"ios", "userID": uid, "ip":IMController.shared.publicIP,"systemVersion":UIDevice.current.systemVersion]
+        let url = SuperStringUtil.netUrl(API_BASE_URL + checkAppVersionAPI, paramters)
+        Alamofire.request(url, method: .post,parameters: paramters, encoding: JSONEncoding.default, headers: httpHeaders).responseData { dataRequest in
+            if let data = dataRequest.data {
+                guard let result = try? JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed) as? [String: Any] else {
+                    return
+                }
+                let data = result["data"] as? [String: Any]
+                let errCode = result["errCode"] as! Int
+                if errCode == 0  {
+                    valueHandler(data!)
+                }
+            }
+        }
+    }
+    
     static func updateLanguage(uid: String) {
-  
-        let url = SuperStringUtil.netUrl(API_BLOG_URL + updateUserLanguageAPI, ["language":String.getCurrentLanguageFirst(), "userId": uid, "imToken":UserDefaults.standard.string(forKey: bussinessTokenKey)!])
+        let param = ["userLanguage":String.getCurrentLanguageFirst(), "userId": uid, "userToken":UserDefaults.standard.string(forKey: bussinessTokenKey)!]
+        let url = SuperStringUtil.netUrl(API_BLOG_URL + updateUserLanguageAPI, param)
         
-        Alamofire.request(url, method: .post, encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
+        Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
             if let data = dataRequest.data {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 if let res = JsonTool.fromJson(strData!, toClass: BlogResponse.self) {
@@ -731,8 +755,11 @@ class BlogListResponse<T: Decodable>: Decodable {
 }
 
 struct myBlogListValue: Codable {
-    var showBlogs : [blogDetailItem]?
+    var myBlogShowJsPOS : [myBlogShowBlogPOModel]?
     var version: String?
+}
+struct myBlogShowBlogPOModel: Codable {
+    var myBlogShowBlogPO : blogDetailItem
 }
 
 
@@ -782,11 +809,11 @@ class BlogAuditRequest: Encodable {
 class MineBlogRequest: Encodable {
     
     let userId: String?
-    let userBlogVersion: String?
+    let version: String?
     
-    init(userId: String?, userBlogVersion: String?) {
+    init(userId: String?, version: String?) {
         self.userId = userId
-        self.userBlogVersion = userBlogVersion
+        self.version = version
     }
     
 }
@@ -794,17 +821,19 @@ class MineBlogRequest: Encodable {
 class othersBlogRequest: Encodable {
     
     let userId: String?
+    let beViewedUserId: String?
 
     
-    init(userId: String?) {
+    init(userId: String?,beViewedUserId:String?) {
         self.userId = userId
+        self.beViewedUserId = beViewedUserId
     }
     
 }
 
 struct blogDetailItem: Codable {
     let id: Int?
-    let sign: Int?
+    let userBlogSign: Int?
     let userBlogUrl: String?
     let userBlogIntro: String?
     let userBlogName: String?
@@ -818,14 +847,26 @@ struct blogDetailItem: Codable {
     let changeTime: String?
     
     var state: BokeType {
-        switch sign {
-        case 0:
-            return .normal
-        case 1, 4:
+        switch userBlogSign {
+//        case 0:
+//            return .normal
+//        case 1, 4:
+//            return .wait
+//        case 2:
+//            return .refuse
+//        case 3:
+//            return .limit
+//
+//        default:
+//            return.normal
+//        }
+        case 1:
             return .wait
         case 2:
-            return .refuse
+            return .normal
         case 3:
+            return .refuse
+        case 4:
             return .limit
             
         default:
@@ -835,7 +876,7 @@ struct blogDetailItem: Codable {
     
     func toBokeElem() -> BokeElem {
         let source = self
-        let blog =  BokeElem(id: source.id, sign: source.sign, userBlogUrl: source.userBlogUrl, userBlogIntro: source.userBlogIntro, userBlogName: source.userBlogName, userBlogCreatIp: source.userBlogCreatIp, userBlogCreatAffiliatingArea: source.userBlogCreatAffiliatingArea, userBlogOrder: source.userBlogOrder, userId: source.userId, isDelete: source.isDelete, creationTime: source.creationTime, userBlogIcon: source.userBlogIcon, changeTime: source.changeTime)
+        let blog =  BokeElem(id: source.id, userBlogSign: source.userBlogSign, userBlogUrl: source.userBlogUrl, userBlogIntro: source.userBlogIntro, userBlogName: source.userBlogName, userBlogCreatIp: source.userBlogCreatIp, userBlogCreatAffiliatingArea: source.userBlogCreatAffiliatingArea, userBlogOrder: source.userBlogOrder, userId: source.userId, isDelete: source.isDelete, creationTime: source.creationTime, userBlogIcon: source.userBlogIcon, changeTime: source.changeTime)
         
         return blog
     }

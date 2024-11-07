@@ -900,7 +900,6 @@ extension IMController {
 //        ] as [String : Any]
         
         let param = ["customType": 10500, "data":["id": boke.id,
-                                                 "sign":boke.sign,
                                                  "userBlogUrl":boke.userBlogUrl,
                                                  "userBlogIntro":boke.userBlogIntro,
                                                  "userBlogName": boke.userBlogName,
@@ -2107,7 +2106,7 @@ public class BokeElem: Codable {
 //    public var iconUrl: String?
 //    public var linkUrl: String?
 //    public var intro: String?
-//    
+//
 //    public init(title: String? = nil, iconUrl: String? = nil, linkUrl: String? = nil, intro: String? = nil) {
 //        self.title = title
 //        self.iconUrl = iconUrl
@@ -2116,7 +2115,7 @@ public class BokeElem: Codable {
 //    }
     
     let id: Int?
-    let sign: Int?
+    let userBlogSign: Int?
     let userBlogUrl: String?
     let userBlogIntro: String?
     let userBlogName: String?
@@ -2129,9 +2128,9 @@ public class BokeElem: Codable {
     let userBlogIcon: String?
     let changeTime: String?
     
-    public init(id: Int?, sign: Int?, userBlogUrl: String?, userBlogIntro: String?, userBlogName: String?, userBlogCreatIp: String?, userBlogCreatAffiliatingArea: String?, userBlogOrder: Int?, userId: String?, isDelete: Int?, creationTime: String?, userBlogIcon: String?, changeTime: String?) {
+    public init(id: Int?, userBlogSign: Int?, userBlogUrl: String?, userBlogIntro: String?, userBlogName: String?, userBlogCreatIp: String?, userBlogCreatAffiliatingArea: String?, userBlogOrder: Int?, userId: String?, isDelete: Int?, creationTime: String?, userBlogIcon: String?, changeTime: String?) {
         self.id = id
-        self.sign = sign
+        self.userBlogSign = userBlogSign
         self.userBlogUrl = userBlogUrl
         self.userBlogIntro = userBlogIntro
         self.userBlogName = userBlogName
