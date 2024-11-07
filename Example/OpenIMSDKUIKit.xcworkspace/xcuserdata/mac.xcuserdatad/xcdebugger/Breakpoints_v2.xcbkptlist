@@ -224,7 +224,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "495"
             endingLineNumber = "495"
-            landmarkName = "updateLanguage(uid:)"
+            landmarkName = "checkAppVersion(uid:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -159,7 +159,7 @@ struct _R: Sendable {
     struct launchScreen {
       let source: RswiftResources.StringResource.Source
 
-      /// en translation: AIbitlin makes your data more secure
+      /// en translation: Welecome to Aibitlin
       ///
       /// Key: 8ie-xW-0ye.text
       ///
@@ -3696,7 +3696,7 @@ struct _R: Sendable {
     var colorBackground: RswiftResources.ColorResource { .init(name: "ColorBackground", path: [], bundle: bundle) }
   }
 
-  /// This `_R.image` struct is generated, and contains static references to 246 images.
+  /// This `_R.image` struct is generated, and contains static references to 247 images.
   struct image {
     let bundle: Foundation.Bundle
 
@@ -4354,6 +4354,9 @@ struct _R: Sendable {
     /// Image `share_icon`.
     var share_icon: RswiftResources.ImageResource { .init(name: "share_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
+    /// Image `start_logo`.
+    var start_logo: RswiftResources.ImageResource { .init(name: "start_logo", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
     /// Image `tab_contact_icon_normal`.
     var tab_contact_icon_normal: RswiftResources.ImageResource { .init(name: "tab_contact_icon_normal", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
@@ -4455,7 +4458,7 @@ struct _R: Sendable {
     var launchScreen: RswiftResources.NibReference<UIKit.UIView> { .init(name: "LaunchScreen", bundle: bundle) }
 
     func validate() throws {
-      if UIKit.UIImage(named: "logo_image", in: bundle, compatibleWith: nil) == nil { throw RswiftResources.ValidationError("[R.swift] Image named 'logo_image' is used in nib 'LaunchScreen', but couldn't be loaded.") }
+
     }
   }
 
