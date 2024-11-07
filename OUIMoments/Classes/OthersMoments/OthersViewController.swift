@@ -154,23 +154,21 @@ public class OthersViewController: UIViewController {
             // Pull down to refresh
             if self.viewModel.pageNumber == 1 {
                 self.tableView.mj_header?.endRefreshing()
-
-                if ms.isEmpty || ms.count < self.viewModel.pageCount {
-                    if self.user.userID == nil {
-                        if var footer = self.tableView.mj_footer as? MJRefreshAutoNormalFooter {
-                            footer.setTitle("还没有动态，发布一条吧".innerLocalized(), for: .noMoreData)
-                            footer.endRefreshingWithNoMoreData()
-                        }
-                    } else {
+                if ms.isEmpty{
+                    if var footer = self.tableView.mj_footer as? MJRefreshAutoNormalFooter {
+                        footer.setTitle(self.user.userID == IMController.shared.uid ? "还没有动态，发布一条吧".innerLocalized():"好友还没有发动态".innerLocalized(), for: .noMoreData)
+                        footer.endRefreshingWithNoMoreData()
+                    }
+                }else{
+                    if ms.count < self.viewModel.pageCount{
                         if var footer = self.tableView.mj_footer as? MJRefreshAutoNormalFooter {
                             footer.setTitle("已经全部加载完毕".innerLocalized(), for: .noMoreData)
                             footer.endRefreshingWithNoMoreData()
                         }
                     }
                 }
-                
                 self.tableView.reloadData()
-                self.tableView.mj_footer?.resetNoMoreData()
+//                self.tableView.mj_footer?.resetNoMoreData()
             } else {
                 // pull up load
                 if ms.isEmpty || ms.count < self.viewModel.pageCount {

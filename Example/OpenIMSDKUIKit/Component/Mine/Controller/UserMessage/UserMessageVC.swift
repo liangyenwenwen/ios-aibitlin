@@ -132,7 +132,7 @@ class UserMessageVC: BaseTitleController {
         
         let userShowname = user.n
 
-        sectionBlogTitleLbl.text = "Blog".localized()
+        sectionBlogTitleLbl.text = "博客".localized()
         sectionMomentsTitleLbl.text =  "动态".localized()
 //        sectionBlogTitleLbl.text = "UserBlog".localizedFormat(userShowname)
 //        sectionMomentsTitleLbl.text =  "UserMoments".localizedFormat(userShowname)

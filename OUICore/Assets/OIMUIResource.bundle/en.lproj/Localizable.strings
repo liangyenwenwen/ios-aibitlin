@@ -269,6 +269,7 @@
 "点击或上拉加载更多" = "Tap or pull up to load more";
 "正在加载更多的数据..." = "Loading...";
 "还没有动态，发布一条吧" = "No activity yet, post one";
+"好友还没有发动态" = "This friend has no updates at the moment";
 "动态不见了" = "Moments is missing";
 "从通讯录选择" = "Select from Contacts";
 "不给谁看" = "Not for anyone to see";
@@ -890,7 +891,6 @@
 
 
 
-"博客" = "Blog";
 "blog" = "Blog";
 
 "视频通话" = "Video call";
