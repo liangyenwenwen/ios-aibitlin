@@ -169,11 +169,17 @@ class ZLThumbnailViewController: UIViewController {
     /// 照相按钮+添加图片按钮的数量
     /// the count of addPhotoButton & cameraButton
     private var offset: Int {
+//        if #available(iOS 14, *) {
+//            return showAddPhotoCell.zl.intValue + showCameraCell.zl.intValue
+//        } else {
+//            return showCameraCell.zl.intValue
+//        }
         if #available(iOS 14, *) {
-            return showAddPhotoCell.zl.intValue + showCameraCell.zl.intValue
+            return showAddPhotoCell.zl.intValue
         } else {
             return showCameraCell.zl.intValue
         }
+
     }
     
     private lazy var panGes: UIPanGestureRecognizer = {
@@ -1165,19 +1171,19 @@ extension ZLThumbnailViewController: UICollectionViewDataSource, UICollectionVie
         let uiConfig = ZLPhotoUIConfiguration.default()
         let nav = navigationController as? ZLImageNavController
         
-        if showCameraCell, (uiConfig.sortAscending && indexPath.row == arrDataSources.count) || (!uiConfig.sortAscending && indexPath.row == 0) {
-            // camera cell
-            
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ZLCameraCell.zl.identifier, for: indexPath) as! ZLCameraCell
-            
-            if uiConfig.showCaptureImageOnTakePhotoBtn {
-                cell.startCapture()
-            }
-            
-            cell.isEnable = (nav?.arrSelectedModels.count ?? 0) < config.maxSelectCount
-            
-            return cell
-        }
+//        if showCameraCell, (uiConfig.sortAscending && indexPath.row == arrDataSources.count) || (!uiConfig.sortAscending && indexPath.row == 0) {
+//            // camera cell
+//            
+//            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ZLCameraCell.zl.identifier, for: indexPath) as! ZLCameraCell
+//            
+//            if uiConfig.showCaptureImageOnTakePhotoBtn {
+//                cell.startCapture()
+//            }
+//            
+//            cell.isEnable = (nav?.arrSelectedModels.count ?? 0) < config.maxSelectCount
+//            
+//            return cell
+//        }
         
         if #available(iOS 14, *) {
             if self.showAddPhotoCell, (uiConfig.sortAscending && indexPath.row == self.arrDataSources.count - 1 + self.offset) || (!uiConfig.sortAscending && indexPath.row == self.offset - 1) {
@@ -1258,12 +1264,12 @@ extension ZLThumbnailViewController: UICollectionViewDataSource, UICollectionVie
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath)
-        if let cell = cell as? ZLCameraCell {
-            if cell.isEnable {
-                showCamera()
-            }
-            return
-        }
+//        if let cell = cell as? ZLCameraCell {
+//            if cell.isEnable {
+//                showCamera()
+//            }
+//            return
+//        }
         
         if #available(iOS 14, *) {
             if cell is ZLAddPhotoCell {
