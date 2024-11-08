@@ -8,7 +8,7 @@ final class VideoView: UIView, ContainerCollectionViewCellDelegate {
     
     private lazy var stackView = UIStackView(frame: bounds)
         
-    private lazy var imageView = UIImageView(frame: bounds)
+    public lazy var imageView = UIImageView(frame: bounds)
     
     private lazy var playImageView = UIImageView(image: UIImage(systemName: "play.circle")?.withRenderingMode(.alwaysTemplate))
     
@@ -61,8 +61,16 @@ final class VideoView: UIView, ContainerCollectionViewCellDelegate {
         
         if controller.image != nil {
             imageView.image = controller.image
+            imageView.contentMode = .scaleAspectFill
         } else {
-            imageView.setImage(url: controller.source.source.url, thumbURL: controller.source.thumb?.url)
+            if controller.source.thumb?.url == nil{
+                imageView.contentMode = .scaleAspectFit
+                imageView.image =  UIImage(nameInBundle:"common_image_placeholder")
+            }else{
+                imageView.contentMode = .scaleAspectFill
+                imageView.setImage(url: controller.source.source.url, thumbURL: controller.source.thumb?.url)
+            }
+            
         }
         
     }
@@ -77,6 +85,7 @@ final class VideoView: UIView, ContainerCollectionViewCellDelegate {
         
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
+        imageView.backgroundColor = .init(hexString: "#F6F8F8")
         
         stackView.addArrangedSubview(imageView)
         

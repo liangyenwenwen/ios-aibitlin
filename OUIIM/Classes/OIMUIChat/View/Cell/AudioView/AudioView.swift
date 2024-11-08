@@ -53,7 +53,7 @@ final class AudioView: UIView, ContainerCollectionViewCellDelegate {
         let v = UIImageView()
 //        v.highlightedImage = UIImage(nameInBundle: "chat_msg_audio_record_normal")?.withTintColor(.c0089FF)
 //        v.loadGif(name: "chat_msg_audio_record_play")
-        v.isHighlighted = true
+//        v.isHighlighted = true
         v.translatesAutoresizingMaskIntoConstraints = false
         
         return v
@@ -80,6 +80,8 @@ final class AudioView: UIView, ContainerCollectionViewCellDelegate {
 
     func reloadData() {
         DispatchQueue.main.async { [self] in
+            iconImageView.image =  UIImage(nameInBundle: "chat_msg_audio_record_normal")?.withTintColor(.init(hexString: "#333333")!)
+            bubbleImg.image = UIImage.init(named:controller.messageType == .outgoing ? "chat_bubble_right" : "chat_bubble_left")!.resizableImage(withCapInsets: UIEdgeInsets(top: 21, left: 21, bottom: 21, right: 21), resizingMode: .stretch)
             durationLabel.text = #"\#(self.controller.duration)``"#
             
             stackView.removeArrangedSubview(durationLabel)
@@ -99,9 +101,13 @@ final class AudioView: UIView, ContainerCollectionViewCellDelegate {
             
             switch controller.state {
             case .loading, .idle:
-                self.iconImageView.isHighlighted = true
+//                self.iconImageView.isHighlighted = true
+                iconImageView.image =  UIImage(nameInBundle: "chat_msg_audio_record_normal")?.withTintColor(.init(hexString: "#333333")!)
             case .play:
-                self.iconImageView.isHighlighted = false
+//                self.iconImageView.isHighlighted = false
+//                iconImageView.image =  UIImage(nameInBundle: "chat_msg_audio_record_play")
+                iconImageView.loadGif(name: "chat_msg_audio_record_play")
+
             }
         }
         
@@ -110,10 +116,8 @@ final class AudioView: UIView, ContainerCollectionViewCellDelegate {
 //        iconImageView.image = controller.messageType == .incoming ? .init(named: "chat_voice_1") :  .init(named: "chat_voice_0")
         
 //        iconImageView.image = controller.messageType == .incoming ? UIImage(nameInBundle: "msg_audio_left_icon")?.withTintColor(.init(hexString: "#333333")!) :  UIImage(nameInBundle: "msg_audio_right_icon")?.withTintColor(.init(hexString: "#333333")!)
-        iconImageView.image =  UIImage(nameInBundle: "chat_msg_audio_record_normal")?.withTintColor(.init(hexString: "#333333")!)
-        bubbleImg.image = UIImage.init(named:controller.messageType == .outgoing ? "chat_bubble_right" : "chat_bubble_left")!.resizableImage(withCapInsets: UIEdgeInsets(top: 21, left: 21, bottom: 21, right: 21), resizingMode: .stretch)
+        
     }
-
     private func setupSubviews() {
         
         addSubview(bubbleImg)

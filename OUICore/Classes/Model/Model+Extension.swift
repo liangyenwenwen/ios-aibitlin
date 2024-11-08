@@ -629,11 +629,18 @@ extension MessageInfo {
             
             let imageAttachment = NSTextAttachment()
             
+//            if isMine {
+//                imageAttachment.image = UIImage(named: !isVideo ? "chat_voice_1" : "chat_video_1")
+//                imageAttachment.bounds = CGRect(x: 0, y: -3, width: 18, height: 18)
+//            } else {
+//                imageAttachment.image = UIImage(named: !isVideo ? "chat_voice_1" : "chat_video_1")
+//                imageAttachment.bounds = CGRect(x: 0, y: -3, width: 18, height: 18)
+//            }
             if isMine {
-                imageAttachment.image = UIImage(named: !isVideo ? "chat_voice_1" : "chat_video_1")
+                imageAttachment.image = UIImage(named: !isVideo ? "call_log_auido" : "call_log_video")
                 imageAttachment.bounds = CGRect(x: 0, y: -3, width: 18, height: 18)
             } else {
-                imageAttachment.image = UIImage(named: !isVideo ? "chat_voice_1" : "chat_video_1")
+                imageAttachment.image = UIImage(named: !isVideo ? "call_log_auido" : "call_log_video")
                 imageAttachment.bounds = CGRect(x: 0, y: -3, width: 18, height: 18)
             }
             

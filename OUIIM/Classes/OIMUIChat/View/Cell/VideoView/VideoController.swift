@@ -58,6 +58,8 @@ final class VideoController {
         if let image = source.image {
             self.image = image
             view?.reloadData()
+        }else{
+            view?.imageView.image = UIImage(nameInBundle: "common_image_placeholder")
         }
     }
     

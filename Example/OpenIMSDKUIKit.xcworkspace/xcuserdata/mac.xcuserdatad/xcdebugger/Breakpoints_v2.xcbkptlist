@@ -5,81 +5,109 @@
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
          <BreakpointContent
-            uuid = "9B31A310-764B-4102-B3E9-D7359F38EAC3"
+            uuid = "922959C8-9B5A-4027-8FD5-BF77E4803267"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../OUIIM/Classes/OIMUIChat/MentionViewController.swift"
+            breakpointStackSelectionBehavior = "1"
+            scope = "1"
+            stopOnStyle = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "84F419C4-6CA9-432F-BFD5-7E0FB3C222F3"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../OUIIM/Classes/OIMUIChat/View/DataSource/DefaultChatCollectionDataSource.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "31"
-            endingLineNumber = "31"
-            landmarkName = "viewDidLoad()"
+            startingLineNumber = "714"
+            endingLineNumber = "714"
+            landmarkName = "createFaceCell(collectionView:messageId:isSelected:indexPath:alignment:user:source:forVideo:date:bubbleType:status:messageType:sessionType:isTop:lastID:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "BA902CEA-F7CD-48E2-8ACE-9E50FE5BC390"
+            uuid = "B8DAE118-79DF-4907-9F0F-455E95EDB8E8"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../OUIIM/Classes/OIMUIConversation/CallRecords/YFCallRecordsListCell.swift"
+            filePath = "../OUIIM/Classes/OIMUIChat/View/Cell/ImageView/ImageController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "189"
-            endingLineNumber = "189"
-            landmarkName = "update(model:indexRow:currentRow:)"
+            startingLineNumber = "39"
+            endingLineNumber = "39"
+            landmarkName = "loadImage()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "EE0A6D09-C41B-4DAA-8F15-F3D8C8A4CECA"
+            uuid = "B6C7AA5F-A459-4410-8829-CDB02E10C016"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "OpenIMSDKUIKit/Component/Mine/Controller/Boke/MineBokeListViewController.swift"
+            filePath = "../OUIIM/Classes/OIMUIChat/View/Cell/VideoView/VideoController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "367"
-            endingLineNumber = "367"
-            landmarkName = "deleteBlog(item:)"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "init(source:messageId:bubbleController:messageType:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "332B4E44-82BD-4E4F-AFA8-A5CE5F4479B7"
+            uuid = "2C0A6AF9-C1CD-429E-93F6-479F97FCBAF4"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../OUIIM/Classes/OIMUIChat/ChatViewController.swift"
+            filePath = "../OUIIM/Classes/OIMUIChat/View/Cell/VideoView/VideoController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2037"
-            endingLineNumber = "2037"
-            landmarkName = "processUpdates(with:animated:requiresIsolatedProcess:completion:)"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
+            landmarkName = "loadImage()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "500BE50B-EB50-4788-A777-B4996100EA9A"
+            uuid = "ADED21E2-3962-4E34-AFCA-6749CA507A1F"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../OUIIM/Classes/OIMUIChat/View/Cell/NoticeView/NoticeViewController.swift"
+            filePath = "../OUIIM/Classes/OIMUIChat/View/Cell/VideoView/VideoController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "26"
-            endingLineNumber = "26"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
+            landmarkName = "loadImage()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "74E5ACA5-11F3-4C40-8015-5976DF0A78E0"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../OUIIM/Classes/OIMUIChat/View/Cell/VideoView/VideoController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "67"
+            endingLineNumber = "67"
             landmarkName = "action()"
             landmarkType = "7">
          </BreakpointContent>
@@ -87,224 +115,160 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "867E26D5-D2E3-49B2-A42B-9BE52D161536"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../OUIIM/Classes/OIMUIChat/Controller/DefaultChatController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1005"
-            endingLineNumber = "1005"
-            landmarkName = "propagateLatestMessages(completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "F06CDDCB-8863-4FA0-9245-D76FF861664A"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../OUIIM/Classes/OIMUIChat/Controller/DefaultChatController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1009"
-            endingLineNumber = "1009"
-            landmarkName = "propagateLatestMessages(completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "4C6CDFFF-0BC5-4EF8-B672-03AF11387CF5"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../OUIIM/Classes/OIMUIChat/Controller/DefaultChatController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1012"
-            endingLineNumber = "1012"
-            landmarkName = "propagateLatestMessages(completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "FA37D81F-F4ED-4FF2-9325-E033A3915D72"
+            uuid = "A03D283E-C0DD-447D-B9D7-8FC556F9E08C"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "OpenIMSDKUIKit/Pages/MainTabViewController.swift"
+            filePath = "../OUIIM/Classes/OIMUIChat/View/Cell/VideoView/VideoController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "529"
-            endingLineNumber = "529"
-            landmarkName = "updateLanguage(uid:)"
+            startingLineNumber = "45"
+            endingLineNumber = "45"
+            landmarkName = "formatTime(seconds:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D5764271-92A7-477B-942A-F337C95A94EC"
+            uuid = "E654DDF6-69C3-4E17-BCF2-9624ABC1C6C6"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../OUILive/Classes/Adapter/APIManager.swift"
+            filePath = "../OUIIM/Classes/OIMUIChat/View/Cell/VideoView/VideoView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "24"
-            endingLineNumber = "24"
-            landmarkName = "request(_:method:parameters:headers:)"
+            startingLineNumber = "61"
+            endingLineNumber = "61"
+            landmarkName = "reloadData()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "9204EE1E-64FC-4015-B01D-838FE006BF67"
+            uuid = "7F6BD662-C6CE-4282-90DD-64ADC2DC9D0F"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "OpenIMSDKUIKit/Base/BaseView/CommentView/SectionItemsView.swift"
+            filePath = "../OUIIM/Classes/OIMUIChat/View/Cell/VideoView/VideoController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "295"
-            endingLineNumber = "295"
-            landmarkName = "bindData(_:)"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
+            landmarkName = "formatTime(seconds:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "E41C0FBA-A58F-4BBD-B546-E334B1CA05FD"
+            uuid = "F537767F-BC37-4506-A52F-365E0A41D98F"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "OpenIMSDKUIKit/Base/BaseView/CommentView/SectionItemsView.swift"
+            filePath = "../OUIIM/Classes/OIMUIChat/View/Cell/VideoView/VideoController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "297"
-            endingLineNumber = "297"
-            landmarkName = "bindData(_:)"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
+            landmarkName = "loadImage()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "54FBB664-6D18-4729-AB24-F66CBAC417A8"
+            uuid = "31BA349A-DB55-496C-8BDE-713CCBC30857"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../OUIIM/Classes/OIMUIChat/View/InputView/CoustomInputBarAccessoryView.swift"
+            filePath = "../OUIIM/Classes/OIMUIChat/View/Cell/VideoView/VideoView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "596"
-            endingLineNumber = "596"
-            landmarkName = "inputResignFirstResponder()"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
+            landmarkName = "prepareForReuse()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "FC4C101F-F116-4A8B-81A0-F0C45291AD03"
+            uuid = "DBFDF1D0-F41F-4FFB-B0D7-0259CEC653C3"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../OUIIM/Classes/OIMUIChat/ChatViewController.swift"
+            filePath = "../OUIIM/Classes/OIMUIChat/View/Cell/VideoView/VideoView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2449"
-            endingLineNumber = "2449"
-            landmarkName = "showBokeView()"
+            startingLineNumber = "56"
+            endingLineNumber = "56"
+            landmarkName = "setup(with:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "03D6199D-EA72-4DCD-A5F9-3CFC1263C9B7"
+            uuid = "1C192FE9-42E7-483A-8A28-6188E74CA678"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../OUIMoments/Classes/MomentsViewController.swift"
+            filePath = "../OUIIM/Classes/OIMUIChat/View/Cell/ImageView/ImageView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "79"
-            endingLineNumber = "79"
-            landmarkName = "viewDidLoad()"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
+            landmarkName = "prepareForReuse()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "5B879081-3CF4-4035-AEA6-4828F03B7F0A"
+            uuid = "788DCD31-391F-46AB-A5CF-F5677DB465CD"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../OUIMoments/Classes/OthersMoments/OthersViewController.swift"
+            filePath = "../OUIIM/Classes/OIMUIChat/View/Cell/ImageView/ImageView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "157"
-            endingLineNumber = "157"
-            landmarkName = "bindData()"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
+            landmarkName = "setup(with:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "711E8BB6-17E1-437B-B71B-F83A346236EE"
+            uuid = "E557DB26-EE07-4C57-8791-18B16159CFCF"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../OUIMoments/Classes/OthersMoments/OthersViewController.swift"
+            filePath = "../OUIIM/Classes/OIMUIChat/View/Cell/ImageView/ImageView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "163"
-            endingLineNumber = "163"
-            landmarkName = "bindData()"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
+            landmarkName = "reloadData()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "8009A85A-786F-44C7-B00C-7C0FEAF8B4C2"
+            uuid = "E9D9A64B-6594-483F-BE26-CBD17F82AA1C"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../OUIMoments/Classes/OthersMoments/OthersViewController.swift"
+            filePath = "../OUIIM/Classes/OIMUIChat/View/Cell/ImageView/ImageView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "177"
-            endingLineNumber = "177"
-            landmarkName = "bindData()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "9B8A3A6C-6E82-43AD-A251-3EEB47E6507F"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../OUIMoments/Classes/OthersMoments/OthersViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "165"
-            endingLineNumber = "165"
-            landmarkName = "bindData()"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
+            landmarkName = "reloadData()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

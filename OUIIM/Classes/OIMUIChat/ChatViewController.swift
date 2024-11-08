@@ -520,6 +520,7 @@ final class ChatViewController: UIViewController {
         } onFailure: { code, res in
             print(res)
         }
+        AudioPlayController.shared.reset()
         
 //        navigationController?.navigationBar.isHidden = false
         
@@ -2389,7 +2390,8 @@ extension ChatViewController: CoustomInputBarAccessoryViewDelegate {
     }
     
     func inputTextViewDidChange() {
-        chatController.typing(doing: true)
+//        chatController.typing(doing: true)
+        chatController.typing(doing: inputBarView.inputTextView.text.isEmpty ? false : true)
     }
     
     private func showSelectContacts() {
@@ -2518,6 +2520,9 @@ extension ChatViewController: AutocompleteManagerDelegate {
               chatController.getConversation().conversationType == .superGroup else { return }
         
         let vc = MentionViewController(types: [.members], sourceID: chatController.getConversation().groupID, allowsMultipleSelection: false)
+        vc.vcDissmiss = {
+            self.renderingMentionText = false
+        }
         
         vc.selectedContact(hasSelected: []) { [self] _, infos in
             

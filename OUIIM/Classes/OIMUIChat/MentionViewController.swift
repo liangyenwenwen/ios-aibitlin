@@ -7,6 +7,7 @@ import OUICore
 class MentionViewController: SelectContactsViewController {
     
     var mentionAll: (() -> Void)?
+    var vcDissmiss: (() -> Void)?
     
     private let avatarView: AvatarView = {
         let v = AvatarView()
@@ -25,7 +26,10 @@ class MentionViewController: SelectContactsViewController {
         
         return v
     }()
-    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.vcDissmiss?()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "群成员".innerLocalized()

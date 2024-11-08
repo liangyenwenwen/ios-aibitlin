@@ -81,7 +81,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     var orientation = UIInterfaceOrientationMask.portrait
     var window: UIWindow?
     
-    var isChine: Bool = true
+    var isChine: Bool = false
     
     
     open class var shared: AppDelegate {

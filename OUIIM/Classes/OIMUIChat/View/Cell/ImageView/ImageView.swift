@@ -9,7 +9,7 @@ final class ImageView: UIView, ContainerCollectionViewCellDelegate {
 
     private lazy var stackView = UIStackView(frame: bounds)
 
-    private lazy var imageView = UIImageView(frame: bounds)
+    public lazy var imageView = UIImageView(frame: bounds)
     
     private var controller: ImageController!
 
@@ -50,9 +50,17 @@ final class ImageView: UIView, ContainerCollectionViewCellDelegate {
 
     func reloadData() {
         if controller.image != nil {
+            imageView.contentMode = .scaleAspectFill
             imageView.image = controller.image
         } else {
-            imageView.setImage(url: controller.source.source.url, thumbURL: controller.source.thumb?.url)
+            if controller.source.thumb?.url == nil{
+                imageView.contentMode = .scaleAspectFit
+                imageView.image =  UIImage(nameInBundle:"common_image_placeholder")
+            }else{
+                imageView.contentMode = .scaleAspectFill
+                imageView.setImage(url: controller.source.source.url, thumbURL: controller.source.thumb?.url)
+            }
+//            imageView.setImage(url: controller.source.source.url, thumbURL: controller.source.thumb?.url)
         }
     }
 
@@ -66,6 +74,7 @@ final class ImageView: UIView, ContainerCollectionViewCellDelegate {
         
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
+        imageView.backgroundColor = .init(hexString: "#F6F8F8")
         
         stackView.addArrangedSubview(imageView)
         

@@ -39,7 +39,7 @@ extension CoustomInputBarAccessoryViewDelegate {
 }
 
 // MARK: - CameraInputBarAccessoryView
-let buttonSize = 35.0
+let buttonSize = 40.0
 
 class CoustomInputBarAccessoryView: InputBarAccessoryView {
     
@@ -158,6 +158,7 @@ class CoustomInputBarAccessoryView: InputBarAccessoryView {
             }
         
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(audioButtonLongPress))
+        longPress.minimumPressDuration = 0.01
         v.addGestureRecognizer(longPress)
         
         return v
@@ -165,7 +166,6 @@ class CoustomInputBarAccessoryView: InputBarAccessoryView {
     
     @objc
     private func audioButtonLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
-        
         let point = gestureRecognizer.location(in: gestureRecognizer.view)
         
         if point.y < 0, !inputAudioView.isIdel {
@@ -630,11 +630,10 @@ class CoustomInputBarAccessoryView: InputBarAccessoryView {
         super.inputTextViewDidChange()
         toggleMoreButtonStatus(inputTextView.text.isEmpty)
         
-        if inputTextView.text == UIPasteboard.general.string {
-            let range = NSMakeRange(inputTextView.text.count - 1, 1)
-            inputTextView.scrollRangeToVisible(range)
-        }
-        
+//        if inputTextView.text == UIPasteboard.general.string {
+//            let range = NSMakeRange(inputTextView.text.count - 1, 1)
+//            inputTextView.scrollRangeToVisible(range)
+//        }
         (delegate as? CoustomInputBarAccessoryViewDelegate)?.inputTextViewDidChange()
     }
     
