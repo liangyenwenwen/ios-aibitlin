@@ -229,7 +229,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     func applicationDidEnterBackground(_ application: UIApplication) {
-        application.applicationIconBadgeNumber = 0
+//        application.applicationIconBadgeNumber = 0
         self.backgroundTaskIdentifier = UIApplication.shared.beginBackgroundTask(withName: "taskname", expirationHandler: {
             
             if (self.backgroundTaskIdentifier != .invalid) {
@@ -240,7 +240,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     func applicationWillEnterForeground(_ application: UIApplication) {
-        application.applicationIconBadgeNumber = 0
+//        application.applicationIconBadgeNumber = 0
         UIApplication.shared.endBackgroundTask(self.backgroundTaskIdentifier!);
     }
     

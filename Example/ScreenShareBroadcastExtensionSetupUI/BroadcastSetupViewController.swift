@@ -2,7 +2,7 @@
 //  BroadcastSetupViewController.swift
 //  ScreenShareBroadcastExtensionSetupUI
 //
-//  Created by mac on 2024/10/28.
+//  Created by mac on 2024/11/10.
 //  Copyright © 2024 rentsoft. All rights reserved.
 //
 

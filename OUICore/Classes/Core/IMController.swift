@@ -170,6 +170,11 @@ public class IMController: NSObject {
     // input states
     public let inputStatusChangedSubject: BehaviorSubject<InputStatusChangedData?> = .init(value: nil)
     
+    //未读消息数
+    public var unChatMessageCount = 0 //消息列表未读消息数
+    public var unCallPhoneMessageCount = 0 //通话记录未读消息数
+    public var unContactMessageCount = 0 //通讯录未读消息数
+    
     public var publicIP = ""
     public var netWorkStatus = "hasNetWork"
     public var uid: String = ""

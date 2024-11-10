@@ -60,6 +60,8 @@ class MainTabViewController: UITabBarController {
         chatNav.tabBarItem.selectedImage = UIImage.init(named: "TabMessageSelected_1")?.withRenderingMode(.alwaysOriginal)
         controllers.append(chatNav)
         IMController.shared.totalUnreadSubject.map({ (unread: Int) -> String? in
+            IMController.shared.unChatMessageCount = unread
+            UIApplication.shared.applicationIconBadgeNumber = IMController.shared.unChatMessageCount + IMController.shared.unCallPhoneMessageCount + IMController.shared.unContactMessageCount
             var badge: String?
             if unread == 0 {
                 badge = nil
@@ -92,6 +94,8 @@ class MainTabViewController: UITabBarController {
         controllers.append(contactNav)
 
         IMController.shared.contactUnreadSubject.map({ (unread: Int) -> String? in
+            IMController.shared.unContactMessageCount = unread
+            UIApplication.shared.applicationIconBadgeNumber = IMController.shared.unChatMessageCount + IMController.shared.unCallPhoneMessageCount + IMController.shared.unContactMessageCount
             var badge: String?
             if unread == 0 {
                 badge = nil
@@ -165,6 +169,7 @@ class MainTabViewController: UITabBarController {
                 break
             }
         }
+        CallingManager.calculateCount()
         
     }
     
@@ -187,6 +192,8 @@ class MainTabViewController: UITabBarController {
             let count = Int(receivedValue) ?? 0
             if  count > 0  {
                 tabBarItem.badgeValue = count > 99 ? "99+" : "\(count)"
+                IMController.shared.unCallPhoneMessageCount = count
+                UIApplication.shared.applicationIconBadgeNumber = IMController.shared.unChatMessageCount + IMController.shared.unCallPhoneMessageCount + IMController.shared.unContactMessageCount
             } else {
                 tabBarItem.badgeValue = nil
             }
@@ -258,6 +265,10 @@ class MainTabViewController: UITabBarController {
 #endif
         IMController.shared.currentUserRelay.accept(nil)
         pushBindAlias(false)
+        UIApplication.shared.applicationIconBadgeNumber = 0
+        IMController.shared.unChatMessageCount = 0
+        IMController.shared.unCallPhoneMessageCount = 0
+        IMController.shared.unContactMessageCount = 0
         AccountViewModel.saveUser(uid: nil, imToken: nil, chatToken: nil)
         presentLoginController()
     }
@@ -374,6 +385,7 @@ class MainTabViewController: UITabBarController {
 //            self.present(nav, animated: false)
             self.present(nav, animated: false) {
                 self.selectedIndex = 0
+                CallingManager.calculateCount()
                 self.mineNavigationController?.popToRootViewController(animated: false)
                 
             }

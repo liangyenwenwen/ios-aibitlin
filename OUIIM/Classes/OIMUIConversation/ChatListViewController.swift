@@ -533,6 +533,8 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
         
         IMController.shared.getTotalUnreadMsgCount { [weak self] count in
             print(count)
+            IMController.shared.unChatMessageCount = count
+            UIApplication.shared.applicationIconBadgeNumber = IMController.shared.unChatMessageCount + IMController.shared.unCallPhoneMessageCount + IMController.shared.unContactMessageCount
             let root = self?.tabBarController
             let tabBarItem = root?.tabBar.items![0]
             if count > 0 {

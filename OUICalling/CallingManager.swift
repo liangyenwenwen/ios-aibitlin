@@ -794,7 +794,7 @@ extension CallingManager {
         calculateCount()
     }
     
-    static func calculateCount() {
+    static public func calculateCount() {
         let recordsNumberKey = "\(Open_im_sdkGetLoginUserID())-com.calling.records.unread.key"
         
         getRecords()
