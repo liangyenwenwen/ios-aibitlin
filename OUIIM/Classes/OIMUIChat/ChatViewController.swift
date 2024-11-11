@@ -2294,6 +2294,7 @@ extension ChatViewController: CoustomInputBarAccessoryViewDelegate {
             self.chatController.sendMessage(.text(TextMessageSource(text: messageText)), completion: completion)
         })
         inputBar.inputTextView.text = String()
+        autocompleteManager.lastEntered = nil
         inputBarView.setReplyText(text: nil)
         inputBar.invalidatePlugins()
     }
@@ -2304,6 +2305,7 @@ extension ChatViewController: CoustomInputBarAccessoryViewDelegate {
         
         currentInterfaceActions.options.insert(.sendingMessage)
         inputBar.inputTextView.text = String()
+        autocompleteManager.lastEntered = nil
         inputBar.invalidatePlugins()
         
         guard !attachments.isEmpty else {

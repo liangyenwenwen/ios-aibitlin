@@ -495,7 +495,7 @@ extension UserMessageVC {
             
             sectionBlogTitleLbl = sectionLbl
             if userInfo != nil {
-                sectionLbl.text = "Blog".localized()
+                sectionLbl.text = "博客".localized()
             }
             
             let tap = UITapGestureRecognizer(target: self, action: #selector(gotoBokeList))
