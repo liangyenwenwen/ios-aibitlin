@@ -136,11 +136,12 @@ class SearchContactsViewController: UIViewController {
             }
         }
         navigationItem.searchController = searchController
-        
+        WPFPinYinDataManager.shareInstance().clearDataSource()
         _viewModel.searchResult.subscribe(onNext: { [weak self] r in
             self?.dataList = r
             self?.updateSearchResults(text: self?.searchController.searchBar.text?.trimmingCharacters(in: .whitespacesAndNewlines))
         }).disposed(by: _disposeBag)
+        getMyFriendList()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -162,6 +163,23 @@ class SearchContactsViewController: UIViewController {
             searchController.searchBar.becomeFirstResponder()
         }
     }
+    func getMyFriendList() {
+        IMController.shared.getFriendList { [weak self] users in
+            let userPrefix = ":user_"
+            let r = users.compactMap({ ContactInfo(ID: userPrefix + $0.userID!, name: $0.showName,faceURL: $0.faceURL) })
+            for user in r {
+                if let ret: [WPFPerson] = WPFPinYinDataManager.getInitializedDataSource() as? [WPFPerson] {
+                    if !ret.contains(where: { (item: WPFPerson) in
+                        item.personId == user.ID
+                    }) {
+                        WPFPinYinDataManager.addInitializeString(user.name, identifer:user.ID!)
+                    }
+                    } else {
+                        WPFPinYinDataManager.addInitializeString(user.name, identifer: user.ID!)
+                    }
+            }
+        }
+    }
     
     public func updateSearchResults(text: String?) {
         searchArr.removeAll()
@@ -173,6 +191,11 @@ class SearchContactsViewController: UIViewController {
                     person.highlightLoaction = result.highlightedRange.location
                     person.textRange = result.highlightedRange
                     person.matchType = Int(result.matchType.rawValue)
+                    if let personId = person.personId {
+                        var userId = personId.replacingOccurrences(of: "user_", with: "")
+                        userId = userId.replacingOccurrences(of: ":", with: "")
+                        person.personId = userId
+                    }
                     searchArr.append(person)
                 }
             }

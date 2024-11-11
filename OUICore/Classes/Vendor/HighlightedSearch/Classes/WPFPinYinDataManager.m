@@ -22,6 +22,13 @@
 + (void)addInitializeString:(NSString *)string sub:(NSString *)sub identifer:(NSString *)identifier {
     WPFPinYinDataManager *manager = [WPFPinYinDataManager shareInstance];
     WPFPerson *person = [WPFPerson personWithId:identifier name:string sub:sub hanyuPinyinOutputFormat:manager.outputFormat];
+//    for (int i = 0; i< manager.dataSource.count; i++) {
+//        WPFPerson *user = manager.dataSource[i];
+//        if (user.personId == person.personId){
+//            [manager.dataSource replaceObjectAtIndex:i withObject:person];
+//            _personId    _TtCs15__StringStorage *    0x280c7df00    0x0000000280c7df00           return;
+//        }
+//    }
     [manager.dataSource addObject:person];
 }
 
