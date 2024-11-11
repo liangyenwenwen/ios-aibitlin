@@ -133,7 +133,7 @@ class UserMessageVC: BaseTitleController {
         let userShowname = user.n
 
         sectionBlogTitleLbl.text = "博客".localized()
-        sectionMomentsTitleLbl.text =  "动态".localized()
+        sectionMomentsTitleLbl.text = "动态".localized()
 //        sectionBlogTitleLbl.text = "UserBlog".localizedFormat(userShowname)
 //        sectionMomentsTitleLbl.text =  "UserMoments".localizedFormat(userShowname)
         
@@ -495,7 +495,7 @@ extension UserMessageVC {
             
             sectionBlogTitleLbl = sectionLbl
             if userInfo != nil {
-                sectionLbl.text = "Blog".localized()
+                sectionLbl.text = "博客".localized()
             }
             
             let tap = UITapGestureRecognizer(target: self, action: #selector(gotoBokeList))

@@ -763,12 +763,12 @@ extension MainTabViewController: UITabBarControllerDelegate {
                                       MoreTabItem(image: "tool_black_list_icon", title: "黑名单".localized()),
                                       MoreTabItem(image: "tool_moments_icon", title: "动态".localized())]
         
-        for item in YFFileDataUtil.readDataToFile(.home) {
-            let moreItem =  MoreTabItem(image: item.myBlogShowBlogPO.userBlogIcon ?? "", title: item.myBlogShowBlogPO.userBlogName ?? "")
-            listArrr.append(moreItem)
-        }
+//        for item in YFFileDataUtil.readDataToFile(.home) {
+//            let moreItem =  MoreTabItem(image: item.myBlogShowBlogPO.userBlogIcon ?? "", title: item.myBlogShowBlogPO.userBlogName ?? "")
+//            listArrr.append(moreItem)
+//        }
         
-        listArrr.append(MoreTabItem(image: "tool_more_icon", title: "添加".localized()))
+//        listArrr.append(MoreTabItem(image: "tool_more_icon", title: "添加".localized()))
         
         for i in 0 ..< listArrr.count {
             let itemData = listArrr[i]

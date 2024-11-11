@@ -136,7 +136,7 @@ open class AutocompleteManager: NSObject, InputPlugin, UITextViewDelegate, UITab
     /// The text attributes applied to highlighted substrings for each prefix
     public private(set) var autocompleteTextAttributes = [String: [NSAttributedString.Key: Any]]()
     
-    private var lastEntered: String?
+    public var lastEntered: String?
     
     /// A reference to `defaultTextAttributes` that adds the NSAttributedAutocompleteKey
     private var typingTextAttributes: [NSAttributedString.Key: Any] {

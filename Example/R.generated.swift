@@ -159,7 +159,7 @@ struct _R: Sendable {
     struct launchScreen {
       let source: RswiftResources.StringResource.Source
 
-      /// en translation: AIbitlin
+      /// en translation: Aibitlin
       ///
       /// Key: 8ie-xW-0ye.text
       ///

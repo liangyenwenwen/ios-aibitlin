@@ -114,6 +114,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
 //        print(YFNetworkUtils.getIPAddress())
 //        print(YFNetworkUtils.getIPAddress2())
+        Localize.resetCurrentLanguageToDefault()
         IMController.shared.publicIP = UserDefaults.standard.string(forKey: "publicIP") ?? "60.177.29.150"
         
         YFNetworkUtils.getPublicIP { ip in
