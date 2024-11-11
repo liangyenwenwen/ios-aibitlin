@@ -290,6 +290,7 @@ class MineMessageVC: BaseTitleController, UIImagePickerControllerDelegate, UINav
 //            
 //            presentCamera()
 //        }
+        ProgressHUD.dismiss()
         _photoHelper.setConfigToMultipleSelected(forVideo: false, maxSelectCount: 1)
         _photoHelper.showSelectMetaSheet(byController: self)
     }
