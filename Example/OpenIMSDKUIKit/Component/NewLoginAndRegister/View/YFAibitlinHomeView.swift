@@ -48,17 +48,17 @@ enum HomeLoginType {
         switch self{
             
         case .phone:
-            return "使用手机登录"
+            return "使用手机登录".localized()
         case .email:
-            return "使用邮箱登录"
+            return "使用邮箱登录".localized()
         case .facebook:
-            return "使用Facebook登录"
+            return "使用Facebook登录".localized()
         case .apple:
-            return "使用Apple登录"
+            return "使用Apple登录".localized()
         case .google:
-            return "使用Google登录"
+            return "使用Google登录".localized()
         case .sacnCode:
-            return "扫码登录"
+            return "扫码登录".localized()
         case .wechat:
             return "使用微信登录"
         case .qq:

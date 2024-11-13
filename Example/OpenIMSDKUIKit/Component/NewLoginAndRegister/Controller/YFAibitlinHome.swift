@@ -14,10 +14,10 @@ import IQKeyboardManagerSwift
 
 class YFAibitlinHome: BaseLogicController {
     
-    var loginArr: [HomeLoginType] = [.phone, .email, .facebook, .apple, .google, .sacnCode]
-    var chinaArr: [HomeLoginType] = [.phone, .email, .apple, .sacnCode]
-    var isChina: Bool = false
-    
+//    var loginArr: [HomeLoginType] = [.phone, .email, .facebook, .apple, .google, .sacnCode]
+//    var chinaArr: [HomeLoginType] = [.phone, .email, .apple, .sacnCode]
+//    var isChina: Bool = false
+    var loginArr: [HomeLoginType] = [.phone, .email]
     var facebookView:YFAibitlinHomeLoginTypeView?
     var googleView:YFAibitlinHomeLoginTypeView?
     
@@ -51,15 +51,15 @@ class YFAibitlinHome: BaseLogicController {
             container.addSubview(typeView)
         }
         
-        container.addSubview(thridView)
-       
-        
-        let lineView = UIView()
-        lineView.backgroundColor = .init(hexString: "#F5F5F5")
-        lineView.tg_width.equal(.fill)
-        lineView.tg_height.equal(1)
-        lineView.tg_top.equal(10)
-        container.addSubview(lineView)
+//        container.addSubview(thridView)
+//       
+//        
+//        let lineView = UIView()
+//        lineView.backgroundColor = .init(hexString: "#F5F5F5")
+//        lineView.tg_width.equal(.fill)
+//        lineView.tg_height.equal(1)
+//        lineView.tg_top.equal(10)
+//        container.addSubview(lineView)
         
         container.addSubview(registerAndFindwordView)
         
@@ -69,7 +69,7 @@ class YFAibitlinHome: BaseLogicController {
         
         IQKeyboardManager.shared.enable = true
         
-        refrehUI()
+//        refrehUI()
         
     }
     
@@ -116,8 +116,8 @@ class YFAibitlinHome: BaseLogicController {
     }()
     
     lazy var registerBtn: QMUIButton = {
-        let r = ViewFactoryUtil.linkButton("注册账号".localized())
-        r.setTitleColor(.init(hexString: "#333333"), for: .normal)
+        let r = ViewFactoryUtil.linkButton("Create a new account".localized())
+        r.setTitleColor(.primaryColor, for: .normal)
         r.addTarget(self, action: #selector(gotoRegister), for: .touchUpInside)
         return r
     }()
@@ -126,7 +126,7 @@ class YFAibitlinHome: BaseLogicController {
     lazy var forgotButton: UIButton = {
         
         let r = ViewFactoryUtil.linkButton("忘记密码".localized())
-        r.setTitleColor(.init(hexString: "#333333"), for: .normal)
+        r.setTitleColor(.primaryColor, for: .normal)
         r.rx.tap.subscribe(onNext: { [unowned self] _ in
             toForgotPassword()
         }).disposed(by: rx.disposeBag)
@@ -245,33 +245,48 @@ extension YFAibitlinHome {
         }
     }
     
-    func refrehUI() {
-        if isChina {
-            facebookView?.hide()
-            googleView?.hide()
-            thridView.show()
-        } else {
-            facebookView?.show()
-            googleView?.show()
-            thridView.hide()
-        }
-    }
+//    func refrehUI() {
+//        if isChina {
+//            facebookView?.hide()
+//            googleView?.hide()
+//            thridView.show()
+//        } else {
+//            facebookView?.show()
+//            googleView?.show()
+//            thridView.hide()
+//        }
+//    }
     
     @objc func gotoRegister() {
+        if !chooseDelegateBtn.isSelected {
+            SuperToast.show(title: "请勾选协议".localized())
+            return
+        }
         let vc = YFNewRegisterVC()
         gotoController(vc)
     }
     
-    
     func phoneLoginAction() {
+        if !chooseDelegateBtn.isSelected {
+            SuperToast.show(title: "请勾选协议".localized())
+            return
+        }
         gotoController(YFPhoneLoginVC.self)
     }
     
     func emailLoginAction() {
+        if !chooseDelegateBtn.isSelected {
+            SuperToast.show(title: "请勾选协议".localized())
+            return
+        }
         gotoController(YFEmailLoginVC.self)
     }
     
     func toForgotPassword() {
+        if !chooseDelegateBtn.isSelected {
+            SuperToast.show(title: "请勾选协议".localized())
+            return
+        }
         gotoController(YFRetrievePasswordVC.self)
     }
     

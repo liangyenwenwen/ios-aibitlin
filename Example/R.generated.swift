@@ -159,7 +159,7 @@ struct _R: Sendable {
     struct launchScreen {
       let source: RswiftResources.StringResource.Source
 
-      /// en translation: AIbitlin
+      /// en translation: Aibitlin
       ///
       /// Key: 8ie-xW-0ye.text
       ///
@@ -167,7 +167,7 @@ struct _R: Sendable {
       var ieXW0yeText: RswiftResources.StringResource { .init(key: "8ie-xW-0ye.text", tableName: "LaunchScreen", source: source, developmentValue: nil, comment: nil) }
     }
 
-    /// This `_R.string.localizable` struct is generated, and contains static references to 501 localization keys.
+    /// This `_R.string.localizable` struct is generated, and contains static references to 512 localization keys.
     struct localizable {
       let source: RswiftResources.StringResource.Source
 
@@ -507,7 +507,7 @@ struct _R: Sendable {
       /// Locales: en, zh-Hans, th
       var introTitle: RswiftResources.StringResource1<String> { .init(key: "IntroTitle", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: Log in to your account and chat with users around the world without any barriers.
+      /// en translation: Sign in to your account and chat seamlessly with users worldwide.
       ///
       /// Key: LoginTips
       ///
@@ -1011,7 +1011,7 @@ struct _R: Sendable {
       /// Locales: en, zh-Hans, th
       var lockPwdErrorHint: RswiftResources.StringResource1<String> { .init(key: "lockPwdErrorHint", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: Log In
+      /// en translation: Sign in
       ///
       /// Key: loginApp
       ///
@@ -1536,6 +1536,48 @@ struct _R: Sendable {
       /// Locales: en, th
       var 使用: RswiftResources.StringResource { .init(key: "使用", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// en translation: Sign in with Apple
+      ///
+      /// Key: 使用Apple登录
+      ///
+      /// Locales: en, th
+      var 使用Apple登录: RswiftResources.StringResource { .init(key: "使用Apple登录", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Sign in with Facebook
+      ///
+      /// Key: 使用Facebook登录
+      ///
+      /// Locales: en, th
+      var 使用Facebook登录: RswiftResources.StringResource { .init(key: "使用Facebook登录", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Sign in with Google
+      ///
+      /// Key: 使用Google登录
+      ///
+      /// Locales: en, th
+      var 使用Google登录: RswiftResources.StringResource { .init(key: "使用Google登录", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Use Phone
+      ///
+      /// Key: 使用手机号找回
+      ///
+      /// Locales: en, th
+      var 使用手机号找回: RswiftResources.StringResource { .init(key: "使用手机号找回", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Use Phone
+      ///
+      /// Key: 使用手机号注册
+      ///
+      /// Locales: en, th
+      var 使用手机号注册: RswiftResources.StringResource { .init(key: "使用手机号注册", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Sign in with Phone
+      ///
+      /// Key: 使用手机登录
+      ///
+      /// Locales: en, th
+      var 使用手机登录: RswiftResources.StringResource { .init(key: "使用手机登录", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: Use Phone
       ///
       /// Key: 使用手机登录/注册
@@ -1545,10 +1587,31 @@ struct _R: Sendable {
 
       /// en translation: Use E-mail
       ///
+      /// Key: 使用邮箱找回
+      ///
+      /// Locales: en, th
+      var 使用邮箱找回: RswiftResources.StringResource { .init(key: "使用邮箱找回", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Use E-mail
+      ///
+      /// Key: 使用邮箱注册
+      ///
+      /// Locales: en, th
+      var 使用邮箱注册: RswiftResources.StringResource { .init(key: "使用邮箱注册", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Use E-mail
+      ///
       /// Key: 使用邮箱注册/登录
       ///
       /// Locales: en, th
       var 使用邮箱注册登录: RswiftResources.StringResource { .init(key: "使用邮箱注册/登录", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Sign in with E-Mail
+      ///
+      /// Key: 使用邮箱登录
+      ///
+      /// Locales: en, th
+      var 使用邮箱登录: RswiftResources.StringResource { .init(key: "使用邮箱登录", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Russian
       ///
@@ -2103,6 +2166,13 @@ struct _R: Sendable {
       /// Locales: en, th
       var 密码输入密码: RswiftResources.StringResource { .init(key: "密码/输入密码", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// en translation: Use Password
+      ///
+      /// Key: 密码登录
+      ///
+      /// Locales: en, th
+      var 密码登录: RswiftResources.StringResource { .init(key: "密码登录", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: password lock
       ///
       /// Key: 密码锁定
@@ -2375,6 +2445,13 @@ struct _R: Sendable {
       ///
       /// Locales: en, th
       var 手机号: RswiftResources.StringResource { .init(key: "手机号", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Sign In With Scan
+      ///
+      /// Key: 扫码登录
+      ///
+      /// Locales: en, th
+      var 扫码登录: RswiftResources.StringResource { .init(key: "扫码登录", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Speaker Off
       ///
@@ -2831,21 +2908,21 @@ struct _R: Sendable {
       /// Locales: en, th
       var 用户名: RswiftResources.StringResource { .init(key: "用户名", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: Log In
+      /// en translation: Sign in
       ///
       /// Key: 登录
       ///
       /// Locales: en, th
       var 登录: RswiftResources.StringResource { .init(key: "登录", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: Log in to your account and chat with users around the world without any barriers.
+      /// en translation: Sign in to your account and chat seamlessly with users worldwide.
       ///
       /// Key: 登录你的账号、与全球用户无障碍聊天。
       ///
       /// Locales: en, th
       var 登录你的账号与全球用户无障碍聊天: RswiftResources.StringResource { .init(key: "登录你的账号、与全球用户无障碍聊天。", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: Login to Aibitlin
+      /// en translation: Sign in to Aibitlin
       ///
       /// Key: 登录哎比邻
       ///
@@ -3650,7 +3727,7 @@ struct _R: Sendable {
       /// Locales: en, th
       var 验证码: RswiftResources.StringResource { .init(key: "验证码", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: Verification code login
+      /// en translation: Use Code
       ///
       /// Key: 验证码登录
       ///

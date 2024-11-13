@@ -64,12 +64,12 @@ class YFPhoneLoginVC: BaseLogicController {
                 self?.pwdView.hide()
                 self?.codeView.show()
                 self?.pwdView.textFieldView.text = ""
-                self?.appTitleLbl.text = "验证码登录哎比邻".localized()
+//                self?.appTitleLbl.text = "验证码登录哎比邻".localized()
             } else {
                 self?.pwdView.show()
                 self?.codeView.hide()
                 self?.codeView.textFieldView.text = ""
-                self?.appTitleLbl.text = "密码登录哎比邻".localized()
+//                self?.appTitleLbl.text = "密码登录哎比邻".localized()
             }
                 
         }
@@ -77,7 +77,7 @@ class YFPhoneLoginVC: BaseLogicController {
     }()
     
     lazy var appTitleLbl: UILabel = {
-        let r = ViewFactoryUtil.customBoldTilteLable("验证码登录哎比邻".localized(), font: TEXT_LARGE4, textColor: .colorOnSurface)
+        let r = ViewFactoryUtil.customBoldTilteLable("使用手机登录".localized(), font: TEXT_LARGE4, textColor: .colorOnSurface)
         r.tg_top.equal(84)
         return r
     }()
@@ -157,7 +157,7 @@ class YFPhoneLoginVC: BaseLogicController {
                 
                 return $0.count > 1  && $1.count >= 0 && $2.count >= 1
             } else {
-                return $0.count > 1  && $1.count > 1 && $2.count >= 0
+                return $0.count > 1  && $1.count > 7 && $2.count >= 0
             }
         }
         .bind(to: loginBtn.rx.isEnabled)
@@ -194,13 +194,35 @@ extension YFPhoneLoginVC {
     }
     
     @objc func login() {
-//        print(useType!)
-        print(#function)
+        //        print(useType!)
+        //        print(#function)
+        
+        ProgressHUD.animate()
+        var account: String?
+        let tabController = UIApplication.shared.keyWindow?.rootViewController as? MainTabViewController
+        let preAccount = AccountViewModel.perLoginAccount
+        
+        if phone != preAccount {
+            tabController?.clearConversation()
+        }
+        
+        AccountViewModel.loginDemo(phone: phone,
+                                   account: account,
+                                   email:nil,
+                                   psw: isUseCode ? nil : password,
+                                   verificationCode: isUseCode ? verificationCode : nil,
+                                   areaCode: areaCode!) {[weak self] (errCode, errMsg) in
+            
+            
+            if errMsg != nil {
+                ProgressHUD.dismiss()
+                SuperToast.show(title: String(errCode).localized())
+            } else {
+                tabController?.loginSuccess(dismiss: true)
+            }
+        }
+        
     }
-
-    
-    
- 
     
 }
 

@@ -49,7 +49,7 @@ class YFRetrievePasswordVC: BaseLogicController {
       
         Observable
             .combineLatest(useTypeView.textFieldView.rx.text.orEmpty, getCodeView.textFieldView.rx.text.orEmpty,  newPwdView.textFieldView.rx.text.orEmpty, rePwdView.textFieldView.rx.text.orEmpty) {
-                $0.count > 0 && $1.count > 0 && $2.count > 0 && $3.count > 0
+                $0.count > 0 && $1.count > 0 && $2.count > 7 && $3.count > 7
             }
             .bind(to: nextBtn.rx.isEnabled)
             .disposed(by: rx.disposeBag)
@@ -177,7 +177,10 @@ class YFRetrievePasswordVC: BaseLogicController {
     }()
     
     @objc func resetPwdAction()  {
-        
+        if newPwdView.inputText != rePwdView.inputText {
+            SuperToast.show(title: "twicePwdNoSame".localized())
+            return
+        }
         resetPwd()
         
     }

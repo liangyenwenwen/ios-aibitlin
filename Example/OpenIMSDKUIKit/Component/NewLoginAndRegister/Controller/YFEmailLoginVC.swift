@@ -62,12 +62,12 @@ class YFEmailLoginVC: BaseLogicController {
                 self?.pwdView.hide()
                 self?.codeView.show()
                 self?.pwdView.textFieldView.text = ""
-                self?.appTitleLbl.text = "验证码登录哎比邻".localized()
+//                self?.appTitleLbl.text = "验证码登录哎比邻".localized()
             } else {
                 self?.pwdView.show()
                 self?.codeView.hide()
                 self?.codeView.textFieldView.text = ""
-                self?.appTitleLbl.text = "密码登录哎比邻".localized()
+//                self?.appTitleLbl.text = "密码登录哎比邻".localized()
             }
                 
         }
@@ -75,7 +75,7 @@ class YFEmailLoginVC: BaseLogicController {
     }()
     
     lazy var appTitleLbl: UILabel = {
-        let r = ViewFactoryUtil.customBoldTilteLable("验证码登录哎比邻".localized(), font: TEXT_LARGE4, textColor: .colorOnSurface)
+        let r = ViewFactoryUtil.customBoldTilteLable("使用邮箱登录".localized(), font: TEXT_LARGE4, textColor: .colorOnSurface)
         r.tg_top.equal(84)
         return r
     }()
@@ -148,12 +148,12 @@ class YFEmailLoginVC: BaseLogicController {
     
     override func bindData()  {
         
-        Observable.combineLatest(emailView.textFieldView.rx.text.orEmpty, emailView.textFieldView.rx.text.orEmpty, codeView.textFieldView.rx.text.orEmpty) { [self] in
+        Observable.combineLatest(emailView.textFieldView.rx.text.orEmpty, pwdView.textFieldView.rx.text.orEmpty, codeView.textFieldView.rx.text.orEmpty) { [self] in
             if isUseCode {
                 
                 return $0.count > 1  && $1.count >= 0 && $2.count >= 1
             } else {
-                return $0.count > 1  && $1.count > 1 && $2.count >= 0
+                return $0.count > 1  && $1.count > 7 && $2.count >= 0
             }
         }
         .bind(to: loginBtn.rx.isEnabled)
@@ -177,8 +177,34 @@ extension YFEmailLoginVC {
     }
     
     @objc func login() {
-//        print(useType!)
-        print(#function)
+        //        print(useType!)
+        //        print(#function)
+        
+        ProgressHUD.animate()
+        var account: String?
+        let tabController = UIApplication.shared.keyWindow?.rootViewController as? MainTabViewController
+        let preAccount = AccountViewModel.perLoginAccount
+        
+        if email != preAccount {
+            tabController?.clearConversation()
+        }
+        
+        AccountViewModel.loginDemo(phone: nil,
+                                   account: account,
+                                   email:email,
+                                   psw: isUseCode ? nil : password,
+                                   verificationCode: isUseCode ? verificationCode : nil,
+                                   areaCode: areaCode!) {[weak self] (errCode, errMsg) in
+            
+            
+            if errMsg != nil {
+                ProgressHUD.dismiss()
+                SuperToast.show(title: String(errCode).localized())
+            } else {
+                tabController?.loginSuccess(dismiss: true)
+            }
+        }
+        
     }
 
     

@@ -36,6 +36,7 @@ class YFNewRegisterVC: BaseLogicController {
         container.addSubview(appTitleLbl)
         container.addSubview(phoneView)
         container.addSubview(codeView)
+        container.addSubview(codeTipLbl)
         container.addSubview(pwdView)
         container.addSubview(pwdTipLbl)
         container.addSubview(rePwdView)
@@ -57,12 +58,18 @@ class YFNewRegisterVC: BaseLogicController {
         r.changeTypeClick =  { [weak self] currentIndex in
             if currentIndex == 0 {
                 self?.useType = .useEmail
-                self?.appTitleLbl.text = "使用邮箱注册哎比邻".localized()
+//                self?.appTitleLbl.text = "使用邮箱注册哎比邻".localized()
                 self?.phoneView.changePhoneEmail(false)
+                self?.codeTipLbl.show()
+                self?.pwdView.tg_top.equal(self?.codeTipLbl.tg_bottom, offset: 10)
+                self?.view.layoutIfNeeded()
             } else {
                 self?.useType = .usePhone
-                self?.appTitleLbl.text = "使用手机号注册哎比邻".localized()
+//                self?.appTitleLbl.text = "使用手机号注册哎比邻".localized()
                 self?.phoneView.changePhoneEmail(true)
+                self?.codeTipLbl.hide()
+                self?.pwdView.tg_top.equal(self?.codeTipLbl.tg_top, offset: 10)
+                self?.view.layoutIfNeeded()
             }
             
             self?.phoneView.textView.text = ""
@@ -76,7 +83,7 @@ class YFNewRegisterVC: BaseLogicController {
     }()
     
     lazy var appTitleLbl: UILabel = {
-        let r = ViewFactoryUtil.customBoldTilteLable("使用邮箱注册哎比邻".localized(), font: TEXT_LARGE4, textColor: .black333)
+        let r = ViewFactoryUtil.customBoldTilteLable("Create a new account".localized(), font: TEXT_LARGE4, textColor: .black333)
         r.tg_top.equal(84)
         r.font = .semiboldFont(24)
         r.textColor = .black333
@@ -105,11 +112,17 @@ class YFNewRegisterVC: BaseLogicController {
         r.isCode()
         return r
     }()
-    
+    lazy var codeTipLbl: UILabel = {
+        let r = ViewFactoryUtil.sectionTilteLbael()
+        r.text = "codeFormat".localized()
+        r.tg_top.equal(codeView.tg_bottom).offset(10)
+        r.numberOfLines = 0
+        return r
+    }()
     lazy var pwdView: SuperSettingView = {
-        let r = SuperSettingView.createInput("输入密码".localized())
+        let r = SuperSettingView.createInput("password".localized())
         r.loginUI()
-        r.tg_top.equal(appTitleLbl.tg_bottom, offset: 168)
+        r.tg_top.equal(codeTipLbl.tg_bottom, offset: 10)
         r.tg_width.equal(.fill)
         r.isPwd()
         return r
@@ -203,7 +216,6 @@ extension YFNewRegisterVC {
             }
             return
         }
-        
         let invaitationCode = ""
         startCountDown()
         

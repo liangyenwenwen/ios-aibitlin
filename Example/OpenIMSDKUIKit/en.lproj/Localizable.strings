@@ -30,7 +30,8 @@
 "密码" = "Password";
 "请输入密码" = "Enter password, please";
 "忘记密码" = "Forgot password";
-"验证码登录" = "Verification code login";
+"验证码登录" = "Use Code";
+"密码登录" = "Use Password";
 "设置密码" = "set password";
 "设置信息" = "Setting Information";
 "我已阅读并同意:" = "I have read and agree to:";
@@ -51,10 +52,10 @@
 
 //登录注册
 "注册APP" = "Join ";
-"loginApp" = "Log In";
+"loginApp" = "Sign in";
 "UseEmail" = "Use E-mail";
 "UsePhone" = "Use Phone";
-"LoginTips" = "Log in to your account and chat with users around the world without any barriers.";
+"LoginTips" = "Sign in to your account and chat seamlessly with users worldwide.";
 
 "后重新获取验证码" = "Resent";
 "请输入验证码(若收不到,填666666)" = "Please enter the verification code (if not received, fill in 666666)";
@@ -389,11 +390,17 @@ Toolbox = "Toolbox";
 "VIP专属通知" = "VIP Exclusive Notification";
 
 //登录页面
-"登录哎比邻" = "Login to Aibitlin";
-"登录你的账号、与全球用户无障碍聊天。" = "Log in to your account and chat with users around the world without any barriers.";
+"使用手机登录" = "Sign in with Phone";
+"使用邮箱登录" = "Sign in with E-Mail";
+"使用Facebook登录" = "Sign in with Facebook";
+"使用Apple登录" = "Sign in with Apple";
+"使用Google登录" = "Sign in with Google";
+"扫码登录" = "Sign In With Scan";
+"登录哎比邻" = "Sign in to Aibitlin";
+"登录你的账号、与全球用户无障碍聊天。" = "Sign in to your account and chat seamlessly with users worldwide.";
 "邮箱" = "E-mail";
 "密码/输入密码" = "Password";
-"登录" = "Log In";
+"登录" = "Sign in";
 "请输入" = "Please fill in";
 "我没有账号，创建一个新账号" = "I don't have an account, create a new account.";
 "我已阅读并同意Aibitlin《隐私协议》《注册协议》" =  "I have read and agreed to the Aibitlin's Privacy Agreement and Registration Agreement";
@@ -403,6 +410,10 @@ Toolbox = "Toolbox";
 "请输入手机号" = "Please enter your phone number";
 "使用邮箱注册/登录" = "Use E-mail";
 "使用手机登录/注册" = "Use Phone";
+"使用邮箱注册" = "Use E-mail";
+"使用手机号注册" = "Use Phone";
+"使用邮箱找回" = "Use E-mail";
+"使用手机号找回" = "Use Phone";
 
 
 //注册页面
