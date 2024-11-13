@@ -21,7 +21,7 @@ class YFChatBokeBottomSheetView: TGLinearLayout {
     
     var showAll: Bool  = false
     var isRemoveRecommendData: Bool  = false //是否剔除已推荐博客的数据
-    
+    var isRemoveTableMoreData: Bool  = false //是否剔除已添加的快捷博客数据
     init() {
         super.init(frame: .zero, orientation: .vert)
         innerInit()
@@ -144,7 +144,15 @@ extension YFChatBokeBottomSheetView {
                     }
                     self?.data = array
                 }else{
-                    self?.data = array
+                    if self?.isRemoveTableMoreData == true {
+                        let tableMoreData = YFFileDataUtil.readDataToFile(.home)
+                        for item in tableMoreData {
+                            array.removeAll(where: { $0.myBlogShowBlogPO.id == item.myBlogShowBlogPO.id })
+                        }
+                        self?.data = array
+                    }else{
+                        self?.data = array
+                    }
                 }
                 
                 self?.tableView.reloadData()

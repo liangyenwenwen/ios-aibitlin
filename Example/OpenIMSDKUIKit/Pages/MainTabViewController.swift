@@ -706,6 +706,7 @@ extension MainTabViewController: UITabBarControllerDelegate {
     func showBlogSheet() {
         let contentView = YFChatBokeBottomSheetView()
         contentView.showAll = true
+        contentView.isRemoveTableMoreData = true
         contentView.tg_width.equal(.fill)
         contentView.tg_height.equal(350)
         contentView.hideSheetView = {
