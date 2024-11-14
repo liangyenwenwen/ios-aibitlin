@@ -122,7 +122,6 @@
 		04F2D0942BEE21CA00D5271B /* MineBokeFooterEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F2D0812BEE21CA00D5271B /* MineBokeFooterEditView.swift */; };
 		04F2D09D2BEE221400D5271B /* UIView+GKExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F2D0992BEE221400D5271B /* UIView+GKExtension.m */; };
 		04F2D09E2BEE221400D5271B /* GKCover.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F2D09C2BEE221400D5271B /* GKCover.m */; };
-		04F4EE792C8C2B180028E895 /* YFMineHomeBuyVipVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4EE782C8C2B180028E895 /* YFMineHomeBuyVipVC.swift */; };
 		04F4EE7C2C8C2C350028E895 /* YFMineHomeBuyVipCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4EE7B2C8C2C350028E895 /* YFMineHomeBuyVipCell.swift */; };
 		04F4EE7E2C8C38220028E895 /* YFMineHomeBuyVipCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4EE7D2C8C38220028E895 /* YFMineHomeBuyVipCardView.swift */; };
 		04F533F02BF84BC2005D0405 /* YFChatBottomSheetBokeListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F533EF2BF84BC2005D0405 /* YFChatBottomSheetBokeListCell.swift */; };
@@ -336,7 +335,6 @@
 		04F2D09A2BEE221400D5271B /* UIView+GKExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+GKExtension.h"; sourceTree = "<group>"; };
 		04F2D09B2BEE221400D5271B /* GKCoverEnum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKCoverEnum.h; sourceTree = "<group>"; };
 		04F2D09C2BEE221400D5271B /* GKCover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKCover.m; sourceTree = "<group>"; };
-		04F4EE782C8C2B180028E895 /* YFMineHomeBuyVipVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFMineHomeBuyVipVC.swift; sourceTree = "<group>"; };
 		04F4EE7B2C8C2C350028E895 /* YFMineHomeBuyVipCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFMineHomeBuyVipCell.swift; sourceTree = "<group>"; };
 		04F4EE7D2C8C38220028E895 /* YFMineHomeBuyVipCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFMineHomeBuyVipCardView.swift; sourceTree = "<group>"; };
 		04F533EF2BF84BC2005D0405 /* YFChatBottomSheetBokeListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFChatBottomSheetBokeListCell.swift; sourceTree = "<group>"; };
@@ -955,7 +953,6 @@
 			children = (
 				04F2D0672BEE21CA00D5271B /* MeHomeController.swift */,
 				04F1FCED2CB67E3600080742 /* QRCode */,
-				04F4EE772C8C2AE00028E895 /* Vip */,
 				047753C42BFDCD00006DBFD3 /* Translate */,
 				0418B5772BF1E75000108808 /* Feedback */,
 				04F2D0652BEE21CA00D5271B /* MineMessage */,
@@ -1097,14 +1094,6 @@
 				04F2D09A2BEE221400D5271B /* UIView+GKExtension.h */,
 			);
 			path = Category;
-			sourceTree = "<group>";
-		};
-		04F4EE772C8C2AE00028E895 /* Vip */ = {
-			isa = PBXGroup;
-			children = (
-				04F4EE782C8C2B180028E895 /* YFMineHomeBuyVipVC.swift */,
-			);
-			path = Vip;
 			sourceTree = "<group>";
 		};
 		04F4EE7A2C8C2C160028E895 /* Vip */ = {
@@ -1689,7 +1678,6 @@
 				04F2D08C2BEE21CA00D5271B /* MineBokeListViewController.swift in Sources */,
 				040D44272C894E78007DB6FB /* MineBokeStatisticsVC.swift in Sources */,
 				04D5C1ED2C93DF72005EBF86 /* YFMineNetViewModel.swift in Sources */,
-				04F4EE792C8C2B180028E895 /* YFMineHomeBuyVipVC.swift in Sources */,
 				04C394432CCF874300181F6B /* YFAibitlinHomeChooseHeaderView.swift in Sources */,
 				04DB1E3E2CA6B0C000EE8B8C /* YFDateUtil.swift in Sources */,
 				17C4BBAA28CA1220003782EF /* Array+deduplicate.swift in Sources */,
@@ -1977,7 +1965,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.10.1016;
+				MARKETING_VERSION = 1.1.2;
 				MODULE_NAME = ExampleApp;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D ENABLE_MOMENTS -D ENABLE_CALL";
 				PRODUCT_BUNDLE_IDENTIFIER = uniim.com;
@@ -2021,7 +2009,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.10.1016;
+				MARKETING_VERSION = 1.1.2;
 				MODULE_NAME = ExampleApp;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D ENABLE_MOMENTS -D ENABLE_CALL";
 				PRODUCT_BUNDLE_IDENTIFIER = uniim.com;

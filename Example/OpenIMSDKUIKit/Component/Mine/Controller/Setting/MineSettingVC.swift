@@ -37,7 +37,7 @@ class MineSettingVC: BaseTitleController {
         container.addSubview(topContentView)
         topContentView.addSubview(userMessageView)
         topContentView.addSubview(accountAndSafeView)
-        topContentView.addSubview(changeLanguageView)
+//        topContentView.addSubview(changeLanguageView)
         topContentView.addSubview(privateView)
         topContentView.addSubview(privateDeletegeView)
         

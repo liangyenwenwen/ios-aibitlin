@@ -380,8 +380,8 @@ class CoustomInputBarAccessoryView: InputBarAccessoryView {
             $0.setImage(UIImage(nameInBundle: "inputbar_pad_send_disable_icon"), for: .disabled)
             $0.setSize(CGSize(width: buttonSize, height: buttonSize), animated: false)
         }
-        setRightStackViewWidthConstant(to: buttonSize * 2 + 8, animated: false)
-        setStackViewItems([emojiButton, moreButton], forStack: .right, animated: false)
+        setRightStackViewWidthConstant(to: buttonSize * 1 + 8, animated: false)
+        setStackViewItems([moreButton], forStack: .right, animated: false)
     }
     
     private func setupGestureRecognizers() {
@@ -409,9 +409,9 @@ class CoustomInputBarAccessoryView: InputBarAccessoryView {
     // 切换更多按钮与发送按钮
     private func toggleMoreButtonStatus(_ showMore: Bool) {
         if showMore {
-            setStackViewItems([emojiButton, moreButton], forStack: .right, animated: false)
+            setStackViewItems([moreButton], forStack: .right, animated: false)
         } else {
-            setStackViewItems([emojiButton, sendButton], forStack: .right, animated: false)
+            setStackViewItems([sendButton], forStack: .right, animated: false)
         }
     }
     

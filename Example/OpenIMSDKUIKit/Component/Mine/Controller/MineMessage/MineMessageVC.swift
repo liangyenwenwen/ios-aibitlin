@@ -43,8 +43,8 @@ class MineMessageVC: BaseTitleController, UIImagePickerControllerDelegate, UINav
         container.addSubview(accountMessageView)
         
 //        container.addSubview(ViewFactoryUtil.sectionTilteLbael(R.string.localizable.socialMediaHomepage(), top: 14))
-        container.addSubview(ViewFactoryUtil.sectionTilteLbael("SocialMediaHomepage".localized(), top: 14))
-        container.addSubview(bindMessageView)
+//        container.addSubview(ViewFactoryUtil.sectionTilteLbael("SocialMediaHomepage".localized(), top: 14))
+//        container.addSubview(bindMessageView)
         
         bindData()
     }
@@ -84,8 +84,8 @@ class MineMessageVC: BaseTitleController, UIImagePickerControllerDelegate, UINav
         r.addSubview(userNicknameView)
         r.addSubview(ViewFactoryUtil.smallDivider())
         r.addSubview(userIDView)
-        r.addSubview(ViewFactoryUtil.smallDivider())
-        r.addSubview(introView)
+//        r.addSubview(ViewFactoryUtil.smallDivider())
+//        r.addSubview(introView)
         
         return r
     }()
@@ -116,8 +116,9 @@ class MineMessageVC: BaseTitleController, UIImagePickerControllerDelegate, UINav
     lazy var userIDView: SuperSettingView = {
         let r = SuperSettingView.createSetTitleAddContentView("Aibitlin ID：", "Richenda0728") { [weak self] data in
 //            self?.changeMessage(.userID)
-            SuperToast.show(title: "开发中".localized())
+//            SuperToast.show(title: "开发中".localized())
         }
+        r.moreIconView.hide()
         r.isMediumFont()
         return r
     }()
