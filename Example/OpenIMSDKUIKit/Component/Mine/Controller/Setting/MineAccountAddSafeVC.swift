@@ -7,6 +7,7 @@
 
 import UIKit
 import TangramKit
+import OUICore
 
 class MineAccountAddSafeVC: BaseTitleController {
 
@@ -131,7 +132,15 @@ class MineAccountAddSafeVC: BaseTitleController {
     
     lazy var deleteView: SuperSettingView = {
         let r = SuperSettingView.smallWithIcon(title: "DeleteAccount".localized()) { [weak self] data in
-            self?.navigationController?.pushViewController(MineDeleteAccountChooseWayVC(), animated: true)
+            self?.navigationController?.pushViewController(MineDeleteAccountReasonVC(), animated: true)
+//            let characterSet = CharacterSet(charactersIn: "0123456789").inverted
+//            if AccountViewModel.perLoginAccount?.rangeOfCharacter(from: characterSet, options: .literal, range: nil) == nil{
+//                //是手机号
+//                self?.toDeleteAcountAuthenticationVC(.usePhone)
+//            }else{
+//                self?.toDeleteAcountAuthenticationVC(.useEmail)
+//            }
+            
         }
         r.corner()
         r.isMediumFont()

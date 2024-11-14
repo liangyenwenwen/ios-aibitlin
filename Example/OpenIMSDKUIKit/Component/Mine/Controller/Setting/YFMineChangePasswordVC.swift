@@ -190,7 +190,8 @@ extension YFMineChangePasswordVC{
                                            areaCode: areCode,
                                            email: vcType == .forgetPwdByEmailBylogin ? email : nil,
                                            verificationCode: code,
-                                           password: newPwdView.inputText!) { [weak self] (errCode, errMsg) in
+                                           password: newPwdView.inputText!,
+                                           resetType: 0) { [weak self] (errCode, errMsg) in
                 ProgressHUD.dismiss()
                 if errCode == 0, let `self` = self {
 //                        ProgressHUD.success("changed".localized() + "success".localized())
@@ -205,9 +206,21 @@ extension YFMineChangePasswordVC{
         } else  {
             print("修改密码")
             if let IMUser = IMController.shared.currentUserRelay.value {
-                
-                AccountViewModel.changePassword(userID: IMUser.userID, current: oldPwdView.inputText!, to: newPwdView.inputText!) { errCode, errMsg in
-                    print(errCode, errMsg)
+                var  changePasswordType = 0
+                let characterSet = CharacterSet(charactersIn: "0123456789").inverted
+                if AccountViewModel.perLoginAccount?.rangeOfCharacter(from: characterSet, options: .literal, range: nil) == nil{
+                    //是手机号
+                    changePasswordType = 1
+                }else{
+                    changePasswordType = 2
+                }
+                AccountViewModel.changePassword(userID: IMUser.userID, current: oldPwdView.inputText!, to: newPwdView.inputText!,changePasswordType: changePasswordType) { errCode, errMsg in
+                    if errCode == 0{
+                        SuperToast.show(title: "changedSuccessfully".localized())
+                        self.navigationController?.popViewController(animated: true)
+                    }else{
+                        SuperToast.show(title: String(errCode).localized())
+                    }
                 }
             }
         }

@@ -31,6 +31,7 @@ class YFRetrievePasswordVC: BaseLogicController {
         
         container.addSubview(sectionLbl)
         container.addSubview(topContentView)
+        container.addSubview(codeTipLbl)
         
 
         container.addSubview(ViewFactoryUtil.sectionTilteLbael("EnterTheNewPassword".localized()))
@@ -48,8 +49,13 @@ class YFRetrievePasswordVC: BaseLogicController {
         
       
         Observable
-            .combineLatest(useTypeView.textFieldView.rx.text.orEmpty, getCodeView.textFieldView.rx.text.orEmpty,  newPwdView.textFieldView.rx.text.orEmpty, rePwdView.textFieldView.rx.text.orEmpty) {
-                $0.count > 0 && $1.count > 0 && $2.count > 7 && $3.count > 7
+            .combineLatest(emailView.textFieldView.rx.text.orEmpty,phoneView.textFieldView.rx.text.orEmpty, getCodeView.textFieldView.rx.text.orEmpty,  newPwdView.textFieldView.rx.text.orEmpty, rePwdView.textFieldView.rx.text.orEmpty) {
+                if self.isUsePhone{
+                   $0.count >= 0 && $1.count > 0 && $2.count > 0 && $3.count > 7 && $4.count > 7
+                }else{
+                    $0.count > 0 && $1.count >= 0 && $2.count > 0 && $3.count > 7 && $4.count > 7
+                }
+                
             }
             .bind(to: nextBtn.rx.isEnabled)
             .disposed(by: rx.disposeBag)
@@ -61,20 +67,20 @@ class YFRetrievePasswordVC: BaseLogicController {
         
         if isUsePhone {
             sectionLbl.text = "请验证你的手机号".localized()
-            useTypeView.changePhoneEmail(true)
+            phoneView.show()
+            emailView.hide()
+            codeTipLbl.hide()
 
         } else {
             sectionLbl.text = "请验证你的邮箱".localized()
-            useTypeView.changePhoneEmail(false)
-
+            phoneView.hide()
+            emailView.show()
+            codeTipLbl.show()
         }
-        
-        useTypeView.textFieldView.text = ""
-        getCodeView.textFieldView.text = ""
+        getCodeView.textView.text = ""
         
      
     }
-    
     lazy var chooseHeader: YFAibitlinHomeChooseHeaderView = {
         let r = YFAibitlinHomeChooseHeaderView(headerType: .findPwd)
         r.tg_width.equal(.fill)
@@ -106,17 +112,30 @@ class YFRetrievePasswordVC: BaseLogicController {
         r.tg_space = 1
         r.corner(MEDDLE_RADIUS)
         r.backgroundColor = .white
-        
-        r.addSubview(useTypeView)
+        r.addSubview(emailView)
+        r.addSubview(phoneView)
         r.addSubview(ViewFactoryUtil.smallDivider())
         r.addSubview(getCodeView)
         
         return r
     }()
     
-    lazy var useTypeView: SuperSettingView = {
+    lazy var phoneView: SuperSettingView = {
         let r = SuperSettingView.createInputPhone("手机号".localized(), placeholder: "请输入手机号".localized())
         r.phoneCodeLbl.font = UIFont(name: "PingFangSC-Medium", size: 16)
+        r.changePhoneEmail(true)
+        r.isMediumFont()
+        r.hide()
+//        r.changePhoneEmail(true)
+        r.phoneCodeLbl.text = _areaCode
+        let tap = UITapGestureRecognizer(target: self, action: #selector(changePhoneArea))
+        r.phoneCodeView.addGestureRecognizer(tap)
+        return r
+    }()
+    lazy var emailView: SuperSettingView = {
+        let r = SuperSettingView.createInputPhone("邮箱".localized(), placeholder: "请输入邮箱".localized())
+        r.phoneCodeLbl.font = UIFont(name: "PingFangSC-Medium", size: 16)
+        r.changePhoneEmail(false)
         r.isMediumFont()
 //        r.changePhoneEmail(true)
         return r
@@ -128,6 +147,12 @@ class YFRetrievePasswordVC: BaseLogicController {
         r.isMediumFont()
         r.isCode()
         r.codeBtn.addTarget(self, action: #selector(getCodeAction), for: .touchUpInside)
+        return r
+    }()
+    lazy var codeTipLbl: UILabel = {
+        let r = ViewFactoryUtil.sectionTilteLbael()
+        r.text = "codeFormat".localized()
+        r.numberOfLines = 0
         return r
     }()
     
@@ -194,11 +219,12 @@ class YFRetrievePasswordVC: BaseLogicController {
     func resetPwd() {
         print("重置密码")
         ProgressHUD.animate()
-        AccountViewModel.resetPassword(phone: isUsePhone ? useTypeView.inputText : nil,
+        AccountViewModel.resetPassword(phone: isUsePhone ? phoneView.inputText : nil,
                                        areaCode: _areaCode,
-                                       email: !isUsePhone ? useTypeView.inputText : nil,
+                                       email: !isUsePhone ? emailView.inputText : nil,
                                        verificationCode: getCodeView.inputText!,
-                                       password: newPwdView.inputText!) { [weak self] (errCode, errMsg) in
+                                       password: newPwdView.inputText!,
+                                       resetType: isUsePhone ? 1 : 2) { [weak self] (errCode, errMsg) in
             
             if errCode == 0, let `self` = self {
 //                        ProgressHUD.success("changed".localized() + "success".localized())
@@ -223,7 +249,7 @@ extension YFRetrievePasswordVC {
             // action with selected object
             guard let phoneCode = info?.phoneCode else {return}
             self?._areaCode = phoneCode
-            self?.useTypeView.phoneCodeLbl.text = phoneCode
+            self?.phoneView.phoneCodeLbl.text = phoneCode
         }
         
         alert.addAction(title: "cancel".localized(), style: .cancel)
@@ -242,7 +268,7 @@ extension YFRetrievePasswordVC {
     func requestCodeAboutPwd() {
         view.endEditing(true)
         
-        if let phone = useTypeView.textFieldView.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines), phone.isEmpty {
+        if let phone = phoneView.textFieldView.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines), phone.isEmpty {
             if isUsePhone {
                 SuperToast.show(title: "plsEnterRightX".localizedFormat("phoneNumber".localized()))
             } else {
@@ -254,7 +280,7 @@ extension YFRetrievePasswordVC {
         let invaitationCode = ""
         startCountDown()
         
-        AccountViewModel.requestCode(phone: isUsePhone ? useTypeView.inputText : nil, areaCode: _areaCode, email: !isUsePhone ? useTypeView.inputText : nil, invaitationCode: invaitationCode, useFor: .forgotPassword) { [weak self] errCode, _ in
+        AccountViewModel.requestCode(phone: isUsePhone ? phoneView.inputText : nil, areaCode: _areaCode, email: !isUsePhone ? emailView.inputText : nil, invaitationCode: invaitationCode, useFor: .forgotPassword) { [weak self] errCode, _ in
 
             guard let sself = self else { return }
             if errCode != 0 {

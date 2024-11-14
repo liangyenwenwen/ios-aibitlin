@@ -16,6 +16,7 @@
 "20013" = "Refused to add friends";
 "20014" = "Email has been registered";
 "1001" = "Args Error";
+"1002" = "Current password is wrong";
 "10102" = "User re-login";
 
 "通讯录" = "Contact";
@@ -330,9 +331,10 @@ Toolbox = "Toolbox";
 
 
 "确定删除你的账号吗" = "Are you sure about deleting your account";
-"删除您的账户，AIbitlin所有服务都将无法继续使用，包括聊天、快捷应用等。" = "If you delete your account, all services of AIbitlin will no longer be available, including chat, shortcut blogs, etc.";
+"删除您的账户，AIbitlin所有服务都将无法继续使用，包括聊天、博客等。" = "If you delete your account, all services of AIbitlin will no longer be available, including chat, shortcut blogs, etc.";
 "我们将在7天内删除你的账号并清楚你的所有记录，请7天内不要登录此账号，否则会终止删除账号的进程。" = "We will delete your account and clear all your records within 7 days, please do not log in to this account within 7 days, otherwise the process of deleting the account will be terminated.";
 "注意：账号一经删除无法恢复" = "Note: Once an account is deleted, it cannot be restored";
+"删除成功" = "Deleted successfully";
 
 
 //博客

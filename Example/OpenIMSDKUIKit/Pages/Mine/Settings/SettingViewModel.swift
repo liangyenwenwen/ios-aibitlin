@@ -81,7 +81,7 @@ class SettingViewModel {
         IMController.shared.deleteAllMsgFromLocalAndSvr(onSuccess: onSuccess)
     }
     
-    func changePassword(current password1: String, to password2: String, completion: @escaping CompletionHandler) {
-        AccountViewModel.changePassword(userID: IMController.shared.uid, current: password1, to: password2, completionHandler: completion)
+    func changePassword(current password1: String, to password2: String,changePasswordType:Int, completion: @escaping CompletionHandler) {
+        AccountViewModel.changePassword(userID: IMController.shared.uid, current: password1, to: password2,changePasswordType: changePasswordType, completionHandler: completion)
     }
 }

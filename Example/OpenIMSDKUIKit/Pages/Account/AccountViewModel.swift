@@ -11,6 +11,8 @@ public enum UsedFor: Int {
     case register = 1
     case forgotPassword = 2
     case login = 3
+    case changeAccount = 4
+    case deleteAccount = 5
 }
 
 typealias CompletionHandler = (_ errCode: Int, _ errMsg: String?) -> Void
@@ -38,6 +40,24 @@ open class AccountViewModel {
     private static let SearchUserFullInfoAPI = "/user/search/full"
     private static let GetClientConfigAPI = "/client_config/get"
     
+    private static let LoginWithPhonePasswordAPI = "/account/phone_password_login"
+    private static let LoginWithPhoneVerifyCodeAPI = "/account/phone_verify_login"
+    private static let LoginWithEmailPasswordAPI = "/account/mail_password_login"
+    private static let LoginWithEmailVerifyCodeAPI = "/account/mail_verify_login"
+    private static let RegisterWithPhoneAPI = "/account/phone_register"
+    private static let RegisterWithEmailAPI = "/account/mail_register"
+    private static let ResetPasswordWithPhoneAPI = "/account/password/phone_reset"
+    private static let ResetPasswordWithEmailAPI = "/account/password/mail_reset"
+    private static let ChangePasswordWithPhoneAPI = "/account/password/phone_change"
+    private static let ChangePasswordWithEmailAPI = "/account/password/mail_change"
+    
+    private static let DeleteAccountAPI = "/user/cancel"
+    private static let DeleteAccountWithPhoneAPI = "/user/phone_cancel"
+    private static let DeleteAccountWithEmailAPI = "/user/mail_cancel"
+
+
+
+
     
     
     private let _disposeBag = DisposeBag()
@@ -96,41 +116,30 @@ open class AccountViewModel {
         }
     }
     
-    static func loginDemo(phone: String? = nil, account: String? = nil, email: String? = nil, psw: String? = nil, verificationCode: String? = nil, areaCode: String, completionHandler: @escaping CompletionHandler) {
-//        var params = ["areaCode":areaCode,"platform":1] as [String : Any]
-//        if let Phone = phone{
-//            params["phoneNumber"] = Phone
-//        }
-//        if let Account = account{
-//            params["account"] = Account
-//        }
-//        if let Email = email{
-//            params["email"] = Email
-//        }
-//        if let Psw = psw{
-//            params["password"] = Psw.md5()
-//        }
-//        if let VerificationCode = verificationCode{
-//            params["verificationCode"] = VerificationCode
-//        }
-//        ABLNetWorkToos.BussinessPOST(url: LoginAPI, params: params,isLoading:true, success: { (result) in
-//            if let res = JsonTool.fromJson(result, toClass: Response<UserEntity>.self) {
-//                // 登录IM
-//                savePreLoginAccount(phone)
-//                loginIM(uid: res.data!.userID, imToken: res.data!.imToken, chatToken: res.data!.chatToken, completionHandler: completionHandler)
-//            }
-//        }) { (state_code, message) in
-//            
-//        }
-
+    static func loginDemo(phone: String? = nil, account: String? = nil, email: String? = nil, psw: String? = nil, verificationCode: String? = nil, areaCode: String, LoginType: Int, completionHandler: @escaping CompletionHandler) {
+        //LoginType,1:手机号+验证码，2:手机号+密码，3:邮箱+验证码，4:手机号+密码
+        
         let body = JsonTool.toJson(fromObject: Request(phoneNumber: phone,
                                                        account: account,
                                                        email: email,
                                                        psw: psw,
                                                        verificationCode: verificationCode,
                                                        areaCode: areaCode)).data(using: .utf8)
+        var loginApi = ""
+        switch LoginType{
+        case 1:
+            loginApi = LoginWithPhoneVerifyCodeAPI
+        case 2:
+            loginApi = LoginWithPhonePasswordAPI
+        case 3:
+            loginApi = LoginWithEmailVerifyCodeAPI
+        case 4:
+            loginApi = LoginWithEmailPasswordAPI
+        default:
+            loginApi = LoginAPI
+        }
         
-        var req = try! URLRequest(url: API_BASE_URL + LoginAPI, method: .post)
+        var req = try! URLRequest(url: API_BASE_URL + loginApi, method: .post)
         req.httpBody = body
 //        req.addValue(UUID().uuidString, forHTTPHeaderField: "operationID")
         req.addValue(String(Int(Date().timeIntervalSince1970)), forHTTPHeaderField: "operationID")
@@ -170,6 +179,51 @@ open class AccountViewModel {
             
                                        })
     }
+    static func deleteAccount(userID: String,cancelSign: Int,reason: String, areaCode: String? = nil,phoneNumber: String? = nil, email: String? = nil, verifyCode: String,completionHandler: @escaping CompletionHandler) {
+        //cancelSign 注销方式 1:邮箱2:短信
+        let body = JsonTool.toJson(fromObject:
+                                    DeleteAccountRequest(
+                userID:userID,
+                cancelSign: cancelSign,
+                reason: reason,
+                areaCode: areaCode,
+                phoneNumber: phoneNumber,
+                email:email,
+                verifyCode: verifyCode)).data(using: .utf8)
+        var deleteAccountApi = ""
+        switch cancelSign{
+        case 1:
+            deleteAccountApi = DeleteAccountWithEmailAPI
+        case 2:
+            deleteAccountApi = DeleteAccountWithPhoneAPI
+        default:
+            deleteAccountApi = DeleteAccountAPI
+        }
+        var req = try! URLRequest(url: API_BASE_URL + deleteAccountApi, method: .post)
+        req.httpBody = body
+        
+        //        req.addValue(UUID().uuidString, forHTTPHeaderField: "operationID")
+        req.addValue(String(Int(Date().timeIntervalSince1970)), forHTTPHeaderField: "operationID")
+//        let language = String.getCurrentLanguage()[0...1].lowercased()
+        req.addValue(String.getCurrentLanguageHeader(), forHTTPHeaderField: "language")
+        
+        Alamofire.request(req).responseString { (response: DataResponse<String>) in
+            switch response.result {
+            case .success(let result):
+                if let res = JsonTool.fromJson(result, toClass: Response<UserEntity>.self) {
+                    if res.errCode == 0 {
+                        completionHandler(res.errCode, nil)
+                    } else {
+                        completionHandler(res.errCode, res.errMsg)
+                    }
+                } else {
+                    print("JSON解析错误")
+                }
+            case .failure(let err):
+                completionHandler(-1, err.localizedDescription)
+            }
+        }
+    }
     
     static func registerAccount(phone: String?,
                                 areaCode: String?,
@@ -181,8 +235,10 @@ open class AccountViewModel {
                                 gender: Int = 1,
                                 email: String?,
                                 invitationCode: String? = nil,
+                                registerType:Int,
                                 completionHandler: @escaping CompletionHandler)
     {
+        //registerType,1:手机号注册，2:邮箱注册
         let body = JsonTool.toJson(fromObject:
             RegisterRequest(
                 phone: phone,
@@ -195,8 +251,17 @@ open class AccountViewModel {
                 gender: gender,
                 email: email,
                 invitationCode: invitationCode)).data(using: .utf8)
+        var registerTypeApi = ""
+        switch registerType {
+        case 1:
+            registerTypeApi = RegisterWithPhoneAPI
+        case 2:
+            registerTypeApi = RegisterWithEmailAPI
+        default:
+            registerTypeApi = RegisterAPI
+        }
         
-        var req = try! URLRequest(url: API_BASE_URL + RegisterAPI, method: .post)
+        var req = try! URLRequest(url: API_BASE_URL + registerTypeApi, method: .post)
         req.httpBody = body
         //        req.addValue(UUID().uuidString, forHTTPHeaderField: "operationID")
         req.addValue(String(Int(Date().timeIntervalSince1970)), forHTTPHeaderField: "operationID")
@@ -221,7 +286,7 @@ open class AccountViewModel {
         }
     }
     
-    // [usedFor] 1：注册，2：重置密码， 3: 登录
+    // [usedFor] 1：注册，2：重置密码， 3: 登录，4: 变更邮箱/手机号，5: 删除账号
     static func requestCode(phone: String? = nil, areaCode: String? = nil, email: String? = nil, invaitationCode: String? = nil, useFor: UsedFor, completionHandler: @escaping CompletionHandler) {
         let body = JsonTool.toJson(fromObject:
             CodeRequest(
@@ -294,8 +359,10 @@ open class AccountViewModel {
                               email: String?,
                               verificationCode: String,
                               password: String,
+                              resetType:Int,
                               completionHandler: @escaping CompletionHandler)
     {
+        //resetType,1:手机号，2:邮箱
         let body = JsonTool.toJson(fromObject:
             Request(
                 phoneNumber: phone,
@@ -303,8 +370,16 @@ open class AccountViewModel {
                 psw: password,
                 verificationCode: verificationCode,
                 areaCode: areaCode)).data(using: .utf8)
-        
-        var req = try! URLRequest(url: API_BASE_URL + ResetPasswordAPI, method: .post)
+        var resetTypeApi = ""
+        switch resetType {
+        case 1:
+            resetTypeApi = ResetPasswordWithPhoneAPI
+        case 2:
+            resetTypeApi = ResetPasswordWithEmailAPI
+        default:
+            resetTypeApi = ResetPasswordAPI
+        }
+        var req = try! URLRequest(url: API_BASE_URL + resetTypeApi, method: .post)
         req.httpBody = body
         //        req.addValue(UUID().uuidString, forHTTPHeaderField: "operationID")
         req.addValue(String(Int(Date().timeIntervalSince1970)), forHTTPHeaderField: "operationID")
@@ -326,14 +401,23 @@ open class AccountViewModel {
         }
     }
     
-    static func changePassword(userID: String, current password1: String, to password2: String, completionHandler: @escaping CompletionHandler) {
+    static func changePassword(userID: String, current password1: String, to password2: String,changePasswordType:Int, completionHandler: @escaping CompletionHandler) {
+        //changePasswordType,1:手机号登录的修改密码，2:邮箱登录的修改密码
         let body = JsonTool.toJson(fromObject:
             ChangePasswordRequest(
                 userID: userID,
                 currentPassword: password1,
                 newPassword: password2)).data(using: .utf8)
-        
-        var req = try! URLRequest(url: API_BASE_URL + ChangePasswordAPI, method: .post)
+        var changePasswordTypeAPI = ""
+        switch changePasswordType {
+        case 1:
+            changePasswordTypeAPI = ChangePasswordWithPhoneAPI
+        case 2:
+            changePasswordTypeAPI = ChangePasswordWithEmailAPI
+        default:
+            changePasswordTypeAPI = ChangePasswordAPI
+        }
+        var req = try! URLRequest(url: API_BASE_URL + changePasswordTypeAPI, method: .post)
         req.httpBody = body
         req.addValue(UserDefaults.standard.string(forKey: bussinessTokenKey)!, forHTTPHeaderField: "token")
         //        req.addValue(UUID().uuidString, forHTTPHeaderField: "operationID")
@@ -570,9 +654,6 @@ open class AccountViewModel {
 
     // 配置
     static var clientConfig: ClientConfigData?
-    
-    
-    
 }
 
 class Request: Encodable {
@@ -625,6 +706,26 @@ class RegisterRequest: Encodable {
         self.user = UpdateUserInfoRequest(phone: phone, password: password, areaCode: areaCode, nickname: nickName, email: email)
         self.verifyCode = verificationCode
         self.invitationCode = invitationCode
+    }
+}
+class DeleteAccountRequest: Encodable {
+    private let userID: String
+    private let cancelSign: Int
+    private let reason: String
+    private let areaCode: String?
+    private let phoneNumber: String?
+    private let email: String?
+    private let verifyCode: String
+    
+    init(userID: String,cancelSign: Int,reason: String, areaCode: String? = nil,phoneNumber: String? = nil, email: String? = nil, verifyCode: String) {
+        assert(phoneNumber != nil || email != nil, "phone or email is nil")
+        self.userID = userID
+        self.cancelSign = cancelSign
+        self.reason = reason
+        self.areaCode = areaCode
+        self.phoneNumber = phoneNumber
+        self.email = email
+        self.verifyCode = verifyCode
     }
 }
 

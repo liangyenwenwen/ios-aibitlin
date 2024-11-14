@@ -304,7 +304,8 @@ public class InputPasswordViewController: UIViewController {
                                                  faceURL: "",
                                                  nickName: name,
                                                  email: operateType == .email ? basicInfo["accout"]! : nil,
-                                                 invitationCode: basicInfo["invitationCode"]) { (errCode, errMsg) in
+                                                 invitationCode: basicInfo["invitationCode"],
+                                                 registerType:0) { (errCode, errMsg) in
                     
                     ProgressHUD.dismiss()
                     if errMsg != nil {
@@ -333,7 +334,8 @@ public class InputPasswordViewController: UIViewController {
                                                areaCode: basicInfo["areaCode"]!,
                                                email: operateType == .email ? basicInfo["accout"]! : nil,
                                                verificationCode: basicInfo["verCode"]!,
-                                               password: psw) { [weak self] (errCode, errMsg) in
+                                               password: psw,
+                                               resetType: 0) { [weak self] (errCode, errMsg) in
                     ProgressHUD.dismiss()
                     if errCode == 0, let `self` = self {
 //                        ProgressHUD.success("changed".localized() + "success".localized())

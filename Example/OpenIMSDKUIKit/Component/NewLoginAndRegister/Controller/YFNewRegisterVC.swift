@@ -14,6 +14,8 @@ import RxSwift
 import TangramKit
 import UIKit
 import BSText
+import GTSDK
+
 
 class YFNewRegisterVC: BaseLogicController {
     /// 使用邮箱 或者手机号
@@ -34,6 +36,7 @@ class YFNewRegisterVC: BaseLogicController {
         container.tg_padding = UIEdgeInsets(top: 0, left: PADDING_LARGE2, bottom: 0, right: PADDING_LARGE2)
         
         container.addSubview(appTitleLbl)
+        container.addSubview(emailView)
         container.addSubview(phoneView)
         container.addSubview(codeView)
         container.addSubview(codeTipLbl)
@@ -59,20 +62,21 @@ class YFNewRegisterVC: BaseLogicController {
             if currentIndex == 0 {
                 self?.useType = .useEmail
 //                self?.appTitleLbl.text = "使用邮箱注册哎比邻".localized()
-                self?.phoneView.changePhoneEmail(false)
+                self?.phoneView.hide()
+                self?.emailView.show()
                 self?.codeTipLbl.show()
                 self?.pwdView.tg_top.equal(self?.codeTipLbl.tg_bottom, offset: 10)
                 self?.view.layoutIfNeeded()
             } else {
                 self?.useType = .usePhone
 //                self?.appTitleLbl.text = "使用手机号注册哎比邻".localized()
-                self?.phoneView.changePhoneEmail(true)
+                self?.phoneView.show()
+                self?.emailView.hide()
                 self?.codeTipLbl.hide()
                 self?.pwdView.tg_top.equal(self?.codeTipLbl.tg_top, offset: 10)
                 self?.view.layoutIfNeeded()
             }
             
-            self?.phoneView.textView.text = ""
             self?.codeView.textView.text = ""
             self?.pwdView.textView.text = ""
             self?.rePwdView.textView.text = ""
@@ -96,9 +100,18 @@ class YFNewRegisterVC: BaseLogicController {
         r.tg_top.equal(appTitleLbl.tg_bottom, offset: 36)
         r.tg_width.equal(.fill)
         r.phoneCodeLbl.text = _areaCode
+        r.hide()
+        r.changePhoneEmail(true)
         let tap = UITapGestureRecognizer(target: self, action: #selector(changePhoneArea))
         r.phoneCodeView.addGestureRecognizer(tap)
-        r.changePhoneEmail(useType == .usePhone)
+        return r
+    }()
+    lazy var emailView: SuperSettingView = {
+        let r = SuperSettingView.createInputPhone("邮箱".localized(), placeholder: "请输入邮箱".localized())
+        r.loginUI()
+        r.tg_top.equal(appTitleLbl.tg_bottom, offset: 36)
+        r.tg_width.equal(.fill)
+        r.changePhoneEmail(false)
         return r
     }()
 
@@ -166,10 +179,18 @@ class YFNewRegisterVC: BaseLogicController {
     var phone: String? {
         return phoneView.textFieldView.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
     }
+    var email: String?{
+        return emailView.textFieldView.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+    }
     
     override func bindData() {
-        Observable.combineLatest(phoneView.textFieldView.rx.text.orEmpty, codeView.textFieldView.rx.text.orEmpty, pwdView.textFieldView.rx.text.orEmpty, rePwdView.textFieldView.rx.text.orEmpty, nicknameView.textFieldView.rx.text.orEmpty) {
-            $0.count > 0 && $1.count > 0 && $2.count > 0 && $3.count > 0 && $4.count > 0
+        Observable.combineLatest(emailView.textFieldView.rx.text.orEmpty,phoneView.textFieldView.rx.text.orEmpty, codeView.textFieldView.rx.text.orEmpty, pwdView.textFieldView.rx.text.orEmpty, rePwdView.textFieldView.rx.text.orEmpty, nicknameView.textFieldView.rx.text.orEmpty) {
+            if self.useType == .usePhone {
+                $0.count >= 0 && $1.count > 0 && $2.count > 0 && $3.count > 0 && $4.count > 0 && $5.count > 0
+            }else{
+                $0.count > 0 && $1.count >= 0 && $2.count > 0 && $3.count > 0 && $4.count > 0 && $5.count > 0
+            }
+            
         }
         .bind(to: registerBtn.rx.isEnabled)
         .disposed(by: rx.disposeBag)
@@ -199,27 +220,32 @@ class YFNewRegisterVC: BaseLogicController {
         }
         view.layoutIfNeeded()
     }
-    
+    deinit {
+        //保证定时器释放
+        CountDownUtil.cancel()
+        print(#file)
+    }
 }
 
 extension YFNewRegisterVC {
     /// 请求验证码
     func requestCode() {
         view.endEditing(true)
-        
-        if let phone = phoneView.textFieldView.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines), phone.isEmpty {
-            if useType == .usePhone {
+        if useType == .usePhone {
+            if phone!.isEmpty{
                 SuperToast.show(title: "plsEnterRightX".localizedFormat("phoneNumber".localized()))
-            } else {
-//                ProgressHUD.error("plsEnterRightX".localizedFormat("email".localized()))
-                SuperToast.show(title: "plsEnterRightX".localizedFormat("email".localized()))
+                return
             }
-            return
+        } else {
+            if email!.isEmpty{
+                SuperToast.show(title: "plsEnterRightX".localizedFormat("email".localized()))
+                return
+            }
         }
         let invaitationCode = ""
         startCountDown()
         
-        AccountViewModel.requestCode(phone: useType == .usePhone ? phone : nil, areaCode: _areaCode, email: useType == .useEmail ? phone : nil, invaitationCode: invaitationCode, useFor: .register) { [weak self] errCode, _ in
+        AccountViewModel.requestCode(phone: useType == .usePhone ? phone : nil, areaCode: _areaCode, email: useType == .useEmail ? email : nil, invaitationCode: invaitationCode, useFor: .register) { [weak self] errCode, _ in
 
             guard let sself = self else { return }
             if errCode != 0 {
@@ -343,8 +369,9 @@ extension YFNewRegisterVC {
                                          password: pwdView.inputText!,
                                          faceURL: "",
                                          nickName: name,
-                                         email: useType == .useEmail ? phone : nil,
-                                         invitationCode: "")
+                                         email: useType == .useEmail ? email : nil,
+                                         invitationCode: "",
+                                         registerType:useType == .usePhone ? 1 : 2)
         { errCode, errMsg in
             
             if errMsg != nil {
@@ -357,11 +384,11 @@ extension YFNewRegisterVC {
                 { [weak self] _, _ in
                     
                     if let userID = AccountViewModel.userID {
-                        //                                GeTuiSdk.bindAlias(userID, andSequenceNum: "im")
+                        GeTuiSdk.bindAlias(userID, andSequenceNum: "im")
                     }
                     UserDefaults.standard.setValue(self?.useType.rawValue, forKey: loginTypeKey)
                     UserDefaults.standard.synchronize()
-                    AccountViewModel.savePreLoginAccount(self?.phone)
+                    AccountViewModel.savePreLoginAccount(self?.useType == .usePhone ? self?.phone : self?.email)
                     AccountViewModel.updateUserInfo(userID: AccountViewModel.userID!) { _, _ in
                         tabController?.loginSuccess(dismiss: true)
                     }

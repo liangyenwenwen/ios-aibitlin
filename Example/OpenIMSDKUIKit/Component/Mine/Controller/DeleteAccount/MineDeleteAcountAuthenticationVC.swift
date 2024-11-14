@@ -29,7 +29,7 @@ class MineDeleteAcountAuthenticationVC: BaseTitleController {
         
         container.addSubview(sectionLbl)
         container.addSubview(topContentView)
-        if vcType == .useEmail || vcType == .changeEmail || vcType == .forgetPwdByEmail || vcType == .forgetPwdByEmailBylogin{
+        if vcType == .useEmail || vcType == .changeEmail || vcType == .forgetPwdByEmail || vcType == .forgetPwdByEmailBylogin {
             container.addSubview(codeTipLbl)
         }
         
@@ -284,7 +284,8 @@ class MineDeleteAcountAuthenticationVC: BaseTitleController {
                                        areaCode: _areaCode,
                                        email: vcType == .forgetPwdByEmailBylogin ? useTypeView.inputText : nil,
                                        verificationCode: getCodeView.inputText!,
-                                       password: newPwdView.inputText!) { [weak self] (errCode, errMsg) in
+                                       password: newPwdView.inputText!,
+                                       resetType: 0) { [weak self] (errCode, errMsg) in
             ProgressHUD.dismiss()
             if errCode == 0, let `self` = self {
 //                        ProgressHUD.success("changed".localized() + "success".localized())
@@ -317,9 +318,10 @@ extension MineDeleteAcountAuthenticationVC {
     
     
     @objc func  getCodeAction() {
-        if vcType == .forgetPwdbyPhoneBylogin || vcType == .forgetPwdByEmailBylogin {
-            requestCodeAboutPwd()
-        }
+//        if vcType == .forgetPwdbyPhoneBylogin || vcType == .forgetPwdByEmailBylogin {
+//            requestCodeAboutPwd()
+//        }
+        requestCodeAboutPwd()
     }
     
     
@@ -330,7 +332,7 @@ extension MineDeleteAcountAuthenticationVC {
         view.endEditing(true)
         
         if let phone = useTypeView.textFieldView.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines), phone.isEmpty {
-            if vcType == .forgetPwdbyPhoneBylogin {
+            if vcType == .forgetPwdbyPhoneBylogin || vcType == .usePhone  || vcType == .changePhone {
 //                ProgressHUD.error("plsEnterRightX".localizedFormat("phoneNumber".localized()))
                 SuperToast.show(title: "plsEnterRightX".localizedFormat("phoneNumber".localized()))
             } else {
@@ -342,8 +344,18 @@ extension MineDeleteAcountAuthenticationVC {
         
         let invaitationCode = ""
         startCountDown()
+        var useFor: UsedFor
+        if vcType == .forgetPwdbyPhoneBylogin || vcType == .forgetPwdByEmail{
+            useFor = .forgotPassword
+        }else if vcType == .changePhone || vcType == .changeEmail{
+            useFor = .changeAccount
+        }else if vcType == .usePhone || vcType == .useEmail{
+            useFor = .deleteAccount
+        }else{
+            return
+        }
         
-        AccountViewModel.requestCode(phone: vcType == .forgetPwdbyPhoneBylogin ? useTypeView.inputText : nil, areaCode: _areaCode, email: vcType == .forgetPwdByEmailBylogin ? useTypeView.inputText : nil, invaitationCode: invaitationCode, useFor: .forgotPassword) { [weak self] errCode, _ in
+        AccountViewModel.requestCode(phone: (vcType == .forgetPwdbyPhoneBylogin || vcType == .usePhone  || vcType == .changePhone ) ? useTypeView.inputText : nil, areaCode: _areaCode, email: (vcType == .forgetPwdByEmailBylogin || vcType == .useEmail || vcType == .changeEmail) ? useTypeView.inputText : nil, invaitationCode: invaitationCode, useFor: useFor) { [weak self] errCode, _ in
             ProgressHUD.dismiss()
             guard let sself = self else { return }
             if errCode != 0 {

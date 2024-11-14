@@ -121,7 +121,6 @@ class YFPhoneLoginVC: BaseLogicController {
         r.titleView.hide()
         return r
     }()
-
     
     lazy var loginBtn: QMUIButton = {
         let r = ViewFactoryUtil.primaryHalfFilletButton()
@@ -147,7 +146,7 @@ class YFPhoneLoginVC: BaseLogicController {
     }
     
     var verificationCode: String? {
-        return nil
+        return codeView.textFieldView.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
     }
     
     override func bindData()  {
@@ -164,7 +163,11 @@ class YFPhoneLoginVC: BaseLogicController {
         .disposed(by: rx.disposeBag)
 
     }
-
+    deinit {
+        //保证定时器释放
+        CountDownUtil.cancel()
+        print(#file)
+    }
     
 }
 
@@ -185,10 +188,48 @@ extension YFPhoneLoginVC {
     }
     
     @objc func sendClick(_ sender: QMUIButton) {
-//        requestCode()
+        requestCode()
     }
-    
-    
+    /// 请求验证码
+    func requestCode() {
+        view.endEditing(true)
+        
+        if let phone = phoneView.textFieldView.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines), phone.isEmpty {
+            SuperToast.show(title: "plsEnterRightX".localizedFormat("phoneNumber".localized()))
+            return
+        }
+        
+        let invaitationCode = ""
+        startCountDown()
+        
+        AccountViewModel.requestCode(phone:phone, areaCode: _areaCode, email: nil, invaitationCode: invaitationCode, useFor: .login) { [weak self] errCode, _ in
+            ProgressHUD.dismiss()
+
+            guard let sself = self else { return }
+            if errCode != 0 {
+                SuperToast.show(title: String(errCode).localized())
+                self?.codeView.codeBtn.setTitle("Resend".localized(), for: .normal)
+                self?.codeView.codeBtn.isEnabled = true
+            }
+        }
+    }
+    /// 开始倒计时
+    func startCountDown() {
+        CountDownUtil.countDown(60) { result in
+            
+            if result == 0 {
+                self.codeView.codeBtn.setTitle("Resend".localized(), for: .normal)
+                self.codeView.codeBtn.isEnabled = true
+            } else {
+                self.codeView.codeBtn.setTitle("ResendCount".localizedFormat(result), for: .normal)
+            }
+            
+            self.codeView.codeBtn.sizeToFit()
+        }
+        
+        // 禁用按钮
+        codeView.codeBtn.isEnabled = false
+    }
     @objc func chooseDelegate(_ btn: QMUIButton)  {
         btn.isSelected = !btn.isSelected
     }
@@ -211,13 +252,14 @@ extension YFPhoneLoginVC {
                                    email:nil,
                                    psw: isUseCode ? nil : password,
                                    verificationCode: isUseCode ? verificationCode : nil,
-                                   areaCode: areaCode!) {[weak self] (errCode, errMsg) in
+                                   areaCode: areaCode!,LoginType: isUseCode ? 1:2) {[weak self] (errCode, errMsg) in
             
             
             if errMsg != nil {
                 ProgressHUD.dismiss()
                 SuperToast.show(title: String(errCode).localized())
             } else {
+                AccountViewModel.savePreLoginAccount(self?.phone)
                 tabController?.loginSuccess(dismiss: true)
             }
         }

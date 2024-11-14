@@ -310,6 +310,8 @@ extension SuperSettingView {
             tempPhone = textFieldView.text!
             textFieldView.text = tempEmail
             textFieldView.keyboardType = .emailAddress
+            needLimitLength(length: EMAIL_MAX_LENGTH)
+
         }
     }
     

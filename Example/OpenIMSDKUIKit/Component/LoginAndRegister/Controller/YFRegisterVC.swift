@@ -435,7 +435,8 @@ extension YFRegisterVC {
                                          faceURL: "",
                                          nickName: name,
                                          email: useType == .useEmail ? phone : nil,
-                                         invitationCode: "")
+                                         invitationCode: "",
+                                         registerType:0)
         { errCode, errMsg in
             ProgressHUD.dismiss()
             if errMsg != nil {

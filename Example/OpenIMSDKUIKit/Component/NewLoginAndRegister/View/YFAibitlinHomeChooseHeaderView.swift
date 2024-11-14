@@ -112,9 +112,11 @@ class YFAibitlinHomeChooseHeaderView: TGRelativeLayout {
         r.tg_height.equal(.fill)
         r.setData("UseEmail".localized())
         r.viewClick = { [weak self] in
-            self?.currentIndex = 0
-            self?.refreshUI()
-            self?.changeTypeClick(0)
+            if self?.currentIndex != 0{
+                self?.currentIndex = 0
+                self?.refreshUI()
+                self?.changeTypeClick(0)
+            }
         }
         return r
     }()
@@ -126,9 +128,12 @@ class YFAibitlinHomeChooseHeaderView: TGRelativeLayout {
 //        r.setData(vcType == .isLogin ? "使用手机号登录" : "使用手机号注册", true)
         r.setData("UsePhone".localized())
         r.viewClick = { [weak self] in
-            self?.currentIndex = 1
-            self?.refreshUI()
-            self?.changeTypeClick(1)
+            if self?.currentIndex != 1{
+                self?.currentIndex = 1
+                self?.refreshUI()
+                self?.changeTypeClick(1)
+            }
+            
         }
         return r
     }()

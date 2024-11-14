@@ -72,7 +72,7 @@ class ModifyPswViewController: UIViewController {
                 return
             }
             ProgressHUD.animate()
-            viewModel.changePassword(current: oldPsw, to: newPsw) { errCode, errMsg in
+            viewModel.changePassword(current: oldPsw, to: newPsw,changePasswordType: 0) { errCode, errMsg in
                 ProgressHUD.dismiss()
                 if errCode != 0 {
                     ProgressHUD.error(errMsg)

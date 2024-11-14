@@ -167,7 +167,7 @@ struct _R: Sendable {
       var ieXW0yeText: RswiftResources.StringResource { .init(key: "8ie-xW-0ye.text", tableName: "LaunchScreen", source: source, developmentValue: nil, comment: nil) }
     }
 
-    /// This `_R.string.localizable` struct is generated, and contains static references to 512 localization keys.
+    /// This `_R.string.localizable` struct is generated, and contains static references to 513 localization keys.
     struct localizable {
       let source: RswiftResources.StringResource.Source
 
@@ -1755,10 +1755,17 @@ struct _R: Sendable {
 
       /// en translation: If you delete your account, all services of AIbitlin will no longer be available, including chat, shortcut blogs, etc.
       ///
-      /// Key: 删除您的账户，AIbitlin所有服务都将无法继续使用，包括聊天、快捷应用等。
+      /// Key: 删除您的账户，AIbitlin所有服务都将无法继续使用，包括聊天、博客等。
       ///
       /// Locales: en, zh-Hans, th
-      var 删除您的账户AIbitlin所有服务都将无法继续使用包括聊天快捷应用等: RswiftResources.StringResource { .init(key: "删除您的账户，AIbitlin所有服务都将无法继续使用，包括聊天、快捷应用等。", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+      var 删除您的账户AIbitlin所有服务都将无法继续使用包括聊天博客等: RswiftResources.StringResource { .init(key: "删除您的账户，AIbitlin所有服务都将无法继续使用，包括聊天、博客等。", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Deleted successfully
+      ///
+      /// Key: 删除成功
+      ///
+      /// Locales: en, th
+      var 删除成功: RswiftResources.StringResource { .init(key: "删除成功", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Remove Member
       ///

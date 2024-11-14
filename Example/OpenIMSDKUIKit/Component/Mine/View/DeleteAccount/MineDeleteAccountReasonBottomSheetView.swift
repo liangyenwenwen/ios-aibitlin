@@ -9,7 +9,7 @@ import UIKit
 import TangramKit
 
 class MineDeleteAccountReasonBottomSheetView: TGLinearLayout {
-
+    var deleteAccountAction:(()->Void)!
     init() {
         super.init(frame: .zero, orientation: .vert)
         innerInit()
@@ -20,7 +20,7 @@ class MineDeleteAccountReasonBottomSheetView: TGLinearLayout {
         innerInit()
     }
     
-    func innerInit() {
+     func innerInit() {
         
         corner(MEDDLE_RADIUS)
         tg_width.equal(.fill)
@@ -42,6 +42,13 @@ class MineDeleteAccountReasonBottomSheetView: TGLinearLayout {
         addSubview(cancleBtn)
         addSubview(trueBtn)
     }
+    @objc func cancleClick(){
+        GKCover.hide()
+    }
+    @objc func deleteAccountClick(){
+        deleteAccountAction()
+        GKCover.hide()
+    }
     
     lazy var titleLbl: UILabel = {
         let r = ViewFactoryUtil.normalLbael()
@@ -55,7 +62,7 @@ class MineDeleteAccountReasonBottomSheetView: TGLinearLayout {
     }()
     
     lazy var tipLbl1: UILabel = {
-        let r = ViewFactoryUtil.sectionTilteLbael("删除您的账户，AIbitlin所有服务都将无法继续使用，包括聊天、快捷应用等。".localized())
+        let r = ViewFactoryUtil.sectionTilteLbael("删除您的账户，AIbitlin所有服务都将无法继续使用，包括聊天、博客等。".localized())
         r.lineSpace(10)
         return r
     }()
@@ -75,6 +82,7 @@ class MineDeleteAccountReasonBottomSheetView: TGLinearLayout {
     lazy var cancleBtn: QMUIButton = {
         let r = ViewFactoryUtil.primaryHalfFilletButton()
         r.setTitle("取消".localized(), for: .normal)
+        r.addTarget(self, action: #selector(cancleClick), for: .touchUpInside)
         return r
     }()
     
@@ -83,6 +91,8 @@ class MineDeleteAccountReasonBottomSheetView: TGLinearLayout {
         r.backgroundColor = .black999
         r.setTitleColor(.black66, for: .normal)
         r.setTitle("DeleteAccount".localized(), for: .normal)
+        r.addTarget(self, action: #selector(deleteAccountClick), for: .touchUpInside)
         return r
     }()
+    
 }

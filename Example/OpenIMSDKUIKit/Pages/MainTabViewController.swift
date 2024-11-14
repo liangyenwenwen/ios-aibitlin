@@ -140,6 +140,7 @@ class MainTabViewController: UITabBarController {
         setText()
         NotificationCenter.default.addObserver(self, selector: #selector(setText), name: NSNotification.Name(LCLLanguageChangeNotification), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(logout), name: .init("logout"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(deleteAccount), name: .init("deleteAccount"), object: nil)
         
         loginExsitAccount()
         
@@ -272,6 +273,18 @@ class MainTabViewController: UITabBarController {
         AccountViewModel.saveUser(uid: nil, imToken: nil, chatToken: nil)
         presentLoginController()
     }
+    @objc private func deleteAccount(){
+#if ENABLE_CALL
+        OUICalling.CallingManager.manager.end()
+#endif
+        IMController.shared.currentUserRelay.accept(nil)
+        UIApplication.shared.applicationIconBadgeNumber = 0
+        IMController.shared.unChatMessageCount = 0
+        IMController.shared.unCallPhoneMessageCount = 0
+        IMController.shared.unContactMessageCount = 0
+        AccountViewModel.saveUser(uid: nil, imToken: nil, chatToken: nil)
+        presentLoginController()
+    }
     
     private func presentLoginController() {
         viewControllers?.first?.tabBarItem.badgeValue = nil
@@ -336,7 +349,8 @@ class MainTabViewController: UITabBarController {
                                            email: vc?.useType == .useEmail ? phone : nil,
                                            psw: code != nil ? nil : psw,
                                            verificationCode: code,
-                                           areaCode: controller.areaCode!) {[weak self] (errCode, errMsg) in
+                                           areaCode: controller.areaCode!,
+                                           LoginType: 0) {[weak self] (errCode, errMsg) in
                     
                     
                     if errMsg != nil {
