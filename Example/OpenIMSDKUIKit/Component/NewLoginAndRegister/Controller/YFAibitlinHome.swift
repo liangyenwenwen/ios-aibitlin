@@ -152,7 +152,7 @@ class YFAibitlinHome: BaseLogicController {
     
     lazy var agreementView: BSLabel = {
         let r = BSLabel()
-        r.tg_top.equal(2)
+        r.tg_top.equal(4)
         r.tg_width.equal(.fill)
         r.tg_height.equal(.wrap)
         r.textAlignment = .left
@@ -218,9 +218,10 @@ class YFAibitlinHome: BaseLogicController {
     
     
     lazy var chooseDelegateBtn: QMUIButton = {
-        let r = ViewFactoryUtil.imageBtn(R.image.checked()!, 20)
+        let r = ViewFactoryUtil.imageBtn(R.image.checked()!, 35)
         r.setImage(R.image.checked()!, for: .selected)
         r.setImage(R.image.check()!, for: .normal)
+        r.tg_top.equal(-5)
         r.addTarget(self, action: #selector(chooseDelegate(_:)), for: .touchUpInside)
         return r
     }()

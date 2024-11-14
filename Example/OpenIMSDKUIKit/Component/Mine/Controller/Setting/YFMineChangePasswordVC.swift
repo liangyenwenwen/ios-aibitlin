@@ -216,7 +216,7 @@ extension YFMineChangePasswordVC{
                 }
                 AccountViewModel.changePassword(userID: IMUser.userID, current: oldPwdView.inputText!, to: newPwdView.inputText!,changePasswordType: changePasswordType) { errCode, errMsg in
                     if errCode == 0{
-                        SuperToast.show(title: "changedSuccessfully".localized())
+                        SuperToast.show(title: "ChangePwdSuccess".localized())
                         self.navigationController?.popViewController(animated: true)
                     }else{
                         SuperToast.show(title: String(errCode).localized())

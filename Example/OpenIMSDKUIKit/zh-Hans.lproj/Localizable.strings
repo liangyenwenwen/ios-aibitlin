@@ -136,7 +136,7 @@ Phone="手机号";
 Confirm="确认";
 More="更多";
 Resend="重新发送";
-ResendCount="%1$d后可重新发送";
+ResendCount="%1$ds后可重新发送";
 
 
 HomePage = "%@ 主页";
@@ -164,6 +164,8 @@ AccountAndSecurity = "账号与安全";
 PersonalPrivacy = "个人隐私";
 PoliciesAndTerms = "政策与条款";
 Logout="退出登录";
+ChangePwdSuccess = "修改成功";
+
 
 //个人资料
 BasicInformation = "基本信息";

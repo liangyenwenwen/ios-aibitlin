@@ -226,7 +226,7 @@ Phone="หมายเลขโทรศัพท์";
 Confirm="ยืนยัน";
 More="มากกว่า";
 Resend="ส่งซ้ำ";
-ResendCount="%1$d ที่จะส่งอีกครั้ง";
+ResendCount="%1$ds ที่จะส่งอีกครั้ง";
 
 
 
@@ -254,6 +254,7 @@ AccountAndSecurity = "บัญชีและความปลอดภัย"
 PersonalPrivacy = "ความเป็นส่วนตัว";
 PoliciesAndTerms = "นโยบายและข้อกำหนด";
 Logout="ออกจากระบบ";
+ChangePwdSuccess = "แก้ไขเรียบร้อยแล้ว";
 
 
 

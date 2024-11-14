@@ -224,7 +224,7 @@ Phone="Phone number";
 Confirm="Confirm";
 More="More";
 Resend="Resend";
-ResendCount="%1$d to resend";
+ResendCount="%1$ds to resend";
 
 
 
@@ -252,6 +252,7 @@ AccountAndSecurity = "Account And Security";
 PersonalPrivacy = "Personal Privacy";
 PoliciesAndTerms = "Policies And Terms";
 Logout="Logout";
+ChangePwdSuccess = "Changed Successfully";
 
 
 
