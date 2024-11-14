@@ -17,7 +17,7 @@ class YFAibitlinHome: BaseLogicController {
 //    var loginArr: [HomeLoginType] = [.phone, .email, .facebook, .apple, .google, .sacnCode]
 //    var chinaArr: [HomeLoginType] = [.phone, .email, .apple, .sacnCode]
 //    var isChina: Bool = false
-    var loginArr: [HomeLoginType] = [.phone, .email]
+    var loginArr: [HomeLoginType] = [.email,.phone]
     var facebookView:YFAibitlinHomeLoginTypeView?
     var googleView:YFAibitlinHomeLoginTypeView?
     
@@ -283,10 +283,10 @@ extension YFAibitlinHome {
     }
     
     func toForgotPassword() {
-        if !chooseDelegateBtn.isSelected {
-            SuperToast.show(title: "请勾选协议".localized())
-            return
-        }
+//        if !chooseDelegateBtn.isSelected {
+//            SuperToast.show(title: "请勾选协议".localized())
+//            return
+//        }
         gotoController(YFRetrievePasswordVC.self)
     }
     

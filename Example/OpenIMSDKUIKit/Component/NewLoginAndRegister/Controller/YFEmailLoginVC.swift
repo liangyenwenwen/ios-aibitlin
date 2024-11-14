@@ -42,6 +42,7 @@ class YFEmailLoginVC: BaseLogicController {
         container.addSubview(emailView)
         container.addSubview(pwdView)
         container.addSubview(codeView)
+        container.addSubview(codeTipLbl)
  
         container.addSubview(loginBtn)
 
@@ -63,11 +64,15 @@ class YFEmailLoginVC: BaseLogicController {
                 self?.codeView.show()
                 self?.pwdView.textFieldView.text = ""
 //                self?.appTitleLbl.text = "验证码登录哎比邻".localized()
+                self?.codeTipLbl.show()
+                self?.loginBtn.tg_top.equal(self?.codeTipLbl.tg_bottom, offset: 10)
             } else {
                 self?.pwdView.show()
                 self?.codeView.hide()
                 self?.codeView.textFieldView.text = ""
 //                self?.appTitleLbl.text = "密码登录哎比邻".localized()
+                self?.codeTipLbl.hide()
+                self?.loginBtn.tg_top.equal(self?.tipLbl.tg_bottom, offset: 188)
             }
                 
         }
@@ -117,12 +122,18 @@ class YFEmailLoginVC: BaseLogicController {
         r.titleView.hide()
         return r
     }()
-
+    lazy var codeTipLbl: UILabel = {
+        let r = ViewFactoryUtil.sectionTilteLbael()
+        r.text = "codeFormat".localized()
+        r.tg_top.equal(codeView.tg_bottom, offset: 10)
+        r.numberOfLines = 0
+        return r
+    }()
     
     lazy var loginBtn: QMUIButton = {
         let r = ViewFactoryUtil.primaryHalfFilletButton()
         r.setTitle("登录".localized(), for: .normal)
-        r.tg_top.equal(tipLbl.tg_bottom, offset: 188)
+        r.tg_top.equal(codeTipLbl.tg_bottom, offset: 10)
         r.addTarget(self, action: #selector(login), for: .touchUpInside)
         return r
     }()
