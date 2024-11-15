@@ -34,21 +34,24 @@
 		<true/>
 	</dict>
 	<key>NSAppleMusicUsageDescription</key>
-	<string>请点击“好”以允许访问。若不允许，你将无法给好友发送或者上传本地相册图片及视频内容。</string>
+	<string>“哎比邻”想访问你的照片图库
+请「允许访问所有照片」，以保证在哎比邻中能正常访问相册。如果你使用「选择照片」，则所有未选中的，以及未来新增的照片都将无法在哎比邻访问。</string>
 	<key>NSCameraUsageDescription</key>
-	<string>请点击“好”以允许访问。若不允许，你将无法使用拍照、录制视频、扫一扫等功能。</string>
+	<string>“哎比邻”想访问你的相机如果不允许，你将无法在哎比邻中拍摄照片和视频，也无法使用视频通话、扫一扫等功能。</string>
 	<key>NSLocalNetworkUsageDescription</key>
-	<string>App不会连接到您所用网络上的设备，只会检测与您本地网关的连通性。用户也可以在 iOS 设备的设置-隐私-本地网络界面修改此App的权限设置。</string>
+	<string>“哎比邻”不会连接到您所用网络上的设备，只会检测与您本地网关的连通性。您也可以在设备的设置-隐私-本地网络界面修改哎比邻的权限设置。</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>若不允许，你将无法使用安全定位等功能。</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>若不允许，你将无法使用安全定位等功能。</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>请点击“好”以允许访问。若不允许，你将无法使用视频通话、发送语音消息或录制视频等功能。</string>
+	<string>“哎比邻”想访问你的麦克风如果不允许，你将无法在哎比邻中发送语音消息，或进行音视频通话。</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>请点击“好”以允许访问。若不允许，你将无法给好友发送或者上传本地相册图片及视频内容。</string>
+	<string>“哎比邻”想访问你的照片图库
+请「允许访问所有照片」，以保证在哎比邻中能正常访问相册。如果你使用「选择照片」，则所有未选中的，以及未来新增的照片都将无法在哎比邻访问。</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>请点击“好”以允许访问。若不允许，你将无法给好友发送或者上传本地相册图片及视频内容。</string>
+	<string>“哎比邻”想访问你的照片图库
+请「允许访问所有照片」，以保证在哎比邻中能正常访问相册。如果你使用「选择照片」，则所有未选中的，以及未来新增的照片都将无法在哎比邻访问。请「允许访问所有照片」，以保证在哎比邻中能正常访问相册。如果你使用「选择照片」，则所有未选中的，以及未来新增的照片都将无法在哎比邻访问。</string>
 	<key>RTCAppGroupIdentifier</key>
 	<string>group.cn.rentsoft.openim.ios.rtc</string>
 	<key>UIBackgroundModes</key>

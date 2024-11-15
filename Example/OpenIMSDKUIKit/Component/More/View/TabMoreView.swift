@@ -23,7 +23,30 @@ class TabMoreView: UIView {
     let frame_width = UIScreen.main.bounds.width
     let itemwidth = (UIScreen.main.bounds.width - 32) / 4
     var bottomHeight = 0
-    
+    @objc func showMenu(_ sender: UILongPressGestureRecognizer) {
+            if sender.state == .began {//判断是手势状态，如果不写，你会发现松开手势之后还会再一次触发这个方法
+                self.becomeFirstResponder()//这个必须写，不写就不会显示
+                let menu = UIMenuController.shared
+                let item:UIMenuItem = UIMenuItem(title: "删除", action: #selector(deleteAction))//设置显示的item
+                menu.menuItems = [item]
+                menu.showMenu(from: (sender.view?.superview)!, rect: (sender.view?.frame)!)
+//                menu.setMenuVisible(true, animated: true)//显示UIMenuController
+            }
+        }
+    @objc func deleteAction(){
+        SuperToast.show(title: "删除成功")
+    }
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
+    @objc func performAction(_ action: Selector, sender: Any?) -> Bool {
+        switch action {
+        case #selector(deleteAction):
+            return true
+        default:
+            return false
+        }
+    }
     public func setItems(_ items : [MenuItem]) {
         actionItems = items;
         
@@ -62,6 +85,12 @@ class TabMoreView: UIView {
                 items[i].action()
             }.disposed(by: disposeBag)
             itemView!.addGestureRecognizer(tapItem)
+            if i > 3 && i < items.count - 1{
+                let tap:UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(showMenu(_:)))
+                tap.view?.tag = 1000+i
+                
+                itemView!.addGestureRecognizer(tap)
+            }
             
             if itemArr == nil {
                 itemArr = [ItemView]()
