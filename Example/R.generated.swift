@@ -73,7 +73,7 @@ struct _R: Sendable {
     }
 
 
-    /// This `_R.string.infoPlist` struct is generated, and contains static references to 10 localization keys.
+    /// This `_R.string.infoPlist` struct is generated, and contains static references to 11 localization keys.
     struct infoPlist {
       let source: RswiftResources.StringResource.Source
 
@@ -97,6 +97,13 @@ struct _R: Sendable {
       ///
       /// Locales: English, zh-Hans, en, th
       var nsCameraUsageDescription: RswiftResources.StringResource { .init(key: "NSCameraUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "If not permitted, you will not be able to use Aibitlin to take photos or videos, and will not be able to use video calls or the Scan QR Code functionality.", comment: nil) }
+
+      /// English translation: Please click' OK 'to allow access. If not allowed, you will not be able to notify more contacts and friends.
+      ///
+      /// Key: NSContactsUsageDescription
+      ///
+      /// Locales: English, zh-Hans, en, th
+      var nsContactsUsageDescription: RswiftResources.StringResource { .init(key: "NSContactsUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "Please click' OK 'to allow access. If not allowed, you will not be able to notify more contacts and friends.", comment: nil) }
 
       /// English translation: Aibitlin will not connect to devices on your network; it will only check the connectivity to your local gateway. You can also modify Aibitlin's permission settings in the device's Settings - Privacy - Local Network.
       ///

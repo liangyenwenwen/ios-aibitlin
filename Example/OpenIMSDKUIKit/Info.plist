@@ -37,6 +37,8 @@
 	<string>App需要您的同意,才能访问媒体资料库。</string>
 	<key>NSCameraUsageDescription</key>
 	<string>如果不允许，你将无法在哎比邻中拍摄照片和视频，也无法使用视频通话、扫一扫等功能。</string>
+	<key>NSContactsUsageDescription</key>
+	<string>请点击“好”以允许访问。若不允许，你将无法通知到更多通讯录好友。</string>
 	<key>NSLocalNetworkUsageDescription</key>
 	<string>“哎比邻”不会连接到您所用网络上的设备，只会检测与您本地网关的连通性。您也可以在设备的设置-隐私-本地网络界面修改哎比邻的权限设置。</string>
 	<key>NSLocationAlwaysUsageDescription</key>
