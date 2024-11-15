@@ -34,24 +34,21 @@
 		<true/>
 	</dict>
 	<key>NSAppleMusicUsageDescription</key>
-	<string>“哎比邻”想访问你的照片图库
-请「允许访问所有照片」，以保证在哎比邻中能正常访问相册。如果你使用「选择照片」，则所有未选中的，以及未来新增的照片都将无法在哎比邻访问。</string>
+	<string>App需要您的同意,才能访问媒体资料库。</string>
 	<key>NSCameraUsageDescription</key>
-	<string>“哎比邻”想访问你的相机如果不允许，你将无法在哎比邻中拍摄照片和视频，也无法使用视频通话、扫一扫等功能。</string>
+	<string>如果不允许，你将无法在哎比邻中拍摄照片和视频，也无法使用视频通话、扫一扫等功能。</string>
 	<key>NSLocalNetworkUsageDescription</key>
 	<string>“哎比邻”不会连接到您所用网络上的设备，只会检测与您本地网关的连通性。您也可以在设备的设置-隐私-本地网络界面修改哎比邻的权限设置。</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>若不允许，你将无法使用安全定位等功能。</string>
+	<string>如果您不允许，您将无法在聊天中分享您的位置。</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>若不允许，你将无法使用安全定位等功能。</string>
+	<string>如果您不允许，您将无法在聊天中分享您的位置。</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>“哎比邻”想访问你的麦克风如果不允许，你将无法在哎比邻中发送语音消息，或进行音视频通话。</string>
+	<string>如果不允许，你将无法在哎比邻中发送语音消息，或进行音视频通话。</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>“哎比邻”想访问你的照片图库
-请「允许访问所有照片」，以保证在哎比邻中能正常访问相册。如果你使用「选择照片」，则所有未选中的，以及未来新增的照片都将无法在哎比邻访问。</string>
+	<string>请「允许访问所有照片」，以保证在哎比邻中能正常访问相册。如果你使用「选择照片」，则所有未选中的，以及未来新增的照片都将无法在哎比邻访问。</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>“哎比邻”想访问你的照片图库
-请「允许访问所有照片」，以保证在哎比邻中能正常访问相册。如果你使用「选择照片」，则所有未选中的，以及未来新增的照片都将无法在哎比邻访问。请「允许访问所有照片」，以保证在哎比邻中能正常访问相册。如果你使用「选择照片」，则所有未选中的，以及未来新增的照片都将无法在哎比邻访问。</string>
+	<string>请「允许访问所有照片」，以保证在哎比邻中能正常访问相册。如果你使用「选择照片」，则所有未选中的，以及未来新增的照片都将无法在哎比邻访问。</string>
 	<key>RTCAppGroupIdentifier</key>
 	<string>group.cn.rentsoft.openim.ios.rtc</string>
 	<key>UIBackgroundModes</key>

@@ -73,7 +73,7 @@ struct _R: Sendable {
     }
 
 
-    /// This `_R.string.infoPlist` struct is generated, and contains static references to 11 localization keys.
+    /// This `_R.string.infoPlist` struct is generated, and contains static references to 10 localization keys.
     struct infoPlist {
       let source: RswiftResources.StringResource.Source
 
@@ -98,18 +98,11 @@ struct _R: Sendable {
       /// Locales: English, zh-Hans, en, th
       var nsCameraUsageDescription: RswiftResources.StringResource { .init(key: "NSCameraUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "Please click' OK  'to allow access. If not allowed, you will not be able to use functions such as taking photos, recording videos, and scanning.", comment: nil) }
 
-      /// English translation: Please click' OK 'to allow access. If not allowed, you will not be able to notify more contacts and friends.
-      ///
-      /// Key: NSContactsUsageDescription
-      ///
-      /// Locales: English, zh-Hans, en, th
-      var nsContactsUsageDescription: RswiftResources.StringResource { .init(key: "NSContactsUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "Please click' OK 'to allow access. If not allowed, you will not be able to notify more contacts and friends.", comment: nil) }
-
       /// English translation: Please click' OK 'to allow access. If not allowed, you will not be able to use the Touch ID or Face ID unlock function.
       ///
       /// Key: NSFaceIDUsageDescription
       ///
-      /// Locales: English, zh-Hans, en, th
+      /// Locales: English, en, th
       var nsFaceIDUsageDescription: RswiftResources.StringResource { .init(key: "NSFaceIDUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "Please click' OK 'to allow access. If not allowed, you will not be able to use the Touch ID or Face ID unlock function.", comment: nil) }
 
       /// English translation: If not allowed, you will not be able to use features such as secure location.
