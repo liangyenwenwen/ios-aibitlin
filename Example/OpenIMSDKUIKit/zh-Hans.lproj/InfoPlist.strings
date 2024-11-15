@@ -8,14 +8,12 @@
 
 "CFBundleDisplayName" = "哎比邻";
 
-"NSAppleMusicUsageDescription" = "请点击“好”以允许访问。若不允许，你将无法给好友发送或者上传本地相册图片及视频内容。";
-"NSCameraUsageDescription" = "请点击“好”以允许访问。若不允许，你将无法使用拍照、录制视频、扫一扫等功能。";
-"NSMicrophoneUsageDescription" = "请点击“好”以允许访问。若不允许，你将无法使用视频通话、发送语音消息或录制视频等功能。";
-"NSFaceIDUsageDescription" = "请点击“好”以允许访问。若不允许，你将无法使用Touch ID 或 Face ID解锁功能。";
-"NSLocationUsageDescription" = "若不允许，你将无法使用安全定位等功能";
-"NSPhotoLibraryAddUsageDescription" = "请点击“好”以允许访问。若不允许，你将无法给好友发送或者上传本地相册图片及视频内容。";
-"NSContactsUsageDescription" = "请点击“好”以允许访问。若不允许，你将无法通知到更多通讯录好友。";
-"NSLocationAlwaysUsageDescription" = "若不允许，你将无法使用安全定位等功能。";
-"NSPhotoLibraryUsageDescription" = "请点击“好”以允许访问。若不允许，你将无法给好友发送或者上传本地相册图片及视频内容。";
-"NSLocationWhenInUseUsageDescription" = "若不允许，你将无法使用安全定位等功能。";
-
+"NSAppleMusicUsageDescription" = "App需要您的同意,才能访问媒体资料库。";
+"NSCameraUsageDescription" = "如果不允许，你将无法在哎比邻中拍摄照片和视频，也无法使用视频通话、扫一扫等功能。";
+"NSMicrophoneUsageDescription" = "如果不允许，你将无法在哎比邻中发送语音消息，或进行音视频通话。";
+"NSLocationUsageDescription" = "如果您不允许，您将无法在聊天中分享您的位置。";
+"NSPhotoLibraryAddUsageDescription" = "请「允许访问所有照片」，以保证在哎比邻中能正常访问相册。如果你使用「选择照片」，则所有未选中的，以及未来新增的照片都将无法在哎比邻访问。";
+"NSLocationAlwaysUsageDescription" = "如果您不允许，您将无法在聊天中分享您的位置。";
+"NSPhotoLibraryUsageDescription" = "请「允许访问所有照片」，以保证在哎比邻中能正常访问相册。如果你使用「选择照片」，则所有未选中的，以及未来新增的照片都将无法在哎比邻访问。";
+"NSLocationWhenInUseUsageDescription" = "如果您不允许，您将无法在聊天中分享您的位置。";
+"NSLocalNetworkUsageDescription" = "“哎比邻”不会连接到您所用网络上的设备，只会检测与您本地网关的连通性。您也可以在设备的设置-隐私-本地网络界面修改哎比邻的权限设置。";

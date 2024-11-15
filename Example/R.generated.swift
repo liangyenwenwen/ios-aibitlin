@@ -73,7 +73,7 @@ struct _R: Sendable {
     }
 
 
-    /// This `_R.string.infoPlist` struct is generated, and contains static references to 11 localization keys.
+    /// This `_R.string.infoPlist` struct is generated, and contains static references to 10 localization keys.
     struct infoPlist {
       let source: RswiftResources.StringResource.Source
 
@@ -84,75 +84,68 @@ struct _R: Sendable {
       /// Locales: English, zh-Hans, en, th
       var cfBundleDisplayName: RswiftResources.StringResource { .init(key: "CFBundleDisplayName", tableName: "InfoPlist", source: source, developmentValue: "Aibitlin", comment: nil) }
 
-      /// English translation: Please click ' OK  'to allow access. If not allowed, you will not be able to send or upload local album images and video content to your friends.
+      /// English translation: The app requires your consent to access the media library.
       ///
       /// Key: NSAppleMusicUsageDescription
       ///
       /// Locales: English, zh-Hans, en, th
-      var nsAppleMusicUsageDescription: RswiftResources.StringResource { .init(key: "NSAppleMusicUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "Please click ' OK  'to allow access. If not allowed, you will not be able to send or upload local album images and video content to your friends.", comment: nil) }
+      var nsAppleMusicUsageDescription: RswiftResources.StringResource { .init(key: "NSAppleMusicUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "The app requires your consent to access the media library.", comment: nil) }
 
-      /// English translation: Please click' OK  'to allow access. If not allowed, you will not be able to use functions such as taking photos, recording videos, and scanning.
+      /// English translation: If not permitted, you will not be able to use Aibitlin to take photos or videos, and will not be able to use video calls or the Scan QR Code functionality.
       ///
       /// Key: NSCameraUsageDescription
       ///
       /// Locales: English, zh-Hans, en, th
-      var nsCameraUsageDescription: RswiftResources.StringResource { .init(key: "NSCameraUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "Please click' OK  'to allow access. If not allowed, you will not be able to use functions such as taking photos, recording videos, and scanning.", comment: nil) }
+      var nsCameraUsageDescription: RswiftResources.StringResource { .init(key: "NSCameraUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "If not permitted, you will not be able to use Aibitlin to take photos or videos, and will not be able to use video calls or the Scan QR Code functionality.", comment: nil) }
 
-      /// English translation: Please click' OK 'to allow access. If not allowed, you will not be able to notify more contacts and friends.
+      /// English translation: Aibitlin will not connect to devices on your network; it will only check the connectivity to your local gateway. You can also modify Aibitlin's permission settings in the device's Settings - Privacy - Local Network.
       ///
-      /// Key: NSContactsUsageDescription
+      /// Key: NSLocalNetworkUsageDescription
       ///
       /// Locales: English, zh-Hans, en, th
-      var nsContactsUsageDescription: RswiftResources.StringResource { .init(key: "NSContactsUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "Please click' OK 'to allow access. If not allowed, you will not be able to notify more contacts and friends.", comment: nil) }
+      var nsLocalNetworkUsageDescription: RswiftResources.StringResource { .init(key: "NSLocalNetworkUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "Aibitlin will not connect to devices on your network; it will only check the connectivity to your local gateway. You can also modify Aibitlin's permission settings in the device's Settings - Privacy - Local Network.", comment: nil) }
 
-      /// English translation: Please click' OK 'to allow access. If not allowed, you will not be able to use the Touch ID or Face ID unlock function.
-      ///
-      /// Key: NSFaceIDUsageDescription
-      ///
-      /// Locales: English, zh-Hans, en, th
-      var nsFaceIDUsageDescription: RswiftResources.StringResource { .init(key: "NSFaceIDUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "Please click' OK 'to allow access. If not allowed, you will not be able to use the Touch ID or Face ID unlock function.", comment: nil) }
-
-      /// English translation: If not allowed, you will not be able to use features such as secure location.
+      /// English translation: If you don't allow, You will not be able to share your location in chat.
       ///
       /// Key: NSLocationAlwaysUsageDescription
       ///
       /// Locales: English, zh-Hans, en, th
-      var nsLocationAlwaysUsageDescription: RswiftResources.StringResource { .init(key: "NSLocationAlwaysUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "If not allowed, you will not be able to use features such as secure location.", comment: nil) }
+      var nsLocationAlwaysUsageDescription: RswiftResources.StringResource { .init(key: "NSLocationAlwaysUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "If you don't allow, You will not be able to share your location in chat.", comment: nil) }
 
-      /// English translation: If not allowed, you will not be able to use features such as secure location
+      /// English translation: If you don't allow, You will not be able to share your location in chat.
       ///
       /// Key: NSLocationUsageDescription
       ///
       /// Locales: English, zh-Hans, en, th
-      var nsLocationUsageDescription: RswiftResources.StringResource { .init(key: "NSLocationUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "If not allowed, you will not be able to use features such as secure location", comment: nil) }
+      var nsLocationUsageDescription: RswiftResources.StringResource { .init(key: "NSLocationUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "If you don't allow, You will not be able to share your location in chat.", comment: nil) }
 
-      /// English translation: If not allowed, you will not be able to use features such as secure location.
+      /// English translation: If you don't allow, You will not be able to share your location in chat.
       ///
       /// Key: NSLocationWhenInUseUsageDescription
       ///
       /// Locales: English, zh-Hans, en, th
-      var nsLocationWhenInUseUsageDescription: RswiftResources.StringResource { .init(key: "NSLocationWhenInUseUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "If not allowed, you will not be able to use features such as secure location.", comment: nil) }
+      var nsLocationWhenInUseUsageDescription: RswiftResources.StringResource { .init(key: "NSLocationWhenInUseUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "If you don't allow, You will not be able to share your location in chat.", comment: nil) }
 
-      /// English translation: Please click' OK 'to allow access. If not allowed, you will not be able to use features such as video calls, sending voice messages, or recording videos.
+      /// English translation: If not permitted, you will not be able to use Aibitlin to send voice messages or make audio or video calls.
       ///
       /// Key: NSMicrophoneUsageDescription
       ///
       /// Locales: English, zh-Hans, en, th
-      var nsMicrophoneUsageDescription: RswiftResources.StringResource { .init(key: "NSMicrophoneUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "Please click' OK 'to allow access. If not allowed, you will not be able to use features such as video calls, sending voice messages, or recording videos.", comment: nil) }
+      var nsMicrophoneUsageDescription: RswiftResources.StringResource { .init(key: "NSMicrophoneUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "If not permitted, you will not be able to use Aibitlin to send voice messages or make audio or video calls.", comment: nil) }
 
-      /// English translation: Please click' OK 'to allow access. If not allowed, you will not be able to send or upload local album images and video content to your friends.
+      /// English translation: If not allowed, you will be unable to send photos from Camera Roll to friends on Aibitlin.
       ///
       /// Key: NSPhotoLibraryAddUsageDescription
       ///
       /// Locales: English, zh-Hans, en, th
-      var nsPhotoLibraryAddUsageDescription: RswiftResources.StringResource { .init(key: "NSPhotoLibraryAddUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "Please click' OK 'to allow access. If not allowed, you will not be able to send or upload local album images and video content to your friends.", comment: nil) }
+      var nsPhotoLibraryAddUsageDescription: RswiftResources.StringResource { .init(key: "NSPhotoLibraryAddUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "If not allowed, you will be unable to send photos from Camera Roll to friends on Aibitlin.", comment: nil) }
 
-      /// English translation: Please click' OK 'to allow access. If not allowed, you will not be able to send or upload local album images and video content to your friends.
+      /// English translation: If not allowed, you will be unable to send photos from Camera Roll to friends on Aibitlin.
       ///
       /// Key: NSPhotoLibraryUsageDescription
       ///
       /// Locales: English, zh-Hans, en, th
-      var nsPhotoLibraryUsageDescription: RswiftResources.StringResource { .init(key: "NSPhotoLibraryUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "Please click' OK 'to allow access. If not allowed, you will not be able to send or upload local album images and video content to your friends.", comment: nil) }
+      var nsPhotoLibraryUsageDescription: RswiftResources.StringResource { .init(key: "NSPhotoLibraryUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "If not allowed, you will be unable to send photos from Camera Roll to friends on Aibitlin.", comment: nil) }
     }
 
     /// This `_R.string.launchScreen` struct is generated, and contains static references to 1 localization keys.
