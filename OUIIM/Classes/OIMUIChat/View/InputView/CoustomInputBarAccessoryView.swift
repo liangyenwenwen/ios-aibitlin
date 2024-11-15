@@ -493,6 +493,30 @@ class CoustomInputBarAccessoryView: InputBarAccessoryView {
             guard let self else { return }
             if !granted {
                 // TODO: Toast弹窗提示开启权限
+                self.showAudioInputView(show: false)
+                if let vc = UIApplication.shared.keyWindow?.rootViewController{
+                    let alert = UIAlertController(title: nil, message: "无法录制声音，前往 设置 > 哎比邻 中打开麦克风权限".innerLocalized(), preferredStyle: .alert)
+                    // 创建UIAlertAction，用于处理用户的选择
+                    let cancleAction = UIAlertAction(title: "取消".innerLocalized(), style: .default) { _ in
+                    }
+                    let okAction = UIAlertAction(title: "前往设置".innerLocalized(), style: .default) { _ in
+                        guard let url = URL(string: UIApplication.openSettingsURLString) else {
+                            return
+                        }
+                        if UIApplication.shared.canOpenURL(url) {
+                            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                        }
+                    }
+                    
+                    // 将action添加到alertController上
+                    alert.addAction(cancleAction)
+                    alert.addAction(okAction)
+                    
+                    // 弹出alert
+                    vc.present(alert, animated: true, completion: nil)
+
+                }
+                
                 return
             }
             let session = AVAudioSession.sharedInstance()
