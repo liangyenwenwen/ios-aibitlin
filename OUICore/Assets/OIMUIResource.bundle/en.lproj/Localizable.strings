@@ -234,6 +234,8 @@
 "消息阅读状态" = "Message Reading Status";
 "按住说话" = "hold to talk";
 "松手发送" = "Let's send";
+"无法录制声音，前往 设置 > 哎比邻 中打开麦克风权限" = "Unable to record audio. Go to Settings > Aibitlin to enable microphone access.";
+"前往设置" = "Go to Settings";
 "音视频通话" = "Audio and video call";
 "加好友" = "Add";
 "发送添加好友申请" = "Send friend request";
