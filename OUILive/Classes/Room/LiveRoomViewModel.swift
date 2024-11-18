@@ -24,7 +24,7 @@ class LiveRoomViewModel {
         //        }).disposed(by: disposeBag)
         
         IMController.shared.connectionRelay.subscribe(onNext: { [self] status in
-            if status == .kickedOffline {
+            if status.status == .kickedOffline {
                 kickedOffline.onNext(true)
             }
         }).disposed(by: disposeBag)

@@ -180,7 +180,7 @@ class UserDetailTableViewController: UIViewController {
     private var buttonStack: UIStackView?
     private var offsetY: CGFloat = 0
     
-    init(userId: String, groupId: String? = nil, groupInfo: GroupInfo? = nil, groupMemberInfo: GroupMemberInfo? = nil, userInfo: FullUserInfo? = nil, userDetailFor: UserDetailFor = .groupMemberInfo) {
+    init(userId: String, groupId: String? = nil, groupInfo: GroupInfo? = nil, groupMemberInfo: GroupMemberInfo? = nil, userInfo: PublicUserInfo? = nil, userDetailFor: UserDetailFor = .groupMemberInfo) {
         _viewModel = UserDetailViewModel(userId: userId, groupId: groupId ?? (groupInfo?.groupID), groupInfo: groupInfo, groupMemberInfo: groupMemberInfo, userInfo: userInfo, userDetailFor: userDetailFor)
         super.init(nibName: nil, bundle: nil)
     }
@@ -270,7 +270,7 @@ class UserDetailTableViewController: UIViewController {
     }
     
     private func bindData() {        
-        _viewModel.userInfoRelay.subscribe(onNext: { [weak self] (userInfo: FullUserInfo?) in
+        _viewModel.userInfoRelay.subscribe(onNext: { [weak self] userInfo in
             guard let userInfo, let sself = self else { return }
             
             sself.avatarView.setAvatar(url: userInfo.faceURL, text: userInfo.showName, onTap: { [weak self] in
@@ -280,7 +280,7 @@ class UserDetailTableViewController: UIViewController {
             })
             var name = userInfo.nickname
             
-            if let remark = userInfo.friendInfo?.remark, !remark.isEmpty {
+            if let remark = userInfo.remark, !remark.isEmpty {
                 name = name?.append(string: "(\(remark))")
             }
             sself.nameLabel.text = name
@@ -454,8 +454,7 @@ extension UserDetailTableViewController: UITableViewDataSource, UITableViewDeleg
             navigationController?.pushViewController(vc, animated: true)
         case .moments:
 #if ENABLE_MOMENTS
-            guard let user = _viewModel.userInfoRelay.value else { return }
-            
+            guard let user = try? _viewModel.userInfoRelay.value() else { return }
             let vc = OthersViewController(userID: user.userID!, nickname: user.showName ?? "", faceURL: user.faceURL)
             navigationController?.pushViewController(vc, animated: true)
 #endif

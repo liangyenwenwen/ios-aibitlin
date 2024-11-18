@@ -40,20 +40,23 @@ NS_ASSUME_NONNULL_BEGIN
          onConnectFailure:(OIMFailureCallback)onConnectFailure
          onConnectSuccess:(OIMVoidCallback)onConnectSuccess
           onKickedOffline:(OIMVoidCallback)onKickedOffline
-       onUserTokenExpired:(OIMVoidCallback)onUserTokenExpired;
-
-/**
- * Set heartbeat interval
- */
-- (void)setHeartbeatInterval:(NSInteger)heartbeatInterval;
+       onUserTokenExpired:(OIMVoidCallback)onUserTokenExpired
+       onUserTokenInvalid:(OIMStringCallback)onUserTokenInvalid;
 
 - (void)unInitSDK;
 
 - (void)uploadLogsWithProgress:(OIMUploadProgressCallback)onProgress
+                          line:(NSInteger )line
                             ex:(NSString * _Nullable)ex
                      onSuccess:(OIMSuccessCallback)onSuccess
                      onFailure:(OIMFailureCallback)onFailure;
 
+- (void)logs:(NSInteger)logLevel
+    fileName:(NSString * _Nullable)file
+        line:(NSInteger)line
+        msgs:(NSString * _Nullable)msgs
+         err:(NSString * _Nullable)err
+keyAndValues:(NSArray *)keyAndValues;
 @end
 
 NS_ASSUME_NONNULL_END

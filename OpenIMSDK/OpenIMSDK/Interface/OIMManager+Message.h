@@ -213,7 +213,6 @@ NS_ASSUME_NONNULL_BEGIN
   */
  + (OIMMessageInfo *)createCardMessage:(OIMCardElem *)card;
 
-// MARK: - 张亚飞打的标记  创建自定义下消息
  /*
   * Create a custom message.
   *
@@ -416,15 +415,6 @@ NS_ASSUME_NONNULL_BEGIN
    onCompletion:(OIMUploadCompletionCallback)onCompletion
       onSuccess:(OIMSuccessCallback)onSuccess
       onFailure:(OIMFailureCallback)onFailure;
-
-/**
- * Set global message notification options
- *
- * @param opt   receiving method.
- */
-- (void)setGlobalRecvMessageOpt:(OIMReceiveMessageOpt)opt
-                      onSuccess:(nullable OIMSuccessCallback)onSuccess
-                      onFailure:(nullable OIMFailureCallback)onFailure;
 
 /**
  * Advanced Message Series Usage

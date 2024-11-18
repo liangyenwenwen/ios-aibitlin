@@ -31,6 +31,13 @@ NS_ASSUME_NONNULL_BEGIN
         onSuccess:(OIMSuccessCallback)onSuccess
         onFailure:(OIMFailureCallback)onFailure;
 
+- (void)joinGroup:(NSString *)groupID
+           reqMsg:(NSString *)reqMsg
+       joinSource:(OIMJoinType)joinSource
+               ex:(NSString * _Nullable)ex
+        onSuccess:(OIMSuccessCallback)onSuccess
+        onFailure:(OIMFailureCallback)onFailure;
+
 /**
  * Quit a group
  */
@@ -42,6 +49,11 @@ NS_ASSUME_NONNULL_BEGIN
  * Get the list of joined groups
  */
 - (void)getJoinedGroupListWithOnSuccess:(nullable OIMGroupsInfoCallback)onSuccess
+                                onFailure:(nullable OIMFailureCallback)onFailure;
+
+- (void)getJoinedGroupListPageWithOffset:(NSInteger)offset
+                                   count:(NSInteger)count
+                               onSuccess:(nullable OIMGroupsInfoCallback)onSuccess
                                 onFailure:(nullable OIMFailureCallback)onFailure;
 
 /**
@@ -63,7 +75,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * Get group members
  *
- * @param groupId Group ID
+ * @param groupID Group ID
  * @param filter Member filter, 0 for no filter, 1 for group creator, 2 for administrator; default value is 0
  * @param offset Starting offset
  * @param count Member count
@@ -78,8 +90,8 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * Get a list of specified group members
  *
- * @param groupId Group ID
- * @param uidList Group member IDs
+ * @param groupID Group ID
+ * @param usersID Group member IDs
  */
 - (void)getSpecifiedGroupMembersInfo:(NSString *)groupID
                              usersID:(NSArray <NSString *> *)usersID
@@ -89,7 +101,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * Remove members from a group
  *
- * @param groupId Group ID
+ * @param groupID Group ID
  * @param reason Reason for removal
  * @param usersID List of user IDs to be removed from the group
  */
@@ -102,8 +114,8 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * Transfer group ownership, only the group owner can perform this action
  *
- * @param groupId Group ID
- * @param uid New group owner's user ID
+ * @param groupID Group ID
+ * @param userID New group owner's user ID
  */
 - (void)transferGroupOwner:(NSString *)groupID
                   newOwner:(NSString *)userID
@@ -113,8 +125,8 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * Invite certain people to join a group; all group members can perform this action
  *
- * @param groupId Group ID
- * @param uids List of user IDs to be invited
+ * @param groupID Group ID
+ * @param usersID List of user IDs to be invited
  * @param reason Invitation message
  */
 - (void)inviteUserToGroup:(NSString *)groupID
@@ -138,7 +150,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * Accept someone's application to join a group as an administrator or group owner
  *
- * @param groupId Group ID
+ * @param groupID Group ID
  * @param fromUserID User ID of the user applying to join the group
  * @param handleMsg Handling message
  */
@@ -163,8 +175,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  * Disband a group
+ * Disband a group
  *
- * @param groupId Group ID
+ * @param groupID Group ID
  */
 - (void)dismissGroup:(NSString *)groupID
            onSuccess:(nullable OIMSuccessCallback)onSuccess
@@ -215,7 +228,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * Set group member's info
  */
-- (void)setGroupMemberInfo:(OIMGroupMemberInfo *)groupMemberInfo
+- (void)setGroupMemberInfo:(OIMSetGroupMemberInfo *)groupMemberInfo
                  onSuccess:(nullable OIMSuccessCallback)onSuccess
                  onFailure:(nullable OIMFailureCallback)onFailure;
 
@@ -287,6 +300,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)isJoinedGroup:(NSString *)groupID
             onSuccess:(nullable OIMBoolCallback)onSuccess
+            onFailure:(nullable OIMFailureCallback)onFailure;
+
+- (void)getUsersInGroup:(NSString *)groupID
+                userIDs:(NSArray<NSString *> *)userIDs
+            onSuccess:(nullable OIMStringArrayCallback)onSuccess
             onFailure:(nullable OIMFailureCallback)onFailure;
 @end
 

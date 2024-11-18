@@ -76,10 +76,10 @@ class SingleChatSettingViewModel {
             
             if let user = userInfos.first {
                 let userInfo = UserInfo(userID: user.userID!, faceURL: user.faceURL)
-                var nickName: String? = user.showName
-                if let remark = user.friendInfo?.remark, !remark.isEmpty {
-                    nickName = nickName?.append(string: "(\(remark))")
-                }
+                var nickName: String? = user.nickname
+//                if let remark = user.remark, !remark.isEmpty {
+//                    nickName = nickName?.append(string: "(\(remark))")
+//                }
                 userInfo.nickname = nickName
                 // the fake user will be shown as an add btn
                 let fakeUser = UserInfo(userID: "")

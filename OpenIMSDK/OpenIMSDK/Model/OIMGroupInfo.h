@@ -46,6 +46,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger notificationUpdateTime;
 @property (nonatomic, nullable, copy) NSString *notificationUserID;
 
+@property (nonatomic, assign) BOOL displayIsRead;
+
+
 @end
 
 NS_ASSUME_NONNULL_END

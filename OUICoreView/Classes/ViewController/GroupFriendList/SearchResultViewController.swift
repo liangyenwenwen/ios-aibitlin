@@ -72,7 +72,7 @@ public class SearchResultViewController: UIViewController, UISearchResultsUpdati
     
     private let _disposebag = DisposeBag()
     private let _searchType: SearchType
-    private var userInfo: FullUserInfo?
+    private var userInfo: PublicUserInfo?
     public init(searchType: SearchType) {
         _searchType = searchType
         super.init(nibName: nil, bundle: nil)
@@ -213,7 +213,7 @@ public class SearchResultViewController: UIViewController, UISearchResultsUpdati
                 })
             } else {
                 ProgressHUD.animate()
-                IMController.shared.getFriendsBy(id: keyword).subscribe(onNext: { [weak self] (userInfo: FullUserInfo?) in
+                IMController.shared.getFriendsBy(id: keyword).subscribe(onNext: { [weak self] (userInfo: PublicUserInfo?) in
                     ProgressHUD.dismiss()
                     self?.userInfo = userInfo
                     let uid = userInfo?.userID

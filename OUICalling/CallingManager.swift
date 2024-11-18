@@ -435,7 +435,7 @@ public class CallingManager: NSObject {
             }
         } else {
             var tempUserIDs: [String] = usersID
-            OIMManager.manager.getSpecifiedFriendsInfo(usersID) { friends in
+            OIMManager.manager.getSpecifiedFriendsInfo(usersID, filterBlack: false) { friends in
                 
                 var us = friends?.compactMap({ CallingUserInfo(userID: $0.userID, nickname: $0.nickname, faceURL: $0.faceURL )}) ?? []
                 tempUserIDs.removeAll(where: { id in

@@ -5,7 +5,6 @@ import RxCocoa
 import RxSwift
 import UIKit
 import AudioToolbox
-import CommonCrypto
 
 public enum ConnectionStatus: Int {
     case connectFailure = 0
@@ -15,6 +14,7 @@ public enum ConnectionStatus: Int {
     case syncComplete = 4
     case syncFailure = 5
     case kickedOffline = 6
+    case syncProgress = 7
     
     public var title: String {
         switch self {
@@ -24,7 +24,7 @@ public enum ConnectionStatus: Int {
             return "connecting".innerLocalized()
         case .connected:
             return "synchronizing".innerLocalized()
-        case .syncStart:
+        case .syncStart, .syncProgress:
             return "synchronizing".innerLocalized()
         case .syncComplete:
             return "synchronizing".innerLocalized()
@@ -132,8 +132,8 @@ extension IMController: ContactsDataSource {
 }
 
 public class IMController: NSObject {
-    public static let addFriendPrefix = "com.aibitlin.app/addFriend/"
-    public static let joinGroupPrefix = "com.aibitlin.app/joinGroup/"
+    public static let addFriendPrefix = "io.openim.app/addFriend/"
+    public static let joinGroupPrefix = "io.openim.app/joinGroup/"
     public static let shared: IMController = .init()
     public var imManager: OpenIMSDK.OIMManager!
     /// 好友申请列表新增
@@ -164,7 +164,7 @@ public class IMController: NSObject {
     public let customBusinessSubject: PublishSubject<[String: Any]?> = .init()
     public let organizationUpdated: PublishSubject<String?> = .init()
     // 连接状态
-    public let connectionRelay: BehaviorRelay<(ConnectionStatus)> = .init(value: .connecting)
+    public let connectionRelay: BehaviorRelay<(status: ConnectionStatus, reInstall: Bool? , progress: Int?)> = .init(value:( status: .connecting, reInstall: nil, progress: nil))
     // online status
     public let userStatusSubject: BehaviorSubject<UserStatusInfo?> = .init(value: nil)
     // input states
@@ -197,30 +197,33 @@ public class IMController: NSObject {
         Self.shared.businessToken = businessToken
     }
     
-    public func setup(sdkAPIAdrr: String, sdkWSAddr: String, onKickedOffline: (() -> Void)? = nil) {
+    public func setup(sdkAPIAdrr: String, sdkWSAddr: String, logLevel: Int = 3, onKickedOffline: (() -> Void)? = nil, onUserTokenInvalid: (() -> Void)? = nil) {
         self.sdkAPIAdrr = sdkAPIAdrr
         let manager = OIMManager.manager
         
         var config = OIMInitConfig()
         config.apiAddr = sdkAPIAdrr
         config.wsAddr = sdkWSAddr
-        config.logLevel = 6
+        config.logLevel = logLevel
         
         manager.initSDK(with: config) { [weak self] in
-            self?.connectionRelay.accept(.connecting)
+            self?.connectionRelay.accept((status: .connecting, reInstall: nil, progress: nil))
         } onConnectFailure: { [weak self] code, msg in
             print("onConnectFailed code:\(code), msg:\(String(describing: msg))")
-            self?.connectionRelay.accept(.connectFailure)
+            self?.connectionRelay.accept((status: .connectFailure, reInstall: nil, progress: nil))
         } onConnectSuccess: {[weak self] in
             print("onConnectSuccess")
-            self?.connectionRelay.accept(.connected)
+            self?.connectionRelay.accept((status: .connected, reInstall: nil, progress: nil))
         } onKickedOffline: {[weak self] in
             print("onKickedOffline")
             onKickedOffline?()
-            self?.connectionRelay.accept(.kickedOffline)
+            self?.connectionRelay.accept((status: .kickedOffline, reInstall: nil, progress: nil))
         } onUserTokenExpired: {
             onKickedOffline?()
             print("onUserTokenExpired")
+        } onUserTokenInvalid: { _ in
+            print("onUserTokenInvalid")
+            onUserTokenInvalid?()
         }
         
         Self.shared.imManager = manager
@@ -335,10 +338,10 @@ extension IMController {
     /// 根据id查找用户
     /// - Parameter ids: 用户id
     /// - Returns: 第一个用户id
-    public func getFriendsBy(id: String) -> Observable<FullUserInfo?> {
-        return Observable<FullUserInfo?>.create { observer in
-            Self.shared.imManager.getSpecifiedFriendsInfo([id]) { users in
-                observer.onNext(users?.first?.toFullUserInfo())
+    public func getFriendsBy(id: String) -> Observable<FriendInfo?> {
+        return Observable<FriendInfo?>.create { observer in
+            Self.shared.imManager.getSpecifiedFriendsInfo([id], filterBlack: false) { users in
+                observer.onNext(users?.first?.toFriendInfo())
                 observer.onCompleted()
             } onFailure: { (code: Int, msg: String?) in
                 observer.onError(NetError(code: code, message: msg))
@@ -347,9 +350,9 @@ extension IMController {
         }
     }
     
-    public func getFriendsInfo(userIDs: [String], completion: @escaping CallBack.FullUserInfosReturnVoid) {
-        Self.shared.imManager.getSpecifiedFriendsInfo(userIDs) { users in
-            let r = users?.compactMap({ $0.toFullUserInfo() })
+    public func getFriendsInfo(userIDs: [String], completion: @escaping CallBack.FriendsInfosReturnVoid) {
+        Self.shared.imManager.getSpecifiedFriendsInfo(userIDs, filterBlack: false) { users in
+            let r = users?.compactMap({ $0.toFriendInfo() })
             completion(r ?? [])
         }
     }
@@ -418,12 +421,40 @@ extension IMController {
 
     }
     
-    public func getFriendList(completion: @escaping ([FullUserInfo]) -> Void) {
-        Self.shared.imManager.getFriendListWith(onSuccess: { friends in
+    public func getFriendList(offset: Int = 0, count: Int = 40, completion: @escaping ([PublicUserInfo]) -> Void) {
+        Self.shared.imManager.getFriendListPage(withOffset: offset, count: count, filterBlack: false) { friends in
             let arr = friends ?? []
-            let ret = arr.compactMap { $0.toFullUserInfo() }
+            let ret = arr.compactMap { $0.toPublicUserInfo() }
             completion(ret)
-        })
+        } onFailure: { code, msg in
+            print("\(#function) throw error: code: \(code), msg: \(msg)")
+            completion([])
+        }
+    }
+    public func getAllFriends() async -> [PublicUserInfo] {
+        
+        var friends: [PublicUserInfo] = []
+        var count = 1000
+        
+        while (true) {
+            let r = await getFriendsSplit(offset: friends.count, count: count)
+            friends.append(contentsOf: r)
+            
+            if r.count < count {
+                break
+            }
+        }
+        
+        return friends
+    }
+    
+    public func getFriendsSplit(offset: Int = 0, count: Int = 1000) async -> [PublicUserInfo] {
+        return await withCheckedContinuation { continuation in
+            getFriendList(offset: offset, count: count) { r in
+                
+                continuation.resume(returning: r)
+            }
+        }
     }
     
     public func acceptGroupApplication(groupID: String, fromUserId: String, handleMsg: String? = nil, completion: @escaping (String?) -> Void) {
@@ -633,12 +664,12 @@ extension IMController {
         Self.shared.imManager.getTotalUnreadMsgCountWith(onSuccess: completion, onFailure: nil)
     }
     
-    public func getConversationRecvMessageOpt(conversationIds: [String], completion: (([ConversationNotDisturbInfo]?) -> Void)?) {
-        Self.shared.imManager.getConversationRecvMessageOpt(conversationIds) { (conversationInfos: [OIMConversationNotDisturbInfo]?) in
-            let arr = conversationInfos?.compactMap { $0.toConversationNotDisturbInfo() }
-            completion?(arr)
-        }
-    }
+//    public func getConversationRecvMessageOpt(conversationIds: [String], completion: (([ConversationNotDisturbInfo]?) -> Void)?) {
+//        Self.shared.imManager.getConversationRecvMessageOpt(conversationIds) { (conversationInfos: [OIMConversationNotDisturbInfo]?) in
+//            let arr = conversationInfos?.compactMap { $0.toConversationNotDisturbInfo() }
+//            completion?(arr)
+//        }
+//    }
     
     public func setConversationRecvMessageOpt(conversationID: String, status: ReceiveMessageOpt, completion: ((String?) -> Void)?) {
         let opt: OIMReceiveMessageOpt
@@ -1273,7 +1304,7 @@ extension IMController {
     
     public func setGlobalRecvMessageOpt(op: ReceiveMessageOpt, onSuccess: @escaping CallBack.StringOptionalReturnVoid) {
         let opt = OIMReceiveMessageOpt(rawValue: op.rawValue) ?? OIMReceiveMessageOpt.receive
-        Self.shared.imManager.setGlobalRecvMessageOpt(opt, onSuccess: onSuccess) { code, msg in
+        Self.shared.imManager.setGlobalRecvMessageOpt(opt.rawValue, onSuccess: onSuccess) { code, msg in
             print("设置全局免打扰失败:\(code), .msg:\(msg)")
         }
     }
@@ -1342,9 +1373,9 @@ extension IMController {
         }
     }
     
-    public func getUserInfo(uids: [String], groupID: String? = nil, onSuccess: @escaping CallBack.FullUserInfosReturnVoid) {
+    public func getUserInfo(uids: [String], groupID: String? = nil, onSuccess: @escaping CallBack.PublicUserInfosReturnVoid) {
         Self.shared.imManager.getUsersInfo(withCache: uids, groupID: groupID) { userInfos in
-            let users = userInfos?.compactMap { $0.toFullUserInfo() } ?? []
+            let users = userInfos?.compactMap { $0.toPublicUserInfo() } ?? []
             onSuccess(users)
         } onFailure: { code, msg in
             print("获取个人信息失败:\(code), \(msg)")
@@ -1388,10 +1419,17 @@ extension IMController {
         }
     }
     
-    public func uploadLogs(onProgress: @escaping CallBack.ProgressReturnVoid, onSuccess: @escaping CallBack.StringOptionalReturnVoid, onFailure: @escaping CallBack.ErrorOptionalReturnVoid) {
+    public func uploadLogs(line: Int = 0, onProgress: @escaping CallBack.ProgressReturnVoid, onSuccess: @escaping CallBack.StringOptionalReturnVoid, onFailure: @escaping CallBack.ErrorOptionalReturnVoid) {
         Self.shared.imManager.uploadLogs(progress: { _, current, total in
             onProgress(CGFloat(current) / CGFloat(total))
-        }, ex: nil, onSuccess: onSuccess, onFailure: onFailure)
+        }, line: line, ex: nil, onSuccess: onSuccess, onFailure: onFailure)
+    }
+    public func logs(fileName: String? = nil, line: Int = 0, msgs: String? = nil, err: String? = nil, keyAndValues: [Any] = []) async {
+        await withCheckedContinuation { continuation in
+            Self.shared.imManager.logs(5, fileName: fileName, line: 0, msgs: msgs, err: err, keyAndValues: keyAndValues)
+            
+            continuation.resume()
+        }
     }
 }
 
@@ -1475,16 +1513,20 @@ extension IMController: OIMConversationListener {
         conversationChangedSubject.onNext(conversations)
     }
     
-    public func onSyncServerStart() {
-        connectionRelay.accept(.syncStart)
+    public func onSyncServerStart(_ reInstall: Bool) {
+        connectionRelay.accept((status: .syncStart, reInstall: reInstall, progress: nil))
     }
     
-    public func onSyncServerFinish() {
-        connectionRelay.accept(.syncComplete)
+    public func onSyncServerFinish(_ reInstall: Bool) {
+        connectionRelay.accept((status: .syncComplete, reInstall: reInstall, progress: nil))
     }
     
-    public func onSyncServerFailed() {
-        connectionRelay.accept(.syncFailure)
+    public func onSyncServerFailed(_ reInstall: Bool) {
+        connectionRelay.accept((status: .syncFailure, reInstall: reInstall, progress: nil))
+    }
+    
+    public func onSyncServerProgress(_ progress: Int) {
+        connectionRelay.accept((status: .syncProgress, reInstall: nil, progress: progress))
     }
     
     public func onNewConversation(_ conversations: [OIMConversationInfo]) {
@@ -2415,8 +2457,11 @@ public class PublicUserInfo: Encodable {
     public var faceURL: String?
     public var gender: Gender = .male
     
-    public init() {
-        
+    public init(userID: String? = nil, nickname: String? = nil, faceURL: String? = nil, gender: Gender = .male) {
+        self.userID = userID
+        self.nickname = nickname
+        self.faceURL = faceURL
+        self.gender = gender
     }
 }
 
@@ -2438,8 +2483,19 @@ public class FriendInfo: PublicUserInfo {
         return obj
     }
     
-    public override init() {
-        super.init()
+    public init(userID: String? = nil, nickname: String? = nil, faceURL: String? = nil, gender: Gender = .male, ownerUserID: String? = nil, remark: String? = nil, createTime: Int = 0, addSource: Int = 0, operatorUserID: String? = nil, phoneNumber: String? = nil, birth: Int = 0, email: String? = nil, attachedInfo: String? = nil, ex: String? = nil) {
+        super.init(userID: userID, nickname: nickname, faceURL: faceURL)
+        
+        self.ownerUserID = ownerUserID
+        self.remark = remark
+        self.createTime = createTime
+        self.addSource = addSource
+        self.operatorUserID = operatorUserID
+        self.phoneNumber = phoneNumber
+        self.birth = birth
+        self.email = email
+        self.attachedInfo = attachedInfo
+        self.ex = ex
     }
 }
 
@@ -2504,8 +2560,8 @@ public class SearchUserParam {
 public class SearchUserInfo: FriendInfo {
     public var relationship: Relationship = .friends
     
-    public override init() {
-        super.init()
+    public init(relationship: Relationship = .friends) {
+        self.relationship = relationship
     }
 }
 

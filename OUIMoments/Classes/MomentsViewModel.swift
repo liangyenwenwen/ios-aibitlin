@@ -69,7 +69,7 @@ class MomentsViewModel {
             IMController.shared.getUserInfo(uids: [userID!]) { [weak self] users in
                 guard let user = users.first else { return }
                 headerInfo.userID = user.userID ?? ""
-                headerInfo.userName = user.showName ?? ""
+                headerInfo.userName = user.nickname ?? ""
                 headerInfo.faceURL = user.faceURL
                 
                 self?.userInfoRelay.accept(headerInfo)

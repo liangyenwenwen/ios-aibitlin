@@ -1,6 +1,6 @@
 {
   "name": "OpenIMSDK",
-  "version": "3.5.1-e-1.1.4",
+  "version": "3.8.1-e-1.1.9",
   "summary": "Open-IM-SDK",
   "description": "OpenIM：由前微信技术专家打造的基于 Go 实现的即时通讯（IM）项目，iOS版本IM SDK 可以轻松替代第三方IM云服务，打造具备聊天、社交功能的app。",
   "homepage": "https://github.com/OpenIMSDK/Open-IM-SDK-iOS",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/OpenIMSDK/Open-IM-SDK-iOS.git",
-    "tag": "3.5.1-e-1.1.4"
+    "tag": "3.8.1-e-1.1.9"
   },
   "platforms": {
     "ios": "11.0"

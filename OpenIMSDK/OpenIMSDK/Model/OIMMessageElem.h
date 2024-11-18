@@ -46,16 +46,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-// MARK: - 张亚飞打的标记   bokeElem
-@interface OIMBokeElem : NSObject
-
-@property (nonatomic, copy) NSString *title;
-@property (nonatomic, copy) NSString *iconUrl;
-@property (nonatomic, copy) NSString *linkUrl;
-@property (nonatomic, copy) NSString *intro;
-
-@end
-
 @interface OIMTypingElem : NSObject
 
 @property (nonatomic, copy) NSString *msgTips;

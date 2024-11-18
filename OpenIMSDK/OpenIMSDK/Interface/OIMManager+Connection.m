@@ -37,13 +37,15 @@
          onConnectFailure:(OIMFailureCallback)onConnectFailure
          onConnectSuccess:(OIMVoidCallback)onConnectSuccess
           onKickedOffline:(OIMVoidCallback)onKickedOffline
-       onUserTokenExpired:(OIMVoidCallback)onUserTokenExpired {
+       onUserTokenExpired:(OIMVoidCallback)onUserTokenExpired 
+       onUserTokenInvalid:(OIMStringCallback)onUserTokenInvalid {
     
     [self class].callbacker.connecting = onConnecting;
     [self class].callbacker.connectFailure = onConnectFailure;
     [self class].callbacker.connectSuccess = onConnectSuccess;
     [self class].callbacker.kickedOffline = onKickedOffline;
     [self class].callbacker.userTokenExpired = onUserTokenExpired;
+    [self class].callbacker.userTokenInvalid = onUserTokenInvalid;
     
     NSMutableDictionary *param = [NSMutableDictionary new];
     
@@ -61,15 +63,12 @@
     return Open_im_sdkInitSDK([self class].callbacker, [self operationId], param.mj_JSONString);
 }
 
-- (void)setHeartbeatInterval:(NSInteger)heartbeatInterval {
-    Open_im_sdkSetHeartbeatInterval(heartbeatInterval);
-}
-
 - (void)unInitSDK {
     Open_im_sdkUnInitSDK([self operationId]);
 }
 
 - (void)uploadLogsWithProgress:(OIMUploadProgressCallback)onProgress
+                          line:(NSInteger )line
                             ex:(NSString *)ex
                      onSuccess:(OIMSuccessCallback)onSuccess
                      onFailure:(OIMFailureCallback)onFailure {
@@ -77,6 +76,19 @@
     
     UploadLogsCallbackProxy *progress = [[UploadLogsCallbackProxy alloc] initWithOnProgress:onProgress];
     
-    Open_im_sdkUploadLogs(callback, [self operationId], ex, progress);
+    Open_im_sdkUploadLogs(callback, [self operationId], line, ex, progress);
+}
+
+- (void)logs:(NSInteger)logLevel
+    fileName:(NSString *)file
+        line:(NSInteger)line
+        msgs:(NSString *)msgs
+         err:(NSString *)err
+keyAndValues:(NSArray *)keyAndValues {
+    CallbackProxy *callback = [[CallbackProxy alloc]initWithOnSuccess:^(NSString * _Nullable data) {
+    } onFailure:^(NSInteger code, NSString * _Nullable msg) {
+    }];
+    
+    Open_im_sdkLogs(callback, [self operationId], logLevel, file, line, msgs, err, keyAndValues.mj_JSONString);
 }
 @end

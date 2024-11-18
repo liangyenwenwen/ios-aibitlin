@@ -44,7 +44,7 @@ final class DefaultChatController: ChatController {
     
     private var groupMembers: [GroupMemberInfo]?
     
-    private var otherInfo: FullUserInfo?
+    private var otherInfo: FriendInfo?
     
     private var me: UserInfo?
     
@@ -336,14 +336,14 @@ final class DefaultChatController: ChatController {
         }
     }
     
-    func getOtherInfo(completion: @escaping (FullUserInfo) -> Void) {
+    func getOtherInfo(completion: @escaping (FriendInfo) -> Void) {
         if otherInfo == nil {
             // To quickly display the title.
-            otherInfo = FullUserInfo(userID: receiverId, showName: conversation.showName)
+            otherInfo = FriendInfo(userID: receiverId, nickname: conversation.showName)
             
             dataProvider.getUserInfo { [weak self] full in
-                completion(full)
-                self?.otherInfo = full
+                completion(full.toFriendInfo())
+                self?.otherInfo = full.toFriendInfo()
             } mine: { [weak self] u in
                 self?.me = u
             }
@@ -1460,7 +1460,7 @@ extension DefaultChatController: DataProviderDelegate {
     
     func friendInfoChanged(info: OUICore.FriendInfo) {
         if info.userID == otherInfo?.userID {
-            otherInfo?.friendInfo = info
+            otherInfo = info
         }
         delegate?.friendInfoChanged(info: info)
     }

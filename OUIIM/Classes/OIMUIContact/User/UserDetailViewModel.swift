@@ -11,9 +11,9 @@ class UserDetailViewModel {
     let groupId: String?
     let groupInfo: GroupInfo?
     
-    let userInfoRelay: BehaviorRelay<FullUserInfo?> = .init(value: nil)
+    let userInfoRelay: BehaviorSubject<FriendInfo?> = .init(value: nil)
     var memberInfoRelay: BehaviorRelay<GroupMemberInfo?> = .init(value: nil)
-    var allowAddFriend: PublishRelay<Bool> = .init()
+    var allowAddFriend: BehaviorSubject<Bool> = .init(value: false)
     var showSetAdmin: Bool = false
     var showJoinSource: Bool = false
     var showMute: Bool = false
@@ -29,44 +29,32 @@ class UserDetailViewModel {
     }
     
     private let _disposeBag = DisposeBag()
-    init(userId: String, groupId: String? = nil, groupInfo: GroupInfo? = nil, groupMemberInfo: GroupMemberInfo? = nil, userInfo: FullUserInfo? = nil, userDetailFor: UserDetailFor) {
+    init(userId: String, groupId: String? = nil, groupInfo: GroupInfo? = nil, groupMemberInfo: GroupMemberInfo? = nil, userInfo: PublicUserInfo? = nil, userDetailFor: UserDetailFor) {
         self.userId = userId
         self.groupId = groupId
         self.groupInfo = groupInfo
         self.userDetailFor = userDetailFor
         if let userInfo {
-            self.userInfoRelay.accept(userInfo)
+            self.userInfoRelay.onNext(FriendInfo(userID: userInfo.userID, nickname: userInfo.nickname, faceURL: userInfo.faceURL))
         }
         if let groupMemberInfo {
             self.memberInfoRelay.accept(groupMemberInfo)
         }
         
         IMController.shared.friendInfoChangedSubject.subscribe { [weak self] (friendInfo: FriendInfo?) in
-            guard let sself = self else { return }
-            guard friendInfo?.userID == sself.userId else { return }
-            let user = sself.userInfoRelay.value?.friendInfo
-            user?.nickname = friendInfo?.nickname
-            if let gender = friendInfo?.gender {
-                user?.gender = gender
-            }
-            user?.phoneNumber = friendInfo?.phoneNumber
-            if let birth = friendInfo?.birth {
-                user?.birth = birth
-            }
-            user?.email = friendInfo?.email
-            user?.remark = friendInfo?.remark
-            let fullUser = self?.userInfoRelay.value
-            fullUser?.friendInfo = user
-            self?.userInfoRelay.accept(fullUser)
+            guard let self else { return }
+            guard friendInfo?.userID == userId else { return }
+            
+            userInfoRelay.onNext(friendInfo)
         }.disposed(by: _disposeBag)
     }
-
+    
     func getUserOrMemberInfo() {
         let group = DispatchGroup()
         var memberInfo: GroupMemberInfo?
-        #if ENABLE_ORGANIZATION
+#if ENABLE_ORGANIZATION
         var orgInfo: [UserInDepartmentInfo] = []
-        #endif
+#endif
         
         if let groupId = groupId, !groupId.isEmpty, userDetailFor == .groupMemberInfo {
             group.enter()
@@ -89,10 +77,10 @@ class UserDetailViewModel {
                         sself.showMute = true
                         sself.showJoinSource = true
                     }
-//                    IMController.shared.getUserInfo(uids: [memberInfo!.inviterUserID!], groupID: groupId) { users in
-//                        memberInfo!.inviterUserName = users.first?.showName
-                        group.leave()
-//                    }
+                    //                    IMController.shared.getUserInfo(uids: [memberInfo!.inviterUserID!], groupID: groupId) { users in
+                    //                        memberInfo!.inviterUserName = users.first?.showName
+                    group.leave()
+                    //                    }
                 } else {
                     group.leave()
                 }
@@ -129,61 +117,69 @@ class UserDetailViewModel {
     func getOtherSetting() {
         IMController.shared.getUserInfo(uids: [userId], groupID: groupId) { [self] users in
             guard let sdkUser = users.first else { return }
-            userInfoRelay.accept(sdkUser)
+//            userInfoRelay.onNext(sdkUser as! FriendInfo)
+            UserCacheManager.shared.addOrUpdateUserInfo(userID: userId, userInfo: UserInfo(userID: sdkUser.userID!, nickname: sdkUser.nickname, faceURL: sdkUser.faceURL))
             
-            if let handler = OIMApi.queryUsersInfoWithCompletionHandler, userId != IMController.shared.uid {
-                handler([userId], { [weak self] users in
-                    guard let self else { return }
-                    
-                    if let chatUser = users.first {
-                        
-                        var chatAllowAddFriend = chatUser.allowAddFriend == 1 && sdkUser.friendInfo == nil
-                        var groupAllowAddFriend = true
-                        
-                        // Personal setting level is higher
-                        if let groupInfo = groupInfo {
-                            groupAllowAddFriend = groupInfo.applyMemberFriend == 0
-                        }
-                        
-                        let allow = chatAllowAddFriend && groupAllowAddFriend
-                        
-                        allowAddFriend.accept(allow)
-                    }
-                })
-            }
-            
-            let isFriend = sdkUser.friendInfo != nil
-            
-            guard !isFriend else {
-                allowSendMsg.accept(true)
-
-                return
-            }
-            
-            if let configHandler = OIMApi.queryConfigHandler {
+            IMController.shared.getFriendsInfo(userIDs: [userId]) { friendInfo in
                 
-                configHandler { [weak self] code, result in
-                    
-                    if let self,
-                        result != nil,
-                        let allowSendMsgNotFriend = result["allowSendMsgNotFriend"] as? String {
-                        let allowedStranger = Int(allowSendMsgNotFriend) == 1 && userId != IMController.shared.uid
+                let isFriend = friendInfo != nil
+                
+                if let handler = OIMApi.queryUsersInfoWithCompletionHandler, userId != IMController.shared.uid {
+                    handler([userId], { [weak self] users in
+                        guard let self else { return }
                         
-                        allowSendMsg.accept(isFriend || allowedStranger)
+                        if let chatUser = users.first {
+                            UserCacheManager.shared.addOrUpdateUserInfo(userID: userId, userInfo: chatUser)
+                            
+                            var chatAllowAddFriend = chatUser.allowAddFriend == 1 && !isFriend
+                            var groupAllowAddFriend = true
+                            
+                            // Personal setting level is higher
+                            if let groupInfo = groupInfo {
+                                groupAllowAddFriend = groupInfo.applyMemberFriend == 0
+                            }
+                            
+                            let allow = chatAllowAddFriend && groupAllowAddFriend
+                            
+                            allowAddFriend.onNext(allow)
+                        }
+                    })
+                }
+                
+                guard !isFriend else {
+                    allowSendMsg.accept(true)
+                    
+                    return
+                }
+                
+                if let configHandler = OIMApi.queryConfigHandler {
+                    
+                    configHandler { [weak self] code, result in
+                        guard let self else { return }
+                        
+                        if !result.isEmpty {
+                            if let allowSendMsgNotFriend = result["allowSendMsgNotFriend"] as? String {
+                                let allowedStranger = Int(allowSendMsgNotFriend) == 1 && userId != IMController.shared.uid
+                                
+                                allowSendMsg.accept(isFriend || allowedStranger)
+                            }
+                        } else {
+                            allowSendMsg.accept(true)
+                        }
                     }
                 }
             }
         }
     }
-
+    
     func createSingleChat(onComplete: @escaping (ConversationInfo) -> Void) {
         IMController.shared.getConversation(sessionType: .c2c, sourceId: userId) { [weak self] (conversation: ConversationInfo?) in
             guard let conversation else { return }
-
+            
             onComplete(conversation)
         }
     }
-
+    
     func addFriend(onSuccess: @escaping CallBack.StringOptionalReturnVoid, onFailure: @escaping CallBack.ErrorOptionalReturnVoid) {
         let reqMsg = "\(IMController.shared.currentUserRelay.value!.nickname!)请求添加你为好友"
         IMController.shared.addFriend(uid: userId, reqMsg: reqMsg, onSuccess: onSuccess, onFailure: onFailure)
@@ -197,7 +193,7 @@ class UserDetailViewModel {
         guard let groupId = groupId else {
             return
         }
-
+        
         IMController.shared.changeGroupMemberMute(groupID: groupId, userID: userId, seconds: seconds) { [weak self] r in
             
             guard let sself = self else { return }
@@ -210,8 +206,25 @@ class UserDetailViewModel {
         }
     }
     deinit {
-        #if DEBUG
-            print("dealloc \(type(of: self))")
-        #endif
+#if DEBUG
+        print("dealloc \(type(of: self))")
+#endif
+    }
+}
+
+struct UserCacheManager {
+    static var shared = UserCacheManager()
+    var _userInfoMap: [String: UserInfo] = [:]
+    
+    mutating func addOrUpdateUserInfo(userID: String, userInfo: UserInfo) {
+      _userInfoMap[userID] = userInfo
+    }
+
+    func getUserInfo(userID: String) -> UserInfo? {
+      return _userInfoMap[userID]
+    }
+
+    mutating func removeUserInfo(userID: String) {
+      _userInfoMap.removeValue(forKey: userID)
     }
 }

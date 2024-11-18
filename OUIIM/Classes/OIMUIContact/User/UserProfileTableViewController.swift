@@ -82,7 +82,7 @@ class UserProfileTableViewController: UIViewController {
         }).disposed(by: _disposeBag)
         
         _viewModel.isFriendRelay.subscribe(onNext: { [weak self] isFriend in
-            guard let self else { return }
+            guard let self, let isFriend else { return }
             friendButton.setTitle(isFriend ? "解除好友关系".innerLocalized() : "加好友".innerLocalized(), for: .normal)
         }).disposed(by: _disposeBag)
     }
@@ -271,10 +271,33 @@ extension UserProfileTableViewController: UITableViewDataSource, UITableViewDele
         self.present(alertController, animated: true, completion: nil)
     }
     
+//    @objc func deleteFriend() {
+//        ProgressHUD.animate()
+//        
+//        if _viewModel.isFriendRelay.value {
+//            _viewModel.deleteFriend {[weak self] r in
+//                ProgressHUD.dismiss()
+//                
+//                let navController = self?.tabBarController?.children.first as? UINavigationController;
+//                let vc: ChatListViewController? = navController?.viewControllers.first(where: { vc in
+//                    return vc is ChatListViewController
+//                }) as? ChatListViewController
+//                
+//                if vc != nil {
+//                    vc!.refreshConversations()
+//                    self?.navigationController?.popToRootViewController(animated: true)
+//                }
+//            }
+//        } else {
+//            _viewModel.addFriend { [self] r in
+//                navigationController?.popViewController(animated: true)
+//            }
+//        }
+//    }
     @objc func deleteFriend() {
         ProgressHUD.animate()
         
-        if _viewModel.isFriendRelay.value {
+        if let isFriend = try? _viewModel.isFriendRelay.value(), isFriend {
             _viewModel.deleteFriend {[weak self] r in
                 ProgressHUD.dismiss()
                 
@@ -289,8 +312,11 @@ extension UserProfileTableViewController: UITableViewDataSource, UITableViewDele
                 }
             }
         } else {
-            _viewModel.addFriend { [self] r in
-                navigationController?.popViewController(animated: true)
+            _viewModel.addFriend { [weak self] r in
+                ProgressHUD.dismiss()
+                self?.navigationController?.popViewController(animated: true)
+            } onFailure: { [weak self] errCode, errMsg in
+                ProgressHUD.error(errMsg)
             }
         }
     }

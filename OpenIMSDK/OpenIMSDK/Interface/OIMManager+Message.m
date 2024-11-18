@@ -212,15 +212,6 @@
     return [self convertToMessageInfo:json];
 }
 
-
-
-+ (OIMMessageInfo *)createBokeMessage:(OIMBokeElem *)boke {
-    
-    NSString *json = Open_im_sdkCreateCardMessage([OIMManager.manager operationId], boke.mj_JSONString);
-    
-    return [self convertToMessageInfo:json];
-}
-
 + (OIMMessageInfo *)createCustomMessage:(NSString *)data
                               extension:(NSString *)extension
                             description:(NSString *)description {
@@ -450,23 +441,16 @@
     Open_im_sdkUploadFile(callback, [self operationId], param.mj_JSONString, upload);
 }
 
-- (void)setGlobalRecvMessageOpt:(OIMReceiveMessageOpt)opt
-                      onSuccess:(OIMSuccessCallback)onSuccess
-                      onFailure:(OIMFailureCallback)onFailure {
-    CallbackProxy *callback = [[CallbackProxy alloc]initWithOnSuccess:onSuccess onFailure:onFailure];
-    
-    Open_im_sdkSetGlobalRecvMessageOpt(callback, [self operationId], opt);
-}
-
 - (void)getAdvancedHistoryMessageList:(OIMGetAdvancedHistoryMessageListParam *)opts
                             onSuccess:(OIMGetAdvancedHistoryMessageListCallback)onSuccess
                             onFailure:(OIMFailureCallback)onFailure {
     CallbackProxy *callback = [[CallbackProxy alloc]initWithOnSuccess:^(NSString * _Nullable data) {
         if (onSuccess) {
+            NSLog(@"=======getAdvancedHistoryMessageList end: %@", [NSDate new]);
             onSuccess([OIMGetAdvancedHistoryMessageListInfo mj_objectWithKeyValues:data]);
         }
     } onFailure:onFailure];
-    
+    NSLog(@"=======getAdvancedHistoryMessageList begin: %@", [NSDate new]);
     Open_im_sdkGetAdvancedHistoryMessageList(callback, [self operationId], opts.mj_JSONString);
 }
 

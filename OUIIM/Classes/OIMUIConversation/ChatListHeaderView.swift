@@ -480,7 +480,7 @@ class ChatListHeaderView: UIView {
             switch status {
             case .connectFailure, .syncFailure:
                 setConnectIndicator(status: status, failure: true)
-            case .connecting, .connected, .syncStart, .syncComplete:
+            case .connecting, .connected, .syncStart, .syncComplete, .syncProgress:
                 setConnectIndicator(status: status, failure: false)
             case .kickedOffline:
                 break

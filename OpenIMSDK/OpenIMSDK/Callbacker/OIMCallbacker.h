@@ -33,9 +33,9 @@ typedef void (^OIMSimpleResultsCallback)(NSArray <OIMSimpleResultInfo *> * _Null
 
 typedef void (^OIMUserInfoCallback)(OIMUserInfo * _Nullable userInfo);
 typedef void (^OIMUsersInfoCallback)(NSArray <OIMUserInfo *> * _Nullable usersInfo);
-typedef void (^OIMUsersCallback)(NSArray <OIMFullUserInfo *> * _Nullable userInfos);
-typedef void (^OIMFullUserInfoCallback)(OIMFullUserInfo * _Nullable userInfo);
-typedef void (^OIMFullUsersInfoCallback)(NSArray <OIMFullUserInfo *> * _Nullable userInfos);
+typedef void (^OIMUsersCallback)(NSArray <OIMPublicUserInfo *> * _Nullable userInfos);
+typedef void (^OIMPublicUserInfoCallback)(OIMPublicUserInfo * _Nullable userInfo);
+typedef void (^OIMPublicUsersInfoCallback)(NSArray <OIMPublicUserInfo *> * _Nullable userInfos);
 typedef void (^OIMBlacksInfoCallback)(NSArray <OIMBlackInfo *> * _Nullable blackInfos);
 typedef void (^OIMUserStatusInfoCallback)(OIMUserStatusInfo * _Nullable statusInfo);
 typedef void (^OIMUserStatusInfosCallback)(NSArray <OIMUserStatusInfo *> * _Nullable statusInfos);
@@ -104,6 +104,8 @@ typedef void (^OIMInputStatusChangedCallback)(NSArray<NSNumber *> *inputStatesCh
  * Token has expired while online: You need to generate a new UserToken and re-login.
  */
 - (void)onUserTokenExpired;
+
+- (void)onUserTokenInvalid:(NSString *)errMsg;
 
 @end
 
@@ -241,17 +243,19 @@ typedef void (^OIMInputStatusChangedCallback)(NSArray<NSNumber *> *inputStatesCh
 /**
  * Synchronization with the server has started for conversations.
  */
-- (void)onSyncServerStart;
+- (void)onSyncServerStart:(BOOL)reInstall;
+
+- (void)onSyncServerProgress:(NSInteger)progress;
 
 /**
  * Synchronization with the server for conversations has completed.
  */
-- (void)onSyncServerFinish;
+- (void)onSyncServerFinish:(BOOL)reInstall;
 
 /**
  * Synchronization with the server for conversations has failed.
  */
-- (void)onSyncServerFailed;
+- (void)onSyncServerFailed:(BOOL)reInstall;
 
 /**
  * New conversations have been added.
@@ -400,6 +404,7 @@ Open_im_sdk_callbackOnSignalingListener
 @property (nonatomic, nullable, copy) OIMVoidCallback connectSuccess;
 @property (nonatomic, nullable, copy) OIMVoidCallback kickedOffline;
 @property (nonatomic, nullable, copy) OIMVoidCallback userTokenExpired;
+@property (nonatomic, nullable, copy) OIMStringCallback userTokenInvalid;
 
 /**
  * Add IM SDK listener.
@@ -474,9 +479,10 @@ Open_im_sdk_callbackOnSignalingListener
 
 /// Conversation Listener
 /// Set after a successful InitSDK and before Login, called when conversation-related information changes.
-@property (nonatomic, nullable, copy) OIMVoidCallback syncServerStart;
-@property (nonatomic, nullable, copy) OIMVoidCallback syncServerFinish;
-@property (nonatomic, nullable, copy) OIMVoidCallback syncServerFailed;
+@property (nonatomic, nullable, copy) OIMBoolCallback syncServerStart;
+@property (nonatomic, nullable, copy) OIMBoolCallback syncServerFinish;
+@property (nonatomic, nullable, copy) OIMBoolCallback syncServerFailed;
+@property (nonatomic, nullable, copy) OIMNumberCallback syncServerProgress;
 @property (nonatomic, nullable, copy) OIMConversationsInfoCallback onNewConversation;
 @property (nonatomic, nullable, copy) OIMConversationsInfoCallback onConversationChanged;
 @property (nonatomic, nullable, copy) OIMNumberCallback onTotalUnreadMessageCountChanged;

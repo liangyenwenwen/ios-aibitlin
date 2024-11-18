@@ -20,8 +20,8 @@ protocol DataProvider {
     
     func getGroupMembers(userIDs: [String]?, handler: @escaping ([GroupMemberInfo]) -> Void, isAdminHandler: ((Bool) -> Void)?)
     
-    func getUserInfo(otherInfo: ((FullUserInfo) -> Void)?, mine: ((UserInfo) -> Void)?)
-    
+    func getUserInfo(otherInfo: ((PublicUserInfo) -> Void)?, mine: ((UserInfo) -> Void)?)
+
     func isJoinedGroup(groupID: String, handler: @escaping (Bool) -> Void)
 }
 
@@ -166,7 +166,7 @@ final class DefaultDataProvider: DataProvider {
         }
     }
     
-    func getUserInfo(otherInfo: ((FullUserInfo) -> Void)?, mine: ((UserInfo) -> Void)?) {
+    func getUserInfo(otherInfo: ((PublicUserInfo) -> Void)?, mine: ((UserInfo) -> Void)?) {
         if let me = IMController.shared.currentUserRelay.value {
             mine?(me)
         }

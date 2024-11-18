@@ -8,7 +8,7 @@ public struct CallBack {
     public typealias MessagesReturnVoid = ([MessageInfo]) -> Void
     public typealias UserInfoOptionalReturnVoid = (UserInfo?) -> Void
     public typealias UsersInfoOptionalReturnVoid = ([UserInfo]?) -> Void
-    public typealias FullUserInfosReturnVoid = ([FullUserInfo]) -> Void
+    public typealias PublicUserInfosReturnVoid = ([PublicUserInfo]) -> Void
     public typealias GroupInfoOptionalReturnVoid = (GroupInfo?) -> Void
     public typealias GroupInfosReturnVoid = ([GroupInfo]) -> Void
     public typealias GroupSignalingInfoReturnVoid = (Bool, [GroupMemberInfo]) -> Void
@@ -21,4 +21,5 @@ public struct CallBack {
     public typealias ErrorOptionalReturnVoid = (_ errCode: Int, _ errMsg: String?) -> Void
     public typealias UserStatusInfoReturnVoid = ([UserStatusInfo]) -> Void
     public typealias InputStatusChangedReturnVoid = (InputStatusChangedData?) -> Void
+    public typealias FriendsInfosReturnVoid = ([FriendInfo]) -> Void
 }

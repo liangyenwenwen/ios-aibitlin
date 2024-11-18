@@ -27,8 +27,8 @@ public struct ContactInfo: Codable {
 }
 
 extension ContactInfo {
-    public func toSimpleFullUserInfo() -> FullUserInfo {
-        FullUserInfo(userID: ID!, showName: name, faceURL: faceURL)
+    public func toSimpleFullUserInfo() -> PublicUserInfo {
+        PublicUserInfo(userID: ID!, nickname: name, faceURL: faceURL)
     }
 }
 
@@ -764,14 +764,24 @@ extension NotificationElem {
 }
 
 extension GroupMemberInfo {
-    public func toSimpleFullUserInfo() -> FullUserInfo {
-        FullUserInfo(userID: userID!, showName: nickname, faceURL: faceURL)
+    public func toSimplePublicUserInfo() -> PublicUserInfo {
+        PublicUserInfo(userID: userID!, nickname: nickname, faceURL: faceURL)
     }
 }
 
 extension FriendInfo {
     public var showName: String {
         return (remark != nil && remark!.count > 0) ? remark! : (nickname ?? userID!)
+    }
+}
+
+extension PublicUserInfo {
+    public func toFriendInfo() -> FriendInfo {
+        FriendInfo(userID: userID!, nickname: nickname, faceURL: faceURL)
+    }
+    
+    public func toUserInfo() -> UserInfo {
+        UserInfo(userID: userID!, nickname: nickname, faceURL: faceURL)
     }
 }
 

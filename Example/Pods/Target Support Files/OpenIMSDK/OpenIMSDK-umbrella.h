@@ -50,6 +50,7 @@
 #import "OIMSimpleRequstInfo.h"
 #import "OIMSimpleResultInfo.h"
 #import "OIMSoundElem.h"
+#import "OIMUpdateFriendsReq.h"
 #import "OIMUserInfo.h"
 #import "OIMVideoElem.h"
 #import "OIMDefine.h"

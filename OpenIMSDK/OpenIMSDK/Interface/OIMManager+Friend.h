@@ -6,6 +6,7 @@
 //
 
 #import "OIMManager.h"
+#import "OIMUpdateFriendsReq.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -66,7 +67,6 @@ NS_ASSUME_NONNULL_BEGIN
                     ex:(NSString * _Nullable)ex
              onSuccess:(OIMSuccessCallback)onSuccess
              onFailure:(OIMFailureCallback)onFailure;
-
 /**
  * Blacklist
  */
@@ -88,14 +88,22 @@ NS_ASSUME_NONNULL_BEGIN
  * @param usersID List of user IDs
  */
 - (void)getSpecifiedFriendsInfo:(NSArray <NSString *> *)usersID
-                      onSuccess:(nullable OIMFullUsersInfoCallback)onSuccess
+                    filterBlack:(BOOL)filterBlack
+                      onSuccess:(nullable OIMFriendsInfoCallback)onSuccess
                       onFailure:(nullable OIMFailureCallback)onFailure;
 
 /**
  * Get information for all friends
  */
-- (void)getFriendListWithOnSuccess:(nullable OIMFullUsersInfoCallback)onSuccess
+- (void)getFriendListWithFilterBlack:(BOOL)filterBlack
+                           onSuccess:(nullable OIMFriendsInfoCallback)onSuccess
                          onFailure:(nullable OIMFailureCallback)onFailure;
+
+- (void)getFriendListPageWithOffset:(NSInteger)offset
+                              count:(NSInteger)count
+                         filterBlack:(BOOL)filterBlack
+                          onSuccess:(nullable OIMFriendsInfoCallback)onSuccess
+                          onFailure:(nullable OIMFailureCallback)onFailure;
 
 /**
  * Check if there is a friend relationship, i.e., if the user is in the friend list of the logged-in user. Note: Friendship is a two-way relationship.
@@ -138,6 +146,11 @@ NS_ASSUME_NONNULL_BEGIN
                   ex:(NSString *)ex
            onSuccess:(nullable OIMSuccessCallback)onSuccess
            onFailure:(nullable OIMFailureCallback)onFailure;
+
+
+- (void)updateFriends:(OIMUpdateFriendsReq *)req
+            onSuccess:(nullable OIMSuccessCallback)onSuccess
+            onFailure:(nullable OIMFailureCallback)onFailure;
 @end
 
 NS_ASSUME_NONNULL_END

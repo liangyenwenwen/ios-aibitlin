@@ -32,7 +32,7 @@ protocol ChatController {
     func getConversation() -> ConversationInfo
     func getGroupMembers(userIDs: [String]?, memory: Bool, completion: @escaping ([GroupMemberInfo]) -> Void)
     func getGroupInfo(force: Bool, completion: @escaping (GroupInfo) -> Void)
-    func getOtherInfo(completion: @escaping (FullUserInfo) -> Void)
+    func getOtherInfo(completion: @escaping (FriendInfo) -> Void)
     func getSelfInfo() -> UserInfo?
     func getMessageInfo(ids: [String]) -> [MessageInfo]
     func getSelectedMessages() -> [MessageInfo]

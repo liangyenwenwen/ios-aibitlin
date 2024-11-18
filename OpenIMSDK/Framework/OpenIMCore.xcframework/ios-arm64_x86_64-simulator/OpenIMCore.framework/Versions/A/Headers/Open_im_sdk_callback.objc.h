@@ -73,15 +73,17 @@
 - (void)onConnecting;
 - (void)onKickedOffline;
 - (void)onUserTokenExpired;
+- (void)onUserTokenInvalid:(NSString* _Nullable)errMsg;
 @end
 
 @protocol Open_im_sdk_callbackOnConversationListener <NSObject>
 - (void)onConversationChanged:(NSString* _Nullable)conversationList;
 - (void)onConversationUserInputStatusChanged:(NSString* _Nullable)change;
 - (void)onNewConversation:(NSString* _Nullable)conversationList;
-- (void)onSyncServerFailed;
-- (void)onSyncServerFinish;
-- (void)onSyncServerStart;
+- (void)onSyncServerFailed:(BOOL)reinstalled;
+- (void)onSyncServerFinish:(BOOL)reinstalled;
+- (void)onSyncServerProgress:(long)progress;
+- (void)onSyncServerStart:(BOOL)reinstalled;
 - (void)onTotalUnreadMessageCountChanged:(int32_t)totalUnreadCount;
 @end
 
@@ -137,9 +139,21 @@
 @end
 
 @protocol Open_im_sdk_callbackOnListenerForService <NSObject>
+/**
+ * OnFriendApplicationAccepted friend application accepted
+ */
 - (void)onFriendApplicationAccepted:(NSString* _Nullable)groupApplication;
+/**
+ * OnFriendApplicationAdded someone apply to be your friend
+ */
 - (void)onFriendApplicationAdded:(NSString* _Nullable)friendApplication;
+/**
+ * OnGroupApplicationAccepted join group application accepted
+ */
 - (void)onGroupApplicationAccepted:(NSString* _Nullable)groupApplication;
+/**
+ * OnGroupApplicationAdded someone apply to join group
+ */
 - (void)onGroupApplicationAdded:(NSString* _Nullable)groupApplication;
 - (void)onHangUp:(NSString* _Nullable)hangUpCallback;
 - (void)onInvitationCancelled:(NSString* _Nullable)invitationCancelledCallback;
@@ -176,6 +190,9 @@
 
 @protocol Open_im_sdk_callbackOnUserListener <NSObject>
 - (void)onSelfInfoUpdated:(NSString* _Nullable)userInfo;
+- (void)onUserCommandAdd:(NSString* _Nullable)userCommand;
+- (void)onUserCommandDelete:(NSString* _Nullable)userCommand;
+- (void)onUserCommandUpdate:(NSString* _Nullable)userCommand;
 - (void)onUserStatusChanged:(NSString* _Nullable)userOnlineStatus;
 @end
 
@@ -186,13 +203,37 @@
 @end
 
 @protocol Open_im_sdk_callbackUploadFileCallback <NSObject>
+/**
+ * Complete The file upload is complete, providing the final size, URL, and type of the file
+ */
 - (void)complete:(int64_t)size url:(NSString* _Nullable)url typ:(long)typ;
+/**
+ * HashPartComplete All parts have been hashed, providing the combined hash of all parts and the final file hash
+ */
 - (void)hashPartComplete:(NSString* _Nullable)partsHash fileHash:(NSString* _Nullable)fileHash;
+/**
+ * HashPartProgress Progress of hashing each part, including the part index, size, and hash value
+ */
 - (void)hashPartProgress:(long)index size:(int64_t)size partHash:(NSString* _Nullable)partHash;
+/**
+ * Open a file with a given size
+ */
 - (void)open:(int64_t)size;
+/**
+ * PartSize Set the size of each part and the total number of parts
+ */
 - (void)partSize:(int64_t)partSize num:(long)num;
+/**
+ * UploadComplete The entire file upload progress, including the file size, stream size, and storage size
+ */
 - (void)uploadComplete:(int64_t)fileSize streamSize:(int64_t)streamSize storageSize:(int64_t)storageSize;
+/**
+ * UploadID Upload ID is generated and provided
+ */
 - (void)uploadID:(NSString* _Nullable)uploadID;
+/**
+ * UploadPartComplete A specific part has completed uploading, providing the part index, size, and hash value
+ */
 - (void)uploadPartComplete:(long)index partSize:(int64_t)partSize partHash:(NSString* _Nullable)partHash;
 @end
 
@@ -280,6 +321,7 @@
 - (void)onConnecting;
 - (void)onKickedOffline;
 - (void)onUserTokenExpired;
+- (void)onUserTokenInvalid:(NSString* _Nullable)errMsg;
 @end
 
 @interface Open_im_sdk_callbackOnConversationListener : NSObject <goSeqRefInterface, Open_im_sdk_callbackOnConversationListener> {
@@ -290,12 +332,10 @@
 - (void)onConversationChanged:(NSString* _Nullable)conversationList;
 - (void)onConversationUserInputStatusChanged:(NSString* _Nullable)change;
 - (void)onNewConversation:(NSString* _Nullable)conversationList;
-/**
- * OnSyncServerProgress(progress int)
- */
-- (void)onSyncServerFailed;
-- (void)onSyncServerFinish;
-- (void)onSyncServerStart;
+- (void)onSyncServerFailed:(BOOL)reinstalled;
+- (void)onSyncServerFinish:(BOOL)reinstalled;
+- (void)onSyncServerProgress:(long)progress;
+- (void)onSyncServerStart:(BOOL)reinstalled;
 - (void)onTotalUnreadMessageCountChanged:(int32_t)totalUnreadCount;
 @end
 
@@ -434,6 +474,9 @@
 
 - (nonnull instancetype)initWithRef:(_Nonnull id)ref;
 - (void)onSelfInfoUpdated:(NSString* _Nullable)userInfo;
+- (void)onUserCommandAdd:(NSString* _Nullable)userCommand;
+- (void)onUserCommandDelete:(NSString* _Nullable)userCommand;
+- (void)onUserCommandUpdate:(NSString* _Nullable)userCommand;
 - (void)onUserStatusChanged:(NSString* _Nullable)userOnlineStatus;
 @end
 
@@ -452,13 +495,37 @@
 @property(strong, readonly) _Nonnull id _ref;
 
 - (nonnull instancetype)initWithRef:(_Nonnull id)ref;
+/**
+ * Complete The file upload is complete, providing the final size, URL, and type of the file
+ */
 - (void)complete:(int64_t)size url:(NSString* _Nullable)url typ:(long)typ;
+/**
+ * HashPartComplete All parts have been hashed, providing the combined hash of all parts and the final file hash
+ */
 - (void)hashPartComplete:(NSString* _Nullable)partsHash fileHash:(NSString* _Nullable)fileHash;
+/**
+ * HashPartProgress Progress of hashing each part, including the part index, size, and hash value
+ */
 - (void)hashPartProgress:(long)index size:(int64_t)size partHash:(NSString* _Nullable)partHash;
+/**
+ * Open a file with a given size
+ */
 - (void)open:(int64_t)size;
+/**
+ * PartSize Set the size of each part and the total number of parts
+ */
 - (void)partSize:(int64_t)partSize num:(long)num;
+/**
+ * UploadComplete The entire file upload progress, including the file size, stream size, and storage size
+ */
 - (void)uploadComplete:(int64_t)fileSize streamSize:(int64_t)streamSize storageSize:(int64_t)storageSize;
+/**
+ * UploadID Upload ID is generated and provided
+ */
 - (void)uploadID:(NSString* _Nullable)uploadID;
+/**
+ * UploadPartComplete A specific part has completed uploading, providing the part index, size, and hash value
+ */
 - (void)uploadPartComplete:(long)index partSize:(int64_t)partSize partHash:(NSString* _Nullable)partHash;
 @end
 

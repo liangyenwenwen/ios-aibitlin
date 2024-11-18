@@ -40,7 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  * Get multiple conversation lists
- * @param ids   List of conversation IDs
+ * @param conversationIDs   List of conversation IDs
  */
 - (void)getMultipleConversation:(NSArray <NSString *> *)conversationIDs
                        onSuccess:(nullable OIMConversationsInfoCallback)onSuccess
@@ -69,7 +69,7 @@ NS_ASSUME_NONNULL_BEGIN
  * Delete all conversations
  */
 - (void)deleteAllConversationFromLocalWithOnSuccess:(nullable OIMSuccessCallback)onSuccess
-                                          onFailure:(nullable OIMFailureCallback)onFailure __attribute__((deprecated("Use hideConversation instead")));
+                                          onFailure:(nullable OIMFailureCallback)onFailure __attribute__((deprecated("Use hideAllConversations instead")));
 
 /**
  * Set the draft for a conversation
@@ -96,13 +96,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)getTotalUnreadMsgCountWithOnSuccess:(nullable OIMNumberCallback)onSuccess
                                   onFailure:(nullable OIMFailureCallback)onFailure;
-
-/**
- * Get the "do not disturb" status for a conversation
- */
-- (void)getConversationRecvMessageOpt:(NSArray <NSString *> *)conversationIDs
-                            onSuccess:(nullable OIMConversationNotDisturbInfoCallback)onSuccess
-                            onFailure:(nullable OIMFailureCallback)onFailure;
 
 /**
  * Set the "do not disturb" status for a conversation
@@ -142,6 +135,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)hideConversation:(NSString *)conversationID
                onSuccess:(nullable OIMSuccessCallback)onSuccess
                onFailure:(nullable OIMFailureCallback)onFailure;
+
+- (void)hideAllConversationsWithOnSuccess:(OIMSuccessCallback)onSuccess
+                               onFailure:(OIMFailureCallback)onFailure;
 
 /**
  * Clear unread messages
@@ -200,6 +196,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)getInputstates:(NSString *)conversationID
                 userID:(NSString *)userID
              onSuccess:(nullable OIMInputStatusChangedCallback)onSuccess
+             onFailure:(nullable OIMFailureCallback)onFailure;
+
+- (void)setConversation:(NSString *)conversationID
+                userID:(OIMConversationReq *)req
+             onSuccess:(nullable OIMSuccessCallback)onSuccess
              onFailure:(nullable OIMFailureCallback)onFailure;
 @end
 

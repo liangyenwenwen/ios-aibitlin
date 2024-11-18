@@ -99,34 +99,34 @@ PODS:
     - Result (~> 4.1)
   - "NSObject+Rx (5.2.2)":
     - RxSwift (~> 6.2)
-  - OpenIMSDK (3.5.1-e-1.1.4):
+  - OpenIMSDK (3.8.1-e-1.1.9):
     - MJExtension
-    - OpenIMSDK/Callbacker (= 3.5.1-e-1.1.4)
-    - OpenIMSDK/CallbackProxy (= 3.5.1-e-1.1.4)
-    - OpenIMSDK/Interface (= 3.5.1-e-1.1.4)
-    - OpenIMSDK/Model (= 3.5.1-e-1.1.4)
-    - OpenIMSDK/Utils (= 3.5.1-e-1.1.4)
+    - OpenIMSDK/Callbacker (= 3.8.1-e-1.1.9)
+    - OpenIMSDK/CallbackProxy (= 3.8.1-e-1.1.9)
+    - OpenIMSDK/Interface (= 3.8.1-e-1.1.9)
+    - OpenIMSDK/Model (= 3.8.1-e-1.1.9)
+    - OpenIMSDK/Utils (= 3.8.1-e-1.1.9)
     - Reachability
-  - OpenIMSDK/Callbacker (3.5.1-e-1.1.4):
+  - OpenIMSDK/Callbacker (3.8.1-e-1.1.9):
     - MJExtension
     - OpenIMSDK/Model
     - OpenIMSDK/Utils
     - Reachability
-  - OpenIMSDK/CallbackProxy (3.5.1-e-1.1.4):
+  - OpenIMSDK/CallbackProxy (3.8.1-e-1.1.9):
     - MJExtension
     - OpenIMSDK/Utils
     - Reachability
-  - OpenIMSDK/Interface (3.5.1-e-1.1.4):
+  - OpenIMSDK/Interface (3.8.1-e-1.1.9):
     - MJExtension
     - OpenIMSDK/Callbacker
     - OpenIMSDK/CallbackProxy
     - OpenIMSDK/Model
     - Reachability
-  - OpenIMSDK/Model (3.5.1-e-1.1.4):
+  - OpenIMSDK/Model (3.8.1-e-1.1.9):
     - MJExtension
     - OpenIMSDK/Utils
     - Reachability
-  - OpenIMSDK/Utils (3.5.1-e-1.1.4):
+  - OpenIMSDK/Utils (3.8.1-e-1.1.9):
     - MJExtension
     - Reachability
   - OUICalling (0.0.1):
@@ -712,7 +712,7 @@ SPEC CHECKSUMS:
   MMBAlertsPickers: d52d288114c7dad4e4f1282fb2b1f1189ccc117a
   Moya: f4a4b80ff2f8a4ffc208dfb31cd91636622fee6e
   "NSObject+Rx": 61cf1f7306a73dcef8b36649198af0813ec18dfd
-  OpenIMSDK: 6eb7fa1ddd5a585c3988bb683a12f24e9a2f9efe
+  OpenIMSDK: 2a4785d418dd0a2aaf0aaadc02d37f8361506cc5
   OUICalling: bd237be3bf620c82b8d20c80dea9c5543982391e
   OUICore: 1b287e9a7ab2ee02c869689e7a8771abbae4a82b
   OUICoreView: 138ee547a1285df05966960bf0043b72111fd921
