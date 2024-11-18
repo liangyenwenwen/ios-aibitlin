@@ -91,12 +91,12 @@ struct _R: Sendable {
       /// Locales: English, zh-Hans, en, th
       var nsAppleMusicUsageDescription: RswiftResources.StringResource { .init(key: "NSAppleMusicUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "The app requires your consent to access the media library.", comment: nil) }
 
-      /// English translation: If not permitted, you will not be able to use Aibitlin to take photos or videos, and will not be able to use video calls or the Scan QR Code functionality.
+      /// English translation: If not permitted, you won't be able to use video calls, send photos, take profile pictures, capture blog covers, interact with activity, or use the QR scanner in Aibitlin.
       ///
       /// Key: NSCameraUsageDescription
       ///
       /// Locales: English, zh-Hans, en, th
-      var nsCameraUsageDescription: RswiftResources.StringResource { .init(key: "NSCameraUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "If not permitted, you will not be able to use Aibitlin to take photos or videos, and will not be able to use video calls or the Scan QR Code functionality.", comment: nil) }
+      var nsCameraUsageDescription: RswiftResources.StringResource { .init(key: "NSCameraUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "If not permitted, you won't be able to use video calls, send photos, take profile pictures, capture blog covers, interact with activity, or use the QR scanner in Aibitlin.", comment: nil) }
 
       /// English translation: Please click' OK 'to allow access. If not allowed, you will not be able to notify more contacts and friends.
       ///
@@ -140,19 +140,19 @@ struct _R: Sendable {
       /// Locales: English, zh-Hans, en, th
       var nsMicrophoneUsageDescription: RswiftResources.StringResource { .init(key: "NSMicrophoneUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "If not permitted, you will not be able to use Aibitlin to send voice messages or make audio or video calls.", comment: nil) }
 
-      /// English translation: If not allowed, you will be unable to send photos from Camera Roll to friends on Aibitlin.
+      /// English translation: If not allowed, you won't be able to use features in Aibitlin such as sending images in chat, selecting profile pictures from the album, choosing blog covers from the album, or sharing images in activity.
       ///
       /// Key: NSPhotoLibraryAddUsageDescription
       ///
       /// Locales: English, zh-Hans, en, th
-      var nsPhotoLibraryAddUsageDescription: RswiftResources.StringResource { .init(key: "NSPhotoLibraryAddUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "If not allowed, you will be unable to send photos from Camera Roll to friends on Aibitlin.", comment: nil) }
+      var nsPhotoLibraryAddUsageDescription: RswiftResources.StringResource { .init(key: "NSPhotoLibraryAddUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "If not allowed, you won't be able to use features in Aibitlin such as sending images in chat, selecting profile pictures from the album, choosing blog covers from the album, or sharing images in activity.", comment: nil) }
 
-      /// English translation: If not allowed, you will be unable to send photos from Camera Roll to friends on Aibitlin.
+      /// English translation: If not allowed, you won't be able to use features in Aibitlin such as sending images in chat, selecting profile pictures from the album, choosing blog covers from the album, or sharing images in activity.
       ///
       /// Key: NSPhotoLibraryUsageDescription
       ///
       /// Locales: English, zh-Hans, en, th
-      var nsPhotoLibraryUsageDescription: RswiftResources.StringResource { .init(key: "NSPhotoLibraryUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "If not allowed, you will be unable to send photos from Camera Roll to friends on Aibitlin.", comment: nil) }
+      var nsPhotoLibraryUsageDescription: RswiftResources.StringResource { .init(key: "NSPhotoLibraryUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "If not allowed, you won't be able to use features in Aibitlin such as sending images in chat, selecting profile pictures from the album, choosing blog covers from the album, or sharing images in activity.", comment: nil) }
     }
 
     /// This `_R.string.launchScreen` struct is generated, and contains static references to 1 localization keys.
