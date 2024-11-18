@@ -85,12 +85,12 @@ class TabMoreView: UIView {
                 items[i].action()
             }.disposed(by: disposeBag)
             itemView!.addGestureRecognizer(tapItem)
-            if i > 3 && i < items.count - 1{
-                let tap:UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(showMenu(_:)))
-                tap.view?.tag = 1000+i
-                
-                itemView!.addGestureRecognizer(tap)
-            }
+//            if i > 3 && i < items.count - 1{
+//                let tap:UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(showMenu(_:)))
+//                tap.view?.tag = 1000+i
+//                
+//                itemView!.addGestureRecognizer(tap)
+//            }
             
             if itemArr == nil {
                 itemArr = [ItemView]()
