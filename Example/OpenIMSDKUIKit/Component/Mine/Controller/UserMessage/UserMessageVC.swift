@@ -351,7 +351,7 @@ class UserMessageVC: BaseTitleController {
                     guard let self else { return }
                     
                     if let chatUser = users.first {
-                        isFriend = !(chatUser.allowAddFriend == 1 && sdkUser == nil)
+                        isFriend = !(chatUser.allowAddFriend == 1 && sdkUser != nil)
                         
                         if isFriend == false {
                             self.footerBtnView.setStyle(.sendMessageAndAttention)
