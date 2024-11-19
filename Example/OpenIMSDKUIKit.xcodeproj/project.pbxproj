@@ -99,6 +99,7 @@
 		04DA67942CCF2B2100FCA60C /* YFAibitlinHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DA67932CCF2B2100FCA60C /* YFAibitlinHomeView.swift */; };
 		04DB1E3E2CA6B0C000EE8B8C /* YFDateUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DB1E3D2CA6B0C000EE8B8C /* YFDateUtil.swift */; };
 		04ECEC5F2CBD1DC10005495F /* RunTimeAbout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ECEC5E2CBD1DC10005495F /* RunTimeAbout.swift */; };
+		04EFEA402CEB3F22004441CB /* UpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EFEA3F2CEB3F22004441CB /* UpdateView.swift */; };
 		04F1FCEF2CB67E5000080742 /* YFMineQRCodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F1FCEE2CB67E5000080742 /* YFMineQRCodeVC.swift */; };
 		04F2D05F2BEE129A00D5271B /* SuperWebController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F2D05E2BEE129A00D5271B /* SuperWebController.swift */; };
 		04F2D0822BEE21CA00D5271B /* MineMessageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F2D0662BEE21CA00D5271B /* MineMessageVC.swift */; };
@@ -310,6 +311,7 @@
 		04E752E52CBE900200492EF6 /* BroadcastSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BroadcastSetupViewController.swift; sourceTree = "<group>"; };
 		04E752E72CBE900200492EF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04ECEC5E2CBD1DC10005495F /* RunTimeAbout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunTimeAbout.swift; sourceTree = "<group>"; };
+		04EFEA3F2CEB3F22004441CB /* UpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateView.swift; sourceTree = "<group>"; };
 		04F1FCEE2CB67E5000080742 /* YFMineQRCodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFMineQRCodeVC.swift; sourceTree = "<group>"; };
 		04F2D05E2BEE129A00D5271B /* SuperWebController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuperWebController.swift; sourceTree = "<group>"; };
 		04F2D0662BEE21CA00D5271B /* MineMessageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineMessageVC.swift; sourceTree = "<group>"; };
@@ -920,6 +922,14 @@
 			path = ScreenShareBroadcastExtensioSetupUI;
 			sourceTree = "<group>";
 		};
+		04EFEA3E2CEB3EEF004441CB /* AppUpdate */ = {
+			isa = PBXGroup;
+			children = (
+				04EFEA3F2CEB3F22004441CB /* UpdateView.swift */,
+			);
+			path = AppUpdate;
+			sourceTree = "<group>";
+		};
 		04F1FCED2CB67E3600080742 /* QRCode */ = {
 			isa = PBXGroup;
 			children = (
@@ -931,6 +941,7 @@
 		04F2D0622BEE215100D5271B /* Component */ = {
 			isa = PBXGroup;
 			children = (
+				04EFEA3E2CEB3EEF004441CB /* AppUpdate */,
 				045B8BFA2BF4B6D60094E080 /* Chat */,
 				040347782BEF053100C7C4EF /* More */,
 				04F2D0632BEE21CA00D5271B /* Mine */,
@@ -1751,6 +1762,7 @@
 				04F2D08B2BEE21CA00D5271B /* MineBokeEditVC.swift in Sources */,
 				04F2D0882BEE21CA00D5271B /* ChangeMessageVC.swift in Sources */,
 				043A558D2C8166490041836E /* UserTagView.swift in Sources */,
+				04EFEA402CEB3F22004441CB /* UpdateView.swift in Sources */,
 				040D85F02BEB8C0B00DCAAB3 /* BaseTitleController.swift in Sources */,
 				040D85C02BEB8B0400DCAAB3 /* CountDownUtil.swift in Sources */,
 				04D8BF802C8AB00100C1244E /* MineBokeNotificationSettingVC.swift in Sources */,

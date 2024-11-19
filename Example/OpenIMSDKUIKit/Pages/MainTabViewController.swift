@@ -412,7 +412,7 @@ class MainTabViewController: UITabBarController {
             }
             
             updateLanguage(uid: r.userID)
-            //            checkAppVersion(uid:r.userID)
+//            checkAppVersion(uid:r.userID)
             pushBindAlias(true)
             ProgressHUD.dismiss()
             UserDefaults.standard.set("0", forKey: "blogVersion\(Open_im_sdkGetLoginUserID())")
@@ -494,32 +494,16 @@ extension MainTabViewController {
             let appVersion =  UserDefaults.standard.string(forKey: "AppVersion") ?? Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
             let newVersion = data["iosVersion"] as? String
             if appVersion != newVersion{
-                if data["forceUpdate"] as! Int == 1{
-                    //强制升级
-                    UserDefaults.standard.removeObject(forKey: "AppVersion")
-//                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [self] in
-//                        guard let rootViewController = AppDelegate.shared.window?.rootViewController else { return }
-//                        rootViewController.presentNewAlert(title: data["versionDescribe"] as? String, confirmTitle: "立即更新") {
-//                            if let url = URL(string: data["apkUrl"] as! String) {
-//                                UIApplication.shared.open(url)
-//                            }
-//                        }
-//                    }
-                }else{
-                    //普通升级
-                    UserDefaults.standard.set(newVersion, forKey: "AppVersion")
-//                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [self] in
-//                        
-//                        guard let rootViewController = AppDelegate.shared.window?.rootViewController else { return }
-//                        rootViewController.presentNewAlert(title: data["versionDescribe"] as? String, confirmTitle: "立即更新", cancelTitle: "稍后更新") {
-//                            if let url = URL(string: data["apkUrl"] as! String) {
-//                                UIApplication.shared.open(url)
-//                            }
-//                        }
-//                    }
-                }
+                self.updateViewAlert(data: data)
             }
         }
+    }
+    func updateViewAlert(data:[String: Any]){
+        let contentView = UpdateView(versionData: data)
+        contentView.tg_width.equal(.fill)
+        contentView.tg_height.equal(280)
+        
+        GKCover.cover(from: UIApplication.shared.keyWindow, contentView: contentView, style: .translucent, showStyle: .center, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: true)
     }
     
     // MARK: - 张亚飞打的标记 更新语言
