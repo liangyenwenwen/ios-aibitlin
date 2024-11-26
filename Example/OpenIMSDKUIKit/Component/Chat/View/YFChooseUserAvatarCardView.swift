@@ -10,7 +10,7 @@ import Foundation
 import OUICore
 import ProgressHUD
 
-class YFChooseUserAvatarCardView: UIView, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class YFChooseUserAvatarCardView: UIView, UIImagePickerControllerDelegate, UINavigationControllerDelegate, QMUITextFieldDelegate {
     
     var currentIndex: Int = -1
     var bottomHeight = 672
@@ -24,6 +24,11 @@ class YFChooseUserAvatarCardView: UIView, UIImagePickerControllerDelegate, UINav
         let v = UIView()
         v.backgroundColor = .white
         v.clipsToBounds =  true
+        let tap = UITapGestureRecognizer()
+        tap.rx.event.subscribe {  _ in
+            self.userNickNameTF.endEditing(true)
+        }
+        v.addGestureRecognizer(tap)
         return v
     }()
     
@@ -42,7 +47,7 @@ class YFChooseUserAvatarCardView: UIView, UIImagePickerControllerDelegate, UINav
         let r = UILabel()
         r.font = .mediumFont(16)
         r.textColor = .init(hexString: "#388CEF")
-        r.text = "更换头像"
+        r.text = "更换头像".localized()
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(changeAvatar))
         r.isUserInteractionEnabled = true
@@ -50,12 +55,24 @@ class YFChooseUserAvatarCardView: UIView, UIImagePickerControllerDelegate, UINav
         
         return r
     }()
-    
+    lazy var userNickNameTF: QMUITextField = {
+        let r = QMUITextField()
+        r.textInsets = UIEdgeInsets(top: 0, left: PADDING_OUTER, bottom: 0, right: PADDING_OUTER)
+        r.font = .mediumFont(16)
+        r.corner(8)
+        r.delegate = self
+        r.returnKeyType = .done
+        r.clearButtonMode = .always
+        r.backgroundColor = .init(hexString: "#F5F5F5")
+        r.placeholder = "你的名字".localized()
+        r.textColor = .black333
+        return r
+    }()
     lazy var chooseIconTitleLbl: UILabel = {
         let r = UILabel()
         r.textColor = .init(hexString: "#333333")
         r.font = .mediumFont(16)
-        r.text = "选择系统头像"
+        r.text = "选择系统头像".localized()
         return r
     }()
     
@@ -107,6 +124,17 @@ class YFChooseUserAvatarCardView: UIView, UIImagePickerControllerDelegate, UINav
         
         return r
     }()
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        userNickNameTF.endEditing(true)
+        return true
+    }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if isHaveImg , userNickNameTF.text?.isEmpty == false{
+            trueLbl.backgroundColor = .init(hexString: "#388CEF")
+        }else{
+            trueLbl.backgroundColor = .init(hexString: "#eaeaea")
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -125,7 +153,7 @@ class YFChooseUserAvatarCardView: UIView, UIImagePickerControllerDelegate, UINav
         
         bottomView.addSubview(topCameraImg)
         topCameraImg.snp.makeConstraints { make in
-            make.top.equalTo(70)
+            make.top.equalTo(40)
             make.width.height.equalTo(120)
             make.centerX.equalToSuperview()
         }
@@ -136,12 +164,19 @@ class YFChooseUserAvatarCardView: UIView, UIImagePickerControllerDelegate, UINav
             make.height.equalTo(22)
             make.centerX.equalToSuperview()
         }
-        
+        bottomView.addSubview(userNickNameTF)
+        userNickNameTF.snp.makeConstraints { make in
+            make.left.equalTo(16)
+            make.right.equalTo(-16)
+            make.height.equalTo(52)
+            make.top.equalTo(changeIconLbl.snp_bottom).offset(15)
+        }
+
         bottomView.addSubview(chooseIconTitleLbl)
         chooseIconTitleLbl.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.height.equalTo(22)
-            make.top.equalTo(topCameraImg.snp_bottom).offset(92)
+            make.top.equalTo(topCameraImg.snp_bottom).offset(128)
         }
         
         
@@ -342,8 +377,10 @@ extension YFChooseUserAvatarCardView {
     
     func refrehUI() {
         
-        if isHaveImg {
+        if isHaveImg , userNickNameTF.text?.isEmpty == false{
             trueLbl.backgroundColor = .init(hexString: "#388CEF")
+        }else{
+            trueLbl.backgroundColor = .init(hexString: "#eaeaea")
         }
         
         for index in 0...9 {
@@ -358,12 +395,15 @@ extension YFChooseUserAvatarCardView {
         if !isHaveImg {
             return
         }
+        if userNickNameTF.text?.isEmpty == true{
+            return
+        }
         print("保存")
   
         if currentIndex > -1 {
             if let data = picData {
                 ProgressHUD.animate()
-                AccountViewModel.updateUserInfo(userID: IMController.shared.uid, faceURL:data[self.currentIndex]) { errCode, errMsg in
+                AccountViewModel.updateUserInfo(userID: IMController.shared.uid,nickname:userNickNameTF.text, faceURL:data[self.currentIndex]) { errCode, errMsg in
                     ProgressHUD.dismiss()
                     if errCode != 0 {
                         SuperToast.show(title: errMsg)

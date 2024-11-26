@@ -628,6 +628,9 @@ SupportShortNumber = "Support setting a minimum %@-digit account ID";
 
 "1.未下载APP的用户，扫你的二维码可直接下载哎比邻。\n2.未注册用户在登录页面扫你的二维码，免注册即可试用哎比邻，并自动收藏您推荐的博客。" = "1.Users who haven't downloaded the app can scan your QR code to download AIibitlin directly.\n2.Unregistered users can scan your QR code on the login page to try AIibitlin without registering, and it will automatically save your recommended blog.";
 
+"更换头像" = "Change the avatar";
+"你的名字" = "Your Name";
+"选择系统头像" = "Select system avatar";
 "换一批" = "Refresh";
 
 "图片保存成功" = "Image saved successfully";

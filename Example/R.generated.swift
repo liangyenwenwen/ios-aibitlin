@@ -167,7 +167,7 @@ struct _R: Sendable {
       var ieXW0yeText: RswiftResources.StringResource { .init(key: "8ie-xW-0ye.text", tableName: "LaunchScreen", source: source, developmentValue: nil, comment: nil) }
     }
 
-    /// This `_R.string.localizable` struct is generated, and contains static references to 518 localization keys.
+    /// This `_R.string.localizable` struct is generated, and contains static references to 521 localization keys.
     struct localizable {
       let source: RswiftResources.StringResource.Source
 
@@ -1543,6 +1543,13 @@ struct _R: Sendable {
       /// Locales: en, th
       var 会员服务永久有效根据您的需要选择适合您的会员服务: RswiftResources.StringResource { .init(key: "会员服务永久有效，根据您的需要选择适合您的会员服务。", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// en translation: Your Name
+      ///
+      /// Key: 你的名字
+      ///
+      /// Locales: en, th
+      var 你的名字: RswiftResources.StringResource { .init(key: "你的名字", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: Use
       ///
       /// Key: 使用
@@ -2726,6 +2733,13 @@ struct _R: Sendable {
       /// Locales: en, th
       var 更多: RswiftResources.StringResource { .init(key: "更多", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// en translation: Change the avatar
+      ///
+      /// Key: 更换头像
+      ///
+      /// Locales: en, th
+      var 更换头像: RswiftResources.StringResource { .init(key: "更换头像", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: Moments
       ///
       /// Key: 朋友圈
@@ -3614,6 +3628,13 @@ struct _R: Sendable {
       ///
       /// Locales: en, th
       var 选择目标语言: RswiftResources.StringResource { .init(key: "选择目标语言", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Select system avatar
+      ///
+      /// Key: 选择系统头像
+      ///
+      /// Locales: en, th
+      var 选择系统头像: RswiftResources.StringResource { .init(key: "选择系统头像", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Select language
       ///
