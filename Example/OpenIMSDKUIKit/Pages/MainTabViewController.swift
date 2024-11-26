@@ -406,9 +406,8 @@ class MainTabViewController: UITabBarController {
             UserDefaults.standard.synchronize()
             conversationViewController.refreshUserInfo(userInfo: r)
             
-            if r.faceURL == nil || r.faceURL == "" {
+            if r.faceURL == nil || r.faceURL == ""  {
                 userFirstChooseAvatar()
-             
             }
             
             updateLanguage(uid: r.userID)

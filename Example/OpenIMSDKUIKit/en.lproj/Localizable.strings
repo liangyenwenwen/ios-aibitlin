@@ -299,6 +299,9 @@ Toolbox = "Toolbox";
 "I don't have an account" = "";
 "Create a new account" = "Create new account";
 
+"隐私协议和注册协议" = "Privacy Agreement and Registration Agreement";
+"同意并继续" = "Agree and continue";
+"不同意" = "Disagree";
 "我已阅读并同意AIbitlin《注册协议》" =  "I have read and agreed to the Aibitlin Registration Agreement";
 "我已阅读并同意AIbitlin《隐私协议》《注册协议》" =  "I have read and agreed to the Aibitlin Privacy Agreement and Registration Agreement";
 "《隐私协议》" = "Privacy Agreement";
@@ -395,6 +398,7 @@ Toolbox = "Toolbox";
 //登录页面
 "使用手机登录" = "Sign in with Phone";
 "使用邮箱登录" = "Sign in with E-Mail";
+"创建一个新账号" = "Create new account";
 "使用Facebook登录" = "Sign in with Facebook";
 "使用Apple登录" = "Sign in with Apple";
 "使用Google登录" = "Sign in with Google";

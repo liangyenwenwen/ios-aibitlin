@@ -59,8 +59,21 @@ class MineAccountAddSafeVC: BaseTitleController {
     
     
     lazy var changePwdView: SuperSettingView = {
-        let r = SuperSettingView.createSetTitleAddContentView("ChangePassword".localized(), "") { [weak self] data in
-            self?.gotoController(YFMineChangePasswordVC.self)
+//        let r = SuperSettingView.createSetTitleAddContentView("ChangePassword".localized(), "") { [weak self] data in
+//            self?.gotoController(YFMineChangePasswordVC.self)
+//        }
+//        r.isMediumFont()
+//        return r
+        let r = SuperSettingView.createSetTitleAddContentView("重置密码".localized(), "") { [weak self] data in
+            let vc = YFResetPasswordVC()
+            let characterSet = CharacterSet(charactersIn: "0123456789").inverted
+            if AccountViewModel.perLoginAccount?.rangeOfCharacter(from: characterSet, options: .literal, range: nil) == nil{
+                //是手机号
+                vc.isUsePhone = true
+            }else{
+                vc.isUsePhone = false
+            }
+            self?.gotoController(YFResetPasswordVC.self)
         }
         r.isMediumFont()
         return r

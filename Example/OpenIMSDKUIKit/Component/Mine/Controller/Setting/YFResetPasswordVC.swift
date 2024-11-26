@@ -1,39 +1,33 @@
 //
-//  YFRetrievePasswordVC.swift
+//  YFResetPasswordVC.swift
 //  OpenIMSDKUIKit_Example
 //
-//  Created by mac on 2024/10/28.
+//  Created by mac on 2024/11/26.
 //  Copyright © 2024 rentsoft. All rights reserved.
 //
-
 
 import UIKit
 import TangramKit
 import RxSwift
 import RxCocoa
 import ProgressHUD
-
-class YFRetrievePasswordVC: BaseLogicController {
-
-    
+class YFResetPasswordVC:BaseTitleController{
     private var _areaCode = "+86"
     var isUsePhone: Bool = false
-    
     override func initViews() {
+        
         super.initViews()
         setBackGroundColor(.colorBackgroundAPP)
         initLinearLayoutSafeArea()
-    
-        superHeaderContainerContainer.addSubview(chooseHeader)
-        
+        title = "重置密码".localized()
         container.tg_padding = UIEdgeInsets(top: PADDING_MEDDLE, left: PADDING_OUTER, bottom: PADDING_MEDDLE, right: PADDING_OUTER)
         container.tg_space = PADDING_OUTER
         
         container.addSubview(sectionLbl)
         container.addSubview(topContentView)
-        container.addSubview(codeTipLbl)
-        
-
+        if isUsePhone == false{
+            container.addSubview(codeTipLbl)
+        }
         container.addSubview(ViewFactoryUtil.sectionTilteLbael("EnterTheNewPassword".localized()))
         container.addSubview(newPwdContentView)
         container.addSubview(pwdTipLbl)
@@ -41,10 +35,8 @@ class YFRetrievePasswordVC: BaseLogicController {
         
         container.addSubview(nextBtn)
         
-        refreshUI()
         bindData()
     }
-    
     override func bindData() {
         
       
@@ -62,43 +54,8 @@ class YFRetrievePasswordVC: BaseLogicController {
  
        
     }
-    
-    func refreshUI() {
-        
-        if isUsePhone {
-            sectionLbl.text = "请验证你的手机号".localized()
-            phoneView.show()
-            emailView.hide()
-            codeTipLbl.hide()
-
-        } else {
-            sectionLbl.text = "请验证你的邮箱".localized()
-            phoneView.hide()
-            emailView.show()
-            codeTipLbl.show()
-        }
-        getCodeView.textView.text = ""
-        
-     
-    }
-    lazy var chooseHeader: YFAibitlinHomeChooseHeaderView = {
-        let r = YFAibitlinHomeChooseHeaderView(headerType: .findPwd)
-        r.tg_width.equal(.fill)
-        r.tg_height.equal(52)
-        r.refreshUI()
-        r.back = { [weak self] in
-            self?.navigationController?.popViewController()
-        }
-        r.changeTypeClick =  { [weak self] currentIndex in
-            self?.isUsePhone = currentIndex == 1
-            self?.refreshUI()
-        }
-        return r
-    }()
-    
-    
     lazy var sectionLbl: UILabel = {
-        let r = ViewFactoryUtil.sectionTilteLbael("请验证你的手机号")
+        let r = ViewFactoryUtil.sectionTilteLbael(isUsePhone == true ? "请验证你的手机号".localized():"请验证你的邮箱".localized())
         r.textColor = .black666
         r.font = .mediumFont(14)
         return r
@@ -112,8 +69,12 @@ class YFRetrievePasswordVC: BaseLogicController {
         r.tg_space = 1
         r.corner(MEDDLE_RADIUS)
         r.backgroundColor = .white
-        r.addSubview(emailView)
-        r.addSubview(phoneView)
+        if isUsePhone == true{
+            r.addSubview(phoneView)
+        }else{
+            r.addSubview(emailView)
+        }
+        
         r.addSubview(ViewFactoryUtil.smallDivider())
         r.addSubview(getCodeView)
         
@@ -229,7 +190,7 @@ class YFRetrievePasswordVC: BaseLogicController {
             if errCode == 0, let `self` = self {
 //                        ProgressHUD.success("changed".localized() + "success".localized())
                 SuperToast.show(title: "changed".localized() + "success".localized())
-                self.navigationController?.popToRootViewController(animated: true)
+                self.navigationController?.popViewController(animated: true)
             } else {
 //                        ProgressHUD.error(String(errCode).localized())
                 SuperToast.show(title: String(errCode).localized())
@@ -241,7 +202,7 @@ class YFRetrievePasswordVC: BaseLogicController {
     
 }
 
-extension YFRetrievePasswordVC {
+extension YFResetPasswordVC {
     
     @objc func changePhoneArea()  {
         let alert = UIAlertController(style: .actionSheet, title: "")
@@ -316,5 +277,3 @@ extension YFRetrievePasswordVC {
     }
     
 }
-
-

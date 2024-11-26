@@ -20,8 +20,9 @@ import GTSDK
 class YFNewRegisterVC: BaseLogicController {
     /// 使用邮箱 或者手机号
     var useType: MyStyle = .useEmail
-    
-    private var _areaCode = "+86"
+    var phoneStr = ""
+    var emailStr = ""
+    var _areaCode = "+86"
 
     override func initViews() {
         super.initViews()
@@ -40,14 +41,17 @@ class YFNewRegisterVC: BaseLogicController {
         container.addSubview(phoneView)
         container.addSubview(codeView)
         container.addSubview(codeTipLbl)
-        container.addSubview(pwdView)
-        container.addSubview(pwdTipLbl)
-        container.addSubview(rePwdView)
-        container.addSubview(nicknameView)
         container.addSubview(registerBtn)
-
         
         bindData()
+        if useType == .usePhone{
+            chooseHeader.currentIndex = 1
+            chooseHeader.refreshUI()
+            phoneView.show()
+            emailView.hide()
+            codeTipLbl.hide()
+            registerBtn.tg_top.equal(codeView.tg_bottom, offset: 30)
+        }
     }
 
     lazy var chooseHeader: YFAibitlinHomeChooseHeaderView = {
@@ -65,7 +69,7 @@ class YFNewRegisterVC: BaseLogicController {
                 self?.phoneView.hide()
                 self?.emailView.show()
                 self?.codeTipLbl.show()
-                self?.pwdView.tg_top.equal(self?.codeTipLbl.tg_bottom, offset: 10)
+                self?.registerBtn.tg_top.equal(self?.codeTipLbl.tg_bottom, offset: 20)
                 self?.view.layoutIfNeeded()
             } else {
                 self?.useType = .usePhone
@@ -73,15 +77,11 @@ class YFNewRegisterVC: BaseLogicController {
                 self?.phoneView.show()
                 self?.emailView.hide()
                 self?.codeTipLbl.hide()
-                self?.pwdView.tg_top.equal(self?.codeTipLbl.tg_top, offset: 10)
+                self?.registerBtn.tg_top.equal(self?.codeView.tg_bottom, offset: 30)
                 self?.view.layoutIfNeeded()
             }
             
             self?.codeView.textView.text = ""
-            self?.pwdView.textView.text = ""
-            self?.rePwdView.textView.text = ""
-            self?.nicknameView.textView.text = ""
-    
         }
         return r
     }()
@@ -100,6 +100,7 @@ class YFNewRegisterVC: BaseLogicController {
         r.tg_top.equal(appTitleLbl.tg_bottom, offset: 36)
         r.tg_width.equal(.fill)
         r.phoneCodeLbl.text = _areaCode
+        r.textFieldView.text = phoneStr
         r.hide()
         r.changePhoneEmail(true)
         let tap = UITapGestureRecognizer(target: self, action: #selector(changePhoneArea))
@@ -111,6 +112,7 @@ class YFNewRegisterVC: BaseLogicController {
         r.loginUI()
         r.tg_top.equal(appTitleLbl.tg_bottom, offset: 36)
         r.tg_width.equal(.fill)
+        r.textFieldView.text = emailStr
         r.changePhoneEmail(false)
         return r
     }()
@@ -132,46 +134,10 @@ class YFNewRegisterVC: BaseLogicController {
         r.numberOfLines = 0
         return r
     }()
-    lazy var pwdView: SuperSettingView = {
-        let r = SuperSettingView.createInput("password".localized())
-        r.loginUI()
-        r.tg_top.equal(codeTipLbl.tg_bottom, offset: 10)
-        r.tg_width.equal(.fill)
-        r.isPwd()
-        return r
-    }()
-    
-   
-    
-    lazy var pwdTipLbl: UILabel = {
-        let r = ViewFactoryUtil.sectionTilteLbael()
-        r.text = "loginPwdFormat".localized()
-        r.tg_top.equal(pwdView.tg_bottom).offset(10)
-        return r
-    }()
-    
-    lazy var rePwdView: SuperSettingView = {
-        let r = SuperSettingView.createInput("EnterAgain".localized())
-        r.loginUI()
-        r.tg_top.equal(pwdView.tg_bottom, offset: 20)
-        r.tg_width.equal(.fill)
-        r.isPwd()
-        return r
-    }()
-    
-    lazy var nicknameView: SuperSettingView = {
-        let r = SuperSettingView.createInput("你的名字".localized())
-        r.loginUI()
-        r.tg_top.equal(rePwdView.tg_bottom, offset: 20)
-        r.tg_width.equal(.fill)
-        r.isUserName()
-        return r
-    }()
-    
     lazy var registerBtn: QMUIButton = {
         let r = ViewFactoryUtil.primaryHalfFilletButton()
         r.setTitle("注册".localized(), for: .normal)
-        r.tg_top.equal(nicknameView.tg_bottom, offset: 40)
+        r.tg_top.equal(codeTipLbl.tg_bottom, offset: 20)
         r.addTarget(self, action: #selector(register), for: .touchUpInside)
         return r
     }()
@@ -184,11 +150,11 @@ class YFNewRegisterVC: BaseLogicController {
     }
     
     override func bindData() {
-        Observable.combineLatest(emailView.textFieldView.rx.text.orEmpty,phoneView.textFieldView.rx.text.orEmpty, codeView.textFieldView.rx.text.orEmpty, pwdView.textFieldView.rx.text.orEmpty, rePwdView.textFieldView.rx.text.orEmpty, nicknameView.textFieldView.rx.text.orEmpty) {
+        Observable.combineLatest(emailView.textFieldView.rx.text.orEmpty,phoneView.textFieldView.rx.text.orEmpty, codeView.textFieldView.rx.text.orEmpty) {
             if self.useType == .usePhone {
-                $0.count >= 0 && $1.count > 0 && $2.count > 0 && $3.count > 0 && $4.count > 0 && $5.count > 0
+                $0.count >= 0 && $1.count > 0 && $2.count > 0
             }else{
-                $0.count > 0 && $1.count >= 0 && $2.count > 0 && $3.count > 0 && $4.count > 0 && $5.count > 0
+                $0.count > 0 && $1.count >= 0 && $2.count > 0
             }
             
         }
@@ -196,29 +162,6 @@ class YFNewRegisterVC: BaseLogicController {
         .disposed(by: rx.disposeBag)
         
         
-        pwdView.textFieldView.rx.text.orEmpty
-            .subscribe(onNext:{ [weak self] in
-                print("ttt",$0)
-                self?.refresUIAboutPwdTips($0)
-            })
-            .disposed(by: rx.disposeBag)
-        
-    }
-    
-    func refresUIAboutPwdTips(_ pwd:String?) {
-        var show = !(pwd?.validatePassword() ?? false)
-        if pwd?.count == 0 {
-            show = false
-        }
-        if show {
-            self.pwdTipLbl.show()
-            self.rePwdView.tg_top.equal(self.pwdTipLbl.tg_bottom, offset: 10)
-        } else {
-            self.pwdTipLbl.hide()
-            self.rePwdView.tg_top.equal(pwdView.tg_bottom, offset: 20)
-           
-        }
-        view.layoutIfNeeded()
     }
     deinit {
         //保证定时器释放
@@ -319,18 +262,6 @@ extension YFNewRegisterVC {
 
     
     @objc func register() {
-
-        if !pwdView.textFieldView.text!.validatePassword() {
-//            ProgressHUD.error("plsEnterRightX".localizedFormat("password".localized()))
-            SuperToast.show(title: "plsEnterRightX".localizedFormat("password".localized()))
-            return
-        }
-        
-        if pwdView.inputText != rePwdView.inputText {
-            print(pwdView.inputText, rePwdView.inputText)
-            SuperToast.show(title: "twicePwdNoSame".localized())
-            return
-        }
         toComplate()
     }
     
@@ -355,20 +286,14 @@ extension YFNewRegisterVC {
     /// 完成注册
     func toComplate() {
         view.endEditing(true)
-        
-        guard let name = nicknameView.inputText?.trimmingCharacters(in: .whitespacesAndNewlines), !name.isEmpty else {
-//            ProgressHUD.error("plsEnterYourX".localizedFormat("nickname".localized()))
-            SuperToast.show(title: "plsEnterYourX".localizedFormat("nickname".localized()))
-            return
-        }
         ProgressHUD.animate()
         let tabController = UIApplication.shared.keyWindow?.rootViewController as? MainTabViewController
         AccountViewModel.registerAccount(phone: useType == .usePhone ? phone : nil,
                                          areaCode: _areaCode,
                                          verificationCode: codeView.inputText!,
-                                         password: pwdView.inputText!,
+                                         password: "",
                                          faceURL: "",
-                                         nickName: name,
+                                         nickName: "",
                                          email: useType == .useEmail ? email : nil,
                                          invitationCode: "",
                                          registerType:useType == .usePhone ? 1 : 2)

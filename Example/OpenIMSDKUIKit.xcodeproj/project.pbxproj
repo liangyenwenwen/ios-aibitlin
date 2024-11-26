@@ -79,6 +79,8 @@
 		049D30222CC1F5DB00649DC4 /* YFNetworkStatusUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049D30212CC1F5DB00649DC4 /* YFNetworkStatusUtil.swift */; };
 		049D30252CC2032800649DC4 /* YFNotNetTopTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049D30242CC2032800649DC4 /* YFNotNetTopTipView.swift */; };
 		04A4BD002BF32F17008FA224 /* YFMineChangePasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A4BCFF2BF32F17008FA224 /* YFMineChangePasswordVC.swift */; };
+		04B09E332CF5A1F800ABF926 /* YFAibitlinAgreementAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B09E322CF5A1F800ABF926 /* YFAibitlinAgreementAlert.swift */; };
+		04B09E352CF5BE5C00ABF926 /* YFResetPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B09E342CF5BE5C00ABF926 /* YFResetPasswordVC.swift */; };
 		04C394412CCF85A500181F6B /* YFPhoneLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C394402CCF85A500181F6B /* YFPhoneLoginVC.swift */; };
 		04C394432CCF874300181F6B /* YFAibitlinHomeChooseHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C394422CCF874300181F6B /* YFAibitlinHomeChooseHeaderView.swift */; };
 		04C394452CCFADF500181F6B /* YFEmailLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C394442CCFADF500181F6B /* YFEmailLoginVC.swift */; };
@@ -278,6 +280,8 @@
 		04ACD8762CBE90B400EFE179 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04ACD87F2CBE90B400EFE179 /* BroadcastSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BroadcastSetupViewController.swift; sourceTree = "<group>"; };
 		04ACD8812CBE90B400EFE179 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		04B09E322CF5A1F800ABF926 /* YFAibitlinAgreementAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFAibitlinAgreementAlert.swift; sourceTree = "<group>"; };
+		04B09E342CF5BE5C00ABF926 /* YFResetPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFResetPasswordVC.swift; sourceTree = "<group>"; };
 		04B266452CC7C472004AF09F /* SampleHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleHandler.swift; sourceTree = "<group>"; };
 		04B266472CC7C472004AF09F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04B266502CC7C472004AF09F /* BroadcastSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BroadcastSetupViewController.swift; sourceTree = "<group>"; };
@@ -900,6 +904,7 @@
 			children = (
 				04DA67932CCF2B2100FCA60C /* YFAibitlinHomeView.swift */,
 				04C394422CCF874300181F6B /* YFAibitlinHomeChooseHeaderView.swift */,
+				04B09E322CF5A1F800ABF926 /* YFAibitlinAgreementAlert.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1018,6 +1023,7 @@
 			children = (
 				04F2D0712BEE21CA00D5271B /* MineSettingVC.swift */,
 				04F2D0722BEE21CA00D5271B /* MineAccountAddSafeVC.swift */,
+				04B09E342CF5BE5C00ABF926 /* YFResetPasswordVC.swift */,
 				0418B57A2BF21EF000108808 /* YFMineUserPrivateVC.swift */,
 				04A4BCFF2BF32F17008FA224 /* YFMineChangePasswordVC.swift */,
 			);
@@ -1714,6 +1720,7 @@
 				1790EE7A2921EAFC00C4024A /* MainTabViewController.swift in Sources */,
 				04F2D08A2BEE21CA00D5271B /* MineAccountAddSafeVC.swift in Sources */,
 				17620CE42A4D1E5200B74C96 /* String+Extension.swift in Sources */,
+				04B09E332CF5A1F800ABF926 /* YFAibitlinAgreementAlert.swift in Sources */,
 				04D45E832CA250390052F05A /* AccountViewModelEx.swift in Sources */,
 				04D8BF822C8AD0AA00C1244E /* MineBokeVisitorListCell.swift in Sources */,
 				040D85C32BEB8B0400DCAAB3 /* ParamUtil.swift in Sources */,
@@ -1745,6 +1752,7 @@
 				040D85B12BEB89CB00DCAAB3 /* DefaultService.swift in Sources */,
 				04F2D0912BEE21CA00D5271B /* UserMessageContactView.swift in Sources */,
 				040D86082BEB8C4200DCAAB3 /* SuperNSObjectExtension.swift in Sources */,
+				04B09E352CF5BE5C00ABF926 /* YFResetPasswordVC.swift in Sources */,
 				045B8BFD2BF4B7070094E080 /* YFChatBokeBottomSheetView.swift in Sources */,
 				04F2D0922BEE21CA00D5271B /* MineDeleteAccountReasonBottomSheetView.swift in Sources */,
 				040D85E72BEB8C0B00DCAAB3 /* BaseTableViewCell.swift in Sources */,

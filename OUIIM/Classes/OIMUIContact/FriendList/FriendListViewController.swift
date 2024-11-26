@@ -144,7 +144,6 @@ open class FriendListViewController: UIViewController {
         headerView.newGroupView.bindData(item: data[1])
         headerView.groupView.bindData(item: data[2])
         
-        headerView.chooseView.firstLbl.text = "MyFriend".localized()
     }
     
 //    override func viewDidAppear(_ animated: Bool) {
@@ -258,7 +257,7 @@ open class FriendListViewController: UIViewController {
     lazy var headerView: listTableHeader = {
         
 //        let r = listTableHeader(frame: CGRectMake(0, 0, UIScreen.main.bounds.width, 252+68))
-        let r = listTableHeader(frame: CGRectMake(0, 0, UIScreen.main.bounds.width, 221+68))
+        let r = listTableHeader(frame: CGRectMake(0, 0, UIScreen.main.bounds.width, 177+68+15))
         r.addFriendView.bindData(item: listTableHeader.MenuItem(title: "添加好友".innerLocalized(), icon: UIImage(named: "friend_list_add_friend_icon")))
         r.addGroupChatView.bindData(item: listTableHeader.MenuItem(title: "添加群聊".innerLocalized(), icon: UIImage(named: "friend_list_add_group_chat_icon")))
         r.creatGroupChatView.bindData(item: listTableHeader.MenuItem(title: "创建群聊".innerLocalized(), icon: UIImage(named: "friend_list_creat_group_chat_icon")))
@@ -499,43 +498,26 @@ class listTableHeader: UIView {
         backgroundColor = .white
         let width = (UIScreen.main.bounds.size.width - 16*2 - 8*3)/4
 
-        addSubview(addFriendView)
-        addSubview(addGroupChatView)
-        addSubview(creatGroupChatView)
-        addSubview(videoMettingView)
+        
         addSubview(newFriendView)
         addSubview(groupView)
         addSubview(newGroupView)
 //        addSubview(searchView)
-        addSubview(chooseView)
+        addSubview(addFriendView)
+        addSubview(addGroupChatView)
+        addSubview(creatGroupChatView)
+        addSubview(videoMettingView)
 //        searchView.snp.makeConstraints { make in
 //            make.leading.trailing.equalToSuperview().inset(16.w)
 //            make.top.equalTo(4)
 //            make.height.equalTo(34)
 //        }
         
-        addFriendView.snp.makeConstraints { make in
-            make.left.equalTo(16)
-            make.width.equalTo(width)
-            make.height.equalTo(58)
-            make.top.equalTo(0)
-        }
-        addGroupChatView.snp.makeConstraints { make in
-            make.left.equalTo(addFriendView.snp_right).offset(8)
-            make.width.height.top.equalTo(addFriendView)
-        }
-        creatGroupChatView.snp.makeConstraints { make in
-            make.left.equalTo(addGroupChatView.snp_right).offset(8)
-            make.width.height.top.equalTo(addFriendView)
-        }
-        videoMettingView.snp.makeConstraints { make in
-            make.left.equalTo(creatGroupChatView.snp_right).offset(8)
-            make.width.height.top.equalTo(addFriendView)
-        }
+        
         newFriendView.snp.makeConstraints { make in
             make.left.right.equalToSuperview()
             make.height.equalTo(59)
-            make.top.equalTo(addFriendView.snp_bottom).offset(10)
+            make.top.equalTo(0)
         }
         
         newGroupView.snp.makeConstraints { make in
@@ -549,14 +531,24 @@ class listTableHeader: UIView {
             make.top.equalTo(newGroupView.snp_bottom)
             make.height.equalTo(59)
         }
-        
-        chooseView.snp.makeConstraints { make in
-            make.top.equalTo(groupView.snp_bottom)
-            make.left.right.equalToSuperview()
-            make.height.equalTo(44)
+        addFriendView.snp.makeConstraints { make in
+            make.left.equalTo(16)
+            make.width.equalTo(width)
+            make.height.equalTo(58)
+            make.top.equalTo(groupView.snp_bottom).offset(10)
         }
-        
-        
+        addGroupChatView.snp.makeConstraints { make in
+            make.left.equalTo(addFriendView.snp_right).offset(8)
+            make.width.height.top.equalTo(addFriendView)
+        }
+        creatGroupChatView.snp.makeConstraints { make in
+            make.left.equalTo(addGroupChatView.snp_right).offset(8)
+            make.width.height.top.equalTo(addFriendView)
+        }
+        videoMettingView.snp.makeConstraints { make in
+            make.left.equalTo(creatGroupChatView.snp_right).offset(8)
+            make.width.height.top.equalTo(addFriendView)
+        }
     }
     
     
@@ -675,14 +667,6 @@ class listTableHeader: UIView {
         r.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer(target: self, action: #selector(chooseTopView(_:)))
         r.addGestureRecognizer(tap)
-        return r
-    }()
-    
-    lazy var chooseView: ChooseView = {
-        let r = ChooseView()
-        r.lblClick = { [weak self] index in
-            self?.lblClick(index)
-        }
         return r
     }()
     
@@ -856,84 +840,6 @@ class listTableHeader: UIView {
             }
         }
         
-        
-    }
-    
-    class ChooseView: UIView {
-        
-        var index = 0
-        var lblClick: ((Int) -> Void)!
-        
-        var firstLbl: UILabel!
-        
-        override init(frame: CGRect) {
-            super.init(frame: frame)
-            
-//            let Arr = ["MyFriend".localized(), "MeFollow".localized(), "FollowMe".localized()]
-            let Arr = ["MyFriend".localized()]
-            let lblWidth = UIScreen.main.bounds.width / 4
-            var lastLbl : UILabel? = nil
-            for index  in  0..<Arr.count {
-                let r = UILabel()
-                if (index == 0) {
-                    firstLbl = r
-                }
-                r.text = Arr[index]
-                r.font = index == 0 ? UIFont(name: "PingFangSC-Medium", size: 18) : UIFont(name: "PingFangSC-Medium", size: 14)
-                r.textColor = index == 0 ?  UIColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1) : UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
-                r.textAlignment = .center
-                r.tag = 2000 + index
-                addSubview(r)
-                
-                if index != 0 {
-                    lastLbl = viewWithTag(1999 + index) as? UILabel
-                }
-                
-                if index == 0 {
-                    r.snp.makeConstraints { make in
-                        make.left.equalTo(16)
-                        make.top.bottom.equalTo(0)
-                    }
-                } else {
-                    r.snp.makeConstraints { make in
-                        make.left.equalTo(lastLbl!.snp_right).offset(35)
-                        make.top.bottom.equalTo(0)
-                    }
-                }
-                
-                
-//                r.snp.makeConstraints { make in
-//                    make.left.equalTo(lblWidth * CGFloat(index) + 16)
-//                    make.top.bottom.equalTo(0)
-//                    make.width.equalTo(lblWidth)
-//                }
-                
-                let tap = UITapGestureRecognizer(target: self, action: #selector(changeChooseLbl(sender:)))
-                r.addGestureRecognizer(tap)
-                r.isUserInteractionEnabled = true
-            }
-            
-        }
-        
-        @available(*, unavailable)
-        required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-        
-        
-        @objc func changeChooseLbl(sender: UITapGestureRecognizer) {
-//            let count = sender.view!.tag - 2000
-//            refreshUI(count)
-//            lblClick(count)
-        }
-        
-        func refreshUI(_ currentIndex: Int) {
-            for index  in  0...2 {
-                let r = viewWithTag(index + 2000) as! UILabel
-                r.font = index == currentIndex ? UIFont(name: "PingFangSC-Medium", size: 18) : UIFont(name: "PingFangSC-Medium", size: 14)
-                r.textColor = index == currentIndex ?  UIColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1) : UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
-            }
-        }
         
     }
 }

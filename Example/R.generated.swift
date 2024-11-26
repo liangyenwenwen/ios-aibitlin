@@ -167,7 +167,7 @@ struct _R: Sendable {
       var ieXW0yeText: RswiftResources.StringResource { .init(key: "8ie-xW-0ye.text", tableName: "LaunchScreen", source: source, developmentValue: nil, comment: nil) }
     }
 
-    /// This `_R.string.localizable` struct is generated, and contains static references to 514 localization keys.
+    /// This `_R.string.localizable` struct is generated, and contains static references to 518 localization keys.
     struct localizable {
       let source: RswiftResources.StringResource.Source
 
@@ -1466,6 +1466,13 @@ struct _R: Sendable {
       /// Locales: en, th
       var 下一步: RswiftResources.StringResource { .init(key: "下一步", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// en translation: Disagree
+      ///
+      /// Key: 不同意
+      ///
+      /// Locales: en, th
+      var 不同意: RswiftResources.StringResource { .init(key: "不同意", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: Report
       ///
       /// Key: 举报
@@ -1732,6 +1739,13 @@ struct _R: Sendable {
       /// Locales: en, th
       var 分享给好友: RswiftResources.StringResource { .init(key: "分享给好友", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// en translation: Create new account
+      ///
+      /// Key: 创建一个新账号
+      ///
+      /// Locales: en, th
+      var 创建一个新账号: RswiftResources.StringResource { .init(key: "创建一个新账号", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: Create Group
       ///
       /// Key: 创建群聊
@@ -1899,6 +1913,13 @@ struct _R: Sendable {
       ///
       /// Locales: en, th
       var 可访问: RswiftResources.StringResource { .init(key: "可访问", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Agree and continue
+      ///
+      /// Key: 同意并继续
+      ///
+      /// Locales: en, th
+      var 同意并继续: RswiftResources.StringResource { .init(key: "同意并继续", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Name
       ///
@@ -3692,6 +3713,13 @@ struct _R: Sendable {
       /// Locales: en, th
       var 陌生人访客: RswiftResources.StringResource { .init(key: "陌生人访客", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// en translation: Privacy Agreement and Registration Agreement
+      ///
+      /// Key: 隐私协议和注册协议
+      ///
+      /// Locales: en, th
+      var 隐私协议和注册协议: RswiftResources.StringResource { .init(key: "隐私协议和注册协议", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: Need to send verification information
       ///
       /// Key: 需要发送验证信息
@@ -3787,7 +3815,7 @@ struct _R: Sendable {
     var colorBackground: RswiftResources.ColorResource { .init(name: "ColorBackground", path: [], bundle: bundle) }
   }
 
-  /// This `_R.image` struct is generated, and contains static references to 247 images.
+  /// This `_R.image` struct is generated, and contains static references to 248 images.
   struct image {
     let bundle: Foundation.Bundle
 
@@ -4354,6 +4382,9 @@ struct _R: Sendable {
 
     /// Image `login_type_qq`.
     var login_type_qq: RswiftResources.ImageResource { .init(name: "login_type_qq", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `login_type_register`.
+    var login_type_register: RswiftResources.ImageResource { .init(name: "login_type_register", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
     /// Image `login_type_scan`.
     var login_type_scan: RswiftResources.ImageResource { .init(name: "login_type_scan", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }

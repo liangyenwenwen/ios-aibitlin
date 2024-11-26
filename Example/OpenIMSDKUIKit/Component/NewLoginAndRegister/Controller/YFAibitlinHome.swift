@@ -17,7 +17,7 @@ class YFAibitlinHome: BaseLogicController {
 //    var loginArr: [HomeLoginType] = [.phone, .email, .facebook, .apple, .google, .sacnCode]
 //    var chinaArr: [HomeLoginType] = [.phone, .email, .apple, .sacnCode]
 //    var isChina: Bool = false
-    var loginArr: [HomeLoginType] = [.email,.phone]
+    var loginArr: [HomeLoginType] = [.email,.phone,.register]
     var facebookView:YFAibitlinHomeLoginTypeView?
     var googleView:YFAibitlinHomeLoginTypeView?
     
@@ -37,7 +37,22 @@ class YFAibitlinHome: BaseLogicController {
             let typeView = YFAibitlinHomeLoginTypeView.bulidWith(loginType: type)
             typeView.tag = 10000 + index
             typeView.selectBlock = { [weak self] type in
-                self?.loginTypeDidSelect(loginType: type)
+                if self?.chooseDelegateBtn.isSelected == false {
+                    
+                    let alertView = YFAibitlinAgreementAlert()
+                    alertView.tg_width.equal(.fill)
+                    alertView.tg_height.equal(.wrap)
+//                    alertView.tg_centerY.equal(0)
+                    alertView.tg_height.equal(230)
+                    alertView.currentVC = self
+                    alertView.agreementBlock = {
+                        self?.chooseDelegate(self!.chooseDelegateBtn)
+                        self?.loginTypeDidSelect(loginType: type)
+                    }
+                    GKCover.cover(from: self?.view, contentView: alertView, style: .translucent, showStyle: .center, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
+                }else{
+                    self?.loginTypeDidSelect(loginType: type)
+                }
             }
             
             if type == .google {
@@ -61,7 +76,7 @@ class YFAibitlinHome: BaseLogicController {
 //        lineView.tg_top.equal(10)
 //        container.addSubview(lineView)
         
-        container.addSubview(registerAndFindwordView)
+        container.addSubview(forgotButton)
         
         superFooterContainerContainer.tg_padding = UIEdgeInsets(top: 0, left: PADDING_LARGE_HOME, bottom: 0, right: PADDING_LARGE_HOME)
         superFooterContainerContainer.addSubview(delegateView)
@@ -86,11 +101,13 @@ class YFAibitlinHome: BaseLogicController {
     lazy var tipLbl: UILabel = {
         let r = UILabel()
         r.text = "登录你的账号、与全球用户无障碍聊天。".localized()
+        r.numberOfLines = 0
         r.textColor = .init(hexString: "#999999")
         r.font = .mediumFont(14)
         r.tg_top.equal(10)
         r.tg_bottom.equal(40)
-        r.tg_centerX.equal(0)
+        r.tg_left.equal(27)
+        r.tg_right.equal(-27)
         r.tg_width.equal(.wrap)
         r.tg_height.equal(.wrap)
         return r
@@ -105,27 +122,11 @@ class YFAibitlinHome: BaseLogicController {
         return r
     }()
     
-    lazy var registerAndFindwordView: TGLinearLayout = {
-        let r = TGLinearLayout(.horz)
-        r.tg_width.equal(.fill)
-        r.tg_height.equal(.wrap)
-        r.tg_gravity = .between
-        r.addSubview(registerBtn)
-        r.addSubview(forgotButton)
-        return r
-    }()
-    
-    lazy var registerBtn: QMUIButton = {
-        let r = ViewFactoryUtil.linkButton("Create a new account".localized())
-        r.setTitleColor(.primaryColor, for: .normal)
-        r.addTarget(self, action: #selector(gotoRegister), for: .touchUpInside)
-        return r
-    }()
-    
     // MARK: - 张亚飞打的标记 添加找回密码
     lazy var forgotButton: UIButton = {
         
         let r = ViewFactoryUtil.linkButton("忘记密码".localized())
+        r.tg_right.equal(0)
         r.setTitleColor(.primaryColor, for: .normal)
         r.rx.tap.subscribe(onNext: { [unowned self] _ in
             toForgotPassword()
@@ -223,6 +224,9 @@ class YFAibitlinHome: BaseLogicController {
         r.setImage(R.image.check()!, for: .normal)
         r.tg_top.equal(-5)
         r.addTarget(self, action: #selector(chooseDelegate(_:)), for: .touchUpInside)
+//        r.isSelected = UserDefaults.standard.string(forKey: "AppAgreementSelectStatus") as Bool ?? false
+        r.isSelected = UserDefaults.standard.bool(forKey: "AppAgreementSelectStatus")
+
         return r
     }()
     
@@ -232,6 +236,7 @@ extension YFAibitlinHome {
     
     @objc func chooseDelegate(_ btn: QMUIButton)  {
         btn.isSelected = !btn.isSelected
+        UserDefaults.standard.set(btn.isSelected, forKey: "AppAgreementSelectStatus")
     }
     
     func loginTypeDidSelect(loginType: HomeLoginType) {
@@ -241,6 +246,8 @@ extension YFAibitlinHome {
             phoneLoginAction()
         case .email:
             emailLoginAction()
+        case .register:
+            registerAction()
         default:
             SuperToast.show(title: "开发中".localized())
         }
@@ -257,38 +264,24 @@ extension YFAibitlinHome {
 //            thridView.hide()
 //        }
 //    }
-    
-    @objc func gotoRegister() {
-        if !chooseDelegateBtn.isSelected {
-            SuperToast.show(title: "请勾选协议".localized())
-            return
-        }
-        let vc = YFNewRegisterVC()
-        gotoController(vc)
-    }
-    
     func phoneLoginAction() {
-        if !chooseDelegateBtn.isSelected {
-            SuperToast.show(title: "请勾选协议".localized())
-            return
-        }
         gotoController(YFPhoneLoginVC.self)
     }
     
     func emailLoginAction() {
-        if !chooseDelegateBtn.isSelected {
-            SuperToast.show(title: "请勾选协议".localized())
-            return
-        }
         gotoController(YFEmailLoginVC.self)
     }
     
     func toForgotPassword() {
-//        if !chooseDelegateBtn.isSelected {
-//            SuperToast.show(title: "请勾选协议".localized())
-//            return
-//        }
         gotoController(YFRetrievePasswordVC.self)
+    }
+    func registerAction(){
+        let vc = YFNewRegisterVC()
+        vc.useType = .usePhone
+        self.navigationController?.pushViewController(vc, animated: true)
+//        gotoController(vc)
+//        
+//        gotoController(YFNewRegisterVC.self)
     }
     
 }
