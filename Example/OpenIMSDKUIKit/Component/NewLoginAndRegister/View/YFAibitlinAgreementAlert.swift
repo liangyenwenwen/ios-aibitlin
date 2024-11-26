@@ -54,7 +54,7 @@ class YFAibitlinAgreementAlert: TGRelativeLayout {
         r.tg_top.equal(titleLabel.tg_bottom, offset: 14)
         r.tg_width.equal(.fill)
         r.tg_height.equal(.wrap)
-        r.textAlignment = .left
+        r.textAlignment = .center
         r.numberOfLines = 0
         r.isUserInteractionEnabled = true
         

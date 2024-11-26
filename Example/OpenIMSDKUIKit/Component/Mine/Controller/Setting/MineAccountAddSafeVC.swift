@@ -73,7 +73,8 @@ class MineAccountAddSafeVC: BaseTitleController {
             }else{
                 vc.isUsePhone = false
             }
-            self?.gotoController(YFResetPasswordVC.self)
+            self?.navigationController?.pushViewController(vc, animated: true)
+//            self?.gotoController(YFResetPasswordVC.self)
         }
         r.isMediumFont()
         return r

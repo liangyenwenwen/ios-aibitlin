@@ -114,6 +114,7 @@ class YFNewRegisterVC: BaseLogicController {
         r.tg_width.equal(.fill)
         r.textFieldView.text = emailStr
         r.changePhoneEmail(false)
+        r.titleView.hide()
         return r
     }()
 
@@ -125,6 +126,7 @@ class YFNewRegisterVC: BaseLogicController {
         r.tg_width.equal(.fill)
         r.codeBtn.addTarget(self, action: #selector(sendClick(_:)), for: .touchUpInside)
         r.isCode()
+        r.titleView.hide()
         return r
     }()
     lazy var codeTipLbl: UILabel = {
