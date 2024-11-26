@@ -21,7 +21,7 @@ open class AccountViewModel {
     // 业务服务器地址
     static let API_BASE_URL = UserDefaults.standard.string(forKey: bussinessSeverAddrKey)!
     static let ADMIN_BASE_URL = UserDefaults.standard.string(forKey: adminSeverAddrKey)!
-    
+    static let API_BOB_URL = "http://192.168.7.128:18729"
    
     // 实际开发，抽离网络部分
     static let IMPreLoginAccountKey = "IMPreLoginAccountKey"
@@ -55,7 +55,14 @@ open class AccountViewModel {
     private static let DeleteAccountWithPhoneAPI = "/user/phone_cancel"
     private static let DeleteAccountWithEmailAPI = "/user/mail_cancel"
 
-
+    private static let getMineHomeWalletAPI = "/wallet/myHomePage/queryMyAssets"
+    private static var httpHeaders : HTTPHeaders = [
+        "token":UserDefaults.standard.string(forKey: "bussinessTokenKey")!,
+        "X-Forwarded-For":IMController.shared.publicIP,
+        "Authorization":"eyJ1c2VySW5mbyI6InVzZXJCbG9nWWFuWmhlbmdUb2tlbiJ9",
+        "Content-Type":"application/json",
+        "operationID":String(Int(Date().timeIntervalSince1970)),
+    ]
 
 
     
@@ -654,6 +661,36 @@ open class AccountViewModel {
 
     // 配置
     static var clientConfig: ClientConfigData?
+    //获取用户钱包信息
+    static func queryUserWalletInfo(userId: String,
+                              valueHandler: @escaping (MineWalletMoneyData) -> Void,
+                              completionHandler: @escaping CompletionHandler)
+    {
+        if !NetworkStatus.isReacheable {
+            //            SuperToast.show(title: "")
+            return
+        }
+        let param = ["userId": userId]
+        let url = SuperStringUtil.netUrl(API_BOB_URL + getMineHomeWalletAPI, param)
+//        let url = API_BOB_URL + getMineHomeWalletAPI
+        Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
+            if let data = dataRequest.data {
+                let strData = String.init(data: data, encoding: String.Encoding.utf8)
+                print(strData!)
+                if let res = JsonTool.fromJson(strData!, toClass: RealNameInfoResponse<MineWalletMoneyData>.self) {
+                    if res.code == 20000  {
+                        valueHandler(res.data)
+                    } else {
+                        completionHandler(res.code, res.message)
+                    }
+                } else {
+                    completionHandler(-1, "failure")
+                }
+            } else {
+                completionHandler(-1, "failure")
+            }
+        }
+    }
 }
 
 class Request: Encodable {
@@ -892,4 +929,18 @@ struct DemoError: Error, Decodable {
         return "code: \(errCode), msg: \(msg)"
     }
 }
-
+class MineWalletMoneyData: Codable {
+    let totalAssets: Double? //我的总资产
+    let certificationLevel: Int? //用户实名认证等级 0:未认证 1:初级认证 2:高级认证
+    let quantityOfMoneyPOS:[QuantityOfMoneyPOS]? //钱包资产
+}
+class QuantityOfMoneyPOS: Codable {
+    var logoAddr: String? //币种icon
+    var currency: String? //币种
+    var officialExchangeRate: Double? //汇率
+    var quantityOfMoney: Double? //货币数量,保留两位小数
+    var equivalentToRMB: Double? //折合人民币,约等于
+//    func toMap() -> [String: Any] {
+//        return JsonTool.toMap(fromObject: self)
+//    }
+}

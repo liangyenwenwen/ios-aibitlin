@@ -12,6 +12,8 @@ public enum PadItemType: CaseIterable {
     case boke
     case videoCall
     case voiceCall
+    case redPacket
+    case transferAccounts
 
     var name: String {
         switch self {
@@ -33,7 +35,12 @@ public enum PadItemType: CaseIterable {
             return "语音通话".localized()
         case .videoCall:
             return "视频通话".localized()
+        case .redPacket:
+            return "红包".localized()
+        case .transferAccounts:
+            return "转账".localized()
         }
+    
     }
 
     var image: UIImage? {
@@ -58,6 +65,10 @@ public enum PadItemType: CaseIterable {
             imageName = "inputbar_pad_video_icon"
         case .voiceCall:
             imageName = "inputbar_pad_voice_icon"
+        case .redPacket:
+            imageName = "inputbar_pad_red_packet_icon"
+        case .transferAccounts:
+            imageName = "inputbar_pad_transfer_accounts_packet_icon"
             
         }
         return UIImage(named: imageName)
@@ -88,7 +99,7 @@ class InputPadView: UIView {
     private let itemsPerRow = 4
     // MARK: - 张亚飞打的标记  第一步修改下方按钮  聊天功能下面展示内容
 //    private let items: [PadItemType] = PadItemType.allCases
-    private let items: [PadItemType] = [.camera, .album, .videoCall, .voiceCall, .card, .boke, .file]
+    private let items: [PadItemType] = [.camera, .album, .videoCall, .voiceCall,.redPacket,.transferAccounts, .card, .file]
     
     private lazy var collectionView: UICollectionView = {
         

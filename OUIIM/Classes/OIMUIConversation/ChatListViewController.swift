@@ -84,51 +84,9 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
         }
         r.searchView.btnClickBlock = { [weak self] in
             guard let self else { return }
-//            let popover = PopoverTableViewController(items: createMenuItems())
-//            popover.topInset = 0
-//            popover.show(in: self, sender: _headerView.searchView.rightImg, permittedArrowDirections: [])
-            let vc = ScanViewController()
-            vc.scanDidComplete = { [weak self] (result: String) in
-                if result.contains(IMController.addFriendPrefix) {
-//                    self?.navigationController?.popViewController(animated: false)
-//
-//                    let uid = result.replacingOccurrences(of: IMController.addFriendPrefix, with: "")
-//                    let vc = UserDetailTableViewController(userId: uid, groupId: nil)
-//                    vc.hidesBottomBarWhenPushed = true
-//                    self?.navigationController?.pushViewController(vc, animated: true)
-                    
-                    self?.navigationController?.popViewController(animated: false)
-                    let uid = result.replacingOccurrences(of: IMController.addFriendPrefix, with: "")
-                    if let handler = OIMApi.gotoUserMessageHandle {
-                        handler(self!, uid, "", "",{res in
-
-                        })
-                    }
-                } else if result.contains(IMController.joinGroupPrefix) {
-                    self?.navigationController?.popViewController(animated: false)
-
-                    let groupID = result.replacingOccurrences(of: IMController.joinGroupPrefix, with: "")
-                    let vc = GroupDetailViewController(groupId: groupID)
-                    vc.hidesBottomBarWhenPushed = true
-                    self?.navigationController?.pushViewController(vc, animated: true)
-                } else {
-//                    ProgressHUD.error("unrecognized".innerLocalized())
-                    
-                    ProgressHUD.dismiss()
-                    
-                    if let handler = OIMApi.showTipHandle {
-                                    
-                        handler("unrecognized".innerLocalized(), { res in
-                           
-                        })
-                    }
-                    
-                    self?.navigationController?.popViewController(animated: true)
-                }
-            }
-            vc.hidesBottomBarWhenPushed = true
-            self.navigationController?.pushViewController(vc, animated: true)
-            
+            let popover = PopoverTableViewController(items: createMenuItems())
+            popover.topInset = 0
+            popover.show(in: self, sender: _headerView.searchView.rightImg, permittedArrowDirections: [])
         }
         return r
     }()
@@ -223,13 +181,6 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
             let vc = ScanViewController()
             vc.scanDidComplete = { [weak self] (result: String) in
                 if result.contains(IMController.addFriendPrefix) {
-//                    self?.navigationController?.popViewController(animated: false)
-//
-//                    let uid = result.replacingOccurrences(of: IMController.addFriendPrefix, with: "")
-//                    let vc = UserDetailTableViewController(userId: uid, groupId: nil)
-//                    vc.hidesBottomBarWhenPushed = true
-//                    self?.navigationController?.pushViewController(vc, animated: true)
-                    
                     self?.navigationController?.popViewController(animated: false)
                     let uid = result.replacingOccurrences(of: IMController.addFriendPrefix, with: "")
                     if let handler = OIMApi.gotoUserMessageHandle {
@@ -246,10 +197,6 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
                     vc.hidesBottomBarWhenPushed = true
                     self?.navigationController?.pushViewController(vc, animated: true)
                 } else {
-//                    ProgressHUD.error("unrecognized".innerLocalized())
-                    
-//                    ProgressHUD.dismiss()
-                    
                     if let handler = OIMApi.showTipHandle {
                                     
                         handler("unrecognized".innerLocalized(), { res in
@@ -262,28 +209,23 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
             vc.hidesBottomBarWhenPushed = true
             self?.navigationController?.pushViewController(vc, animated: true)
         }
-        let addFriendItem = PopoverTableViewController.MenuItem(title: "搜索联系人".localized(), icon: UIImage(named: "chat_menu_add_friend_icon")) { [weak self] in
-            let vc = SearchFriendIndexViewController()
+        let addFriendItem = PopoverTableViewController.MenuItem(title: "添加好友".innerLocalized(), icon: UIImage(named: "chat_menu_add_friend_icon")) { [weak self] in
+            let vc = SearchFriendViewController()
             vc.hidesBottomBarWhenPushed = true
-            vc.title = "搜索联系人".localized()
             self?.navigationController?.pushViewController(vc, animated: true)
             vc.didSelectedItem = { [weak self] id in
-//                let vc = UserDetailTableViewController(userId: id, groupId: nil)
-//                self?.navigationController?.pushViewController(vc, animated: true)
-                
                 if let handler = OIMApi.gotoUserMessageHandle {
-                                    handler(self!, id, "", "",{res in
+                    handler(self!, id, "", "",{res in
 
-                                    })
-                                }
+                    })
+                }
             }
         }
 
-        let addGroupItem = PopoverTableViewController.MenuItem(title: "搜索群聊".localized(), icon: UIImage(named: "chat_menu_add_group_icon")) { [weak self] in
-            let vc = SearchGroupIndexViewController()
+        let addGroupItem = PopoverTableViewController.MenuItem(title: "添加群聊".innerLocalized(), icon: UIImage(named: "chat_menu_add_group_icon")) { [weak self] in
+            let vc = SearchGroupViewController()
             vc.hidesBottomBarWhenPushed = true
             self?.navigationController?.pushViewController(vc, animated: true)
-            vc.title = "搜索群聊".localized()
             vc.didSelectedItem = { [weak self] id in
                 let vc = GroupDetailViewController(groupId: id)
                 self?.navigationController?.pushViewController(vc, animated: true)
@@ -291,56 +233,9 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
         }
         
         let createGroupItem = PopoverTableViewController.MenuItem(title: "创建群聊".localized(), icon: UIImage(named: "chat_menu_create_group_icon")) { [weak self] in
-            let vc = SelectContactsViewController()
-            vc.title = "创建群聊".localized()
-            vc.selectedContact(hasSelected: []) { [weak vc, weak self] (_, r: [ContactInfo]) in
-                guard let sself = self else { return }
-                let users = r.map {UserInfo(userID: $0.ID!, nickname: $0.name, faceURL: $0.faceURL)}
-                let vc = NewGroupViewController(users: users, groupType: .normal)
-                self?.navigationController?.pushViewController(vc, animated: true)
-            }
-            vc.hidesBottomBarWhenPushed = true
-            self?.navigationController?.pushViewController(vc, animated: true)
+            self?.creatGroupChat(groupType: .working)
         }
-        
-        let createWorkGroupItem = PopoverTableViewController.MenuItem(title: "创建大群".innerLocalized(), icon: UIImage(named: "chat_menu_create_work_group_icon")) { [weak self] in
-            #if ENABLE_ORGANIZATION
-            let vc = MyContactsViewController(types: [.friends, .staff], multipleSelected: true)
-            #else
-            let vc = MyContactsViewController(types: [.friends], multipleSelected: true, enableChangeSelectedModel: true)
-            #endif
-            vc.title = "创建大群".innerLocalized()
-            vc.selectedContact(blocked: [IMController.shared.uid]) { [weak self] (r: [ContactInfo]) in
-                guard let sself = self else { return }
-                
-                let users = r.map {UserInfo(userID: $0.ID!, nickname: $0.name, faceURL: $0.faceURL)}
-                
-                if users.count > 1 {
-                    let vc = NewGroupViewController(users: users, groupType: .working)
-                    self?.navigationController?.pushViewController(vc, animated: true)
-                } else {
-                    guard let userID = users.first?.userID else { return }
-                    ProgressHUD.animate()
-                    sself._viewModel.createSingleChat(userID: userID) { [sself] conversation in
-                        ProgressHUD.dismiss()
-                        sself.toChat(conversation: conversation)
-                    }
-                }
-            }
-            vc.hidesBottomBarWhenPushed = true
-            self?.navigationController?.pushViewController(vc, animated: true)
-        }
-        var items = [scanItem, addFriendItem, addGroupItem, createWorkGroupItem]
-        
-#if ENABLE_LIVE_ROOM
-        let meetingItem = PopoverTableViewController.MenuItem(title: "视频会议".innerLocalized(), icon: UIImage(named: "chat_menu_create_live_room_icon")) { [weak self] in
-            let vc = LiveRecordsViewController()
-            vc.hidesBottomBarWhenPushed = true
-            self?.navigationController?.pushViewController(vc, animated: true)
-        }
-        items.append(meetingItem)
-#endif
-        return items
+        return [scanItem, addFriendItem, addGroupItem, createGroupItem]
     }
     
     private let _disposeBag = DisposeBag()
@@ -407,6 +302,44 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
         let vc = ChatViewControllerBuilder().build(conversation, hiddenInputBar: conversation.conversationType == .notification)
         vc.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(vc, animated: true)
+    }
+    private func creatGroupChat(groupType: GroupType = .normal) {
+        
+#if ENABLE_ORGANIZATION
+        let vc = MyContactsViewController(types: [.friends, .staff], multipleSelected: true)
+#else
+        let vc = MyContactsViewController(types: [.friends], multipleSelected: true, enableChangeSelectedModel: true)
+#endif
+        vc.selectedContact(blocked: [IMController.shared.uid]) { [weak self] (r: [ContactInfo]) in
+            guard let self else { return }
+            
+            let users = r.map {UserInfo(userID: $0.ID!, nickname: $0.name, faceURL: $0.faceURL)}
+            
+            if users.count > 1 {
+                let vc = NewGroupViewController(users: users, groupType: .working)
+                navigationController?.pushViewController(vc, animated: true)
+            } else {
+                guard let userID = users.first?.userID else { return }
+                ProgressHUD.animate()
+                createSingleChat(userID: userID) { [self] c in
+                    ProgressHUD.dismiss()
+                    let vc = ChatViewControllerBuilder().build(c, hiddenInputBar: c.conversationType == .notification)
+                    vc.hidesBottomBarWhenPushed = true
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+            }
+        }
+        vc.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    private func createSingleChat(userID: String, onComplete: @escaping (ConversationInfo) -> Void) {
+        
+        IMController.shared.getConversation(sessionType: .c2c, sourceId: userID) { [weak self] (conversation: ConversationInfo?) in
+            guard let conversation else { return }
+            
+            onComplete(conversation)
+        }
     }
 
     private func bindData() {

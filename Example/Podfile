@@ -42,6 +42,8 @@ pod "Kingfisher"
 pod 'SwifterSwift'
 pod 'MJRefresh'
 pod "SwiftEventBus"
+
+pod 'JXSegmentedView'
 #富文本框架
 pod "BSText"
 

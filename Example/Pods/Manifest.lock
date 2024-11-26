@@ -569,6 +569,7 @@ DEPENDENCIES:
   - InputBarAccessoryView (from `../3rd`)
   - IQKeyboardManagerSwift
   - ISEmojiView (from `../3rd`)
+  - JXSegmentedView
   - Kingfisher
   - Localize-Swift (~> 3.2)
   - MBProgressHUD
@@ -742,6 +743,6 @@ SPEC CHECKSUMS:
   ZLPhotoBrowser: cd023607d05a72d27a3ae57f50dbf86910713a2c
   ZXSDK-Noidfa: f3cc8e4b6b4775df301489ae0792b727e193e7d3
 
-PODFILE CHECKSUM: 40d79580c60ddf80e78836d1118d67dd758d4099
+PODFILE CHECKSUM: 6fe2d55a46f446bd4fc2d740a83eecdfcfd0ae2c
 
 COCOAPODS: 1.15.2

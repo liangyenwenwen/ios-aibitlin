@@ -117,12 +117,7 @@ class MainTabViewController: UITabBarController {
         controllers.append(mineNav)
         mineNavigationController = mineNav
         
-        
-        let moreNav = UINavigationController.init(rootViewController: UIViewController())
-        moreNav.tabBarItem.image = UIImage.init(named: "TabMoreSelected_0")?.withRenderingMode(.alwaysOriginal)
-        moreNav.tabBarItem.selectedImage = UIImage.init(named: "TabMoreSelected_1")?.withRenderingMode(.alwaysOriginal)
-        controllers.append(moreNav)
-        
+                
         
         self.viewControllers = controllers
         self.tabBar.isTranslucent = false
@@ -205,7 +200,7 @@ class MainTabViewController: UITabBarController {
     @objc
     private func setText() {
         
-        let Arr = ["消息".localized(), "通话记录".localized(), "通讯录".localized(), "我的".localized(),  "快捷".localized()]
+        let Arr = ["消息".localized(), "通话记录".localized(), "通讯录".localized(), "我的".localized()]
         
         for (index, element) in Arr.enumerated() {
             
@@ -412,6 +407,7 @@ class MainTabViewController: UITabBarController {
             }
             
             updateLanguage(uid: r.userID)
+            initWallet(uid: r.userID)
             //            checkAppVersion(uid:r.userID)
             pushBindAlias(true)
             ProgressHUD.dismiss()
@@ -431,64 +427,15 @@ class MainTabViewController: UITabBarController {
             bind ? GeTuiSdk.bindAlias(userID, andSequenceNum: "im") : GeTuiSdk.unbindAlias(userID, andSequenceNum: "im", andIsSelf: true)
         }
     }
-    
-    
-    
-//    private lazy var _photoHelper: PhotoHelper = {
-//        let v = PhotoHelper()
-//        v.setConfigToPickAvatar()
-//        v.didPhotoSelected = { [weak self] (images: [UIImage], _: [PHAsset]) in
-//            guard var first = images.first else { return }
-//            ProgressHUD.animate()
-//            first = first.compress(expectSize: 20 * 1024)
-//            let result = FileHelper.shared.saveImage(image: first)
-//            
-//            if result.isSuccess {
-//                self?._viewModel.uploadFile(fullPath: result.fullPath, onProgress: { [weak self] progress in
-//
-//                }, onComplete: { [weak self] code, msg in
-//                    if code == 0 {
-//                        self?._YFChooseUserAvatarCardView.bottomShow(show: false)
-//                        ProgressHUD.dismiss()
-//                    } else {
-//                        ProgressHUD.error(msg)
-//                    }
-//                })
-//            } else {
-//                ProgressHUD.dismiss()
-//            }
-//        }
-//        
-//        v.didCameraFinished = { [weak self] (photo: UIImage?, _: URL?) in
-//            guard let sself = self else { return }
-//            if var photo {
-//                ProgressHUD.animate()
-//                
-//                photo = photo.compress(expectSize: 20 * 1024)
-//                let result = FileHelper.shared.saveImage(image: photo)
-//                if result.isSuccess {
-//                    self?._viewModel.uploadFile(fullPath: result.fullPath, onProgress: { [weak self] progress in
-//
-//                    }, onComplete: { [weak self] code, msg in
-//                        if code == 0 {
-//                            self?._YFChooseUserAvatarCardView.bottomShow(show: false)
-//                            ProgressHUD.dismiss()
-//                        } else {
-//                            ProgressHUD.error(msg)
-//                        }
-//                    })
-//                }
-//            }
-//        }
-//        return v
-//    }()
-//    
-    
-    
 }
 
 extension MainTabViewController {
-    
+    //初始化钱包
+    func initWallet(uid: String){
+        BoBRealNameModel.InitWalletRequest(userId: uid){ errCode, errMsg in
+        }
+    }
+    //检查更新
     func checkAppVersion(uid: String){
         YFMineNetViewModel.checkAppVersion(uid: uid) { data in
             let appVersion =  UserDefaults.standard.string(forKey: "AppVersion") ?? Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
@@ -566,34 +513,6 @@ extension MainTabViewController {
         }
         r.bottomShow(show: true)
     }
-    
-    
-//    @objc func changeAvatar() {
-        
-//        if let currentController = findController() {
-//            currentController.presentSelectedPictureActionSheet { [weak self] in
-//                guard let self else { return }
-//                _photoHelper.presentPhotoLibrary(byController: currentController)
-//            } cameraHandler: {[weak self] in
-//                guard let self else { return }
-//                _photoHelper.presentCamera(byController: currentController)
-//            }
-//        }
-        
-//        presentSelectedPictureActionSheet { [weak self] in
-//            guard let self else { return }
-//            _photoHelper.presentPhotoLibrary(byController: self)
-//        } cameraHandler: {[weak self] in
-//            guard let self else { return }
-//            _photoHelper.presentCamera(byController: self)
-//        }
-        
-//    }
-    
-    
-    
-    
-
 }
 
 
@@ -601,187 +520,26 @@ extension MainTabViewController: UITabBarControllerDelegate {
     
     
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+
+        let currentTabBarItemTag = tabBarController.selectedIndex
         
-//        if viewController == viewControllers?[2] {
-//            tabBar.backgroundColor = .black183
-//            let appearance = tabBar.standardAppearance.copy()
-//            appearance.backgroundImage = UIImage.getImageAboutColor(color: .clear)
-//            appearance.shadowImage = UIImage.getImageAboutColor(color: .clear)
-//            tabBar.standardAppearance = appearance
-//        } else  {
-//            tabBar.backgroundColor = .white
-//        }
-        
-        
-        
-        if viewController == viewControllers?[4] {
-            
-            if !view.subviews.contains(_moreView) {
-                
-                showMoreView()
-                
-               
-            } else {
-                _moreView.bottomShow(show: false)
+        if currentTabBarItemTag == lastTabBarItemTag {
+            let currentTime = Date()
+            if let lastSelectedTime = lastTabBarItemSelectedTime,
+               currentTime.timeIntervalSince(lastSelectedTime) < 0.3 {
+                conversationViewController.scrollToUnreadItem()
             }
-            
-            return false
-            
-        } else {
-            
-            let currentTabBarItemTag = tabBarController.selectedIndex
-            
-            if currentTabBarItemTag == lastTabBarItemTag {
-                let currentTime = Date()
-                if let lastSelectedTime = lastTabBarItemSelectedTime,
-                   currentTime.timeIntervalSince(lastSelectedTime) < 0.3 {
-                    conversationViewController.scrollToUnreadItem()
-                }
-            }
-            
-            lastTabBarItemTag = currentTabBarItemTag
-            lastTabBarItemSelectedTime = Date()
-            
-            if let nav = viewController as? UINavigationController, nav.topViewController is ChatListViewController {
-                conversationViewController.tapTab = true
-            }
-            
-            _moreView.bottomShow(show: false)
-            return true
         }
+        
+        lastTabBarItemTag = currentTabBarItemTag
+        lastTabBarItemSelectedTime = Date()
+        
+        if let nav = viewController as? UINavigationController, nav.topViewController is ChatListViewController {
+            conversationViewController.tapTab = true
+        }
+        return true
 
     }
-    
-    
-    func moreTabItemDidSelect(index: Int) {
-        let item = _moreView.actionItems[index]
-        print(item.title)
-        
-        //tab 没有nav 要用当前Controller的nav 去跳转
-        let currentVC = self.viewControllers?[self.selectedIndex] as! NavigationController
-        _moreView.bottomShow(show: false, 0)
-        if(index == 0) {
-            let vc = YFFeedbackVC()
-            vc.reportType = .feedback
-            vc.hidesBottomBarWhenPushed = true
-            /// 要隐藏nav 不然两个nav
-            currentVC.setNavigationBarHidden(false, animated: true)
-            currentVC.pushViewController(vc)
-            
-            return
-        }
-        
-        if(index == 1) {
-            let vc = YFTranslateVC()
-            vc.hidesBottomBarWhenPushed = true
-            currentVC.setNavigationBarHidden(false, animated: true)
-            currentVC.pushViewController(vc)
-            
-            return
-        }
-        
-        if(index == 2) {
-            let vc = BlockedListViewController()
-            vc.hidesBottomBarWhenPushed = true
-//            currentVC.setNavigationBarHidden(false, animated: true)
-            currentVC.pushViewController(vc)
-            
-            return
-        }
-        
-        if(index == 3) {
-            
-            let vc = MomentsViewController()
-            vc.hidesBottomBarWhenPushed = true
-            currentVC.setNavigationBarHidden(false, animated: true)
-            currentVC.pushViewController(vc)
-            
-            return
-        }
-        
-//        if (index == 4) {
-//           
-//        }
-        
-        let arr = YFFileDataUtil.readDataToFile(.home)
-        
-        if (index > 3 && index < 4 + arr.count) {
-            
-            
-            SuperWebController.startAboubBlog(currentVC, blogItem: arr[index - 4], isRoot: true)
-        } else {
-            showBlogSheet()
-        }
-        
-    }
-    
-    
-    
-    func showBlogSheet() {
-        let contentView = YFChatBokeBottomSheetView()
-        contentView.showAll = true
-        contentView.isRemoveTableMoreData = true
-        contentView.tg_width.equal(.fill)
-        contentView.tg_height.equal(350)
-        contentView.hideSheetView = {
-            GKCover.hide()
-        }
-        contentView.chooseBoke = { [weak self] item in
-            
-            YFFileDataUtil.saveOneDataToFile(.home, blogItem: item)
-            GKCover.hide()
-            self?.showMoreView()
-        }
-        GKCover.cover(from: self.view.window, contentView: contentView, style: .translucent, showStyle: .bottom, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
-    }
-    
-    
-    func showMoreView() {
-        view.addSubview(_moreView)
-        _moreView.snp.makeConstraints { make in
-            make.top.trailing.leading.equalToSuperview()
-            make.bottom.equalToSuperview().offset(-getTabBarHeight())
-        }
-            
-
-        var items = [TabMoreView.MenuItem]()
-
-        
-        var listArrr:[MoreTabItem] = [MoreTabItem(image: "tool_feedback_icon", title: "反馈".localized()),
-                                      MoreTabItem(image: "tool_translate_icon", title: "翻译".localized()),
-                                      MoreTabItem(image: "tool_black_list_icon", title: "黑名单".localized()),
-                                      MoreTabItem(image: "tool_moments_icon", title: "动态".localized())]
-        
-        for item in YFFileDataUtil.readDataToFile(.home) {
-            let moreItem =  MoreTabItem(image: item.myBlogShowBlogPO.userBlogIcon ?? "", title: item.myBlogShowBlogPO.userBlogName ?? "")
-            listArrr.append(moreItem)
-        }
-        
-        listArrr.append(MoreTabItem(image: "tool_more_icon", title: "添加".localized()))
-        
-        for i in 0 ..< listArrr.count {
-            let itemData = listArrr[i]
-            let item = TabMoreView.MenuItem(title: itemData.title, icon: itemData.image) { [weak self] in
-                self?.moreTabItemDidSelect(index: i)
-            }
-            items.append(item)
-        }
-        _moreView.setItems(items)
-        
-    }
-    
-    
-    
-}
-
-
-
-
-
-
-struct MoreTabItem {
-    var image: String
-    var title: String
 }
 
 func getTabBarHeight() -> CGFloat {

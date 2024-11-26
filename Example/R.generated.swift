@@ -167,7 +167,7 @@ struct _R: Sendable {
       var ieXW0yeText: RswiftResources.StringResource { .init(key: "8ie-xW-0ye.text", tableName: "LaunchScreen", source: source, developmentValue: nil, comment: nil) }
     }
 
-    /// This `_R.string.localizable` struct is generated, and contains static references to 514 localization keys.
+    /// This `_R.string.localizable` struct is generated, and contains static references to 516 localization keys.
     struct localizable {
       let source: RswiftResources.StringResource.Source
 
@@ -3041,6 +3041,13 @@ struct _R: Sendable {
       /// Locales: en, th
       var 系统通知设置: RswiftResources.StringResource { .init(key: "系统通知设置", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// en translation: Red Packet
+      ///
+      /// Key: 红包
+      ///
+      /// Locales: en, th
+      var 红包: RswiftResources.StringResource { .init(key: "红包", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: Edit
       ///
       /// Key: 编辑
@@ -3475,6 +3482,13 @@ struct _R: Sendable {
       /// Locales: en, th
       var 跟随系统: RswiftResources.StringResource { .init(key: "跟随系统", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// en translation: Transfer Accounts
+      ///
+      /// Key: 转账
+      ///
+      /// Locales: en, th
+      var 转账: RswiftResources.StringResource { .init(key: "转账", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: Touch to take photo, long press to record video
       ///
       /// Key: 轻触拍照，长按摄像
@@ -3787,7 +3801,7 @@ struct _R: Sendable {
     var colorBackground: RswiftResources.ColorResource { .init(name: "ColorBackground", path: [], bundle: bundle) }
   }
 
-  /// This `_R.image` struct is generated, and contains static references to 247 images.
+  /// This `_R.image` struct is generated, and contains static references to 275 images.
   struct image {
     let bundle: Foundation.Bundle
 
@@ -4160,6 +4174,9 @@ struct _R: Sendable {
     /// Image `chat_home_menu`.
     var chat_home_menu: RswiftResources.ImageResource { .init(name: "chat_home_menu", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
+    /// Image `chat_home_more_icon`.
+    var chat_home_more_icon: RswiftResources.ImageResource { .init(name: "chat_home_more_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
     /// Image `chat_home_scan`.
     var chat_home_scan: RswiftResources.ImageResource { .init(name: "chat_home_scan", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
@@ -4316,6 +4333,12 @@ struct _R: Sendable {
     /// Image `inputbar_pad_photo_icon`.
     var inputbar_pad_photo_icon: RswiftResources.ImageResource { .init(name: "inputbar_pad_photo_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
+    /// Image `inputbar_pad_red_packet_icon`.
+    var inputbar_pad_red_packet_icon: RswiftResources.ImageResource { .init(name: "inputbar_pad_red_packet_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `inputbar_pad_transfer_accounts_packet_icon`.
+    var inputbar_pad_transfer_accounts_packet_icon: RswiftResources.ImageResource { .init(name: "inputbar_pad_transfer_accounts_packet_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
     /// Image `inputbar_pad_video_icon`.
     var inputbar_pad_video_icon: RswiftResources.ImageResource { .init(name: "inputbar_pad_video_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
@@ -4382,6 +4405,42 @@ struct _R: Sendable {
     /// Image `mine_delegate_icon`.
     var mine_delegate_icon: RswiftResources.ImageResource { .init(name: "mine_delegate_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
+    /// Image `mine_home_bill_icon`.
+    var mine_home_bill_icon: RswiftResources.ImageResource { .init(name: "mine_home_bill_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `mine_home_buy_coin_icon`.
+    var mine_home_buy_coin_icon: RswiftResources.ImageResource { .init(name: "mine_home_buy_coin_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `mine_home_close_eye_icon`.
+    var mine_home_close_eye_icon: RswiftResources.ImageResource { .init(name: "mine_home_close_eye_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `mine_home_official_exchange_rate_fall_icon`.
+    var mine_home_official_exchange_rate_fall_icon: RswiftResources.ImageResource { .init(name: "mine_home_official_exchange_rate_fall_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `mine_home_open_eye_icon`.
+    var mine_home_open_eye_icon: RswiftResources.ImageResource { .init(name: "mine_home_open_eye_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `mine_home_payment_icon`.
+    var mine_home_payment_icon: RswiftResources.ImageResource { .init(name: "mine_home_payment_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `mine_home_payment_method_icon`.
+    var mine_home_payment_method_icon: RswiftResources.ImageResource { .init(name: "mine_home_payment_method_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `mine_home_refresh_icon`.
+    var mine_home_refresh_icon: RswiftResources.ImageResource { .init(name: "mine_home_refresh_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `mine_home_setting_icon`.
+    var mine_home_setting_icon: RswiftResources.ImageResource { .init(name: "mine_home_setting_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `mine_home_transfer_accounts_icon`.
+    var mine_home_transfer_accounts_icon: RswiftResources.ImageResource { .init(name: "mine_home_transfer_accounts_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `mine_home_wallet_close_icon`.
+    var mine_home_wallet_close_icon: RswiftResources.ImageResource { .init(name: "mine_home_wallet_close_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `mine_home_wallet_open_icon`.
+    var mine_home_wallet_open_icon: RswiftResources.ImageResource { .init(name: "mine_home_wallet_open_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
     /// Image `mine_info_icon`.
     var mine_info_icon: RswiftResources.ImageResource { .init(name: "mine_info_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
@@ -4403,6 +4462,30 @@ struct _R: Sendable {
     /// Image `mine_notif_icon`.
     var mine_notif_icon: RswiftResources.ImageResource { .init(name: "mine_notif_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
+    /// Image `mine_payment_method_ali_icon`.
+    var mine_payment_method_ali_icon: RswiftResources.ImageResource { .init(name: "mine_payment_method_ali_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `mine_payment_method_bank_icon`.
+    var mine_payment_method_bank_icon: RswiftResources.ImageResource { .init(name: "mine_payment_method_bank_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `mine_payment_method_btn_select_icon`.
+    var mine_payment_method_btn_select_icon: RswiftResources.ImageResource { .init(name: "mine_payment_method_btn_select_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `mine_payment_method_delete_icon`.
+    var mine_payment_method_delete_icon: RswiftResources.ImageResource { .init(name: "mine_payment_method_delete_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `mine_payment_method_edit_icon`.
+    var mine_payment_method_edit_icon: RswiftResources.ImageResource { .init(name: "mine_payment_method_edit_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `mine_payment_method_qr_upload_bg_icon`.
+    var mine_payment_method_qr_upload_bg_icon: RswiftResources.ImageResource { .init(name: "mine_payment_method_qr_upload_bg_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `mine_payment_method_qr_upload_icon`.
+    var mine_payment_method_qr_upload_icon: RswiftResources.ImageResource { .init(name: "mine_payment_method_qr_upload_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `mine_payment_method_weixin_icon`.
+    var mine_payment_method_weixin_icon: RswiftResources.ImageResource { .init(name: "mine_payment_method_weixin_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
     /// Image `mine_private_icon`.
     var mine_private_icon: RswiftResources.ImageResource { .init(name: "mine_private_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
@@ -4420,6 +4503,21 @@ struct _R: Sendable {
 
     /// Image `place_boke_icon`.
     var place_boke_icon: RswiftResources.ImageResource { .init(name: "place_boke_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `real_name_authentication_icon`.
+    var real_name_authentication_icon: RswiftResources.ImageResource { .init(name: "real_name_authentication_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `real_name_back_IdCard`.
+    var real_name_back_IdCard: RswiftResources.ImageResource { .init(name: "real_name_back_IdCard", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `real_name_front_IdCard`.
+    var real_name_front_IdCard: RswiftResources.ImageResource { .init(name: "real_name_front_IdCard", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `real_name_top_icon`.
+    var real_name_top_icon: RswiftResources.ImageResource { .init(name: "real_name_top_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `real_name_unAuthentication_icon`.
+    var real_name_unAuthentication_icon: RswiftResources.ImageResource { .init(name: "real_name_unAuthentication_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
     /// Image `refresh_blue`.
     var refresh_blue: RswiftResources.ImageResource { .init(name: "refresh_blue", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }

@@ -7,7 +7,6 @@ import OUICore
 
 class MineViewModel {
     var currentUserRelay: BehaviorRelay<QueryUserInfo?> = .init(value: nil)
-
     private let _disposeBag = DisposeBag()
     
     init() {

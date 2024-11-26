@@ -2379,6 +2379,20 @@ extension ChatViewController: CoustomInputBarAccessoryViewDelegate {
             chooseVoiceORVideo(isVideo: true)
         case .voiceCall:
             chooseVoiceORVideo(isVideo: false)
+        case .redPacket:
+            DispatchQueue.main.async {
+                if let handler = OIMApi.showTipHandle {
+                    handler("红包开发中", { res in
+                    })
+                }
+            }
+        case .transferAccounts:
+            DispatchQueue.main.async {
+                if let handler = OIMApi.showTipHandle {
+                    handler("转账开发中", { res in
+                    })
+                }
+            }
         default:
             break
         }

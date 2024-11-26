@@ -18,7 +18,7 @@ import OUIMoments
 
 class MeHomeController: BaseLogicController {
     private let _viewModel = MineViewModel()
-    
+    var mineWalletData:MineWalletMoneyData?
     var vipTitle = UILabel()
     var userShowId: String = ""
     
@@ -26,9 +26,7 @@ class MeHomeController: BaseLogicController {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
         _viewModel.queryUserInfo()
-        
-        getMyBlog()
-        getMyStarBlog()
+        loadUserWallet()
         updatelanguage()
         
     }
@@ -36,25 +34,26 @@ class MeHomeController: BaseLogicController {
     override func initViews() {
         super.initViews()
         initLinearLayoutSafeArea()
-        container.tg_padding = UIEdgeInsets(top: PADDING_OUTER, left: PADDING_OUTER, bottom: PADDING_OUTER, right: PADDING_OUTER)
+        container.tg_padding = UIEdgeInsets(top: PADDING_OUTER, left: 20, bottom: PADDING_OUTER, right: 0)
         container.tg_space = 12
-        
         addTopUserMessage()
-        addVIP()
-        addCode()
-        addMoments()
-        addMyBoke()
-        addMyStarBoke()
-        
         bindData()
-        
-//        YFMineNetViewModel.updateLanguage()
-        
     }
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    
+    func loadUserWallet(){
+        guard let userID = AccountViewModel.userID else { return }
+        
+        AccountViewModel.queryUserWalletInfo(userId: userID,
+                                             valueHandler: { [weak self] (data :MineWalletMoneyData) in
+            self?.mineWalletData = data
+            self?.updateMineWalletView()
+            self?.walletView.stopRote()
+        }, completionHandler: {(errCode, errMsg) in
+            self.walletView.stopRote()
+        })
+    }
     override func bindData() {
         
         _viewModel.currentUserRelay.subscribe(onNext: { [weak self] (user: QueryUserInfo?) in
@@ -63,61 +62,53 @@ class MeHomeController: BaseLogicController {
             updateHeaderView()
             
         }).disposed(by: rx.disposeBag)
-        
     }
 
     func updatelanguage() {
-        
-//        let  viplbl = vipView.viewWithTag(20001) as! UILabel
-//        viplbl.text = "我的二维码".localized()
-        
-        
-        let  codeTitle = sectionCodeView.viewWithTag(20001) as! UILabel
-        codeTitle.text = "我的二维码".localized()
-        
-        let  monentsTitle = sectionMomentsView.viewWithTag(20001) as! UILabel
-        monentsTitle.text = "我的动态".localized()
-        
-        let  myBlogTitle = sectionMyBlogView.viewWithTag(20001) as! UILabel
-        myBlogTitle.text = "我的博客".localized()
-        
-        let  starBlogTitle = sectionStarBlogView.viewWithTag(20001) as! UILabel
-        starBlogTitle.text = "我收藏的博客".localized()
+//
+//        let  codeTitle = sectionCodeView.viewWithTag(20001) as! UILabel
+//        codeTitle.text = "我的二维码".localized()
+//
+//        let  monentsTitle = sectionMomentsView.viewWithTag(20001) as! UILabel
+//        monentsTitle.text = "我的动态".localized()
+//
+//        let  myBlogTitle = sectionMyBlogView.viewWithTag(20001) as! UILabel
+//        myBlogTitle.text = "我的博客".localized()
+//
+//        let  starBlogTitle = sectionStarBlogView.viewWithTag(20001) as! UILabel
+//        starBlogTitle.text = "我收藏的博客".localized()
         
     }
     
     func updateHeaderView() {
         let user = _viewModel.currentUserRelay.value
-        
-//        userIcon.showAvator(user?.faceURL)
-        
         let userState = SuperStringUtil.getUserState(showname: user?.nickname ?? "")
         
         avatarImageView.setAvatar(url: user?.faceURL, text: userState.n)
         username.text = userState.n
-        tagLable.text = SuperStringUtil.getUserTag(showname: (user?.nickname)!)  ?? "普通用户".localized()
-        tagLable.textColor = userState.v > 0  ? .init(hexString: "#7238EF")  : .init(hexString: "#999999")
-//        userID.text = user?.chatID
-        
-//        print(user?.userID)
-//        print(user?.chatID)
-        
-//        if userState.v > 0 {
-//            userShowId = "\(String(describing: user?.chatID != nil ? user!.chatID! : user!.userID!))"
-//        } else {
-//            userShowId = "\(String(describing: user?.chatID != nil ? user!.chatID! : user!.userID!))"
-//        }
         userShowId = user?.chatID ?? (user?.userID ?? "")
-        if userState.v > 0 {
-            vipTitle.text = "VIP ID: ".localized() + userShowId
-        } else {
-            vipTitle.text = "ID: " + userShowId
+        idLabel.text = "ID: " + userShowId
+    }
+    func updateMineWalletView(){
+        realNameStatusView.show()
+        if mineWalletData?.certificationLevel == 0 {
+            //未实名认证
+            realNameStatusView.backgroundColor = .init(hexString: "#FFA756")
+            realNameStatusIcon.image = UIImage(named: "real_name_unAuthentication_icon")
+            realNameStatusLabel.text = "未认证"
+        } else if mineWalletData?.certificationLevel == 1{
+            //初级实名认证
+            realNameStatusView.backgroundColor = .init(hexString: "#3ACC9B")
+            realNameStatusIcon.image = UIImage(named: "real_name_authentication_icon")
+            realNameStatusLabel.text = "初级认证"
+
+        }else{
+            //高级实名认证
+            realNameStatusView.backgroundColor = .init(hexString: "#1E85FE")
+            realNameStatusIcon.image = UIImage(named: "real_name_authentication_icon")
+            realNameStatusLabel.text = "高级认证"
         }
-        
-        
-        let defaults = UserDefaults.standard
-        defaults.set(userState.v, forKey: "vipRank")
-        
+        walletView.bindData(walletMoneyData: mineWalletData!)
     }
     
     func addTopUserMessage() {
@@ -126,28 +117,57 @@ class MeHomeController: BaseLogicController {
         userView.corner(MEDDLE_RADIUS)
         userView.tg_width.equal(.fill)
         userView.tg_height.equal(.wrap)
-        userView.tg_padding = UIEdgeInsets(top: PADDING_OUTER, left: PADDING_SMALL, bottom: PADDING_OUTER, right: 0)
-//        userView.backgroundColor = .red
-        userView.tg_space = PADDING_OUTER
+        userView.tg_padding = UIEdgeInsets(top: PADDING_OUTER, left: 0, bottom: PADDING_OUTER, right: 0)
+        userView.tg_space = 12
         container.addSubview(userView)
         
-//        userView.addSubview(userIcon)
         userView.addSubview(avatarImgBg)
         avatarImgBg.addSubview(avatarImageView)
         
         let userMessageView = TGLinearLayout(.vert)
         userMessageView.tg_width.equal(.fill)
         userMessageView.tg_height.equal(.wrap)
-        userMessageView.tg_left.equal(14)
-//        userMessageView.tg_space = PADDING_SMALL
         userView.addSubview(userMessageView)
         
         userMessageView.addSubview(username)
-        userMessageView.addSubview(tagLable)
-//        userMessageView.addSubview(userID)
+        userMessageView.addSubview(idView)
+        userView.addSubview(realNameStatusView)
         
-//        userView.addSubview(scanBtn)
-        userView.addSubview(appSettingBtn)
+        container.addSubview(buyCoinView)
+        container.addSubview(paymentView)
+        container.addSubview(transferAccountsView)
+        container.addSubview(billView)
+        container.addSubview(walletView)
+        container.addSubview(settingView)
+        buyCoinView.snp_makeConstraints { make in
+            make.top.equalTo(userView.snp_bottom).offset(0)
+            make.left.equalTo(0)
+            make.height.equalTo(90)
+            make.width.equalTo(kScreenWidth/4.0)
+        }
+        paymentView.snp_makeConstraints { make in
+            make.top.width.height.equalTo(buyCoinView)
+            make.left.equalTo(buyCoinView.snp_right)
+        }
+        transferAccountsView.snp_makeConstraints { make in
+            make.top.width.height.equalTo(buyCoinView)
+            make.left.equalTo(paymentView.snp_right)
+        }
+        billView.snp_makeConstraints { make in
+            make.top.width.height.equalTo(buyCoinView)
+            make.left.equalTo(transferAccountsView.snp_right)
+        }
+        walletView.snp_makeConstraints { make in
+            make.top.equalTo(billView.snp_bottom).offset(25)
+            make.left.right.equalTo(0)
+            make.height.equalTo(62)
+        }
+        settingView.snp_makeConstraints { make in
+            make.left.equalTo(16)
+            make.right.equalTo(-16)
+            make.top.equalTo(walletView.snp_bottom).offset(13)
+            make.height.equalTo(105)
+        }
 
     }
 
@@ -172,323 +192,214 @@ class MeHomeController: BaseLogicController {
     }()
     
     lazy var username: UILabel = {
-        let r = ViewFactoryUtil.customBoldTilteLable("", font: TEXT_LARGE4)
-        r.numberOfLines = 1
+        let r = UILabel()
+        r.tg_width.equal(.fill)
+        r.tg_height.equal(.wrap)
+        r.textColor = .black333
+        r.font = UIFont(name: "PingFangSC-Medium", size: 22)
         return r
     }()
-    
-//    lazy var usertag : UserTagView = {
-//       let r = UserTagView()
-//        r.addThirdUI()
-//        return r
-//    }()
-    
-    lazy var tagLable: UILabel = {
-            let v = UILabel()
-            v.font = UIFont(name: "PingFangSC-Semibold", size: 11)
-            v.textColor = .init(hexString: "#7238EF")
-//            v.text = "[V4、\("企业".localized())、\("博客".localized())]".localized()
-            v.text = nil
-            v.tg_width.equal(.wrap)
-            v.tg_height.equal(.wrap)
-            return v
-        }()
-    
-//    lazy var userID: UILabel = {
-//        let r = ViewFactoryUtil.sectionTilteLbael()
-//        r.text = "用户id"
-//        return r
-//    }()
-    
-    lazy var scanBtn: QMUIButton = {
-        let r = ViewFactoryUtil.imageBtn(R.image.mine_QRCode_icon()!, 20)
-        r.tg_right.equal(0)
-        r.tg_centerY.equal(0)
-        r.addTarget(self, action: #selector(scanCode), for: .touchUpInside)
-        return r
-    }()
-    
-    lazy var appSettingBtn: QMUIButton = {
-        let r = ViewFactoryUtil.imageBtn(R.image.mine_setting_icon()!, 20)
-        r.tg_right.equal(scanBtn.tg_left, offset: 10)
-        r.tg_centerY.equal(0)
-        r.addTarget(self, action: #selector(settingUserMessage), for: .touchUpInside)
-        return r
-    }()
-    
-//    lazy var settingIMg: UIImageView = {
-//        let r = ViewFactoryUtil.defalutImgView(R.image.mine_setting_icon()!, 20)
-//        r.tg_right.equal(scanBtn.tg_left, offset: 10)
-//        r.tg_centerY.equal(0)
-//        let tap = UITapGestureRecognizer(target: self, action: #selector(settingUserMessage))
-//        r.isUserInteractionEnabled = true
-//        r.addGestureRecognizer(tap)
-//        
-//        return r
-//    }()
-    
-    
-    lazy var vipView: UIView = {
-        let vipView = ViewFactoryUtil.sectionHeaderViewAboutVIP(R.image.section_vip()!, title: "ID:", isHaveMore: true)
-        vipView.backgroundColor = .white
-        vipView.corner(MEDDLE_RADIUS)
-        vipView.tg_width.equal(.fill)
-        vipView.tg_height.equal(44)
-        
-        let tap = UITapGestureRecognizer(target: self, action: #selector(gotoVip))
-        vipView.addGestureRecognizer(tap)
-        
-        
-        
-        
-        return vipView
-    }()
-    
-    func addVIP() {
-
-        container.addSubview(vipView)
-        
-        vipTitle = vipView.viewWithTag(20001) as! UILabel
-        let copyImg = vipView.viewWithTag(20002) as! UIImageView
-        
-        let copyView = UIView()
-//        copyView.backgroundColor = .red.withAlphaComponent(0.3)
-        view.addSubview(copyView)
-        copyView.snp.makeConstraints { make in
-            make.left.equalTo(vipTitle.snp_left)
-            make.top.equalTo(vipView)
-            make.bottom.equalTo(vipView)
-            make.right.equalTo(copyImg.snp_right)
-        }
-        
+    lazy var idView: TGLinearLayout = {
+        let r = TGLinearLayout(.horz)
+        r.tg_width.equal(.fill)
+        r.tg_height.equal(.wrap)
+        r.addSubview(idLabel)
+        let copyImg = ViewFactoryUtil.defalutImgView(R.image.copy_icon()!, 16)
+        copyImg.tg_centerY.equal(0)
+        copyImg.tg_left.equal(3)
+        r.addSubview(copyImg)
         let tap = UITapGestureRecognizer(target: self, action: #selector(copyUserID))
-        copyView.addGestureRecognizer(tap)
-        
-    }
-    
-    func addCode() {
-
-        container.addSubview(sectionCodeView)
-    }
-    
-    lazy var sectionCodeView: UIView = {
-        let codeView = ViewFactoryUtil.sectionHeaderView(R.image.section_QR_code()!, title: "我的二维码".localized(), isHaveMore: true)
-        codeView.backgroundColor = .white
-        codeView.corner(MEDDLE_RADIUS)
-        codeView.tg_width.equal(.fill)
-        codeView.tg_height.equal(44)
-        
-        let tap = UITapGestureRecognizer(target: self, action: #selector(gotoCode))
-        codeView.addGestureRecognizer(tap)
-        return codeView
+        r.addGestureRecognizer(tap)
+        return r
     }()
-    
-    
-    func addMoments() {
-        
-        container.addSubview(sectionMomentsView)
-    }
-    
-    
-    lazy var sectionMomentsView : UIView = {
-        let codeView = ViewFactoryUtil.sectionHeaderView(R.image.section_moments_icon()!, title: "我的动态".localized(), isHaveMore: true)
-        codeView.backgroundColor = .white
-        codeView.corner(MEDDLE_RADIUS)
-        codeView.tg_width.equal(.fill)
-        codeView.tg_height.equal(44)
-        
-        let tap = UITapGestureRecognizer(target: self, action: #selector(gotoMoments))
-        codeView.addGestureRecognizer(tap)
-        return codeView
+    lazy var idLabel : UILabel = {
+        let r = UILabel()
+        r.tg_height.equal(.wrap)
+        r.tg_centerY.equal(0)
+        r.tg_width.equal(.wrap)
+        r.font = UIFont(name: "PingFangSC-Semibold", size: 12)
+        r.textColor = .black999
+        return r
     }()
-    
-    
-
-    func addMyBoke() {
-        let bokeView = TGLinearLayout(.vert)
-        bokeView.backgroundColor = .white
-        bokeView.corner(MEDDLE_RADIUS)
-        bokeView.tg_width.equal(.fill)
-        bokeView.tg_height.equal(.wrap)
-        container.addSubview(bokeView)
-        
-        
-        bokeView.addSubview(sectionMyBlogView)
-              
-        bokeView.addSubview(bokeItemsView)
-    }
-    
-    lazy var sectionMyBlogView: UIView = {
-        let bokeHeader = ViewFactoryUtil.sectionHeaderView(title: "我的博客".localized(), isHaveMore: true)
-        bokeHeader.tg_height.equal(44)
-        let tap = UITapGestureRecognizer(target: self, action: #selector(gotoMyBokeList))
-        bokeHeader.addGestureRecognizer(tap)
-        return bokeHeader
-    }()
-    
-    
-    lazy var bokeItemsView: SectionItemsView = {
-        let r = SectionItemsView()
-        
-        r.bokeClick = { [weak self] item, isMore in
-            if isMore {
-                self?.gotoControllerFromRoot(MineBokeListViewController.self)
-            } else {
-
-                
-                let vc = MineBokeStatisticsVC()
-                vc.boke = item
-                
-                self?.gotoControllerFromRoot(vc)
-
-            }
+    lazy var realNameStatusView: UIView = {
+        let r = UIView()
+        r.tg_height.equal(19)
+        r.tg_centerY.equal(0)
+        r.tg_right.equal(-10)
+        r.tg_width.equal(75+10)
+        r.corner(9.5)
+        r.addSubview(realNameStatusIcon)
+        r.addSubview(realNameStatusLabel)
+        realNameStatusIcon.snp_makeConstraints { make in
+            make.centerY.equalTo(r)
+            make.left.equalTo(4)
+            make.width.height.equalTo(13)
         }
-        
+        realNameStatusLabel.snp_makeConstraints { make in
+            make.centerY.equalTo(realNameStatusIcon)
+            make.left.equalTo(realNameStatusIcon.snp_right).offset(4)
+            make.right.equalTo(-4)
+        }
+        let tap = UITapGestureRecognizer(target: self, action: #selector(gotoRealNameVC))
+        r.addGestureRecognizer(tap)
+        return r
+    }()
+    lazy var realNameStatusIcon: UIImageView = {
+        let r = UIImageView()
+        return r
+    }()
+    lazy var realNameStatusLabel: UILabel = {
+        let r = UILabel()
+        r.font = UIFont(name: "PingFangSC-Regular", size: 12)
+        r.textColor = .white
+        return r
+    }()
+    lazy var buyCoinView:ButtonItem = {
+        let r = ButtonItem()
+        r.bindData(title: "买卖币", icon: UIImage(named: "mine_home_buy_coin_icon")!)
+        r.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer()
+        tap.rx.event.subscribe {  _ in
+            SuperToast.show(title: "开发中")
+        }
+        r.addGestureRecognizer(tap)
+        return r
+    }()
+    lazy var paymentView:ButtonItem = {
+        let r = ButtonItem()
+        r.bindData(title: "收款", icon: UIImage(named: "mine_home_payment_icon")!)
+        r.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer()
+        tap.rx.event.subscribe {  _ in
+            SuperToast.show(title: "开发中")
+        }
+        r.addGestureRecognizer(tap)
+        return r
+    }()
+    lazy var transferAccountsView:ButtonItem = {
+        let r = ButtonItem()
+        r.bindData(title: "转账", icon: UIImage(named: "mine_home_transfer_accounts_icon")!)
+        r.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer()
+        tap.rx.event.subscribe {  _ in
+            SuperToast.show(title: "开发中")
+        }
+        r.addGestureRecognizer(tap)
+        return r
+    }()
+    lazy var walletView: MineHomeWalletView = {
+        let r = MineHomeWalletView()
+        r.refreshBlock = {
+            self.loadUserWallet()
+        }
+        return r
+    }()
+    lazy var billView:ButtonItem = {
+        let r = ButtonItem()
+        r.bindData(title: "账单", icon: UIImage(named: "mine_home_bill_icon")!)
+        r.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer()
+        tap.rx.event.subscribe {  _ in
+            SuperToast.show(title: "开发中")
+        }
+        r.addGestureRecognizer(tap)
+        return r
+    }()
+    lazy var settingView: UIView = {
+        let r = UIView()
+        r.corner(8)
+        r.backgroundColor = .white
+        let t = TGLinearLayout(.vert)
+        t.tg_width.equal(.fill)
+        t.tg_height.equal(.wrap)
+        t.tg_space = 1
+        t.addSubview(paymentMethodView)
+        t.addSubview(ViewFactoryUtil.smallDivider())
+        t.addSubview(settingCenterView)
+        r.addSubview(t)
         return r
     }()
     
-    func addMyStarBoke() {
-        let bokeView = TGLinearLayout(.vert)
-        bokeView.backgroundColor = .white
-        bokeView.corner(MEDDLE_RADIUS)
-        bokeView.tg_width.equal(.fill)
-        bokeView.tg_height.equal(.wrap)
-        container.addSubview(bokeView)
-        
-   
-        bokeView.addSubview(sectionStarBlogView)
-              
-        bokeView.addSubview(myStarblogItemsView)
-    }
-    
-    
-    lazy var sectionStarBlogView: UIView = {
-        let bokeHeader = ViewFactoryUtil.sectionHeaderView(R.image.section_star()!,title: "我收藏的博客".localized(), isHaveMore: true)
-        bokeHeader.tg_height.equal(44)
-        let tap = UITapGestureRecognizer(target: self, action: #selector(gotoMyStarBokeList))
-        bokeHeader.addGestureRecognizer(tap)
-        return bokeHeader
-    }()
-    
-    lazy var myStarblogItemsView: SectionItemsView = {
-        let r = SectionItemsView()
-        
-        r.bokeClick = { [weak self] item, isMore in
-            if isMore {
-                let vc = MineBokeListViewController()
-                vc.vcType = .star
-                self?.gotoControllerFromRoot(vc)
-            } else {
-                SuperWebController.start((self!.navigationController!), uri: item.myBlogShowBlogPO.userBlogUrl, isRoot: true)
-            }
-        }
-        
+    lazy var paymentMethodView: SuperSettingView = {
+        let r = SuperSettingView.create(icon: UIImage(named: "mine_home_payment_method_icon")!, title: "支付方式",isChangeIconColor:false, click: { [weak self] data in
+            let vc = BoBPaymentMethodListViewController()
+            vc.certificationLevel = self?.mineWalletData?.certificationLevel ?? 0
+            vc.hidesBottomBarWhenPushed = true
+            self?.navigationController?.pushViewController(vc, animated: true)
+        })
+        r.isMediumFont()
         return r
     }()
+    
+    lazy var settingCenterView: SuperSettingView = {
+        let r = SuperSettingView.create(icon: UIImage(named: "mine_home_setting_icon")!, title: "设置中心",isChangeIconColor:false, click: { [weak self] data in
+            self?.gotoControllerFromRoot(MineSettingVC.self)
+        })
+        r.isMediumFont()
+        return r
+    }()
+
     
     
     
 }
 
+class ButtonItem: UIView{
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            
+            addSubview(iconImageView)
+            addSubview(titleLabel)
+            
+            iconImageView.snp.makeConstraints { make in
+                make.top.equalTo(19)
+                make.width.height.equalTo(30)
+                make.centerX.equalToSuperview()
+            }
+            
+            titleLabel.snp.makeConstraints { make in
+                make.top.equalTo(iconImageView.snp_bottom).offset(11)
+                make.left.equalTo(8)
+                make.right.equalTo(-8)
+            }
+        }
+        
+        @available(*, unavailable)
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        let iconImageView: UIImageView = {
+            let v = UIImageView()
+            return v
+        }()
 
+        let titleLabel: UILabel = {
+            let v = UILabel()
+            v.font =  UIFont(name: "PingFangSC-Medium", size: 14)
+            v.textColor = .black333
+            v.textAlignment = .center
+            return v
+        }()
+        
+    func bindData(title:String,icon:UIImage) {
+            iconImageView.image = icon
+            titleLabel.text = title
+        }
+    }
 
 extension MeHomeController {
-    @objc func scanCode() {
-//        gotoControllerFromRoot(UserMessageVC.self)
-        guard let user: QueryUserInfo = _viewModel.currentUserRelay.value else { return }
-        let vc = QRCodeViewController(idString: IMController.addFriendPrefix.append(string: user.userID!))
-        vc.avatarView.setAvatar(url: user.faceURL, text: user.nickname)
-        vc.nameLabel.text = user.nickname
-        vc.tipLabel.text = "qrcodeHint".innerLocalized()
+   
+    @objc func gotoRealNameVC() {
+        let vc = BoBRealNameMainViewController()
+        vc.certificationLevel = mineWalletData?.certificationLevel ?? 0
         vc.hidesBottomBarWhenPushed = true
-        navigationController?.pushViewController(vc, animated: true)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
-    
-    @objc func settingUserMessage() {
-        gotoControllerFromRoot(MineSettingVC.self)
-    }
-    
-    @objc func showMoreBoke() {
-        print(#function)
-//        bokeItemsView.update(data: Array(repeating: "hello", count: Int.random(in: 1 ... 10)))
-    }
-    
-  
-    @objc func gotoMyBokeList() {
-        let vc = MineBokeListViewController()
-        vc.vcType = .meBlog
-        gotoControllerFromRoot(vc)
-    }
-    @objc func gotoMyStarBokeList() {
-        let vc = MineBokeListViewController()
-        vc.vcType = .star
-        gotoControllerFromRoot(vc)
-        
-//        gotoControllerFromRoot(YFChatNewFriendListVC.self)
-    }
-    
-    
-    @objc func gotoVip() {
-        gotoControllerFromRoot(YFMineHomeBuyVipVC.self)
-    }
-    
-    @objc func gotoMoments() {
-//        let vc = MomentsViewController()
-//        gotoControllerFromRoot(vc)
-        
-        guard let user: QueryUserInfo = _viewModel.currentUserRelay.value else { return }
-        let vc = OthersViewController(userID: user.userID!, nickname: SuperStringUtil.getUserShowname(showname: user.nickname ?? ""), faceURL: user.faceURL)
-//        navigationController?.pushViewController(vc, animated: true)
-        gotoControllerFromRoot(vc)
-    }
-    
-    @objc func gotoCode() {
-        guard let user: QueryUserInfo = _viewModel.currentUserRelay.value else { return }
-//        let vc = QRCodeViewController(idString: IMController.addFriendPrefix.append(string: user.userID!))
-//        vc.avatarView.setAvatar(url: user.faceURL, text: user.nickname)
-//        vc.nameLabel.text = user.nickname
-//        vc.tipLabel.text = "qrcodeHint".innerLocalized()
-//        vc.hidesBottomBarWhenPushed = true
-//        navigationController?.pushViewController(vc, animated: true)
-        
-        let v = YFMineQRCodeVC()
-        v.user = user
-//        navigationController?.pushViewController(v, animated: true)
-        gotoControllerFromRoot(v)
-    }
-    
-    
+
     @objc func copyUserID() {
         UIPasteboard.general.string = userShowId
         
         SuperToast.show(title: "复制成功".localized())
     }
-    
-    
-    func getMyBlog() {
-        
-        if let IMUser = IMController.shared.currentUserRelay.value {
-            
-            YFMineNetViewModel.mineBlog(userId: IMUser.userID) { [weak self] data in
-                self?.bokeItemsView.updateNet(data: data)
-
-            } completionHandler: { errCode, errMsg in
-                
-            }
-
-        }
-        
-    }
-    
-    
-    func getMyStarBlog() {
-        
-//        print(YFFileDataUtil.readDataToFile())
-        
-        self.myStarblogItemsView.updateNet(data: YFFileDataUtil.readDataToFile())
-        
-    }
-    
-    
-    
 }
