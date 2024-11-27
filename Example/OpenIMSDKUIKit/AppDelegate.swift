@@ -8,6 +8,7 @@ import AlamofireNetworkActivityLogger
 import Bugly
 import IQKeyboardManagerSwift
 
+
 let kGtAppId = "aaG9GXroFD6J5AdyPp59E7"
 let kGtAppKey = "z4bVbPVLys7OgGEvIQMDA5"
 let kGtAppSecret = "DK6becO4GU6d0YZ8EDQtw2"
@@ -42,13 +43,13 @@ let sdkWSRoute = ""
 //let sdkWSPort = ":10001"
 //let sdkWSRoute = ":10001/msg_gateway_enterprise"
 
-//let defaultAppAddress = "imserver.aibitlin.com/chat"
-//let defaultIMAddress = "imserver.aibitlin.com/api"
-//let defaultAdminAddress = "imserver.aibitlin.com/msg_gateway"
+let defaultAppAddress = "imserver.aibitlin.com/chat"
+let defaultIMAddress = "imserver.aibitlin.com/api"
+let defaultAdminAddress = "imserver.aibitlin.com/msg_gateway"
 
-let defaultAppAddress = "192.168.7.126"
-let defaultIMAddress = "192.168.7.126"
-let defaultAdminAddress = "192.168.7.126"
+//let defaultAppAddress = "192.168.7.126"
+//let defaultIMAddress = "192.168.7.126"
+//let defaultAdminAddress = "192.168.7.126"
 
 //let defaultAppAddress = "192.168.7.109"
 //let defaultIMAddress = "192.168.7.109"
@@ -94,7 +95,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
     }
     
-   
     private let _disposeBag = DisposeBag();
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
@@ -106,7 +106,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         //初始化 自建界面和IM界面的交互
         AccountViewModel.initInteraction()
         
-        
+        Localize.resetCurrentLanguageToDefault()
         Bugly.start(withAppId: "3cabab095f", developmentDevice: true, config: nil)
         
         /// 设置默认语言
@@ -177,8 +177,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 //        ? true : UserDefaults.standard.bool(forKey: useDomainKey)
 //        UserDefaults.standard.setValue(enableDomain, forKey: useDomainKey)
         
-        let enableTLS = false
-        let enableDomain = false
+        let enableTLS = true
+        let enableDomain = true
         UserDefaults.standard.setValue(enableTLS, forKey: useTLSKey)
         UserDefaults.standard.setValue(enableDomain, forKey: useDomainKey)
         // -------设置各种base url-------

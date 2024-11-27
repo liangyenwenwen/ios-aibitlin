@@ -25,7 +25,7 @@ class YFResetPasswordVC:BaseTitleController{
         
         container.addSubview(sectionLbl)
         container.addSubview(topContentView)
-        if isUsePhone == false{
+        if !isUsePhone{
             container.addSubview(codeTipLbl)
         }
         container.addSubview(ViewFactoryUtil.sectionTilteLbael("EnterTheNewPassword".localized()))
@@ -55,7 +55,7 @@ class YFResetPasswordVC:BaseTitleController{
        
     }
     lazy var sectionLbl: UILabel = {
-        let r = ViewFactoryUtil.sectionTilteLbael(isUsePhone == true ? "请验证你的手机号".localized():"请验证你的邮箱".localized())
+        let r = ViewFactoryUtil.sectionTilteLbael(isUsePhone ? "请验证你的手机号".localized():"请验证你的邮箱".localized())
         r.textColor = .black666
         r.font = .mediumFont(14)
         return r
@@ -69,7 +69,7 @@ class YFResetPasswordVC:BaseTitleController{
         r.tg_space = 1
         r.corner(MEDDLE_RADIUS)
         r.backgroundColor = .white
-        if isUsePhone == true{
+        if isUsePhone{
             r.addSubview(phoneView)
         }else{
             r.addSubview(emailView)
@@ -86,7 +86,7 @@ class YFResetPasswordVC:BaseTitleController{
         r.phoneCodeLbl.font = UIFont(name: "PingFangSC-Medium", size: 16)
         r.changePhoneEmail(true)
         r.isMediumFont()
-        r.hide()
+//        r.hide()
 //        r.changePhoneEmail(true)
         r.phoneCodeLbl.text = _areaCode
         let tap = UITapGestureRecognizer(target: self, action: #selector(changePhoneArea))
@@ -228,7 +228,7 @@ extension YFResetPasswordVC {
     /// 请求验证码
     func requestCodeAboutPwd() {
         view.endEditing(true)
-        if isUsePhone == true{
+        if isUsePhone{
             if let phone = phoneView.textFieldView.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines), phone.isEmpty {
                 SuperToast.show(title: "plsEnterRightX".localizedFormat("phoneNumber".localized()))
                 return

@@ -75,7 +75,7 @@ class YFMineQRCodeVC: BaseTitleController {
         
         
         r.addSubview(userIdTitleView)
-        r.addSubview(tipLbl)
+//        r.addSubview(tipLbl)
         r.addSubview(lineView)
         r.addSubview(cardBottmView)
         

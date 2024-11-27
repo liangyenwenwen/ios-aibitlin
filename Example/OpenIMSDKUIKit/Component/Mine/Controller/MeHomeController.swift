@@ -229,7 +229,7 @@ class MeHomeController: BaseLogicController {
     
     
     lazy var vipView: UIView = {
-        let vipView = ViewFactoryUtil.sectionHeaderViewAboutVIP(R.image.section_vip()!, title: "ID:", isHaveMore: true)
+        let vipView = ViewFactoryUtil.sectionHeaderViewAboutVIP(R.image.section_vip()!, title: "ID:", isHaveMore: false)
         vipView.backgroundColor = .white
         vipView.corner(MEDDLE_RADIUS)
         vipView.tg_width.equal(.fill)
@@ -336,10 +336,11 @@ class MeHomeController: BaseLogicController {
             } else {
 
                 
-                let vc = MineBokeStatisticsVC()
-                vc.boke = item
-                
-                self?.gotoControllerFromRoot(vc)
+//                let vc = MineBokeStatisticsVC()
+//                vc.boke = item
+//                
+//                self?.gotoControllerFromRoot(vc)
+                SuperWebController.startAboubBlog((self?.navigationController)!, blogItem: item,isRoot: true)
 
             }
         }
@@ -429,7 +430,7 @@ extension MeHomeController {
     
     
     @objc func gotoVip() {
-        gotoControllerFromRoot(YFMineHomeBuyVipVC.self)
+        copyUserID()
     }
     
     @objc func gotoMoments() {
