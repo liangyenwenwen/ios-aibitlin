@@ -86,7 +86,7 @@ class YFResetPasswordVC:BaseTitleController{
         r.phoneCodeLbl.font = UIFont(name: "PingFangSC-Medium", size: 16)
         r.changePhoneEmail(true)
         r.isMediumFont()
-        r.hide()
+//        r.hide()
 //        r.changePhoneEmail(true)
         r.phoneCodeLbl.text = _areaCode
         let tap = UITapGestureRecognizer(target: self, action: #selector(changePhoneArea))
