@@ -87,6 +87,9 @@
 		0481726F2CF95D9A007A2920 /* BoBChooseCionTypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0481726E2CF95D9A007A2920 /* BoBChooseCionTypeCell.swift */; };
 		048172722CF969B2007A2920 /* BoBChangePayPassWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048172712CF969B2007A2920 /* BoBChangePayPassWordViewController.swift */; };
 		048172742CF96B06007A2920 /* BoBPayPassWordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048172732CF96B06007A2920 /* BoBPayPassWordView.swift */; };
+		048172772CF9E597007A2920 /* BoBBillListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048172762CF9E597007A2920 /* BoBBillListViewController.swift */; };
+		0481727A2CF9E5DC007A2920 /* BoBBillListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048172792CF9E5DC007A2920 /* BoBBillListView.swift */; };
+		0481727C2CF9E621007A2920 /* BoBBillListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0481727B2CF9E621007A2920 /* BoBBillListCell.swift */; };
 		049B98032CB521360032E7B8 /* YFChooseUserAvatarCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049B98022CB521360032E7B8 /* YFChooseUserAvatarCardView.swift */; };
 		049C643E2BEC619300B679C4 /* YFLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049C643D2BEC619300B679C4 /* YFLoginVC.swift */; };
 		049C64402BEC622300B679C4 /* YFLoginChooseHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049C643F2BEC622300B679C4 /* YFLoginChooseHeaderView.swift */; };
@@ -334,6 +337,9 @@
 		0481726E2CF95D9A007A2920 /* BoBChooseCionTypeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBChooseCionTypeCell.swift; sourceTree = "<group>"; };
 		048172712CF969B2007A2920 /* BoBChangePayPassWordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBChangePayPassWordViewController.swift; sourceTree = "<group>"; };
 		048172732CF96B06007A2920 /* BoBPayPassWordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBPayPassWordView.swift; sourceTree = "<group>"; };
+		048172762CF9E597007A2920 /* BoBBillListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBBillListViewController.swift; sourceTree = "<group>"; };
+		048172792CF9E5DC007A2920 /* BoBBillListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBBillListView.swift; sourceTree = "<group>"; };
+		0481727B2CF9E621007A2920 /* BoBBillListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBBillListCell.swift; sourceTree = "<group>"; };
 		049B98022CB521360032E7B8 /* YFChooseUserAvatarCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFChooseUserAvatarCardView.swift; sourceTree = "<group>"; };
 		049C643D2BEC619300B679C4 /* YFLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFLoginVC.swift; sourceTree = "<group>"; };
 		049C643F2BEC622300B679C4 /* YFLoginChooseHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFLoginChooseHeaderView.swift; sourceTree = "<group>"; };
@@ -925,6 +931,24 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		048172752CF9E558007A2920 /* Bill */ = {
+			isa = PBXGroup;
+			children = (
+				048172782CF9E5B9007A2920 /* View */,
+				048172762CF9E597007A2920 /* BoBBillListViewController.swift */,
+			);
+			path = Bill;
+			sourceTree = "<group>";
+		};
+		048172782CF9E5B9007A2920 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				048172792CF9E5DC007A2920 /* BoBBillListView.swift */,
+				0481727B2CF9E621007A2920 /* BoBBillListCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		049C643A2BEC602E00B679C4 /* LoginAndRegister */ = {
 			isa = PBXGroup;
 			children = (
@@ -1110,6 +1134,7 @@
 		04EFEA412CECB5BC004441CB /* BOB */ = {
 			isa = PBXGroup;
 			children = (
+				048172752CF9E558007A2920 /* Bill */,
 				04484EDA2CF8479600893E4C /* TransferAccounts */,
 				04484ED42CF742C600893E4C /* ReceivePayment */,
 				04052E1F2CF41ACD00A7A554 /* PaymentMethod */,
@@ -2030,10 +2055,12 @@
 				17B11A422ABD28C600DB8980 /* InterruptNavigationControllerPopGesture.swift in Sources */,
 				1760BE5C2BD9FFAD0096CD1C /* SimpleInputViewController.swift in Sources */,
 				049C64432BEC689100B679C4 /* YFTitleAddUnderlineChooseView.swift in Sources */,
+				0481727C2CF9E621007A2920 /* BoBBillListCell.swift in Sources */,
 				048172722CF969B2007A2920 /* BoBChangePayPassWordViewController.swift in Sources */,
 				17620CE62A4D232200B74C96 /* ModifyPswViewController.swift in Sources */,
 				040D85E52BEB8C0B00DCAAB3 /* SuperSettingView.swift in Sources */,
 				040D85C22BEB8B0400DCAAB3 /* ExceptionHandleUtil.swift in Sources */,
+				0481727A2CF9E5DC007A2920 /* BoBBillListView.swift in Sources */,
 				040D86072BEB8C4200DCAAB3 /* SuperUITableViewExtension.swift in Sources */,
 				04D2E2062CBE4E5500582B13 /* HDEmptyView.swift in Sources */,
 				04F2D0862BEE21CA00D5271B /* MineDeleteAcountAuthenticationVC.swift in Sources */,
@@ -2151,6 +2178,7 @@
 				04EFEA6B2CECBE7B004441CB /* BoBOrderListCell.swift in Sources */,
 				1790EE722921EAFC00C4024A /* MineViewModel.swift in Sources */,
 				040D85EE2BEB8C0B00DCAAB3 /* BaseLogicController.swift in Sources */,
+				048172772CF9E597007A2920 /* BoBBillListViewController.swift in Sources */,
 				04484ED62CF742EF00893E4C /* BoBReceivePaymentViewController.swift in Sources */,
 				0403477B2BEF054A00C7C4EF /* TabMoreView.swift in Sources */,
 				04EFEA442CECB5E9004441CB /* BoBOrderListMainViewController.swift in Sources */,

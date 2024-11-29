@@ -35,6 +35,8 @@ class BoBPaymentModel {
     
     private static let AddSecurityCode = "/wallet/securityCode/addSecurityCode" //设置安全密码
     private static let EditSecurityCode = "/wallet/securityCode/updateSecurityCode" //修改安全密码
+    
+    private static let QueryMyBillList = "/wallet/check/queryMyCheck" //账单列表
 
     
 
@@ -353,6 +355,48 @@ class BoBPaymentModel {
         }
         
     }
+    //账单
+    static func GetMyBillList(userId: String?,
+                              tpye:Int?,
+                              timeStart:String?,
+                              timeEnd:String?,
+                              currency:String?,
+                              pageSize:Int?,
+                              pageNum:Int?,
+                                  valueHandler: @escaping ([BillListData]) -> Void,
+                                  completionHandler: @escaping CompletionHandler) {
+        
+        
+        if !NetworkStatus.isReacheable {
+//            SuperToast.show(title: "")
+            return
+        }
+        ProgressHUD.animate()
+        let param = ["userId": userId ?? "","tpye": tpye ?? 0, "timeStart": timeStart ?? "","timeEnd": timeEnd ?? "","currency": currency ?? "","pageSize": pageSize ?? 0,"pageNum": pageNum ?? 0] as [String : Any]
+        let url = SuperStringUtil.netUrl(API_BOB_URL + QueryMyBillList, param)
+        
+        Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
+            ProgressHUD.dismiss()
+            
+            if let data = dataRequest.data {
+                let strData = String.init(data: data, encoding: String.Encoding.utf8)
+                print(strData!)
+                if let res = JsonTool.fromJson(strData!, toClass: BoBBillResponse.self) {
+
+                    if res.code == 20000  {
+                        valueHandler(res.data)
+                    } else {
+                        completionHandler(res.code, res.message)
+                    }
+                } else {
+                    completionHandler(-1, "failure")
+                }
+            } else {
+                completionHandler(-1, "failure")
+            }
+        }
+        
+    }
     
 }
 class PaymentResponse<T: Decodable>: Decodable {
@@ -436,5 +480,21 @@ class CionTypeModel: Decodable {
         self.type = type
         self.isSelect = isSelect!
     }
+}
+class BoBBillResponse: Decodable {
+    var data: [BillListData]
+    var flag: Bool = false
+    var code: Int = 20000
+    var message: String? = nil
+    var count: Int? = 0
+}
+class BillListData: Decodable {
+    var code: String?
+    var changeTime:String?
+    var changeType:Int?
+    var show:String?
+    var changeZf:String?
+    var amount:Double?
+    var currency:String?
 }
 

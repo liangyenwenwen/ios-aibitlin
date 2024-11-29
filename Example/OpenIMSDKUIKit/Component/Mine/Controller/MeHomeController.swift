@@ -303,7 +303,7 @@ class MeHomeController: BaseLogicController {
         r.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer()
         tap.rx.event.subscribe {  _ in
-            SuperToast.show(title: "开发中")
+            self.gotoControllerFromRoot(BoBBillListViewController.self)
         }
         r.addGestureRecognizer(tap)
         return r

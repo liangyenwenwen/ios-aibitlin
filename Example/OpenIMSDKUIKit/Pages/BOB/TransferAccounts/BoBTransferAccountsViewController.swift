@@ -436,7 +436,7 @@ class BoBTransferAccountsViewController:UIViewController{
         r.tintColor = .black333
         r.keyboardType = .decimalPad
         r.setPlaceHolderTextColor(.black999)
-        r.placeholder = "限额1~100,000 C"
+        r.placeholder = "限额0.01~100,000 C"
         r.rx.controlEvent(.editingChanged).subscribe(onNext: { [unowned self] in
             if ((r.text?.range(of:".")) != nil){
                 //带小数点
