@@ -32,6 +32,9 @@ class BoBPaymentModel {
     
     
     private static let SendExternalTransfer = "/wallet/transferMoneyOut/sendExternalTransfer"//转账
+    
+    private static let AddSecurityCode = "/wallet/securityCode/addSecurityCode" //设置安全密码
+    private static let EditSecurityCode = "/wallet/securityCode/updateSecurityCode" //修改安全密码
 
     
 
@@ -287,9 +290,52 @@ class BoBPaymentModel {
         }
         ProgressHUD.animate()
         let param = ["userId": userId ?? "","addr": addr ?? "","currency": currency ?? "","issuingPartyWallet": issuingPartyWallet ?? "","transferAmount": transferAmount ?? "0.00","passWord": passWord ?? ""]
-//        let url = SuperStringUtil.netUrl(API_BOB_URL + SendExternalTransfer, param)
         
         Alamofire.request(API_BOB_URL + SendExternalTransfer, method: .post, parameters: param,encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
+            ProgressHUD.dismiss()
+            
+            if let data = dataRequest.data {
+                let strData = String.init(data: data, encoding: String.Encoding.utf8)
+                print(strData!)
+                
+                if let res = JsonTool.fromJson(strData!, toClass: BoBResponse.self) {
+                    completionHandler(res.code, res.message)
+                } else {
+                    completionHandler(-1, "failure")
+                }
+            } else {
+                completionHandler(-1, "failure")
+            }
+        }
+        
+    }
+    
+    static func SetSecurityCodeRequest(userId: String?,
+                                       oldSecurityCode:String?,
+                                       newSecurityCode:String?,
+                                       securityCode:String?,
+                                       type:Int?,
+                                  completionHandler: @escaping CompletionHandler) {
+        
+        
+        if !NetworkStatus.isReacheable {
+            return
+        }
+        ProgressHUD.animate()
+        
+        var param:[String: Any]
+        var url = ""
+        if type == 0{
+            //设置
+            param = ["userId": userId ?? "","securityCode": securityCode ?? ""]
+            url = AddSecurityCode
+        }else{
+            //修改
+            param = ["userId": userId ?? "","oldSecurityCode": oldSecurityCode ?? "","newSecurityCode" : newSecurityCode ?? ""]
+            url = EditSecurityCode
+        }
+        
+        Alamofire.request(SuperStringUtil.netUrl(API_BOB_URL + url, param), method: .post, parameters: param,encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
             ProgressHUD.dismiss()
             
             if let data = dataRequest.data {

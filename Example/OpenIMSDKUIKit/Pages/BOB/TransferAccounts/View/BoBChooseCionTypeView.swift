@@ -15,8 +15,6 @@ import TangramKit
 import UIKit
 
 class BoBChooseCionTypeView: TGLinearLayout {
-    var chooseTitle: ((String) -> ())!
-//    var chooseCionBlock: ((_ bankName: String)->Void)!
     var chooseCionBlock:((_ chooseCionTypeModel:CionTypeModel,_ array:[CionTypeModel])->())!
     var listArray:[CionTypeModel] = []
     init() {

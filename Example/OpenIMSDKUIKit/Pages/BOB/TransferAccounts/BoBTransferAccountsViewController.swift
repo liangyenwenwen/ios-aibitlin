@@ -13,7 +13,6 @@ import RxCocoa
 import RxGesture
 
 class BoBTransferAccountsViewController:UIViewController{
-    var receivePaymentData:ReceivePaymentData?
     var cionType = "C"
     var transferAccountsHomeData:TransferAccountsHomeData?
     var chooseCionTypeModel:CionTypeModel?
@@ -92,6 +91,7 @@ class BoBTransferAccountsViewController:UIViewController{
     func loadData(){
         BoBPaymentModel.TransferAccountsHomeRequest(userId: IMController.shared.uid){data in
             self.transferAccountsHomeData = data
+            IMController.shared.isSetPayPassWord = data.anQuan ?? false
             for item in self.transferAccountsHomeData!.cpos{
                 let model1 = CionTypeModel(icon: item.icon, biZhong: item.biZhong, xianE: item.xianE, shouXuFei: item.shouXuFei, zuiXiaoShouXuFei: item.zuiXiaoShouXuFei, cionType: item.biZhong! + "0", money: item.t0, type: 0, isSelect: true)
                 let model2 = CionTypeModel(icon: item.icon, biZhong: item.biZhong, xianE: item.xianE, shouXuFei: item.shouXuFei, zuiXiaoShouXuFei: item.zuiXiaoShouXuFei, cionType: item.biZhong! + "1", money: item.t1, type: 1, isSelect: false)
@@ -104,12 +104,12 @@ class BoBTransferAccountsViewController:UIViewController{
             }
             
         }completionHandler: {errCode,errMsg in
-            SuperToast.show(title: String(errCode).localized())
+            SuperToast.show(title: errMsg)
         }
     }
     func refreshUI(){
-        self.cionTypeView.iconView.sd_setImage(with: URL(string: chooseCionTypeModel?.icon))
-        self.cionTypeView.titleView.text = chooseCionTypeModel?.biZhong
+        cionTypeImageView.sd_setImage(with: URL(string: chooseCionTypeModel?.icon))
+        cionNameLabel.text = chooseCionTypeModel?.biZhong
         if chooseCionTypeModel?.type == 0{
             self.walletType.text = "T+0钱包"
             self.walletType.textColor = .init(hexString: "#00AA3C")
@@ -158,45 +158,65 @@ class BoBTransferAccountsViewController:UIViewController{
         r.text = "币种"
         return r
     }()
-    lazy var cionTypeView: SuperSettingView = {
-        let r = SuperSettingView.create(icon: UIImage(named: "mine_home_cion_c_icon")!, title: cionType,isChangeIconColor:false, click: { [weak self] data in
+    lazy var cionTypeView: UIView = {
+        let r = UIView()
+        r.backgroundColor = .white
+        r.corner(8)
+        r.addSubview(cionTypeImageView)
+        r.addSubview(cionNameLabel)
+        r.addSubview(walletType)
+        let v = UIImageView(image: UIImage(named: "SuperChevronRight"))
+        v.tintColor = .black80
+        v.contentMode = .scaleAspectFit
+        r.addSubview(v)
+        cionTypeImageView.snp_makeConstraints { make in
+            make.left.equalTo(16)
+            make.centerY.equalTo(r)
+            make.width.height.equalTo(26)
+        }
+        cionNameLabel.snp_makeConstraints { make in
+            make.left.equalTo(cionTypeImageView.snp_right).offset(10)
+            make.centerY.equalTo(cionTypeImageView.snp_centerY)
+        }
+        walletType.snp_makeConstraints { make in
+            make.left.equalTo(cionNameLabel.snp_right).offset(7)
+            make.centerY.equalTo(cionNameLabel)
+            make.width.equalTo(62)
+            make.height.equalTo(26)
+        }
+        v.snp_makeConstraints { make in
+            make.right.equalTo(-16)
+            make.centerY.equalTo(r)
+            make.width.height.equalTo(15)
+        }
+        let tap = UITapGestureRecognizer()
+        tap.rx.event.subscribe {  _ in
+            self.view.endEditing(true)
             let chooseTypeView = BoBChooseCionTypeView()
             chooseTypeView.tg_width.equal(.fill)
             chooseTypeView.tg_height.equal(300)
-            chooseTypeView.reloadListArray(array: self!.cionTypeArray)
+            chooseTypeView.reloadListArray(array: self.cionTypeArray)
             chooseTypeView.chooseCionBlock = { [weak self] model,array in
                 self?.chooseCionTypeModel = model
                 self?.cionTypeArray = array
                 self?.refreshUI()
             }
-            GKCover.cover(from: self?.view.window, contentView: chooseTypeView, style: .translucent, showStyle: .bottom, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
-        })
-        r.corner(8)
-        r.iconView.tg_width.equal(26)
-        r.iconView.tg_height.equal(26)
-        r.moreIconView.tg_right.equal(r.tg_right,offset: 16)
-        r.isMediumFont()
-        r.addSubview(walletType)
-        walletType.snp_makeConstraints { make in
-            make.left.equalTo(r.titleView.snp_left).offset(18)
-            make.width.equalTo(62)
-            make.height.equalTo(26)
-            make.centerY.equalTo(r)
+            GKCover.cover(from: self.view.window, contentView: chooseTypeView, style: .translucent, showStyle: .bottom, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
         }
+        r.addGestureRecognizer(tap)
+       return r
+    }()
+    lazy var cionTypeImageView: UIImageView = {
+        let r = UIImageView(image: UIImage(named: "mine_home_cion_c_icon"))
         return r
     }()
-//    lazy var cionTypeView: SuperSettingView = {
-//    }
-//    lazy var cionTypeImageView: UIImageView = {
-//        let r = UIImageView()
-//        return r
-//    }()
-//    lazy var cionNameLabel: UILabel = {
-//        let r = UILabel()
-//        r.font = .mediumFont(16)
-//        r.textColor = .black333
-//        return r
-//    }()
+    lazy var cionNameLabel: UILabel = {
+        let r = UILabel()
+        r.font = .mediumFont(16)
+        r.text = cionType
+        r.textColor = .black333
+        return r
+    }()
     lazy var walletType: UILabel = {
         let r = UILabel()
         r.textColor = .init(hexString: "#00AA3C")
@@ -404,7 +424,7 @@ class BoBTransferAccountsViewController:UIViewController{
         r.setTitleColor(.primaryColor, for: .normal)
         r.titleLabel?.font = .regularFont(14)
         r.rx.tap.subscribe(onNext: { [self] in
-            
+            self.countTF.text = String(format: "%.2f",(chooseCionTypeModel?.money)!)
         }).disposed(by: rx.disposeBag)
         return r
     }()
@@ -461,13 +481,40 @@ class BoBTransferAccountsViewController:UIViewController{
         r.corner(28)
         r.titleLabel?.font = .semiboldFont(14)
         r.backgroundColor = .primaryColor
-//        r.rx.tap.subscribe(onNext: { [self] in
-//            BoBPaymentModel.SendExternalTransferRequest(userId:IMController.shared.uid, addr: self.addressTF.text, currency: self.chooseCionTypeModel?.biZhong, issuingPartyWallet: self.chooseCionTypeModel?.cionType, transferAmount:Double(self.countTF.text ?? "0.00") , passWord: "123456"){errCode,errMsg in
-//              print("irjirjt")
-//            }
         r.rx.tap.subscribe(onNext: { [self] in
-            BoBPaymentModel.SendExternalTransferRequest(userId:IMController.shared.uid, addr: self.addressTF.text, currency: self.chooseCionTypeModel?.biZhong, issuingPartyWallet: self.chooseCionTypeModel?.cionType, transferAmount:self.countTF.text ?? "0.00" , passWord: "123456"){errCode,errMsg in
-              print("irjirjt")
+            if IMController.shared.isSetPayPassWord {
+                let passWordView = BoBPayPassWordView()
+                passWordView.tg_width.equal(.fill)
+                passWordView.tg_height.equal(210)
+                passWordView.payBtnClickBlock = { [weak self] passWord in
+                    BoBPaymentModel.SendExternalTransferRequest(userId:IMController.shared.uid, addr: self?.addressTF.text, currency: self?.chooseCionTypeModel?.biZhong, issuingPartyWallet: self?.chooseCionTypeModel?.cionType, transferAmount:self?.countTF.text ?? "0.00" , passWord: passWord){errCode,errMsg in
+                        if errCode == 20000{
+                            SuperToast.show(title:"转账成功")
+                            self?.navigationController?.popViewController(animated: true)
+                        }else{
+                            SuperToast.show(title: errMsg)
+                        }
+                    }
+                }
+
+                GKCover.cover(from: self.view.window, contentView: passWordView, style: .translucent, showStyle: .center, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
+                
+            }else{
+                let alert = UIAlertController(title: "提示", message: "为了您的财产安全，请设置安全密码".innerLocalized(), preferredStyle: .alert)
+                // 创建UIAlertAction，用于处理用户的选择
+                let cancleAction = UIAlertAction(title: "取消", style: .default) { _ in
+                }
+                let okAction = UIAlertAction(title: "去设置", style: .default) { _ in
+                    let vc = BoBChangePayPassWordViewController()
+                    vc.passWordType = 0
+                    self.navigationController?.pushViewController(vc,animated: true)
+                }
+                // 将action添加到alertController上
+                alert.addAction(cancleAction)
+                alert.addAction(okAction)
+                // 弹出alert
+                self.present(alert, animated: true, completion: nil)
+                return
             }
         }).disposed(by: rx.disposeBag)
         return r

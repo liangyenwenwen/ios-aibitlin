@@ -13,13 +13,12 @@ import ProgressHUD
 
 
 class BoBPrimaryRealNameViewController:UIViewController{
-    var certificationLevel:Int = 0
     var scrollView: UIScrollView!
     var chooseType:Int = 0 //0是正面，1是反面
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        title = certificationLevel == 0 ? "初级实名认证" : "高级实名认证"
+        title = IMController.shared.certificationLevel == 0 ? "初级实名认证" : "高级实名认证"
         scrollView = UIScrollView()
         view.addSubview(scrollView)
         scrollView.addSubview(idTitleLabel)
@@ -96,7 +95,7 @@ class BoBPrimaryRealNameViewController:UIViewController{
             self?.nameLabel.text = data.name
             self?.idCardLabel.text = data.cardId
         }completionHandler: {errCode, errMsg in
-            SuperToast.show(title: String(errCode).localized())
+            SuperToast.show(title: errMsg)
         }
     }
     lazy var idTitleLabel:UILabel = {
@@ -216,7 +215,7 @@ class BoBPrimaryRealNameViewController:UIViewController{
         return r
     }()
     lazy var sumbitBtn: QMUIButton = {
-        let r = ViewFactoryUtil.linkButton(certificationLevel == 0 ? "提交" : "下一步")
+        let r = ViewFactoryUtil.linkButton(IMController.shared.certificationLevel == 0 ? "提交" : "下一步")
         r.setTitleColor(.white, for: .normal)
         r.corner(24)
         r.titleLabel?.font = UIFont(name: "PingFangSC-Medium", size: 16)
@@ -230,14 +229,14 @@ class BoBPrimaryRealNameViewController:UIViewController{
                 SuperToast.show(title: "请上传身份证国徽面")
                 return
             }
-            if self.certificationLevel == 0 {
+            if IMController.shared.certificationLevel == 0 {
                 //提交
                 BoBRealNameModel.primaryRealNameAuthenticationRequest(userId: IMController.shared.uid, name: self.nameLabel.text!, cardId: self.idCardLabel.text!){errCode, errMsg in
                     if errCode == 20000{
                         SuperToast.show(title: "认证成功")
                         self.navigationController?.popToRootViewController(animated: true)
                     }else{
-                        SuperToast.show(title: String(errCode).localized())
+                        SuperToast.show(title: errMsg)
                     }
                     
                 }

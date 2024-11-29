@@ -265,6 +265,8 @@ class MainTabViewController: UITabBarController {
         IMController.shared.unChatMessageCount = 0
         IMController.shared.unCallPhoneMessageCount = 0
         IMController.shared.unContactMessageCount = 0
+        IMController.shared.certificationLevel = 0
+        IMController.shared.isSetPayPassWord = false
         AccountViewModel.saveUser(uid: nil, imToken: nil, chatToken: nil)
         presentLoginController()
     }
@@ -277,6 +279,8 @@ class MainTabViewController: UITabBarController {
         IMController.shared.unChatMessageCount = 0
         IMController.shared.unCallPhoneMessageCount = 0
         IMController.shared.unContactMessageCount = 0
+        IMController.shared.certificationLevel = 0
+        IMController.shared.isSetPayPassWord = false
         AccountViewModel.saveUser(uid: nil, imToken: nil, chatToken: nil)
         presentLoginController()
     }
@@ -408,6 +412,7 @@ class MainTabViewController: UITabBarController {
             
             updateLanguage(uid: r.userID)
             initWallet(uid: r.userID,nickName: r.nickname ?? "")
+            loadUserCertificationLevel(uid:r.userID)
             //            checkAppVersion(uid:r.userID)
             pushBindAlias(true)
             ProgressHUD.dismiss()
@@ -434,6 +439,15 @@ extension MainTabViewController {
     func initWallet(uid: String,nickName:String){
         BoBRealNameModel.InitWalletRequest(userId: uid,nickName: nickName){ errCode, errMsg in
         }
+    }
+    //
+    func loadUserCertificationLevel(uid: String){
+        AccountViewModel.queryUserWalletInfo(userId: uid,
+                                             valueHandler: { [weak self] (data :MineWalletMoneyData) in
+            IMController.shared.isSetPayPassWord = data.anQuan ?? false
+            IMController.shared.certificationLevel = data.certificationLevel ?? 0
+        }, completionHandler: {(errCode, errMsg) in
+        })
     }
     //检查更新
     func checkAppVersion(uid: String){

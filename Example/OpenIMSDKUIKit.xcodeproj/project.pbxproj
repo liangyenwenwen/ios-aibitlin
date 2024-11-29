@@ -85,6 +85,8 @@
 		047BF6B62CA2B6DF00706117 /* YFFileDataUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047BF6B52CA2B6DF00706117 /* YFFileDataUtil.swift */; };
 		0481726D2CF89790007A2920 /* BoBChooseCionTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0481726C2CF89790007A2920 /* BoBChooseCionTypeView.swift */; };
 		0481726F2CF95D9A007A2920 /* BoBChooseCionTypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0481726E2CF95D9A007A2920 /* BoBChooseCionTypeCell.swift */; };
+		048172722CF969B2007A2920 /* BoBChangePayPassWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048172712CF969B2007A2920 /* BoBChangePayPassWordViewController.swift */; };
+		048172742CF96B06007A2920 /* BoBPayPassWordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048172732CF96B06007A2920 /* BoBPayPassWordView.swift */; };
 		049B98032CB521360032E7B8 /* YFChooseUserAvatarCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049B98022CB521360032E7B8 /* YFChooseUserAvatarCardView.swift */; };
 		049C643E2BEC619300B679C4 /* YFLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049C643D2BEC619300B679C4 /* YFLoginVC.swift */; };
 		049C64402BEC622300B679C4 /* YFLoginChooseHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049C643F2BEC622300B679C4 /* YFLoginChooseHeaderView.swift */; };
@@ -330,6 +332,8 @@
 		047BF6B52CA2B6DF00706117 /* YFFileDataUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFFileDataUtil.swift; sourceTree = "<group>"; };
 		0481726C2CF89790007A2920 /* BoBChooseCionTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBChooseCionTypeView.swift; sourceTree = "<group>"; };
 		0481726E2CF95D9A007A2920 /* BoBChooseCionTypeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBChooseCionTypeCell.swift; sourceTree = "<group>"; };
+		048172712CF969B2007A2920 /* BoBChangePayPassWordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBChangePayPassWordViewController.swift; sourceTree = "<group>"; };
+		048172732CF96B06007A2920 /* BoBPayPassWordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBPayPassWordView.swift; sourceTree = "<group>"; };
 		049B98022CB521360032E7B8 /* YFChooseUserAvatarCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFChooseUserAvatarCardView.swift; sourceTree = "<group>"; };
 		049C643D2BEC619300B679C4 /* YFLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFLoginVC.swift; sourceTree = "<group>"; };
 		049C643F2BEC622300B679C4 /* YFLoginChooseHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFLoginChooseHeaderView.swift; sourceTree = "<group>"; };
@@ -916,6 +920,7 @@
 			children = (
 				0481726C2CF89790007A2920 /* BoBChooseCionTypeView.swift */,
 				0481726E2CF95D9A007A2920 /* BoBChooseCionTypeCell.swift */,
+				048172732CF96B06007A2920 /* BoBPayPassWordView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1267,6 +1272,7 @@
 				04F2D0722BEE21CA00D5271B /* MineAccountAddSafeVC.swift */,
 				0418B57A2BF21EF000108808 /* YFMineUserPrivateVC.swift */,
 				04A4BCFF2BF32F17008FA224 /* YFMineChangePasswordVC.swift */,
+				048172712CF969B2007A2920 /* BoBChangePayPassWordViewController.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -2024,6 +2030,7 @@
 				17B11A422ABD28C600DB8980 /* InterruptNavigationControllerPopGesture.swift in Sources */,
 				1760BE5C2BD9FFAD0096CD1C /* SimpleInputViewController.swift in Sources */,
 				049C64432BEC689100B679C4 /* YFTitleAddUnderlineChooseView.swift in Sources */,
+				048172722CF969B2007A2920 /* BoBChangePayPassWordViewController.swift in Sources */,
 				17620CE62A4D232200B74C96 /* ModifyPswViewController.swift in Sources */,
 				040D85E52BEB8C0B00DCAAB3 /* SuperSettingView.swift in Sources */,
 				040D85C22BEB8B0400DCAAB3 /* ExceptionHandleUtil.swift in Sources */,
@@ -2112,6 +2119,7 @@
 				04F2D0822BEE21CA00D5271B /* MineMessageVC.swift in Sources */,
 				04F2D0832BEE21CA00D5271B /* MeHomeController.swift in Sources */,
 				040D86092BEB8C4200DCAAB3 /* SuperUIThemeExtension.swift in Sources */,
+				048172742CF96B06007A2920 /* BoBPayPassWordView.swift in Sources */,
 				04052E242CF4249300A7A554 /* BoBPaymentModel.swift in Sources */,
 				040D85C52BEB8B0400DCAAB3 /* SuperStringUtil.swift in Sources */,
 				04052E212CF41AF600A7A554 /* BoBPaymentMethodListViewController.swift in Sources */,

@@ -320,7 +320,7 @@ class BoBAddPaymentMethodViewController:UIViewController{
                     SuperToast.show(title:type == 1 ? "添加成功" : "修改成功")
                     self.navigationController?.popViewController(animated: true)
                 }else{
-                    SuperToast.show(title: String(errCode).localized())
+                    SuperToast.show(title: errMsg)
                 }
             }
             

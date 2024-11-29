@@ -932,6 +932,7 @@ struct DemoError: Error, Decodable {
 class MineWalletMoneyData: Codable {
     let totalAssets: Double? //我的总资产
     let certificationLevel: Int? //用户实名认证等级 0:未认证 1:初级认证 2:高级认证
+    let anQuan:Bool? //是否已设置安全密码
     let quantityOfMoneyPOS:[QuantityOfMoneyPOS]? //钱包资产
 }
 class QuantityOfMoneyPOS: Codable {

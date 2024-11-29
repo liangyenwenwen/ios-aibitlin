@@ -81,7 +81,7 @@ class BoBReceivePaymentViewController:UIViewController{
                 }
             }
         }  completionHandler:{errCode,errMsg in
-            SuperToast.show(title: String(errCode).localized())
+            SuperToast.show(title: errMsg)
         }
     }
     func saveViewToPhotoAlbum(view:UIView) {

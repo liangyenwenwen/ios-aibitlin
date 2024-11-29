@@ -9,7 +9,6 @@
 import Foundation
 import OUICore
 class BoBRealNameMainViewController:UIViewController{
-    var certificationLevel:Int = 0
     var scrollView: UIScrollView!
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -92,7 +91,6 @@ class BoBRealNameMainViewController:UIViewController{
         r.hide()
         r.rx.tap.subscribe(onNext: { [self] in
             let vc = BoBPrimaryRealNameViewController()
-            vc.certificationLevel = self.certificationLevel
             self.navigationController?.pushViewController(vc, animated: true)
         }).disposed(by: rx.disposeBag)
         return r
@@ -105,7 +103,6 @@ class BoBRealNameMainViewController:UIViewController{
         r.hide()
         r.rx.tap.subscribe(onNext: { [self] in
             let vc = BoBPrimaryRealNameViewController()
-            vc.certificationLevel = 1
             self.navigationController?.pushViewController(vc, animated: true)
         }).disposed(by: rx.disposeBag)
         return r
@@ -136,14 +133,14 @@ extension BoBRealNameMainViewController{
                 make.height.equalTo(height2)
             })
             self?.scrollView.contentSize = CGSize(width: kScreenWidth, height: height1+height2+16)
-            self?.certificationLevel = data.certificationLevel
+            IMController.shared.certificationLevel = data.certificationLevel
             self?.showBottomView()
         } completionHandler: {errCode, errMsg in
             
         }
     }
     func showBottomView(){
-        if self.certificationLevel == 0{
+        if IMController.shared.certificationLevel == 0{
             //未认证
             self.primaryBtn.show()
             self.advancedBtn.show()
@@ -153,7 +150,7 @@ extension BoBRealNameMainViewController{
 //            scrollView.snp_updateConstraints { make in
 //                make.bottom.equalTo(primaryBtn.snp_top).offset(-20)
 //            }
-        }else if self.certificationLevel == 1{
+        }else if IMController.shared.certificationLevel == 1{
             //初级认证
             self.primaryBtn.hide()
             self.advancedBtn.show()

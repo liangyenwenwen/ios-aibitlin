@@ -24,8 +24,9 @@ class MineAccountAddSafeVC: BaseTitleController {
         container.addSubview(titleView(type: 0))
         container.addSubview(accountMessageView)
         
-//        container.addSubview(titleView(type: 1))
+        container.addSubview(titleView(type: 1))
 //        container.addSubview(bindMessageView)
+        container.addSubview(payPassWordView)
         
         container.addSubview(titleView(type: 2))
         container.addSubview(deleteView)
@@ -85,6 +86,16 @@ class MineAccountAddSafeVC: BaseTitleController {
         return r
     }()
     
+    lazy var payPassWordView: SuperSettingView = {
+        let r = SuperSettingView.smallWithIcon(title: IMController.shared.isSetPayPassWord ? "修改安全密码":"设置安全密码".localized()) { [weak self] data in
+            let vc = BoBChangePayPassWordViewController()
+            vc.passWordType = IMController.shared.isSetPayPassWord ? 1 : 0
+            self?.navigationController?.pushViewController(vc, animated: true)
+        }
+        r.corner()
+        r.isMediumFont()
+        return r
+    }()
     
     lazy var bindMessageView: TGLinearLayout = {
         let r = TGLinearLayout(.vert)
@@ -154,7 +165,8 @@ class MineAccountAddSafeVC: BaseTitleController {
         case 0:
             r.text = "AccountInformation".localized()
         case 1:
-            r.text = "BindingThirdPartyAccounts".localized()
+//            r.text = "BindingThirdPartyAccounts".localized()
+            r.text = "支付密码".localized()
         case 2:
             r.text = "DeleteAccount".localized()
         default:

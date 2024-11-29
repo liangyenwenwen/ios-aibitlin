@@ -9,7 +9,6 @@
 import Foundation
 import OUICore
 class BoBPaymentMethodListViewController:UIViewController{
-    var certificationLevel:Int = 0
     var listArray:[stringAndDatePOS] = []
     var paymentData:PaymentMethodData?
     override func viewWillAppear(_ animated: Bool) {
@@ -41,7 +40,7 @@ class BoBPaymentMethodListViewController:UIViewController{
             make.height.equalTo(44)
         }
         
-        if certificationLevel == 0 {
+        if IMController.shared.certificationLevel == 0 {
             unRealNameTipView.show()
         }
     }
@@ -51,7 +50,6 @@ class BoBPaymentMethodListViewController:UIViewController{
         let tap = UITapGestureRecognizer()
         tap.rx.event.subscribe {  _ in
             let vc =  BoBRealNameMainViewController()
-            vc.certificationLevel = self.certificationLevel
             self.navigationController?.pushViewController(vc, animated: true)
         }
         v.addGestureRecognizer(tap)
@@ -89,25 +87,24 @@ class BoBPaymentMethodListViewController:UIViewController{
             self.listArray = data.stringAndDatePOS ?? []
             self.tableView.reloadData()
             self.emptyView.isHidden = self.listArray.count > 0
-            self.certificationLevel = data.i
-            if self.certificationLevel == 0 {
+            IMController.shared.certificationLevel = data.i
+            if IMController.shared.certificationLevel == 0 {
                 self.unRealNameTipView.show()
             }else{
                 self.unRealNameTipView.hide()
             }
         } completionHandler: {errCode,errMsg in
-            SuperToast.show(title: String(errCode).localized())
+            SuperToast.show(title: errMsg)
         }
     }
     @objc func addPayMentMethodBtn() {
-        if certificationLevel == 0{
+        if IMController.shared.certificationLevel == 0{
             let alert = UIAlertController(title: "提示", message: "请先进行实名认证".innerLocalized(), preferredStyle: .alert)
             // 创建UIAlertAction，用于处理用户的选择
             let cancleAction = UIAlertAction(title: "取消".innerLocalized(), style: .default) { _ in
             }
             let okAction = UIAlertAction(title: "去认证".innerLocalized(), style: .default) { _ in
                 let vc =  BoBRealNameMainViewController()
-                vc.certificationLevel = self.certificationLevel
                 self.navigationController?.pushViewController(vc, animated: true)
             }
             // 将action添加到alertController上
@@ -182,7 +179,7 @@ extension BoBPaymentMethodListViewController: UITableViewDataSource, UITableView
                 self.tableView.reloadData()
                 self.emptyView.isHidden = self.listArray.count > 0
             }else{
-                SuperToast.show(title: String(errCode).localized())
+                SuperToast.show(title: errMsg)
             }
         }
     }

@@ -38,6 +38,7 @@ class MeHomeController: BaseLogicController {
         container.tg_space = 12
         addTopUserMessage()
         bindData()
+        updateMineWalletView()
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,7 +49,10 @@ class MeHomeController: BaseLogicController {
         AccountViewModel.queryUserWalletInfo(userId: userID,
                                              valueHandler: { [weak self] (data :MineWalletMoneyData) in
             self?.mineWalletData = data
+            IMController.shared.isSetPayPassWord = data.anQuan ?? false
+            IMController.shared.certificationLevel = data.certificationLevel ?? 0
             self?.updateMineWalletView()
+            self?.walletView.bindData(walletMoneyData: data)
             self?.walletView.stopRote()
         }, completionHandler: {(errCode, errMsg) in
             self.walletView.stopRote()
@@ -91,12 +95,12 @@ class MeHomeController: BaseLogicController {
     }
     func updateMineWalletView(){
         realNameStatusView.show()
-        if mineWalletData?.certificationLevel == 0 {
+        if IMController.shared.certificationLevel == 0 {
             //未实名认证
             realNameStatusView.backgroundColor = .init(hexString: "#FFA756")
             realNameStatusIcon.image = UIImage(named: "real_name_unAuthentication_icon")
             realNameStatusLabel.text = "未认证"
-        } else if mineWalletData?.certificationLevel == 1{
+        } else if IMController.shared.certificationLevel == 1{
             //初级实名认证
             realNameStatusView.backgroundColor = .init(hexString: "#3ACC9B")
             realNameStatusIcon.image = UIImage(named: "real_name_authentication_icon")
@@ -108,7 +112,6 @@ class MeHomeController: BaseLogicController {
             realNameStatusIcon.image = UIImage(named: "real_name_authentication_icon")
             realNameStatusLabel.text = "高级认证"
         }
-        walletView.bindData(walletMoneyData: mineWalletData!)
     }
     
     func addTopUserMessage() {
@@ -323,7 +326,6 @@ class MeHomeController: BaseLogicController {
     lazy var paymentMethodView: SuperSettingView = {
         let r = SuperSettingView.create(icon: UIImage(named: "mine_home_payment_method_icon")!, title: "支付方式",isChangeIconColor:false, click: { [weak self] data in
             let vc = BoBPaymentMethodListViewController()
-            vc.certificationLevel = self?.mineWalletData?.certificationLevel ?? 0
             vc.hidesBottomBarWhenPushed = true
             self?.navigationController?.pushViewController(vc, animated: true)
         })
@@ -392,7 +394,6 @@ extension MeHomeController {
    
     @objc func gotoRealNameVC() {
         let vc = BoBRealNameMainViewController()
-        vc.certificationLevel = mineWalletData?.certificationLevel ?? 0
         vc.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(vc, animated: true)
     }

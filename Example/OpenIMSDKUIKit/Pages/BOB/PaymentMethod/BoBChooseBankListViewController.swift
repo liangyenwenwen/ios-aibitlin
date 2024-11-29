@@ -69,7 +69,7 @@ class BoBChooseBankListViewController:UIViewController, UISearchBarDelegate{
             self.listArray = data
             self.tableView.reloadData()
         } completionHandler: {errCode,errMsg in
-            SuperToast.show(title: String(errCode).localized())
+            SuperToast.show(title: errMsg)
         }
     }
 
