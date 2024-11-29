@@ -12,48 +12,118 @@ import OUICore
 class BoBAddPaymentMethodViewController:UIViewController{
     var paymentType:Int = 0 //0银行卡，1支付宝，2微信
     var name:String?
+    var paymentDetail:stringAndDatePOS?
     override func viewDidLoad() {
         super.viewDidLoad()
-        name = "张三"
         view.backgroundColor = .colorBackgroundAPP
-        title = "添加支付方式"
-        view.addSubview(chooseTypeTitleLabel)
-        view.addSubview(chooseTypeView)
-        view.addSubview(bankView)
-        view.addSubview(aliView)
-        view.addSubview(wxView)
-        view.addSubview(sumbitBtn)
-        chooseTypeTitleLabel.snp_makeConstraints { make in
-            make.left.equalTo(16)
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(14)
-            make.right.equalTo(-16)
-        }
-        chooseTypeView.snp_makeConstraints { make in
-            make.left.right.equalTo(chooseTypeTitleLabel)
-            make.top.equalTo(chooseTypeTitleLabel.snp_bottom).offset(18)
-            make.height.equalTo(40)
-        }
-        bankView.snp_makeConstraints { make in
-            make.left.equalTo(16)
-            make.right.equalTo(-16)
-            make.top.equalTo(chooseTypeView.snp_bottom).offset(20)
-            make.height.equalTo(250)
-        }
-        aliView.snp_makeConstraints { make in
-            make.left.right.top.equalTo(bankView)
-            make.height.equalTo(292)
-        }
-        wxView.snp_makeConstraints { make in
-            make.left.right.top.equalTo(bankView)
-            make.height.equalTo(242)
+        title = paymentDetail == nil ? "添加支付方式" : "编辑支付方式"
+        if paymentDetail == nil{
+            view.addSubview(chooseTypeTitleLabel)
+            view.addSubview(chooseTypeView)
+            view.addSubview(bankView)
+            view.addSubview(aliView)
+            view.addSubview(wxView)
+            view.addSubview(sumbitBtn)
+            chooseTypeTitleLabel.snp_makeConstraints { make in
+                make.left.equalTo(16)
+                make.top.equalTo(view.safeAreaLayoutGuide).offset(14)
+                make.right.equalTo(-16)
+            }
+            chooseTypeView.snp_makeConstraints { make in
+                make.left.right.equalTo(chooseTypeTitleLabel)
+                make.top.equalTo(chooseTypeTitleLabel.snp_bottom).offset(18)
+                make.height.equalTo(40)
+            }
+            bankView.snp_makeConstraints { make in
+                make.left.equalTo(16)
+                make.right.equalTo(-16)
+                make.top.equalTo(chooseTypeView.snp_bottom).offset(20)
+                make.height.equalTo(250)
+            }
+            aliView.snp_makeConstraints { make in
+                make.left.right.top.equalTo(bankView)
+                make.height.equalTo(292)
+            }
+            wxView.snp_makeConstraints { make in
+                make.left.right.top.equalTo(bankView)
+                make.height.equalTo(242)
 
+            }
+            sumbitBtn.snp_makeConstraints { make in
+                make.left.equalTo(16)
+                make.right.equalTo(-16)
+                make.height.equalTo(48)
+                make.top.equalTo(bankView.snp_bottom).offset(20)
+            }
+        }else{
+            if let res = JsonTool.fromJson((paymentDetail?.stringValue)!, toClass: paymentDdetailData.self) {
+                if paymentDetail?.type == "bank"{
+                    view.addSubview(bankView)
+                    view.addSubview(sumbitBtn)
+                    bankView.snp_makeConstraints { make in
+                        make.left.equalTo(16)
+                        make.right.equalTo(-16)
+                        make.top.equalTo(view.safeAreaLayoutGuide).offset(14)
+                        make.height.equalTo(250)
+                    }
+                    sumbitBtn.snp_makeConstraints { make in
+                        make.left.equalTo(16)
+                        make.right.equalTo(-16)
+                        make.height.equalTo(48)
+                        make.top.equalTo(bankView.snp_bottom).offset(20)
+                    }
+                    bankView.nameView.textFieldView.text = res.name
+                    bankView.bankNumberView.textFieldView.text = res.bankId
+                    bankView.bankNameView.textFieldView.text = res.bankDeposit
+                    bankView.bankSubView.textFieldView.text = res.bankBranch
+                }else if paymentDetail?.type == "weiXin"{
+                    view.addSubview(wxView)
+                    view.addSubview(sumbitBtn)
+                    wxView.snp_makeConstraints { make in
+                        make.left.equalTo(16)
+                        make.right.equalTo(-16)
+                        make.top.equalTo(view.safeAreaLayoutGuide).offset(14)
+                        make.height.equalTo(242)
+                    }
+                    sumbitBtn.snp_makeConstraints { make in
+                        make.left.equalTo(16)
+                        make.right.equalTo(-16)
+                        make.height.equalTo(48)
+                        make.top.equalTo(wxView.snp_bottom).offset(20)
+                    }
+                    paymentType = 2
+                    wxView.show()
+                    wxView.qrUrl = res.img
+                    wxView.qrCodeImageView.sd_setImage(with: URL(string: res.img))
+                    wxView.nameView.textFieldView.text = res.name
+                    wxView.nickNameView.textFieldView.text = res.nickName
+                }else{
+                    view.addSubview(aliView)
+                    view.addSubview(sumbitBtn)
+                    aliView.snp_makeConstraints { make in
+                        make.left.equalTo(16)
+                        make.right.equalTo(-16)
+                        make.top.equalTo(view.safeAreaLayoutGuide).offset(14)
+                        make.height.equalTo(292)
+                    }
+                    sumbitBtn.snp_makeConstraints { make in
+                        make.left.equalTo(16)
+                        make.right.equalTo(-16)
+                        make.height.equalTo(48)
+                        make.top.equalTo(aliView.snp_bottom).offset(20)
+                    }
+                    paymentType = 1
+                    aliView.show()
+                    aliView.qrUrl = res.img
+                    aliView.qrCodeImageView.sd_setImage(with: URL(string: res.img))
+                    aliView.nameView.textFieldView.text = res.name
+                    aliView.aliNumberView.textFieldView.text = res.zfbCode
+                    aliView.nickNameView.textFieldView.text = res.nickName
+                }
+
+            }
         }
-        sumbitBtn.snp_makeConstraints { make in
-            make.left.equalTo(16)
-            make.right.equalTo(-16)
-            make.height.equalTo(48)
-            make.top.equalTo(bankView.snp_bottom).offset(20)
-        }
+        
     }
     lazy var chooseTypeTitleLabel: UILabel = {
         let r = UILabel()
@@ -163,6 +233,9 @@ class BoBAddPaymentMethodViewController:UIViewController{
         let r = BoBAddBankPaymentView()
         r.chooseBankBlock = {
             let vc = BoBChooseBankListViewController()
+            vc.chooseBankBlock = {[weak self] bankName in
+                r.bankNameView.textFieldView.text = bankName
+            }
             self.navigationController?.pushViewController(vc, animated: true)
         }
         r.nameView.textFieldView.text = name
@@ -206,7 +279,7 @@ class BoBAddPaymentMethodViewController:UIViewController{
                          "bankDeposit":self.bankView.bankNameView.textFieldView.text ?? "",
                          "bankBranch":self.bankView.bankSubView.textFieldView.text ?? ""]
             }else if paymentType == 1{
-                if self.aliView.qrCodeImageView.image == nil{
+                if self.aliView.qrUrl?.isEmpty == true{
                     SuperToast.show(title: "请上传支付宝收款码")
                     return
                 }
@@ -224,7 +297,7 @@ class BoBAddPaymentMethodViewController:UIViewController{
                          "nickName":self.aliView.nickNameView.textFieldView.text ?? "",
                          "img":self.aliView.qrUrl ?? ""]
             }else{
-                if self.wxView.qrCodeImageView.image == nil{
+                if self.wxView.qrUrl?.isEmpty == true{
                     SuperToast.show(title: "请上传微信收款码")
                     return
                 }
@@ -237,14 +310,20 @@ class BoBAddPaymentMethodViewController:UIViewController{
                          "nickName":self.wxView.nickNameView.textFieldView.text ?? "",
                          "img":self.wxView.qrUrl ?? ""]
             }
-            BoBPaymentModel.AddPaymentMethod(paymentType: paymentType, param: param){errCode, errMsg in
+            var type = 1
+            if paymentDetail != nil{
+                param["id"] = paymentDetail?.id
+                type = 2
+            }
+            BoBPaymentModel.AddPaymentMethod(type:type,paymentType: paymentType, param: param){errCode, errMsg in
                 if errCode == 20000{
-                    SuperToast.show(title: "添加成功")
+                    SuperToast.show(title:type == 1 ? "添加成功" : "修改成功")
                     self.navigationController?.popViewController(animated: true)
                 }else{
                     SuperToast.show(title: String(errCode).localized())
                 }
             }
+            
         }).disposed(by: rx.disposeBag)
         return r
     }()

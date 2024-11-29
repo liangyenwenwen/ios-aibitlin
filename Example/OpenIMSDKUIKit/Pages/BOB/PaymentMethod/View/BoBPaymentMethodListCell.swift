@@ -13,7 +13,6 @@ class BoBPaymentMethodListCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         selectionStyle = .none
-        accessoryType = .disclosureIndicator
         contentView.backgroundColor = .colorBackgroundAPP
         contentView.addSubview(paymentContentView)
         paymentContentView.addSubview(paymentMethodIcon)
@@ -46,7 +45,7 @@ class BoBPaymentMethodListCell: UITableViewCell {
         nickNameLabel.snp_makeConstraints { make in
             make.left.equalTo(nameLabel.snp_right).offset(8)
             make.centerY.equalTo(nameLabel.snp_centerY)
-            make.right.equalTo(paymentMethodLabel.snp_right)
+            make.width.equalTo(120)
         }
         qrCodeImageView.snp_makeConstraints { make in
             make.right.equalTo(-16)
@@ -96,6 +95,7 @@ class BoBPaymentMethodListCell: UITableViewCell {
         let v = UILabel()
         v.font = UIFont(name: "PingFangSC-Regular", size: 13)
         v.textColor = .black333
+        v.textAlignment = .left
         return v
     }()
     lazy var qrCodeImageView: UIImageView = {

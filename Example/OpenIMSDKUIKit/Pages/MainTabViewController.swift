@@ -407,7 +407,7 @@ class MainTabViewController: UITabBarController {
             }
             
             updateLanguage(uid: r.userID)
-            initWallet(uid: r.userID)
+            initWallet(uid: r.userID,nickName: r.nickname ?? "")
             //            checkAppVersion(uid:r.userID)
             pushBindAlias(true)
             ProgressHUD.dismiss()
@@ -431,8 +431,8 @@ class MainTabViewController: UITabBarController {
 
 extension MainTabViewController {
     //初始化钱包
-    func initWallet(uid: String){
-        BoBRealNameModel.InitWalletRequest(userId: uid){ errCode, errMsg in
+    func initWallet(uid: String,nickName:String){
+        BoBRealNameModel.InitWalletRequest(userId: uid,nickName: nickName){ errCode, errMsg in
         }
     }
     //检查更新

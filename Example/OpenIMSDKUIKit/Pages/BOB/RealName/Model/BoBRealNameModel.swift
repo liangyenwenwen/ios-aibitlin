@@ -29,6 +29,7 @@ open class BoBRealNameModel {
     ]
     //初始化钱包
     static func InitWalletRequest(userId: String?,
+                                  nickName:String?,
                           completionHandler: @escaping CompletionHandler) {
         
         
@@ -36,10 +37,10 @@ open class BoBRealNameModel {
 //            SuperToast.show(title: "")
             return
         }
-        let param = ["userId": userId ?? ""]
-        let url = SuperStringUtil.netUrl(API_BLOG_URL + InitWallet, param)
+        let param = ["userId": userId ?? "","nickName":nickName ?? ""]
+//        let url = SuperStringUtil.netUrl(API_BLOG_URL + InitWallet, param)
         
-        Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: httpHeaders).responseString { (response: DataResponse<String>) in
+        Alamofire.request(API_BLOG_URL + InitWallet, method: .post, parameters: param,encoding: JSONEncoding.default, headers: httpHeaders).responseString { (response: DataResponse<String>) in
             switch response.result {
             case .success(let result):
                 if let res = JsonTool.fromJson(result, toClass: BoBResponse.self) {

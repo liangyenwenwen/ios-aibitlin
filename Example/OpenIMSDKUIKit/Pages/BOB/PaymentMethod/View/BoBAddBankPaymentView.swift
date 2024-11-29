@@ -18,7 +18,6 @@ class BoBAddBankPaymentView:TGLinearLayout {
         super.init(frame: .zero, orientation: .vert)
         initViews()
     }
-    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         initViews()
@@ -27,7 +26,7 @@ class BoBAddBankPaymentView:TGLinearLayout {
     
     func initViews()  {
         self.tg_width.equal(kScreenWidth-32)
-        self.tg_height.equal(.wrap)
+        self.tg_height.equal(250)
         addSubview(nameView)
         addSubview(ViewFactoryUtil.smallDivider())
         addSubview(tipView)
@@ -77,7 +76,7 @@ class BoBAddBankPaymentView:TGLinearLayout {
         r.isMediumFont()
         r.titleView.changeColor(changeColorStr: "*")
         r.textFieldView.font = UIFont(name: "PingFangSC-Regular", size: 16)
-        r.needLimitLength(length: 50)
+        r.needLimitLength(length: 64)
         r.textFieldView.keyboardType = .asciiCapableNumberPad
         r.textFieldView.tg_right.equal(-10)
         r.textFieldView.textAlignment = .right
@@ -96,7 +95,7 @@ class BoBAddBankPaymentView:TGLinearLayout {
         r.textFieldView.isUserInteractionEnabled = false
         r.textFieldView.textColor = .black666
         r.textFieldView.font = UIFont(name: "PingFangSC-Regular", size: 16)
-        r.needLimitLength(length: 50)
+        r.needLimitLength(length: 64)
         r.moreIconView.tg_left.equal(0)
         r.tg_space = 0
         return r
@@ -105,7 +104,7 @@ class BoBAddBankPaymentView:TGLinearLayout {
         let r = SuperSettingView.createInput("开户支行", placeholder: "请输入开户支行")
         r.textFieldView.textAlignment = .right
         r.isMediumFont()
-        r.needLimitLength(length: 50)
+        r.needLimitLength(length: 255)
         r.textFieldView.tg_right.equal(-10)
         r.textFieldView.textColor = .black666
         r.textFieldView.font = UIFont(name: "PingFangSC-Regular", size: 16)

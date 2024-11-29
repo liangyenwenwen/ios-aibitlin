@@ -3801,7 +3801,7 @@ struct _R: Sendable {
     var colorBackground: RswiftResources.ColorResource { .init(name: "ColorBackground", path: [], bundle: bundle) }
   }
 
-  /// This `_R.image` struct is generated, and contains static references to 275 images.
+  /// This `_R.image` struct is generated, and contains static references to 278 images.
   struct image {
     let bundle: Foundation.Bundle
 
@@ -4411,6 +4411,9 @@ struct _R: Sendable {
     /// Image `mine_home_buy_coin_icon`.
     var mine_home_buy_coin_icon: RswiftResources.ImageResource { .init(name: "mine_home_buy_coin_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
+    /// Image `mine_home_cion_c_icon`.
+    var mine_home_cion_c_icon: RswiftResources.ImageResource { .init(name: "mine_home_cion_c_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
     /// Image `mine_home_close_eye_icon`.
     var mine_home_close_eye_icon: RswiftResources.ImageResource { .init(name: "mine_home_close_eye_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
@@ -4495,6 +4498,9 @@ struct _R: Sendable {
     /// Image `mine_setting_icon`.
     var mine_setting_icon: RswiftResources.ImageResource { .init(name: "mine_setting_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
+    /// Image `mine_transfer_accounts_scan_icon`.
+    var mine_transfer_accounts_scan_icon: RswiftResources.ImageResource { .init(name: "mine_transfer_accounts_scan_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
     /// Image `moments_icon`.
     var moments_icon: RswiftResources.ImageResource { .init(name: "moments_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
@@ -4518,6 +4524,9 @@ struct _R: Sendable {
 
     /// Image `real_name_unAuthentication_icon`.
     var real_name_unAuthentication_icon: RswiftResources.ImageResource { .init(name: "real_name_unAuthentication_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `receive_payment_copy_icon`.
+    var receive_payment_copy_icon: RswiftResources.ImageResource { .init(name: "receive_payment_copy_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
     /// Image `refresh_blue`.
     var refresh_blue: RswiftResources.ImageResource { .init(name: "refresh_blue", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }

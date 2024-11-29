@@ -271,7 +271,7 @@ class MeHomeController: BaseLogicController {
         r.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer()
         tap.rx.event.subscribe {  _ in
-            SuperToast.show(title: "开发中")
+            self.gotoControllerFromRoot(BoBReceivePaymentViewController.self)
         }
         r.addGestureRecognizer(tap)
         return r
@@ -282,7 +282,7 @@ class MeHomeController: BaseLogicController {
         r.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer()
         tap.rx.event.subscribe {  _ in
-            SuperToast.show(title: "开发中")
+            self.gotoControllerFromRoot(BoBTransferAccountsViewController.self)
         }
         r.addGestureRecognizer(tap)
         return r
@@ -396,7 +396,6 @@ extension MeHomeController {
         vc.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(vc, animated: true)
     }
-
     @objc func copyUserID() {
         UIPasteboard.general.string = userShowId
         

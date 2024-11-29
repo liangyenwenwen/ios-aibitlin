@@ -13,7 +13,6 @@ class BoBPaymentMethodBankListCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         selectionStyle = .none
-        accessoryType = .disclosureIndicator
         contentView.backgroundColor = .colorBackgroundAPP
         contentView.addSubview(bankContentView)
         bankContentView.addSubview(bankIcon)

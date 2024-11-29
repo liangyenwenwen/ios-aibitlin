@@ -32,7 +32,11 @@ class BoBAddAliPaymentView:TGLinearLayout {
     func initViews()  {
         self.backgroundColor = .colorBackgroundAPP
         self.tg_width.equal(kScreenWidth-32)
-        self.tg_height.equal(.wrap)
+        if paymentType == 1{
+            self.tg_height.equal(292)
+        }else{
+            self.tg_height.equal(242)
+        }
         addSubview(topView)
         addSubview(bottomView)
     }
@@ -140,7 +144,7 @@ class BoBAddAliPaymentView:TGLinearLayout {
         r.titleView.changeColor(changeColorStr: "*")
         r.textFieldView.textAlignment = .right
         r.textFieldView.isUserInteractionEnabled = false
-        r.needLimitLength(length: 50)
+        r.needLimitLength(length: 64)
         r.textFieldView.tg_right.equal(-10)
         r.textFieldView.textColor = .black666
         r.textFieldView.font = UIFont(name: "PingFangSC-Regular", size: 16)
@@ -150,7 +154,7 @@ class BoBAddAliPaymentView:TGLinearLayout {
         let r = SuperSettingView.createInput("支付宝账号*", placeholder: "请输入支付宝账号")
         r.textFieldView.textAlignment = .right
         r.isMediumFont()
-        r.needLimitLength(length: 50)
+        r.needLimitLength(length: 64)
         r.textFieldView.tg_right.equal(-10)
         r.textFieldView.textColor = .black666
         r.textFieldView.font = UIFont(name: "PingFangSC-Regular", size: 16)
@@ -161,8 +165,8 @@ class BoBAddAliPaymentView:TGLinearLayout {
         r.isMediumFont()
         r.titleView.changeColor(changeColorStr: "*")
         r.textFieldView.font = UIFont(name: "PingFangSC-Regular", size: 16)
-        r.needLimitLength(length: 50)
-        r.textFieldView.keyboardType = .asciiCapableNumberPad
+        r.needLimitLength(length: 64)
+//        r.textFieldView.keyboardType = .asciiCapableNumberPad
         r.textFieldView.tg_right.equal(-10)
         r.textFieldView.textAlignment = .right
         r.textFieldView.textColor = .black666
@@ -192,12 +196,11 @@ class BoBAddAliPaymentView:TGLinearLayout {
     func upLoadQrCodeImage(qrCodeImage:UIImage){
 //        self.qrCodeImageView.image = qrCodeImage
         let result = FileHelper.shared.saveImage(image: qrCodeImage)
-//        ProgressHUD.animate()
         IMController.shared.uploadFile(fullPath: result.fullPath) { [weak self] progress in
             
         } onSuccess: { [weak self] url in
             DispatchQueue.main.async {
-//                ProgressHUD.dismiss()
+                ProgressHUD.dismiss()
                 if let url = url {
                     self?.qrUrl = url
                     self?.qrCodeImageView.image = qrCodeImage
