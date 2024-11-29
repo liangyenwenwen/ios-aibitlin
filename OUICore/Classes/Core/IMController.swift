@@ -132,8 +132,9 @@ extension IMController: ContactsDataSource {
 }
 
 public class IMController: NSObject {
-    public static let addFriendPrefix = "io.openim.app/addFriend/"
-    public static let joinGroupPrefix = "io.openim.app/joinGroup/"
+    public static let addFriendPrefix = "bobi.com/addFriend/"
+    public static let joinGroupPrefix = "bobi.com/joinGroup/"
+    public static let walletTransferPrefix = "bobi.com/walletTransfer/"
     public static let shared: IMController = .init()
     public var imManager: OpenIMSDK.OIMManager!
     /// 好友申请列表新增

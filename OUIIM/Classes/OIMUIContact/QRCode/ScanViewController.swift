@@ -4,8 +4,8 @@ import OUICore
 import AVFoundation
 import ProgressHUD
 
-class ScanViewController: UIViewController {
-    var scanDidComplete: ((String) -> Void)?
+public class ScanViewController: UIViewController {
+    public var scanDidComplete: ((String) -> Void)?
     
     private let disposeBag = DisposeBag()
 
@@ -114,7 +114,7 @@ class ScanViewController: UIViewController {
         return v
     }()
     
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
         
@@ -147,14 +147,14 @@ class ScanViewController: UIViewController {
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
         
       
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    public override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
         
@@ -167,7 +167,7 @@ class ScanViewController: UIViewController {
         
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
+    public override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: false)
         

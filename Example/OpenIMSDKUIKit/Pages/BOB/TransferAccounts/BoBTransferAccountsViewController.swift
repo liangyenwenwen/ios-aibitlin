@@ -11,20 +11,46 @@ import OUICore
 import RxSwift
 import RxCocoa
 import RxGesture
+import OUIIM
+import ProgressHUD
 
 class BoBTransferAccountsViewController:UIViewController{
     var cionType = "C"
+    var address = ""
     var transferAccountsHomeData:TransferAccountsHomeData?
     var chooseCionTypeModel:CionTypeModel?
     var cionTypeArray:[CionTypeModel] = []
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = false
+        if IMController.shared.certificationLevel == 0 {
+            unRealNameTipView.show()
+            unRealNameTipView.snp_remakeConstraints { make in
+                make.top.equalTo(view.safeAreaLayoutGuide)
+                make.left.right.equalTo(0)
+                make.height.equalTo(44)
+            }
+            titleLabel.snp_remakeConstraints { make in
+                make.left.equalTo(16)
+                make.right.equalTo(-16)
+                make.top.equalTo(unRealNameTipView.snp_bottom)
+                make.height.equalTo(36)
+            }
+        }else{
+            unRealNameTipView.hide()
+            titleLabel.snp_remakeConstraints { make in
+                make.left.equalTo(16)
+                make.right.equalTo(-16)
+                make.top.equalTo(view.safeAreaLayoutGuide)
+                make.height.equalTo(36)
+            }
+        }
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .colorBackgroundAPP
-        title = "收款"
+        title = "转账"
+        view.addSubview(unRealNameTipView)
         view.addSubview(titleLabel)
         view.addSubview(cionTypeView)
         view.addSubview(addressContentView)
@@ -151,6 +177,17 @@ class BoBTransferAccountsViewController:UIViewController{
             }
         }
     }
+    lazy var unRealNameTipView: BoBUnRealNameTipView = {
+        let v = BoBUnRealNameTipView()
+        v.hide()
+        let tap = UITapGestureRecognizer()
+        tap.rx.event.subscribe {  _ in
+            let vc =  BoBRealNameMainViewController()
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        v.addGestureRecognizer(tap)
+        return v
+    }()
     lazy var titleLabel: UILabel = {
         let r = UILabel()
         r.textColor = .black333
@@ -271,6 +308,7 @@ class BoBTransferAccountsViewController:UIViewController{
         r.tintColor = .black333
         r.setPlaceHolderTextColor(.black999)
         r.placeholder = "输入接收者地址"
+        r.text = address
         return r
     }()
     lazy var pasteBtn: QMUIButton = {
@@ -289,10 +327,17 @@ class BoBTransferAccountsViewController:UIViewController{
     lazy var scanBtn: QMUIButton = {
         let r = ViewFactoryUtil.imageBtn(UIImage(named: "mine_transfer_accounts_scan_icon")!, 24)
         r.rx.tap.subscribe(onNext: { [self] in
-//            let vc = ScanViewController()
-//            vc.scanDidComplete = { [weak self] (result: String) in
-//            }
-//            self.navigationController?.pushViewController(vc, animated: true)
+            let vc = ScanViewController()
+            vc.scanDidComplete = { [weak self] (result: String) in
+                ProgressHUD.dismiss()
+                if result.contains(IMController.walletTransferPrefix) {
+                    self?.addressTF.text = result.replacingOccurrences(of: IMController.walletTransferPrefix, with: "")
+                } else {
+                    SuperToast.show(title: "unrecognized".innerLocalized())
+                }
+                self?.navigationController?.popViewController(animated: true)
+            }
+            self.navigationController?.pushViewController(vc, animated: true)
         }).disposed(by: rx.disposeBag)
         return r
     }()
@@ -482,39 +527,56 @@ class BoBTransferAccountsViewController:UIViewController{
         r.titleLabel?.font = .semiboldFont(14)
         r.backgroundColor = .primaryColor
         r.rx.tap.subscribe(onNext: { [self] in
-            if IMController.shared.isSetPayPassWord {
-                let passWordView = BoBPayPassWordView()
-                passWordView.tg_width.equal(.fill)
-                passWordView.tg_height.equal(210)
-                passWordView.payBtnClickBlock = { [weak self] passWord in
-                    BoBPaymentModel.SendExternalTransferRequest(userId:IMController.shared.uid, addr: self?.addressTF.text, currency: self?.chooseCionTypeModel?.biZhong, issuingPartyWallet: self?.chooseCionTypeModel?.cionType, transferAmount:self?.countTF.text ?? "0.00" , passWord: passWord){errCode,errMsg in
-                        if errCode == 20000{
-                            SuperToast.show(title:"转账成功")
-                            self?.navigationController?.popViewController(animated: true)
-                        }else{
-                            SuperToast.show(title: errMsg)
-                        }
-                    }
-                }
-
-                GKCover.cover(from: self.view.window, contentView: passWordView, style: .translucent, showStyle: .center, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
-                
-            }else{
-                let alert = UIAlertController(title: "提示", message: "为了您的财产安全，请设置安全密码".innerLocalized(), preferredStyle: .alert)
+            
+            if IMController.shared.certificationLevel == 0 {
+                let alert = UIAlertController(title: "提示", message: "请先进行实名认证".innerLocalized(), preferredStyle: .alert)
                 // 创建UIAlertAction，用于处理用户的选择
                 let cancleAction = UIAlertAction(title: "取消", style: .default) { _ in
                 }
-                let okAction = UIAlertAction(title: "去设置", style: .default) { _ in
-                    let vc = BoBChangePayPassWordViewController()
-                    vc.passWordType = 0
-                    self.navigationController?.pushViewController(vc,animated: true)
+                let okAction = UIAlertAction(title: "去认证", style: .default) { _ in
+                    let vc =  BoBRealNameMainViewController()
+                    self.navigationController?.pushViewController(vc, animated: true)
                 }
                 // 将action添加到alertController上
                 alert.addAction(cancleAction)
                 alert.addAction(okAction)
                 // 弹出alert
                 self.present(alert, animated: true, completion: nil)
-                return
+            }else{
+                if IMController.shared.isSetPayPassWord {
+                    let passWordView = BoBPayPassWordView()
+                    passWordView.tg_width.equal(.fill)
+                    passWordView.tg_height.equal(210)
+                    passWordView.payBtnClickBlock = { [weak self] passWord in
+                        BoBPaymentModel.SendExternalTransferRequest(userId:IMController.shared.uid, addr: self?.addressTF.text, currency: self?.chooseCionTypeModel?.biZhong, issuingPartyWallet: self?.chooseCionTypeModel?.cionType, transferAmount:self?.countTF.text ?? "0.00" , passWord: passWord){errCode,errMsg in
+                            if errCode == 20000{
+                                SuperToast.show(title:"转账成功")
+                                self?.navigationController?.popViewController(animated: true)
+                            }else{
+                                SuperToast.show(title: errMsg)
+                            }
+                        }
+                    }
+
+                    GKCover.cover(from: self.view.window, contentView: passWordView, style: .translucent, showStyle: .center, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
+                    
+                }else{
+                    let alert = UIAlertController(title: "提示", message: "为了您的财产安全，请设置安全密码".innerLocalized(), preferredStyle: .alert)
+                    // 创建UIAlertAction，用于处理用户的选择
+                    let cancleAction = UIAlertAction(title: "取消", style: .default) { _ in
+                    }
+                    let okAction = UIAlertAction(title: "去设置", style: .default) { _ in
+                        let vc = BoBChangePayPassWordViewController()
+                        vc.passWordType = 0
+                        self.navigationController?.pushViewController(vc,animated: true)
+                    }
+                    // 将action添加到alertController上
+                    alert.addAction(cancleAction)
+                    alert.addAction(okAction)
+                    // 弹出alert
+                    self.present(alert, animated: true, completion: nil)
+                }
+                
             }
         }).disposed(by: rx.disposeBag)
         return r

@@ -221,6 +221,7 @@ class BoBPrimaryRealNameViewController:UIViewController{
         r.titleLabel?.font = UIFont(name: "PingFangSC-Medium", size: 16)
         r.backgroundColor = .primaryColor
         r.rx.tap.subscribe(onNext: { [self] in
+           
             if self.addressLabel.text?.isEmpty == true || self.nameLabel.text?.isEmpty == true || self.idCardLabel.text?.isEmpty == true{
                 SuperToast.show(title: "请上传身份证头像面")
                 return
@@ -234,7 +235,13 @@ class BoBPrimaryRealNameViewController:UIViewController{
                 BoBRealNameModel.primaryRealNameAuthenticationRequest(userId: IMController.shared.uid, name: self.nameLabel.text!, cardId: self.idCardLabel.text!){errCode, errMsg in
                     if errCode == 20000{
                         SuperToast.show(title: "认证成功")
-                        self.navigationController?.popToRootViewController(animated: true)
+                        IMController.shared.certificationLevel = 1
+                        if (self.navigationController?.viewControllers.count)! > 2{
+                            let vc = self.navigationController?.viewControllers[(self.navigationController?.viewControllers.count)!-3]
+                            self.navigationController?.popToViewController(vc!, animated: true)
+                        }else{
+                            self.navigationController?.popToRootViewController(animated: true)
+                        }                        
                     }else{
                         SuperToast.show(title: errMsg)
                     }

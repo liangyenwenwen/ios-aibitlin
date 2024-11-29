@@ -25,7 +25,7 @@ class BoBShareReceivePaymentQrCodeViewController:BaseTitleController{
         superFooterContainerContainer.tg_bottom.equal(0)
         scrollViewContainer.addSubview(carView)
         scrollViewContainer.addSubview(bottomView)
-        let idString = IMController.addFriendPrefix.append(string: receivePaymentData?.addr)
+        let idString = IMController.walletTransferPrefix.append(string: receivePaymentData?.addr)
         DispatchQueue.global().async {
             let image = CodeImageGenerator.createQRCodeImage(content: idString, size: CGSize(width: 190, height: 190), foregroundColor: UIColor.black, backgroundColor: UIColor.clear)
             DispatchQueue.main.async {

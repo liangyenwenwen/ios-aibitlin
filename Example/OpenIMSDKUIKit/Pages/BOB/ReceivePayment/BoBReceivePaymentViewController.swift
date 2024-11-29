@@ -73,7 +73,7 @@ class BoBReceivePaymentViewController:UIViewController{
             self.addressNumberLabel.text = data.addr
             self.countLabel.text = String(format: "%.2f",data.minAmount ?? 0)
             self.copyIcon.show()
-            let idString = IMController.addFriendPrefix.append(string: data.addr)
+            let idString = IMController.walletTransferPrefix.append(string: data.addr)
             DispatchQueue.global().async {
                 let image = CodeImageGenerator.createQRCodeImage(content: idString, size: CGSize(width: 124, height: 124), foregroundColor: UIColor.black, backgroundColor: UIColor.clear)
                 DispatchQueue.main.async {

@@ -85,6 +85,12 @@ extension AccountViewModel {
             feedbackVC.commentID = commentID
             vc.gotoController(feedbackVC)
         }
+        OIMApi.gotoBoBTransferAccountsHandle = {(vc, address, completion: @escaping (String) -> Void) in
+            let boBTransferAccountsVC = BoBTransferAccountsViewController()
+            boBTransferAccountsVC.hidesBottomBarWhenPushed = true
+            boBTransferAccountsVC.address = address
+            vc.gotoController(boBTransferAccountsVC)
+        }
         
     }
     

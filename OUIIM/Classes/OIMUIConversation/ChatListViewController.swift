@@ -196,7 +196,16 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
                     let vc = GroupDetailViewController(groupId: groupID)
                     vc.hidesBottomBarWhenPushed = true
                     self?.navigationController?.pushViewController(vc, animated: true)
-                } else {
+                } else if result.contains(IMController.walletTransferPrefix) {
+                    //转账
+                    self?.navigationController?.popViewController(animated: false)
+                    let address = result.replacingOccurrences(of: IMController.walletTransferPrefix, with: "")
+                    if let handler = OIMApi.gotoBoBTransferAccountsHandle {
+                        handler(self!, address,{res in
+
+                        })
+                    }
+                }else {
                     if let handler = OIMApi.showTipHandle {
                                     
                         handler("unrecognized".innerLocalized(), { res in
