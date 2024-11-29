@@ -137,10 +137,6 @@ class BoBShareReceivePaymentQrCodeViewController:BaseTitleController{
     }()
     lazy var qrImageView: UIImageView = {
         let r = UIImageView()
-//        r.tg_top.equal(10)
-//        r.tg_left.equal(10)
-//        r.tg_width.equal(188)
-//        r.tg_height.equal(188)
         return r
     }()
     lazy var walletTitleLabel: UILabel = {
@@ -270,7 +266,7 @@ class BoBShareReceivePaymentQrCodeViewController:BaseTitleController{
         r.isUserInteractionEnabled = true
         r.corner(23)
         r.rx.tap.subscribe(onNext: { [self] in
-            guard let image = getShareCardImg(view: qrView) else {return}
+            guard let image = getShareCardImg(view: carView) else {return}
             
             let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
             self.present(activityViewController, animated: true)
