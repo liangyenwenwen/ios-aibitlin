@@ -13,6 +13,9 @@ import OUICore
 
 class BoBBillListViewController: BaseTitleController {
     var titles = ["全部","转账","收款","购买","出售","红包","调账","私聊转账","群聊转账"]
+    var chooseType:Int = 0
+    var timeStart:String = ""
+    var timeEnd:String = ""
     let segmentedDataSource = JXSegmentedTitleDataSource()
     let segmentedView = JXSegmentedView()
     lazy var listContainerView: JXSegmentedListContainerView! = {
@@ -24,6 +27,7 @@ class BoBBillListViewController: BaseTitleController {
         view.backgroundColor = .colorBackgroundAPP
         initLinearLayoutSafeArea()
         title = "账单"
+        navView.addRighttItem(chooseBtn)
         container.tg_padding = UIEdgeInsets(top: 0, left: PADDING_OUTER, bottom: 0, right: PADDING_OUTER)
 
         //配置数据源
@@ -73,6 +77,26 @@ class BoBBillListViewController: BaseTitleController {
         }
         
     }
+    lazy var chooseBtn:  QMUIButton = {
+        let r = ViewFactoryUtil.imageBtn(UIImage(named: "mine_bill_choose_icon")!, 18)
+        r.rx.tap.subscribe(onNext: { [self] in
+            chooseType = segmentedView.selectedIndex
+            let chooseTypeView = BoBChooseBillView(titles:titles,selectTypeIndex: chooseType, timeStartStr: timeStart, timeEndStr: timeEnd)
+            chooseTypeView.tg_width.equal(.fill)
+            chooseTypeView.tg_height.equal(450)
+            chooseTypeView.chooseConditionBlock = {[weak self] selectTypeIndex,timeStartStr,timeEndStr in
+                if selectTypeIndex != self!.chooseType || timeStartStr != self!.timeStart || timeEndStr != self!.timeEnd{
+                    self!.chooseType = selectTypeIndex
+                    self!.timeStart = timeStartStr
+                    self!.timeEnd = timeEndStr
+                    self!.reloadData()
+                }
+            }
+            GKCover.cover(from: self.view.window, contentView: chooseTypeView, style: .translucent, showStyle: .bottom, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
+            
+        }).disposed(by: rx.disposeBag)
+        return r
+    }()
     lazy var bgView: UIView = {
         let r = UIView()
         r.backgroundColor = .white
@@ -84,6 +108,11 @@ class BoBBillListViewController: BaseTitleController {
         r.backgroundColor = .colorDivider
         return r
     }()
+    @objc func reloadData() {
+        segmentedDataSource.titles = titles
+        segmentedView.defaultSelectedIndex = chooseType
+        segmentedView.reloadData()
+    }
 }
 
 extension BoBBillListViewController: JXSegmentedListContainerViewListDelegate {
@@ -101,6 +130,10 @@ extension BoBBillListViewController: JXSegmentedListContainerViewDataSource {
     }
 
     func listContainerView(_ listContainerView: JXSegmentedListContainerView, initListAt index: Int) -> JXSegmentedListContainerViewListDelegate {
-        return BoBBillListView()
+        let view = BoBBillListView()
+        view.timeStart = timeStart
+        view.timeEnd = timeEnd
+        view.chooseType = index
+        return view
     }
 }

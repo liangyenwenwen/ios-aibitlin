@@ -496,5 +496,25 @@ class BillListData: Decodable {
     var changeZf:String?
     var amount:Double?
     var currency:String?
+    var time: String {
+        let dateFormatter = DateFormatter()
+        // 设置日期格式化器的时区，确保输出正确的时间
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+         
+        // 设置日期格式化器的日期格式
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+         
+        // 将ISO 8601字符串转换为Date对象
+        guard let date = dateFormatter.date(from: changeTime ?? "") else {
+            fatalError("Date conversion failed")
+        }
+         
+        // 重新设置日期格式化器的日期格式
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+         
+        // 将Date对象转换为需要的格式的字符串
+        let formattedDateString = dateFormatter.string(from: date)
+        return formattedDateString
+    }
 }
 

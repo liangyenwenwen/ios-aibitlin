@@ -57,7 +57,7 @@ class BoBBillListView: UIView {
         loadData(pageNum: page+1)
     }
     func loadData(pageNum:Int){
-        BoBPaymentModel.GetMyBillList(userId: IMController.shared.uid, tpye: 0, timeStart: timeStart, timeEnd: timeEnd, currency: "C", pageSize: 20, pageNum: pageNum) { data in
+        BoBPaymentModel.GetMyBillList(userId: IMController.shared.uid, tpye: chooseType, timeStart: timeStart, timeEnd: timeEnd, currency: "C", pageSize: 20, pageNum: pageNum) { data in
             self.page = pageNum
             if pageNum == 1{
                 self.listArray.removeAll()
@@ -68,6 +68,8 @@ class BoBBillListView: UIView {
             if data.count < 20{
                 if var footer = self.tableView.mj_footer as? MJRefreshAutoNormalFooter {
                     footer.setTitle("加载完成，没有更多了...".innerLocalized(), for: .noMoreData)
+                    footer.stateLabel?.textColor = .init(hexString: "#CCCCCC")
+                    footer.stateLabel?.font = .mediumFont(16)
                     footer.endRefreshingWithNoMoreData()
                 }
             }else{
@@ -92,7 +94,7 @@ extension BoBBillListView: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! BoBBillListCell
         let item = listArray[indexPath.row]
         cell.billNameLabel.text = item.show
-        cell.timeLabel.text = item.changeTime
+        cell.timeLabel.text = item.time
         cell.countLabel.text = item.changeZf! + String(format: "%.2f ",item.amount!)
         if item.changeZf == "+"{
             cell.countLabel.textColor = .init(hexString: "#FA7225")

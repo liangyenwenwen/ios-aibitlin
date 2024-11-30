@@ -90,6 +90,7 @@
 		048172772CF9E597007A2920 /* BoBBillListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048172762CF9E597007A2920 /* BoBBillListViewController.swift */; };
 		0481727A2CF9E5DC007A2920 /* BoBBillListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048172792CF9E5DC007A2920 /* BoBBillListView.swift */; };
 		0481727C2CF9E621007A2920 /* BoBBillListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0481727B2CF9E621007A2920 /* BoBBillListCell.swift */; };
+		0481727E2CFAB51A007A2920 /* BoBChooseBillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0481727D2CFAB51A007A2920 /* BoBChooseBillView.swift */; };
 		049B98032CB521360032E7B8 /* YFChooseUserAvatarCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049B98022CB521360032E7B8 /* YFChooseUserAvatarCardView.swift */; };
 		049C643E2BEC619300B679C4 /* YFLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049C643D2BEC619300B679C4 /* YFLoginVC.swift */; };
 		049C64402BEC622300B679C4 /* YFLoginChooseHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049C643F2BEC622300B679C4 /* YFLoginChooseHeaderView.swift */; };
@@ -340,6 +341,7 @@
 		048172762CF9E597007A2920 /* BoBBillListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBBillListViewController.swift; sourceTree = "<group>"; };
 		048172792CF9E5DC007A2920 /* BoBBillListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBBillListView.swift; sourceTree = "<group>"; };
 		0481727B2CF9E621007A2920 /* BoBBillListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBBillListCell.swift; sourceTree = "<group>"; };
+		0481727D2CFAB51A007A2920 /* BoBChooseBillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBChooseBillView.swift; sourceTree = "<group>"; };
 		049B98022CB521360032E7B8 /* YFChooseUserAvatarCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFChooseUserAvatarCardView.swift; sourceTree = "<group>"; };
 		049C643D2BEC619300B679C4 /* YFLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFLoginVC.swift; sourceTree = "<group>"; };
 		049C643F2BEC622300B679C4 /* YFLoginChooseHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFLoginChooseHeaderView.swift; sourceTree = "<group>"; };
@@ -945,6 +947,7 @@
 			children = (
 				048172792CF9E5DC007A2920 /* BoBBillListView.swift */,
 				0481727B2CF9E621007A2920 /* BoBBillListCell.swift */,
+				0481727D2CFAB51A007A2920 /* BoBChooseBillView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2096,6 +2099,7 @@
 				17C4BBAA28CA1220003782EF /* Array+deduplicate.swift in Sources */,
 				04C394492CCFBC1C00181F6B /* YFRetrievePasswordVC.swift in Sources */,
 				04F2D0892BEE21CA00D5271B /* MineSettingVC.swift in Sources */,
+				0481727E2CFAB51A007A2920 /* BoBChooseBillView.swift in Sources */,
 				0419D4052C019350009CBE94 /* SuperUICollectionViewExtension.swift in Sources */,
 				04052E2B2CF4540400A7A554 /* BoBUnRealNameTipView.swift in Sources */,
 				04C394412CCF85A500181F6B /* YFPhoneLoginVC.swift in Sources */,
