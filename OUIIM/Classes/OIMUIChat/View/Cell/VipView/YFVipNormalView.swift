@@ -9,6 +9,12 @@ class YFVipNormalView: UIView, StaticViewFactory, ContainerCollectionViewCellDel
 
     private var controller: YFVipNormalViewController?
 
+    lazy var bgView: UIView = {
+        let r = UIView()
+        r.clipsToBounds = true
+        r.layer.cornerRadius = 8
+        return r
+    }()
     lazy var titleLbl: UILabel = {
         let v = UILabel()
         v.font = .init(name: "PingFangSC-Semibold", size: 16)
@@ -32,6 +38,13 @@ class YFVipNormalView: UIView, StaticViewFactory, ContainerCollectionViewCellDel
         v.backgroundColor = .init(hexString: "#EAEAEA")
         v.clipsToBounds = true
         v.layer.cornerRadius = 8
+        return v
+    }()
+    lazy var billRecordView: YFBillRecordView = {
+        let v = YFBillRecordView()
+        v.backgroundColor = .white
+        v.clipsToBounds = true
+        v.layer.cornerRadius = 12
         return v
     }()
     
@@ -86,7 +99,37 @@ class YFVipNormalView: UIView, StaticViewFactory, ContainerCollectionViewCellDel
         do {
             let user = try JSONDecoder().decode(systemCustomNotitifyItem.self, from: jsonData)
             print(user.user?.faceURL, user.user?.userID)
-            contentLbl.text = user.cont
+            if controller.source.billModel == nil{
+                if let res = JsonTool.fromJson(user.cont as! String, toClass: BillMessageSource.self) {
+                    controller.source.billModel = res
+                    controller.source.billModel?.title = titleLbl.text
+                }else{
+                    controller.source.billModel = nil
+                }
+            }
+            
+            if controller.source.billModel == nil{
+                contentLbl.text = user.cont
+                titleLbl.isHidden = false
+                timeLbl.isHidden = false
+                contentLbl.isHidden = false
+                billRecordView.isHidden = true
+                billRecordView.snp_remakeConstraints { make in
+                    make.left.right.top.equalTo(0)
+                    make.height.equalTo(315)
+                }
+            }else{
+                titleLbl.isHidden = true
+                timeLbl.isHidden = true
+                contentLbl.isHidden = true
+                billRecordView.isHidden = false
+                billRecordView.updateUI(billInfo: controller.source.billModel!)
+                billRecordView.snp_remakeConstraints { make in
+                    make.left.right.top.equalTo(0)
+                    make.height.equalTo(315)
+                    make.bottom.equalToSuperview().offset(0)
+                }
+            }
             if let messageContact = user.user {
                 
                 contactView.update(user:messageContact)
@@ -120,11 +163,8 @@ class YFVipNormalView: UIView, StaticViewFactory, ContainerCollectionViewCellDel
 
     private func setupSubviews() {
         
-        let bgView = UIView()
-        addSubview(bgView)
         
-        bgView.clipsToBounds = true
-        bgView.layer.cornerRadius = 8
+        addSubview(bgView)
         bgView.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(8)
             make.right.equalTo(-8)
@@ -136,6 +176,7 @@ class YFVipNormalView: UIView, StaticViewFactory, ContainerCollectionViewCellDel
         bgView.addSubview(titleLbl)
         bgView.addSubview(contentLbl)
         bgView.addSubview(contactView)
+        bgView.addSubview(billRecordView)
         bgView.addSubview(timeLbl)
         
         titleLbl.snp.makeConstraints { make in
@@ -158,6 +199,10 @@ class YFVipNormalView: UIView, StaticViewFactory, ContainerCollectionViewCellDel
             make.left.right.equalTo(titleLbl)
             make.top.equalTo(contactView.snp_bottom).offset(10)
             make.bottom.equalToSuperview().offset(-14)
+        }
+        billRecordView.snp_makeConstraints { make in
+            make.left.right.top.equalTo(0)
+            make.height.equalTo(315)
         }
         
     }

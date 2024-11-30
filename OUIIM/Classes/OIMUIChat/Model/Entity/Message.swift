@@ -320,7 +320,6 @@ enum BokeType {
 
 // MARK: - 张亚飞打的标记  通知消息
 struct NoticeMessageSource: Hashable {
-    
     enum MixType: Int {
         case text = 0
         case textImage = 1
@@ -337,6 +336,7 @@ struct NoticeMessageSource: Hashable {
     private(set) var mixType: MixType = .text
     private(set) var derictURL: String?
     private(set) var height: CGFloat?
+    var billModel:BillMessageSource?
     
     init(type: NoticeType, detail: String? = nil) {
         self.type = type
@@ -357,8 +357,21 @@ struct NoticeMessageSource: Hashable {
             }
         }
     }
-    
-    
+}
+struct BillMessageSource:Hashable, Decodable {
+    var type:Int?
+    var title:String?
+    var externalTransferMessageVO:BillMessageContInfoSource?
+}
+struct BillMessageContInfoSource: Hashable,Decodable {
+    var amount:Double?
+    var fuHao:String?
+    var type:Int?
+    var duiFangDiZhi:String?
+    var dingDanBianHao:String?
+    var jiaoYiShiJian:String?
+    var shouXuFei:Double?
+    var biZhong:String?
 }
 
 

@@ -30,7 +30,7 @@ final class YFVipNormalViewController {
     
     weak var delegate: ReloadDelegate?
         
-    let source: NoticeMessageSource
+    var source: NoticeMessageSource
     
     let message: Message
 //    private let bubbleController: BubbleController
