@@ -13,8 +13,9 @@ import RxSwift
 import Network
 open class BoBRealNameModel {
     // 业务服务器地址
-    public static let API_BLOG_URL = "http://192.168.7.128:18729"
+    public static let API_BOB_URL = "http://192.168.7.128:18729"
     
+    private static let AddUserLanguageToken = "/wallet/userLanguageToken/adduserLanguageToken" //更改语言
     private static let InitWallet = "/wallet/wallet/initializeWallet"
     private static let QueryRealNameAuthentication = "/wallet/realNameAuthentication/queryRealNameAuthentication" //查看实名认证
     private static let ReceiveIdentityCardHeadshots = "/wallet/realNameAuthentication/receiveIdentityCardHeadshots" //接收身份证的头像面
@@ -27,6 +28,30 @@ open class BoBRealNameModel {
         "Content-Type":"application/json",
         "operationID":String(Int(Date().timeIntervalSince1970)),
     ]
+    //更改语言
+    static func AddUserLanguageRequest(uid: String) {
+        let param = ["userLanguage":String.getCurrentLanguageFirst(), "userId": uid, "userToken":UserDefaults.standard.string(forKey: "bussinessTokenKey")!]
+        let url = SuperStringUtil.netUrl(API_BOB_URL + AddUserLanguageToken, param)
+        
+        Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
+            if let data = dataRequest.data {
+                let strData = String.init(data: data, encoding: String.Encoding.utf8)
+                if let res = JsonTool.fromJson(strData!, toClass: BoBResponse.self) {
+                    
+                    if res.code == 20000  {
+                        let defaults = UserDefaults.standard
+                        defaults.set(String.getCurrentLanguageFirst(), forKey: "blogLanguage\(uid)")
+                    }
+                    
+//                    UserDefaults.standard.set("0", forKey: "blogVersion\(Open_im_sdkGetLoginUserID())")
+                } else {
+                   
+                }
+            }
+        }
+    
+        
+    }
     //初始化钱包
     static func InitWalletRequest(userId: String?,
                                   nickName:String?,
@@ -38,9 +63,9 @@ open class BoBRealNameModel {
             return
         }
         let param = ["userId": userId ?? "","nickName":nickName ?? ""]
-//        let url = SuperStringUtil.netUrl(API_BLOG_URL + InitWallet, param)
+//        let url = SuperStringUtil.netUrl(API_BOB_URL + InitWallet, param)
         
-        Alamofire.request(API_BLOG_URL + InitWallet, method: .post, parameters: param,encoding: JSONEncoding.default, headers: httpHeaders).responseString { (response: DataResponse<String>) in
+        Alamofire.request(API_BOB_URL + InitWallet, method: .post, parameters: param,encoding: JSONEncoding.default, headers: httpHeaders).responseString { (response: DataResponse<String>) in
             switch response.result {
             case .success(let result):
                 if let res = JsonTool.fromJson(result, toClass: BoBResponse.self) {
@@ -75,7 +100,7 @@ open class BoBRealNameModel {
         }
         ProgressHUD.animate()
         let param = ["userId": userId ?? ""]
-        let url = SuperStringUtil.netUrl(API_BLOG_URL + QueryRealNameAuthentication, param)
+        let url = SuperStringUtil.netUrl(API_BOB_URL + QueryRealNameAuthentication, param)
         
         Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
             ProgressHUD.dismiss()
@@ -113,8 +138,8 @@ open class BoBRealNameModel {
         }
         ProgressHUD.animate()
         let param = ["userId": userId ?? "","image":image ?? ""]
-//        let url = SuperStringUtil.netUrl(API_BLOG_URL + ReceiveIdentityCardHeadshots, param)
-        let url = API_BLOG_URL + ReceiveIdentityCardHeadshots
+//        let url = SuperStringUtil.netUrl(API_BOB_URL + ReceiveIdentityCardHeadshots, param)
+        let url = API_BOB_URL + ReceiveIdentityCardHeadshots
         Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
             ProgressHUD.dismiss()
             if let data = dataRequest.data {
@@ -148,7 +173,7 @@ open class BoBRealNameModel {
         }
         ProgressHUD.animate()
         let param = ["userId": userId,"name":name,"cardId":cardId]
-        let url = API_BLOG_URL + PrimaryRealNameAuthentication
+        let url = API_BOB_URL + PrimaryRealNameAuthentication
         Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
             ProgressHUD.dismiss()
             if let data = dataRequest.data {

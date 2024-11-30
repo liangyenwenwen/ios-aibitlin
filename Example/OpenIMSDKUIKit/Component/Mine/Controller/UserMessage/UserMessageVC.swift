@@ -75,7 +75,7 @@ class UserMessageVC: BaseTitleController {
 //            self?.updataUI()
 //        }
         getUserInfo()
-        othersSeeMyBlog()
+//        othersSeeMyBlog()
         view.addSubview(netWorkTipView)
         netWorkTipView.snp_remakeConstraints { make in
             make.top.equalTo(44 + kStatusBarHeight)
@@ -131,11 +131,6 @@ class UserMessageVC: BaseTitleController {
         let user = SuperStringUtil.getUserState(showname: userInfo?.nickname ?? "")
         
         let userShowname = user.n
-
-        sectionBlogTitleLbl.text = "博客".localized()
-        sectionMomentsTitleLbl.text =  "动态".localized()
-//        sectionBlogTitleLbl.text = "UserBlog".localizedFormat(userShowname)
-//        sectionMomentsTitleLbl.text =  "UserMoments".localizedFormat(userShowname)
         
         
         
@@ -150,17 +145,7 @@ class UserMessageVC: BaseTitleController {
         if userInfo?.userID == IMController.shared.uid {
             superFooterContainer.hide()
             moreBtn.hide()
-//            footerBtnView.hide()
         }
-        
-//        userHeaderView.setNeedsLayout()
-//        userHeaderView.layoutIfNeeded()
-        
-//        CGFloat height = [headerView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
-//        let height = userHeaderView.systemLayoutSizeFitting(.)
-//        CGRect headerFrame = headerView.frame;
-//        headerFrame.size.height = height;
-//        headerView.frame = headerFrame;
         
     }
     
@@ -541,7 +526,7 @@ extension UserMessageVC {
     func numberOfSections(in tableView: UITableView) -> Int {
         
         if self.userInfo != nil {
-            return 2
+            return 0
         } else {
             return 0
         }

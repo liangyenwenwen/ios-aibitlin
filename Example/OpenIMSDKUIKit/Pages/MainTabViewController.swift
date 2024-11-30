@@ -491,11 +491,13 @@ extension MainTabViewController {
         
         let currentLanuage = userDefaults.string(forKey: "blogLanguage\(uid)")
         if currentLanuage != nil {
-            YFMineNetViewModel.updateLanguage(uid: uid)
+//            YFMineNetViewModel.updateLanguage(uid: uid)
+            BoBRealNameModel.AddUserLanguageRequest(uid: uid)
         }  else {
             
 //            if String.getCurrentLanguageFirst() != userDefaults.string(forKey: "blogLanguage\(uid)") {
-                YFMineNetViewModel.addUserLanguage(uid: uid)
+//                YFMineNetViewModel.addUserLanguage(uid: uid)
+            BoBRealNameModel.AddUserLanguageRequest(uid: uid)
 //            }
         }
 
