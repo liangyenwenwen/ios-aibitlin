@@ -89,6 +89,7 @@ class BoBMineAssetsViewController: BaseTitleController {
     }
     lazy var headView: BoBMineAssetsViewHeadView = {
         let r = BoBMineAssetsViewHeadView()
+        r.currentVC = self
         r.frame = CGRect(x: 0, y: 0, width: kScreenWidth, height: 240)
         r.bindData(quantityOfMoneyPOS: quantityOfMoneyPOS)
         return r

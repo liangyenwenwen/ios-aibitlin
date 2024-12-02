@@ -14,7 +14,7 @@ import RxGesture
 import OUIIM
 import ProgressHUD
 
-class BoBTransferAccountsViewController:UIViewController{
+class BoBTransferAccountsViewController:BaseTitleController{
     var cionType = "C"
     var address = ""
     var transferAccountsHomeData:TransferAccountsHomeData?
@@ -22,11 +22,11 @@ class BoBTransferAccountsViewController:UIViewController{
     var cionTypeArray:[CionTypeModel] = []
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.navigationBar.isHidden = false
+        navigationController?.navigationBar.isHidden = true
         if IMController.shared.certificationLevel == 0 {
             unRealNameTipView.show()
             unRealNameTipView.snp_remakeConstraints { make in
-                make.top.equalTo(view.safeAreaLayoutGuide)
+                make.top.equalTo(0)
                 make.left.right.equalTo(0)
                 make.height.equalTo(44)
             }
@@ -41,28 +41,30 @@ class BoBTransferAccountsViewController:UIViewController{
             titleLabel.snp_remakeConstraints { make in
                 make.left.equalTo(16)
                 make.right.equalTo(-16)
-                make.top.equalTo(view.safeAreaLayoutGuide)
+                make.top.equalTo(0)
                 make.height.equalTo(36)
             }
         }
     }
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func initViews() {
+        super.initViews()
         view.backgroundColor = .colorBackgroundAPP
+        initLinearLayoutSafeArea()
         title = "转账"
-        view.addSubview(unRealNameTipView)
-        view.addSubview(titleLabel)
-        view.addSubview(cionTypeView)
-        view.addSubview(addressContentView)
-        view.addSubview(countView)
-        view.addSubview(tipLabel1)
-        view.addSubview(tipLabel2)
-        view.addSubview(tipLabel3)
-        view.addSubview(sureBtn)
+        container.tg_padding = UIEdgeInsets(top: 0, left: PADDING_OUTER, bottom: 0, right: PADDING_OUTER)
+        container.addSubview(unRealNameTipView)
+        container.addSubview(titleLabel)
+        container.addSubview(cionTypeView)
+        container.addSubview(addressContentView)
+        container.addSubview(countView)
+        container.addSubview(tipLabel1)
+        container.addSubview(tipLabel2)
+        container.addSubview(tipLabel3)
+        container.addSubview(sureBtn)
         titleLabel.snp_makeConstraints { make in
             make.left.equalTo(16)
             make.right.equalTo(-16)
-            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.top.equalTo(0)
             make.height.equalTo(36)
         }
         cionTypeView.snp_makeConstraints { make in
@@ -104,10 +106,10 @@ class BoBTransferAccountsViewController:UIViewController{
             self.view.endEditing(true)
         }
         view.addGestureRecognizer(tap)
-        bindData()
+        bindBtnData()
         loadData()
     }
-    private func bindData() {
+    private func bindBtnData() {
         Observable.combineLatest(addressTF.rx.text.orEmpty, countTF.rx.text.orEmpty) {
             $0.count > 0 && $1.count > 0
         }

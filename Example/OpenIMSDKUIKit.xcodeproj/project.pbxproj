@@ -81,6 +81,7 @@
 		0445C9082CFDA79900D1FD34 /* JXPagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445C9022CFDA79900D1FD34 /* JXPagingView.swift */; };
 		0445C90A2CFDA8DD00D1FD34 /* PagingListBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445C9092CFDA8DD00D1FD34 /* PagingListBaseView.swift */; };
 		0445C90C2CFDD21A00D1FD34 /* BoBMineAssetsViewHeadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445C90B2CFDD21A00D1FD34 /* BoBMineAssetsViewHeadView.swift */; };
+		0445C90E2CFDF52C00D1FD34 /* BoBMineAssetsExplainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445C90D2CFDF52C00D1FD34 /* BoBMineAssetsExplainView.swift */; };
 		04484ED32CF71EC200893E4C /* BoBChooseBankListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04484ED22CF71EC200893E4C /* BoBChooseBankListCell.swift */; };
 		04484ED62CF742EF00893E4C /* BoBReceivePaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04484ED52CF742EF00893E4C /* BoBReceivePaymentViewController.swift */; };
 		04484ED92CF7552C00893E4C /* BoBShareReceivePaymentQrCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04484ED82CF7552C00893E4C /* BoBShareReceivePaymentQrCodeViewController.swift */; };
@@ -303,6 +304,7 @@
 		0445C9022CFDA79900D1FD34 /* JXPagingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JXPagingView.swift; sourceTree = "<group>"; };
 		0445C9092CFDA8DD00D1FD34 /* PagingListBaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingListBaseView.swift; sourceTree = "<group>"; };
 		0445C90B2CFDD21A00D1FD34 /* BoBMineAssetsViewHeadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBMineAssetsViewHeadView.swift; sourceTree = "<group>"; };
+		0445C90D2CFDF52C00D1FD34 /* BoBMineAssetsExplainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBMineAssetsExplainView.swift; sourceTree = "<group>"; };
 		04484ED22CF71EC200893E4C /* BoBChooseBankListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBChooseBankListCell.swift; sourceTree = "<group>"; };
 		04484ED52CF742EF00893E4C /* BoBReceivePaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBReceivePaymentViewController.swift; sourceTree = "<group>"; };
 		04484ED82CF7552C00893E4C /* BoBShareReceivePaymentQrCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBShareReceivePaymentQrCodeViewController.swift; sourceTree = "<group>"; };
@@ -805,6 +807,7 @@
 				0445C9002CFDA79900D1FD34 /* JXPagingMainTableView.swift */,
 				0445C9012CFDA79900D1FD34 /* JXPagingSmoothView.swift */,
 				0445C9022CFDA79900D1FD34 /* JXPagingView.swift */,
+				0445C90D2CFDF52C00D1FD34 /* BoBMineAssetsExplainView.swift */,
 				0445C90B2CFDD21A00D1FD34 /* BoBMineAssetsViewHeadView.swift */,
 			);
 			path = JXPagingView;
@@ -2086,6 +2089,7 @@
 				040D860A2BEB8C4200DCAAB3 /* SuperUIViewControllerExtension.swift in Sources */,
 				04EFEA6B2CECBE7B004441CB /* BoBOrderListCell.swift in Sources */,
 				1790EE722921EAFC00C4024A /* MineViewModel.swift in Sources */,
+				0445C90E2CFDF52C00D1FD34 /* BoBMineAssetsExplainView.swift in Sources */,
 				040D85EE2BEB8C0B00DCAAB3 /* BaseLogicController.swift in Sources */,
 				048172772CF9E597007A2920 /* BoBBillListViewController.swift in Sources */,
 				04484ED62CF742EF00893E4C /* BoBReceivePaymentViewController.swift in Sources */,

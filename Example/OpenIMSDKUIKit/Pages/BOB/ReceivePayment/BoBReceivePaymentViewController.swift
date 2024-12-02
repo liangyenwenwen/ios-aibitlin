@@ -8,29 +8,31 @@
 
 import Foundation
 import OUICore
-class BoBReceivePaymentViewController:UIViewController{
+class BoBReceivePaymentViewController:BaseTitleController{
     var receivePaymentData:ReceivePaymentData?
     var cionType = "C"
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.navigationBar.isHidden = false
-    }
-    override func viewDidLoad() {
-        super.viewDidLoad()
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        navigationController?.navigationBar.isHidden = false
+//    }
+    override func initViews() {
+        super.initViews()
         view.backgroundColor = .colorBackgroundAPP
+        initLinearLayoutSafeArea()
         title = "收款"
-        view.addSubview(titleLabel)
-        view.addSubview(cionTypeView)
-        view.addSubview(contentView)
-        view.addSubview(label1)
-        view.addSubview(countLabel)
-        view.addSubview(cionLabel)
-        view.addSubview(label2)
-        view.addSubview(label3)
+        container.tg_padding = UIEdgeInsets(top: 0, left: PADDING_OUTER, bottom: 0, right: PADDING_OUTER)
+        container.addSubview(titleLabel)
+        container.addSubview(cionTypeView)
+        container.addSubview(contentView)
+        container.addSubview(label1)
+        container.addSubview(countLabel)
+        container.addSubview(cionLabel)
+        container.addSubview(label2)
+        container.addSubview(label3)
         titleLabel.snp_makeConstraints { make in
             make.left.equalTo(16)
             make.right.equalTo(-16)
-            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.top.equalTo(0)
             make.height.equalTo(36)
         }
         cionTypeView.snp_makeConstraints { make in

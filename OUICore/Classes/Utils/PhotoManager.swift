@@ -232,7 +232,7 @@ open class PhotoHelper {
     
     public func showSelectMetaSheet(byController: UIViewController) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let photoAction = UIAlertAction(title: "相册".innerLocalized(), style: .default, handler: { [weak self] (alert) -> Void in
+        let photoAction = UIAlertAction(title: "照片".innerLocalized(), style: .default, handler: { [weak self] (alert) -> Void in
             guard let sself = self else {
                 return
             }

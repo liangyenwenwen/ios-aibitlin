@@ -48,7 +48,7 @@
 "输入手机验证码" = "Enter phone verification code";
 "输入邮箱验证码" = "Enter email verification code";
 "通过" = "Through";
-"相册" = "Album";
+"照片" = "Album";
 "相机" = "Camera";
 
 //登录注册
@@ -451,7 +451,7 @@ Toolbox = "Toolbox";
 //消息-单聊和单聊设置
 "相机" = "Camera";
 "照片" = "Photo";
-"相册" = "Photo";
+"照片" = "Photo";
 "视频通话" = "Video Call";
 "语音通话" = "Voice Call";
 "名片" = "Contact Card";

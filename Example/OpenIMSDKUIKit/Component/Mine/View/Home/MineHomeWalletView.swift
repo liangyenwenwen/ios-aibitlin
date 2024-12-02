@@ -170,7 +170,7 @@ class MineHomeWalletView: UIView{
     
     lazy var totalLabel: UILabel = {
         let r = UILabel()
-        r.font = UIFont(name: "PingFangSC-Regular", size: 16)
+        r.font = .mediumFont(16)
         r.textColor = .init(hexString: "#388CEF")
         r.textAlignment = .right
         r.text = "******"
@@ -323,14 +323,14 @@ class itemView:UIView {
     }()
     lazy var totalLabel: UILabel = {
         let r = UILabel()
-        r.font = UIFont(name: "PingFangSC-Medium", size: 16)
+        r.font = .mediumFont(16)
         r.textColor = .init(hexString: "#388CEF")
         r.textAlignment = .right
         return r
     }()
     lazy var equivalentToRMBLabel: UILabel = {
         let r = UILabel()
-        r.font = UIFont(name: "PingFangSC-Medium", size: 14)
+        r.font = .mediumFont(14)
         r.textColor = .init(hexString: "#388CEF")
         r.textAlignment = .right
         return r

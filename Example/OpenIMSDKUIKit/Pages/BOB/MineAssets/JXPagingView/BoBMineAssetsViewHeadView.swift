@@ -10,6 +10,8 @@ import Foundation
 import TangramKit
 
 class BoBMineAssetsViewHeadView: UIView {
+    var currentVC: UIViewController?
+    var quantityOfMoneyPOS:QuantityOfMoneyPOS?
     override init(frame: CGRect) {
         super.init(frame: frame)
         innerInit()
@@ -46,6 +48,7 @@ class BoBMineAssetsViewHeadView: UIView {
         }
     }
     func bindData(quantityOfMoneyPOS:QuantityOfMoneyPOS?){
+        self.quantityOfMoneyPOS = quantityOfMoneyPOS
         cionImageView.sd_setImage(with: URL(string: quantityOfMoneyPOS?.logoAddr))
         cionLabel.text = quantityOfMoneyPOS?.currency
         totalLabel.text = String(format: "%.2f",(quantityOfMoneyPOS?.quantityOfMoney)!)
@@ -128,6 +131,16 @@ class BoBMineAssetsViewHeadView: UIView {
             make.bottom.equalTo(-20)
             make.height.equalTo(16)
         }
+        let tap = UITapGestureRecognizer()
+        tap.rx.event.subscribe {  _ in
+            let explainView = BoBMineAssetsExplainView()
+            explainView.bindData(quantityOfMoneyPOS: self.quantityOfMoneyPOS)
+            explainView.tg_width.equal(293)
+            explainView.tg_height.equal(280)
+            GKCover.cover(from: self.currentVC?.view.window, contentView: explainView, style: .translucent, showStyle: .center, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
+            
+        }.disposed(by: rx.disposeBag)
+        r.addGestureRecognizer(tap)
         return r
     }()
     lazy var leftTitleView: TGLinearLayout = {
