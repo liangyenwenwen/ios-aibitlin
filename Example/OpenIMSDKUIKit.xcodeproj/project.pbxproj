@@ -74,6 +74,13 @@
 		043A558C2C8166490041836E /* UserTagTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043A55892C8166490041836E /* UserTagTypeView.swift */; };
 		043A558D2C8166490041836E /* UserTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043A558A2C8166490041836E /* UserTagView.swift */; };
 		0445BEE22CD1E04300A46558 /* ABLNetWorkToos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445BEE12CD1E04300A46558 /* ABLNetWorkToos.swift */; };
+		0445C9042CFDA79900D1FD34 /* JXPagingListContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445C8FE2CFDA79900D1FD34 /* JXPagingListContainerView.swift */; };
+		0445C9052CFDA79900D1FD34 /* JXPagingListRefreshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445C8FF2CFDA79900D1FD34 /* JXPagingListRefreshView.swift */; };
+		0445C9062CFDA79900D1FD34 /* JXPagingMainTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445C9002CFDA79900D1FD34 /* JXPagingMainTableView.swift */; };
+		0445C9072CFDA79900D1FD34 /* JXPagingSmoothView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445C9012CFDA79900D1FD34 /* JXPagingSmoothView.swift */; };
+		0445C9082CFDA79900D1FD34 /* JXPagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445C9022CFDA79900D1FD34 /* JXPagingView.swift */; };
+		0445C90A2CFDA8DD00D1FD34 /* PagingListBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445C9092CFDA8DD00D1FD34 /* PagingListBaseView.swift */; };
+		0445C90C2CFDD21A00D1FD34 /* BoBMineAssetsViewHeadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445C90B2CFDD21A00D1FD34 /* BoBMineAssetsViewHeadView.swift */; };
 		04484ED32CF71EC200893E4C /* BoBChooseBankListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04484ED22CF71EC200893E4C /* BoBChooseBankListCell.swift */; };
 		04484ED62CF742EF00893E4C /* BoBReceivePaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04484ED52CF742EF00893E4C /* BoBReceivePaymentViewController.swift */; };
 		04484ED92CF7552C00893E4C /* BoBShareReceivePaymentQrCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04484ED82CF7552C00893E4C /* BoBShareReceivePaymentQrCodeViewController.swift */; };
@@ -92,6 +99,7 @@
 		0481727C2CF9E621007A2920 /* BoBBillListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0481727B2CF9E621007A2920 /* BoBBillListCell.swift */; };
 		0481727E2CFAB51A007A2920 /* BoBChooseBillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0481727D2CFAB51A007A2920 /* BoBChooseBillView.swift */; };
 		048172842CFD45F0007A2920 /* BoBBillDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048172832CFD45F0007A2920 /* BoBBillDetailViewController.swift */; };
+		048172872CFD8792007A2920 /* BoBMineAssetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048172862CFD8792007A2920 /* BoBMineAssetsViewController.swift */; };
 		049B98032CB521360032E7B8 /* YFChooseUserAvatarCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049B98022CB521360032E7B8 /* YFChooseUserAvatarCardView.swift */; };
 		049C643E2BEC619300B679C4 /* YFLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049C643D2BEC619300B679C4 /* YFLoginVC.swift */; };
 		049C64402BEC622300B679C4 /* YFLoginChooseHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049C643F2BEC622300B679C4 /* YFLoginChooseHeaderView.swift */; };
@@ -123,13 +131,6 @@
 		04DB1E3E2CA6B0C000EE8B8C /* YFDateUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DB1E3D2CA6B0C000EE8B8C /* YFDateUtil.swift */; };
 		04ECEC5F2CBD1DC10005495F /* RunTimeAbout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ECEC5E2CBD1DC10005495F /* RunTimeAbout.swift */; };
 		04EFEA442CECB5E9004441CB /* BoBOrderListMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EFEA432CECB5E9004441CB /* BoBOrderListMainViewController.swift */; };
-		04EFEA4A2CECB94C004441CB /* ReplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17B485F529C082CA002571B8 /* ReplayKit.framework */; };
-		04EFEA4D2CECB94D004441CB /* SampleHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EFEA4C2CECB94D004441CB /* SampleHandler.swift */; };
-		04EFEA542CECB94D004441CB /* ReplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17B485F529C082CA002571B8 /* ReplayKit.framework */; };
-		04EFEA552CECB94D004441CB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04D2E1CB2CBE4A4900582B13 /* UIKit.framework */; };
-		04EFEA582CECB94D004441CB /* BroadcastSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EFEA572CECB94D004441CB /* BroadcastSetupViewController.swift */; };
-		04EFEA5C2CECB94D004441CB /* ScreenShareBroadcastExtensionSetupUI.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 04EFEA532CECB94D004441CB /* ScreenShareBroadcastExtensionSetupUI.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		04EFEA5F2CECB94D004441CB /* ScreenShareBroadcastExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 04EFEA492CECB94C004441CB /* ScreenShareBroadcastExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		04EFEA672CECBCB7004441CB /* BoBOrderListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EFEA662CECBCB7004441CB /* BoBOrderListView.swift */; };
 		04EFEA692CECBDE3004441CB /* BoBOrderListSubViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EFEA682CECBDE3004441CB /* BoBOrderListSubViewController.swift */; };
 		04EFEA6B2CECBE7B004441CB /* BoBOrderListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EFEA6A2CECBE7B004441CB /* BoBOrderListCell.swift */; };
@@ -199,29 +200,11 @@
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
-		9DF5B0E6D05C73B0FE35B0ED /* Pods_ScreenShareBroadcastExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 801E02C1C4ADEDF0845D7AE9 /* Pods_ScreenShareBroadcastExtension.framework */; };
 		A8EF84539A491F5F8246C0D5 /* Pods_OpenIMSDKUIKit_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A910E09A82370C0DA41D3DC /* Pods_OpenIMSDKUIKit_Example.framework */; };
 		DC0B7DF2282DFA09003896C1 /* UnderlineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0B7DF1282DFA09003896C1 /* UnderlineButton.swift */; };
 		DC0B7DF6282DFA85003896C1 /* DemoUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0B7DF5282DFA85003896C1 /* DemoUI.swift */; };
 		DCE04171283E5BD30095874E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCE04173283E5BD30095874E /* Localizable.strings */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		04EFEA5A2CECB94D004441CB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 607FACC81AFB9204008FA782 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 04EFEA522CECB94D004441CB;
-			remoteInfo = ScreenShareBroadcastExtensionSetupUI;
-		};
-		04EFEA5D2CECB94D004441CB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 607FACC81AFB9204008FA782 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 04EFEA482CECB94C004441CB;
-			remoteInfo = ScreenShareBroadcastExtension;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		170A2B3E28F29C5000CA68EA /* Embed App Extensions */ = {
@@ -230,8 +213,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				04EFEA5F2CECB94D004441CB /* ScreenShareBroadcastExtension.appex in Embed App Extensions */,
-				04EFEA5C2CECB94D004441CB /* ScreenShareBroadcastExtensionSetupUI.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -315,6 +296,13 @@
 		043A55892C8166490041836E /* UserTagTypeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTagTypeView.swift; sourceTree = "<group>"; };
 		043A558A2C8166490041836E /* UserTagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTagView.swift; sourceTree = "<group>"; };
 		0445BEE12CD1E04300A46558 /* ABLNetWorkToos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ABLNetWorkToos.swift; sourceTree = "<group>"; };
+		0445C8FE2CFDA79900D1FD34 /* JXPagingListContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JXPagingListContainerView.swift; sourceTree = "<group>"; };
+		0445C8FF2CFDA79900D1FD34 /* JXPagingListRefreshView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JXPagingListRefreshView.swift; sourceTree = "<group>"; };
+		0445C9002CFDA79900D1FD34 /* JXPagingMainTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JXPagingMainTableView.swift; sourceTree = "<group>"; };
+		0445C9012CFDA79900D1FD34 /* JXPagingSmoothView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JXPagingSmoothView.swift; sourceTree = "<group>"; };
+		0445C9022CFDA79900D1FD34 /* JXPagingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JXPagingView.swift; sourceTree = "<group>"; };
+		0445C9092CFDA8DD00D1FD34 /* PagingListBaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingListBaseView.swift; sourceTree = "<group>"; };
+		0445C90B2CFDD21A00D1FD34 /* BoBMineAssetsViewHeadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBMineAssetsViewHeadView.swift; sourceTree = "<group>"; };
 		04484ED22CF71EC200893E4C /* BoBChooseBankListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBChooseBankListCell.swift; sourceTree = "<group>"; };
 		04484ED52CF742EF00893E4C /* BoBReceivePaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBReceivePaymentViewController.swift; sourceTree = "<group>"; };
 		04484ED82CF7552C00893E4C /* BoBShareReceivePaymentQrCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBShareReceivePaymentQrCodeViewController.swift; sourceTree = "<group>"; };
@@ -344,6 +332,7 @@
 		0481727B2CF9E621007A2920 /* BoBBillListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBBillListCell.swift; sourceTree = "<group>"; };
 		0481727D2CFAB51A007A2920 /* BoBChooseBillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBChooseBillView.swift; sourceTree = "<group>"; };
 		048172832CFD45F0007A2920 /* BoBBillDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBBillDetailViewController.swift; sourceTree = "<group>"; };
+		048172862CFD8792007A2920 /* BoBMineAssetsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBMineAssetsViewController.swift; sourceTree = "<group>"; };
 		049B98022CB521360032E7B8 /* YFChooseUserAvatarCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFChooseUserAvatarCardView.swift; sourceTree = "<group>"; };
 		049C643D2BEC619300B679C4 /* YFLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFLoginVC.swift; sourceTree = "<group>"; };
 		049C643F2BEC622300B679C4 /* YFLoginChooseHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFLoginChooseHeaderView.swift; sourceTree = "<group>"; };
@@ -396,10 +385,8 @@
 		04EFEA2F2CEAEEE3004441CB /* BroadcastSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BroadcastSetupViewController.swift; sourceTree = "<group>"; };
 		04EFEA312CEAEEE3004441CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04EFEA432CECB5E9004441CB /* BoBOrderListMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBOrderListMainViewController.swift; sourceTree = "<group>"; };
-		04EFEA492CECB94C004441CB /* ScreenShareBroadcastExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ScreenShareBroadcastExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		04EFEA4C2CECB94D004441CB /* SampleHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleHandler.swift; sourceTree = "<group>"; };
 		04EFEA4E2CECB94D004441CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		04EFEA532CECB94D004441CB /* ScreenShareBroadcastExtensionSetupUI.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ScreenShareBroadcastExtensionSetupUI.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		04EFEA572CECB94D004441CB /* BroadcastSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BroadcastSetupViewController.swift; sourceTree = "<group>"; };
 		04EFEA592CECB94D004441CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04EFEA662CECBCB7004441CB /* BoBOrderListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBOrderListView.swift; sourceTree = "<group>"; };
@@ -503,24 +490,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		04EFEA462CECB94C004441CB /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				04EFEA4A2CECB94C004441CB /* ReplayKit.framework in Frameworks */,
-				9DF5B0E6D05C73B0FE35B0ED /* Pods_ScreenShareBroadcastExtension.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		04EFEA502CECB94D004441CB /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				04EFEA542CECB94D004441CB /* ReplayKit.framework in Frameworks */,
-				04EFEA552CECB94D004441CB /* UIKit.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		607FACCD1AFB9204008FA782 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -827,6 +796,20 @@
 			path = NetWork;
 			sourceTree = "<group>";
 		};
+		0445C9032CFDA79900D1FD34 /* JXPagingView */ = {
+			isa = PBXGroup;
+			children = (
+				0445C9092CFDA8DD00D1FD34 /* PagingListBaseView.swift */,
+				0445C8FE2CFDA79900D1FD34 /* JXPagingListContainerView.swift */,
+				0445C8FF2CFDA79900D1FD34 /* JXPagingListRefreshView.swift */,
+				0445C9002CFDA79900D1FD34 /* JXPagingMainTableView.swift */,
+				0445C9012CFDA79900D1FD34 /* JXPagingSmoothView.swift */,
+				0445C9022CFDA79900D1FD34 /* JXPagingView.swift */,
+				0445C90B2CFDD21A00D1FD34 /* BoBMineAssetsViewHeadView.swift */,
+			);
+			path = JXPagingView;
+			sourceTree = "<group>";
+		};
 		04484ED42CF742C600893E4C /* ReceivePayment */ = {
 			isa = PBXGroup;
 			children = (
@@ -953,6 +936,15 @@
 				0481727D2CFAB51A007A2920 /* BoBChooseBillView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		048172852CFD875A007A2920 /* MineAssets */ = {
+			isa = PBXGroup;
+			children = (
+				0445C9032CFDA79900D1FD34 /* JXPagingView */,
+				048172862CFD8792007A2920 /* BoBMineAssetsViewController.swift */,
+			);
+			path = MineAssets;
 			sourceTree = "<group>";
 		};
 		049C643A2BEC602E00B679C4 /* LoginAndRegister */ = {
@@ -1140,6 +1132,7 @@
 		04EFEA412CECB5BC004441CB /* BOB */ = {
 			isa = PBXGroup;
 			children = (
+				048172852CFD875A007A2920 /* MineAssets */,
 				048172752CF9E558007A2920 /* Bill */,
 				04484EDA2CF8479600893E4C /* TransferAccounts */,
 				04484ED42CF742C600893E4C /* ReceivePayment */,
@@ -1545,8 +1538,6 @@
 			isa = PBXGroup;
 			children = (
 				607FACD01AFB9204008FA782 /* IM-NCER.app */,
-				04EFEA492CECB94C004441CB /* ScreenShareBroadcastExtension.appex */,
-				04EFEA532CECB94D004441CB /* ScreenShareBroadcastExtensionSetupUI.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1664,41 +1655,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		04EFEA482CECB94C004441CB /* ScreenShareBroadcastExtension */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 04EFEA632CECB94D004441CB /* Build configuration list for PBXNativeTarget "ScreenShareBroadcastExtension" */;
-			buildPhases = (
-				A3DD7E7779C36BEE4580334A /* [CP] Check Pods Manifest.lock */,
-				04EFEA452CECB94C004441CB /* Sources */,
-				04EFEA462CECB94C004441CB /* Frameworks */,
-				04EFEA472CECB94C004441CB /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = ScreenShareBroadcastExtension;
-			productName = ScreenShareBroadcastExtension;
-			productReference = 04EFEA492CECB94C004441CB /* ScreenShareBroadcastExtension.appex */;
-			productType = "com.apple.product-type.app-extension";
-		};
-		04EFEA522CECB94D004441CB /* ScreenShareBroadcastExtensionSetupUI */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 04EFEA602CECB94D004441CB /* Build configuration list for PBXNativeTarget "ScreenShareBroadcastExtensionSetupUI" */;
-			buildPhases = (
-				04EFEA4F2CECB94D004441CB /* Sources */,
-				04EFEA502CECB94D004441CB /* Frameworks */,
-				04EFEA512CECB94D004441CB /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = ScreenShareBroadcastExtensionSetupUI;
-			productName = ScreenShareBroadcastExtensionSetupUI;
-			productReference = 04EFEA532CECB94D004441CB /* ScreenShareBroadcastExtensionSetupUI.appex */;
-			productType = "com.apple.product-type.app-extension";
-		};
 		607FACCF1AFB9204008FA782 /* OpenIMSDKUIKit_Example */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "OpenIMSDKUIKit_Example" */;
@@ -1716,8 +1672,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				04EFEA5B2CECB94D004441CB /* PBXTargetDependency */,
-				04EFEA5E2CECB94D004441CB /* PBXTargetDependency */,
 			);
 			name = OpenIMSDKUIKit_Example;
 			productName = OpenIMSDKUIKit;
@@ -1735,12 +1689,6 @@
 				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = rentsoft;
 				TargetAttributes = {
-					04EFEA482CECB94C004441CB = {
-						CreatedOnToolsVersion = 15.4;
-					};
-					04EFEA522CECB94D004441CB = {
-						CreatedOnToolsVersion = 15.4;
-					};
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
 						LastSwiftMigration = 1340;
@@ -1764,27 +1712,11 @@
 			projectRoot = "";
 			targets = (
 				607FACCF1AFB9204008FA782 /* OpenIMSDKUIKit_Example */,
-				04EFEA482CECB94C004441CB /* ScreenShareBroadcastExtension */,
-				04EFEA522CECB94D004441CB /* ScreenShareBroadcastExtensionSetupUI */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		04EFEA472CECB94C004441CB /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		04EFEA512CECB94D004441CB /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		607FACCE1AFB9204008FA782 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1835,28 +1767,6 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-OpenIMSDKUIKit_Example-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A3DD7E7779C36BEE4580334A /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ScreenShareBroadcastExtension-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2024,22 +1934,6 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		04EFEA452CECB94C004441CB /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				04EFEA4D2CECB94D004441CB /* SampleHandler.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		04EFEA4F2CECB94D004441CB /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				04EFEA582CECB94D004441CB /* BroadcastSetupViewController.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		607FACCC1AFB9204008FA782 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2106,6 +2000,9 @@
 				0481727E2CFAB51A007A2920 /* BoBChooseBillView.swift in Sources */,
 				0419D4052C019350009CBE94 /* SuperUICollectionViewExtension.swift in Sources */,
 				04052E2B2CF4540400A7A554 /* BoBUnRealNameTipView.swift in Sources */,
+				0445C9052CFDA79900D1FD34 /* JXPagingListRefreshView.swift in Sources */,
+				0445C90A2CFDA8DD00D1FD34 /* PagingListBaseView.swift in Sources */,
+				0445C90C2CFDD21A00D1FD34 /* BoBMineAssetsViewHeadView.swift in Sources */,
 				04C394412CCF85A500181F6B /* YFPhoneLoginVC.swift in Sources */,
 				04F2D08F2BEE21CA00D5271B /* UsermessageBokeListCell.swift in Sources */,
 				04D2E2072CBE4E5500582B13 /* HDRunTime.swift in Sources */,
@@ -2126,6 +2023,7 @@
 				040D85F42BEB8C0B00DCAAB3 /* Meta.swift in Sources */,
 				04DA67942CCF2B2100FCA60C /* YFAibitlinHomeView.swift in Sources */,
 				0420C71E2BEB78CC0005F5B8 /* ProfileTableViewController.swift in Sources */,
+				0445C9082CFDA79900D1FD34 /* JXPagingView.swift in Sources */,
 				0411DD272C05CCB800EDD135 /* SuperDialogController.swift in Sources */,
 				04F2D0932BEE21CA00D5271B /* MineBokeListCell.swift in Sources */,
 				04F2D0942BEE21CA00D5271B /* MineBokeFooterEditView.swift in Sources */,
@@ -2172,12 +2070,15 @@
 				04D8BF802C8AB00100C1244E /* MineBokeNotificationSettingVC.swift in Sources */,
 				17BCADFC2A8DBA0A0022767D /* AboutUsViewController.swift in Sources */,
 				04052E2D2CF45A0200A7A554 /* BoBAddPaymentMethodViewController.swift in Sources */,
+				0445C9042CFDA79900D1FD34 /* JXPagingListContainerView.swift in Sources */,
 				0418B5792BF1E79F00108808 /* YFFeedbackVC.swift in Sources */,
 				040D86052BEB8C4200DCAAB3 /* SuperUILableExtension.swift in Sources */,
+				0445C9072CFDA79900D1FD34 /* JXPagingSmoothView.swift in Sources */,
 				04F2D0852BEE21CA00D5271B /* MineDeleteAccountReasonVC.swift in Sources */,
 				040D44252C882AE8007DB6FB /* YFSystemMessageSettingVC.swift in Sources */,
 				04EFEA7A2CED8BB1004441CB /* BoBMainRealNameTopView.swift in Sources */,
 				04EFEA672CECBCB7004441CB /* BoBOrderListView.swift in Sources */,
+				048172872CFD8792007A2920 /* BoBMineAssetsViewController.swift in Sources */,
 				040D85EC2BEB8C0B00DCAAB3 /* BaseWebController.swift in Sources */,
 				04C394472CCFB3ED00181F6B /* YFNewRegisterVC.swift in Sources */,
 				04D6A6782C9131ED008193E7 /* YFNetworkUtils.swift in Sources */,
@@ -2222,6 +2123,7 @@
 				04EFEA692CECBDE3004441CB /* BoBOrderListSubViewController.swift in Sources */,
 				040D85C62BEB8B0400DCAAB3 /* ResurceUntil.swift in Sources */,
 				1790EE702921EAFC00C4024A /* LanguageTableViewController.swift in Sources */,
+				0445C9062CFDA79900D1FD34 /* JXPagingMainTableView.swift in Sources */,
 				040D85F22BEB8C0B00DCAAB3 /* ListResponse.swift in Sources */,
 				040D85C42BEB8B0400DCAAB3 /* ViewFactoryUtil.swift in Sources */,
 				04A4BD002BF32F17008FA224 /* YFMineChangePasswordVC.swift in Sources */,
@@ -2231,19 +2133,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		04EFEA5B2CECB94D004441CB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 04EFEA522CECB94D004441CB /* ScreenShareBroadcastExtensionSetupUI */;
-			targetProxy = 04EFEA5A2CECB94D004441CB /* PBXContainerItemProxy */;
-		};
-		04EFEA5E2CECB94D004441CB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 04EFEA482CECB94C004441CB /* ScreenShareBroadcastExtension */;
-			targetProxy = 04EFEA5D2CECB94D004441CB /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		0411DD2A2C05CE3C00EDD135 /* InfoPlist.strings */ = {
@@ -2291,182 +2180,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		04EFEA612CECB94D004441CB /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = MJ53XF6GM4;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ScreenShareBroadcastExtensionSetupUI/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = ScreenShareBroadcastExtensionSetupUI;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2024 rentsoft. All rights reserved.";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 1.0;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D ENABLE_MOMENTS -D ENABLE_CALL";
-				PRODUCT_BUNDLE_IDENTIFIER = uniim.com.ScreenShareBroadcastExtensionSetupUI;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		04EFEA622CECB94D004441CB /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = MJ53XF6GM4;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ScreenShareBroadcastExtensionSetupUI/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = ScreenShareBroadcastExtensionSetupUI;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2024 rentsoft. All rights reserved.";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 1.0;
-				MTL_FAST_MATH = YES;
-				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D ENABLE_MOMENTS -D ENABLE_CALL";
-				PRODUCT_BUNDLE_IDENTIFIER = uniim.com.ScreenShareBroadcastExtensionSetupUI;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		04EFEA642CECB94D004441CB /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = EA353ED940185D57061D542E /* Pods-ScreenShareBroadcastExtension.debug.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = MJ53XF6GM4;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ScreenShareBroadcastExtension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = ScreenShareBroadcastExtension;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2024 rentsoft. All rights reserved.";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 1.0;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D ENABLE_MOMENTS -D ENABLE_CALL";
-				PRODUCT_BUNDLE_IDENTIFIER = uniim.com.ScreenShareBroadcastExtension;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		04EFEA652CECB94D004441CB /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6169D967D8679239F7608427 /* Pods-ScreenShareBroadcastExtension.release.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = MJ53XF6GM4;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ScreenShareBroadcastExtension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = ScreenShareBroadcastExtension;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2024 rentsoft. All rights reserved.";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 1.0;
-				MTL_FAST_MATH = YES;
-				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D ENABLE_MOMENTS -D ENABLE_CALL";
-				PRODUCT_BUNDLE_IDENTIFIER = uniim.com.ScreenShareBroadcastExtension;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
 		607FACED1AFB9204008FA782 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2599,7 +2312,7 @@
 				MARKETING_VERSION = 1.10.1016;
 				MODULE_NAME = ExampleApp;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D ENABLE_MOMENTS -D ENABLE_CALL";
-				PRODUCT_BUNDLE_IDENTIFIER = uniim.com;
+				PRODUCT_BUNDLE_IDENTIFIER = octim.com;
 				PRODUCT_NAME = "IM-NCER";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -2643,7 +2356,7 @@
 				MARKETING_VERSION = 1.10.1016;
 				MODULE_NAME = ExampleApp;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D ENABLE_MOMENTS -D ENABLE_CALL";
-				PRODUCT_BUNDLE_IDENTIFIER = uniim.com;
+				PRODUCT_BUNDLE_IDENTIFIER = octim.com;
 				PRODUCT_NAME = "IM-NCER";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -2661,24 +2374,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		04EFEA602CECB94D004441CB /* Build configuration list for PBXNativeTarget "ScreenShareBroadcastExtensionSetupUI" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				04EFEA612CECB94D004441CB /* Debug */,
-				04EFEA622CECB94D004441CB /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		04EFEA632CECB94D004441CB /* Build configuration list for PBXNativeTarget "ScreenShareBroadcastExtension" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				04EFEA642CECB94D004441CB /* Debug */,
-				04EFEA652CECB94D004441CB /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		607FACCB1AFB9204008FA782 /* Build configuration list for PBXProject "OpenIMSDKUIKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

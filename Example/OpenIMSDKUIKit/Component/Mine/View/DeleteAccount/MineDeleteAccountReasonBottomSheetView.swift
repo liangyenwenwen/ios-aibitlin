@@ -62,7 +62,7 @@ class MineDeleteAccountReasonBottomSheetView: TGLinearLayout {
     }()
     
     lazy var tipLbl1: UILabel = {
-        let r = ViewFactoryUtil.sectionTilteLbael("删除您的账户，AIbitlin所有服务都将无法继续使用，包括聊天、博客等。".localized())
+        let r = ViewFactoryUtil.sectionTilteLbael("删除您的账户，OTC+IM所有服务都将无法继续使用，包括聊天、博客等。".localized())
         r.lineSpace(10)
         return r
     }()

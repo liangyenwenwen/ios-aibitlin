@@ -11,6 +11,7 @@ class MineHomeWalletView: UIView{
     var walletData:MineWalletMoneyData?
     var itemArray = [itemView]()
     var refreshBlock:(()->Void)!
+    var mineAssetsBlock:((_ quantityOfMoneyPOS:QuantityOfMoneyPOS)->Void)!
     var isRefresh:Bool = false
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -95,6 +96,13 @@ class MineHomeWalletView: UIView{
             }
             for i in 0..<walletMoneyData.quantityOfMoneyPOS!.count {
                let v = itemView()
+                let tap = UITapGestureRecognizer()
+                tap.rx.event.subscribe {  _ in
+                    if self.mineAssetsBlock != nil{
+                        self.mineAssetsBlock(walletMoneyData.quantityOfMoneyPOS![i])
+                    }
+                }.disposed(by: rx.disposeBag)
+                v.addGestureRecognizer(tap)
                 listView.addSubview(v)
                 v.bindData(quantityOfMoneyPOS: walletMoneyData.quantityOfMoneyPOS![i])
                 v.snp_makeConstraints { make in

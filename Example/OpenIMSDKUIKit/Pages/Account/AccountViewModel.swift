@@ -21,7 +21,8 @@ open class AccountViewModel {
     // 业务服务器地址
     static let API_BASE_URL = UserDefaults.standard.string(forKey: bussinessSeverAddrKey)!
     static let ADMIN_BASE_URL = UserDefaults.standard.string(forKey: adminSeverAddrKey)!
-    static let API_BOB_URL = "http://192.168.7.128:18729"
+//    static let API_BOB_URL = "http://192.168.7.128:18729"
+    public static let API_BOB_URL = "http://143.92.40.164:18729"
    
     // 实际开发，抽离网络部分
     static let IMPreLoginAccountKey = "IMPreLoginAccountKey"
@@ -56,18 +57,28 @@ open class AccountViewModel {
     private static let DeleteAccountWithEmailAPI = "/user/mail_cancel"
 
     private static let getMineHomeWalletAPI = "/wallet/myHomePage/queryMyAssets"
-    private static var httpHeaders : HTTPHeaders = [
-        "token":UserDefaults.standard.string(forKey: "bussinessTokenKey")!,
-        "X-Forwarded-For":IMController.shared.publicIP,
-        "Authorization":"eyJ1c2VySW5mbyI6InVzZXJCbG9nWWFuWmhlbmdUb2tlbiJ9",
-        "Content-Type":"application/json",
-        "operationID":String(Int(Date().timeIntervalSince1970)),
-    ]
+//    private static var httpHeaders : HTTPHeaders = [
+//        "token":UserDefaults.standard.string(forKey: "bussinessTokenKey")!,
+//        "X-Forwarded-For":IMController.shared.publicIP,
+//        "Authorization":"eyJ1c2VySW5mbyI6InVzZXJCbG9nWWFuWmhlbmdUb2tlbiJ9",
+//        "Content-Type":"application/json",
+//        "operationID":String(Int(Date().timeIntervalSince1970)),
+//    ]
 
 
     
     
     private let _disposeBag = DisposeBag()
+    static func getHttpHeader() -> HTTPHeaders{
+        let httpHeaders : HTTPHeaders = [
+            "token":UserDefaults.standard.string(forKey: "bussinessTokenKey")!,
+            "X-Forwarded-For":IMController.shared.publicIP,
+            "Authorization":"eyJ1c2VySW5mbyI6InVzZXJCbG9nWWFuWmhlbmdUb2tlbiJ9",
+            "Content-Type":"application/json",
+            "operationID":String(Int(Date().timeIntervalSince1970)),
+        ]
+       return httpHeaders
+    }
     
     // 业务层提供给OIMUIKit数据
     // 业务查询好友逻辑
@@ -673,7 +684,7 @@ open class AccountViewModel {
         let param = ["userId": userId]
         let url = SuperStringUtil.netUrl(API_BOB_URL + getMineHomeWalletAPI, param)
 //        let url = API_BOB_URL + getMineHomeWalletAPI
-        Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
+        Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
             if let data = dataRequest.data {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 print(strData!)
@@ -941,6 +952,8 @@ class QuantityOfMoneyPOS: Codable {
     var officialExchangeRate: Double? //汇率
     var quantityOfMoney: Double? //货币数量,保留两位小数
     var equivalentToRMB: Double? //折合人民币,约等于
+    var dongJie: Double? //冻结
+    var keYong: Double? //可用
 //    func toMap() -> [String: Any] {
 //        return JsonTool.toMap(fromObject: self)
 //    }

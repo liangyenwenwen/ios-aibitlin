@@ -65,7 +65,7 @@ class YFRegisterVC: BaseTitleController {
     }()
     
     lazy var appTitleLbl: UILabel = {
-        let r = ViewFactoryUtil.customBoldTilteLable("注册哎比邻".localized(), font: TEXT_LARGE4, textColor: .black333)
+        let r = ViewFactoryUtil.customBoldTilteLable("注册OTC+IM".localized(), font: TEXT_LARGE4, textColor: .black333)
         r.tg_top.equal(84)
         return r
     }()
@@ -182,7 +182,7 @@ class YFRegisterVC: BaseTitleController {
             .paragraphStyle: paragraphStyle,
         ]
         
-        let agreementString = "我已阅读并同意AIbitlin《注册协议》".localized()
+        let agreementString = "我已阅读并同意OTC+IM《注册协议》".localized()
         let agreeStr = NSMutableAttributedString(string: agreementString, attributes: attributes)
         agreeStr.bs_font = .systemFont(ofSize: TEXT_MEDDLE)
         agreeStr.bs_color = .placeholder
@@ -190,7 +190,7 @@ class YFRegisterVC: BaseTitleController {
 //        
         
         // MARK: - 张亚飞打的标记  点击协议内容切换是否同意协议
-        var range1 = agreementString.range(of: "我已阅读并同意AIbitlin《注册协议》".localized())!
+        var range1 = agreementString.range(of: "我已阅读并同意OTC+IM《注册协议》".localized())!
         agreeStr.bs_set(textHighlightRange: agreementString.nsRange(from: range1), color: .placeholder, backgroundColor: nil) { [weak self] _, _, _, _ in
             
             if self?.chooseDelegateBtn != nil  {

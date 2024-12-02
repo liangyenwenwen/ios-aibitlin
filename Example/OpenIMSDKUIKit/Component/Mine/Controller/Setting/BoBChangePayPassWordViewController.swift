@@ -140,6 +140,7 @@ class BoBChangePayPassWordViewController: BaseTitleController {
                 }else{
                     SuperToast.show(title:"修改成功")
                 }
+                IMController.shared.isSetPayPassWord = true
                 if self.changeSuccessBlock != nil {
                     self.changeSuccessBlock(true)
                 }

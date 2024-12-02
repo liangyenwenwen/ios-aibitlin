@@ -6,16 +6,16 @@
   Copyright © 2024 rentsoft. All rights reserved.
 */
 
-"CFBundleDisplayName" = "Aibitlin";
+"CFBundleDisplayName" = "OTC+IM";
 
 "NSAppleMusicUsageDescription" = "The app requires your consent to access the media library.";
-"NSCameraUsageDescription" = "If not permitted, you will not be able to use Aibitlin to take photos or videos, and will not be able to use video calls or the Scan QR Code functionality.";
-"NSMicrophoneUsageDescription" = "If not permitted, you will not be able to use Aibitlin to send voice messages or make audio or video calls.";
+"NSCameraUsageDescription" = "If not permitted, you will not be able to use OTC+IM to take photos or videos, and will not be able to use video calls or the Scan QR Code functionality.";
+"NSMicrophoneUsageDescription" = "If not permitted, you will not be able to use OTC+IM to send voice messages or make audio or video calls.";
 "NSLocationUsageDescription" = "If you don't allow, You will not be able to share your location in chat.";
-"NSPhotoLibraryAddUsageDescription" = "If not allowed, you will be unable to send photos from Camera Roll to friends on Aibitlin.";
+"NSPhotoLibraryAddUsageDescription" = "If not allowed, you will be unable to send photos from Camera Roll to friends on OTC+IM.";
 "NSLocationAlwaysUsageDescription" = "If you don't allow, You will not be able to share your location in chat.";
-"NSPhotoLibraryUsageDescription" = "If not allowed, you will be unable to send photos from Camera Roll to friends on Aibitlin.";
+"NSPhotoLibraryUsageDescription" = "If not allowed, you will be unable to send photos from Camera Roll to friends on OTC+IM.";
 "NSLocationWhenInUseUsageDescription" = "If you don't allow, You will not be able to share your location in chat.";
-"NSLocalNetworkUsageDescription" = "Aibitlin will not connect to devices on your network; it will only check the connectivity to your local gateway. You can also modify Aibitlin's permission settings in the device's Settings - Privacy - Local Network.";
+"NSLocalNetworkUsageDescription" = "OTC+IM will not connect to devices on your network; it will only check the connectivity to your local gateway. You can also modify OTC+IM's permission settings in the device's Settings - Privacy - Local Network.";
 "NSContactsUsageDescription" = "Please click' OK 'to allow access. If not allowed, you will not be able to notify more contacts and friends.";
 

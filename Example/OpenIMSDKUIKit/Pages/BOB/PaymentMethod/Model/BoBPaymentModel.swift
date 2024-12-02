@@ -44,13 +44,23 @@ class BoBPaymentModel {
     
 
 
-    private static var httpHeaders : HTTPHeaders = [
-        "token":UserDefaults.standard.string(forKey: "bussinessTokenKey")!,
-        "X-Forwarded-For":IMController.shared.publicIP,
-        "Authorization":"eyJ1c2VySW5mbyI6InVzZXJCbG9nWWFuWmhlbmdUb2tlbiJ9",
-        "Content-Type":"application/json",
-        "operationID":String(Int(Date().timeIntervalSince1970)),
-    ]
+//    private static var httpHeaders : HTTPHeaders = [
+//        "token":UserDefaults.standard.string(forKey: "bussinessTokenKey")!,
+//        "X-Forwarded-For":IMController.shared.publicIP,
+//        "Authorization":"eyJ1c2VySW5mbyI6InVzZXJCbG9nWWFuWmhlbmdUb2tlbiJ9",
+//        "Content-Type":"application/json",
+//        "operationID":String(Int(Date().timeIntervalSince1970)),
+//    ]
+    static func getHttpHeader() -> HTTPHeaders{
+        let httpHeaders : HTTPHeaders = [
+            "token":UserDefaults.standard.string(forKey: "bussinessTokenKey")!,
+            "X-Forwarded-For":IMController.shared.publicIP,
+            "Authorization":"eyJ1c2VySW5mbyI6InVzZXJCbG9nWWFuWmhlbmdUb2tlbiJ9",
+            "Content-Type":"application/json",
+            "operationID":String(Int(Date().timeIntervalSince1970)),
+        ]
+       return httpHeaders
+    }
     //支付方式列表
     static func QueryUserPaymentList(userId: String?,
                                   valueHandler: @escaping (PaymentMethodData) -> Void,
@@ -65,7 +75,7 @@ class BoBPaymentModel {
         let param = ["userId": userId ?? ""]
         let url = SuperStringUtil.netUrl(API_BOB_URL + UserPaymentMedothList, param)
         
-        Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
+        Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
             ProgressHUD.dismiss()
             
             if let data = dataRequest.data {
@@ -101,7 +111,7 @@ class BoBPaymentModel {
         let param = ["userId": userId ?? "","id":id] as [String : Any]
            let url = SuperStringUtil.netUrl(API_BOB_URL + DeletePayment, param)
            
-           Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
+           Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
                ProgressHUD.dismiss()
                
                if let data = dataRequest.data {
@@ -157,7 +167,7 @@ class BoBPaymentModel {
         
 //        let url = SuperStringUtil.netUrl(API_BOB_URL + addPaymentAPI, param)
         
-        Alamofire.request(API_BOB_URL + addPaymentAPI, method: .post, parameters: param,encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
+        Alamofire.request(API_BOB_URL + addPaymentAPI, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
             ProgressHUD.dismiss()
             
             if let data = dataRequest.data {
@@ -187,7 +197,7 @@ class BoBPaymentModel {
         let param = ["userId": userId ?? "","language":String.getCurrentLanguageFirst()]
         let url = SuperStringUtil.netUrl(API_BOB_URL + BankList, param)
         
-        Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
+        Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
             ProgressHUD.dismiss()
             
             if let data = dataRequest.data {
@@ -224,7 +234,7 @@ class BoBPaymentModel {
         let param = ["userId": userId ?? "","currency":currency ?? ""]
         let url = SuperStringUtil.netUrl(API_BOB_URL + ReceivePayment, param)
         
-        Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
+        Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
             ProgressHUD.dismiss()
             
             if let data = dataRequest.data {
@@ -258,7 +268,7 @@ class BoBPaymentModel {
         let param = ["userId": userId ?? ""]
         let url = SuperStringUtil.netUrl(API_BOB_URL + TransferAccountsHome, param)
         
-        Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
+        Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
             ProgressHUD.dismiss()
             
             if let data = dataRequest.data {
@@ -296,7 +306,7 @@ class BoBPaymentModel {
         ProgressHUD.animate()
         let param = ["userId": userId ?? "","addr": addr ?? "","currency": currency ?? "","issuingPartyWallet": issuingPartyWallet ?? "","transferAmount": transferAmount ?? "0.00","passWord": passWord ?? ""]
         
-        Alamofire.request(API_BOB_URL + SendExternalTransfer, method: .post, parameters: param,encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
+        Alamofire.request(API_BOB_URL + SendExternalTransfer, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
             ProgressHUD.dismiss()
             
             if let data = dataRequest.data {
@@ -340,7 +350,7 @@ class BoBPaymentModel {
             url = EditSecurityCode
         }
         
-        Alamofire.request(SuperStringUtil.netUrl(API_BOB_URL + url, param), method: .post, parameters: param,encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
+        Alamofire.request(SuperStringUtil.netUrl(API_BOB_URL + url, param), method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
             ProgressHUD.dismiss()
             
             if let data = dataRequest.data {
@@ -378,7 +388,7 @@ class BoBPaymentModel {
         let param = ["userId": userId ?? "","tpye": tpye ?? 0, "timeStart": timeStart ?? "","timeEnd": timeEnd ?? "","currency": currency ?? "","pageSize": pageSize ?? 0,"pageNum": pageNum ?? 0] as [String : Any]
         let url = SuperStringUtil.netUrl(API_BOB_URL + QueryMyBillList, param)
         
-        Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
+        Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
             ProgressHUD.dismiss()
             
             if let data = dataRequest.data {
@@ -416,7 +426,7 @@ class BoBPaymentModel {
      let param = ["userId": userId ?? "","code": code ?? 0, "changeType": changeType ?? 1] as [String : Any]
      let url = SuperStringUtil.netUrl(API_BOB_URL + QueryBillDeatil, param)
      
-     Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
+     Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
          ProgressHUD.dismiss()
          
          if let data = dataRequest.data {
@@ -448,8 +458,8 @@ class PaymentResponse<T: Decodable>: Decodable {
     var count: Int? = 0
 }
 struct PaymentMethodData: Codable {
-    var name: String
-    var i: Int
+    var name: String?
+    var i: Int?
     var stringAndDatePOS: [stringAndDatePOS]?
 }
 
@@ -540,7 +550,8 @@ class BillListData: Decodable {
     var time: String {
         let dateFormatter = DateFormatter()
         // 设置日期格式化器的时区，确保输出正确的时间
-        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+//        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+        dateFormatter.timeZone =  NSTimeZone.system
          
         // 设置日期格式化器的日期格式
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
@@ -581,7 +592,9 @@ class BoBBillDetail: Decodable {
     var time: String {
         let dateFormatter = DateFormatter()
         // 设置日期格式化器的时区，确保输出正确的时间
-        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+//        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+        dateFormatter.timeZone =  NSTimeZone.system
+
          
         // 设置日期格式化器的日期格式
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"

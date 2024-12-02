@@ -87,7 +87,7 @@ class BoBPaymentMethodListViewController:UIViewController{
             self.listArray = data.stringAndDatePOS ?? []
             self.tableView.reloadData()
             self.emptyView.isHidden = self.listArray.count > 0
-            IMController.shared.certificationLevel = data.i
+            IMController.shared.certificationLevel = data.i ?? 0
             if IMController.shared.certificationLevel == 0 {
                 self.unRealNameTipView.show()
             }else{

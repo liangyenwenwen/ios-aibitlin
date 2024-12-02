@@ -99,7 +99,7 @@ class ChangeMessageVC: BaseTitleController {
                 editView.maximumTextLength = 32
                 editView.text = SuperStringUtil.getUserShowname(showname: user?.nickname ?? "")
             case .userID:
-                title = "Aibitlin ID"
+                title = "OTC+IM ID"
                 editView.text = user?.chatID ?? (user?.userID ?? "")
             case .userIntro:
 //                title = R.string.localizable.personalProfile()

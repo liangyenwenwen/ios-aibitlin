@@ -71,7 +71,7 @@ class YFLoginVC: BaseLogicController {
     }()
     
     lazy var appTitleLbl: UILabel = {
-        let r = ViewFactoryUtil.customBoldTilteLable("登录哎比邻".localized(), font: TEXT_LARGE4, textColor: .colorOnSurface)
+        let r = ViewFactoryUtil.customBoldTilteLable("登录OTC+IM".localized(), font: TEXT_LARGE4, textColor: .colorOnSurface)
         r.tg_top.equal(84)
         return r
     }()
@@ -199,14 +199,14 @@ class YFLoginVC: BaseLogicController {
             .paragraphStyle: paragraphStyle,
         ]
         
-        let agreementString = "我已阅读并同意AIbitlin《隐私协议》《注册协议》".localized()
+        let agreementString = "我已阅读并同意OTC+IM《隐私协议》《注册协议》".localized()
         let agreeStr = NSMutableAttributedString(string: agreementString, attributes: attributes)
         agreeStr.bs_font = .systemFont(ofSize: TEXT_MEDDLE)
         agreeStr.bs_color = .placeholder
         
         
         // MARK: - 张亚飞打的标记  点击协议内容切换是否同意协议
-        var range = agreementString.range(of: "我已阅读并同意AIbitlin《隐私协议》《注册协议》".localized())!
+        var range = agreementString.range(of: "我已阅读并同意OTC+IM《隐私协议》《注册协议》".localized())!
         agreeStr.bs_set(textHighlightRange: agreementString.nsRange(from: range), color: .placeholder, backgroundColor: nil) { [weak self] _, _, _, _ in
             
             if self?.chooseDelegateBtn != nil  {

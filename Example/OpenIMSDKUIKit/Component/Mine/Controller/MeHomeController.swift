@@ -295,6 +295,12 @@ class MeHomeController: BaseLogicController {
         r.refreshBlock = {
             self.loadUserWallet()
         }
+        r.mineAssetsBlock = {[weak self] quantityOfMoneyPOS in
+            let vc = BoBMineAssetsViewController()
+            vc.hidesBottomBarWhenPushed = true
+            vc.quantityOfMoneyPOS = quantityOfMoneyPOS
+            self?.navigationController?.pushViewController(vc, animated: true)
+        }
         return r
     }()
     lazy var billView:ButtonItem = {

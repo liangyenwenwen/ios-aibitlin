@@ -50,7 +50,8 @@ class BoBBillDetailViewController: BaseTitleController {
                 make.width.equalTo(80)
             }
             orderLabel.snp_makeConstraints { make in
-                make.left.right.equalTo(orderTitleLabel)
+                make.left.equalTo(orderTitleLabel.snp_right).offset(16)
+                make.right.equalTo(lineView)
                 make.centerY.equalTo(orderTitleLabel)
             }
             timeTitleLabel.snp_makeConstraints { make in
@@ -155,7 +156,7 @@ class BoBBillDetailViewController: BaseTitleController {
             default: break
                 
             }
-            if billListData?.changeType == 1 || billListData?.changeType == 2{
+            if billListData?.changeType == 1{
                 container.addSubview(serviceChargeTitleLabel)
                 container.addSubview(serviceChargeLabel)
                 serviceChargeTitleLabel.snp_makeConstraints { make in
@@ -188,12 +189,12 @@ class BoBBillDetailViewController: BaseTitleController {
             moneyLabel.textColor = .init(hexString: "#333333")
         }
         switch billDetail?.type {
-        case 1 , 2:
+        case 1:
             addressLabel.attributedText = getAttribute(str:(billDetail?.duiFangDiZhi)!)
             orderLabel.attributedText = getAttribute(str:(billDetail?.dingDanBianHao)!)
             timeLabel.text = billDetail?.jiaoYiShiJian
             serviceChargeLabel.text = String(format: "%.2f",(billDetail?.shouXuFei)!) + " "  + (billDetail?.biZhong)!
-        case 3,4:
+        case 2,3,4:
             addressLabel.attributedText = getAttribute(str:(billDetail?.duiFangDiZhi)!)
             orderLabel.attributedText = getAttribute(str:(billDetail?.dingDanBianHao)!)
             timeLabel.text = billDetail?.jiaoYiShiJian
@@ -242,7 +243,7 @@ class BoBBillDetailViewController: BaseTitleController {
     func getAttribute(str:String) -> NSMutableAttributedString{
         let attachment = NSTextAttachment()
         attachment.image = UIImage(named: "receive_payment_copy_icon")
-        attachment.bounds = CGRect(x: 0, y: -1.0, width: 16, height: 16)
+        attachment.bounds = CGRect(x: 2, y: -3.0, width: 16, height: 16)
         
         let attributedString = NSMutableAttributedString(string: str)
         let attachmentString = NSAttributedString(attachment: attachment)

@@ -6,17 +6,17 @@
   Copyright © 2024 rentsoft. All rights reserved.
 */
 
-"CFBundleDisplayName" = "Aibitlin";
+"CFBundleDisplayName" = "OTC+IM";
 
 "NSAppleMusicUsageDescription" = "แอปต้องการความยินยอมจากคุณเพื่อเข้าถึงคลังสื่อ";
-"NSCameraUsageDescription" = "ถ้าไม่ได้รับอนุญาต คุณจะไม่สามารถใช้ Aibitlin ถ่ายรูปหรือวิดีโอได้ และจะไม่สามารถใช้ฟังก์ชันวิดีโอคอลหรือสแกน QR โค้ดได้ด้วย";
-"NSMicrophoneUsageDescription" = "ถ้าไม่ได้รับอนุญาต คุณจะไม่สามารถใช้ Aibitlin ส่งข้อความเสียงหรือใช้การโทรด้วยเสียงหรือวิดีโอคอลได้";
+"NSCameraUsageDescription" = "ถ้าไม่ได้รับอนุญาต คุณจะไม่สามารถใช้ OTC+IM ถ่ายรูปหรือวิดีโอได้ และจะไม่สามารถใช้ฟังก์ชันวิดีโอคอลหรือสแกน QR โค้ดได้ด้วย";
+"NSMicrophoneUsageDescription" = "ถ้าไม่ได้รับอนุญาต คุณจะไม่สามารถใช้ OTC+IM ส่งข้อความเสียงหรือใช้การโทรด้วยเสียงหรือวิดีโอคอลได้";
 "NSLocationUsageDescription" = "หากคุณไม่อนุญาต คุณจะไม่สามารถแชร์ตำแหน่งที่ตั้งของคุณในการแชทได้";
-"NSPhotoLibraryAddUsageDescription" = "ถ้าไม่อนุญาต คุณจะไม่สามารถส่งรูปถ่ายจาก Camera Roll ถึงเพื่อนบน Aibitlin ได้";
+"NSPhotoLibraryAddUsageDescription" = "ถ้าไม่อนุญาต คุณจะไม่สามารถส่งรูปถ่ายจาก Camera Roll ถึงเพื่อนบน OTC+IM ได้";
 "NSLocationAlwaysUsageDescription" = "หากคุณไม่อนุญาต คุณจะไม่สามารถแชร์ตำแหน่งที่ตั้งของคุณในการแชทได้";
-"NSPhotoLibraryUsageDescription" = "ถ้าไม่อนุญาต คุณจะไม่สามารถส่งรูปถ่ายจาก Camera Roll ถึงเพื่อนบน Aibitlin ได้";
+"NSPhotoLibraryUsageDescription" = "ถ้าไม่อนุญาต คุณจะไม่สามารถส่งรูปถ่ายจาก Camera Roll ถึงเพื่อนบน OTC+IM ได้";
 "NSLocationWhenInUseUsageDescription" = "หากคุณไม่อนุญาต คุณจะไม่สามารถแชร์ตำแหน่งที่ตั้งของคุณในการแชทได้";
-"NSLocalNetworkUsageDescription" = "Aibitlin จะไม่เชื่อมต่อกับอุปกรณ์ในเครือข่ายของคุณ จะตรวจสอบการเชื่อมต่อกับเกตเวย์ท้องถิ่นของคุณเท่านั้น คุณยังสามารถแก้ไขการตั้งค่าสิทธิ์ของ Aibitlin ในการตั้งค่าอุปกรณ์ - ความเป็นส่วนตัว - เครือข่ายท้องถิ่น";
+"NSLocalNetworkUsageDescription" = "OTC+IM จะไม่เชื่อมต่อกับอุปกรณ์ในเครือข่ายของคุณ จะตรวจสอบการเชื่อมต่อกับเกตเวย์ท้องถิ่นของคุณเท่านั้น คุณยังสามารถแก้ไขการตั้งค่าสิทธิ์ของ OTC+IM ในการตั้งค่าอุปกรณ์ - ความเป็นส่วนตัว - เครือข่ายท้องถิ่น";
 "NSContactsUsageDescription" = "กรุณาแตะ 'ตกลง' เพื่อให้สามารถเข้าถึง. คุณจะไม่สามารถแจ้งเพื่อนในสมุดรายชื่อเพิ่มเติมถ้าไม่ได้รับอนุญาต.";
 
 

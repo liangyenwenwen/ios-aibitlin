@@ -77,12 +77,12 @@ struct _R: Sendable {
     struct infoPlist {
       let source: RswiftResources.StringResource.Source
 
-      /// English translation: Aibitlin
+      /// English translation: OTC+IM
       ///
       /// Key: CFBundleDisplayName
       ///
       /// Locales: English, zh-Hans, en, th
-      var cfBundleDisplayName: RswiftResources.StringResource { .init(key: "CFBundleDisplayName", tableName: "InfoPlist", source: source, developmentValue: "Aibitlin", comment: nil) }
+      var cfBundleDisplayName: RswiftResources.StringResource { .init(key: "CFBundleDisplayName", tableName: "InfoPlist", source: source, developmentValue: "OTC+IM", comment: nil) }
 
       /// English translation: The app requires your consent to access the media library.
       ///
@@ -91,12 +91,12 @@ struct _R: Sendable {
       /// Locales: English, zh-Hans, en, th
       var nsAppleMusicUsageDescription: RswiftResources.StringResource { .init(key: "NSAppleMusicUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "The app requires your consent to access the media library.", comment: nil) }
 
-      /// English translation: If not permitted, you will not be able to use Aibitlin to take photos or videos, and will not be able to use video calls or the Scan QR Code functionality.
+      /// English translation: If not permitted, you will not be able to use OTC+IM to take photos or videos, and will not be able to use video calls or the Scan QR Code functionality.
       ///
       /// Key: NSCameraUsageDescription
       ///
       /// Locales: English, zh-Hans, en, th
-      var nsCameraUsageDescription: RswiftResources.StringResource { .init(key: "NSCameraUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "If not permitted, you will not be able to use Aibitlin to take photos or videos, and will not be able to use video calls or the Scan QR Code functionality.", comment: nil) }
+      var nsCameraUsageDescription: RswiftResources.StringResource { .init(key: "NSCameraUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "If not permitted, you will not be able to use OTC+IM to take photos or videos, and will not be able to use video calls or the Scan QR Code functionality.", comment: nil) }
 
       /// English translation: Please click' OK 'to allow access. If not allowed, you will not be able to notify more contacts and friends.
       ///
@@ -105,12 +105,12 @@ struct _R: Sendable {
       /// Locales: English, zh-Hans, en, th
       var nsContactsUsageDescription: RswiftResources.StringResource { .init(key: "NSContactsUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "Please click' OK 'to allow access. If not allowed, you will not be able to notify more contacts and friends.", comment: nil) }
 
-      /// English translation: Aibitlin will not connect to devices on your network; it will only check the connectivity to your local gateway. You can also modify Aibitlin's permission settings in the device's Settings - Privacy - Local Network.
+      /// English translation: OTC+IM will not connect to devices on your network; it will only check the connectivity to your local gateway. You can also modify OTC+IM's permission settings in the device's Settings - Privacy - Local Network.
       ///
       /// Key: NSLocalNetworkUsageDescription
       ///
       /// Locales: English, zh-Hans, en, th
-      var nsLocalNetworkUsageDescription: RswiftResources.StringResource { .init(key: "NSLocalNetworkUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "Aibitlin will not connect to devices on your network; it will only check the connectivity to your local gateway. You can also modify Aibitlin's permission settings in the device's Settings - Privacy - Local Network.", comment: nil) }
+      var nsLocalNetworkUsageDescription: RswiftResources.StringResource { .init(key: "NSLocalNetworkUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "OTC+IM will not connect to devices on your network; it will only check the connectivity to your local gateway. You can also modify OTC+IM's permission settings in the device's Settings - Privacy - Local Network.", comment: nil) }
 
       /// English translation: If you don't allow, You will not be able to share your location in chat.
       ///
@@ -133,33 +133,33 @@ struct _R: Sendable {
       /// Locales: English, zh-Hans, en, th
       var nsLocationWhenInUseUsageDescription: RswiftResources.StringResource { .init(key: "NSLocationWhenInUseUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "If you don't allow, You will not be able to share your location in chat.", comment: nil) }
 
-      /// English translation: If not permitted, you will not be able to use Aibitlin to send voice messages or make audio or video calls.
+      /// English translation: If not permitted, you will not be able to use OTC+IM to send voice messages or make audio or video calls.
       ///
       /// Key: NSMicrophoneUsageDescription
       ///
       /// Locales: English, zh-Hans, en, th
-      var nsMicrophoneUsageDescription: RswiftResources.StringResource { .init(key: "NSMicrophoneUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "If not permitted, you will not be able to use Aibitlin to send voice messages or make audio or video calls.", comment: nil) }
+      var nsMicrophoneUsageDescription: RswiftResources.StringResource { .init(key: "NSMicrophoneUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "If not permitted, you will not be able to use OTC+IM to send voice messages or make audio or video calls.", comment: nil) }
 
-      /// English translation: If not allowed, you will be unable to send photos from Camera Roll to friends on Aibitlin.
+      /// English translation: If not allowed, you will be unable to send photos from Camera Roll to friends on OTC+IM.
       ///
       /// Key: NSPhotoLibraryAddUsageDescription
       ///
       /// Locales: English, zh-Hans, en, th
-      var nsPhotoLibraryAddUsageDescription: RswiftResources.StringResource { .init(key: "NSPhotoLibraryAddUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "If not allowed, you will be unable to send photos from Camera Roll to friends on Aibitlin.", comment: nil) }
+      var nsPhotoLibraryAddUsageDescription: RswiftResources.StringResource { .init(key: "NSPhotoLibraryAddUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "If not allowed, you will be unable to send photos from Camera Roll to friends on OTC+IM.", comment: nil) }
 
-      /// English translation: If not allowed, you will be unable to send photos from Camera Roll to friends on Aibitlin.
+      /// English translation: If not allowed, you will be unable to send photos from Camera Roll to friends on OTC+IM.
       ///
       /// Key: NSPhotoLibraryUsageDescription
       ///
       /// Locales: English, zh-Hans, en, th
-      var nsPhotoLibraryUsageDescription: RswiftResources.StringResource { .init(key: "NSPhotoLibraryUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "If not allowed, you will be unable to send photos from Camera Roll to friends on Aibitlin.", comment: nil) }
+      var nsPhotoLibraryUsageDescription: RswiftResources.StringResource { .init(key: "NSPhotoLibraryUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "If not allowed, you will be unable to send photos from Camera Roll to friends on OTC+IM.", comment: nil) }
     }
 
     /// This `_R.string.launchScreen` struct is generated, and contains static references to 1 localization keys.
     struct launchScreen {
       let source: RswiftResources.StringResource.Source
 
-      /// en translation: Aibitlin
+      /// en translation: OTC+IM
       ///
       /// Key: 8ie-xW-0ye.text
       ///
@@ -167,7 +167,7 @@ struct _R: Sendable {
       var ieXW0yeText: RswiftResources.StringResource { .init(key: "8ie-xW-0ye.text", tableName: "LaunchScreen", source: source, developmentValue: nil, comment: nil) }
     }
 
-    /// This `_R.string.localizable` struct is generated, and contains static references to 516 localization keys.
+    /// This `_R.string.localizable` struct is generated, and contains static references to 515 localization keys.
     struct localizable {
       let source: RswiftResources.StringResource.Source
 
@@ -185,12 +185,12 @@ struct _R: Sendable {
       /// Locales: en, th
       var 请输入以https开头的地址: RswiftResources.StringResource { .init(key: " 请输入以https://开头的地址", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: 1.Users who haven't downloaded the app can scan your QR code to download AIibitlin directly. 2.Unregistered users can scan your QR code on the login page to try AIibitlin without registering, and it will automatically save your recommended blog.
+      /// en translation: 1.Users who haven't downloaded the app can scan your QR code to download OTC+IM directly. 2.Unregistered users can scan your QR code on the login page to try OTC+IM without registering, and it will automatically save your recommended blog.
       ///
-      /// Key: 1.未下载APP的用户，扫你的二维码可直接下载哎比邻。 2.未注册用户在登录页面扫你的二维码，免注册即可试用哎比邻，并自动收藏您推荐的博客。
+      /// Key: 1.未下载APP的用户，扫你的二维码可直接下载OTC+IM。 2.未注册用户在登录页面扫你的二维码，免注册即可试用OTC+IM，并自动收藏您推荐的博客。
       ///
       /// Locales: en, th
-      var 未下载APP的用户扫你的二维码可直接下载哎比邻2未注册用户在登录页面扫你的二维码免注册即可试用哎比邻并自动收藏您推荐的博客: RswiftResources.StringResource { .init(key: "1.未下载APP的用户，扫你的二维码可直接下载哎比邻。\n2.未注册用户在登录页面扫你的二维码，免注册即可试用哎比邻，并自动收藏您推荐的博客。", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+      var 未下载APP的用户扫你的二维码可直接下载OTCIM2未注册用户在登录页面扫你的二维码免注册即可试用OTCIM并自动收藏您推荐的博客: RswiftResources.StringResource { .init(key: "1.未下载APP的用户，扫你的二维码可直接下载OTC+IM。\n2.未注册用户在登录页面扫你的二维码，免注册即可试用OTC+IM，并自动收藏您推荐的博客。", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: 7-Day Visitor Data
       ///
@@ -983,7 +983,7 @@ struct _R: Sendable {
       /// Locales: en, zh-Hans, th
       var forgetPassword: RswiftResources.StringResource { .init(key: "forgetPassword", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: Aibitlin
+      /// en translation: OTC+IM
       ///
       /// Key: home
       ///
@@ -1760,12 +1760,12 @@ struct _R: Sendable {
       /// Locales: en, th
       var 删除好友: RswiftResources.StringResource { .init(key: "删除好友", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: If you delete your account, all services of AIbitlin will no longer be available, including chat, shortcut blogs, etc.
+      /// en translation: If you delete your account, all services of OTC+IM will no longer be available, including chat, shortcut blogs, etc.
       ///
-      /// Key: 删除您的账户，AIbitlin所有服务都将无法继续使用，包括聊天、博客等。
+      /// Key: 删除您的账户，OTC+IM所有服务都将无法继续使用，包括聊天、博客等。
       ///
       /// Locales: en, zh-Hans, th
-      var 删除您的账户AIbitlin所有服务都将无法继续使用包括聊天博客等: RswiftResources.StringResource { .init(key: "删除您的账户，AIbitlin所有服务都将无法继续使用，包括聊天、博客等。", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+      var 删除您的账户OTCIM所有服务都将无法继续使用包括聊天博客等: RswiftResources.StringResource { .init(key: "删除您的账户，OTC+IM所有服务都将无法继续使用，包括聊天、博客等。", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Deleted successfully
       ///
@@ -2334,33 +2334,26 @@ struct _R: Sendable {
       /// Locales: en, th
       var 我已阅读并同意: RswiftResources.StringResource { .init(key: "我已阅读并同意:", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: I have read and agreed to the Aibitlin
+      /// en translation: I have read and agreed to the OTC+IM
       ///
-      /// Key: 我已阅读并同意AIbitlin
+      /// Key: 我已阅读并同意OTC+IM
       ///
       /// Locales: en, th
-      var 我已阅读并同意AIbitlin: RswiftResources.StringResource { .init(key: "我已阅读并同意AIbitlin", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+      var 我已阅读并同意OTCIM: RswiftResources.StringResource { .init(key: "我已阅读并同意OTC+IM", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: I have read and agreed to the Aibitlin Registration Agreement
+      /// en translation: I have read and agreed to the OTC+IM Registration Agreement
       ///
-      /// Key: 我已阅读并同意AIbitlin《注册协议》
+      /// Key: 我已阅读并同意OTC+IM《注册协议》
       ///
       /// Locales: en, th
-      var 我已阅读并同意AIbitlin注册协议: RswiftResources.StringResource { .init(key: "我已阅读并同意AIbitlin《注册协议》", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+      var 我已阅读并同意OTCIM注册协议: RswiftResources.StringResource { .init(key: "我已阅读并同意OTC+IM《注册协议》", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: I have read and agreed to the Aibitlin Privacy Agreement and Registration Agreement
+      /// en translation: I have read and agreed to the OTC+IM's Privacy Agreement and Registration Agreement
       ///
-      /// Key: 我已阅读并同意AIbitlin《隐私协议》《注册协议》
-      ///
-      /// Locales: en, th
-      var 我已阅读并同意AIbitlin隐私协议注册协议: RswiftResources.StringResource { .init(key: "我已阅读并同意AIbitlin《隐私协议》《注册协议》", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
-
-      /// en translation: I have read and agreed to the Aibitlin's Privacy Agreement and Registration Agreement
-      ///
-      /// Key: 我已阅读并同意Aibitlin《隐私协议》《注册协议》
+      /// Key: 我已阅读并同意OTC+IM《隐私协议》《注册协议》
       ///
       /// Locales: en, th
-      var 我已阅读并同意Aibitlin隐私协议注册协议: RswiftResources.StringResource { .init(key: "我已阅读并同意Aibitlin《隐私协议》《注册协议》", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+      var 我已阅读并同意OTCIM隐私协议注册协议: RswiftResources.StringResource { .init(key: "我已阅读并同意OTC+IM《隐私协议》《注册协议》", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: I Want to Recommend Blogs
       ///
@@ -2789,12 +2782,12 @@ struct _R: Sendable {
       /// Locales: en, zh-Hans, th
       var 注册APP: RswiftResources.StringResource { .init(key: "注册APP", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: Join Aibitlin
+      /// en translation: Join OTC+IM
       ///
-      /// Key: 注册哎比邻
+      /// Key: 注册OTC+IM
       ///
       /// Locales: en, th
-      var 注册哎比邻: RswiftResources.StringResource { .init(key: "注册哎比邻", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+      var 注册OTCIM: RswiftResources.StringResource { .init(key: "注册OTC+IM", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Create an Account
       ///
@@ -2929,19 +2922,19 @@ struct _R: Sendable {
       /// Locales: en, th
       var 登录: RswiftResources.StringResource { .init(key: "登录", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// en translation: Sign in to OTC+IM
+      ///
+      /// Key: 登录OTC+IM
+      ///
+      /// Locales: en, th
+      var 登录OTCIM: RswiftResources.StringResource { .init(key: "登录OTC+IM", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: Sign in to your account and chat seamlessly with users worldwide.
       ///
       /// Key: 登录你的账号、与全球用户无障碍聊天。
       ///
       /// Locales: en, th
       var 登录你的账号与全球用户无障碍聊天: RswiftResources.StringResource { .init(key: "登录你的账号、与全球用户无障碍聊天。", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
-
-      /// en translation: Sign in to Aibitlin
-      ///
-      /// Key: 登录哎比邻
-      ///
-      /// Locales: en, th
-      var 登录哎比邻: RswiftResources.StringResource { .init(key: "登录哎比邻", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Photo
       ///
@@ -3801,7 +3794,7 @@ struct _R: Sendable {
     var colorBackground: RswiftResources.ColorResource { .init(name: "ColorBackground", path: [], bundle: bundle) }
   }
 
-  /// This `_R.image` struct is generated, and contains static references to 280 images.
+  /// This `_R.image` struct is generated, and contains static references to 284 images.
   struct image {
     let bundle: Foundation.Bundle
 
@@ -4348,8 +4341,8 @@ struct _R: Sendable {
     /// Image `instagram_icon`.
     var instagram_icon: RswiftResources.ImageResource { .init(name: "instagram_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
-    /// Image `launch_logo`.
-    var launch_logo: RswiftResources.ImageResource { .init(name: "launch_logo", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+    /// Image `launch_logo_otc`.
+    var launch_logo_otc: RswiftResources.ImageResource { .init(name: "launch_logo_otc", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
     /// Image `line_line`.
     var line_line: RswiftResources.ImageResource { .init(name: "line_line", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
@@ -4392,6 +4385,18 @@ struct _R: Sendable {
 
     /// Image `mine_about_icon`.
     var mine_about_icon: RswiftResources.ImageResource { .init(name: "mine_about_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `mine_assets_buy_coin_icon`.
+    var mine_assets_buy_coin_icon: RswiftResources.ImageResource { .init(name: "mine_assets_buy_coin_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `mine_assets_explain_icon`.
+    var mine_assets_explain_icon: RswiftResources.ImageResource { .init(name: "mine_assets_explain_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `mine_assets_payment_icon`.
+    var mine_assets_payment_icon: RswiftResources.ImageResource { .init(name: "mine_assets_payment_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `mine_assets_transfer_accounts_icon`.
+    var mine_assets_transfer_accounts_icon: RswiftResources.ImageResource { .init(name: "mine_assets_transfer_accounts_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
     /// Image `mine_background_image`.
     var mine_background_image: RswiftResources.ImageResource { .init(name: "mine_background_image", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
@@ -4662,7 +4667,7 @@ struct _R: Sendable {
     var launchScreen: RswiftResources.NibReference<UIKit.UIView> { .init(name: "LaunchScreen", bundle: bundle) }
 
     func validate() throws {
-      if UIKit.UIImage(named: "launch_logo", in: bundle, compatibleWith: nil) == nil { throw RswiftResources.ValidationError("[R.swift] Image named 'launch_logo' is used in nib 'LaunchScreen', but couldn't be loaded.") }
+      if UIKit.UIImage(named: "launch_logo_otc", in: bundle, compatibleWith: nil) == nil { throw RswiftResources.ValidationError("[R.swift] Image named 'launch_logo_otc' is used in nib 'LaunchScreen', but couldn't be loaded.") }
     }
   }
 

@@ -61,7 +61,7 @@ class YFNewRegisterVC: BaseLogicController {
         r.changeTypeClick =  { [weak self] currentIndex in
             if currentIndex == 0 {
                 self?.useType = .useEmail
-//                self?.appTitleLbl.text = "使用邮箱注册哎比邻".localized()
+//                self?.appTitleLbl.text = "使用邮箱注册OTC+IM".localized()
                 self?.phoneView.hide()
                 self?.emailView.show()
                 self?.codeTipLbl.show()
@@ -69,7 +69,7 @@ class YFNewRegisterVC: BaseLogicController {
                 self?.view.layoutIfNeeded()
             } else {
                 self?.useType = .usePhone
-//                self?.appTitleLbl.text = "使用手机号注册哎比邻".localized()
+//                self?.appTitleLbl.text = "使用手机号注册OTC+IM".localized()
                 self?.phoneView.show()
                 self?.emailView.hide()
                 self?.codeTipLbl.hide()

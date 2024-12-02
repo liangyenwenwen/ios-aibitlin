@@ -63,14 +63,14 @@ class YFEmailLoginVC: BaseLogicController {
                 self?.pwdView.hide()
                 self?.codeView.show()
                 self?.pwdView.textFieldView.text = ""
-//                self?.appTitleLbl.text = "验证码登录哎比邻".localized()
+//                self?.appTitleLbl.text = "验证码登录OTC+IM".localized()
                 self?.codeTipLbl.show()
                 self?.loginBtn.tg_top.equal(self?.codeTipLbl.tg_bottom, offset: 10)
             } else {
                 self?.pwdView.show()
                 self?.codeView.hide()
                 self?.codeView.textFieldView.text = ""
-//                self?.appTitleLbl.text = "密码登录哎比邻".localized()
+//                self?.appTitleLbl.text = "密码登录OTC+IM".localized()
                 self?.codeTipLbl.hide()
                 self?.loginBtn.tg_top.equal(self?.tipLbl.tg_bottom, offset: 188)
             }

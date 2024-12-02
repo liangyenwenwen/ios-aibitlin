@@ -495,7 +495,7 @@ class CoustomInputBarAccessoryView: InputBarAccessoryView {
                 // TODO: Toast弹窗提示开启权限
                 self.showAudioInputView(show: false)
                 if let vc = UIApplication.shared.keyWindow?.rootViewController{
-                    let alert = UIAlertController(title: nil, message: "无法录制声音，前往 设置 > 哎比邻 中打开麦克风权限".innerLocalized(), preferredStyle: .alert)
+                    let alert = UIAlertController(title: nil, message: "无法录制声音，前往 设置 > OTC+IM 中打开麦克风权限".innerLocalized(), preferredStyle: .alert)
                     // 创建UIAlertAction，用于处理用户的选择
                     let cancleAction = UIAlertAction(title: "取消".innerLocalized(), style: .default) { _ in
                     }
