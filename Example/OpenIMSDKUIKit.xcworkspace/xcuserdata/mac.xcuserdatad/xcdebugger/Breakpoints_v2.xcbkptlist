@@ -26,8 +26,8 @@
             filePath = "OpenIMSDKUIKit/Pages/BOB/Bill/View/BoBChooseBillView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "305"
-            endingLineNumber = "305"
+            startingLineNumber = "304"
+            endingLineNumber = "304"
             landmarkName = "sureBtn"
             landmarkType = "24">
          </BreakpointContent>
@@ -126,6 +126,22 @@
             endingLineNumber = "133"
             landmarkName = "reloadData()"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3C22F564-037C-436B-A61D-77401F663EFD"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "OpenIMSDKUIKit/Pages/BOB/Bill/BoBBillDetailViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "289"
+            endingLineNumber = "289"
+            landmarkName = "addressLabel"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

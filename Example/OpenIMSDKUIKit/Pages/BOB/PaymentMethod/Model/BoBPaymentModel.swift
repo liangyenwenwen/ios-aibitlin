@@ -14,7 +14,9 @@ import RxSwift
 import Network
 class BoBPaymentModel {
     // 业务服务器地址
-    public static let API_BOB_URL = "http://192.168.7.128:18729"
+//    public static let API_BOB_URL = "http://192.168.7.128:18729"
+    public static let API_BOB_URL = "http://143.92.40.164:18729"
+    
     
     private static let UserPaymentMedothList = "/wallet/userPayment/queryUserPayment" //支付方式列表
     private static let DeletePayment = "/wallet/userPayment/delUserPayment" //删除支付方式
@@ -37,6 +39,7 @@ class BoBPaymentModel {
     private static let EditSecurityCode = "/wallet/securityCode/updateSecurityCode" //修改安全密码
     
     private static let QueryMyBillList = "/wallet/check/queryMyCheck" //账单列表
+    private static let QueryBillDeatil = "/wallet/check/queryMyCheckByCode" //账单详情
 
     
 
@@ -397,6 +400,44 @@ class BoBPaymentModel {
         }
         
     }
+    //账单详情
+    static func QueryBillDeatilRequest(userId: String?,
+                                       code:String?,
+                                       changeType:Int?,
+                               valueHandler: @escaping (BoBBillDetail) -> Void,
+                               completionHandler: @escaping CompletionHandler) {
+     
+     
+     if !NetworkStatus.isReacheable {
+//            SuperToast.show(title: "")
+         return
+     }
+     ProgressHUD.animate()
+     let param = ["userId": userId ?? "","code": code ?? 0, "changeType": changeType ?? 1] as [String : Any]
+     let url = SuperStringUtil.netUrl(API_BOB_URL + QueryBillDeatil, param)
+     
+     Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
+         ProgressHUD.dismiss()
+         
+         if let data = dataRequest.data {
+             let strData = String.init(data: data, encoding: String.Encoding.utf8)
+             print(strData!)
+             if let res = JsonTool.fromJson(strData!, toClass: BoBBillDetailResponse.self) {
+
+                 if res.code == 20000  {
+                     valueHandler(res.data.externalTransferMessageVO)
+                 } else {
+                     completionHandler(res.code, res.message)
+                 }
+             } else {
+                 completionHandler(-1, "failure")
+             }
+         } else {
+             completionHandler(-1, "failure")
+         }
+     }
+     
+ }
     
 }
 class PaymentResponse<T: Decodable>: Decodable {
@@ -506,6 +547,47 @@ class BillListData: Decodable {
          
         // 将ISO 8601字符串转换为Date对象
         guard let date = dateFormatter.date(from: changeTime ?? "") else {
+            fatalError("Date conversion failed")
+        }
+         
+        // 重新设置日期格式化器的日期格式
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+         
+        // 将Date对象转换为需要的格式的字符串
+        let formattedDateString = dateFormatter.string(from: date)
+        return formattedDateString
+    }
+}
+class BoBBillDetailResponse: Decodable {
+    var data: BoBBillDetailData
+    var flag: Bool = false
+    var code: Int = 20000
+    var message: String? = nil
+    var count: Int? = 0
+}
+class BoBBillDetailData: Decodable {
+    var type: Int?
+    var externalTransferMessageVO: BoBBillDetail
+}
+class BoBBillDetail: Decodable {
+    var amount:Double?
+    var fuHao: String?
+    var type:Int?
+    var duiFangDiZhi:String?
+    var dingDanBianHao:String?
+    var jiaoYiShiJian:String?
+    var shouXuFei:Double?
+    var biZhong:String?
+    var time: String {
+        let dateFormatter = DateFormatter()
+        // 设置日期格式化器的时区，确保输出正确的时间
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+         
+        // 设置日期格式化器的日期格式
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+         
+        // 将ISO 8601字符串转换为Date对象
+        guard let date = dateFormatter.date(from: jiaoYiShiJian ?? "") else {
             fatalError("Date conversion failed")
         }
          

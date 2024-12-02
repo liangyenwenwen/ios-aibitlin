@@ -11,6 +11,7 @@ import JXSegmentedView
 import OUICore
 
 class BoBBillListView: UIView {
+    var currentVC: UIViewController?
     var tableView: UITableView!
     var chooseType:Int = 0
     var timeStart:String = ""
@@ -106,6 +107,11 @@ extension BoBBillListView: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 72
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = BoBBillDetailViewController()
+        vc.billListData = listArray[indexPath.row]
+        currentVC?.navigationController?.pushViewController(vc, animated: true)
     }
 
 }

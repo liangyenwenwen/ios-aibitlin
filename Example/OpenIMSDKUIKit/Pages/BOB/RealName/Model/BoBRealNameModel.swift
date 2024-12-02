@@ -13,7 +13,8 @@ import RxSwift
 import Network
 open class BoBRealNameModel {
     // 业务服务器地址
-    public static let API_BOB_URL = "http://192.168.7.128:18729"
+//    public static let API_BOB_URL = "http://192.168.7.128:18729"
+    public static let API_BOB_URL = "http://143.92.40.164:18729"
     
     private static let AddUserLanguageToken = "/wallet/userLanguageToken/adduserLanguageToken" //更改语言
     private static let InitWallet = "/wallet/wallet/initializeWallet"

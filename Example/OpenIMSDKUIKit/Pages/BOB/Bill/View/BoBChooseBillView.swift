@@ -269,7 +269,6 @@ class BoBChooseBillView: TGLinearLayout {
             make.centerY.equalTo(icon)
             make.right.equalTo(-16)
         }
-        
         let tap = UITapGestureRecognizer()
         tap.rx.event.subscribe {  _ in
             self.chooseTime(type: 1)

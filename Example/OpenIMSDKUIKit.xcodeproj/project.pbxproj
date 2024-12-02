@@ -91,6 +91,7 @@
 		0481727A2CF9E5DC007A2920 /* BoBBillListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048172792CF9E5DC007A2920 /* BoBBillListView.swift */; };
 		0481727C2CF9E621007A2920 /* BoBBillListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0481727B2CF9E621007A2920 /* BoBBillListCell.swift */; };
 		0481727E2CFAB51A007A2920 /* BoBChooseBillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0481727D2CFAB51A007A2920 /* BoBChooseBillView.swift */; };
+		048172842CFD45F0007A2920 /* BoBBillDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048172832CFD45F0007A2920 /* BoBBillDetailViewController.swift */; };
 		049B98032CB521360032E7B8 /* YFChooseUserAvatarCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049B98022CB521360032E7B8 /* YFChooseUserAvatarCardView.swift */; };
 		049C643E2BEC619300B679C4 /* YFLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049C643D2BEC619300B679C4 /* YFLoginVC.swift */; };
 		049C64402BEC622300B679C4 /* YFLoginChooseHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049C643F2BEC622300B679C4 /* YFLoginChooseHeaderView.swift */; };
@@ -342,6 +343,7 @@
 		048172792CF9E5DC007A2920 /* BoBBillListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBBillListView.swift; sourceTree = "<group>"; };
 		0481727B2CF9E621007A2920 /* BoBBillListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBBillListCell.swift; sourceTree = "<group>"; };
 		0481727D2CFAB51A007A2920 /* BoBChooseBillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBChooseBillView.swift; sourceTree = "<group>"; };
+		048172832CFD45F0007A2920 /* BoBBillDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBBillDetailViewController.swift; sourceTree = "<group>"; };
 		049B98022CB521360032E7B8 /* YFChooseUserAvatarCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFChooseUserAvatarCardView.swift; sourceTree = "<group>"; };
 		049C643D2BEC619300B679C4 /* YFLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFLoginVC.swift; sourceTree = "<group>"; };
 		049C643F2BEC622300B679C4 /* YFLoginChooseHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFLoginChooseHeaderView.swift; sourceTree = "<group>"; };
@@ -938,6 +940,7 @@
 			children = (
 				048172782CF9E5B9007A2920 /* View */,
 				048172762CF9E597007A2920 /* BoBBillListViewController.swift */,
+				048172832CFD45F0007A2920 /* BoBBillDetailViewController.swift */,
 			);
 			path = Bill;
 			sourceTree = "<group>";
@@ -1810,7 +1813,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$SRCROOT/R.generated.swift",
+				$SRCROOT/R.generated.swift,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2051,6 +2054,7 @@
 				040D860C2BEB8C4200DCAAB3 /* SuperUIImageExtension.swift in Sources */,
 				1790EE6E2921EAFC00C4024A /* CheckBoxTextTableViewCell.swift in Sources */,
 				049D30222CC1F5DB00649DC4 /* YFNetworkStatusUtil.swift in Sources */,
+				048172842CFD45F0007A2920 /* BoBBillDetailViewController.swift in Sources */,
 				043A558C2C8166490041836E /* UserTagTypeView.swift in Sources */,
 				17943358292DB9ED0088B768 /* ScreenLockSettingViewController.swift in Sources */,
 				04D2E2092CBE4E5500582B13 /* UIView+Position.swift in Sources */,

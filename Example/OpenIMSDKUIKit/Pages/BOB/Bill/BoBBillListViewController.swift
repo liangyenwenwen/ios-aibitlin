@@ -134,6 +134,7 @@ extension BoBBillListViewController: JXSegmentedListContainerViewDataSource {
         view.timeStart = timeStart
         view.timeEnd = timeEnd
         view.chooseType = index
+        view.currentVC = self
         return view
     }
 }
