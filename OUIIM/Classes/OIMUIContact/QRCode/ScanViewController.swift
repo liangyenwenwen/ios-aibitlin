@@ -158,10 +158,19 @@ public class ScanViewController: UIViewController {
         super.viewDidAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
         
-        if PermissionsHelper.cameraEnable() {
-            _scanView.startScanning().subscribe { [weak self] (result: ScanResult?) in
-                self?.scanResult(result: result?.strScanned)
-            }.disposed(by: disposeBag)
+//        if PermissionsHelper.cameraEnable() {
+//            _scanView.startScanning().subscribe { [weak self] (result: ScanResult?) in
+//                self?.scanResult(result: result?.strScanned)
+//            }.disposed(by: disposeBag)
+//        }
+        PermissionsHelper.getCameraEnable() { [weak self]isAuthorizeCamera in
+            if isAuthorizeCamera{
+                DispatchQueue.main.async {
+                    self?._scanView.startScanning().subscribe { [weak self] (result: ScanResult?) in
+                        self?.scanResult(result: result?.strScanned)
+                    }
+                }
+            }
         }
         
         

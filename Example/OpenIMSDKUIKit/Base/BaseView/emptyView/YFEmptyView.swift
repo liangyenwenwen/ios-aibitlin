@@ -62,8 +62,8 @@ class YFEmptyView: UIView {
 //            make.height.equalTo(54)
 //            make.centerX.equalToSuperview()
             make.top.equalToSuperview()
-            make.width.equalTo(120)
-            make.height.equalTo(54)
+            make.width.equalTo(110)
+            make.height.equalTo(110)
             make.centerX.equalToSuperview()
         }
         

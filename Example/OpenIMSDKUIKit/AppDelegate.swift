@@ -111,7 +111,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         AccountViewModel.initInteraction()
         
         
-        Bugly.start(withAppId: "3cabab095f", developmentDevice: true, config: nil)
+        Bugly.start(withAppId: "d607859b37", developmentDevice: true, config: nil)
         
         /// 设置默认语言
 //        if (UserDefaults.standard.object(forKey: "appLanguage") == nil) {

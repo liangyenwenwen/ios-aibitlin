@@ -183,6 +183,11 @@ class MeHomeController: BaseLogicController {
         let r = UIView()
         r.tg_width.equal(64)
         r.tg_height.equal(64)
+        let tap = UITapGestureRecognizer()
+        tap.rx.event.subscribe {  _ in
+            self.gotoControllerFromRoot(MineMessageVC.self)
+        }.disposed(by: rx.disposeBag)
+        r.addGestureRecognizer(tap)
         return r
     }()
     
@@ -200,6 +205,12 @@ class MeHomeController: BaseLogicController {
         r.tg_height.equal(.wrap)
         r.textColor = .black333
         r.font = UIFont(name: "PingFangSC-Medium", size: 22)
+        r.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer()
+        tap.rx.event.subscribe {  _ in
+            self.gotoControllerFromRoot(MineMessageVC.self)
+        }.disposed(by: rx.disposeBag)
+        r.addGestureRecognizer(tap)
         return r
     }()
     lazy var idView: TGLinearLayout = {
@@ -264,7 +275,7 @@ class MeHomeController: BaseLogicController {
         let tap = UITapGestureRecognizer()
         tap.rx.event.subscribe {  _ in
             SuperToast.show(title: "开发中")
-        }
+        }.disposed(by: rx.disposeBag)
         r.addGestureRecognizer(tap)
         return r
     }()
@@ -275,7 +286,7 @@ class MeHomeController: BaseLogicController {
         let tap = UITapGestureRecognizer()
         tap.rx.event.subscribe {  _ in
             self.gotoControllerFromRoot(BoBReceivePaymentViewController.self)
-        }
+        }.disposed(by: rx.disposeBag)
         r.addGestureRecognizer(tap)
         return r
     }()
@@ -286,7 +297,7 @@ class MeHomeController: BaseLogicController {
         let tap = UITapGestureRecognizer()
         tap.rx.event.subscribe {  _ in
             self.gotoControllerFromRoot(BoBTransferAccountsViewController.self)
-        }
+        }.disposed(by: rx.disposeBag)
         r.addGestureRecognizer(tap)
         return r
     }()
@@ -310,7 +321,7 @@ class MeHomeController: BaseLogicController {
         let tap = UITapGestureRecognizer()
         tap.rx.event.subscribe {  _ in
             self.gotoControllerFromRoot(BoBBillListViewController.self)
-        }
+        }.disposed(by: rx.disposeBag)
         r.addGestureRecognizer(tap)
         return r
     }()

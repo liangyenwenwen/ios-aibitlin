@@ -10,6 +10,48 @@ import AVKit
 import Photos
  
 struct PermissionsHelper {
+    public var fristAuthorizationAgreeBlock:(()->Void)!
+
+    
+    static func getCameraEnable( completion: ((Bool) -> Void)? = nil) {
+            let authStatus = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
+            
+            if (authStatus == .authorized) {            // 已授权，可以打开相机
+//                saveCamera(value: "1")
+                UserDefaults.standard.setValue("1", forKey: "cameraEnablebs")
+                completion!(true)
+
+            } else if (authStatus == .denied) {         // 已拒绝
+//                saveCamera(value: "0")
+                UserDefaults.standard.setValue("0", forKey: "cameraEnablebs")
+                completion!(false)
+                let alertV = UIAlertView.init(title: "提示".localized(), message: "请去-> [设置 - 隐私 - 相机] 打开访问开关".localized(), delegate: nil, cancelButtonTitle: nil, otherButtonTitles: "确定".localized())
+                alertV.show()
+            } else if (authStatus == .restricted) {     // 相机权限受限
+//                saveCamera(value: "0")
+                UserDefaults.standard.setValue("0", forKey: "cameraEnablebs")
+                completion!(false)
+                let alertV = UIAlertView.init(title: "提示".localized(), message: "相机权限受限".localized(), delegate: nil, cancelButtonTitle: nil, otherButtonTitles: "确定".localized())
+                alertV.show()
+            } else if (authStatus == .notDetermined) {  // 首次 使用
+                AVCaptureDevice.requestAccess(for: .video, completionHandler: { (statusFirst) in
+                    if statusFirst {
+                        // 用户首次允许
+//                        saveCamera(value: "1")
+                        UserDefaults.standard.setValue("1", forKey: "cameraEnablebs")
+                        completion!(true)
+                    } else {
+                        // 用户首次拒绝
+//                        saveCamera(value: "0")
+                        UserDefaults.standard.setValue("0", forKey: "cameraEnablebs")
+                        completion!(false)
+                    }
+                })
+            }else{
+                UserDefaults.standard.setValue("0", forKey: "cameraEnablebs")
+                completion!(false)
+            }
+    }
     
     static func cameraEnable() -> Bool {
         

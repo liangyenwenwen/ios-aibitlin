@@ -315,20 +315,22 @@ extension HDEmptyView {
     func setupPromptImageView(img: UIImage) {
         self.promptImageView.image = img
         
-        var imgViewWidth = img.size.width
-        var imgViewHeight = img.size.height
-        if self.imageSize.width > 0 && self.imageSize.height > 0{
-            if imgViewWidth > imgViewHeight {
-                imgViewHeight = (imgViewHeight/imgViewWidth)*self.imageSize.width
-                imgViewWidth = self.imageSize.width
-            }else {
-                imgViewWidth = (imgViewWidth / imgViewHeight) * self.imageSize.height
-                imgViewHeight = self.imageSize.height
-            }
-        }
+//        var imgViewWidth = img.size.width
+//        var imgViewHeight = img.size.height
+//        if self.imageSize.width > 0 && self.imageSize.height > 0{
+//            if imgViewWidth > imgViewHeight {
+//                imgViewHeight = (imgViewHeight/imgViewWidth)*self.imageSize.width
+//                imgViewWidth = self.imageSize.width
+//            }else {
+//                imgViewWidth = (imgViewWidth / imgViewHeight) * self.imageSize.height
+//                imgViewHeight = self.imageSize.height
+//            }
+//        }
+        var imgViewWidth = 110
+        var imgViewHeight = 110
         
         self.promptImageView.frame = CGRect.init(x: 0, y: 0, width: imgViewWidth, height: imgViewHeight)
-        self.promptImageView.center = CGPoint.init(x: self.ly_centerX, y: self.ly_centerY-imgViewHeight*0.5)
+        self.promptImageView.center = CGPoint.init(x: self.ly_centerX, y: self.ly_centerY-CGFloat(imgViewHeight)*0.5)
         contentWidth = self.promptImageView.ly_width
         contentHeight = self.promptImageView.ly_maxY
         

@@ -123,6 +123,11 @@ class BoBAddPaymentMethodViewController:UIViewController{
 
             }
         }
+        let tap = UITapGestureRecognizer()
+        tap.rx.event.subscribe {  _ in
+            self.view.endEditing(true)
+        }
+        view.addGestureRecognizer(tap)
         
     }
     lazy var chooseTypeTitleLabel: UILabel = {
