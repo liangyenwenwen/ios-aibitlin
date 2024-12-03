@@ -82,6 +82,15 @@
 		0445C90A2CFDA8DD00D1FD34 /* PagingListBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445C9092CFDA8DD00D1FD34 /* PagingListBaseView.swift */; };
 		0445C90C2CFDD21A00D1FD34 /* BoBMineAssetsViewHeadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445C90B2CFDD21A00D1FD34 /* BoBMineAssetsViewHeadView.swift */; };
 		0445C90E2CFDF52C00D1FD34 /* BoBMineAssetsExplainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445C90D2CFDF52C00D1FD34 /* BoBMineAssetsExplainView.swift */; };
+		0445C91A2CFEEE1800D1FD34 /* ReplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17B485F529C082CA002571B8 /* ReplayKit.framework */; };
+		0445C91D2CFEEE1800D1FD34 /* SampleHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445C91C2CFEEE1800D1FD34 /* SampleHandler.swift */; };
+		0445C9242CFEEE1800D1FD34 /* ReplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17B485F529C082CA002571B8 /* ReplayKit.framework */; };
+		0445C9252CFEEE1800D1FD34 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04D2E1CB2CBE4A4900582B13 /* UIKit.framework */; };
+		0445C9282CFEEE1800D1FD34 /* BroadcastSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445C9272CFEEE1800D1FD34 /* BroadcastSetupViewController.swift */; };
+		0445C92C2CFEEE1800D1FD34 /* ScreenShareBroadcastExtensionSetupUI.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 0445C9232CFEEE1800D1FD34 /* ScreenShareBroadcastExtensionSetupUI.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		0445C92F2CFEEE1800D1FD34 /* ScreenShareBroadcastExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 0445C9192CFEEE1800D1FD34 /* ScreenShareBroadcastExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		0445C9392CFEF0AF00D1FD34 /* BoBSendRedPacketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445C9362CFEF0AF00D1FD34 /* BoBSendRedPacketViewController.swift */; };
+		0445C93B2CFEF2D000D1FD34 /* BoBSendChatTransferAccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445C93A2CFEF2D000D1FD34 /* BoBSendChatTransferAccountsViewController.swift */; };
 		04484ED32CF71EC200893E4C /* BoBChooseBankListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04484ED22CF71EC200893E4C /* BoBChooseBankListCell.swift */; };
 		04484ED62CF742EF00893E4C /* BoBReceivePaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04484ED52CF742EF00893E4C /* BoBReceivePaymentViewController.swift */; };
 		04484ED92CF7552C00893E4C /* BoBShareReceivePaymentQrCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04484ED82CF7552C00893E4C /* BoBShareReceivePaymentQrCodeViewController.swift */; };
@@ -197,6 +206,7 @@
 		17C370972A4D78A400CCB044 /* UnderlineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C370962A4D78A400CCB044 /* UnderlineTextField.swift */; };
 		17C4BBAA28CA1220003782EF /* Array+deduplicate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C4BBA928CA1220003782EF /* Array+deduplicate.swift */; };
 		17FD41122B66559B008F1485 /* LocalAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD41112B66559B008F1485 /* LocalAuthManager.swift */; };
+		56B9F4A74ACD86CD1577F4D5 /* Pods_ScreenShareBroadcastExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 801E02C1C4ADEDF0845D7AE9 /* Pods_ScreenShareBroadcastExtension.framework */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
@@ -207,6 +217,23 @@
 		DCE04171283E5BD30095874E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCE04173283E5BD30095874E /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		0445C92A2CFEEE1800D1FD34 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 607FACC81AFB9204008FA782 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0445C9222CFEEE1800D1FD34;
+			remoteInfo = ScreenShareBroadcastExtensionSetupUI;
+		};
+		0445C92D2CFEEE1800D1FD34 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 607FACC81AFB9204008FA782 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0445C9182CFEEE1800D1FD34;
+			remoteInfo = ScreenShareBroadcastExtension;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		170A2B3E28F29C5000CA68EA /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -214,6 +241,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				0445C92F2CFEEE1800D1FD34 /* ScreenShareBroadcastExtension.appex in Embed App Extensions */,
+				0445C92C2CFEEE1800D1FD34 /* ScreenShareBroadcastExtensionSetupUI.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -305,6 +334,14 @@
 		0445C9092CFDA8DD00D1FD34 /* PagingListBaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingListBaseView.swift; sourceTree = "<group>"; };
 		0445C90B2CFDD21A00D1FD34 /* BoBMineAssetsViewHeadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBMineAssetsViewHeadView.swift; sourceTree = "<group>"; };
 		0445C90D2CFDF52C00D1FD34 /* BoBMineAssetsExplainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBMineAssetsExplainView.swift; sourceTree = "<group>"; };
+		0445C9192CFEEE1800D1FD34 /* ScreenShareBroadcastExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ScreenShareBroadcastExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		0445C91C2CFEEE1800D1FD34 /* SampleHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleHandler.swift; sourceTree = "<group>"; };
+		0445C91E2CFEEE1800D1FD34 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0445C9232CFEEE1800D1FD34 /* ScreenShareBroadcastExtensionSetupUI.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ScreenShareBroadcastExtensionSetupUI.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		0445C9272CFEEE1800D1FD34 /* BroadcastSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BroadcastSetupViewController.swift; sourceTree = "<group>"; };
+		0445C9292CFEEE1800D1FD34 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0445C9362CFEF0AF00D1FD34 /* BoBSendRedPacketViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoBSendRedPacketViewController.swift; sourceTree = "<group>"; };
+		0445C93A2CFEF2D000D1FD34 /* BoBSendChatTransferAccountsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBSendChatTransferAccountsViewController.swift; sourceTree = "<group>"; };
 		04484ED22CF71EC200893E4C /* BoBChooseBankListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBChooseBankListCell.swift; sourceTree = "<group>"; };
 		04484ED52CF742EF00893E4C /* BoBReceivePaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBReceivePaymentViewController.swift; sourceTree = "<group>"; };
 		04484ED82CF7552C00893E4C /* BoBShareReceivePaymentQrCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBShareReceivePaymentQrCodeViewController.swift; sourceTree = "<group>"; };
@@ -492,6 +529,24 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		0445C9162CFEEE1800D1FD34 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0445C91A2CFEEE1800D1FD34 /* ReplayKit.framework in Frameworks */,
+				56B9F4A74ACD86CD1577F4D5 /* Pods_ScreenShareBroadcastExtension.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0445C9202CFEEE1800D1FD34 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0445C9242CFEEE1800D1FD34 /* ReplayKit.framework in Frameworks */,
+				0445C9252CFEEE1800D1FD34 /* UIKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		607FACCD1AFB9204008FA782 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -811,6 +866,40 @@
 				0445C90B2CFDD21A00D1FD34 /* BoBMineAssetsViewHeadView.swift */,
 			);
 			path = JXPagingView;
+			sourceTree = "<group>";
+		};
+		0445C91B2CFEEE1800D1FD34 /* ScreenShareBroadcastExtension */ = {
+			isa = PBXGroup;
+			children = (
+				0445C91C2CFEEE1800D1FD34 /* SampleHandler.swift */,
+				0445C91E2CFEEE1800D1FD34 /* Info.plist */,
+			);
+			path = ScreenShareBroadcastExtension;
+			sourceTree = "<group>";
+		};
+		0445C9262CFEEE1800D1FD34 /* ScreenShareBroadcastExtensionSetupUI */ = {
+			isa = PBXGroup;
+			children = (
+				0445C9272CFEEE1800D1FD34 /* BroadcastSetupViewController.swift */,
+				0445C9292CFEEE1800D1FD34 /* Info.plist */,
+			);
+			path = ScreenShareBroadcastExtensionSetupUI;
+			sourceTree = "<group>";
+		};
+		0445C9372CFEF0AF00D1FD34 /* ChatRedPacket */ = {
+			isa = PBXGroup;
+			children = (
+				0445C9362CFEF0AF00D1FD34 /* BoBSendRedPacketViewController.swift */,
+			);
+			path = ChatRedPacket;
+			sourceTree = "<group>";
+		};
+		0445C9382CFEF0AF00D1FD34 /* ChatTransferAccounts */ = {
+			isa = PBXGroup;
+			children = (
+				0445C93A2CFEF2D000D1FD34 /* BoBSendChatTransferAccountsViewController.swift */,
+			);
+			path = ChatTransferAccounts;
 			sourceTree = "<group>";
 		};
 		04484ED42CF742C600893E4C /* ReceivePayment */ = {
@@ -1135,6 +1224,8 @@
 		04EFEA412CECB5BC004441CB /* BOB */ = {
 			isa = PBXGroup;
 			children = (
+				0445C9372CFEF0AF00D1FD34 /* ChatRedPacket */,
+				0445C9382CFEF0AF00D1FD34 /* ChatTransferAccounts */,
 				048172852CFD875A007A2920 /* MineAssets */,
 				048172752CF9E558007A2920 /* Bill */,
 				04484EDA2CF8479600893E4C /* TransferAccounts */,
@@ -1531,6 +1622,8 @@
 				04EFEA2E2CEAEEE3004441CB /* ScreenShareBroadcastExtensionSetupUI */,
 				04EFEA4B2CECB94D004441CB /* ScreenShareBroadcastExtension */,
 				04EFEA562CECB94D004441CB /* ScreenShareBroadcastExtensionSetupUI */,
+				0445C91B2CFEEE1800D1FD34 /* ScreenShareBroadcastExtension */,
+				0445C9262CFEEE1800D1FD34 /* ScreenShareBroadcastExtensionSetupUI */,
 				607FACD11AFB9204008FA782 /* Products */,
 				CAC64E6711B5A6903B4FCC8D /* Pods */,
 				641162BB15A7DD76EBF4C191 /* Frameworks */,
@@ -1541,6 +1634,8 @@
 			isa = PBXGroup;
 			children = (
 				607FACD01AFB9204008FA782 /* IM-NCER.app */,
+				0445C9192CFEEE1800D1FD34 /* ScreenShareBroadcastExtension.appex */,
+				0445C9232CFEEE1800D1FD34 /* ScreenShareBroadcastExtensionSetupUI.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1658,6 +1753,41 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		0445C9182CFEEE1800D1FD34 /* ScreenShareBroadcastExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0445C9332CFEEE1800D1FD34 /* Build configuration list for PBXNativeTarget "ScreenShareBroadcastExtension" */;
+			buildPhases = (
+				25D27D51A86139E580E0CC16 /* [CP] Check Pods Manifest.lock */,
+				0445C9152CFEEE1800D1FD34 /* Sources */,
+				0445C9162CFEEE1800D1FD34 /* Frameworks */,
+				0445C9172CFEEE1800D1FD34 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ScreenShareBroadcastExtension;
+			productName = ScreenShareBroadcastExtension;
+			productReference = 0445C9192CFEEE1800D1FD34 /* ScreenShareBroadcastExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		0445C9222CFEEE1800D1FD34 /* ScreenShareBroadcastExtensionSetupUI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0445C9302CFEEE1800D1FD34 /* Build configuration list for PBXNativeTarget "ScreenShareBroadcastExtensionSetupUI" */;
+			buildPhases = (
+				0445C91F2CFEEE1800D1FD34 /* Sources */,
+				0445C9202CFEEE1800D1FD34 /* Frameworks */,
+				0445C9212CFEEE1800D1FD34 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ScreenShareBroadcastExtensionSetupUI;
+			productName = ScreenShareBroadcastExtensionSetupUI;
+			productReference = 0445C9232CFEEE1800D1FD34 /* ScreenShareBroadcastExtensionSetupUI.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		607FACCF1AFB9204008FA782 /* OpenIMSDKUIKit_Example */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "OpenIMSDKUIKit_Example" */;
@@ -1675,6 +1805,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				0445C92B2CFEEE1800D1FD34 /* PBXTargetDependency */,
+				0445C92E2CFEEE1800D1FD34 /* PBXTargetDependency */,
 			);
 			name = OpenIMSDKUIKit_Example;
 			productName = OpenIMSDKUIKit;
@@ -1692,6 +1824,12 @@
 				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = rentsoft;
 				TargetAttributes = {
+					0445C9182CFEEE1800D1FD34 = {
+						CreatedOnToolsVersion = 15.4;
+					};
+					0445C9222CFEEE1800D1FD34 = {
+						CreatedOnToolsVersion = 15.4;
+					};
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
 						LastSwiftMigration = 1340;
@@ -1715,11 +1853,27 @@
 			projectRoot = "";
 			targets = (
 				607FACCF1AFB9204008FA782 /* OpenIMSDKUIKit_Example */,
+				0445C9182CFEEE1800D1FD34 /* ScreenShareBroadcastExtension */,
+				0445C9222CFEEE1800D1FD34 /* ScreenShareBroadcastExtensionSetupUI */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		0445C9172CFEEE1800D1FD34 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0445C9212CFEEE1800D1FD34 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		607FACCE1AFB9204008FA782 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1753,6 +1907,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT/R.generated.swift\"\n";
+		};
+		25D27D51A86139E580E0CC16 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ScreenShareBroadcastExtension-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
 		7BFD01A5FEB30DFE770069BC /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1937,6 +2113,22 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		0445C9152CFEEE1800D1FD34 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0445C91D2CFEEE1800D1FD34 /* SampleHandler.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0445C91F2CFEEE1800D1FD34 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0445C9282CFEEE1800D1FD34 /* BroadcastSetupViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		607FACCC1AFB9204008FA782 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2059,6 +2251,7 @@
 				04052E242CF4249300A7A554 /* BoBPaymentModel.swift in Sources */,
 				040D85C52BEB8B0400DCAAB3 /* SuperStringUtil.swift in Sources */,
 				04052E212CF41AF600A7A554 /* BoBPaymentMethodListViewController.swift in Sources */,
+				0445C9392CFEF0AF00D1FD34 /* BoBSendRedPacketViewController.swift in Sources */,
 				04F2D0872BEE21CA00D5271B /* MineDeleteAccountChooseWayVC.swift in Sources */,
 				04ECEC5F2CBD1DC10005495F /* RunTimeAbout.swift in Sources */,
 				17B11A432ABD28C600DB8980 /* NavigationInteractiveTransition.swift in Sources */,
@@ -2093,6 +2286,7 @@
 				040D85EE2BEB8C0B00DCAAB3 /* BaseLogicController.swift in Sources */,
 				048172772CF9E597007A2920 /* BoBBillListViewController.swift in Sources */,
 				04484ED62CF742EF00893E4C /* BoBReceivePaymentViewController.swift in Sources */,
+				0445C93B2CFEF2D000D1FD34 /* BoBSendChatTransferAccountsViewController.swift in Sources */,
 				0403477B2BEF054A00C7C4EF /* TabMoreView.swift in Sources */,
 				04EFEA442CECB5E9004441CB /* BoBOrderListMainViewController.swift in Sources */,
 				045B8BF72BF4496D0094E080 /* MineChooseBottomSheetView.swift in Sources */,
@@ -2137,6 +2331,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0445C92B2CFEEE1800D1FD34 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0445C9222CFEEE1800D1FD34 /* ScreenShareBroadcastExtensionSetupUI */;
+			targetProxy = 0445C92A2CFEEE1800D1FD34 /* PBXContainerItemProxy */;
+		};
+		0445C92E2CFEEE1800D1FD34 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0445C9182CFEEE1800D1FD34 /* ScreenShareBroadcastExtension */;
+			targetProxy = 0445C92D2CFEEE1800D1FD34 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		0411DD2A2C05CE3C00EDD135 /* InfoPlist.strings */ = {
@@ -2184,6 +2391,182 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		0445C9312CFEEE1800D1FD34 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = MJ53XF6GM4;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ScreenShareBroadcastExtensionSetupUI/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ScreenShareBroadcastExtensionSetupUI;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2024 rentsoft. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D ENABLE_MOMENTS -D ENABLE_CALL";
+				PRODUCT_BUNDLE_IDENTIFIER = octim.com.ScreenShareBroadcastExtensionSetupUI;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		0445C9322CFEEE1800D1FD34 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = MJ53XF6GM4;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ScreenShareBroadcastExtensionSetupUI/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ScreenShareBroadcastExtensionSetupUI;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2024 rentsoft. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D ENABLE_MOMENTS -D ENABLE_CALL";
+				PRODUCT_BUNDLE_IDENTIFIER = octim.com.ScreenShareBroadcastExtensionSetupUI;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		0445C9342CFEEE1800D1FD34 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EA353ED940185D57061D542E /* Pods-ScreenShareBroadcastExtension.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = MJ53XF6GM4;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ScreenShareBroadcastExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ScreenShareBroadcastExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2024 rentsoft. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D ENABLE_MOMENTS -D ENABLE_CALL";
+				PRODUCT_BUNDLE_IDENTIFIER = octim.com.ScreenShareBroadcastExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		0445C9352CFEEE1800D1FD34 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6169D967D8679239F7608427 /* Pods-ScreenShareBroadcastExtension.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = MJ53XF6GM4;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ScreenShareBroadcastExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ScreenShareBroadcastExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2024 rentsoft. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D ENABLE_MOMENTS -D ENABLE_CALL";
+				PRODUCT_BUNDLE_IDENTIFIER = octim.com.ScreenShareBroadcastExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		607FACED1AFB9204008FA782 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2378,6 +2761,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		0445C9302CFEEE1800D1FD34 /* Build configuration list for PBXNativeTarget "ScreenShareBroadcastExtensionSetupUI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0445C9312CFEEE1800D1FD34 /* Debug */,
+				0445C9322CFEEE1800D1FD34 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0445C9332CFEEE1800D1FD34 /* Build configuration list for PBXNativeTarget "ScreenShareBroadcastExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0445C9342CFEEE1800D1FD34 /* Debug */,
+				0445C9352CFEEE1800D1FD34 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		607FACCB1AFB9204008FA782 /* Build configuration list for PBXProject "OpenIMSDKUIKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

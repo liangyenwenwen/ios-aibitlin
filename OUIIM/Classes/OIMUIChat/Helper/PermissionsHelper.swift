@@ -10,8 +10,6 @@ import AVKit
 import Photos
  
 struct PermissionsHelper {
-    public var fristAuthorizationAgreeBlock:(()->Void)!
-
     
     static func getCameraEnable( completion: ((Bool) -> Void)? = nil) {
             let authStatus = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
