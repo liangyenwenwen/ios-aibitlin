@@ -28,7 +28,6 @@ class YFMineQRCodeVC: BaseTitleController {
         
         scrollViewContainer.addSubview(userCardView)
         
-        addMyStarBoke()
 
         refreshUI()
         
@@ -210,7 +209,7 @@ class YFMineQRCodeVC: BaseTitleController {
     
     lazy var tipLbl: UILabel = {
         let r = UILabel()
-        r.text = "1.未下载APP的用户，扫你的二维码可直接下载OTC+IM。\n2.未注册用户在登录页面扫你的二维码，免注册即可试用OTC+IM，并自动收藏您推荐的博客。".localized()
+        r.text = "1.未下载APP的用户，扫你的二维码可直接下载OTC+IM。\n2.未注册用户在登录页面扫你的二维码，免注册即可试用OTC+IM。".localized()
         r.tg_left.equal(16)
         r.tg_right.equal(16)
         r.tg_height.equal(.wrap)
@@ -296,44 +295,6 @@ class YFMineQRCodeVC: BaseTitleController {
         return r
     }()
     
-    
-    
-    // MARK: - 张亚飞打的标记 博客
-    func addMyStarBoke() {
-        let bokeView = TGLinearLayout(.vert)
-        bokeView.backgroundColor = .white
-        bokeView.corner(MEDDLE_RADIUS)
-        bokeView.tg_width.equal(.fill)
-        bokeView.tg_height.equal(.wrap)
-        scrollViewContainer.addSubview(bokeView)
-        
-        let bokeHeader = ViewFactoryUtil.sectionHeaderView(title: "我想要推荐的博客".localized(), isHaveMore: false)
-        bokeHeader.tg_height.equal(44)
-//        let tap = UITapGestureRecognizer(target: self, action: #selector(gotoMyStarBokeList))
-//        bokeHeader.addGestureRecognizer(tap)
-        bokeView.addSubview(bokeHeader)
-              
-        bokeView.addSubview(myStarblogItemsView)
-        myStarblogItemsView.updateRecommendData()
-    }
-    
-    lazy var myStarblogItemsView: SectionItemsView = {
-        let r = SectionItemsView()
-        
-        r.commendbokeClick = { [weak self] item, isMore, index in
-//            if isMore {
-//                let vc = MineBokeListViewController()
-//                vc.vcType = .star
-//                self?.gotoControllerFromRoot(vc)
-//            } else {
-//                SuperWebController.start((self!.navigationController!), uri: item.userBlogUrl, isRoot: true)
-//            }
-            
-            self?.addBlog(index: index)
-        }
-        return r
-    }()
-    
     lazy var saveCard: QRCodeSaveCardView = {
         let r = QRCodeSaveCardView()
 //        r.isHidden = true
@@ -345,32 +306,6 @@ class YFMineQRCodeVC: BaseTitleController {
 }
 
 extension YFMineQRCodeVC {
-    
-    func addBlog(index: Int) {
-        
-        let contentView = YFChatBokeBottomSheetView()
-        contentView.showAll = true
-        contentView.tg_width.equal(.fill)
-        contentView.tg_height.equal(350)
-        contentView.isRemoveRecommendData = true
-        contentView.hideSheetView = {
-            GKCover.hide()
-        }
-        contentView.chooseBoke = { [weak self] item in
-            var data = YFFileDataUtil.readDataToFile(.recommend)
-            if data.count < 3 {
-                YFFileDataUtil.saveOneDataToFile(.recommend, blogItem: item)
-            } else {
-                YFFileDataUtil.deleteOneDataFromFile(.recommend, blogItem: data[index])
-                YFFileDataUtil.saveOneDataToFile(.recommend, blogItem: item)
-            }
-            self?.myStarblogItemsView.updateRecommendData()
-            GKCover.hide()
-        }
-        GKCover.cover(from: self.view.window, contentView: contentView, style: .translucent, showStyle: .bottom, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
-        
-    }
-    
     func refreshUI() {
         
         let idString = IMController.addFriendPrefix.append(string: user.userID!)

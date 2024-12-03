@@ -175,7 +175,8 @@ class BoBAddAliPaymentView:TGLinearLayout {
     
     @objc func chooseQrCodeImage() {
         _photoHelper.setConfigToMultipleSelected(forVideo: false, maxSelectCount: 1)
-        _photoHelper.showSelectMetaSheet(byController: currentVC!)
+//        _photoHelper.showSelectMetaSheet(byController: currentVC!)
+        _photoHelper.presentPhotoLibrary(byController: currentVC!)
     }
     private lazy var _photoHelper: PhotoHelper = {
             let v = PhotoHelper()

@@ -38,7 +38,7 @@ class BoBMineAssetsExplainView: TGLinearLayout {
        
     }
     func bindData(quantityOfMoneyPOS:QuantityOfMoneyPOS?){
-        titleLabel.text = "T+1钱包：" + String(format: "%.2f",(quantityOfMoneyPOS?.quantityOfMoney)!) + (quantityOfMoneyPOS?.currency)!
+        titleLabel.text = "T+1钱包：" + String(format: "%.2f",(quantityOfMoneyPOS?.t1)!) + (quantityOfMoneyPOS?.currency)!
     }
     lazy var titleLabel: UILabel = {
         let r = UILabel()

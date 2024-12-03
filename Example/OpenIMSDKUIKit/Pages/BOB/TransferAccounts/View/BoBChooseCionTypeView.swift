@@ -81,6 +81,7 @@ class BoBChooseCionTypeView: TGLinearLayout {
         v.register(BoBChooseCionTypeCell.self, forCellReuseIdentifier: BoBChooseCionTypeCell.className)
         v.delegate = self
         v.dataSource = self
+        v.isScrollEnabled = false
         v.tableFooterView = UIView()
         v.separatorStyle = .none
         if #available(iOS 15.0, *) {
@@ -110,7 +111,8 @@ extension BoBChooseCionTypeView: UITableViewDataSource, UITableViewDelegate {
             cell.cionTypeLabel.backgroundColor = .init(hexString: "#FFF7E5")
         }
         cell.moneyLabel.text = "可用 " + String(format: "%.2f ",item.money ?? 0.00)
-        cell.moneyLabel.textColor = item.isSelect ? .primaryColor : .black666
+        cell.moneyLabel.textColor = item.money ?? 0 > 0 ? .primaryColor : .black666
+        cell.contentView.backgroundColor = item.isSelect ? .init(hexString: "#F5F5F5"): .white
         return cell
         
     }

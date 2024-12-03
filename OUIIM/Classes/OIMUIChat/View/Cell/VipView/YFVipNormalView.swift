@@ -116,7 +116,7 @@ class YFVipNormalView: UIView, StaticViewFactory, ContainerCollectionViewCellDel
                 billRecordView.isHidden = true
                 billRecordView.snp_remakeConstraints { make in
                     make.left.right.top.equalTo(0)
-                    make.height.equalTo(315)
+                    make.height.equalTo(0)
                 }
             }else{
                 titleLbl.isHidden = true
@@ -126,7 +126,11 @@ class YFVipNormalView: UIView, StaticViewFactory, ContainerCollectionViewCellDel
                 billRecordView.updateUI(billInfo: controller.source.billModel!)
                 billRecordView.snp_remakeConstraints { make in
                     make.left.right.top.equalTo(0)
-                    make.height.equalTo(315)
+                    if controller.source.billModel!.type == 1{
+                        make.height.equalTo(315)
+                    }else{
+                        make.height.equalTo(315-30)
+                    }
                     make.bottom.equalToSuperview().offset(0)
                 }
             }

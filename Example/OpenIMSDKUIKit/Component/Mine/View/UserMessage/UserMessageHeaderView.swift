@@ -43,7 +43,6 @@ class UserMessageHeaderView: TGLinearLayout {
         
         addSubview(userIntroLbl)
         
-        addSubview(thridView)
     }
     
     func addTopUserMessage() {
@@ -135,20 +134,12 @@ class UserMessageHeaderView: TGLinearLayout {
     }()
     
     lazy var userIntroLbl: UILabel = {
-        let r = ViewFactoryUtil.sectionTilteLbael("梦想是一个人，带上狗狗，驾车环游世界，记录旅途中的美好生活，感受世界的美好。欢迎大家关注我的")
+        let r = ViewFactoryUtil.sectionTilteLbael("")
         r.lineSpace(10)
         r.text = nil
         r.textColor = .colorOnBackground
         return r
     }()
-    
-    lazy var thridView: UserMessageThridView = {
-        let r = UserMessageThridView()
-        r.addThirdUI()
-//        r.backgroundColor = .red
-        return r
-    }()
-    
     
     
     

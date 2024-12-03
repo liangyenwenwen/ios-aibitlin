@@ -140,7 +140,10 @@ class MineHomeWalletView: UIView{
             }
         }
         if privateBtn.isSelected{
-            totalLabel.text = String(format: "%.2f",walletMoneyData.totalAssets!)
+            let attributedString = NSMutableAttributedString(string: String(format: "￥%.2f",walletMoneyData.totalAssets!))
+            attributedString.addAttribute(.font, value:UIFont(name: "PingFangSC-Regular", size: 16) as Any , range: NSRange(location: 0, length: 1))
+            totalLabel.attributedText = attributedString
+//            totalLabel.text = String(format: "￥%.2f",walletMoneyData.totalAssets!)
         }else{
             totalLabel.text = "******"
         }
@@ -160,7 +163,10 @@ class MineHomeWalletView: UIView{
         r.rx.tap.subscribe(onNext: { [self] in
             r.isSelected = !r.isSelected
             if r.isSelected{
-                totalLabel.text = String(format: "%.2f",walletData?.totalAssets ?? 0)
+                let attributedString = NSMutableAttributedString(string: String(format: "￥%.2f",walletData?.totalAssets ?? 0))
+                attributedString.addAttribute(.font, value:UIFont(name: "PingFangSC-Regular", size: 16) as Any , range: NSRange(location: 0, length: 1))
+                totalLabel.attributedText = attributedString
+//                totalLabel.text = String(format: "%.2f",walletData?.totalAssets ?? 0)
             }else{
                 totalLabel.text = "******"
             }
@@ -170,7 +176,7 @@ class MineHomeWalletView: UIView{
     
     lazy var totalLabel: UILabel = {
         let r = UILabel()
-        r.font = .mediumFont(16)
+        r.font = .mediumFont(20)
         r.textColor = .init(hexString: "#388CEF")
         r.textAlignment = .right
         r.text = "******"

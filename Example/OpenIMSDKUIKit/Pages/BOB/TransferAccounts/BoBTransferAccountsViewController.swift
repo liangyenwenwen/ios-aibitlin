@@ -233,7 +233,7 @@ class BoBTransferAccountsViewController:BaseTitleController{
             self.view.endEditing(true)
             let chooseTypeView = BoBChooseCionTypeView()
             chooseTypeView.tg_width.equal(.fill)
-            chooseTypeView.tg_height.equal(300)
+            chooseTypeView.tg_height.equal(240)
             chooseTypeView.reloadListArray(array: self.cionTypeArray)
             chooseTypeView.chooseCionBlock = { [weak self] model,array in
                 self?.chooseCionTypeModel = model

@@ -85,7 +85,7 @@ class YFBillRecordView: UIView{
     }
     func updateUI(billInfo:BillMessageSource){
         titleLabel.text = billInfo.title
-        moneyLabel.text = (billInfo.externalTransferMessageVO?.fuHao)! + String(format: "%.2f",(billInfo.externalTransferMessageVO?.shouXuFei)!)
+        moneyLabel.text = (billInfo.externalTransferMessageVO?.fuHao)! + String(format: "%.2f",(billInfo.externalTransferMessageVO?.amount)!)
         if billInfo.externalTransferMessageVO?.fuHao == "+"{
             moneyLabel.textColor = .init(hexString: "#FA7225")
         }else{
@@ -93,13 +93,18 @@ class YFBillRecordView: UIView{
         }
         if billInfo.externalTransferMessageVO?.type == 1{
             typTitleLabel.text = "转账"
+            serviceChargeLabel.text = String(format: "%.2f",(billInfo.externalTransferMessageVO?.shouXuFei)!) + " "  + (billInfo.externalTransferMessageVO?.biZhong)!
+            serviceChargeTitleLabel.isHidden = false
+            serviceChargeLabel.isHidden = false
         }else if  billInfo.externalTransferMessageVO?.type == 2{
             typTitleLabel.text = "收款"
+//            serviceChargeLabel.text = String(format: "%.2f",(billInfo.externalTransferMessageVO?.shouXuFei)!) + " "  + (billInfo.externalTransferMessageVO?.biZhong)!
+            serviceChargeTitleLabel.isHidden = true
+            serviceChargeLabel.isHidden = true
         }
         addressLabel.text =  billInfo.externalTransferMessageVO?.duiFangDiZhi
         orderLabel.text = billInfo.externalTransferMessageVO?.dingDanBianHao
         timeLabel.text = billInfo.externalTransferMessageVO?.jiaoYiShiJian
-        serviceChargeLabel.text = String(format: "%.2f",(billInfo.externalTransferMessageVO?.shouXuFei)!) + " "  + (billInfo.externalTransferMessageVO?.biZhong)!
         
     }
     lazy var titleLabel: UILabel = {

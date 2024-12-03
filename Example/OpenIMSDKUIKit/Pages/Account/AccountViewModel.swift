@@ -954,6 +954,8 @@ class QuantityOfMoneyPOS: Codable {
     var equivalentToRMB: Double? //折合人民币,约等于
     var dongJie: Double? //冻结
     var keYong: Double? //可用
+    var t0:Double? //t+0
+    var t1:Double? //t+1
 //    func toMap() -> [String: Any] {
 //        return JsonTool.toMap(fromObject: self)
 //    }

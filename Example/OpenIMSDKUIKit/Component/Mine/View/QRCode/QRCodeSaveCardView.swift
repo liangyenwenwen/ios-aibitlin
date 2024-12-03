@@ -61,11 +61,6 @@ class QRCodeSaveCardView: TGLinearLayout {
         
         r.addSubview(userIdTitleView)
         r.addSubview(tipLbl)
-        
-        r.addSubview(recommendBlogView)
-        
-        r.addSubview(lineView)
-        r.addSubview(appIcon)
 
         return r
     }()
@@ -141,7 +136,7 @@ class QRCodeSaveCardView: TGLinearLayout {
     
     lazy var tipLbl: UILabel = {
         let r = UILabel()
-        r.text = "1.未下载APP的用户，扫你的二维码可直接下载OTC+IM。\n2.未注册用户在登录页面扫你的二维码，免注册即可试用OTC+IM，并自动收藏您推荐的博客。".localized()
+        r.text = "1.未下载APP的用户，扫你的二维码可直接下载OTC+IM。\n2.未注册用户在登录页面扫你的二维码，免注册即可试用OTC+IM。".localized()
         r.tg_left.equal(16)
         r.tg_right.equal(16)
         r.tg_height.equal(.wrap)
@@ -151,78 +146,24 @@ class QRCodeSaveCardView: TGLinearLayout {
         return r
     }()
     
-    lazy var recommendBlogView: TGLinearLayout = {
-        let r = TGLinearLayout(.horz)
-        r.tg_width.equal(.wrap)
-        r.tg_height.equal(.wrap)
-        r.tg_space = 25
-        r.tg_gravity = .vert.center
-        r.tg_top.equal(38)
-        
-        for index in 0..<3 {
-            let itemView  = SectionItemView()
-            r.addSubview(itemView)
-        }
-        
-        return r
-    }()
 
     
-    lazy var lineView: UIImageView = {
-        let r = UIImageView()
-        r.image = .init(named: "line_line")
-        r.tg_left.equal(52)
-        r.tg_right.equal(40)
-        r.tg_height.equal(1)
-        r.tg_top.equal(30)
-        return  r
-    }()
-    
-    lazy var appIcon: UIImageView = {
-        let r = UIImageView()
-        r.image = .init(named: "appicon_horz")
-        r.tg_width.equal(69)
-        r.tg_height.equal(24)
-        r.tg_top.equal(15)
-        r.tg_bottom.equal(19)
-        return r
-    }()
-    
-    
+//    lazy var lineView: UIImageView = {
+//        let r = UIImageView()
+//        r.image = .init(named: "line_line")
+//        r.tg_left.equal(52)
+//        r.tg_right.equal(40)
+//        r.tg_height.equal(1)
+//        r.tg_top.equal(30)
+//        return  r
+//    }()
     func bindData(showname: String, codeImg: UIImage?, avater: UIImage?, idString: String?) {
         userNicknameLbl.text = showname
         codeImgView.image = codeImg
         userAvatarImgView.image = avater
         userIDLbl.text = idString
         
-        refreshRecommend()
         
         layoutIfNeeded()
     }
-    
-    func refreshRecommend() {
-        
-        let data = YFFileDataUtil.readDataToFile(.recommend)
-        
-        if data.count == 0 {
-            recommendBlogView.hide()
-            return
-        } else {
-            recommendBlogView.show()
-        }
-        
-        
-        for index in recommendBlogView.subviews.indices {
-            let item = recommendBlogView.subviews[index] as! SectionItemView
-            item.index = index
-            if index < data.count {
-                item.show()
-                item.bindDataNet(data[index])
-            } else {
-                item.hide()
-            }
-        }
-    }
-    
-    
 }

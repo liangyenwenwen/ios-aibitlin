@@ -185,12 +185,12 @@ struct _R: Sendable {
       /// Locales: en, th
       var 请输入以https开头的地址: RswiftResources.StringResource { .init(key: " 请输入以https://开头的地址", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: 1.Users who haven't downloaded the app can scan your QR code to download OTC+IM directly. 2.Unregistered users can scan your QR code on the login page to try OTC+IM without registering, and it will automatically save your recommended blog.
+      /// en translation: 1.Users who haven't downloaded the app can scan your QR code to download OTC+IM directly. 2.Unregistered users can scan your QR code on the login page to try OTC+IM without registering.
       ///
-      /// Key: 1.未下载APP的用户，扫你的二维码可直接下载OTC+IM。 2.未注册用户在登录页面扫你的二维码，免注册即可试用OTC+IM，并自动收藏您推荐的博客。
+      /// Key: 1.未下载APP的用户，扫你的二维码可直接下载OTC+IM。 2.未注册用户在登录页面扫你的二维码，免注册即可试用OTC+IM。
       ///
       /// Locales: en, th
-      var 未下载APP的用户扫你的二维码可直接下载OTCIM2未注册用户在登录页面扫你的二维码免注册即可试用OTCIM并自动收藏您推荐的博客: RswiftResources.StringResource { .init(key: "1.未下载APP的用户，扫你的二维码可直接下载OTC+IM。\n2.未注册用户在登录页面扫你的二维码，免注册即可试用OTC+IM，并自动收藏您推荐的博客。", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+      var 未下载APP的用户扫你的二维码可直接下载OTCIM2未注册用户在登录页面扫你的二维码免注册即可试用OTCIM: RswiftResources.StringResource { .init(key: "1.未下载APP的用户，扫你的二维码可直接下载OTC+IM。\n2.未注册用户在登录页面扫你的二维码，免注册即可试用OTC+IM。", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: 7-Day Visitor Data
       ///
@@ -2936,11 +2936,11 @@ struct _R: Sendable {
       /// Locales: en, th
       var 登录你的账号与全球用户无障碍聊天: RswiftResources.StringResource { .init(key: "登录你的账号、与全球用户无障碍聊天。", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: Photo
+      /// th translation: ภาพถ่าย
       ///
       /// Key: 相册
       ///
-      /// Locales: en, th
+      /// Locales: th
       var 相册: RswiftResources.StringResource { .init(key: "相册", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Camera
