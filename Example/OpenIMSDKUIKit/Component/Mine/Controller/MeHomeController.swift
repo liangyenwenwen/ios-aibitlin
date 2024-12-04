@@ -275,7 +275,7 @@ class MeHomeController: BaseLogicController {
         let tap = UITapGestureRecognizer()
         tap.rx.event.subscribe {  _ in
             SuperToast.show(title: "开发中")
-            self.gotoControllerFromRoot(BoBSendChatTransferAccountsViewController.self)
+//            self.gotoControllerFromRoot(BoBSendChatTransferAccountsViewController.self)
         }.disposed(by: rx.disposeBag)
         r.addGestureRecognizer(tap)
         return r

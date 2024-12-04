@@ -465,7 +465,7 @@ class BoBSendChatTransferAccountsViewController: BaseTitleController {
         return r
     }()
     lazy var cionImageView: UIImageView = {
-        let r = UIImageView()
+        let r = UIImageView(image: UIImage(named: "mine_home_cion_c_icon"))
         r.tg_width.equal(26)
         r.tg_height.equal(26)
         return r
@@ -476,6 +476,7 @@ class BoBSendChatTransferAccountsViewController: BaseTitleController {
         r.tg_height.equal(.wrap)
         r.textColor = .black333
         r.font = .mediumFont(16)
+        r.text =  cionType
         return r
     }()
     lazy var totalLabel: UILabel = {

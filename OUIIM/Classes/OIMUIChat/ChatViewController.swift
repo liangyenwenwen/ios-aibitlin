@@ -2381,8 +2381,10 @@ extension ChatViewController: CoustomInputBarAccessoryViewDelegate {
             chooseVoiceORVideo(isVideo: false)
         case .redPacket:
             DispatchQueue.main.async {
-                if let handler = OIMApi.showTipHandle {
-                    handler("红包开发中", { res in
+                let info = self.chatController.getConversation()
+                if let handler = OIMApi.sendBoBRedPacketHandle {
+                    handler(self, info.userID ?? "",info.groupID ?? "",{res in
+
                     })
                 }
             }

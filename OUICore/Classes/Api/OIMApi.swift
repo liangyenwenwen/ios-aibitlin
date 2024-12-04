@@ -34,6 +34,9 @@ public typealias gotoBoBTransferAccountsHandle = ((_ currentVC: UIViewController
 //私聊、群聊转账
 public typealias sendBoBTransferAccountsHandle = ((_ currentVC: UIViewController, _ receiveUserId: String ,_ groupId: String,_ completion: @escaping ((String) -> Void)) -> Void)
 
+//私聊、群聊发红包
+public typealias sendBoBRedPacketHandle = ((_ currentVC: UIViewController, _ receiveUserId: String ,_ groupId: String,_ completion: @escaping ((String) -> Void)) -> Void)
+
 
 // MARK: - 张亚飞打的标记  更新会话的ex
 public typealias updateConversationEx = ((_ conversationEx : String, _ completion: @escaping ((String) -> Void)) -> Void)
@@ -201,6 +204,7 @@ public class OIMApi {
     
     public static var gotoBoBTransferAccountsHandle: gotoBoBTransferAccountsHandle?
     public static var sendBoBTransferAccountsHandle: sendBoBTransferAccountsHandle?
+    public static var sendBoBRedPacketHandle:sendBoBRedPacketHandle?
 
 }
 

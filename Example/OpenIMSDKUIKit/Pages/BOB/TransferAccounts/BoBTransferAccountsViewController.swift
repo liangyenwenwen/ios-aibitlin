@@ -104,7 +104,7 @@ class BoBTransferAccountsViewController:BaseTitleController{
         let tap = UITapGestureRecognizer()
         tap.rx.event.subscribe {  _ in
             self.view.endEditing(true)
-        }
+        }.disposed(by: rx.disposeBag)
         view.addGestureRecognizer(tap)
         bindBtnData()
         loadData()
@@ -186,7 +186,7 @@ class BoBTransferAccountsViewController:BaseTitleController{
         tap.rx.event.subscribe {  _ in
             let vc =  BoBRealNameMainViewController()
             self.navigationController?.pushViewController(vc, animated: true)
-        }
+        }.disposed(by: rx.disposeBag)
         v.addGestureRecognizer(tap)
         return v
     }()
@@ -241,7 +241,7 @@ class BoBTransferAccountsViewController:BaseTitleController{
                 self?.refreshUI()
             }
             GKCover.cover(from: self.view.window, contentView: chooseTypeView, style: .translucent, showStyle: .bottom, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
-        }
+        }.disposed(by: rx.disposeBag)
         r.addGestureRecognizer(tap)
        return r
     }()

@@ -21,7 +21,11 @@ class BoBRedPacketModel {
     private static let TransferMoneyInnerSHome = "/wallet/transferMoneyInner/transferMoneyInnerSHome" //聊天转账首页
     private static let SendTransferMoneySInner = "/wallet/transferMoneyInner/sendTransferMoneySInner" //私聊转账
     private static let SendTransferMoneyQInner = "/wallet/transferMoneyInner/sendTransferMoneyQInner" //群聊转账
-
+    
+    private static let SendRedPacketsSL = "/wallet/redPacket/sendRedPacketsSL" //私聊发红包
+    private static let SendRedPacketsPSQ = "/wallet/redPacket/sendRedPacketsPSQ" //群拼手气红包
+    private static let SendRedPacketsPT = "/wallet/redPacket/sendRedPacketsPT" //群普通红包
+    private static let SendRedPacketsZS = "/wallet/redPacket/sendRedPacketsZS" //群专属红包
 
     static func getHttpHeader() -> HTTPHeaders{
         let httpHeaders : HTTPHeaders = [
@@ -87,6 +91,48 @@ class BoBRedPacketModel {
             url = API_BOB_URL + SendTransferMoneySInner
         }else{
             url = API_BOB_URL + SendTransferMoneyQInner
+        }
+        
+        Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
+            ProgressHUD.dismiss()
+            
+            if let data = dataRequest.data {
+                let strData = String.init(data: data, encoding: String.Encoding.utf8)
+                print(strData!)
+                
+                if let res = JsonTool.fromJson(strData!, toClass: BoBRedPacketNODataResponse.self) {
+                    completionHandler(res.code, res.message)
+                } else {
+                    completionHandler(-1, "failure")
+                }
+            } else {
+                completionHandler(-1, "failure")
+            }
+        }
+        
+    }
+    //发送红包
+    static func SendRedPacketRequest(type: Int?,
+                                     param:[String: Any],
+                                  completionHandler: @escaping CompletionHandler) {
+        //type：0私聊红包，1群拼手气红包，2群普通红包，3群专属红包
+        if !NetworkStatus.isReacheable {
+            return
+        }
+        ProgressHUD.animate()
+        var url = ""
+        if type == 0{
+            //私聊普通红包
+            url = API_BOB_URL + SendRedPacketsSL
+        }else if type == 1{
+            //群拼手气红包
+            url = API_BOB_URL + SendRedPacketsPSQ
+        }else if type == 2{
+            //群普通红包
+            url = API_BOB_URL + SendRedPacketsPT
+        }else if type == 3{
+            //群专属红包
+            url = API_BOB_URL + SendRedPacketsZS
         }
         
         Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in

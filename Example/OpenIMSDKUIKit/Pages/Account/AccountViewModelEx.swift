@@ -98,6 +98,13 @@ extension AccountViewModel {
             sendChatTransferAccountsVC.hidesBottomBarWhenPushed = true
             vc.gotoController(sendChatTransferAccountsVC)
         }
+        OIMApi.sendBoBRedPacketHandle = {(vc, receiveUserId, groupId,completion: @escaping (String) -> Void) in
+            let sendRedPacketVC = BoBSendRedPacketViewController()
+            sendRedPacketVC.receiveUserId = receiveUserId
+            sendRedPacketVC.groupId = groupId
+            sendRedPacketVC.hidesBottomBarWhenPushed = true
+            vc.gotoController(sendRedPacketVC)
+        }
     }
     
     

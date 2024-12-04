@@ -521,7 +521,7 @@ class CionTypeModel: Decodable {
     var type:Int?
     var isSelect:Bool
     var huiLv:Double?
-    init(icon: String? = nil, biZhong: String? = nil, xianE: Double? = nil, shouXuFei: Double? = nil, zuiXiaoShouXuFei: Double? = nil, cionType: String? = nil, money: Double? = nil, type: Int? = nil, isSelect: Bool? = false, huiLv: Double? = nil) {
+    init(icon: String? = nil, biZhong: String? = nil, xianE: Double? = nil, shouXuFei: Double? = nil, zuiXiaoShouXuFei: Double? = nil, cionType: String? = nil, money: Double? = nil, type: Int? = nil, isSelect: Bool? = false, huiLv: Double? = 1) {
         self.icon = icon
         self.biZhong = biZhong
         self.xianE = xianE

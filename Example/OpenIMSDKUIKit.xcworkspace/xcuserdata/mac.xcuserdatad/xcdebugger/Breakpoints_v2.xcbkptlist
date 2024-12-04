@@ -7,95 +7,63 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "51C9703B-B5C9-44AD-BEED-5999123F31AF"
+            uuid = "18FAB800-1C50-4C9E-863B-BE66FE2A9983"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../OUIIM/Classes/OIMUIContact/FriendList/FriendListViewController.swift"
+            filePath = "OpenIMSDKUIKit/Pages/BOB/RealName/Model/BoBRealNameModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "279"
-            endingLineNumber = "279"
-            landmarkName = "creatGroupChat(groupType:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "8366608A-A958-4557-833C-B9F0F9FB786F"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../OUIIM/Classes/OIMUIContact/FriendList/FriendListViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "302"
-            endingLineNumber = "302"
-            landmarkName = "creatGroupChat(groupType:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "5375D571-365C-46AF-99EF-2377FACC9B19"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../OUIIM/Classes/OIMUIConversation/ChatListViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "341"
-            endingLineNumber = "341"
-            landmarkName = "creatGroupChat(groupType:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "C786BB6B-9C82-4862-8D9A-933D5CC0331C"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../OUIIM/Classes/OIMUIContact/FriendList/FriendListViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "283"
-            endingLineNumber = "283"
-            landmarkName = "creatGroupChat(groupType:)"
+            startingLineNumber = "47"
+            endingLineNumber = "47"
+            landmarkName = "AddUserLanguageRequest(uid:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "C786BB6B-9C82-4862-8D9A-933D5CC0331C - 7a4d07fb8c04a119"
+                  uuid = "18FAB800-1C50-4C9E-863B-BE66FE2A9983 - d7fa19db39c7e115"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "OUIIM.FriendListViewController.creatGroupChat(groupType: OUICore.GroupType) -&gt; ()"
+                  symbolName = "static IM_NCER.BoBRealNameModel.AddUserLanguageRequest(uid: Swift.String) -&gt; ()"
                   moduleName = "IM-NCER"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/%E9%A1%B9%E7%9B%AE/OUIIM/Classes/OIMUIContact/FriendList/FriendListViewController.swift"
+                  urlString = "file:///Users/mac/Documents/%E9%A1%B9%E7%9B%AE/Example/OpenIMSDKUIKit/Pages/BOB/RealName/Model/BoBRealNameModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "283"
-                  endingLineNumber = "283">
+                  startingLineNumber = "47"
+                  endingLineNumber = "47">
                </Location>
                <Location
-                  uuid = "C786BB6B-9C82-4862-8D9A-933D5CC0331C - 7a60ea997fa04cc"
+                  uuid = "18FAB800-1C50-4C9E-863B-BE66FE2A9983 - bd807682a1e1ffdc"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Array&lt;OUICore.ContactInfo&gt;) -&gt; () in OUIIM.FriendListViewController.creatGroupChat(groupType: OUICore.GroupType) -&gt; ()"
+                  symbolName = "closure #1 (Alamofire.DataResponse&lt;Any&gt;) -&gt; () in static IM_NCER.BoBRealNameModel.AddUserLanguageRequest(uid: Swift.String) -&gt; ()"
                   moduleName = "IM-NCER"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/%E9%A1%B9%E7%9B%AE/OUIIM/Classes/OIMUIContact/FriendList/FriendListViewController.swift"
+                  urlString = "file:///Users/mac/Documents/%E9%A1%B9%E7%9B%AE/Example/OpenIMSDKUIKit/Pages/BOB/RealName/Model/BoBRealNameModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "283"
-                  endingLineNumber = "283">
+                  startingLineNumber = "48"
+                  endingLineNumber = "48">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "780C1943-6C35-411A-9500-F6746B25599D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "OpenIMSDKUIKit/Pages/BOB/RealName/Model/BoBRealNameModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
+            landmarkName = "AddUserLanguageRequest(uid:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

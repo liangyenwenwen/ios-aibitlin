@@ -3794,7 +3794,7 @@ struct _R: Sendable {
     var colorBackground: RswiftResources.ColorResource { .init(name: "ColorBackground", path: [], bundle: bundle) }
   }
 
-  /// This `_R.image` struct is generated, and contains static references to 284 images.
+  /// This `_R.image` struct is generated, and contains static references to 287 images.
   struct image {
     let bundle: Foundation.Bundle
 
@@ -4502,6 +4502,15 @@ struct _R: Sendable {
 
     /// Image `mine_private_icon`.
     var mine_private_icon: RswiftResources.ImageResource { .init(name: "mine_private_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `mine_red_packet_choose_type_icon`.
+    var mine_red_packet_choose_type_icon: RswiftResources.ImageResource { .init(name: "mine_red_packet_choose_type_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `mine_red_packet_count_add_icon`.
+    var mine_red_packet_count_add_icon: RswiftResources.ImageResource { .init(name: "mine_red_packet_count_add_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `mine_red_packet_count_reduce_icon`.
+    var mine_red_packet_count_reduce_icon: RswiftResources.ImageResource { .init(name: "mine_red_packet_count_reduce_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
     /// Image `mine_safe_icon`.
     var mine_safe_icon: RswiftResources.ImageResource { .init(name: "mine_safe_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
