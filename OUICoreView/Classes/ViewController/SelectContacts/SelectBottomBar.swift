@@ -53,7 +53,7 @@ public class SelectBottomBar: UIView {
     private lazy var selectCountBtn: LayoutButton = {
         let v = LayoutButton(imagePosition: .trailing, atSpace: 7)
         v.setImage(UIImage(nameInBundle: "common_blue_arrow_up_icon"), for: .normal)
-        v.titleLabel?.font = .f14
+        v.setFont(.f14)
         v.setTitleColor(.c0089FF, for: .normal)
         v.setTitle("\("已选择".innerLocalized()):(0)", for: .normal)
 
@@ -78,35 +78,32 @@ public class SelectBottomBar: UIView {
         backgroundColor = .tertiarySystemBackground
         selectedCount = 0
         
-        let vStack = UIStackView(arrangedSubviews: [selectCountBtn, namesLabel])
-        vStack.axis = .vertical
-        vStack.spacing = 4
-        vStack.alignment = .leading
-        
-        let hStack = UIStackView(arrangedSubviews: [vStack, completeBtn])
-        hStack.alignment = .center
-        hStack.spacing = 8
-        
-        addSubview(hStack)
-        
+        addSubview(completeBtn)
         completeBtn.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.trailing.equalToSuperview().inset(16)
             make.height.equalTo(40)
         }
         
-        hStack.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(16)
-            make.top.equalToSuperview().offset(10)
-            make.height.equalTo(60)
+        completeBtn.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        
+        addSubview(selectCountBtn)
+        selectCountBtn.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(8)
+            make.top.equalToSuperview().offset(8)
+        }
+        
+        addSubview(namesLabel)
+        namesLabel.snp.makeConstraints { make in
+            make.leading.bottom.equalToSuperview().inset(16)
+            make.top.equalTo(selectCountBtn.snp.bottom)
+            make.trailing.equalTo(completeBtn.snp.leading).inset(8)
         }
         
         let safeAreaInsets = UIApplication.safeAreaInsets
-        let spacer = UIView()
         
-        addSubview(spacer)
-        spacer.snp.makeConstraints { make in
-            make.leading.trailing.bottom.equalToSuperview()
-            make.top.equalTo(hStack.snp.bottom)
-            make.height.equalTo(safeAreaInsets.bottom)
+        snp.makeConstraints { make in
+            make.height.equalTo(safeAreaInsets.bottom + 70)
         }
     }
     

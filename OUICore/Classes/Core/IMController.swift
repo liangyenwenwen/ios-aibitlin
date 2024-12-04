@@ -488,6 +488,31 @@ extension IMController {
             onSuccess(members)
         }
     }
+    public func getAllGroupMembers(groupID: String) async -> [GroupMemberInfo] {
+        
+        var members: [GroupMemberInfo] = []
+        var count = 1000
+        
+        while (true) {
+            let r = await getGroupMembersSplit(groupID: groupID, offset: members.count, count: count)
+            members.append(contentsOf: r)
+            
+            if r.count < count {
+                break
+            }
+        }
+        
+        return members
+    }
+    
+    
+    public func getGroupMembersSplit(groupID: String, offset: Int = 0, count: Int = 1000) async -> [GroupMemberInfo] {
+        return await withCheckedContinuation { continuation in
+            getGroupMemberList(groupId: groupID, filter: .all, offset: offset, count: count) { ms in
+                continuation.resume(returning: ms)
+            }
+        }
+    }
     
     public func isJoinedGroup(groupID: String, onSuccess: @escaping CallBack.BoolReturnVoid) {
         Self.shared.imManager.isJoinedGroup(groupID) { r in
@@ -654,7 +679,32 @@ extension IMController {
             print("\(#function) throw error \(code) - \(msg)")
         }
     }
-    
+    public func getConversationsSplit(offset: Int = 0, count: Int = 1000) async -> [ConversationInfo] {
+        return await withCheckedContinuation { continuation in
+            Self.shared.imManager.getConversationListSplit(withOffset: offset, count: count) { cs in
+                continuation.resume(returning: cs?.compactMap({ $0.toConversationInfo() }) ?? [])
+            } onFailure: { code, msg in
+                continuation.resume(returning: [])
+            }
+        }
+    }
+    public func getAllConversations() async -> [ConversationInfo] {
+        let pageSize = 1000
+        
+        var temp: [ConversationInfo] = []
+        
+        while (true) {
+            let result = await IMController.shared.getConversationsSplit(offset: temp.count, count: pageSize)
+            
+            temp.append(contentsOf: result)
+            
+            if result.count < pageSize {
+                break
+            }
+        }
+        
+        return temp
+    }
     /// 删除指定会话（服务器和本地均删除）
     public func deleteConversation(conversationID: String, completion: @escaping CallBack.StringOptionalReturnVoid) {
         Self.shared.imManager.deleteConversationAndDeleteAllMsg(conversationID, onSuccess: completion) { code, msg in

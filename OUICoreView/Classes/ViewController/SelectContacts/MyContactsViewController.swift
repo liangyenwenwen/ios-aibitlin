@@ -2,7 +2,6 @@ import UIKit
 import OUICore
 import OUICoreView
 import RxSwift
-import ProgressHUD
 
 public enum ContactType: Codable {
     case undefine
@@ -55,11 +54,12 @@ public class MyContactsViewController: UIViewController {
     public var allowsSelecteAll = true
     
     private var multipleSelected = false
-    private let maxCount = 999
+    private var maxCount = 999
     private var enableChangeSelectedModel = false
     
-    public init(types: [ContactType] = [.friends, .groups], multipleSelected: Bool = false, enableChangeSelectedModel: Bool = false, selectedHandler: SelectedResultHandler? = nil) {
+    public init(types: [ContactType] = [.friends, .groups], multipleSelected: Bool = false, selectMaxCount: Int = 999, enableChangeSelectedModel: Bool = false, selectedHandler: SelectedResultHandler? = nil) {
         super.init(nibName: nil, bundle: nil)
+        self.maxCount = selectMaxCount
         self.selectedHandler = selectedHandler
         self.multipleSelected = multipleSelected
         self.enableChangeSelectedModel = enableChangeSelectedModel
@@ -68,6 +68,10 @@ public class MyContactsViewController: UIViewController {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        print("\(type(of: self)) - \(#function)")
     }
     
     private var hasSelectedItems: [ContactInfo] = []
@@ -130,13 +134,7 @@ public class MyContactsViewController: UIViewController {
         
         return v
     }()
-    public override func viewWillDisappear(_ animated: Bool) {
-            super.viewWillDisappear(animated)
-            ProgressHUD.dismiss()
-        }
-
-
-
+    
     public override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "通讯录".innerLocalized()
@@ -172,7 +170,15 @@ public class MyContactsViewController: UIViewController {
             updateSelectedResult()
         }
         
-        frequent = IMController.shared.getFrequentUsers()
+        Task.detached {
+            let result = await IMController.shared.getAllConversations()
+            
+            await MainActor.run {
+                self.frequent = result.map({ ContactInfo(ID: $0.userID ?? $0.groupID, name: $0.showName, faceURL: $0.faceURL) })
+                
+                self.tableView.reloadData()
+            }
+        }
     }
     
     public override func viewWillAppear(_ animated: Bool) {
@@ -182,8 +188,10 @@ public class MyContactsViewController: UIViewController {
     }
     
     private func pushToSearchViewController() {
-        let vc = SearchContactsViewController(enableChangeSelectedModel: enableChangeSelectedModel, selectedCallback: { [weak self] items in
-            guard let `self` = self, let item = items.first else { return }
+        let vc = SearchContactsViewController(enableChangeSelectedModel: enableChangeSelectedModel,
+                                              allowsMultipleSelection: multipleSelected,
+                                              selectedCallback: { [weak self] _, items in
+            guard let self, let item = items.first else { return }
             
             if item.type == .user, !selectedUsers.contains(where: { $0.ID == item.ID }) {
                 selectedUsers.append(item)
@@ -195,11 +203,11 @@ public class MyContactsViewController: UIViewController {
                 appendSelectedItems(item)
             }
         }, removeCallback: { [weak self] items in
-            guard let `self` = self, let item = items.first else { return }
+            guard let self, let item = items.first else { return }
             
             deselectedContacts(item)
         })
-        
+
         vc.selectedUsers = hasSelectedItems
         
         navigationController?.pushViewController(vc, animated: true)
@@ -232,6 +240,9 @@ public class MyContactsViewController: UIViewController {
     
     // 增加选中的元素
     private func appendSelectedItems(_ contact: ContactInfo) {
+        if !multipleSelected {
+            hasSelectedItems.removeAll()
+        }
         hasSelectedItems.append(contact)
         updateSelectedResult()
     }
@@ -301,29 +312,16 @@ extension MyContactsViewController: UITableViewDelegate, UITableViewDataSource {
             
             let row = rows[key]![indexPath.row]
             cell.titleLabel.text = row.title
-            cell.titleLabel.textColor = UIColor.c0C1C33
+            
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: SelectUserTableViewCell.className, for: indexPath) as! SelectUserTableViewCell
             
             let item = frequent[indexPath.row]
-            
-            print(item.type, item.name)
-            
-            if item.type == .group {
-
-                cell.avatarImageView.setGroupImg(groupID: item.ID!)
-    
-            } else {
-                
-                cell.avatarImageView.setAvatar(url: item.faceURL, text: item.name, placeHolder: "contact_my_friend_icon")
-            }
-
             cell.avatarImageView.setAvatar(url: item.faceURL, text: item.name)
-            
             cell.titleLabel.text = item.name
             cell.showSelectedIcon = multipleSelected
-            cell.titleLabel.textColor = UIColor.c0C1C33
+            
             return cell
         }
     }
@@ -410,6 +408,13 @@ extension MyContactsViewController: UITableViewDelegate, UITableViewDataSource {
     private func pushToSelecteContacts(type: ContactType) {
         let vc = SelectContactsViewController(types: [type], allowsMultipleSelection: multipleSelected, enableChangeSelectedModel: enableChangeSelectedModel)
         vc.allowsSelecteAll = allowsSelecteAll
+        vc.maxCount = maxCount
+        
+        if !multipleSelected {
+            hasSelectedItems.removeAll()
+            selectedUsers.removeAll()
+            selectedGroups.removeAll()
+        }
         
         vc.selectedContact(hasSelected: hasSelectedItems, blocked: blockedIDs) { [weak self] shouldPop, infos in
             self?.selectedResult(infos: infos, pop: shouldPop) { [weak self] in

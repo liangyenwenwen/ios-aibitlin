@@ -30,11 +30,16 @@ open class MentionViewController: SelectContactsViewController {
         super.viewDidDisappear(animated)
         self.vcDissmiss?()
     }
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+//        navigationController?.navigationBar.isHidden = false
+
+    }
     open override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "群成员".innerLocalized()
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: nil, image: UIImage(nameInBundle: "common_back_icon")) { [weak self] in
-            self?.navigationController?.popViewController(animated: true)
+//            self?.navigationController?.popViewController(animated: true)
             self?.dismiss(animated: true)
         }
         

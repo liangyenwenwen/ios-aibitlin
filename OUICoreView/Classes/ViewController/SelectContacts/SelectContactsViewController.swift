@@ -93,6 +93,7 @@ open class SelectContactsViewController: UIViewController {
         v.setImage(UIImage(nameInBundle: "common_checkbox_selected"), for: .selected)
         v.setTitle(" " + "selectAll".innerLocalized(), for: .normal)
         v.setTitleColor(.c0C1C33, for: .normal)
+        v.contentHorizontalAlignment = .left
         
         v.rx.tap.subscribe(onNext: { [weak self] _ in
             self?.selecteAll()
@@ -113,6 +114,7 @@ open class SelectContactsViewController: UIViewController {
         v.addSubview(selecteAllButton)
         selecteAllButton.snp.makeConstraints { make in
             make.leading.top.bottom.equalToSuperview().inset(16)
+            make.width.equalTo(100)
         }
         
         return v
@@ -208,7 +210,6 @@ open class SelectContactsViewController: UIViewController {
     open override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .viewBackgroundColor
-        navigationItem.title = "choose".localized()
 #if ENABLE_ORGANIZATION
         departmentViewController = DepartmentViewController(department: nil,
                                                             name: "组织架构".innerLocalized(),
@@ -229,6 +230,7 @@ open class SelectContactsViewController: UIViewController {
     private func initView() {
         let backButton = UIBarButtonItem(image: UIImage(nameInBundle: "common_back_icon"), style: .done, target: nil, action: nil)
         navigationItem.leftBarButtonItem = backButton
+        
         backButton.rx.tap.subscribe(onNext: { [weak self] _ in
             guard let self else { return }
             selectedAction(pop: true)
@@ -388,6 +390,9 @@ open class SelectContactsViewController: UIViewController {
                 guard let `self` = self else { return }
                 for (i, item) in contacs.enumerated() {
                     if !self.hasSelectedItems.contains(where: {$0.ID == item.ID}) {
+                        if !allowsMultipleSelection {
+                            self.hasSelectedItems.removeAll()
+                        }
                         self.hasSelectedItems.append(item)
                     }
                 }
@@ -429,6 +434,11 @@ open class SelectContactsViewController: UIViewController {
     }
     
     private func selecteAll() {
+        if hasSelectedItems.count + _viewModel.contacts.count > maxCount {
+            presentAlert(title: "selectedMaxCount".innerLocalizedFormat(arguments: maxCount))
+            
+            return
+        }
         selecteAllButton.isSelected = !selecteAllButton.isSelected
         
         let type: ContactItemType = contacTypes.first == .groups ? .group : .user
@@ -478,6 +488,9 @@ open class SelectContactsViewController: UIViewController {
     
     // 增加选中的元素
     private func appendSelectedItems(_ contact: ContactInfo) {
+        if !allowsMultipleSelection {
+            hasSelectedItems.removeAll()
+        }
         hasSelectedItems.append(contact)
         updateSelectedResult()
     }
@@ -523,7 +536,7 @@ open class SelectContactsViewController: UIViewController {
     }
     
     private func completionAction() {
-        selectedAction(pop: true)
+        selectedAction()
         completionHandler?()
     }
     
@@ -554,7 +567,10 @@ open class SelectContactsViewController: UIViewController {
     }
     
     private func pushToSearchViewController() {
-        searchResultViewController = SearchContactsViewController(enableChangeSelectedModel: enableChangeSelectedModel,selectedCallback: { [weak self] items in
+        searchResultViewController = SearchContactsViewController(types: contacTypes,
+                                                                  enableChangeSelectedModel: enableChangeSelectedModel,
+                                                                  allowsMultipleSelection: allowsMultipleSelection,
+                                                                  selectedCallback: { [weak self] enableMultipleSelection, items in
             guard let self, let item = items.first else { return }
             
             if hasSelectedItems.count + 1 > maxCount {
@@ -566,7 +582,7 @@ open class SelectContactsViewController: UIViewController {
                 self.tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
                 self.appendSelectedItems(item)
                 
-                if !allowsMultipleSelection {
+                if !allowsMultipleSelection || !enableMultipleSelection {
                     navigationController?.popViewController(animated: true)
                 }
             }
@@ -591,6 +607,8 @@ open class SelectContactsViewController: UIViewController {
         })
         
         searchResultViewController!.selectedUsers = hasSelectedItems
+        searchResultViewController?.sourceID = sourceID
+        searchResultViewController?.viewModel = _viewModel
         
         navigationController?.pushViewController(searchResultViewController!, animated: true)
     }
@@ -610,20 +628,10 @@ extension SelectContactsViewController: UITableViewDataSource, UITableViewDelega
         let contact = getContacts(by: indexPath)
         
         cell.titleLabel.text = contact.name
-//        cell.titleLabel.text = SuperStringUtil.getUserState(showname: contact.name ?? "").n
         cell.trainingLabel.text = contact.sub
         cell.trainingLabel.textColor = .c8E9AB0
         cell.trainingLabel.font = .f17
-//        cell.avatarImageView.setAvatar(url: contact.faceURL, text: contact.name)
-        if contact.type == .group {
-
-            cell.avatarImageView.setGroupImg(groupID: contact.ID!)
-
-        } else {
-            
-            cell.avatarImageView.setAvatar(url: contact.faceURL, text: contact.name, placeHolder: "contact_my_friend_icon")
-        }
-        
+        cell.avatarImageView.setAvatar(url: contact.faceURL, text: contact.name)
         cell.showSelectedIcon = allowsMultipleSelection
         
         if blockedIDs.contains(contact.ID!) {
@@ -688,9 +696,6 @@ extension SelectContactsViewController: UISearchResultsUpdating {
         }
     }
 }
-
-
-
 class SuperStringUtil {
     
     /// 获取用户的信息  博客 公司 vip 名字

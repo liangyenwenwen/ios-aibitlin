@@ -3,6 +3,7 @@ import SnapKit
 import RxSwift
 import ProgressHUD
 
+
 public class ShowSelectedUserViewController: UIViewController {
     private let _disposeBag = DisposeBag()
     public var removeUsersCallback: (([ContactInfo]) -> Void)!

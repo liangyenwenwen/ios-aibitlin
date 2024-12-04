@@ -24,6 +24,7 @@ class BoBSendChatTransferAccountsViewController: BaseTitleController {
     var transferAccountsType:Int = 0 //0是私聊转账，1是群转账
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = true
         IQKeyboardManager.shared.enable = true
     }
     override func viewWillDisappear(_ animated: Bool) {
@@ -372,27 +373,15 @@ class BoBSendChatTransferAccountsViewController: BaseTitleController {
             
             
             let vc = MentionViewController(types: [.members], sourceID: self.groupId, allowsMultipleSelection: false)
-//            vc.vcDissmiss = {
-////                 self.renderingMentionText = false
-//            }
-//            
-//            vc.selectedContact(hasSelected: []) { [self] _, infos in
-//                
-//                let cs = infos.map({ AutocompleteCompletion(text: $0.name!, context: ["id": $0.ID! ])})
-//                
-//                autocompleteManager.submitMultipleCompletions(with: cs)
-//                mentionCompletions.append(contentsOf: cs)
-//                renderingMentionText = false
-//
-//                dismiss(animated: true)
-//            }
-//            let nav = UINavigationController(rootViewController: vc)
-//            present(nav, animated: true)
-            
-            
-            
-//            let vc = MentionViewController()
-            self.navigationController?.pushViewController(vc, animated: true)
+            vc.selectedContact(hasSelected: []) { [self] _, infos in
+                if let firstObj = infos.first{
+                    self.receiveUserId = firstObj.ID ?? ""
+                    self.nameTF.text = firstObj.name
+                }
+                dismiss(animated: true)
+            }
+            let nav = UINavigationController(rootViewController: vc)
+            self.present(nav, animated: true)
         }.disposed(by: rx.disposeBag)
         bgView.addGestureRecognizer(tap)
         return r

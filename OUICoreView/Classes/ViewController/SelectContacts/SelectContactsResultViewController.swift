@@ -63,9 +63,6 @@ public class SelectContactsResultViewController: UIViewController, UITableViewDa
             super.viewWillDisappear(animated)
             ProgressHUD.dismiss()
         }
-
-
-
     public override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemGroupedBackground
