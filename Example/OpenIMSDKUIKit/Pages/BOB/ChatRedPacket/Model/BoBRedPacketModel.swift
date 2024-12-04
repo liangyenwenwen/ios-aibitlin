@@ -114,6 +114,7 @@ class BoBRedPacketModel {
     //发送红包
     static func SendRedPacketRequest(type: Int?,
                                      param:[String: Any],
+                                     valueHandler: @escaping (BoBSendRedPacketData) -> Void,
                                   completionHandler: @escaping CompletionHandler) {
         //type：0私聊红包，1群拼手气红包，2群普通红包，3群专属红包
         if !NetworkStatus.isReacheable {
@@ -137,19 +138,25 @@ class BoBRedPacketModel {
         
         Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
             ProgressHUD.dismiss()
-            
             if let data = dataRequest.data {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 print(strData!)
-                
-                if let res = JsonTool.fromJson(strData!, toClass: BoBRedPacketNODataResponse.self) {
-                    completionHandler(res.code, res.message)
+                if let res = JsonTool.fromJson(strData!, toClass: BoBSendRedPacketResponse.self) {
+
+                    if res.code == 20000  {
+                        valueHandler(res.data)
+                    } else {
+                        completionHandler(res.code, res.message)
+                    }
                 } else {
                     completionHandler(-1, "failure")
                 }
             } else {
                 completionHandler(-1, "failure")
             }
+            
+            
+            
         }
         
     }
@@ -181,5 +188,44 @@ class cipos: Decodable {
     var huiLv:Double?
     var t0:Double?
     var t1:Double?
+}
+class BoBSendRedPacketResponse: Decodable {
+    var data: BoBSendRedPacketData
+    var flag: Bool = false
+    var code: Int = 20000
+    var message: String? = nil
+    var count: Int? = 0
+}
+class BoBSendRedPacketData: Decodable {
+    var redPacketType:Int?//0是私聊红包，1是群拼手气红包，2是群普通红包，3是群专属红包
+
+    var amount:Double? //数量
+    var funderWallet:String? //发出钱包(C0,C1)
+    var officialExchangeRate:Double? //汇率
+    var instructions:String?//说明
+    var redEnvelopeCover:Int? //红包封面
+    var funderId:String? //发送者id
+    var receiverId:String? //接收者id
+    var sing:Int? //状态 1:已过期 2:以领取 3:未领取
+    var img:String? //头像--发送者者
+    var nickName:String? //昵称--发送者者
+    var code:String? //code
+    
+    
+    var number:Int? //红包个数
+    var residualNumber:Int? //剩余个数
+    var individualQuantity:Double? //单个数量
+    var currency:String? //币种
+    var packetCode:String? //红包账单号
+    var funderAvatar:String? //发送者头像
+    var funderNickName:String? //发送者昵称
+    var userSendOrdinaryRedPacketsPOS:[userSendOrdinaryRedPacketsPOS]? //已领取用户
+}
+class userSendOrdinaryRedPacketsPOS: Decodable {
+    var userId:String? //领取者id
+    var avatar:String? //领取者头像
+    var nickName:String? //领取者昵称
+    var amount:String? //领取数量
+    var date:String? //领取时间
 }
 

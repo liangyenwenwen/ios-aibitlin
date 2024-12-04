@@ -51,6 +51,7 @@ class BoBTransferAccountsViewController:BaseTitleController{
         view.backgroundColor = .colorBackgroundAPP
         initLinearLayoutSafeArea()
         title = "转账"
+        chooseCionTypeModel = CionTypeModel(icon: "", biZhong: cionType, xianE: 0.00, shouXuFei: 0.00, zuiXiaoShouXuFei: 0.00, cionType: cionType + "0", money:0.00, type: 0, isSelect: true,huiLv:1.00)
         container.tg_padding = UIEdgeInsets(top: 0, left: PADDING_OUTER, bottom: 0, right: PADDING_OUTER)
         container.addSubview(unRealNameTipView)
         container.addSubview(titleLabel)

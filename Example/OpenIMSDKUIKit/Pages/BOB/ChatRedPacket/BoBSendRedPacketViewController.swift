@@ -37,6 +37,7 @@ class BoBSendRedPacketViewController: BaseTitleController {
         setBackGroundColor(.colorBackgroundAPP)
         initScrollSafeArea()
         title = "红包"
+        chooseCionTypeModel = CionTypeModel(icon: "", biZhong: cionType, xianE: 0.00, shouXuFei: 0.00, zuiXiaoShouXuFei: 0.00, cionType: cionType + "0", money:0.00, type: 0, isSelect: true,huiLv:1.00)
         scrollViewContainer.tg_padding = UIEdgeInsets(top: 0, left: PADDING_OUTER, bottom: PADDING_OUTER, right: PADDING_OUTER)
         sendRedPacketType = groupId.isEmpty ? 0 : 1
 //        scrollViewContainer.tg_space = 12
@@ -811,13 +812,11 @@ class BoBSendRedPacketViewController: BaseTitleController {
                                 param = ["amount":self?.redPacketNumberTF.text ?? "0.00","funderWallet":self?.chooseCionTypeModel?.cionType ?? "","officialExchangeRate":self?.chooseCionTypeModel?.huiLv ?? "0.00","instructions":instructions,"redEnvelopeCover":"1","funderId":IMController.shared.uid,"receiverId":self?.receiveUserId ?? "","currency":self?.chooseCionTypeModel?.biZhong ?? ""]
                             }
                         }
-                        BoBRedPacketModel.SendRedPacketRequest(type:type,param:param){errCode,errMsg in
-                            if errCode == 20000{
-                                SuperToast.show(title:"发送成功")
-                                self?.navigationController?.popViewController(animated: true)
-                            }else{
-                                SuperToast.show(title: errMsg)
-                            }
+                        BoBRedPacketModel.SendRedPacketRequest(type:type,param:param){data in
+                            SuperToast.show(title:"发送成功")
+                            self?.navigationController?.popViewController(animated: true)
+                        }completionHandler:{errCode,errMsg in
+                            SuperToast.show(title: errMsg)
                         }
                     }
 

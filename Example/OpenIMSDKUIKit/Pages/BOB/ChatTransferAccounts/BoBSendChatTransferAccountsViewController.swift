@@ -36,6 +36,7 @@ class BoBSendChatTransferAccountsViewController: BaseTitleController {
         setBackGroundColor(.colorBackgroundAPP)
         initLinearLayoutSafeArea()
         title = "转账"
+        chooseCionTypeModel = CionTypeModel(icon: "", biZhong: cionType, xianE: 0.00, shouXuFei: 0.00, zuiXiaoShouXuFei: 0.00, cionType: cionType + "0", money:0.00, type: 0, isSelect: true,huiLv:1.00)
         container.tg_padding = UIEdgeInsets(top: PADDING_OUTER, left: PADDING_OUTER, bottom: PADDING_OUTER, right: PADDING_OUTER)
         transferAccountsType = groupId.isEmpty ? 0 : 1
         container.addSubview(cionTypeView)
