@@ -107,7 +107,8 @@ class SelectContactsViewModel {
             if type.contains(.friends) {
                 let param2 = SearchUserParam()
                 param2.keywordList = [keyword]
-                
+//                param2.isSearchUserID = false
+
                 group.enter()
                 IMController.shared.searchFriends(param: param2) {[weak self] result in
                     temp.append(contentsOf: result.map{ContactInfo(ID: $0.userID, name: $0.nickname, faceURL: $0.faceURL)})

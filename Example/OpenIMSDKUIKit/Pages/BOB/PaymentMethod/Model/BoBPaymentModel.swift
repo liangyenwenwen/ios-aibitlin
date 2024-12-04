@@ -14,8 +14,8 @@ import RxSwift
 import Network
 class BoBPaymentModel {
     // 业务服务器地址
-//    public static let API_BOB_URL = "http://192.168.7.128:18729"
-    public static let API_BOB_URL = "http://143.92.40.164:18729"
+    public static let API_BOB_URL = "http://192.168.7.128:18729"
+//    public static let API_BOB_URL = "http://143.92.40.164:18729"
     
     
     private static let UserPaymentMedothList = "/wallet/userPayment/queryUserPayment" //支付方式列表
@@ -520,7 +520,8 @@ class CionTypeModel: Decodable {
     var money:Double?
     var type:Int?
     var isSelect:Bool
-    init(icon: String? = nil, biZhong: String? = nil, xianE: Double? = nil, shouXuFei: Double? = nil, zuiXiaoShouXuFei: Double? = nil, cionType: String? = nil, money: Double? = nil, type: Int? = nil, isSelect: Bool? = false) {
+    var huiLv:Double?
+    init(icon: String? = nil, biZhong: String? = nil, xianE: Double? = nil, shouXuFei: Double? = nil, zuiXiaoShouXuFei: Double? = nil, cionType: String? = nil, money: Double? = nil, type: Int? = nil, isSelect: Bool? = false, huiLv: Double? = nil) {
         self.icon = icon
         self.biZhong = biZhong
         self.xianE = xianE
@@ -530,6 +531,7 @@ class CionTypeModel: Decodable {
         self.money = money
         self.type = type
         self.isSelect = isSelect!
+        self.huiLv = huiLv
     }
 }
 class BoBBillResponse: Decodable {

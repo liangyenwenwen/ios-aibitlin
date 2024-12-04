@@ -121,8 +121,8 @@ class BoBTransferAccountsViewController:BaseTitleController{
             self.transferAccountsHomeData = data
             IMController.shared.isSetPayPassWord = data.anQuan ?? false
             for item in self.transferAccountsHomeData!.cpos{
-                let model1 = CionTypeModel(icon: item.icon, biZhong: item.biZhong, xianE: item.xianE, shouXuFei: item.shouXuFei, zuiXiaoShouXuFei: item.zuiXiaoShouXuFei, cionType: item.biZhong! + "0", money: item.t0, type: 0, isSelect: true)
-                let model2 = CionTypeModel(icon: item.icon, biZhong: item.biZhong, xianE: item.xianE, shouXuFei: item.shouXuFei, zuiXiaoShouXuFei: item.zuiXiaoShouXuFei, cionType: item.biZhong! + "1", money: item.t1, type: 1, isSelect: false)
+                let model1 = CionTypeModel(icon: item.icon, biZhong: item.biZhong, xianE: item.xianE, shouXuFei: item.shouXuFei, zuiXiaoShouXuFei: item.zuiXiaoShouXuFei, cionType: item.biZhong! + "0", money: item.t0, type: 0, isSelect: true,huiLv:0.00)
+                let model2 = CionTypeModel(icon: item.icon, biZhong: item.biZhong, xianE: item.xianE, shouXuFei: item.shouXuFei, zuiXiaoShouXuFei: item.zuiXiaoShouXuFei, cionType: item.biZhong! + "1", money: item.t1, type: 1, isSelect: false,huiLv:0.00)
                 self.cionTypeArray.append(model1)
                 self.cionTypeArray.append(model2)
             }

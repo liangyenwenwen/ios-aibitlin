@@ -5,57 +5,147 @@
 //  Created by mac on 2024/12/3.
 //  Copyright © 2024 rentsoft. All rights reserved.
 //
-
 import Foundation
+import OUICore
+import RxSwift
+import RxCocoa
+import RxGesture
+import OUIIM
+import ProgressHUD
+import IQKeyboardManagerSwift
 import TangramKit
+
 class BoBSendChatTransferAccountsViewController: BaseTitleController {
     var cionType = "C"
+    var receiveUserId = ""
+    var groupId = ""
     var chooseCionTypeModel:CionTypeModel?
     var cionTypeArray:[CionTypeModel] = []
+    var transferAccountsType:Int = 0 //0是私聊转账，1是群转账
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        IQKeyboardManager.shared.enable = true
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        IQKeyboardManager.shared.enable = false
+    }
     override func initViews() {
         super.initViews()
-        setBackGroundColor(.init(hexString: "#388CEF"))
-        initScrollSafeArea()
+        setBackGroundColor(.colorBackgroundAPP)
+        initLinearLayoutSafeArea()
         title = "转账"
-        scrollViewContainer.tg_padding = UIEdgeInsets(top: PADDING_OUTER, left: PADDING_OUTER, bottom: PADDING_OUTER, right: PADDING_OUTER)
-        scrollViewContainer.tg_space = 10
-        superFooterContainerContainer.tg_bottom.equal(0)
-        scrollViewContainer.addSubview(cionTypeView)
-        scrollViewContainer.addSubview(bottomView)
+        container.tg_padding = UIEdgeInsets(top: PADDING_OUTER, left: PADDING_OUTER, bottom: PADDING_OUTER, right: PADDING_OUTER)
+        transferAccountsType = groupId.isEmpty ? 0 : 1
+        container.addSubview(cionTypeView)
+        container.addSubview(countView)
+        if transferAccountsType == 1  {
+            container.addSubview(choosePeopleView)
+        }
+        container.addSubview(descView)
+        container.addSubview(bottomView)
+        container.addSubview(sureBtn)
         cionTypeView.snp_makeConstraints { make in
             make.top.equalTo(8)
             make.left.equalTo(16)
             make.right.equalTo(-16)
-            make.height.equalTo(106)
+            make.height.equalTo(118)
         }
         countView.snp_makeConstraints { make in
             make.left.right.equalTo(cionTypeView)
             make.top.equalTo(cionTypeView.snp_bottom).offset(12)
             make.height.equalTo(88)
         }
+        if transferAccountsType == 1  {
+            choosePeopleView.snp_makeConstraints { make in
+                make.left.right.height.equalTo(countView)
+                make.top.equalTo(countView.snp_bottom).offset(12)
+            }
+            descView.snp_makeConstraints { make in
+                make.left.right.height.equalTo(choosePeopleView)
+                make.top.equalTo(choosePeopleView.snp_bottom).offset(12)
+            }
+        }else{
+            descView.snp_makeConstraints { make in
+                make.left.right.height.equalTo(countView)
+                make.top.equalTo(countView.snp_bottom).offset(12)
+            }
+        }
+        
         bottomView.snp_makeConstraints { make in
-            make.left.right.equalTo(cionTypeView)
-            make.top.equalTo(countView.snp_bottom).offset(30)
+            make.left.right.equalTo(descView)
+            make.top.equalTo(descView.snp_bottom).offset(30)
             make.height.equalTo(102)
         }
+        sureBtn.snp_makeConstraints { make in
+            make.left.equalTo(16)
+            make.right.equalTo(-16)
+            make.height.equalTo(56)
+            make.top.equalTo(bottomView.snp_bottom).offset(25)
+        }
+        bindBtnData()
+        loadData()
+    }
+    private func bindBtnData() {
+        Observable.combineLatest(countTF.rx.text.orEmpty, nameTF.rx.text.orEmpty) {
+            if self.transferAccountsType == 0{
+                $0.count > 0 && $1.count >= 0
+            }else{
+                $0.count > 0 && $1.count > 0
+            }
+            
+        }
+        .bind(to: sureBtn.rx.isEnabled)
+        .disposed(by:rx.disposeBag)
+    }
+    func loadData(){
+        BoBRedPacketModel.TransferMoneyInnerSHomeRequest(userId: IMController.shared.uid){data in
+            IMController.shared.isSetPayPassWord = data.anQuan ?? false
+            for item in data.cipos{
+                let model1 = CionTypeModel(icon: item.icon, biZhong: item.biZhong, xianE: item.xianE, shouXuFei: item.shouXuFei, zuiXiaoShouXuFei: 0.00, cionType: item.biZhong! + "0", money: item.t0, type: 0, isSelect: true,huiLv:item.huiLv)
+                let model2 = CionTypeModel(icon: item.icon, biZhong: item.biZhong, xianE: item.xianE, shouXuFei: item.shouXuFei, zuiXiaoShouXuFei: 0.00, cionType: item.biZhong! + "1", money: item.t1, type: 1, isSelect: false,huiLv:item.huiLv)
+                self.cionTypeArray.append(model1)
+                self.cionTypeArray.append(model2)
+            }
+            if self.cionTypeArray.count > 0{
+                self.chooseCionTypeModel = self.cionTypeArray[0]
+                self.refreshUI()
+            }
+        } completionHandler: {errCode,errMsg in
+            SuperToast.show(title: errMsg)
+        }
+    }
+    func refreshUI(){
+        cionTypeImageView.sd_setImage(with: URL(string: chooseCionTypeModel?.icon))
+        cionNameLabel.text = chooseCionTypeModel?.biZhong
+        if chooseCionTypeModel?.type == 0{
+            self.walletType.text = "T+0钱包"
+            self.walletType.textColor = .init(hexString: "#00AA3C")
+            self.walletType.backgroundColor = .init(hexString: "#E5F6EB")
+        }else{
+            self.walletType.text = "T+1钱包"
+            self.walletType.textColor = .init(hexString: "#FFA756")
+            self.walletType.backgroundColor = .init(hexString: "#FFF7E5")
+        }
+        self.exchangeRateLabel.text = "汇率: " + String(format: "%.2f",(chooseCionTypeModel?.huiLv)!)
+        
+        let str = "可用余额 " + String(format: "%.2f ",(chooseCionTypeModel?.money)!) + (chooseCionTypeModel?.biZhong)!
+        let attributedString = NSMutableAttributedString(string: str)
+        attributedString.addAttribute(.foregroundColor, value: UIColor.primaryColor, range: NSRange(location: 5, length: str.length-6))
+        self.totalMoneyLabel.attributedText = attributedString
+        self.cionImageView.sd_setImage(with: URL(string: chooseCionTypeModel?.icon))
+        self.cionLabel.text = chooseCionTypeModel?.biZhong
+        self.calculationMoney()
     }
     func calculationMoney(){
-//        self.countLabel.text = "0.00"
-//        self.serviceChargeLabel.text = "手续费" + String(format: "%.2f",(chooseCionTypeModel?.zuiXiaoShouXuFei)!)  + (chooseCionTypeModel?.biZhong)!
-//        if let doubleValue = Double(countTF.text ?? "0") {
-//            if doubleValue > 0{
-//                var count = 0.00
-//                if (chooseCionTypeModel?.shouXuFei)!*doubleValue > (chooseCionTypeModel?.zuiXiaoShouXuFei)!{
-//                    self.serviceChargeLabel.text = "手续费" + String(format: "%.2f",(chooseCionTypeModel?.shouXuFei)!*doubleValue)  + (chooseCionTypeModel?.biZhong)!
-//                    count = doubleValue - (chooseCionTypeModel?.shouXuFei)!*doubleValue
-//                }else{
-//                    count = doubleValue - (chooseCionTypeModel?.zuiXiaoShouXuFei)!
-//                }
-//                if count > 0{
-//                    self.countLabel.text = String(format: "%.2f",count)
-//                }
-//            }
-//        }
+        self.totalLabel.text = "0.00"
+        self.moneyLabel.text = "≈￥0.00"
+        if let doubleValue = Double(countTF.text ?? "0") {
+            if doubleValue > 0{
+                self.totalLabel.text = countTF.text
+                self.moneyLabel.text = String(format: "≈￥%.2f",(chooseCionTypeModel?.huiLv)!*doubleValue)
+            }
+        }
     }
     lazy var cionTypeView: UIView = {
         let r = UIView()
@@ -122,7 +212,7 @@ class BoBSendChatTransferAccountsViewController: BaseTitleController {
             chooseTypeView.chooseCionBlock = { [weak self] model,array in
                 self?.chooseCionTypeModel = model
                 self?.cionTypeArray = array
-//                self?.refreshUI()
+                self?.refreshUI()
             }
             GKCover.cover(from: self.view.window, contentView: chooseTypeView, style: .translucent, showStyle: .bottom, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
         }
@@ -161,6 +251,8 @@ class BoBSendChatTransferAccountsViewController: BaseTitleController {
         let r = UILabel()
         r.font = .regularFont(14)
         r.textColor = .black666
+        r.text = "汇率: 0.00"
+
         return r
     }()
     lazy var totalMoneyLabel: UILabel = {
@@ -168,6 +260,10 @@ class BoBSendChatTransferAccountsViewController: BaseTitleController {
         r.font = .regularFont(14)
         r.textColor = .black666
         r.textAlignment = .right
+        let str = "可用余额 0.00 " + cionType
+        let attributedString = NSMutableAttributedString(string: str)
+        attributedString.addAttribute(.foregroundColor, value: UIColor.primaryColor, range: NSRange(location: 5, length: str.length-6))
+        r.attributedText = attributedString
         return r
     }()
     
@@ -273,6 +369,30 @@ class BoBSendChatTransferAccountsViewController: BaseTitleController {
         let tap = UITapGestureRecognizer()
         tap.rx.event.subscribe {  _ in
             
+            
+            
+            let vc = MentionViewController(types: [.members], sourceID: self.groupId, allowsMultipleSelection: false)
+//            vc.vcDissmiss = {
+////                 self.renderingMentionText = false
+//            }
+//            
+//            vc.selectedContact(hasSelected: []) { [self] _, infos in
+//                
+//                let cs = infos.map({ AutocompleteCompletion(text: $0.name!, context: ["id": $0.ID! ])})
+//                
+//                autocompleteManager.submitMultipleCompletions(with: cs)
+//                mentionCompletions.append(contentsOf: cs)
+//                renderingMentionText = false
+//
+//                dismiss(animated: true)
+//            }
+//            let nav = UINavigationController(rootViewController: vc)
+//            present(nav, animated: true)
+            
+            
+            
+//            let vc = MentionViewController()
+            self.navigationController?.pushViewController(vc, animated: true)
         }.disposed(by: rx.disposeBag)
         bgView.addGestureRecognizer(tap)
         return r
@@ -308,31 +428,20 @@ class BoBSendChatTransferAccountsViewController: BaseTitleController {
             make.height.equalTo(50)
         }
         bgView.addSubview(descTF)
-        let rightIcon = UIImageView(image: UIImage(named: "SuperChevronRight"))
-        rightIcon.tintColor = .black80
-        rightIcon.contentMode = .scaleAspectFit
-        bgView.addSubview(rightIcon)
-        rightIcon.snp_makeConstraints { make in
-            make.right.equalTo(-16)
-            make.centerY.equalTo(bgView)
-            make.width.height.equalTo(15)
-        }
         descTF.snp_makeConstraints { make in
             make.left.equalTo(16)
             make.centerY.equalTo(bgView)
-            make.right.equalTo(rightIcon.snp_left).offset(-16)
+            make.right.equalTo(-16)
         }
-        let tap = UITapGestureRecognizer()
-        tap.rx.event.subscribe {  _ in
-            
-        }.disposed(by: rx.disposeBag)
-        bgView.addGestureRecognizer(tap)
         return r
     }()
     lazy var descTF: QMUITextField = {
         let r = QMUITextField()
         r.font = .regularFont(16)
         r.tintColor = .black333
+        r.isUserInteractionEnabled = true
+        r.keyboardType = .default
+        r.returnKeyType = .default
         r.setPlaceHolderTextColor(.black999)
         r.placeholder = "请输入转账说明"
         return r
@@ -361,7 +470,7 @@ class BoBSendChatTransferAccountsViewController: BaseTitleController {
         r.tg_centerX.equal(0)
         r.tg_space = 9
         r.tg_gravity = .vert.center
-        r.tg_top.equal(30)
+        r.tg_top.equal(0)
         r.addSubview(cionImageView)
         r.addSubview(cionLabel)
         return r
@@ -385,6 +494,7 @@ class BoBSendChatTransferAccountsViewController: BaseTitleController {
         r.textAlignment = .center
         r.textColor = .black333
         r.font = .regularFont(46)
+        r.text = "0.00"
         return r
     }()
     lazy var moneyLabel: UILabel = {
@@ -392,6 +502,69 @@ class BoBSendChatTransferAccountsViewController: BaseTitleController {
         r.textAlignment = .center
         r.textColor = .primaryColor
         r.font = .regularFont(16)
+        r.text = "≈￥0.00"
+        return r
+    }()
+    lazy var sureBtn: QMUIButton = {
+        let r = ViewFactoryUtil.linkButton("确认转账".localized())
+        r.setTitleColor(.white, for: .normal)
+        r.corner(28)
+        r.titleLabel?.font = .semiboldFont(14)
+        r.backgroundColor = .primaryColor
+        r.rx.tap.subscribe(onNext: { [self] in
+            
+            if IMController.shared.certificationLevel == 0 {
+                let alert = UIAlertController(title: "提示", message: "请先进行实名认证".innerLocalized(), preferredStyle: .alert)
+                // 创建UIAlertAction，用于处理用户的选择
+                let cancleAction = UIAlertAction(title: "取消", style: .default) { _ in
+                }
+                let okAction = UIAlertAction(title: "去认证", style: .default) { _ in
+                    let vc =  BoBRealNameMainViewController()
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+                // 将action添加到alertController上
+                alert.addAction(cancleAction)
+                alert.addAction(okAction)
+                // 弹出alert
+                self.present(alert, animated: true, completion: nil)
+            }else{
+                if IMController.shared.isSetPayPassWord {
+                    let passWordView = BoBPayPassWordView()
+                    passWordView.tg_width.equal(.fill)
+                    passWordView.tg_height.equal(210)
+                    passWordView.payBtnClickBlock = { [weak self] passWord in
+                        
+                        BoBRedPacketModel.SendTransferMoneyRequest(issuingPartyUserId:IMController.shared.uid, receiverUserId: self?.receiveUserId, currency: self?.chooseCionTypeModel?.biZhong, issuingPartyWallet: self?.chooseCionTypeModel?.cionType, transferAmount:self?.countTF.text ?? "0.00" ,instructions:self?.descTF.text ?? "", passWord: passWord, transferAccountsType: self?.transferAccountsType){errCode,errMsg in
+                            if errCode == 20000{
+                                SuperToast.show(title:"转账成功")
+                                self?.navigationController?.popViewController(animated: true)
+                            }else{
+                                SuperToast.show(title: errMsg)
+                            }
+                        }
+                    }
+
+                    GKCover.cover(from: self.view.window, contentView: passWordView, style: .translucent, showStyle: .center, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
+                    
+                }else{
+                    let alert = UIAlertController(title: "提示", message: "为了您的财产安全，请设置安全密码".innerLocalized(), preferredStyle: .alert)
+                    // 创建UIAlertAction，用于处理用户的选择
+                    let cancleAction = UIAlertAction(title: "取消", style: .default) { _ in
+                    }
+                    let okAction = UIAlertAction(title: "去设置", style: .default) { _ in
+                        let vc = BoBChangePayPassWordViewController()
+                        vc.passWordType = 0
+                        self.navigationController?.pushViewController(vc,animated: true)
+                    }
+                    // 将action添加到alertController上
+                    alert.addAction(cancleAction)
+                    alert.addAction(okAction)
+                    // 弹出alert
+                    self.present(alert, animated: true, completion: nil)
+                }
+                
+            }
+        }).disposed(by: rx.disposeBag)
         return r
     }()
     

@@ -31,6 +31,9 @@ public typealias reportMomentsHandle = ((_ currentVC: UIViewController,_  report
 //转账
 public typealias gotoBoBTransferAccountsHandle = ((_ currentVC: UIViewController, _ address: String ,_ completion: @escaping ((String) -> Void)) -> Void)
 
+//私聊、群聊转账
+public typealias sendBoBTransferAccountsHandle = ((_ currentVC: UIViewController, _ receiveUserId: String ,_ groupId: String,_ completion: @escaping ((String) -> Void)) -> Void)
+
 
 // MARK: - 张亚飞打的标记  更新会话的ex
 public typealias updateConversationEx = ((_ conversationEx : String, _ completion: @escaping ((String) -> Void)) -> Void)
@@ -197,6 +200,8 @@ public class OIMApi {
     public static var showTipWithViewHandle: showTipWithViewHandle?
     
     public static var gotoBoBTransferAccountsHandle: gotoBoBTransferAccountsHandle?
+    public static var sendBoBTransferAccountsHandle: sendBoBTransferAccountsHandle?
+
 }
 
 extension OIMApi {

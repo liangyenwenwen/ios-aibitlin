@@ -2388,8 +2388,10 @@ extension ChatViewController: CoustomInputBarAccessoryViewDelegate {
             }
         case .transferAccounts:
             DispatchQueue.main.async {
-                if let handler = OIMApi.showTipHandle {
-                    handler("转账开发中", { res in
+                let info = self.chatController.getConversation()
+                if let handler = OIMApi.sendBoBTransferAccountsHandle {
+                    handler(self, info.userID ?? "",info.groupID ?? "",{res in
+
                     })
                 }
             }

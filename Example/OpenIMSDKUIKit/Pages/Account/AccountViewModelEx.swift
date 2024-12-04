@@ -91,7 +91,13 @@ extension AccountViewModel {
             boBTransferAccountsVC.address = address
             vc.gotoController(boBTransferAccountsVC)
         }
-        
+        OIMApi.sendBoBTransferAccountsHandle = {(vc, receiveUserId, groupId,completion: @escaping (String) -> Void) in
+            let sendChatTransferAccountsVC = BoBSendChatTransferAccountsViewController()
+            sendChatTransferAccountsVC.receiveUserId = receiveUserId
+            sendChatTransferAccountsVC.groupId = groupId
+            sendChatTransferAccountsVC.hidesBottomBarWhenPushed = true
+            vc.gotoController(sendChatTransferAccountsVC)
+        }
     }
     
     

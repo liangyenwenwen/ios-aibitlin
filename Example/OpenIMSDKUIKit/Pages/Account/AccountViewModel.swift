@@ -21,8 +21,8 @@ open class AccountViewModel {
     // 业务服务器地址
     static let API_BASE_URL = UserDefaults.standard.string(forKey: bussinessSeverAddrKey)!
     static let ADMIN_BASE_URL = UserDefaults.standard.string(forKey: adminSeverAddrKey)!
-//    static let API_BOB_URL = "http://192.168.7.128:18729"
-    public static let API_BOB_URL = "http://143.92.40.164:18729"
+    static let API_BOB_URL = "http://192.168.7.128:18729"
+//    public static let API_BOB_URL = "http://143.92.40.164:18729"
    
     // 实际开发，抽离网络部分
     static let IMPreLoginAccountKey = "IMPreLoginAccountKey"

@@ -91,6 +91,7 @@
 		0445C92F2CFEEE1800D1FD34 /* ScreenShareBroadcastExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 0445C9192CFEEE1800D1FD34 /* ScreenShareBroadcastExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		0445C9392CFEF0AF00D1FD34 /* BoBSendRedPacketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445C9362CFEF0AF00D1FD34 /* BoBSendRedPacketViewController.swift */; };
 		0445C93B2CFEF2D000D1FD34 /* BoBSendChatTransferAccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445C93A2CFEF2D000D1FD34 /* BoBSendChatTransferAccountsViewController.swift */; };
+		0445C95F2CFF299A00D1FD34 /* BoBRedPacketModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445C95E2CFF299A00D1FD34 /* BoBRedPacketModel.swift */; };
 		04484ED32CF71EC200893E4C /* BoBChooseBankListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04484ED22CF71EC200893E4C /* BoBChooseBankListCell.swift */; };
 		04484ED62CF742EF00893E4C /* BoBReceivePaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04484ED52CF742EF00893E4C /* BoBReceivePaymentViewController.swift */; };
 		04484ED92CF7552C00893E4C /* BoBShareReceivePaymentQrCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04484ED82CF7552C00893E4C /* BoBShareReceivePaymentQrCodeViewController.swift */; };
@@ -342,6 +343,7 @@
 		0445C9292CFEEE1800D1FD34 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0445C9362CFEF0AF00D1FD34 /* BoBSendRedPacketViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoBSendRedPacketViewController.swift; sourceTree = "<group>"; };
 		0445C93A2CFEF2D000D1FD34 /* BoBSendChatTransferAccountsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBSendChatTransferAccountsViewController.swift; sourceTree = "<group>"; };
+		0445C95E2CFF299A00D1FD34 /* BoBRedPacketModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBRedPacketModel.swift; sourceTree = "<group>"; };
 		04484ED22CF71EC200893E4C /* BoBChooseBankListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBChooseBankListCell.swift; sourceTree = "<group>"; };
 		04484ED52CF742EF00893E4C /* BoBReceivePaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBReceivePaymentViewController.swift; sourceTree = "<group>"; };
 		04484ED82CF7552C00893E4C /* BoBShareReceivePaymentQrCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBShareReceivePaymentQrCodeViewController.swift; sourceTree = "<group>"; };
@@ -889,6 +891,7 @@
 		0445C9372CFEF0AF00D1FD34 /* ChatRedPacket */ = {
 			isa = PBXGroup;
 			children = (
+				0445C95D2CFF296200D1FD34 /* Model */,
 				0445C9362CFEF0AF00D1FD34 /* BoBSendRedPacketViewController.swift */,
 			);
 			path = ChatRedPacket;
@@ -900,6 +903,14 @@
 				0445C93A2CFEF2D000D1FD34 /* BoBSendChatTransferAccountsViewController.swift */,
 			);
 			path = ChatTransferAccounts;
+			sourceTree = "<group>";
+		};
+		0445C95D2CFF296200D1FD34 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0445C95E2CFF299A00D1FD34 /* BoBRedPacketModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		04484ED42CF742C600893E4C /* ReceivePayment */ = {
@@ -2261,6 +2272,7 @@
 				04F2D08B2BEE21CA00D5271B /* MineBokeEditVC.swift in Sources */,
 				04F2D0882BEE21CA00D5271B /* ChangeMessageVC.swift in Sources */,
 				043A558D2C8166490041836E /* UserTagView.swift in Sources */,
+				0445C95F2CFF299A00D1FD34 /* BoBRedPacketModel.swift in Sources */,
 				040D85F02BEB8C0B00DCAAB3 /* BaseTitleController.swift in Sources */,
 				040D85C02BEB8B0400DCAAB3 /* CountDownUtil.swift in Sources */,
 				04D8BF802C8AB00100C1244E /* MineBokeNotificationSettingVC.swift in Sources */,

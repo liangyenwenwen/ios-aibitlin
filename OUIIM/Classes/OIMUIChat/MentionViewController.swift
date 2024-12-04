@@ -4,7 +4,7 @@ import OUICoreView
 import RxSwift
 import OUICore
 
-class MentionViewController: SelectContactsViewController {
+open class MentionViewController: SelectContactsViewController {
     
     var mentionAll: (() -> Void)?
     var vcDissmiss: (() -> Void)?
@@ -26,14 +26,15 @@ class MentionViewController: SelectContactsViewController {
         
         return v
     }()
-    override func viewDidDisappear(_ animated: Bool) {
+    open override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         self.vcDissmiss?()
     }
-    override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "群成员".innerLocalized()
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: nil, image: UIImage(nameInBundle: "common_back_icon")) { [weak self] in
+            self?.navigationController?.popViewController(animated: true)
             self?.dismiss(animated: true)
         }
         
