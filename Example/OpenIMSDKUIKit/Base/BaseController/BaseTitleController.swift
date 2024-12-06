@@ -43,7 +43,7 @@ class BaseTitleController: BaseLogicController {
         superHeaderContainerContainer.addSubview(navView)
         if navigationController?.viewControllers.count ?? 0 > 1 {
             let r =  addLeftImageButton(R.image.arrowLeft()!.withTintColor())
-            if Self.className == "UserMessageVC" || Self.className == "BoBShareReceivePaymentQrCodeViewController" {
+            if Self.className == "UserMessageVC" || Self.className == "BoBShareReceivePaymentQrCodeViewController" || Self.className == "BoBReceiveRedPacketDetailViewController"{
                 r.tintColor = .white
             }
             r.tag = 1100

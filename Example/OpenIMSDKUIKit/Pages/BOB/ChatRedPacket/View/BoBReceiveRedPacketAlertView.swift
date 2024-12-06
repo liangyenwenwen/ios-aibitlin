@@ -38,7 +38,20 @@ class BoBReceiveRedPacketAlertView: TGLinearLayout {
     }
     func bindData(redPacketInfo:RedPacketMessageStatus){
         redPacketMessageStatus = redPacketInfo
-        contentLabel.text = redPacketInfo.data?.instructions
+        let status = Int(redPacketInfo.localEx ?? "0")
+        if status == 1{
+            contentLabel.text = redPacketInfo.data?.instructions
+        }else if status == 2{
+            //已过期
+            receieBtn.setTitle("", for: .normal)
+            receieBtn.isUserInteractionEnabled = false
+            contentLabel.text = "该红包已过期，已自动退还给对方"
+        }else if status == 3{
+            //已领完
+            receieBtn.setTitle("", for: .normal)
+            receieBtn.isUserInteractionEnabled = false
+            contentLabel.text = "该红包已领完"
+        }
     }
     lazy var bgImageView: UIImageView = {
        let r = UIImageView(image: UIImage(named: "mine_red_packet_recieve_bg_icon"))

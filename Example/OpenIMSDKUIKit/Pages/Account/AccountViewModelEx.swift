@@ -111,11 +111,12 @@ extension AccountViewModel {
         }
         OIMApi.gotoReceiveRedPacketHandle = {(vc, scour,completion: @escaping (String) -> Void) in
             if let redPacketStatus = JsonTool.fromJson(scour, toClass: RedPacketMessageStatus.self) {
-                receiveRedpacket(vc: vc, scour: redPacketStatus,completion:completion)
-                
                 let status = Int(redPacketStatus.localEx ?? "0")
                 if redPacketStatus.data?.sendUserId == IMController.shared.uid{
                     //自己发的，直接进列表
+                    let redPacketDetailVC = BoBReceiveRedPacketDetailViewController()
+                    redPacketDetailVC.hidesBottomBarWhenPushed = true
+                    vc.gotoController(redPacketDetailVC)
                 }else{
                     if status == 0{
                         //未领取
@@ -123,35 +124,36 @@ extension AccountViewModel {
                             //群专属红包
                             if redPacketStatus.data?.receiverId == IMController.shared.uid{
                                 //领取专属红包
+                                receiveRedpacket(vc: vc, scour: redPacketStatus,completion:completion)
                             }else{
                                 //不是自己的专属红包不能领，弹框提醒
+                                let redPacketTipView = BoBRedPacketTipView()
+                                redPacketTipView.tg_width.equal(293)
+                                redPacketTipView.tg_height.equal(200)
+                                redPacketTipView.bindData(redPacketInfo: redPacketStatus)
+                                GKCover.cover(from: vc.view, contentView: redPacketTipView, style: .translucent, showStyle: .center, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
+                                
                             }
                             
                         }else{
                           //直接领取红包
-                            
+                            receiveRedpacket(vc: vc, scour: redPacketStatus,completion:completion)
                         }
                     }else if status == 1{
                         //已领取，直接进详情列表
-                        
-                        
+                        let redPacketDetailVC = BoBReceiveRedPacketDetailViewController()
+                        redPacketDetailVC.hidesBottomBarWhenPushed = true
+                        vc.gotoController(redPacketDetailVC)
                     }else if status == 2{
                         //已过期,弹框提醒
+                        receiveRedpacket(vc: vc, scour: redPacketStatus,completion:completion)
                         
                     }else if status == 3{
                         //已领完，弹框提醒
-                        
+                        receiveRedpacket(vc: vc, scour: redPacketStatus,completion:completion)
                     }
                 }
             }
-//            let sendRedPacketVC = BoBSendRedPacketViewController()
-//
-////            sendRedPacketVC.sendRedPacketAction = {redPacketJson in
-////                completion(redPacketJson)
-////                
-////            }
-//            sendRedPacketVC.hidesBottomBarWhenPushed = true
-//            vc.gotoController(sendRedPacketVC)
         }
     }
     static func receiveRedpacket(vc:UIViewController,scour:RedPacketMessageStatus,completion: @escaping (String) -> Void){

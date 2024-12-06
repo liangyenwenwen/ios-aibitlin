@@ -1,8 +1,8 @@
 //
-//  BoBMineAssetsExplainView.swift
+//  BoBRedPacketTipView.swift
 //  OpenIMSDKUIKit_Example
 //
-//  Created by mac on 2024/12/2.
+//  Created by mac on 2024/12/6.
 //  Copyright © 2024 rentsoft. All rights reserved.
 //
 
@@ -13,7 +13,7 @@ import RxSwift
 import RxGesture
 import TangramKit
 import UIKit
-class BoBMineAssetsExplainView: TGLinearLayout {
+class BoBRedPacketTipView: TGLinearLayout {
     init() {
         super.init(frame: .zero, orientation: .vert)
         innerInit()
@@ -28,23 +28,30 @@ class BoBMineAssetsExplainView: TGLinearLayout {
         corner(MEDDLE_RADIUS)
         tg_width.equal(.fill)
         tg_height.equal(.wrap)
-        tg_space = PADDING_MEDDLE
+//        tg_space = PADDING_MEDDLE
         tg_gravity = .horz.center
         tg_padding = UIEdgeInsets(top: 0, left: PADDING_OUTER, bottom: PADDING_MEDDLE, right: PADDING_OUTER)
         backgroundColor = .white
         addSubview(titleLabel)
         addSubview(contentLabel)
         addSubview(closeBtn)
+        closeBtn.snp_makeConstraints { make in
+            make.centerX.equalTo(self)
+            make.bottom.equalTo(-28)
+            make.width.equalTo(160)
+            make.height.equalTo(46)
+        }
        
     }
-    func bindData(quantityOfMoneyPOS:QuantityOfMoneyPOS?){
-        titleLabel.text = "T+1钱包：" + String(format: "%.2f",(quantityOfMoneyPOS?.t1)!) + (quantityOfMoneyPOS?.currency)!
+    func bindData(redPacketInfo:RedPacketMessageStatus){
+        titleLabel.text =  (redPacketInfo.data?.sendUserName ?? "") + "发的红包"
+        contentLabel.text =  (redPacketInfo.data?.sendUserName ?? "") + "发的专属红包仅限" + (redPacketInfo.data?.receiverName ?? "") + "领取"
     }
     lazy var titleLabel: UILabel = {
         let r = UILabel()
         r.tg_left.equal(20)
         r.tg_right.equal(20)
-        r.tg_height.equal(20)
+        r.tg_height.equal(18)
         r.tg_top.equal(27)
         r.textColor = .black333
         r.font = .semiboldFont(18)
@@ -55,17 +62,15 @@ class BoBMineAssetsExplainView: TGLinearLayout {
         let r = UILabel()
         r.tg_left.equal(20)
         r.tg_right.equal(20)
-        r.tg_top.equal(0)
+        r.tg_top.equal(16)
         r.tg_height.equal(.wrap)
         r.textColor = .black666
         r.font = .regularFont(14)
-        r.text = "1.使用CNY在买币入金后、收取红包 后、收到内部转账后，将实行“T+1”加密货币提现限制；\n2.在此期间，您的交易活动（购买、红包、内部转账）不受影响；\n3.内部转账：对APP其他用户转账、对APP合作平台用户转账。"
+        r.textAlignment = .center
         return r
     }()
     lazy var closeBtn: QMUIButton = {
         let r = ViewFactoryUtil.linkButton("我知道了")
-        r.tg_width.equal(160)
-        r.tg_height.equal(46)
         r.setTitleColor(.white, for: .normal)
         r.titleLabel?.font = .mediumFont(16)
         r.backgroundColor = .primaryColor
@@ -76,4 +81,3 @@ class BoBMineAssetsExplainView: TGLinearLayout {
         return r
     }()
 }
-

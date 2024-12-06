@@ -507,8 +507,14 @@ final class DefaultChatController: ChatController {
     
     func updateMessageLocalEx(messageID: String, ex: MessageEx) {
         let json = JsonTool.toJson(fromObject: ex)
+        messages.first(where: { $0.clientMsgID == messageID })?.localEx = json
         IMController.shared.setMessageLocalEx(conversationID: conversation.conversationID, clientMsgID: messageID, ex: json)
     }
+    func updateNewMessageLocalEx(messageID: String, ex: String){
+        messages.first(where: { $0.clientMsgID == messageID })?.localEx = ex
+        IMController.shared.setMessageLocalEx(conversationID: conversation.conversationID, clientMsgID: messageID, ex: ex)
+    }
+
     
     func clearUnreadCount() {
         guard conversation.unreadCount > 0 else { return }
@@ -1668,11 +1674,11 @@ extension DefaultChatController: DataProviderDelegate {
             print(messageId)
             self.reloadMessage(with: messageId)
             
-            if let handler = OIMApi.reloadCollectionView {
-                handler(messageId, {res in
-                    
-                })
-            }
+//            if let handler = OIMApi.reloadCollectionView {
+//                handler(messageId, {res in
+//                    
+//                })
+//            }
             
         }
     }

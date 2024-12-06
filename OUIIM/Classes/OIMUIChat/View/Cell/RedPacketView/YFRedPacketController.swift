@@ -17,6 +17,8 @@ final class YFRedPacketController {
     var longPress: ((_ sourceView: UIView, _ point: CGPoint) -> Void)?
 
     var source: redPacketMessageSource
+    
+    var source11: CustomMessageSource
 
     private let messageId: String
     
@@ -29,8 +31,9 @@ final class YFRedPacketController {
             view?.reloadData()
         }
     }
-    init(source: redPacketMessageSource, messageID: String, bubbleController: BubbleController) {
+    init(source: redPacketMessageSource, messageID: String, bubbleController: BubbleController,source11:CustomMessageSource) {
         self.source = source
+        self.source11 = source11
         self.messageId = messageID
         self.bubbleController = bubbleController
         configData()
