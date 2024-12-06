@@ -31,6 +31,11 @@ typealias BlankCustomViewCollectionCell = ContainerCollectionViewCell<MessageCon
 
 // MARK: - 张亚飞打的标记  自定义BokeCell
 typealias BokeCollectionCell = ContainerCollectionViewCell<MessageContainerView<EditingAccessoryView, MainContainerView<ChatAvatarView, YFBokeView, ChatAvatarView>>>
+// 红包cell
+typealias RedPacketCollectionCell = ContainerCollectionViewCell<MessageContainerView<EditingAccessoryView, MainContainerView<ChatAvatarView, YFRedPacketView, ChatAvatarView>>>
+//转账
+typealias TransferAccountsCollectionCell = ContainerCollectionViewCell<MessageContainerView<EditingAccessoryView, MainContainerView<ChatAvatarView, YFRedPacketView, ChatAvatarView>>>
+
 
 // MARK: - 张亚飞打的标记  没有头像的消息Cell
 typealias UserTitleCollectionCell = ContainerCollectionViewCell<SwappingContainerView<EdgeAligningView<UILabel>, UIImageView>>
@@ -108,6 +113,7 @@ final class DefaultChatCollectionDataSource: NSObject, ChatCollectionDataSource 
         
         // MARK: - 张亚飞打的标记  自定义消息注册
         collectionView.register(BokeCollectionCell.self, forCellWithReuseIdentifier: BokeCollectionCell.reuseIdentifier)
+        collectionView.register(RedPacketCollectionCell.self, forCellWithReuseIdentifier: RedPacketCollectionCell.reuseIdentifier)
         collectionView.register(VipNormolCollectionCell.self, forCellWithReuseIdentifier: VipNormolCollectionCell.reuseIdentifier)
         collectionView.register(VipContactCollectionCell.self, forCellWithReuseIdentifier: VipContactCollectionCell.reuseIdentifier)
         
@@ -634,10 +640,6 @@ final class DefaultChatCollectionDataSource: NSObject, ChatCollectionDataSource 
         } else if  source.type == .boke{
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BokeCollectionCell.reuseIdentifier, for: indexPath) as! BokeCollectionCell
-//            测试修改
-//            setupMessageContainerView(cell.customView, messageId: messageId, isSelected: isSelected, alignment: .fullWidth)
-//            setupMainMessageView(cell.customView.customView, user: user, date: date, messageID: messageId, alignment: .fullWidth, bubble: bubbleType, status: status, sessionType: sessionType)
-//            setupSwipeHandlingAccessory(cell.customView.customView, date: date, accessoryConnectingView: cell.customView)
             setupMessageContainerView(cell.customView, messageId: messageId, isSelected: isSelected, alignment: alignment)
             setupMainMessageView(cell.customView.customView, user: user, date: date, messageID: messageId, alignment: alignment, bubble: bubbleType, status: status, sessionType: sessionType, isTop: isTop, lastID: lastID)
             setupSwipeHandlingAccessory(cell.customView.customView, date: date, accessoryConnectingView: cell.customView)
@@ -659,6 +661,52 @@ final class DefaultChatCollectionDataSource: NSObject, ChatCollectionDataSource 
             
             return cell
             
+        } else if  source.type == .redPacket{
+            //红包
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RedPacketCollectionCell.reuseIdentifier, for: indexPath) as! RedPacketCollectionCell
+            setupMessageContainerView(cell.customView, messageId: messageId, isSelected: isSelected,enableSelected: false,alignment: alignment)
+            setupMainMessageView(cell.customView.customView, user: user, date: date, messageID: messageId, alignment: alignment, bubble: bubbleType, status: status, sessionType: sessionType, isTop: isTop, lastID: lastID)
+            setupSwipeHandlingAccessory(cell.customView.customView, date: date, accessoryConnectingView: cell.customView)
+            
+            let bubbleView = cell.customView.customView.maskedView
+            let controller = YFRedPacketController(source: source.redPacketMessageSource,
+                                                 messageID: messageId,
+                                                 bubbleController: buildBlankBubbleController(bubbleView: bubbleView,
+                                                                                             messageType: messageType,
+                                                                                             bubbleType: bubbleType))
+            
+            controller.longPress = { [weak self] sourceView, point in
+                self?.gestureDelegate?.longPress(with: indexPath, sourceView: sourceView, point: point)
+            }
+            controller.delegate = reloadDelegate
+            bubbleView.customView.setup(with: controller)
+            controller.view = bubbleView.customView
+            cell.delegate = bubbleView.customView
+            
+            return cell
+        }else if  source.type == .transferAccounts{
+            //转账
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BokeCollectionCell.reuseIdentifier, for: indexPath) as! BokeCollectionCell
+            setupMessageContainerView(cell.customView, messageId: messageId, isSelected: isSelected, alignment: alignment)
+            setupMainMessageView(cell.customView.customView, user: user, date: date, messageID: messageId, alignment: alignment, bubble: bubbleType, status: status, sessionType: sessionType, isTop: isTop, lastID: lastID)
+            setupSwipeHandlingAccessory(cell.customView.customView, date: date, accessoryConnectingView: cell.customView)
+            
+            let bubbleView = cell.customView.customView.maskedView
+            let controller = YFBokeController(source: source.bokeMessageSource,
+                                                 messageID: messageId,
+                                                 bubbleController: buildBlankBubbleController(bubbleView: bubbleView,
+                                                                                             messageType: messageType,
+                                                                                             bubbleType: bubbleType))
+            
+            controller.longPress = { [weak self] sourceView, point in
+                self?.gestureDelegate?.longPress(with: indexPath, sourceView: sourceView, point: point)
+            }
+            controller.delegate = reloadDelegate
+            bubbleView.customView.setup(with: controller)
+            controller.view = bubbleView.customView
+            cell.delegate = bubbleView.customView
+            
+            return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CustomViewCollectionCell.reuseIdentifier, for: indexPath) as! CustomViewCollectionCell
             

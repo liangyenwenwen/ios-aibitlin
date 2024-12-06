@@ -37,12 +37,15 @@ public typealias sendBoBTransferAccountsHandle = ((_ currentVC: UIViewController
 //私聊、群聊发红包
 public typealias sendBoBRedPacketHandle = ((_ currentVC: UIViewController, _ receiveUserId: String ,_ groupId: String,_ completion: @escaping ((String) -> Void)) -> Void)
 
+//点击私聊、群聊红包
+public typealias gotoReceiveRedPacketHandle = ((_ currentVC: UIViewController,_ source:String ,_ completion: @escaping ((String) -> Void)) -> Void)
+
 
 // MARK: - 张亚飞打的标记  更新会话的ex
 public typealias updateConversationEx = ((_ conversationEx : String, _ completion: @escaping ((String) -> Void)) -> Void)
 
 public typealias updateConversationCell = ((_ messageID : String, _ completion: @escaping ((String) -> Void)) -> Void)
-public typealias reloadCollectionView = ((_ completion: @escaping ((String) -> Void)) -> Void)
+public typealias reloadCollectionView = ((_ messageID : String,_ completion: @escaping ((String) -> Void)) -> Void)
 
 
 // MARK: - 张亚飞打的标记  tip
@@ -205,6 +208,7 @@ public class OIMApi {
     public static var gotoBoBTransferAccountsHandle: gotoBoBTransferAccountsHandle?
     public static var sendBoBTransferAccountsHandle: sendBoBTransferAccountsHandle?
     public static var sendBoBRedPacketHandle:sendBoBRedPacketHandle?
+    public static var gotoReceiveRedPacketHandle:gotoReceiveRedPacketHandle?
 
 }
 

@@ -19,6 +19,7 @@ class BoBSendRedPacketViewController: BaseTitleController {
     var cionType = "C"
     var receiveUserId = ""
     var groupId = ""
+    var sendRedPacketAction:((_ redPacketJson:String)->())!
     var chooseCionTypeModel:CionTypeModel?
     var cionTypeArray:[CionTypeModel] = []
     var sendRedPacketType:Int = 0 //0是私聊红包，1是群红包
@@ -686,6 +687,7 @@ class BoBSendRedPacketViewController: BaseTitleController {
         r.tg_width.equal(kScreenWidth-32-32)
         r.font = .regularFont(16)
         r.tintColor = .black333
+        r.maximumTextLength = 20
 //        r.isUserInteractionEnabled = true
 //        r.keyboardType = .default
 //        r.returnKeyType = .default
@@ -812,8 +814,26 @@ class BoBSendRedPacketViewController: BaseTitleController {
                                 param = ["amount":self?.redPacketNumberTF.text ?? "0.00","funderWallet":self?.chooseCionTypeModel?.cionType ?? "","officialExchangeRate":self?.chooseCionTypeModel?.huiLv ?? "0.00","instructions":instructions,"redEnvelopeCover":"1","funderId":IMController.shared.uid,"receiverId":self?.receiveUserId ?? "","currency":self?.chooseCionTypeModel?.biZhong ?? ""]
                             }
                         }
-                        BoBRedPacketModel.SendRedPacketRequest(type:type,param:param){data in
+                        BoBRedPacketModel.SendRedPacketRequest(type:type,param:param){ data in
                             SuperToast.show(title:"发送成功")
+                            if self?.sendRedPacketAction != nil{
+                                let param1 = ["sendUserId": data.funderId ?? "",
+                                              "sendUserFaceURL":"",
+                                              "sendUserName":"",
+                                              "receiverId":data.receiverId ?? "",
+                                              "receiverName":data.receiverName ?? "",
+                                              "code":data.code ?? "",
+                                              "redPacketType":data.redPacketType ?? "",
+                                              "instructions":data.instructions ?? "恭喜发财，大吉大利"
+                                              ]
+                                if let jsonData = try? JSONSerialization.data(withJSONObject: param1, options: []) {
+                                    // 尝试将Data转换成字符串
+                                    if let jsonString = String(data: jsonData, encoding: .utf8) {
+                                        self?.sendRedPacketAction(jsonString)
+                                    }
+                                }
+                            }
+
                             self?.navigationController?.popViewController(animated: true)
                         }completionHandler:{errCode,errMsg in
                             SuperToast.show(title: errMsg)

@@ -623,6 +623,9 @@ final class DefaultChatController: ChatController {
                 print("发送博客 \(source)")
                 print("发送博客 \(source.value)")
                 sendBoke(source: source.bokeMessageSource, completion: completion)
+            }else if source.type == .redPacket{
+                print("发送红包 \(source)")
+                sendRedPacket(source: source.value, completion: completion)
             }
         }
     }
@@ -665,6 +668,17 @@ final class DefaultChatController: ChatController {
         let boke = BokeElem(id: source.id,userBlogSign: source.userBlogSign, userBlogUrl: source.userBlogUrl, userBlogIntro: source.userBlogIntro, userBlogName: source.userBlogName, userBlogCreatIp: source.userBlogCreatIp, userBlogCreatAffiliatingArea: source.userBlogCreatAffiliatingArea, userBlogOrder: source.userBlogOrder, userId: source.userId, isDelete: source.isDelete, creationTime: source.creationTime, userBlogIcon: source.userBlogIcon, changeTime: source.changeTime)
 
         IMController.shared.sendBokeMessage(boke: boke, to: receiverId, conversationType: conversationType) { [weak self] msg in
+            self?.appendMessage(msg, completion: completion)
+        } onComplete: { [weak self] msg in
+            self?.appendMessage(msg, completion: completion)
+        }
+    }
+    private func sendRedPacket(source: [String: Any]?, completion: @escaping ([Section]) -> Void) {
+//        let boke = BokeElem(title: source.title, iconUrl: source.iconUrl, linkUrl: source.linkUrl, intro: source.intro)
+//        let boke = BokeElem(from: )
+        
+
+        IMController.shared.sendRedPacketMessage(param: source, to: receiverId, conversationType: conversationType) { [weak self] msg in
             self?.appendMessage(msg, completion: completion)
         } onComplete: { [weak self] msg in
             self?.appendMessage(msg, completion: completion)
@@ -1351,8 +1365,12 @@ final class DefaultChatController: ChatController {
                 if msg.customElem?.type == .deletedByFriend || msg.customElem?.type == .blockedByFriend {
                     return .attributeText(value)
                 } else {
-                    let source = CustomMessageSource(data: msg.customElem?.data, attributedString: value)
-                    
+                    var source = CustomMessageSource(data: msg.customElem?.data, attributedString: value)
+                    if msg.customElem?.type == .redPacket || msg.customElem?.type == .transferAccounts{
+                        if let ex = msg.localEx {
+                            source.localEx = ex
+                        }
+                    }
                     return .custom(source)
                 }
             default:
@@ -1651,7 +1669,7 @@ extension DefaultChatController: DataProviderDelegate {
             self.reloadMessage(with: messageId)
             
             if let handler = OIMApi.reloadCollectionView {
-                handler( {res in
+                handler(messageId, {res in
                     
                 })
             }

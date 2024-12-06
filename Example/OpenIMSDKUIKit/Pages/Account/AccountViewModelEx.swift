@@ -102,9 +102,67 @@ extension AccountViewModel {
             let sendRedPacketVC = BoBSendRedPacketViewController()
             sendRedPacketVC.receiveUserId = receiveUserId
             sendRedPacketVC.groupId = groupId
+            sendRedPacketVC.sendRedPacketAction = {redPacketJson in
+                completion(redPacketJson)
+                
+            }
             sendRedPacketVC.hidesBottomBarWhenPushed = true
             vc.gotoController(sendRedPacketVC)
         }
+        OIMApi.gotoReceiveRedPacketHandle = {(vc, scour,completion: @escaping (String) -> Void) in
+            if let redPacketStatus = JsonTool.fromJson(scour, toClass: RedPacketMessageStatus.self) {
+                receiveRedpacket(vc: vc, scour: redPacketStatus,completion:completion)
+                
+                let status = Int(redPacketStatus.localEx ?? "0")
+                if redPacketStatus.data?.sendUserId == IMController.shared.uid{
+                    //自己发的，直接进列表
+                }else{
+                    if status == 0{
+                        //未领取
+                        if redPacketStatus.data?.redPacketType == 3{
+                            //群专属红包
+                            if redPacketStatus.data?.receiverId == IMController.shared.uid{
+                                //领取专属红包
+                            }else{
+                                //不是自己的专属红包不能领，弹框提醒
+                            }
+                            
+                        }else{
+                          //直接领取红包
+                            
+                        }
+                    }else if status == 1{
+                        //已领取，直接进详情列表
+                        
+                        
+                    }else if status == 2{
+                        //已过期,弹框提醒
+                        
+                    }else if status == 3{
+                        //已领完，弹框提醒
+                        
+                    }
+                }
+            }
+//            let sendRedPacketVC = BoBSendRedPacketViewController()
+//
+////            sendRedPacketVC.sendRedPacketAction = {redPacketJson in
+////                completion(redPacketJson)
+////                
+////            }
+//            sendRedPacketVC.hidesBottomBarWhenPushed = true
+//            vc.gotoController(sendRedPacketVC)
+        }
+    }
+    static func receiveRedpacket(vc:UIViewController,scour:RedPacketMessageStatus,completion: @escaping (String) -> Void){
+        let receiveRedPacketAlertView = BoBReceiveRedPacketAlertView()
+        receiveRedPacketAlertView.tg_width.equal(382)
+        receiveRedPacketAlertView.tg_height.equal(601)
+        receiveRedPacketAlertView.bindData(redPacketInfo: scour)
+        receiveRedPacketAlertView.receiveRedPacketSuccess = { redPacketStaus in
+            completion(redPacketStaus)
+        }
+        GKCover.cover(from: vc.view, contentView: receiveRedPacketAlertView, style: .translucent, showStyle: .center, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
     }
     
     

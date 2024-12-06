@@ -316,7 +316,19 @@ enum BokeType {
     case refuse
     case limit
 }
-
+//红包消息
+struct redPacketMessageSource: Hashable {
+    let sendUserId: String?
+    let sendUserFaceURL: String?
+    let sendUserName: String?
+    let receiverId: String?
+    let receiverName:String?
+    let code:String?
+    let redPacketType:Int? //0是私聊红包，1是群拼手气红包，2是群普通红包，3是群专属红包
+    let instructions:String?
+    
+    var localEx:String = "0"
+}
 
 // MARK: - 张亚飞打的标记  通知消息
 struct NoticeMessageSource: Hashable {
@@ -394,9 +406,13 @@ struct CustomMessageSource: Hashable {
         case buyVip = 10600 //购买vip
         case vipVisitorWarn = 10601 //vip访客提醒
         case systemNotify = 10700 //系统通知
+        case redPacket = 10800 //红包
+        case transferAccounts = 10801 //转账
+
     }
 
     var data: String?
+    var localEx: String?
     private(set) var attributedString: NSAttributedString?
 }
 
@@ -433,6 +449,22 @@ extension CustomMessageSource {
                                            changeTime: value["changeTime"] as? String)
         }
         return OUIIM.bokeMessageSource(id: -1, userBlogSign: 0, userBlogUrl: "", userBlogIntro: "", userBlogName: "", userBlogCreatIp: "", userBlogCreatAffiliatingArea: "", userBlogOrder: 0, userId: "", isDelete: 0, creationTime: "", userBlogIcon: "", changeTime: "")
+    }
+    public var redPacketMessageSource: redPacketMessageSource {
+        if let value = value {
+
+            return OUIIM.redPacketMessageSource(
+                sendUserId: value["sendUserId"] as? String,
+                sendUserFaceURL:value["sendUserFaceURL"] as? String,
+                sendUserName:value["sendUserName"] as? String,
+                receiverId: value["receiverId"] as? String,
+                receiverName: value["receiverName"] as? String,
+                code: value["code"] as? String,
+                redPacketType: value["redPacketType"] as? Int,
+                instructions: value["instructions"] as? String,
+                localEx:localEx ?? "0")
+        }
+        return OUIIM.redPacketMessageSource(sendUserId: "", sendUserFaceURL: "", sendUserName: "", receiverId: "", receiverName: "", code: "", redPacketType:0, instructions:"", localEx:"")
     }
     
     // MARK: - 张亚飞打的标记   自定义消息加工

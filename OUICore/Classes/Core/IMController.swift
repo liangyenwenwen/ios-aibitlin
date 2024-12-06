@@ -52,6 +52,8 @@ public enum CustomMessageType: Int {
     case deletedByFriend = 911 // 被删除
     
     case boke = 10500 //博客
+    case redPacket = 10800 //红包
+    case transferAccounts = 10801 //转账
 }
 
 // MARK: - 对外协议
@@ -979,14 +981,6 @@ extension IMController {
                                 sending: CallBack.MessageReturnVoid,
                                 onComplete: @escaping CallBack.MessageReturnVoid) {
         let reslut = JsonTool.toJson(fromObject: boke)
-//        
-//        let param = ["customType": 10500,
-//                     "data": ["title": boke.title,
-//                              "iconUrl": boke.iconUrl,
-//                              "linkUrl": boke.linkUrl,
-//                              "intro": boke.intro,
-//                              "customType": 10500,]
-//        ] as [String : Any]
         
         let param = ["customType": 10500, "data":["id": boke.id,
                                                  "userBlogUrl":boke.userBlogUrl,
@@ -1010,6 +1004,26 @@ extension IMController {
             sendOIMMessage(message: message, to: recvID, conversationType: conversationType, onComplete: onComplete)
         } catch {
             print("发送博客失败  ----- json 解析错误")
+        }
+        
+    }
+    //发送红包消息
+    public func sendRedPacketMessage(param: [String: Any]?,
+                                to recvID: String,
+                                conversationType: ConversationType,
+                                sending: CallBack.MessageReturnVoid,
+                                onComplete: @escaping CallBack.MessageReturnVoid) {
+        do {
+            let data = ["customType": 10800, "data":param]  as [String : Any]
+            let dataStr = String.init(data: try JSONSerialization.data(withJSONObject: data),
+                                      encoding: .utf8)!
+            let message = OIMMessageInfo.createCustomMessage(dataStr, extension: "redPacket", description: "")
+            message.status = .sending
+            message.localEx = "0"
+            sending(message.toMessageInfo())
+            sendOIMMessage(message: message, to: recvID, conversationType: conversationType, onComplete: onComplete)
+        } catch {
+            print("发送红包失败  ----- json 解析错误")
         }
         
     }
@@ -2243,10 +2257,7 @@ public class BokeElem: Codable {
         self.userBlogIcon = userBlogIcon
         self.changeTime = changeTime
     }
-
-    
 }
-
 public class TypingElem: Codable {
     public var msgTips: String?
 }

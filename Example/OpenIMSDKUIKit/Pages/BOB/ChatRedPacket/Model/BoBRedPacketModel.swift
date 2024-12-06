@@ -144,6 +144,7 @@ class BoBRedPacketModel {
                 if let res = JsonTool.fromJson(strData!, toClass: BoBSendRedPacketResponse.self) {
 
                     if res.code == 20000  {
+                        res.data.redPacketType = type
                         valueHandler(res.data)
                     } else {
                         completionHandler(res.code, res.message)
@@ -206,6 +207,7 @@ class BoBSendRedPacketData: Decodable {
     var redEnvelopeCover:Int? //红包封面
     var funderId:String? //发送者id
     var receiverId:String? //接收者id
+    var receiverName:String? //昵称--接收者
     var sing:Int? //状态 1:已过期 2:以领取 3:未领取
     var img:String? //头像--发送者者
     var nickName:String? //昵称--发送者者
@@ -227,5 +229,25 @@ class userSendOrdinaryRedPacketsPOS: Decodable {
     var nickName:String? //领取者昵称
     var amount:String? //领取数量
     var date:String? //领取时间
+}
+
+//红包消息
+class RedPacketMessageStatus: Decodable {
+   
+    var customType:Int?
+    var data: RedPacketMessageStatusInfo?
+    var localEx: String?
+}
+struct RedPacketMessageStatusInfo: Decodable {
+    let sendUserId: String?
+    let sendUserFaceURL: String?
+    let sendUserName: String?
+    let receiverId: String?
+    let receiverName:String?
+    let code:String?
+    let redPacketType:Int? //0是私聊红包，1是群拼手气红包，2是群普通红包，3是群专属红包
+    let instructions:String?
+    
+    var localEx:Int?
 }
 

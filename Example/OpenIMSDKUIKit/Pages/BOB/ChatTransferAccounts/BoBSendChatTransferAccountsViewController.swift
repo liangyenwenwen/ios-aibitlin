@@ -433,6 +433,7 @@ class BoBSendChatTransferAccountsViewController: BaseTitleController {
         r.keyboardType = .default
         r.returnKeyType = .default
         r.setPlaceHolderTextColor(.black999)
+        r.maximumTextLength = 20
         r.placeholder = "请输入转账说明"
         return r
     }()

@@ -93,6 +93,7 @@
 		0445C93B2CFEF2D000D1FD34 /* BoBSendChatTransferAccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445C93A2CFEF2D000D1FD34 /* BoBSendChatTransferAccountsViewController.swift */; };
 		0445C95F2CFF299A00D1FD34 /* BoBRedPacketModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445C95E2CFF299A00D1FD34 /* BoBRedPacketModel.swift */; };
 		0445C9622D00454D00D1FD34 /* BoBRedPacketTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445C9612D00454D00D1FD34 /* BoBRedPacketTypeView.swift */; };
+		0445C9782D02996C00D1FD34 /* BoBReceiveRedPacketAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445C9772D02996C00D1FD34 /* BoBReceiveRedPacketAlertView.swift */; };
 		04484ED32CF71EC200893E4C /* BoBChooseBankListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04484ED22CF71EC200893E4C /* BoBChooseBankListCell.swift */; };
 		04484ED62CF742EF00893E4C /* BoBReceivePaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04484ED52CF742EF00893E4C /* BoBReceivePaymentViewController.swift */; };
 		04484ED92CF7552C00893E4C /* BoBShareReceivePaymentQrCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04484ED82CF7552C00893E4C /* BoBShareReceivePaymentQrCodeViewController.swift */; };
@@ -346,6 +347,7 @@
 		0445C93A2CFEF2D000D1FD34 /* BoBSendChatTransferAccountsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBSendChatTransferAccountsViewController.swift; sourceTree = "<group>"; };
 		0445C95E2CFF299A00D1FD34 /* BoBRedPacketModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBRedPacketModel.swift; sourceTree = "<group>"; };
 		0445C9612D00454D00D1FD34 /* BoBRedPacketTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBRedPacketTypeView.swift; sourceTree = "<group>"; };
+		0445C9772D02996C00D1FD34 /* BoBReceiveRedPacketAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBReceiveRedPacketAlertView.swift; sourceTree = "<group>"; };
 		04484ED22CF71EC200893E4C /* BoBChooseBankListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBChooseBankListCell.swift; sourceTree = "<group>"; };
 		04484ED52CF742EF00893E4C /* BoBReceivePaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBReceivePaymentViewController.swift; sourceTree = "<group>"; };
 		04484ED82CF7552C00893E4C /* BoBShareReceivePaymentQrCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBShareReceivePaymentQrCodeViewController.swift; sourceTree = "<group>"; };
@@ -920,6 +922,7 @@
 			isa = PBXGroup;
 			children = (
 				0445C9612D00454D00D1FD34 /* BoBRedPacketTypeView.swift */,
+				0445C9772D02996C00D1FD34 /* BoBReceiveRedPacketAlertView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2237,6 +2240,7 @@
 				1790EE792921EAFC00C4024A /* LoginViewController.swift in Sources */,
 				040D85E92BEB8C0B00DCAAB3 /* BottomBtnView.swift in Sources */,
 				1790EE762921EAFC00C4024A /* ConfigViewController.swift in Sources */,
+				0445C9782D02996C00D1FD34 /* BoBReceiveRedPacketAlertView.swift in Sources */,
 				040D85F42BEB8C0B00DCAAB3 /* Meta.swift in Sources */,
 				04DA67942CCF2B2100FCA60C /* YFAibitlinHomeView.swift in Sources */,
 				0420C71E2BEB78CC0005F5B8 /* ProfileTableViewController.swift in Sources */,

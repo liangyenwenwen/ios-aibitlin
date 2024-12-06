@@ -592,6 +592,10 @@ extension MessageInfo {
             return "[" + "meetingInvitation".innerLocalized() + "]"
         case .boke:
             return "[" + "博客".innerLocalized() + "]"
+        case .redPacket:
+            return "[" + "红包".innerLocalized() + "]"
+        case .transferAccounts:
+            return "[" + "转账".innerLocalized() + "]"
         }
     }
     

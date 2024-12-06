@@ -608,8 +608,18 @@ final class ChatViewController: UIViewController {
     }
     
     func reloadCollectionview() {
-        OIMApi.reloadCollectionView = {[weak self] res in
+        OIMApi.reloadCollectionView = {[weak self] (messageId, _: @escaping (String) -> Void) in
 //            print("更新")
+//            if let collectionView = self?.collectionView {
+//                for section in 0..<collectionView.numberOfSections {
+//                    for item in 0..<collectionView.numberOfItems(inSection: section) {
+//                        let indexPath = IndexPath(item: item, section: section)
+//                        if let cell = collectionView.cellForItem(at: indexPath) as? RedPacketCollectionCell {
+//                            self?.collectionView.reloadItems(at: [indexPath])
+//                        }
+//                    }
+//                }
+//            }
 //            self?.collectionView.reloadData()
         }
   
@@ -1706,6 +1716,7 @@ extension ChatViewController: ChatControllerDelegate {
     func didTapContent(with id: String, data: Message.Data) {
         popover?.dismiss()
         print("-------------------------\(id)")
+//        IMController.shared.setMessageLocalEx(conversationID: chatController.getConversation().conversationID, clientMsgID: id, ex: "json0000")
         func filterMediaSource(completion: @escaping ([MediaResource]) -> Void) {
             chatController.searchLocalMediaMessage { ms in
                 let r = ms.flatMap { msg in
@@ -1993,6 +2004,32 @@ extension ChatViewController: ChatControllerDelegate {
                 } else {
                     gotoBokeLink("")
                 }
+            case .redPacket:
+                //点击红包
+                print(source.redPacketMessageSource.localEx)
+                let parm = ["customType": 10800, "data":["sendUserId": source.redPacketMessageSource.sendUserId,
+                                                         "sendUserFaceURL":source.redPacketMessageSource.sendUserFaceURL,
+                                                         "sendUserName":source.redPacketMessageSource.sendUserName,
+                                                         "receiverId": source.redPacketMessageSource.receiverId,
+                                                         "receiverName":source.redPacketMessageSource.receiverName,
+                                                         "code": source.redPacketMessageSource.code,
+                                                         "redPacketType":source.redPacketMessageSource.redPacketType,
+                                                         "instructions":source.redPacketMessageSource.instructions],
+                            "localEx":source.localEx]  as [String : Any]
+                
+                do {
+                    let datastr = String.init(data: try JSONSerialization.data(withJSONObject: parm), encoding: .utf8)
+                    if let handler = OIMApi.gotoReceiveRedPacketHandle {
+                        handler(self, datastr ?? "",{res in
+                            IMController.shared.setMessageLocalEx(conversationID: self.chatController.getConversation().conversationID, clientMsgID: id, ex: res)
+                            
+                            })
+                        }
+                } catch {
+                    
+                }
+//            case .transferAccounts:
+//                //点击转账
                 
             default:
                 break
@@ -2382,9 +2419,11 @@ extension ChatViewController: CoustomInputBarAccessoryViewDelegate {
         case .redPacket:
             DispatchQueue.main.async {
                 let info = self.chatController.getConversation()
+                let completion = self.completionHandler()
                 if let handler = OIMApi.sendBoBRedPacketHandle {
-                    handler(self, info.userID ?? "",info.groupID ?? "",{res in
-
+                    handler(self, info.userID ?? "",info.groupID ?? "",{ [weak self] res in
+                        let source = CustomMessageSource(data: self?.getCustomRedPacketData(res))
+                        self?.chatController.sendMessage(.custom(source), completion: completion)
                     })
                 }
             }
@@ -2401,7 +2440,31 @@ extension ChatViewController: CoustomInputBarAccessoryViewDelegate {
             break
         }
     }
-    
+    func getCustomRedPacketData(_ title: String) -> String {
+        guard let jsonData = title.data(using: .utf8) else {
+            return ""
+        }
+        
+        do {
+            let redPacket = try JSONSerialization.jsonObject(with: jsonData, options: [])
+            
+            let param = ["customType": 10800, "data":redPacket]  as [String : Any]
+            
+            do {
+                let datastr = String.init(data: try JSONSerialization.data(withJSONObject: param), encoding: .utf8)
+                return datastr!
+            } catch {
+                return ""
+            }
+            
+        } catch {
+            return ""
+            print(error.localizedDescription)
+        }
+        
+       
+        
+    }
     
     
     
@@ -2966,6 +3029,10 @@ extension ChatViewController: GestureDelegate {
                 if source.type == .boke {
                     actions = [forwardAction(id: message.id),
                                starAction(id: message.id, source: source.bokeMessageSource)]
+                }else if source.type == .redPacket{
+                    
+                }else if source.type == .transferAccounts{
+                    
                 }
                 break
             default:
