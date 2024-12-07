@@ -34,7 +34,7 @@ typealias BokeCollectionCell = ContainerCollectionViewCell<MessageContainerView<
 // 红包cell
 typealias RedPacketCollectionCell = ContainerCollectionViewCell<MessageContainerView<EditingAccessoryView, MainContainerView<ChatAvatarView, YFRedPacketView, ChatAvatarView>>>
 //转账
-typealias TransferAccountsCollectionCell = ContainerCollectionViewCell<MessageContainerView<EditingAccessoryView, MainContainerView<ChatAvatarView, YFRedPacketView, ChatAvatarView>>>
+typealias TransferAccountsCollectionCell = ContainerCollectionViewCell<MessageContainerView<EditingAccessoryView, MainContainerView<ChatAvatarView, YFTransferAccountsView, ChatAvatarView>>>
 
 
 // MARK: - 张亚飞打的标记  没有头像的消息Cell
@@ -673,7 +673,7 @@ final class DefaultChatCollectionDataSource: NSObject, ChatCollectionDataSource 
                                                  messageID: messageId,
                                                  bubbleController: buildBlankBubbleController(bubbleView: bubbleView,
                                                                                              messageType: messageType,
-                                                                                              bubbleType: bubbleType),source11:source)
+                                                                                              bubbleType: bubbleType))
             
             controller.longPress = { [weak self] sourceView, point in
                 self?.gestureDelegate?.longPress(with: indexPath, sourceView: sourceView, point: point)
@@ -686,17 +686,17 @@ final class DefaultChatCollectionDataSource: NSObject, ChatCollectionDataSource 
             return cell
         }else if  source.type == .transferAccounts{
             //转账
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BokeCollectionCell.reuseIdentifier, for: indexPath) as! BokeCollectionCell
-            setupMessageContainerView(cell.customView, messageId: messageId, isSelected: isSelected, alignment: alignment)
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TransferAccountsCollectionCell.reuseIdentifier, for: indexPath) as! TransferAccountsCollectionCell
+            setupMessageContainerView(cell.customView, messageId: messageId, isSelected: isSelected,enableSelected: false,alignment: alignment)
             setupMainMessageView(cell.customView.customView, user: user, date: date, messageID: messageId, alignment: alignment, bubble: bubbleType, status: status, sessionType: sessionType, isTop: isTop, lastID: lastID)
             setupSwipeHandlingAccessory(cell.customView.customView, date: date, accessoryConnectingView: cell.customView)
             
             let bubbleView = cell.customView.customView.maskedView
-            let controller = YFBokeController(source: source.bokeMessageSource,
+            let controller = YFTransferAccountsController(source: source.transferAccountsMessageSource,
                                                  messageID: messageId,
                                                  bubbleController: buildBlankBubbleController(bubbleView: bubbleView,
                                                                                              messageType: messageType,
-                                                                                             bubbleType: bubbleType))
+                                                                                              bubbleType: bubbleType))
             
             controller.longPress = { [weak self] sourceView, point in
                 self?.gestureDelegate?.longPress(with: indexPath, sourceView: sourceView, point: point)

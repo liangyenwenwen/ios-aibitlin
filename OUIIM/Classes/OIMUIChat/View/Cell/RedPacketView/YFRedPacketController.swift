@@ -18,8 +18,6 @@ final class YFRedPacketController {
 
     var source: redPacketMessageSource
     
-    var source11: CustomMessageSource
-
     private let messageId: String
     
     private let bubbleController: BubbleController
@@ -31,9 +29,8 @@ final class YFRedPacketController {
             view?.reloadData()
         }
     }
-    init(source: redPacketMessageSource, messageID: String, bubbleController: BubbleController,source11:CustomMessageSource) {
+    init(source: redPacketMessageSource, messageID: String, bubbleController: BubbleController) {
         self.source = source
-        self.source11 = source11
         self.messageId = messageID
         self.bubbleController = bubbleController
         configData()

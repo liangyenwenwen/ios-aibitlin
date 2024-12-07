@@ -85,19 +85,27 @@ extension AccountViewModel {
             feedbackVC.commentID = commentID
             vc.gotoController(feedbackVC)
         }
+        //扫码去外部转账
         OIMApi.gotoBoBTransferAccountsHandle = {(vc, address, completion: @escaping (String) -> Void) in
             let boBTransferAccountsVC = BoBTransferAccountsViewController()
             boBTransferAccountsVC.hidesBottomBarWhenPushed = true
             boBTransferAccountsVC.address = address
             vc.gotoController(boBTransferAccountsVC)
         }
+        
+        //聊天去转账
         OIMApi.sendBoBTransferAccountsHandle = {(vc, receiveUserId, groupId,completion: @escaping (String) -> Void) in
             let sendChatTransferAccountsVC = BoBSendChatTransferAccountsViewController()
             sendChatTransferAccountsVC.receiveUserId = receiveUserId
             sendChatTransferAccountsVC.groupId = groupId
+            sendChatTransferAccountsVC.sendTransferAccountsAction = {transferAccountsJson in
+                completion(transferAccountsJson)
+                
+            }
             sendChatTransferAccountsVC.hidesBottomBarWhenPushed = true
             vc.gotoController(sendChatTransferAccountsVC)
         }
+        //聊天去发红包
         OIMApi.sendBoBRedPacketHandle = {(vc, receiveUserId, groupId,completion: @escaping (String) -> Void) in
             let sendRedPacketVC = BoBSendRedPacketViewController()
             sendRedPacketVC.receiveUserId = receiveUserId
@@ -109,6 +117,7 @@ extension AccountViewModel {
             sendRedPacketVC.hidesBottomBarWhenPushed = true
             vc.gotoController(sendRedPacketVC)
         }
+        //点击领取红包
         OIMApi.gotoReceiveRedPacketHandle = {(vc, scour,completion: @escaping (String) -> Void) in
             if let redPacketStatus = JsonTool.fromJson(scour, toClass: RedPacketMessageStatus.self) {
                 let status = Int(redPacketStatus.localEx ?? "0")
@@ -154,6 +163,12 @@ extension AccountViewModel {
                     }
                 }
             }
+        }
+        //点击领取转账
+        OIMApi.gotoReceiveTransferAccountsHandle = {(vc, scour,completion: @escaping (String) -> Void) in
+            let receiveTransferAccountsDetailVC =  BoBReceiveTransferAccountsDetailViewController()
+            receiveTransferAccountsDetailVC.hidesBottomBarWhenPushed = true
+            vc.gotoController(receiveTransferAccountsDetailVC)
         }
     }
     static func receiveRedpacket(vc:UIViewController,scour:RedPacketMessageStatus,completion: @escaping (String) -> Void){

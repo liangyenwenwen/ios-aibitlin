@@ -1749,9 +1749,30 @@ extension ChatViewController: ChatControllerDelegate {
                 } catch {
                     
                 }
-//            case .transferAccounts:
-//                //点击转账
-                
+            case .transferAccounts:
+                //点击转账
+                let parm = ["customType": 10801, "data":["sendUserId":source.transferAccountsMessageSource.sendUserId,
+                                                         "sendUserFaceURL":source.transferAccountsMessageSource.sendUserFaceURL,
+                                                         "sendUserName":source.transferAccountsMessageSource.sendUserName,
+                                                         "receiverId": source.transferAccountsMessageSource.receiverId,
+                                                         "receiverName":source.transferAccountsMessageSource.receiverName,
+                                                         "code": source.transferAccountsMessageSource.code,
+                                                         "instructions":source.transferAccountsMessageSource.instructions,
+                                                         "currency":source.transferAccountsMessageSource.currency,
+                                                         "money":source.transferAccountsMessageSource.money,
+                                                         "transferAccountsType":source.transferAccountsMessageSource.transferAccountsType],
+                            "localEx":source.localEx]  as [String : Any]
+                do {
+                    let datastr = String.init(data: try JSONSerialization.data(withJSONObject: parm), encoding: .utf8)
+                    if let handler = OIMApi.gotoReceiveTransferAccountsHandle {
+                        handler(self, datastr ?? "",{res in
+                            self.chatController.updateNewMessageLocalEx(messageID: id, ex: res)
+                            })
+                        }
+                    
+                } catch {
+                    
+                }
             default:
                 break
             }
@@ -2143,7 +2164,7 @@ extension ChatViewController: CoustomInputBarAccessoryViewDelegate {
                 let completion = self.completionHandler()
                 if let handler = OIMApi.sendBoBRedPacketHandle {
                     handler(self, info.userID ?? "",info.groupID ?? "",{ [weak self] res in
-                        let source = CustomMessageSource(data: self?.getCustomRedPacketData(res))
+                        let source = CustomMessageSource(data: self?.getCustomRedPacketAndTransferAccountsData("10800",res))
                         self?.chatController.sendMessage(.custom(source), completion: completion)
                     })
                 }
@@ -2151,9 +2172,11 @@ extension ChatViewController: CoustomInputBarAccessoryViewDelegate {
         case .transferAccounts:
             DispatchQueue.main.async {
                 let info = self.chatController.getConversation()
+                let completion = self.completionHandler()
                 if let handler = OIMApi.sendBoBTransferAccountsHandle {
-                    handler(self, info.userID ?? "",info.groupID ?? "",{res in
-
+                    handler(self, info.userID ?? "",info.groupID ?? "",{ [weak self] res in
+                        let source = CustomMessageSource(data: self?.getCustomRedPacketAndTransferAccountsData("10801",res))
+                        self?.chatController.sendMessage(.custom(source), completion: completion)
                     })
                 }
             }
@@ -2161,15 +2184,15 @@ extension ChatViewController: CoustomInputBarAccessoryViewDelegate {
             break
         }
     }
-    func getCustomRedPacketData(_ title: String) -> String {
+    func getCustomRedPacketAndTransferAccountsData(_ customType: String,_ title: String) -> String {
         guard let jsonData = title.data(using: .utf8) else {
             return ""
         }
         
         do {
-            let redPacket = try JSONSerialization.jsonObject(with: jsonData, options: [])
+            let dic = try JSONSerialization.jsonObject(with: jsonData, options: [])
             
-            let param = ["customType": 10800, "data":redPacket]  as [String : Any]
+            let param = ["customType": customType, "data":dic]  as [String : Any]
             
             do {
                 let datastr = String.init(data: try JSONSerialization.data(withJSONObject: param), encoding: .utf8)
@@ -2182,9 +2205,6 @@ extension ChatViewController: CoustomInputBarAccessoryViewDelegate {
             return ""
             print(error.localizedDescription)
         }
-        
-       
-        
     }
     
     

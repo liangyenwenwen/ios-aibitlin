@@ -9,8 +9,6 @@ import Foundation
 import OUICore
 import ChatLayout
 
-// MARK: - 张亚飞打的标记  自定义消息 boke
-
 class YFRedPacketView: UIView, ContainerCollectionViewCellDelegate  {
 
     private var viewPortWidth: CGFloat = 280
@@ -56,16 +54,18 @@ class YFRedPacketView: UIView, ContainerCollectionViewCellDelegate  {
         titleLabel.text = controller.instructions
         if controller.redPacketStatus == 0{
             //未领取
+            
             if controller.source.redPacketType == 3{
                 //专属红包
                 statusLabel.text = "红包-" + controller.source.receiverName! + "专属"
+                if controller.source.receiverId == IMController.shared.uid || controller.source.sendUserId == IMController.shared.uid{
+                    contentView.backgroundColor = .init(hexString: "#F25151")
+                }else{
+                    contentView.backgroundColor = .init(hexString: "#FFA0A0")
+                }
             }else{
                 statusLabel.text = "红包"
-            }
-            if controller.source.receiverId == IMController.shared.uid || controller.source.sendUserId == IMController.shared.uid{
                 contentView.backgroundColor = .init(hexString: "#F25151")
-            }else{
-                contentView.backgroundColor = .init(hexString: "#FFA0A0")
             }
             
         }else if controller.redPacketStatus == 1{

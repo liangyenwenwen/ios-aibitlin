@@ -1027,6 +1027,26 @@ extension IMController {
         }
         
     }
+    //发送转账消息
+    public func sendTransferAccountsMessage(param: [String: Any]?,
+                                to recvID: String,
+                                conversationType: ConversationType,
+                                sending: CallBack.MessageReturnVoid,
+                                onComplete: @escaping CallBack.MessageReturnVoid) {
+        do {
+            let data = ["customType": 10801, "data":param]  as [String : Any]
+            let dataStr = String.init(data: try JSONSerialization.data(withJSONObject: data),
+                                      encoding: .utf8)!
+            let message = OIMMessageInfo.createCustomMessage(dataStr, extension: "transferAccounts", description: "")
+            message.status = .sending
+            message.localEx = "0"
+            sending(message.toMessageInfo())
+            sendOIMMessage(message: message, to: recvID, conversationType: conversationType, onComplete: onComplete)
+        } catch {
+            print("发送红包失败  ----- json 解析错误")
+        }
+        
+    }
     
 //    public func sendCardMessage(card: CardElem,
 //                                to recvID: String,

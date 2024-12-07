@@ -3794,7 +3794,7 @@ struct _R: Sendable {
     var colorBackground: RswiftResources.ColorResource { .init(name: "ColorBackground", path: [], bundle: bundle) }
   }
 
-  /// This `_R.image` struct is generated, and contains static references to 291 images.
+  /// This `_R.image` struct is generated, and contains static references to 295 images.
   struct image {
     let bundle: Foundation.Bundle
 
@@ -4530,8 +4530,20 @@ struct _R: Sendable {
     /// Image `mine_setting_icon`.
     var mine_setting_icon: RswiftResources.ImageResource { .init(name: "mine_setting_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
+    /// Image `mine_transfer_accounts_expire_icon`.
+    var mine_transfer_accounts_expire_icon: RswiftResources.ImageResource { .init(name: "mine_transfer_accounts_expire_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `mine_transfer_accounts_log_icon`.
+    var mine_transfer_accounts_log_icon: RswiftResources.ImageResource { .init(name: "mine_transfer_accounts_log_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `mine_transfer_accounts_receive_icon`.
+    var mine_transfer_accounts_receive_icon: RswiftResources.ImageResource { .init(name: "mine_transfer_accounts_receive_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
     /// Image `mine_transfer_accounts_scan_icon`.
     var mine_transfer_accounts_scan_icon: RswiftResources.ImageResource { .init(name: "mine_transfer_accounts_scan_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `mine_transfer_accounts_unreceive_icon`.
+    var mine_transfer_accounts_unreceive_icon: RswiftResources.ImageResource { .init(name: "mine_transfer_accounts_unreceive_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
     /// Image `moments_icon`.
     var moments_icon: RswiftResources.ImageResource { .init(name: "moments_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
