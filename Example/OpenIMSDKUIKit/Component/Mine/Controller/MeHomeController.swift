@@ -46,10 +46,11 @@ class MeHomeController: BaseLogicController {
     func loadUserWallet(){
         guard let userID = AccountViewModel.userID else { return }
         
-        AccountViewModel.queryUserWalletInfo(userId: userID,
+        AccountViewModel.queryUserWalletInfo(
                                              valueHandler: { [weak self] (data :MineWalletMoneyData) in
             self?.mineWalletData = data
-            IMController.shared.isSetPayPassWord = data.anQuan ?? false
+            IMController.shared.isSetPayPassWord = data.secure ?? false
+            IMController.shared.payPassWordSonKey = data.sonKey ?? ""
             IMController.shared.certificationLevel = data.certificationLevel ?? 0
             self?.updateMineWalletView()
             self?.walletView.bindData(walletMoneyData: data)

@@ -278,8 +278,7 @@ class BoBAddPaymentMethodViewController:UIViewController{
                     SuperToast.show(title: "请选择开户银行")
                     return
                 }
-                param = ["userId": IMController.shared.uid,
-                         "name":name ?? "",
+                param = ["name":name ?? "",
                          "bankId":self.bankView.bankNumberView.textFieldView.text ?? "",
                          "bankDeposit":self.bankView.bankNameView.textFieldView.text ?? "",
                          "bankBranch":self.bankView.bankSubView.textFieldView.text ?? ""]
@@ -296,8 +295,7 @@ class BoBAddPaymentMethodViewController:UIViewController{
                     SuperToast.show(title: "请输入支付宝昵称")
                     return
                 }
-                param = ["userId": IMController.shared.uid,
-                         "name":name ?? "",
+                param = ["name":name ?? "",
                          "zfbCode":self.aliView.aliNumberView.textFieldView.text ?? "",
                          "nickName":self.aliView.nickNameView.textFieldView.text ?? "",
                          "img":self.aliView.qrUrl ?? ""]
@@ -310,8 +308,7 @@ class BoBAddPaymentMethodViewController:UIViewController{
                     SuperToast.show(title: "请输入微信昵称")
                     return
                 }
-                param = ["userId": IMController.shared.uid,
-                         "name":name ?? "",
+                param = ["name":name ?? "",
                          "nickName":self.wxView.nickNameView.textFieldView.text ?? "",
                          "img":self.wxView.qrUrl ?? ""]
             }

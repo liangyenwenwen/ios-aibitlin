@@ -100,7 +100,7 @@ extension BoBChooseCionTypeView: UITableViewDataSource, UITableViewDelegate {
         
         let cell =  tableView.dequeueReusableCell(withIdentifier: BoBChooseCionTypeCell.className, for: indexPath) as! BoBChooseCionTypeCell
         cell.cionTypeImageView.sd_setImage(with: URL(string: item.icon))
-        cell.cionNameLabel.text = item.biZhong
+        cell.cionNameLabel.text = item.cionType
         if item.type == 0{
             cell.cionTypeLabel.text = "T+0钱包"
             cell.cionTypeLabel.textColor = .init(hexString: "#00AA3C")

@@ -673,7 +673,7 @@ open class AccountViewModel {
     // 配置
     static var clientConfig: ClientConfigData?
     //获取用户钱包信息
-    static func queryUserWalletInfo(userId: String,
+    static func queryUserWalletInfo(
                               valueHandler: @escaping (MineWalletMoneyData) -> Void,
                               completionHandler: @escaping CompletionHandler)
     {
@@ -681,10 +681,10 @@ open class AccountViewModel {
             //            SuperToast.show(title: "")
             return
         }
-        let param = ["userId": userId]
-        let url = SuperStringUtil.netUrl(API_BOB_URL + getMineHomeWalletAPI, param)
+//        let param = []
+//        let url = SuperStringUtil.netUrl(API_BOB_URL + getMineHomeWalletAPI, param)
 //        let url = API_BOB_URL + getMineHomeWalletAPI
-        Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
+        Alamofire.request(API_BOB_URL + getMineHomeWalletAPI, method: .post, parameters: nil,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
             if let data = dataRequest.data {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 print(strData!)
@@ -943,7 +943,8 @@ struct DemoError: Error, Decodable {
 class MineWalletMoneyData: Codable {
     let totalAssets: Double? //我的总资产
     let certificationLevel: Int? //用户实名认证等级 0:未认证 1:初级认证 2:高级认证
-    let anQuan:Bool? //是否已设置安全密码
+    let secure:Bool? //是否已设置安全密码
+    let sonKey:String?//支付密码私钥
     let quantityOfMoneyPOS:[QuantityOfMoneyPOS]? //钱包资产
 }
 class QuantityOfMoneyPOS: Codable {
@@ -952,8 +953,8 @@ class QuantityOfMoneyPOS: Codable {
     var officialExchangeRate: Double? //汇率
     var quantityOfMoney: Double? //货币数量,保留两位小数
     var equivalentToRMB: Double? //折合人民币,约等于
-    var dongJie: Double? //冻结
-    var keYong: Double? //可用
+    var frozen: Double? //冻结
+    var usable: Double? //可用
     var t0:Double? //t+0
     var t1:Double? //t+1
 //    func toMap() -> [String: Any] {

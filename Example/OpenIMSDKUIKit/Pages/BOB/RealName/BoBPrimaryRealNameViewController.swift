@@ -88,7 +88,7 @@ class BoBPrimaryRealNameViewController:UIViewController{
         }
     }
     func getIdCardInfo(url:String){
-        BoBRealNameModel.getIdCardInfo(userId:IMController.shared.uid, image: url){ [weak self] data in
+        BoBRealNameModel.getIdCardInfo(image: url){ [weak self] data in
             self?.idTitleLabel.show()
             self?.idContentView.show()
             self?.addressLabel.text = data.nation
@@ -232,7 +232,7 @@ class BoBPrimaryRealNameViewController:UIViewController{
             }
             if IMController.shared.certificationLevel == 0 {
                 //提交
-                BoBRealNameModel.primaryRealNameAuthenticationRequest(userId: IMController.shared.uid, name: self.nameLabel.text!, cardId: self.idCardLabel.text!){errCode, errMsg in
+                BoBRealNameModel.primaryRealNameAuthenticationRequest(name: self.nameLabel.text!, cardId: self.idCardLabel.text!){errCode, errMsg in
                     if errCode == 20000{
                         SuperToast.show(title: "认证成功")
                         IMController.shared.certificationLevel = 1

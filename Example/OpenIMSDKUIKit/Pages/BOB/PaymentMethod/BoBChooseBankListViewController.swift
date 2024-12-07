@@ -64,7 +64,7 @@ class BoBChooseBankListViewController:UIViewController, UISearchBarDelegate{
         tableView.reloadData()
     }
     func loadBankList(){
-        BoBPaymentModel.GetBankList(userId: IMController.shared.uid){ data in
+        BoBPaymentModel.GetBankList(){ data in
             self.allArray = data
             self.listArray = data
             self.tableView.reloadData()

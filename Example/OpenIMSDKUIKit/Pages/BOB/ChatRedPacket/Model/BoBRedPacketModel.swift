@@ -38,17 +38,17 @@ class BoBRedPacketModel {
        return httpHeaders
     }
    
-    static func TransferMoneyInnerSHomeRequest(userId: String?,
+    static func TransferMoneyInnerSHomeRequest(
                                   valueHandler: @escaping (BoBTransferAccountsHomeData) -> Void,
                                   completionHandler: @escaping CompletionHandler) {
         if !NetworkStatus.isReacheable {
             return
         }
         ProgressHUD.animate()
-        let param = ["userId": userId ?? ""]
-        let url = SuperStringUtil.netUrl(API_BOB_URL + TransferMoneyInnerSHome, param)
+//        let param = ["userId": userId ?? ""]
+//        let url = SuperStringUtil.netUrl(API_BOB_URL + TransferMoneyInnerSHome, param)
         
-        Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
+        Alamofire.request(API_BOB_URL + TransferMoneyInnerSHome, method: .post, parameters: nil,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
             ProgressHUD.dismiss()
             
             if let data = dataRequest.data {
@@ -177,16 +177,15 @@ class BoBRedPacketNODataResponse: Decodable {
     var count: Int? = 0
 }
 class BoBTransferAccountsHomeData: Decodable {
-    var cipos: [cipos]
-    var anQuan:Bool?
+    var expenditureHomePagePOS: [expenditureHomePagePOS]
+    var secure:Bool?
     var certificationLevel:Int?
 }
-class cipos: Decodable {
+class expenditureHomePagePOS: Decodable {
     var icon: String?
-    var biZhong:String?
-    var xianE:Double?
-    var shouXuFei:Double?
-    var huiLv:Double?
+    var currency:String?//币种
+    var quota:Double? //限额
+    var exchangeRate:Double? //汇率
     var t0:Double?
     var t1:Double?
 }

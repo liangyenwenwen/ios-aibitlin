@@ -93,8 +93,9 @@ class BoBShareReceivePaymentQrCodeViewController:BaseTitleController{
         return r
     }()
     lazy var cionImageView: UIImageView = {
-        let r = UIImageView(image: UIImage(named: "mine_home_cion_c_icon"))
+        let r = UIImageView()
 //        r.tg_left.equal(cardTitleLabel.tg_right)
+        r.sd_setImage(with: URL(string: receivePaymentData?.icon))
         r.tg_width.equal(20)
         r.tg_height.equal(20)
         return r

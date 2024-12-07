@@ -11,10 +11,7 @@ import OUICore
 class BoBReceivePaymentViewController:BaseTitleController{
     var receivePaymentData:ReceivePaymentData?
     var cionType = "C"
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        navigationController?.navigationBar.isHidden = false
-//    }
+    var cionTypeArray:[ReceivePaymentData] = []
     override func initViews() {
         super.initViews()
         view.backgroundColor = .colorBackgroundAPP
@@ -70,12 +67,18 @@ class BoBReceivePaymentViewController:BaseTitleController{
         loadData()
     }
     func loadData(){
-        BoBPaymentModel.ReceivePaymentRequest(userId: IMController.shared.uid, currency:cionType ){data in
-            self.receivePaymentData = data
-            self.addressNumberLabel.text = data.addr
-            self.countLabel.text = String(format: "%.2f",data.minAmount ?? 0)
+        BoBPaymentModel.ReceivePaymentRequest(){data in
+            self.cionTypeArray = data
+            self.receivePaymentData = self.cionTypeArray.first
+            self.cionType = self.receivePaymentData?.currency ?? "C"
+            self.cionTypeView.titleView.text = self.cionType
+            self.cionTypeView.iconView.sd_setImage(with: URL(string: self.receivePaymentData?.icon ?? ""))
+            self.addressNumberLabel.text = self.receivePaymentData?.addr
+            self.countLabel.text = String(format: "%.2f",self.receivePaymentData?.minAmount ?? 0)
+            self.cionLabel.text = self.cionType
+            self.label2.text = "该地址仅支持 " + self.cionType + "收款。"
             self.copyIcon.show()
-            let idString = IMController.walletTransferPrefix.append(string: data.addr)
+            let idString = IMController.walletTransferPrefix.append(string: self.receivePaymentData?.addr)
             DispatchQueue.global().async {
                 let image = CodeImageGenerator.createQRCodeImage(content: idString, size: CGSize(width: 124, height: 124), foregroundColor: UIColor.black, backgroundColor: UIColor.clear)
                 DispatchQueue.main.async {

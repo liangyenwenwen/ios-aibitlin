@@ -38,7 +38,7 @@ class BoBSendRedPacketViewController: BaseTitleController {
         setBackGroundColor(.colorBackgroundAPP)
         initScrollSafeArea()
         title = "红包"
-        chooseCionTypeModel = CionTypeModel(icon: "", biZhong: cionType, xianE: 0.00, shouXuFei: 0.00, zuiXiaoShouXuFei: 0.00, cionType: cionType + "0", money:0.00, type: 0, isSelect: true,huiLv:1.00)
+        chooseCionTypeModel = CionTypeModel(icon: "", currency: cionType, quota: 0.00, handlingCharge: 0.00, minimumCommission: 0.00, cionType:"0", money:0.00, type: 0, isSelect: true,exchangeRate:1.00)
         scrollViewContainer.tg_padding = UIEdgeInsets(top: 0, left: PADDING_OUTER, bottom: PADDING_OUTER, right: PADDING_OUTER)
         sendRedPacketType = groupId.isEmpty ? 0 : 1
 //        scrollViewContainer.tg_space = 12
@@ -90,11 +90,12 @@ class BoBSendRedPacketViewController: BaseTitleController {
         .disposed(by:rx.disposeBag)
     }
     func loadData(){
-        BoBRedPacketModel.TransferMoneyInnerSHomeRequest(userId: IMController.shared.uid){data in
-            IMController.shared.isSetPayPassWord = data.anQuan ?? false
-            for item in data.cipos{
-                let model1 = CionTypeModel(icon: item.icon, biZhong: item.biZhong, xianE: item.xianE, shouXuFei: item.shouXuFei, zuiXiaoShouXuFei: 0.00, cionType: item.biZhong! + "0", money: item.t0, type: 0, isSelect: true,huiLv:item.huiLv)
-                let model2 = CionTypeModel(icon: item.icon, biZhong: item.biZhong, xianE: item.xianE, shouXuFei: item.shouXuFei, zuiXiaoShouXuFei: 0.00, cionType: item.biZhong! + "1", money: item.t1, type: 1, isSelect: false,huiLv:item.huiLv)
+        BoBRedPacketModel.TransferMoneyInnerSHomeRequest(){data in
+            IMController.shared.isSetPayPassWord = data.secure ?? false
+            IMController.shared.certificationLevel = data.certificationLevel ?? 0
+            for item in data.expenditureHomePagePOS{
+                let model1 = CionTypeModel(icon: item.icon, currency: item.currency, quota: item.quota, handlingCharge: 0.00, minimumCommission: 0.00, cionType: "0", money: item.t0, type: 0, isSelect: true,exchangeRate:item.exchangeRate)
+                let model2 = CionTypeModel(icon: item.icon, currency: item.currency, quota: item.quota, handlingCharge: 0.00, minimumCommission: 0.00, cionType: "1", money: item.t1, type: 1, isSelect: false,exchangeRate:item.exchangeRate)
                 self.cionTypeArray.append(model1)
                 self.cionTypeArray.append(model2)
             }
@@ -108,7 +109,7 @@ class BoBSendRedPacketViewController: BaseTitleController {
     }
     func refreshUI(){
         cionTypeImageView.sd_setImage(with: URL(string: chooseCionTypeModel?.icon))
-        cionNameLabel.text = chooseCionTypeModel?.biZhong
+        cionNameLabel.text = chooseCionTypeModel?.currency
         if chooseCionTypeModel?.type == 0{
             self.walletType.text = "T+0钱包"
             self.walletType.textColor = .init(hexString: "#00AA3C")
@@ -118,14 +119,14 @@ class BoBSendRedPacketViewController: BaseTitleController {
             self.walletType.textColor = .init(hexString: "#FFA756")
             self.walletType.backgroundColor = .init(hexString: "#FFF7E5")
         }
-        self.exchangeRateLabel.text = "汇率: " + String(format: "%.2f",(chooseCionTypeModel?.huiLv)!)
+        self.exchangeRateLabel.text = "汇率: " + String(format: "%.2f",(chooseCionTypeModel?.exchangeRate)!)
         
-        let str = "可用余额 " + String(format: "%.2f ",(chooseCionTypeModel?.money)!) + (chooseCionTypeModel?.biZhong)!
+        let str = "可用余额 " + String(format: "%.2f ",(chooseCionTypeModel?.money)!) + (chooseCionTypeModel?.currency)!
         let attributedString = NSMutableAttributedString(string: str)
         attributedString.addAttribute(.foregroundColor, value: UIColor.primaryColor, range: NSRange(location: 5, length: str.length-6))
         self.totalMoneyLabel.attributedText = attributedString
         self.cionImageView.sd_setImage(with: URL(string: chooseCionTypeModel?.icon))
-        self.cionLabel.text = chooseCionTypeModel?.biZhong
+        self.cionLabel.text = chooseCionTypeModel?.currency
         self.calculationMoney()
     }
     func calculationMoney(){
@@ -136,7 +137,7 @@ class BoBSendRedPacketViewController: BaseTitleController {
             if let doubleValue = Double(redPacketNumberTF.text ?? "0") {
                 if doubleValue > 0{
                     self.totalLabel.text = redPacketNumberTF.text
-                    self.moneyLabel.text = String(format: "≈￥%.2f",(chooseCionTypeModel?.huiLv)!*doubleValue)
+                    self.moneyLabel.text = String(format: "≈￥%.2f",(chooseCionTypeModel?.exchangeRate)!*doubleValue)
                 }
             }
         }else{
@@ -146,7 +147,7 @@ class BoBSendRedPacketViewController: BaseTitleController {
                 if let doubleValue = Double(redPacketTotalTF.text ?? "0") {
                     if doubleValue > 0{
                         self.totalLabel.text = redPacketTotalTF.text
-                        self.moneyLabel.text = String(format: "≈￥%.2f",(chooseCionTypeModel?.huiLv)!*doubleValue)
+                        self.moneyLabel.text = String(format: "≈￥%.2f",(chooseCionTypeModel?.exchangeRate)!*doubleValue)
                     }
                 }
             }else if self.redPacketType == 1{
@@ -154,7 +155,7 @@ class BoBSendRedPacketViewController: BaseTitleController {
                 if let doubleValue = Double(redPacketTotalTF.text ?? "0") {
                     if doubleValue > 0{
                         self.totalLabel.text = String(format: "%.2f",doubleValue*(Double(redPacketTF.text ?? "1") ?? 1))
-                        self.moneyLabel.text = String(format: "≈￥%.2f",(chooseCionTypeModel?.huiLv)!*doubleValue*(Double(redPacketTF.text ?? "1") ?? 1))
+                        self.moneyLabel.text = String(format: "≈￥%.2f",(chooseCionTypeModel?.exchangeRate)!*doubleValue*(Double(redPacketTF.text ?? "1") ?? 1))
                     }
                 }
             }else{
@@ -162,7 +163,7 @@ class BoBSendRedPacketViewController: BaseTitleController {
                 if let doubleValue = Double(redPacketTotalTF.text ?? "0") {
                     if doubleValue > 0{
                         self.totalLabel.text = redPacketTotalTF.text
-                        self.moneyLabel.text = String(format: "≈￥%.2f",(chooseCionTypeModel?.huiLv)!*doubleValue)
+                        self.moneyLabel.text = String(format: "≈￥%.2f",(chooseCionTypeModel?.exchangeRate)!*doubleValue)
                     }
                 }
             }
@@ -795,23 +796,49 @@ class BoBSendRedPacketViewController: BaseTitleController {
                         if self?.descTF.text?.isEmpty == false{
                             instructions = self?.descTF.text ?? ""
                         }
+                        var pwd = (IMController.shared.payPassWordSonKey + passWord).md5
                         if self?.sendRedPacketType == 0{
                             //私聊红包
                             type = 0
-                            param = ["amount":self?.redPacketNumberTF.text ?? "0.00","funderWallet":self?.chooseCionTypeModel?.cionType ?? "","officialExchangeRate":self?.chooseCionTypeModel?.huiLv ?? "0.00","instructions":instructions,"redEnvelopeCover":"1","funderId":IMController.shared.uid,"receiverId":self?.receiveUserId ?? "","currency":self?.chooseCionTypeModel?.biZhong ?? ""]
+                            let amount = self?.redPacketNumberTF.text ?? "0.00"
+                            let funderWallet = self?.chooseCionTypeModel?.cionType ?? ""
+                            let receiverId = self?.receiveUserId ?? ""
+                            let currency = self?.chooseCionTypeModel?.currency ?? ""
+                            
+                            let sign = (amount + funderWallet + instructions + "1" + receiverId + currency + pwd).md5
+                            param = ["amount":amount,"funderWallet":funderWallet,"redEnvelopeCover":"1","receiverId":receiverId,"currency":currency,"sign":sign]
                         }else{
                             if self?.redPacketType == 0{
                                 //群拼手气红包
                                 type = 1
-                                param = ["totalQuantity":self?.redPacketTotalTF.text ?? "0.00","funderWallet":self?.chooseCionTypeModel?.cionType ?? "","officialExchangeRate":self?.chooseCionTypeModel?.huiLv ?? "0.00","instructions":instructions,"redEnvelopeCover":"1","funderId":IMController.shared.uid,"number":self?.redPacketTF.text ?? "1","currency":self?.chooseCionTypeModel?.biZhong ?? ""]
+                                param = ["amount":""]
+                                let number = self?.redPacketTF.text ?? "1"
+                                let totalQuantity = self?.redPacketTotalTF.text ?? "0.00"
+                                let funderWallet = self?.chooseCionTypeModel?.cionType ?? ""
+                                let currency = self?.chooseCionTypeModel?.currency ?? ""
+                                let sign = (number + totalQuantity + instructions + "1" + funderWallet + currency + pwd).md5
+                                param = ["number":number,"totalQuantity":totalQuantity,"instructions":instructions,"redEnvelopeCover":"1","funderWallet":funderWallet,"currency":currency,"sign":sign]
                             }else if self?.redPacketType == 1{
                                 //群普通红包
                                 type = 2
-                                param = ["individualQuantity":self?.redPacketTotalTF.text ?? "0.00","funderWallet":self?.chooseCionTypeModel?.cionType ?? "","officialExchangeRate":self?.chooseCionTypeModel?.huiLv ?? "0.00","instructions":instructions,"redEnvelopeCover":"1","funderId":IMController.shared.uid,"number":self?.redPacketTF.text ?? "1","currency":self?.chooseCionTypeModel?.biZhong ?? ""]
+                                param = ["amount":""]
+                                let number = self?.redPacketTF.text ?? "1"
+                                let individualQuantity = self?.redPacketTotalTF.text ?? "0.00"
+                                let funderWallet = self?.chooseCionTypeModel?.cionType ?? ""
+                                let currency = self?.chooseCionTypeModel?.currency ?? ""
+                                let sign = (number + individualQuantity + instructions + "1" + funderWallet + currency + pwd).md5
+                                param = ["number":number,"individualQuantity":individualQuantity,"instructions":instructions,"redEnvelopeCover":"1","funderWallet":funderWallet,"currency":currency,"sign":sign]
                             }else{
                                 //群专属红包
                                 type = 3
-                                param = ["amount":self?.redPacketNumberTF.text ?? "0.00","funderWallet":self?.chooseCionTypeModel?.cionType ?? "","officialExchangeRate":self?.chooseCionTypeModel?.huiLv ?? "0.00","instructions":instructions,"redEnvelopeCover":"1","funderId":IMController.shared.uid,"receiverId":self?.receiveUserId ?? "","currency":self?.chooseCionTypeModel?.biZhong ?? ""]
+                                
+                                let amount = self?.redPacketNumberTF.text ?? "0.00"
+                                let funderWallet = self?.chooseCionTypeModel?.cionType ?? ""
+                                let receiverId = self?.receiveUserId ?? ""
+                                let currency = self?.chooseCionTypeModel?.currency ?? ""
+                                
+                                let sign = (amount + funderWallet + instructions + "1" + receiverId + currency + pwd).md5
+                                param = ["amount":amount,"funderWallet":funderWallet,"redEnvelopeCover":"1","receiverId":receiverId,"currency":currency,"sign":sign]
                             }
                         }
                         BoBRedPacketModel.SendRedPacketRequest(type:type,param:param){ data in

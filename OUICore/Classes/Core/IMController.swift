@@ -181,6 +181,7 @@ public class IMController: NSObject {
     public var publicIP = ""
     public var netWorkStatus = "hasNetWork"
     public var isSetPayPassWord: Bool = false //是否设置支付密码
+    public var payPassWordSonKey = "" //支付私钥
     public var certificationLevel = 0 //用户实名认证等级 0:未认证 1:初级认证 2:高级认证
     public var uid: String = ""
     public var token: String = ""

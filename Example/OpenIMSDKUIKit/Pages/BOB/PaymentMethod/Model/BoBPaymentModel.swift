@@ -30,7 +30,7 @@ class BoBPaymentModel {
     
     private static let ReceivePayment = "/wallet/collection/mYCollectionHome" //收款主页数据
     
-    private static let TransferAccountsHome = "/wallet/transferMoneyOut/transferMoneyManualOperationHome1"//转账主页数据
+    private static let TransferAccountsHome = "/wallet/transferMoneyOut/transferMoneyManualOperationHome"//转账主页数据
     
     
     private static let SendExternalTransfer = "/wallet/transferMoneyOut/sendExternalTransfer"//转账
@@ -62,8 +62,7 @@ class BoBPaymentModel {
        return httpHeaders
     }
     //支付方式列表
-    static func QueryUserPaymentList(userId: String?,
-                                  valueHandler: @escaping (PaymentMethodData) -> Void,
+    static func QueryUserPaymentList(valueHandler: @escaping (PaymentMethodData) -> Void,
                                   completionHandler: @escaping CompletionHandler) {
         
         
@@ -72,10 +71,10 @@ class BoBPaymentModel {
             return
         }
         ProgressHUD.animate()
-        let param = ["userId": userId ?? ""]
-        let url = SuperStringUtil.netUrl(API_BOB_URL + UserPaymentMedothList, param)
+//        let param = ["userId": userId ?? ""]
+//        let url = SuperStringUtil.netUrl(API_BOB_URL + UserPaymentMedothList, param)
         
-        Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
+        Alamofire.request(API_BOB_URL + UserPaymentMedothList, method: .post, parameters: nil,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
             ProgressHUD.dismiss()
             
             if let data = dataRequest.data {
@@ -98,8 +97,7 @@ class BoBPaymentModel {
         
     }
     //删除支付
-    static func DeletePayMentRequest(userId: String?,
-                                     id:Int,
+    static func DeletePayMentRequest(id:Int,
                                      completionHandler: @escaping CompletionHandler) {
            
            
@@ -108,7 +106,7 @@ class BoBPaymentModel {
                return
            }
            ProgressHUD.animate()
-        let param = ["userId": userId ?? "","id":id] as [String : Any]
+        let param = ["id":id] as [String : Any]
            let url = SuperStringUtil.netUrl(API_BOB_URL + DeletePayment, param)
            
            Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
@@ -184,8 +182,7 @@ class BoBPaymentModel {
         }
         
     }
-    static func GetBankList(userId: String?,
-                                  valueHandler: @escaping ([paymentBankData]) -> Void,
+    static func GetBankList(valueHandler: @escaping ([paymentBankData]) -> Void,
                                   completionHandler: @escaping CompletionHandler) {
         
         
@@ -194,7 +191,7 @@ class BoBPaymentModel {
             return
         }
         ProgressHUD.animate()
-        let param = ["userId": userId ?? "","language":String.getCurrentLanguageFirst()]
+        let param = ["language":String.getCurrentLanguageFirst()]
         let url = SuperStringUtil.netUrl(API_BOB_URL + BankList, param)
         
         Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
@@ -220,9 +217,8 @@ class BoBPaymentModel {
         
     }
     
-    static func ReceivePaymentRequest(userId: String?,
-                            currency:String?,
-                                  valueHandler: @escaping (ReceivePaymentData) -> Void,
+    static func ReceivePaymentRequest(
+                                  valueHandler: @escaping ([ReceivePaymentData]) -> Void,
                                   completionHandler: @escaping CompletionHandler) {
         
         
@@ -231,16 +227,16 @@ class BoBPaymentModel {
             return
         }
         ProgressHUD.animate()
-        let param = ["userId": userId ?? "","currency":currency ?? ""]
-        let url = SuperStringUtil.netUrl(API_BOB_URL + ReceivePayment, param)
+//        let param = ["currency":currency ?? ""]
+//        let url = SuperStringUtil.netUrl(API_BOB_URL + ReceivePayment, param)
         
-        Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
+        Alamofire.request(API_BOB_URL + ReceivePayment, method: .post, parameters: nil,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
             ProgressHUD.dismiss()
             
             if let data = dataRequest.data {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 print(strData!)
-                if let res = JsonTool.fromJson(strData!, toClass: PaymentResponse<ReceivePaymentData>.self) {
+                if let res = JsonTool.fromJson(strData!, toClass: ReceivePayResponse.self) {
 
                     if res.code == 20000  {
                         valueHandler(res.data)
@@ -256,7 +252,7 @@ class BoBPaymentModel {
         }
         
     }
-    static func TransferAccountsHomeRequest(userId: String?,
+    static func TransferAccountsHomeRequest(
                                   valueHandler: @escaping (TransferAccountsHomeData) -> Void,
                                   completionHandler: @escaping CompletionHandler) {
         
@@ -265,10 +261,10 @@ class BoBPaymentModel {
             return
         }
         ProgressHUD.animate()
-        let param = ["userId": userId ?? ""]
-        let url = SuperStringUtil.netUrl(API_BOB_URL + TransferAccountsHome, param)
+//        let param = ["userId": userId ?? ""]
+//        let url = SuperStringUtil.netUrl(API_BOB_URL + TransferAccountsHome, param)
         
-        Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
+        Alamofire.request(API_BOB_URL + TransferAccountsHome, method: .post, parameters: nil,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
             ProgressHUD.dismiss()
             
             if let data = dataRequest.data {
@@ -291,12 +287,11 @@ class BoBPaymentModel {
         
     }
     
-    static func SendExternalTransferRequest(userId: String?,
-                                            addr:String?,
+    static func SendExternalTransferRequest(addr:String?,
                                             currency:String?,
                                             issuingPartyWallet:String?,
                                             transferAmount:String?,
-                                            passWord:String?,
+                                            sign:String?,
                                   completionHandler: @escaping CompletionHandler) {
         
         
@@ -304,7 +299,8 @@ class BoBPaymentModel {
             return
         }
         ProgressHUD.animate()
-        let param = ["userId": userId ?? "","addr": addr ?? "","currency": currency ?? "","issuingPartyWallet": issuingPartyWallet ?? "","transferAmount": transferAmount ?? "0.00","passWord": passWord ?? ""]
+        let signStr = (addr! + currency! + issuingPartyWallet! + transferAmount! + (IMController.shared.payPassWordSonKey + (sign ?? "")).md5).md5
+        let param = ["addr": addr ?? "","currency": currency ?? "","issuingPartyWallet": issuingPartyWallet ?? "","transferAmount": transferAmount ?? "0.00","sign": signStr]
         
         Alamofire.request(API_BOB_URL + SendExternalTransfer, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
             ProgressHUD.dismiss()
@@ -326,9 +322,9 @@ class BoBPaymentModel {
     }
     
     static func SetSecurityCodeRequest(userId: String?,
-                                       oldSecurityCode:String?,
-                                       newSecurityCode:String?,
-                                       securityCode:String?,
+                                       oldSign:String?,
+                                       newSign:String?,
+                                       sign:String?,
                                        type:Int?,
                                   completionHandler: @escaping CompletionHandler) {
         
@@ -342,11 +338,11 @@ class BoBPaymentModel {
         var url = ""
         if type == 0{
             //设置
-            param = ["userId": userId ?? "","securityCode": securityCode ?? ""]
+            param = ["userId": userId ?? "","sign": (IMController.shared.payPassWordSonKey + (sign ?? "")).md5]
             url = AddSecurityCode
         }else{
             //修改
-            param = ["userId": userId ?? "","oldSecurityCode": oldSecurityCode ?? "","newSecurityCode" : newSecurityCode ?? ""]
+            param = ["userId": userId ?? "","oldSign": (IMController.shared.payPassWordSonKey + (oldSign ?? "")).md5,"newSign" :  (IMController.shared.payPassWordSonKey + (newSign ?? "")).md5]
             url = EditSecurityCode
         }
         
@@ -369,8 +365,7 @@ class BoBPaymentModel {
         
     }
     //账单
-    static func GetMyBillList(userId: String?,
-                              tpye:Int?,
+    static func GetMyBillList(tpye:Int?,
                               timeStart:String?,
                               timeEnd:String?,
                               currency:String?,
@@ -385,7 +380,7 @@ class BoBPaymentModel {
             return
         }
         ProgressHUD.animate()
-        let param = ["userId": userId ?? "","tpye": tpye ?? 0, "timeStart": timeStart ?? "","timeEnd": timeEnd ?? "","currency": currency ?? "","pageSize": pageSize ?? 0,"pageNum": pageNum ?? 0] as [String : Any]
+        let param = ["tpye": tpye ?? 0, "timeStart": timeStart ?? "","timeEnd": timeEnd ?? "","currency": currency ?? "","pageSize": pageSize ?? 0,"pageNum": pageNum ?? 0] as [String : Any]
         let url = SuperStringUtil.netUrl(API_BOB_URL + QueryMyBillList, param)
         
         Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
@@ -411,8 +406,7 @@ class BoBPaymentModel {
         
     }
     //账单详情
-    static func QueryBillDeatilRequest(userId: String?,
-                                       code:String?,
+    static func QueryBillDeatilRequest(code:String?,
                                        changeType:Int?,
                                valueHandler: @escaping (BoBBillDetail) -> Void,
                                completionHandler: @escaping CompletionHandler) {
@@ -423,7 +417,7 @@ class BoBPaymentModel {
          return
      }
      ProgressHUD.animate()
-     let param = ["userId": userId ?? "","code": code ?? 0, "changeType": changeType ?? 1] as [String : Any]
+     let param = ["code": code ?? 0, "changeType": changeType ?? 1] as [String : Any]
      let url = SuperStringUtil.netUrl(API_BOB_URL + QueryBillDeatil, param)
      
      Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
@@ -491,47 +485,56 @@ class paymentBankData: Decodable {
     var name: String?
     var icon:String?
 }
-
+class ReceivePayResponse: Decodable {
+    var data: [ReceivePaymentData]
+    var flag: Bool = false
+    var code: Int = 20000
+    var message: String? = nil
+    var count: Int? = 0
+}
 class ReceivePaymentData: Decodable {
     var addr: String?
     var minAmount:Double?
+    var icon:String?
+    var currency:String?
 }
 
 class TransferAccountsHomeData: Decodable {
-    var cpos: [cpos]
-    var anQuan:Bool?
+    var externalTransferOutPOS: [externalTransferOutPOS]
+    var secure:Bool?
+    var certificationLevel:Int?
 }
-class cpos: Decodable {
-    var icon: String?
-    var biZhong:String?
-    var xianE:Double?
-    var shouXuFei:Double?
-    var zuiXiaoShouXuFei:Double?
+class externalTransferOutPOS: Decodable {
+    var icon: String? //币种图标
+    var currency:String? //币种
+    var quota:Double? //限额
+    var handlingCharge:Double? //手续费
+    var minimumCommission:Double? //最小手续费
     var t0:Double?
     var t1:Double?
 }
 class CionTypeModel: Decodable {
     var icon: String?
-    var biZhong:String?
-    var xianE:Double?
-    var shouXuFei:Double?
-    var zuiXiaoShouXuFei:Double?
+    var currency:String?
+    var quota:Double?
+    var handlingCharge:Double?
+    var minimumCommission:Double?
     var cionType:String?
     var money:Double?
     var type:Int?
     var isSelect:Bool
-    var huiLv:Double?
-    init(icon: String? = nil, biZhong: String? = nil, xianE: Double? = nil, shouXuFei: Double? = nil, zuiXiaoShouXuFei: Double? = nil, cionType: String? = nil, money: Double? = nil, type: Int? = nil, isSelect: Bool? = false, huiLv: Double? = 1) {
+    var exchangeRate:Double?
+    init(icon: String? = nil, currency: String? = nil, quota: Double? = nil, handlingCharge: Double? = nil, minimumCommission: Double? = nil, cionType: String? = nil, money: Double? = nil, type: Int? = nil, isSelect: Bool? = false, exchangeRate: Double? = 1) {
         self.icon = icon
-        self.biZhong = biZhong
-        self.xianE = xianE
-        self.shouXuFei = shouXuFei
-        self.zuiXiaoShouXuFei = zuiXiaoShouXuFei
+        self.currency = currency
+        self.quota = quota
+        self.handlingCharge = handlingCharge
+        self.minimumCommission = minimumCommission
         self.cionType = cionType
         self.money = money
         self.type = type
         self.isSelect = isSelect!
-        self.huiLv = huiLv
+        self.exchangeRate = exchangeRate
     }
 }
 class BoBBillResponse: Decodable {

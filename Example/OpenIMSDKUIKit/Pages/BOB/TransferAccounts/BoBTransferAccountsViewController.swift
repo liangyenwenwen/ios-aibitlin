@@ -51,7 +51,7 @@ class BoBTransferAccountsViewController:BaseTitleController{
         view.backgroundColor = .colorBackgroundAPP
         initLinearLayoutSafeArea()
         title = "转账"
-        chooseCionTypeModel = CionTypeModel(icon: "", biZhong: cionType, xianE: 0.00, shouXuFei: 0.00, zuiXiaoShouXuFei: 0.00, cionType: cionType + "0", money:0.00, type: 0, isSelect: true,huiLv:1.00)
+        chooseCionTypeModel = CionTypeModel(icon: "", currency: cionType, quota: 0.00, handlingCharge: 0.00, minimumCommission: 0.00, cionType: "0", money:0.00, type: 0, isSelect: true,exchangeRate:1.00)
         container.tg_padding = UIEdgeInsets(top: 0, left: PADDING_OUTER, bottom: 0, right: PADDING_OUTER)
         container.addSubview(unRealNameTipView)
         container.addSubview(titleLabel)
@@ -118,12 +118,13 @@ class BoBTransferAccountsViewController:BaseTitleController{
         .disposed(by:rx.disposeBag)
     }
     func loadData(){
-        BoBPaymentModel.TransferAccountsHomeRequest(userId: IMController.shared.uid){data in
+        BoBPaymentModel.TransferAccountsHomeRequest(){data in
             self.transferAccountsHomeData = data
-            IMController.shared.isSetPayPassWord = data.anQuan ?? false
-            for item in self.transferAccountsHomeData!.cpos{
-                let model1 = CionTypeModel(icon: item.icon, biZhong: item.biZhong, xianE: item.xianE, shouXuFei: item.shouXuFei, zuiXiaoShouXuFei: item.zuiXiaoShouXuFei, cionType: item.biZhong! + "0", money: item.t0, type: 0, isSelect: true,huiLv:0.00)
-                let model2 = CionTypeModel(icon: item.icon, biZhong: item.biZhong, xianE: item.xianE, shouXuFei: item.shouXuFei, zuiXiaoShouXuFei: item.zuiXiaoShouXuFei, cionType: item.biZhong! + "1", money: item.t1, type: 1, isSelect: false,huiLv:0.00)
+            IMController.shared.isSetPayPassWord = data.secure ?? false
+            IMController.shared.certificationLevel = data.certificationLevel ?? 0
+            for item in self.transferAccountsHomeData!.externalTransferOutPOS{
+                let model1 = CionTypeModel(icon: item.icon, currency: item.currency, quota: item.quota, handlingCharge: item.handlingCharge, minimumCommission: item.minimumCommission, cionType: "0", money: item.t0, type: 0, isSelect: true,exchangeRate:0.00)
+                let model2 = CionTypeModel(icon: item.icon, currency: item.currency, quota: item.quota, handlingCharge: item.handlingCharge, minimumCommission: item.minimumCommission, cionType: "1", money: item.t1, type: 1, isSelect: false,exchangeRate:0.00)
                 self.cionTypeArray.append(model1)
                 self.cionTypeArray.append(model2)
             }
@@ -138,7 +139,7 @@ class BoBTransferAccountsViewController:BaseTitleController{
     }
     func refreshUI(){
         cionTypeImageView.sd_setImage(with: URL(string: chooseCionTypeModel?.icon))
-        cionNameLabel.text = chooseCionTypeModel?.biZhong
+        cionNameLabel.text = chooseCionTypeModel?.currency
         if chooseCionTypeModel?.type == 0{
             self.walletType.text = "T+0钱包"
             self.walletType.textColor = .init(hexString: "#00AA3C")
@@ -149,30 +150,30 @@ class BoBTransferAccountsViewController:BaseTitleController{
             self.walletType.backgroundColor = .init(hexString: "#FFF7E5")
         }
         self.countCionImageView.sd_setImage(with: URL(string: chooseCionTypeModel?.icon))
-        let str = "可用余额：" + String(format: "%.2f",(chooseCionTypeModel?.money)!) + (chooseCionTypeModel?.biZhong)!
+        let str = "可用余额：" + String(format: "%.2f",(chooseCionTypeModel?.money)!) + (chooseCionTypeModel?.currency)!
         let attributedString = NSMutableAttributedString(string: str)
         attributedString.addAttribute(.foregroundColor, value: UIColor.black666, range: NSRange(location: 0, length: 5))
         self.totalLabel.attributedText = attributedString
-        if (chooseCionTypeModel?.xianE)! > 0{
-            self.countTF.placeholder = "限额" + "0.01~" + String(format: "%.2f ",(chooseCionTypeModel?.xianE)!) + (chooseCionTypeModel?.biZhong)!
+        if (chooseCionTypeModel?.quota)! > 0{
+            self.countTF.placeholder = "限额" + "0.01~" + String(format: "%.2f ",(chooseCionTypeModel?.quota)!) + (chooseCionTypeModel?.currency)!
         }else{
-            self.countTF.placeholder = "限额" + "0.00 " + (chooseCionTypeModel?.biZhong)!
+            self.countTF.placeholder = "限额" + "0.00 " + (chooseCionTypeModel?.currency)!
         }
-        self.countTitleLabel.text = "到账数量" + String(format: "（%@)",(chooseCionTypeModel?.biZhong)!)
+        self.countTitleLabel.text = "到账数量" + String(format: "（%@)",(chooseCionTypeModel?.currency)!)
         self.calculationMoney()
-        self.tipLabel1.text = "24h转账额度：0.01/" + String(format: "%.2f ",(chooseCionTypeModel?.xianE)!) + (chooseCionTypeModel?.biZhong)!
+        self.tipLabel1.text = "24h转账额度：0.01/" + String(format: "%.2f ",(chooseCionTypeModel?.quota)!) + (chooseCionTypeModel?.currency)!
     }
     func calculationMoney(){
         self.countLabel.text = "0.00"
-        self.serviceChargeLabel.text = "手续费" + String(format: "%.2f",(chooseCionTypeModel?.zuiXiaoShouXuFei)!)  + (chooseCionTypeModel?.biZhong)!
+        self.serviceChargeLabel.text = "手续费" + String(format: "%.2f",(chooseCionTypeModel?.minimumCommission)!)  + (chooseCionTypeModel?.currency)!
         if let doubleValue = Double(countTF.text ?? "0") {
             if doubleValue > 0{
                 var count = 0.00
-                if (chooseCionTypeModel?.shouXuFei)!*doubleValue > (chooseCionTypeModel?.zuiXiaoShouXuFei)!{
-                    self.serviceChargeLabel.text = "手续费" + String(format: "%.2f",(chooseCionTypeModel?.shouXuFei)!*doubleValue)  + (chooseCionTypeModel?.biZhong)!
-                    count = doubleValue - (chooseCionTypeModel?.shouXuFei)!*doubleValue
+                if (chooseCionTypeModel?.handlingCharge)!*doubleValue > (chooseCionTypeModel?.minimumCommission)!{
+                    self.serviceChargeLabel.text = "手续费" + String(format: "%.2f",(chooseCionTypeModel?.handlingCharge)!*doubleValue)  + (chooseCionTypeModel?.currency)!
+                    count = doubleValue - (chooseCionTypeModel?.handlingCharge)!*doubleValue
                 }else{
-                    count = doubleValue - (chooseCionTypeModel?.zuiXiaoShouXuFei)!
+                    count = doubleValue - (chooseCionTypeModel?.minimumCommission)!
                 }
                 if count > 0{
                     self.countLabel.text = String(format: "%.2f",count)
@@ -551,7 +552,7 @@ class BoBTransferAccountsViewController:BaseTitleController{
                     passWordView.tg_width.equal(.fill)
                     passWordView.tg_height.equal(210)
                     passWordView.payBtnClickBlock = { [weak self] passWord in
-                        BoBPaymentModel.SendExternalTransferRequest(userId:IMController.shared.uid, addr: self?.addressTF.text, currency: self?.chooseCionTypeModel?.biZhong, issuingPartyWallet: self?.chooseCionTypeModel?.cionType, transferAmount:self?.countTF.text ?? "0.00" , passWord: passWord){errCode,errMsg in
+                        BoBPaymentModel.SendExternalTransferRequest(addr: self?.addressTF.text, currency: self?.chooseCionTypeModel?.currency, issuingPartyWallet: self?.chooseCionTypeModel?.cionType, transferAmount:self?.countTF.text ?? "0.00" , sign: passWord){errCode,errMsg in
                             if errCode == 20000{
                                 SuperToast.show(title:"转账成功")
                                 self?.navigationController?.popViewController(animated: true)

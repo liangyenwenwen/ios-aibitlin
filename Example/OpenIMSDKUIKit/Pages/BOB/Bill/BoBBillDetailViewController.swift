@@ -173,7 +173,7 @@ class BoBBillDetailViewController: BaseTitleController {
         loadData()
     }
     func loadData(){
-        BoBPaymentModel.QueryBillDeatilRequest(userId: IMController.shared.uid, code: billListData?.code, changeType: billListData?.changeType){data in
+        BoBPaymentModel.QueryBillDeatilRequest(code: billListData?.code, changeType: billListData?.changeType){data in
             self.billDetail = data
             self.updateUI()
         } completionHandler:{errCode,errMsg in

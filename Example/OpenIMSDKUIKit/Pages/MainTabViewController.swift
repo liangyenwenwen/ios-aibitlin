@@ -267,6 +267,7 @@ class MainTabViewController: UITabBarController {
         IMController.shared.unContactMessageCount = 0
         IMController.shared.certificationLevel = 0
         IMController.shared.isSetPayPassWord = false
+        IMController.shared.payPassWordSonKey = ""
         AccountViewModel.saveUser(uid: nil, imToken: nil, chatToken: nil)
         presentLoginController()
     }
@@ -281,6 +282,7 @@ class MainTabViewController: UITabBarController {
         IMController.shared.unContactMessageCount = 0
         IMController.shared.certificationLevel = 0
         IMController.shared.isSetPayPassWord = false
+        IMController.shared.payPassWordSonKey = ""
         AccountViewModel.saveUser(uid: nil, imToken: nil, chatToken: nil)
         presentLoginController()
     }
@@ -437,14 +439,15 @@ class MainTabViewController: UITabBarController {
 extension MainTabViewController {
     //初始化钱包
     func initWallet(uid: String,nickName:String){
-        BoBRealNameModel.InitWalletRequest(userId: uid,nickName: nickName){ errCode, errMsg in
+        BoBRealNameModel.InitWalletRequest(nickName: nickName){ errCode, errMsg in
         }
     }
     //
     func loadUserCertificationLevel(uid: String){
-        AccountViewModel.queryUserWalletInfo(userId: uid,
+        AccountViewModel.queryUserWalletInfo(
                                              valueHandler: { [weak self] (data :MineWalletMoneyData) in
-            IMController.shared.isSetPayPassWord = data.anQuan ?? false
+            IMController.shared.isSetPayPassWord = data.secure ?? false
+            IMController.shared.payPassWordSonKey = data.sonKey ?? ""
             IMController.shared.certificationLevel = data.certificationLevel ?? 0
         }, completionHandler: {(errCode, errMsg) in
         })

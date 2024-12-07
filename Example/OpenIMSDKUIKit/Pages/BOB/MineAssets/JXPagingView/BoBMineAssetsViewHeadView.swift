@@ -53,8 +53,8 @@ class BoBMineAssetsViewHeadView: UIView {
         cionLabel.text = quantityOfMoneyPOS?.currency
         totalLabel.text = String(format: "%.2f",(quantityOfMoneyPOS?.quantityOfMoney)!)
         moneyLabel.text = String(format: "≈￥%.2f",(quantityOfMoneyPOS?.equivalentToRMB)!)
-        leftLabel.text = String(format: "%.2f",(quantityOfMoneyPOS?.keYong)!)
-        rightLabel.text = String(format: "%.2f",(quantityOfMoneyPOS?.dongJie)!)
+        leftLabel.text = String(format: "%.2f",(quantityOfMoneyPOS?.usable)!)
+        rightLabel.text = String(format: "%.2f",(quantityOfMoneyPOS?.frozen)!)
     }
     lazy var topView: TGLinearLayout = {
         let r = TGLinearLayout(.horz)

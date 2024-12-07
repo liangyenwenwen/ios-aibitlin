@@ -58,7 +58,7 @@ class BoBBillListView: UIView {
         loadData(pageNum: page+1)
     }
     func loadData(pageNum:Int){
-        BoBPaymentModel.GetMyBillList(userId: IMController.shared.uid, tpye: chooseType, timeStart: timeStart, timeEnd: timeEnd, currency: "C", pageSize: 20, pageNum: pageNum) { data in
+        BoBPaymentModel.GetMyBillList(tpye: chooseType, timeStart: timeStart, timeEnd: timeEnd, currency: "C", pageSize: 20, pageNum: pageNum) { data in
             self.page = pageNum
             if pageNum == 1{
                 self.listArray.removeAll()

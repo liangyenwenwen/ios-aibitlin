@@ -257,8 +257,9 @@ extension ChatTableViewCell {
     fileprivate func setUpUI() {
         AvatarManager.baseUrl = "http://ww1.sinaimg.cn/small/"
         AvatarManager.groupAvatarType = .WeChat
-        AvatarManager.placeholderImage = UIImage(named: "DefaultAvatar")!
-
+        if UIImage(named: "DefaultAvatar") != nil {
+            AvatarManager.placeholderImage = UIImage(named: "DefaultAvatar")!
+        }
     }
     
 //    func  updateUI(item: ConversationInfo, needCalculate: Bool = true)

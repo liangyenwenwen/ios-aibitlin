@@ -41,7 +41,7 @@ open class BoBRealNameModel {
     }
     //更改语言
     static func AddUserLanguageRequest(uid: String) {
-        let param = ["userLanguage":String.getCurrentLanguageFirst(), "userId": uid, "userToken":UserDefaults.standard.string(forKey: "bussinessTokenKey")!]
+        let param = ["userLanguage":String.getCurrentLanguageFirst(), "userToken":UserDefaults.standard.string(forKey: "bussinessTokenKey")!]
         let url = SuperStringUtil.netUrl(API_BOB_URL + AddUserLanguageToken, param)
         
         Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
@@ -64,7 +64,7 @@ open class BoBRealNameModel {
         
     }
     //初始化钱包
-    static func InitWalletRequest(userId: String?,
+    static func InitWalletRequest(
                                   nickName:String?,
                           completionHandler: @escaping CompletionHandler) {
         
@@ -73,7 +73,7 @@ open class BoBRealNameModel {
 //            SuperToast.show(title: "")
             return
         }
-        let param = ["userId": userId ?? "","nickName":nickName ?? ""]
+        let param = ["nickName":nickName ?? ""]
 //        let url = SuperStringUtil.netUrl(API_BOB_URL + InitWallet, param)
         
         Alamofire.request(API_BOB_URL + InitWallet, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseString { (response: DataResponse<String>) in
@@ -110,10 +110,10 @@ open class BoBRealNameModel {
             return
         }
         ProgressHUD.animate()
-        let param = ["userId": userId ?? ""]
-        let url = SuperStringUtil.netUrl(API_BOB_URL + QueryRealNameAuthentication, param)
+//        let param = ["userId": userId ?? ""]
+//        let url = SuperStringUtil.netUrl(API_BOB_URL + QueryRealNameAuthentication, param)
         
-        Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
+        Alamofire.request(API_BOB_URL + QueryRealNameAuthentication, method: .post, parameters: nil,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
             ProgressHUD.dismiss()
             
             if let data = dataRequest.data {
@@ -137,8 +137,7 @@ open class BoBRealNameModel {
         
     }
     //识别身份证图片上的信息
-    static func getIdCardInfo(userId: String?,
-                              image:String?,
+    static func getIdCardInfo(image:String?,
                               valueHandler: @escaping (RealNameIdCardInfo) -> Void,
                                   completionHandler: @escaping CompletionHandler) {
         
@@ -148,7 +147,7 @@ open class BoBRealNameModel {
             return
         }
         ProgressHUD.animate()
-        let param = ["userId": userId ?? "","image":image ?? ""]
+        let param = ["image":image ?? ""]
 //        let url = SuperStringUtil.netUrl(API_BOB_URL + ReceiveIdentityCardHeadshots, param)
         let url = API_BOB_URL + ReceiveIdentityCardHeadshots
         Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
@@ -172,8 +171,7 @@ open class BoBRealNameModel {
         
     }
     //初级实名认证
-    static func primaryRealNameAuthenticationRequest(userId: String,
-                                                     name:String,
+    static func primaryRealNameAuthenticationRequest(name:String,
                                                      cardId:String,
                                   completionHandler: @escaping CompletionHandler) {
         
@@ -183,7 +181,7 @@ open class BoBRealNameModel {
             return
         }
         ProgressHUD.animate()
-        let param = ["userId": userId,"name":name,"cardId":cardId]
+        let param = ["name":name,"cardId":cardId]
         let url = API_BOB_URL + PrimaryRealNameAuthentication
         Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
             ProgressHUD.dismiss()
