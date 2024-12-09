@@ -108,7 +108,7 @@
 "accountWarn" = "警告!";
 "accountException" = "你的账号已在其他设备登录，请及时修改密码。";
 
-"deletBookTip" = "您确定要删除博客吗？";
+"deletWebsiteTip" = "您确定要删除网站吗？";
 "deletMomentTip" = "您确定要删除该条动态吗？";
 "deletFriendTip" = "您确定要解除好友关系吗？";
 
@@ -141,8 +141,8 @@ ResendCount="%1$ds后可重新发送";
 
 HomePage = "%@ 主页";
 UserMoments = "%@的朋友圈";
-UserBlog = "%@的博客";
-MeBlog = "我的博客";
+UserWebsite = "%@的网站";
+MeWebsite = "我的网站";
 SendMessage = "发消息";
 Follow = "关注";
 ReasonForReporting = "选择举报该账号的原因";
@@ -208,13 +208,13 @@ Toolbox = "工具箱";
 "I don't have an account" = "我没有账号，";
 "Create a new account" = "创建一个新账号";
 
-"删除您的账户，AIbitlin所有服务都将无法继续使用，包括聊天、博客等。" = "删除您的账户，AIbitlin所有服务都将无法继续使用，包括聊天、博客等。";
+"删除您的账户，AIbitlin所有服务都将无法继续使用，包括聊天、网站等。" = "删除您的账户，AIbitlin所有服务都将无法继续使用，包括聊天、网站等。";
 
 
 "BuyVIP" = "购买VIP服务";
 
-//博客
-"博客地址" = "地址";
+//网站
+"网站地址" = "地址";
 BlogSituation = "%@概况";
 VisitorCount = "%@次访问";
 UserNotifiySetting = "%@通知设置";

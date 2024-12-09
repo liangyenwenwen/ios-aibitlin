@@ -1985,7 +1985,7 @@ extension ChatViewController: ChatControllerDelegate {
                 }
 #endif
             case .boke:
-                // MARK: - 张亚飞打的标记  博客被点击
+                // MARK: - 张亚飞打的标记  网站被点击
                 print(source.bokeMessageSource.userBlogUrl)
                 print("boke 被点击")
                 if source.bokeMessageSource.userBlogUrl != nil {
@@ -2352,7 +2352,7 @@ extension ChatViewController: CoustomInputBarAccessoryViewDelegate {
                     
                     self.chatController.sendMessage(.face(source, isLocallyStored: false), completion: completion)
                 case .boke(let source):
-                    print(#file, #line, "发送博客")
+                    print(#file, #line, "发送网站")
                 default:
                     print("暂未开放")
                     
@@ -2437,7 +2437,7 @@ extension ChatViewController: CoustomInputBarAccessoryViewDelegate {
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    // MARK: - 张亚飞打的标记  第四步 展示博客列表 博客聊表被点击 返回参数  发送博客信息  
+    // MARK: - 张亚飞打的标记  第四步 展示网站列表 网站聊表被点击 返回参数  发送网站信息
     private func showBokeView()  {
         let completion = completionHandler()
         
@@ -2450,7 +2450,7 @@ extension ChatViewController: CoustomInputBarAccessoryViewDelegate {
 //                        return OIMMessageInfo.createCustomMessage(dataStr, extension: nil, description: nil).toMessageInfo()
                 
                
-//                let result = "博客标题####博客图片####博客链接"
+//                let result = "网站标题####网站图片####网站链接"
                 let source = CustomMessageSource(data: self?.getCustomBokeData(res))
                 self?.chatController.sendMessage(.custom(source), completion: completion)
             })

@@ -103,7 +103,7 @@
 "未读" = "unread";
 "名片" = "card";
 "图片" = "Picture";
-"博客" = "Blog";
+"网站" = "Website";
 "视频" = "Video";
 "文件" = "File";
 "定位" = "Location";
@@ -893,7 +893,7 @@
 
 
 
-"blog" = "Blog";
+"website" = "Website";
 
 "视频通话" = "Video call";
 "语音通话" = "Voice call";

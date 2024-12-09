@@ -104,8 +104,8 @@
 "语言和地区" = "Language Settings";
 "请填写新的邮箱地址" = "Please enter a new email address";
 "上传日志" = "Upload Bog";
-"选择博客" = "Select Blog";
-"博客" = "Blog";
+"选择网站" = "Selected Websites";
+"网站" = "Website";
 "企业" = "Enterprise";
 
 "welcome" = "Welcome to OpenIM";
@@ -194,7 +194,7 @@
 "accountException" = "Your account has been logged in to another device; please change your password in time.";
 
 
-"deletBookTip" = "Are you sure you want to delete the blog?";
+"deletWebsiteTip" = "Are you sure you want to delete the website?";
 "deletMomentTip" = "Are you sure you want to delete this dynamic?";
 "deletFriendTip" = "Are you sure you want to terminate your friendship?";
 
@@ -230,8 +230,8 @@ ResendCount="%1$ds to resend";
 
 HomePage = "%@ Homepage";
 UserMoments = "%@'s Moments";
-UserBlog = "%@'s Blog";
-MeBlog = "My Blog";
+UserWebsite = "%@'s Website";
+MeWebsite = "My Website";
 SendMessage = "Messages";
 Follow = "Follow";
 
@@ -335,21 +335,21 @@ Toolbox = "Toolbox";
 
 
 "确定删除你的账号吗" = "Are you sure about deleting your account";
-"删除您的账户，AIbitlin所有服务都将无法继续使用，包括聊天、博客等。" = "If you delete your account, all services of AIbitlin will no longer be available, including chat, shortcut blogs, etc.";
+"删除您的账户，AIbitlin所有服务都将无法继续使用，包括聊天、网站等。" = "If you delete your account, all services of AIbitlin will no longer be available, including chat, website, etc.";
 "我们将在7天内删除你的账号并清楚你的所有记录，请7天内不要登录此账号，否则会终止删除账号的进程。" = "We will delete your account and clear all your records within 7 days, please do not log in to this account within 7 days, otherwise the process of deleting the account will be terminated.";
 "注意：账号一经删除无法恢复" = "Note: Once an account is deleted, it cannot be restored";
 "删除成功" = "Deleted successfully";
 
 
-//博客
+//网站
 "排序" = "Sort";
 "内容" = "content";
 //"编辑" = "Edit";
 "显示在我的个人主页" = "Display on My Personal Homepage";
 "提交给安全审核" = "Submit to security review";
 //"分享给好友" = "Share with friends";
-"删除博客" = "Delete Blog";
-"添加到我的快捷博客"= "Add to My Quick Blog";
+"删除网站" = "Delete Website";
+"添加到我的快捷网站"= "Add to My Quick Website";
 "地址" = "Address";
 //"图标" = "Icon";
 //"名称" = "Name";
@@ -387,7 +387,7 @@ Toolbox = "Toolbox";
 "接收系统通知" = "Receive System Notifications";
 "免打扰" = "Do not disturb";
 "消息置顶" = "Message top";
-"博客置顶" = "Blog top";
+"网站置顶" = "Website top";
 
 //"访问" = "Access";
 "系统通知" = "System Notification";
@@ -445,11 +445,10 @@ Toolbox = "Toolbox";
 "群聊" = "Group Chats";
 
 //我的
-"我和我的博客" = "My Blog";
 "企业" = "Company";
 "购买VIP服务" = "Purchase VIP Service";
-"我收藏的博客" = "My Blog Collection";
-"我想要推荐的博客" = "I Want to Recommend Blogs";
+"我收藏的网站" = "My Collected Websites";
+"我想要推荐的网站" = "My Recommended Websites";
 
 
 //消息-单聊和单聊设置
@@ -541,13 +540,13 @@ Toolbox = "Toolbox";
 "我加入的" = "Groups I Joined";
 
 
-//博客
-"添加博客" = "Add Blog";
-"博客地址" = "URL";
+//网站
+"添加网站" = "Add Website";
+"网站地址" = "URL";
  "图标" = "Icon";
  "名称" = "Name";
  "简介" = "Introduction";
-"我的博客" = "My Blog";
+"我的网站" = "My Website";
 "显示在个人主页" = "Display on My Profile Page";
  "分享给好友" = "Share with Friends";
 "删除" = "Delete";
@@ -601,9 +600,9 @@ SecondsCount = "%@ S";
 "永久有效" = "Permanently Valid";
 "购买" = "Buy";
 SupportShortNumber = "Support setting a minimum %@-digit account ID";
-"支持显示博客7日访客数以及全部访客明细" = "Supports displaying the number of blog visitors in the past 7 days and all visitor details";
+"支持显示网站7日访客数以及全部访客明细" = "Supports displaying the 7-day visitor count and detailed visitor information";
 "支持个性化访客通知，帮助获客" = "Support personalized visitor notifications to help acquire customers";
-"支持显示博客7日访客数量并显示好友访问数据" = "Supports displaying the number of blog visitors in the past 7 days and displaying friends' visit data";
+"支持显示网站7日访客数量并显示好友访问数据" = "Supports displaying the 7-day visitor count and showing friend visit data";
 
 
 "收藏" = "Collect";
@@ -626,7 +625,7 @@ SupportShortNumber = "Support setting a minimum %@-digit account ID";
 
 "普通用户" = "Ordinary user";
 
-"1.未下载APP的用户，扫你的二维码可直接下载哎比邻。\n2.未注册用户在登录页面扫你的二维码，免注册即可试用哎比邻，并自动收藏您推荐的博客。" = "1.Users who haven't downloaded the app can scan your QR code to download AIibitlin directly.\n2.Unregistered users can scan your QR code on the login page to try AIibitlin without registering, and it will automatically save your recommended blog.";
+"1.未下载APP的用户，扫你的二维码可直接下载哎比邻。\n2.未注册用户在登录页面扫你的二维码，免注册即可试用哎比邻，并自动收藏您推荐的网站。" = "1.Users who haven't downloaded the app can scan your QR code to download AIibitlin directly.\n2.Unregistered users can scan your QR code on the login page to try Aibitlin without registering and automatically bookmark the websites you recommend.";
 
 "更换头像" = "Change the avatar";
 "你的名字" = "Your Name";
@@ -646,7 +645,7 @@ SupportShortNumber = "Support setting a minimum %@-digit account ID";
 "我的动态" = "My Activity";
 "动态" = "Activity";
 
-"博客图标未设置" = "Blog icon not set";
+"网站图标未设置" = "Website icon not set";
 
 "请输入正确网址" = "Please enter the correct website address";
 
@@ -676,6 +675,8 @@ SupportShortNumber = "Support setting a minimum %@-digit account ID";
 "新的群聊申请" = "New Group Chat Request";
 
 "我的群聊" = "My Group Chat";
+
+"创建" = "Creat";
 
 "输入手机号" = "Enter your phone number";
 

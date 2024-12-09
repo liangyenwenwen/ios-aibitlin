@@ -157,9 +157,9 @@ open class ForwardListViewController: UIViewController {
          
         case .custom(_), .quote(_), .notice(_):
             break
-//            // MARK: - 张亚飞打的标记  博客相关 待启用
+//            // MARK: - 张亚飞打的标记  网站相关 待启用
 //        case .boke(_):
-//            print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n博客相关", #file, #line)
+//            print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n网站相关", #file, #line)
         }
         
         return (thumbURL, sourceURL, quoteAttributedString, isVideo)

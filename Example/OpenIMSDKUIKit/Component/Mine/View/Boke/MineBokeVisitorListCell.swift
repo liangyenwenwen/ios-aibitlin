@@ -81,7 +81,7 @@ class MineBokeVisitorListCell: BaseTableViewCell {
             let v = UILabel()
             v.font = UIFont(name: "PingFangSC-Semibold", size: 11)
             v.textColor = .init(hexString: "#7238EF")
-            v.text = "[V4、\("企业".localized())、\("博客".localized())]".localized()
+            v.text = "[V4、\("企业".localized())、\("网站".localized())]".localized()
         v.tg_width.equal(.wrap)
         v.tg_height.equal(.wrap)
             return v

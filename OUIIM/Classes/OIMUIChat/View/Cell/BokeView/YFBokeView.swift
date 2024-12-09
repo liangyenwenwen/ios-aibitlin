@@ -107,7 +107,7 @@ class YFBokeView: UIView, ContainerCollectionViewCellDelegate  {
         line.backgroundColor = .cE8EAEF
         
         let label = UILabel()
-        label.text = "博客".innerLocalized()
+        label.text = "网站".innerLocalized()
         label.font = .systemFont(ofSize: 12)
         label.textColor = UIColor.c8E9AB0
         

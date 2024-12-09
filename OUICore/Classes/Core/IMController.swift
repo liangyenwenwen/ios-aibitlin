@@ -51,7 +51,7 @@ public enum CustomMessageType: Int {
     case blockedByFriend = 910 // 被拉黑
     case deletedByFriend = 911 // 被删除
     
-    case boke = 10500 //博客
+    case boke = 10500 //网站
 }
 
 // MARK: - 对外协议
@@ -888,7 +888,7 @@ extension IMController {
         sendOIMMessage(message: message, to: recvID, conversationType: conversationType, onComplete: onComplete)
     }
     
-    // MARK: - 张亚飞打的标记  ------ 发送博客消息
+    // MARK: - 张亚飞打的标记  ------ 发送网站消息
     public func sendBokeMessage(boke: BokeElem,
                                 to recvID: String,
                                 conversationType: ConversationType,
@@ -925,7 +925,7 @@ extension IMController {
             sending(message.toMessageInfo())
             sendOIMMessage(message: message, to: recvID, conversationType: conversationType, onComplete: onComplete)
         } catch {
-            print("发送博客失败  ----- json 解析错误")
+            print("发送网站失败  ----- json 解析错误")
         }
         
     }
@@ -2104,7 +2104,7 @@ public class CardElem: Codable {
     }
 }
 
-// MARK: - 张亚飞打的标记   博客消息元素
+// MARK: - 张亚飞打的标记   网站消息元素
 public class BokeElem: Codable {
     
 //    public var title: String?

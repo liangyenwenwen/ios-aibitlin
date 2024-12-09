@@ -24,7 +24,7 @@ class MineBokeEditVC: BaseTitleController, UIImagePickerControllerDelegate, UINa
         setBackGroundColor(.colorBackgroundAPP)
         initLinearLayoutSafeArea()
 
-        title = "MeBlog".localized()
+        title = "MeWebsite".localized()
         
         container.tg_padding = UIEdgeInsets(top: PADDING_MEDDLE, left: PADDING_MEDDLE, bottom: PADDING_MEDDLE, right: PADDING_MEDDLE)
         container.addSubview(topContentView)
@@ -285,7 +285,7 @@ extension MineBokeEditVC {
     func addNewBlog() {
         
         if url.count < 2 {
-            SuperToast.show(title: "博客图标未设置".localized())
+            SuperToast.show(title: "网站图标未设置".localized())
             return
         }
         

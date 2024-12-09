@@ -9,12 +9,12 @@
 "CFBundleDisplayName" = "Aibitlin";
 
 "NSAppleMusicUsageDescription" = "The app requires your consent to access the media library.";
-"NSCameraUsageDescription" = "If not permitted, you won't be able to use video calls, send photos, take profile pictures, capture blog covers, interact with activity, or use the QR scanner in Aibitlin.";
+"NSCameraUsageDescription" = "If not allowed, you will not be able to use video calls, take and send photos, capture profile pictures, capture website covers, friend updates, or the scan QR code feature in Aibitlin.";
 "NSMicrophoneUsageDescription" = "If not permitted, you will not be able to use Aibitlin to send voice messages or make audio or video calls.";
 "NSLocationUsageDescription" = "If you don't allow, You will not be able to share your location in chat.";
-"NSPhotoLibraryAddUsageDescription" = "If not allowed, you won't be able to use features in Aibitlin such as sending images in chat, selecting profile pictures from the album, choosing blog covers from the album, or sharing images in activity.";
+"NSPhotoLibraryAddUsageDescription" = "If not allowed, you will not be able to use the features of sending images in chat, selecting profile pictures from the album, selecting website covers from the album, or choosing images for friend updates in Aibitlin.";
 "NSLocationAlwaysUsageDescription" = "If you don't allow, You will not be able to share your location in chat.";
-"NSPhotoLibraryUsageDescription" = "If not allowed, you won't be able to use features in Aibitlin such as sending images in chat, selecting profile pictures from the album, choosing blog covers from the album, or sharing images in activity.";
+"NSPhotoLibraryUsageDescription" = "If not allowed, you will not be able to use the features of sending images in chat, selecting profile pictures from the album, selecting website covers from the album, or choosing images for friend updates in Aibitlin.";
 "NSLocationWhenInUseUsageDescription" = "If you don't allow, You will not be able to share your location in chat.";
 "NSLocalNetworkUsageDescription" = "Aibitlin will not connect to devices on your network; it will only check the connectivity to your local gateway. You can also modify Aibitlin's permission settings in the device's Settings - Privacy - Local Network.";
 "NSContactsUsageDescription" = "Please click' OK 'to allow access. If not allowed, you will not be able to notify more contacts and friends.";

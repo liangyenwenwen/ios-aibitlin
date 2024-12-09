@@ -7,6 +7,7 @@ import ProgressHUD
 class GroupListViewController: UIViewController {
     
     var selectCallBack: (([GroupInfo]) -> Void)?
+    var chooseType:Int = 0
     
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -56,8 +57,30 @@ class GroupListViewController: UIViewController {
         initView()
         bindData()
         _viewModel.getMyGroups()
+        navigationItem.rightBarButtonItem = addChatBtn
     }
-
+    private lazy var addChatBtn: UIBarButtonItem = {
+        let v = UIBarButtonItem()
+        v.title = "创建".innerLocalized()
+        v.tintColor = .init(hexString: "#388CEF")
+        v.rx.tap.subscribe(onNext: { [weak self] in
+            if self?.chooseType == 0{
+                //创建
+                self?.creatGroupChat(groupType: .working)
+            }else{
+                //添加
+                let vc = SearchGroupViewController()
+                vc.hidesBottomBarWhenPushed = true
+                self?.navigationController?.pushViewController(vc, animated: true)
+                vc.didSelectedItem = { [weak self] id in
+                    let vc = GroupDetailViewController(groupId: id)
+                    self?.navigationController?.pushViewController(vc, animated: true)
+                }
+            }
+            
+        }).disposed(by: _disposeBag)
+        return v
+    }()
     private lazy var tableView: UITableView = {
         let v = UITableView()
         v.register(FriendListUserTableViewCell.self, forCellReuseIdentifier: FriendListUserTableViewCell.className)
@@ -156,10 +179,14 @@ class GroupListViewController: UIViewController {
         
         iCreateBtn.rx.tap.subscribe(onNext: { [weak self] in
             self?._viewModel.isICreateTableSelected.accept(true)
+            self?.chooseType = 0
+            self?.addChatBtn.title = "创建".innerLocalized()
         }).disposed(by: _disposeBag)
 
         iJoinBtn.rx.tap.subscribe(onNext: { [weak self] in
             self?._viewModel.isICreateTableSelected.accept(false)
+            self?.chooseType = 1
+            self?.addChatBtn.title = "添加".innerLocalized()
         }).disposed(by: _disposeBag)
 
         _viewModel.isICreateTableSelected
@@ -200,6 +227,43 @@ class GroupListViewController: UIViewController {
             guard let conversation else { return }
             let vc = ChatViewControllerBuilder().build(conversation)
             self?.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    private func creatGroupChat(groupType: GroupType = .normal) {
+        
+#if ENABLE_ORGANIZATION
+        let vc = MyContactsViewController(types: [.friends, .staff], multipleSelected: true)
+#else
+        let vc = MyContactsViewController(types: [.friends], multipleSelected: true, enableChangeSelectedModel: true)
+#endif
+        vc.selectedContact(blocked: [IMController.shared.uid]) { [weak self] (r: [ContactInfo]) in
+            guard let self else { return }
+            
+            let users = r.map {UserInfo(userID: $0.ID!, nickname: $0.name, faceURL: $0.faceURL)}
+            
+            if users.count > 1 {
+                let vc = NewGroupViewController(users: users, groupType: .working)
+                navigationController?.pushViewController(vc, animated: true)
+            } else {
+                guard let userID = users.first?.userID else { return }
+                ProgressHUD.animate()
+                createSingleChat(userID: userID) { [self] c in
+                    ProgressHUD.dismiss()
+                    let vc = ChatViewControllerBuilder().build(c, hiddenInputBar: c.conversationType == .notification)
+                    vc.hidesBottomBarWhenPushed = true
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+            }
+        }
+        vc.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    private func createSingleChat(userID: String, onComplete: @escaping (ConversationInfo) -> Void) {
+        
+        IMController.shared.getConversation(sessionType: .c2c, sourceId: userID) { [weak self] (conversation: ConversationInfo?) in
+            guard let conversation else { return }
+            
+            onComplete(conversation)
         }
     }
 }

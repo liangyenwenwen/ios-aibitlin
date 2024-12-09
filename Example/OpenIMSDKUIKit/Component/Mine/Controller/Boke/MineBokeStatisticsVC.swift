@@ -128,7 +128,7 @@ class MineBokeStatisticsVC: BaseTitleController {
     }()
     
     lazy var bokeTitleView: UILabel = {
-        let r = ViewFactoryUtil.customBoldTilteLable("博客标题")
+        let r = ViewFactoryUtil.customBoldTilteLable("网站标题")
         return r
     }()
     

@@ -53,7 +53,7 @@ class UsermessageBokeListCell: BaseTableViewCell {
     
     lazy var bokeContent: UILabel = {
         let r = ViewFactoryUtil.normalLbael()
-        r.text = "博客内容博客内容博客内容博客内容博客内容博客内容博客内容博客内容博客内容博客内容"
+        r.text = ""
         r.numberOfLines = 1
         r.tg_width.equal(.fill)
         r.font = .systemFont(ofSize: TEXT_MEDDLE)

@@ -1,3 +1,11 @@
+//
+//  NotificationService.swift
+//  NotificationService
+//
+//  Created by mac on 2024/12/9.
+//  Copyright © 2024 rentsoft. All rights reserved.
+//
+
 import UserNotifications
 
 class NotificationService: UNNotificationServiceExtension {
@@ -7,7 +15,7 @@ class NotificationService: UNNotificationServiceExtension {
     override func didReceive(_ request: UNNotificationRequest, withContentHandler contentHandler: @escaping (UNNotificationContent) -> Void) {
         self.contentHandler = contentHandler
         bestAttemptContent = (request.content.mutableCopy() as? UNMutableNotificationContent)
-        
+        print("开始处理推送通知")
         if let bestAttemptContent = bestAttemptContent {
             // Modify the notification content here...
             if let userInfo = request.content.userInfo as? [String: Any],
@@ -19,19 +27,37 @@ class NotificationService: UNNotificationServiceExtension {
                 bestAttemptContent.title = "\(bestAttemptContent.title)"
                 bestAttemptContent.sound = UNNotificationSound(named: .init(rawValue: "call.caf"))
             }
-            let localAvatarPath = "OpenIM/userFace/"
-            if FileManager.default.fileExists(atPath: localAvatarPath) {
-                displayLocalAvatar(bestAttemptContent, localAvatarPath: localAvatarPath)
-            } else {
-                // 假设头像的URL地址，实际中需根据用户等相关信息从服务器获取正确的URL
-                let avatarURLString = userInfo["face_url"] as? String,
-                guard let avatarURL = URL(string: avatarURLString) else {
-                    contentHandler(bestAttemptContent)
-                    return
-                }
-                downloadAvatar(avatarURL, bestAttemptContent: bestAttemptContent)
-            }
-//            contentHandler(bestAttemptContent)
+//            if let userInfo = request.content.userInfo as? [String: Any],
+//               let face_url = userInfo["face_url"] as? String,
+//               !face_url.isEmpty == true{
+//                let localAvatarPath = "OpenIM/userFace/"
+//                if FileManager.default.fileExists(atPath: localAvatarPath) {
+//                    displayLocalAvatar(bestAttemptContent, localAvatarPath: localAvatarPath)
+//                } else {
+//                     假设头像的URL地址，实际中需根据用户等相关信息从服务器获取正确的URL
+//                    let avatarURLString = userInfo["face_url"] as? String,
+//                    guard let avatarURL = URL(string: avatarURLString) else {
+//                        contentHandler(bestAttemptContent)
+//                        return
+//                    }
+//                    let avatarURLString = "http://192.168.7.126:10002/object/6150535698/image_2024-12-06-15-54.544.png"
+//                    downloadAvatar(avatarURL, bestAttemptContent: bestAttemptContent)
+//                }
+//            }else{
+//                contentHandler(bestAttemptContent)
+//            }
+////            let imageName = "LoginNeteaseSelected@3x.png" // 替换为你的头像文件名
+////            let imageURL = Bundle.main.url(forResource: imageName, withExtension: nil)
+////            if let imageURL = imageURL {
+////                let attachmentIdentifier = "avatar_attachment"
+////                do {
+////                    let attachment = try UNNotificationAttachment(identifier: attachmentIdentifier, url: imageURL, options: [UNNotificationAttachmentOptionsTypeHintKey: kUTTypePNG])
+////                    bestAttemptContent.attachments = [attachment]
+////                } catch {
+////                    print("Error adding attachment: \(error)")
+////                }
+////            }
+             contentHandler(bestAttemptContent)
         }
     }
     // 显示本地头像的方法

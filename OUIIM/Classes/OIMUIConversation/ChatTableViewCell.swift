@@ -482,7 +482,7 @@ class userTag: UIView {
             if type == 2{
                 tagIcon.image = .init(named: "tag_blog")!
                 backgroundColor = .init(hexString: "#EA896A")
-                tagTitle.text = "博客".innerLocalized()
+                tagTitle.text = "网站".innerLocalized()
             }
             
             if type == 3{

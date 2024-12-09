@@ -629,7 +629,7 @@ extension RoomViewController: RoomDelegate {
 class SuperStringUtil {
     
   
-    /// 获取用户的信息  博客 公司 vip 名字
+    /// 获取用户的信息  网站 公司 vip 名字
     static func getUserState(showname: String) -> UserState {
         guard let jsonData = showname.data(using: .utf8) else { return UserState(b: 0, e: 0, v: 0, n: showname)}
         do {
@@ -655,7 +655,7 @@ class SuperStringUtil {
             }
             
             if user.b > 0 {
-                reslut.append(reslut.count == 0 ? "\("博客".localized())" : "、\("博客".localized())")
+                reslut.append(reslut.count == 0 ? "\("网站".localized())" : "、\("网站".localized())")
             }
             
             if user.e > 0 {

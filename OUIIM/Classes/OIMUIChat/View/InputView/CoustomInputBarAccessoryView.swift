@@ -15,7 +15,7 @@ enum CustomAttachment {
     case file(String)
     case face(URL, String?)
     
-    // MARK: - 张亚飞打的标记  添加博客
+    // MARK: - 张亚飞打的标记  添加网站
     case boke(String?)
 }
 

@@ -132,9 +132,9 @@ class UserMessageVC: BaseTitleController {
         
         let userShowname = user.n
 
-        sectionBlogTitleLbl.text = "博客".localized()
+        sectionBlogTitleLbl.text = "网站".localized()
         sectionMomentsTitleLbl.text =  "动态".localized()
-//        sectionBlogTitleLbl.text = "UserBlog".localizedFormat(userShowname)
+//        sectionBlogTitleLbl.text = "UserWebsite".localizedFormat(userShowname)
 //        sectionMomentsTitleLbl.text =  "UserMoments".localizedFormat(userShowname)
         
         
@@ -377,7 +377,7 @@ class UserMessageVC: BaseTitleController {
     
     lazy var tableSectionHeader: UIView = {
 //        let r = TGLinearLayout(.vert)
-        let section = ViewFactoryUtil.sectionHeaderView(title:"Blog".localized(), isHaveMore: true)
+        let section = ViewFactoryUtil.sectionHeaderView(title:"website".localized(), isHaveMore: true)
 //        sectionTitleLbl = section.viewWithTag(20001) as! UILabel
 //        if ConversationInfo != nil {
 //            sectionTitleLbl.text = R.string.localizable.userBlog(ConversationInfo?.showName ?? "")
@@ -416,7 +416,7 @@ class UserMessageVC: BaseTitleController {
         }
         
         lazy var sectionView: UIView = {
-            let section = ViewFactoryUtil.sectionHeaderView(title: "Blog".localized(), isHaveMore: true)
+            let section = ViewFactoryUtil.sectionHeaderView(title: "website".localized(), isHaveMore: true)
             section.tg_width.equal(.fill)
             section.tg_height.equal(44)
             section.tg_top.equal(12)
@@ -495,7 +495,7 @@ extension UserMessageVC {
             
             sectionBlogTitleLbl = sectionLbl
             if userInfo != nil {
-                sectionLbl.text = "博客".localized()
+                sectionLbl.text = "网站".localized()
             }
             
             let tap = UITapGestureRecognizer(target: self, action: #selector(gotoBokeList))

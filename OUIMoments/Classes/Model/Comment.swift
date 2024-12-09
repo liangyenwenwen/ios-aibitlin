@@ -97,7 +97,7 @@ class SuperStringUtil {
             }
             
             if user.b > 0 {
-                reslut.append(reslut.count == 0 ? "\("博客".localized())" : "、\("博客".localized())")
+                reslut.append(reslut.count == 0 ? "\("网站".localized())" : "、\("网站".localized())")
             }
             
             if user.e > 0 {

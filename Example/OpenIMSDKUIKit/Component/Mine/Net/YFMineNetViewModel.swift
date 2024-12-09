@@ -66,8 +66,8 @@ class YFMineNetViewModel: AccountViewModel {
         "operationID":String(Int(Date().timeIntervalSince1970)),
     ]
     
-   // MARK: - 张亚飞打的标记   博客接口
-   /// 新增博客信息到自动审核
+   // MARK: - 张亚飞打的标记   网站接口
+   /// 新增网站信息到自动审核
     static func blogAudit(userId: String?,
                           userBlogUrl: String?,
                           userBlogIcon:String?,
@@ -123,7 +123,7 @@ class YFMineNetViewModel: AccountViewModel {
         
     }
      
-    /// 我的博客
+    /// 我的网站
     static func mineBlog(userId: String?,
                          valueHandler: @escaping ([myBlogShowBlogPOModel]) -> Void,
                          completionHandler: @escaping CompletionHandler) {
@@ -184,7 +184,7 @@ class YFMineNetViewModel: AccountViewModel {
        
     }
  
-    /// 其他人看我的博客
+    /// 其他人看我的网站
     static func otherSeeMyBlog(userId: String?,
                          valueHandler: @escaping ([myBlogShowBlogPOModel]) -> Void,
                          completionHandler: @escaping CompletionHandler) {
