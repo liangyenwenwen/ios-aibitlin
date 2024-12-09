@@ -122,10 +122,21 @@ extension AccountViewModel {
             if let redPacketStatus = JsonTool.fromJson(scour, toClass: RedPacketMessageStatus.self) {
                 let status = Int(redPacketStatus.localEx ?? "0")
                 if redPacketStatus.data?.sendUserId == IMController.shared.uid{
-                    //自己发的，直接进列表
-                    let redPacketDetailVC = BoBReceiveRedPacketDetailViewController()
-                    redPacketDetailVC.hidesBottomBarWhenPushed = true
-                    vc.gotoController(redPacketDetailVC)
+                    //自己发的
+                    if status == 0 && redPacketStatus.data?.redPacketType != 3{
+                        receiveRedpacket(vc: vc, scour: redPacketStatus,completion:completion)
+                    }else{
+                        //直接进列表
+                        let redPacketDetailVC = BoBReceiveRedPacketDetailViewController()
+                        redPacketDetailVC.redPacketMessage = redPacketStatus
+                        redPacketDetailVC.updateRedPacketStatus = {status1 in
+                            if status1 != redPacketStatus.localEx ?? "0"{
+                                completion(status1)
+                            }
+                        }
+                        redPacketDetailVC.hidesBottomBarWhenPushed = true
+                        vc.gotoController(redPacketDetailVC)
+                    }
                 }else{
                     if status == 0{
                         //未领取
@@ -151,10 +162,12 @@ extension AccountViewModel {
                     }else if status == 1{
                         //已领取，直接进详情列表
                         let redPacketDetailVC = BoBReceiveRedPacketDetailViewController()
+                        redPacketDetailVC.redPacketMessage = redPacketStatus
                         redPacketDetailVC.hidesBottomBarWhenPushed = true
                         vc.gotoController(redPacketDetailVC)
                     }else if status == 2{
                         //已过期,弹框提醒
+                        
                         receiveRedpacket(vc: vc, scour: redPacketStatus,completion:completion)
                         
                     }else if status == 3{
@@ -166,9 +179,28 @@ extension AccountViewModel {
         }
         //点击领取转账
         OIMApi.gotoReceiveTransferAccountsHandle = {(vc, scour,completion: @escaping (String) -> Void) in
-            let receiveTransferAccountsDetailVC =  BoBReceiveTransferAccountsDetailViewController()
-            receiveTransferAccountsDetailVC.hidesBottomBarWhenPushed = true
-            vc.gotoController(receiveTransferAccountsDetailVC)
+            if let transferAccountsStatus = JsonTool.fromJson(scour, toClass: TransferAccountsMessageStatus.self) {
+                if transferAccountsStatus.data?.sendUserId == IMController.shared.uid || transferAccountsStatus.data?.receiverId == IMController.shared.uid{
+                    //是自己发的或者自己领的
+                    let receiveTransferAccountsDetailVC =  BoBReceiveTransferAccountsDetailViewController()
+                    receiveTransferAccountsDetailVC.updateTransferAccountsStatus = { status in
+                        if status != transferAccountsStatus.localEx ?? "0"{
+                            completion(status)
+                        }
+                        
+                    }
+                    receiveTransferAccountsDetailVC.hidesBottomBarWhenPushed = true
+                    receiveTransferAccountsDetailVC.transferAccountsMessage = transferAccountsStatus
+                    vc.gotoController(receiveTransferAccountsDetailVC)
+                }else{
+                    //不能领的人点击弹框
+                    let transferAccountsTipView = BoBRedPacketTipView()
+                    transferAccountsTipView.tg_width.equal(293)
+                    transferAccountsTipView.tg_height.equal(200)
+                    transferAccountsTipView.bindTransferAccountData(transferInfo: transferAccountsStatus)
+                    GKCover.cover(from: vc.view, contentView: transferAccountsTipView, style: .translucent, showStyle: .center, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
+                }
+            }
         }
     }
     static func receiveRedpacket(vc:UIViewController,scour:RedPacketMessageStatus,completion: @escaping (String) -> Void){
@@ -177,7 +209,14 @@ extension AccountViewModel {
         receiveRedPacketAlertView.tg_height.equal(601)
         receiveRedPacketAlertView.bindData(redPacketInfo: scour)
         receiveRedPacketAlertView.receiveRedPacketSuccess = { redPacketStaus in
+            GKCover.hide()
             completion(redPacketStaus)
+            if scour.data?.sendUserId == IMController.shared.uid || redPacketStaus == "1"{
+                let redPacketDetailVC = BoBReceiveRedPacketDetailViewController()
+                redPacketDetailVC.redPacketMessage = scour
+                redPacketDetailVC.hidesBottomBarWhenPushed = true
+                vc.gotoController(redPacketDetailVC)
+            }
         }
         GKCover.cover(from: vc.view, contentView: receiveRedPacketAlertView, style: .translucent, showStyle: .center, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
     }

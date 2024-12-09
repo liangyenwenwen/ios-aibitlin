@@ -67,23 +67,23 @@ class YFTransferAccountsView: UIView, ContainerCollectionViewCellDelegate  {
                 if controller.instructions?.isEmpty == true{
                     statusLabel.text = "转账-" + controller.source.receiverName!
                 }else{
-                    statusLabel.text = "转账-" + controller.source.receiverName! + controller.instructions!
+                    statusLabel.text = "转账-" + controller.source.receiverName! + "-" + controller.instructions!
                 }
             }
             if controller.source.receiverId == IMController.shared.uid || controller.source.sendUserId == IMController.shared.uid{
-                contentView.backgroundColor = .init(hexString: "#F25151")
+                contentView.backgroundColor = .init(hexString: "#FF9634")
             }else{
-                contentView.backgroundColor = .init(hexString: "#FFA0A0")
+                contentView.backgroundColor = .init(hexString: "#FDBC80")
             }
             
         }else if controller.transferAccountsStatus == 1{
             //已领取
             statusLabel.text = "转账-已领取"
-            contentView.backgroundColor = .init(hexString: "#FFA0A0")
+            contentView.backgroundColor = .init(hexString: "#FDBC80")
         }else if controller.transferAccountsStatus == 2{
             //已过期
             statusLabel.text = "转账-已过期"
-            contentView.backgroundColor = .init(hexString: "#FFA0A0")
+            contentView.backgroundColor = .init(hexString: "#FDBC80")
         }
     }
     

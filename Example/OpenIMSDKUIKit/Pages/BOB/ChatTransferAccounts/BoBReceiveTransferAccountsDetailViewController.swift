@@ -10,6 +10,9 @@ import Foundation
 import TangramKit
 import OUICore
 class BoBReceiveTransferAccountsDetailViewController: BaseTitleController {
+    var transferAccountsMessage:TransferAccountsMessageStatus?
+    var transferAccountsDetail:BoBSendTransferAccountsData?
+    var updateTransferAccountsStatus:((_ status:String)->())!
     override func initViews() {
         super.initViews()
         view.backgroundColor = .colorBackgroundAPP
@@ -26,19 +29,76 @@ class BoBReceiveTransferAccountsDetailViewController: BaseTitleController {
         container.addSubview(descView)
         container.addSubview(sendTimeView)
         container.addSubview(receiveTimeView)
+        container.addSubview(sureBtn)
         topLineView.snp_makeConstraints { make in
             make.left.right.top.equalTo(0)
             make.height.equalTo(1)
         }
-        
-        statusImageView.image = UIImage(named: "mine_transfer_accounts_receive_icon")
-        statusLabel.text = "荷包蛋小朋友已收款"
-        moneyLabel.text = "1998.67 C "
-        tipLabel.text = "一天内对方未收款将退还给你"
-        descLabel.text = "欠你的还给你"
-        sendTimeLabel.text = "2024-01-26 16:56:34"
-        receiveTimeLabel.text = "2024-01-26 16:58:12"
-        
+        sureBtn.snp_makeConstraints { make in
+            make.left.equalTo(16)
+            make.right.equalTo(-16)
+            make.bottom.equalTo(0)
+            make.height.equalTo(56)
+        }
+        getTransferAccountsDetails()
+    }
+    func getTransferAccountsDetails(){
+        BoBRedPacketModel.TransferAccountsDetailsRequest(code:transferAccountsMessage?.data?.code ?? ""){[weak self] data in
+            self?.transferAccountsDetail = data
+            self?.moneyLabel.text = String(format: "%.2f ",data.transferAmount ?? 0.00) + (data.currency ?? "")
+            self?.descTitleLabel.text = "转账说明"
+            self?.descLabel.text = data.instructions ?? ""
+            self?.sendTimeTitleLabel.text = "转账时间"
+            self?.sendTimeLabel.text = data.sendTime
+            var status = "0"
+            if data.sign == 1{
+                //未领取
+                self?.tipLabel.show()
+                self?.statusImageView.image = UIImage(named: "mine_transfer_accounts_unreceive_icon")
+                if self?.transferAccountsMessage?.data?.sendUserId == IMController.shared.uid{
+                    //发送者
+                    self?.statusLabel.text = "待" + (data.nickName ?? "") + "收款"
+                    self?.tipLabel.text = "24小时内对方未收款将退还给你"
+                    status = "0"
+                }else{
+                    self?.statusLabel.text = "待你收款"
+                    self?.tipLabel.text = "24小时内你未收款将退还给对方"
+                    self?.sureBtn.show()
+                }
+            }else if data.sign == 2{
+                self?.receiveTimeView.show()
+                self?.receiveTimeTitleLabel.text = "到账时间"
+                self?.receiveTimeLabel.text = data.receiveTime
+                //已领取
+                self?.statusImageView.image = UIImage(named: "mine_transfer_accounts_receive_icon")
+                if self?.transferAccountsMessage?.data?.sendUserId == IMController.shared.uid{
+                    //发送者
+                    self?.statusLabel.text = (data.nickName ?? "") + "已收款"
+                }else{
+                    self?.statusLabel.text = "你已收款"
+                }
+                status = "1"
+
+            }else if data.sign == 3{
+                //已过期
+                self?.receiveTimeView.show()
+                self?.receiveTimeTitleLabel.text = "退款时间"
+                self?.receiveTimeLabel.text = data.returnTime
+                self?.statusImageView.image = UIImage(named: "mine_transfer_accounts_expire_icon")
+                if self?.transferAccountsMessage?.data?.sendUserId == IMController.shared.uid{
+                    //发送者
+                    self?.statusLabel.text = (data.nickName ?? "") + "过期未收款，已退还给你"
+                }else{
+                    self?.statusLabel.text = "你过期未收款，已退还给对方"
+                }
+                status = "2"
+            }
+            if self!.updateTransferAccountsStatus != nil{
+                self!.updateTransferAccountsStatus(status)
+            }
+        } completionHandler:{errCode,errMsg in
+            SuperToast.show(title: errMsg)
+        }
     }
     lazy var topLineView: UIView = {
         let r = ViewFactoryUtil.smallDivider()
@@ -80,6 +140,7 @@ class BoBReceiveTransferAccountsDetailViewController: BaseTitleController {
         r.textColor = .black666
         r.font = .mediumFont(16)
         r.textAlignment = .center
+        r.hide()
         return r
     }()
     lazy var lineView: UIView = {
@@ -108,7 +169,7 @@ class BoBReceiveTransferAccountsDetailViewController: BaseTitleController {
         r.tg_width.equal(80)
         r.textColor = .black999
         r.font = .mediumFont(14)
-        r.text = "转账说明"
+//        r.text = "转账说明"
         return r
     }()
     lazy var descLabel: UILabel = {
@@ -137,7 +198,7 @@ class BoBReceiveTransferAccountsDetailViewController: BaseTitleController {
         r.tg_width.equal(80)
         r.textColor = .black999
         r.font = .mediumFont(14)
-        r.text = "转账时间"
+//        r.text = "转账时间"
         return r
     }()
     lazy var sendTimeLabel: UILabel = {
@@ -155,6 +216,7 @@ class BoBReceiveTransferAccountsDetailViewController: BaseTitleController {
         r.tg_height.equal(18)
         r.tg_width.equal(kScreenWidth-32)
         r.tg_space = 16
+        r.hide()
         r.addSubview(receiveTimeTitleLabel)
         r.addSubview(receiveTimeLabel)
         return r
@@ -166,7 +228,7 @@ class BoBReceiveTransferAccountsDetailViewController: BaseTitleController {
         r.tg_width.equal(80)
         r.textColor = .black999
         r.font = .mediumFont(14)
-        r.text = "到账时间"
+//        r.text = "到账时间"
         return r
     }()
     lazy var receiveTimeLabel: UILabel = {
@@ -175,6 +237,69 @@ class BoBReceiveTransferAccountsDetailViewController: BaseTitleController {
         r.tg_width.equal(.wrap)
         r.textColor = .black333
         r.font = .mediumFont(14)
+        return r
+    }()
+    lazy var sureBtn: QMUIButton = {
+        let r = ViewFactoryUtil.linkButton("确认收款")
+        r.setTitleColor(.white, for: .normal)
+        r.corner(28)
+        r.hide()
+        r.titleLabel?.font = .semiboldFont(14)
+        r.backgroundColor = .primaryColor
+        r.rx.tap.subscribe(onNext: { [self] in
+            BoBRedPacketModel.ReceiveTransferAccountRequest(code:transferAccountsMessage?.data?.code ?? ""){[weak self]data in
+                self?.sureBtn.hide()
+                self?.transferAccountsDetail = data
+                self?.moneyLabel.text = String(format: "%.2f ",data.transferAmount ?? 0.00) + (data.currency ?? "")
+                self?.descTitleLabel.text = "转账说明"
+                self?.descLabel.text = data.instructions ?? ""
+                self?.sendTimeTitleLabel.text = "转账时间"
+                self?.sendTimeLabel.text = data.sendTime
+                if data.sign == 1{
+                    //未领取
+                    self?.tipLabel.show()
+                    self?.statusImageView.image = UIImage(named: "mine_transfer_accounts_unreceive_icon")
+                    if self?.transferAccountsMessage?.data?.sendUserId == IMController.shared.uid{
+                        //发送者
+                        self?.statusLabel.text = "待" + (data.nickName ?? "") + "收款"
+                        self?.tipLabel.text = "24小时内对方未收款将退还给你"
+                    }else{
+                        self?.statusLabel.text = "待你收款"
+                        self?.tipLabel.text = "24小时内你未收款将退还给对方"
+                        self?.sureBtn.show()
+                    }
+                }else if data.sign == 2{
+                    self?.receiveTimeView.show()
+                    self?.receiveTimeTitleLabel.text = "到账时间"
+                    self?.receiveTimeLabel.text = data.receiveTime
+                    //已领取
+                    self?.statusImageView.image = UIImage(named: "mine_transfer_accounts_receive_icon")
+                    if self?.transferAccountsMessage?.data?.sendUserId == IMController.shared.uid{
+                        //发送者
+                        self?.statusLabel.text = (data.nickName ?? "") + "已收款"
+                    }else{
+                        self?.statusLabel.text = "你已收款"
+                    }
+
+                }else if data.sign == 3{
+                    //已过期
+                    self?.receiveTimeView.show()
+                    self?.receiveTimeTitleLabel.text = "退款时间"
+                    self?.receiveTimeLabel.text = data.returnTime
+                    self?.statusImageView.image = UIImage(named: "mine_transfer_accounts_expire_icon")
+                    if self?.transferAccountsMessage?.data?.sendUserId == IMController.shared.uid{
+                        //发送者
+                        self?.statusLabel.text = (data.nickName ?? "") + "过期未收款，已退还给你"
+                    }else{
+                        self?.statusLabel.text = "你过期未收款，已退还给对方"
+                    }
+                }
+                
+            }completionHandler: {errCode,errMsg in
+                SuperToast.show(title: errMsg)
+            }
+            
+        }).disposed(by: rx.disposeBag)
         return r
     }()
 }

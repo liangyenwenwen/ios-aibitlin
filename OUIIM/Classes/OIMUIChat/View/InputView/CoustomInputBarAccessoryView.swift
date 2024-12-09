@@ -748,6 +748,12 @@ extension CoustomInputBarAccessoryView: InputPadViewDelegate {
         case .boke:
             print("boke被点击")
             bokeDidSelcet()
+        case .redPacket:
+            print("红包被点击")
+//            bokeDidSelcet()
+        case .transferAccounts:
+            print("转账被点击")
+//            bokeDidSelcet()
         default:
             break
         }

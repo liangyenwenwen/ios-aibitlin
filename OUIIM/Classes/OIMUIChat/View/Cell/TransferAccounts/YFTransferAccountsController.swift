@@ -52,15 +52,13 @@ final class YFTransferAccountsController {
     }
     func getCustomTransferAccountsData(_ source: transferAccountsMessageSource) -> String {
         let parm = ["customType": 10801, "data":["sendUserId": source.sendUserId,
-                                                 "sendUserFaceURL":source.sendUserFaceURL,
                                                  "sendUserName":source.sendUserName,
                                                  "receiverId": source.receiverId,
                                                  "receiverName":source.receiverName,
                                                  "code": source.code,
                                                  "instructions":source.instructions,
                                                  "currency":source.currency,
-                                                 "money":source.money,
-                                                 "transferAccountsType":source.transferAccountsType],
+                                                 "money":source.money],
                     "localEx":source.localEx]  as [String : Any]
         
         do {

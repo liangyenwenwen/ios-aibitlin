@@ -114,6 +114,7 @@ final class DefaultChatCollectionDataSource: NSObject, ChatCollectionDataSource 
         // MARK: - 张亚飞打的标记  自定义消息注册
         collectionView.register(BokeCollectionCell.self, forCellWithReuseIdentifier: BokeCollectionCell.reuseIdentifier)
         collectionView.register(RedPacketCollectionCell.self, forCellWithReuseIdentifier: RedPacketCollectionCell.reuseIdentifier)
+        collectionView.register(TransferAccountsCollectionCell.self, forCellWithReuseIdentifier: TransferAccountsCollectionCell.reuseIdentifier)
         collectionView.register(VipNormolCollectionCell.self, forCellWithReuseIdentifier: VipNormolCollectionCell.reuseIdentifier)
         collectionView.register(VipContactCollectionCell.self, forCellWithReuseIdentifier: VipContactCollectionCell.reuseIdentifier)
         

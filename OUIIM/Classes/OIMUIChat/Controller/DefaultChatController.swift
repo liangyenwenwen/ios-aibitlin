@@ -632,6 +632,9 @@ final class DefaultChatController: ChatController {
             }else if source.type == .redPacket{
                 print("发送红包 \(source)")
                 sendRedPacket(source: source.value, completion: completion)
+            }else if source.type == .transferAccounts{
+                print("发送转账 \(source)")
+                sendTransferAccounts(source: source.value, completion: completion)
             }
         }
     }
@@ -685,6 +688,17 @@ final class DefaultChatController: ChatController {
         
 
         IMController.shared.sendRedPacketMessage(param: source, to: receiverId, conversationType: conversationType) { [weak self] msg in
+            self?.appendMessage(msg, completion: completion)
+        } onComplete: { [weak self] msg in
+            self?.appendMessage(msg, completion: completion)
+        }
+    }
+    private func sendTransferAccounts(source: [String: Any]?, completion: @escaping ([Section]) -> Void) {
+//        let boke = BokeElem(title: source.title, iconUrl: source.iconUrl, linkUrl: source.linkUrl, intro: source.intro)
+//        let boke = BokeElem(from: )
+        
+
+        IMController.shared.sendTransferAccountsMessage(param: source, to: receiverId, conversationType: conversationType) { [weak self] msg in
             self?.appendMessage(msg, completion: completion)
         } onComplete: { [weak self] msg in
             self?.appendMessage(msg, completion: completion)

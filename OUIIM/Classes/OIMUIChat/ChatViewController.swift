@@ -1735,7 +1735,8 @@ extension ChatViewController: ChatControllerDelegate {
                                                          "receiverName":source.redPacketMessageSource.receiverName,
                                                          "code": source.redPacketMessageSource.code,
                                                          "redPacketType":source.redPacketMessageSource.redPacketType,
-                                                         "instructions":source.redPacketMessageSource.instructions],
+                                                         "instructions":source.redPacketMessageSource.instructions,
+                                                         "groupId":source.redPacketMessageSource.groupId],
                             "localEx":source.localEx]  as [String : Any]
                 
                 do {
@@ -1752,15 +1753,14 @@ extension ChatViewController: ChatControllerDelegate {
             case .transferAccounts:
                 //点击转账
                 let parm = ["customType": 10801, "data":["sendUserId":source.transferAccountsMessageSource.sendUserId,
-                                                         "sendUserFaceURL":source.transferAccountsMessageSource.sendUserFaceURL,
                                                          "sendUserName":source.transferAccountsMessageSource.sendUserName,
                                                          "receiverId": source.transferAccountsMessageSource.receiverId,
                                                          "receiverName":source.transferAccountsMessageSource.receiverName,
                                                          "code": source.transferAccountsMessageSource.code,
+                                                         "transferAccountsType":source.transferAccountsMessageSource.transferAccountsType,
                                                          "instructions":source.transferAccountsMessageSource.instructions,
                                                          "currency":source.transferAccountsMessageSource.currency,
-                                                         "money":source.transferAccountsMessageSource.money,
-                                                         "transferAccountsType":source.transferAccountsMessageSource.transferAccountsType],
+                                                         "money":source.transferAccountsMessageSource.money],
                             "localEx":source.localEx]  as [String : Any]
                 do {
                     let datastr = String.init(data: try JSONSerialization.data(withJSONObject: parm), encoding: .utf8)
@@ -2164,7 +2164,7 @@ extension ChatViewController: CoustomInputBarAccessoryViewDelegate {
                 let completion = self.completionHandler()
                 if let handler = OIMApi.sendBoBRedPacketHandle {
                     handler(self, info.userID ?? "",info.groupID ?? "",{ [weak self] res in
-                        let source = CustomMessageSource(data: self?.getCustomRedPacketAndTransferAccountsData("10800",res))
+                        let source = CustomMessageSource(data: self?.getCustomRedPacketAndTransferAccountsData(10800,res))
                         self?.chatController.sendMessage(.custom(source), completion: completion)
                     })
                 }
@@ -2175,7 +2175,7 @@ extension ChatViewController: CoustomInputBarAccessoryViewDelegate {
                 let completion = self.completionHandler()
                 if let handler = OIMApi.sendBoBTransferAccountsHandle {
                     handler(self, info.userID ?? "",info.groupID ?? "",{ [weak self] res in
-                        let source = CustomMessageSource(data: self?.getCustomRedPacketAndTransferAccountsData("10801",res))
+                        let source = CustomMessageSource(data: self?.getCustomRedPacketAndTransferAccountsData(10801,res))
                         self?.chatController.sendMessage(.custom(source), completion: completion)
                     })
                 }
@@ -2184,7 +2184,7 @@ extension ChatViewController: CoustomInputBarAccessoryViewDelegate {
             break
         }
     }
-    func getCustomRedPacketAndTransferAccountsData(_ customType: String,_ title: String) -> String {
+    func getCustomRedPacketAndTransferAccountsData(_ customType: Int,_ title: String) -> String {
         guard let jsonData = title.data(using: .utf8) else {
             return ""
         }
@@ -2771,9 +2771,11 @@ extension ChatViewController: GestureDelegate {
                     actions = [forwardAction(id: message.id),
                                starAction(id: message.id, source: source.bokeMessageSource)]
                 }else if source.type == .redPacket{
-                    
+//                    actions = [forwardAction(id: message.id),
+//                               starAction(id: message.id, source: source.redPacketMessageSource)]
                 }else if source.type == .transferAccounts{
-                    
+//                    actions = [forwardAction(id: message.id),
+//                               starAction(id: message.id, source: source.transferAccountsMessageSource)]
                 }
                 break
             default:

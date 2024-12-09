@@ -38,7 +38,7 @@ class BoBReceiveRedPacketCell: UITableViewCell {
         timeLabel.snp_makeConstraints { make in
             make.left.equalTo(userNameLabel)
             make.bottom.equalTo(-12)
-            make.width.equalTo(140)
+            make.width.equalTo(160)
             make.height.equalTo(22)
         }
         bestLabel.snp_makeConstraints { make in
@@ -85,6 +85,7 @@ class BoBReceiveRedPacketCell: UITableViewCell {
         r.font = .mediumFont(14)
         r.textColor = .init(hexString: "#FFDA71")
         r.textAlignment = .right
+        r.text = "手气最佳"
         return r
     }()
     lazy var lineView: UIView = {

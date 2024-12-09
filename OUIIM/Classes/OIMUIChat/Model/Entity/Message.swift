@@ -326,21 +326,21 @@ struct redPacketMessageSource: Hashable {
     let code:String?
     let redPacketType:Int? //0是私聊红包，1是群拼手气红包，2是群普通红包，3是群专属红包
     let instructions:String?
+    let groupId:String? // 群id
     
     var localEx:String = "0" // 0是未领取，1是已领取，2，已过期，3是已领完
 }
 //转账消息
 struct transferAccountsMessageSource: Hashable {
     let sendUserId: String?
-    let sendUserFaceURL: String?
     let sendUserName: String?
     let receiverId: String?
     let receiverName:String?
     let code:String?
+    let transferAccountsType:Int? //0是私聊转账，1是群转账
     let instructions:String?
     let currency:String?
     let money:Double?
-    let transferAccountsType:Int? //0是私聊转账，1是群转账
     
     var localEx:String = "0" // 0是未领取，1是已领取，2，已过期
 }
@@ -390,14 +390,14 @@ struct BillMessageSource:Hashable, Decodable {
     var externalTransferMessageVO:BillMessageContInfoSource?
 }
 struct BillMessageContInfoSource: Hashable,Decodable {
-    var amount:Double?
-    var fuHao:String?
+    var amount:Double? //数量
+    var direction:String? //符号（+，-）
     var type:Int?
-    var duiFangDiZhi:String?
-    var dingDanBianHao:String?
-    var jiaoYiShiJian:String?
-    var shouXuFei:Double?
-    var biZhong:String?
+    var counterpartyAddress:String? //对方收款地址
+    var orderNumber:String? //订单编号
+    var tradingHours:String? //交易时间
+    var handlingCharge:Double? //手续费
+    var currency:String? //货币
 }
 
 
@@ -476,27 +476,27 @@ extension CustomMessageSource {
                 code: value["code"] as? String,
                 redPacketType: value["redPacketType"] as? Int,
                 instructions: value["instructions"] as? String,
+                groupId: value["groupId"] as? String,
                 localEx:localEx ?? "0")
         }
-        return OUIIM.redPacketMessageSource(sendUserId: "", sendUserFaceURL: "", sendUserName: "", receiverId: "", receiverName: "", code: "", redPacketType:0, instructions:"", localEx:"")
+        return OUIIM.redPacketMessageSource(sendUserId: "", sendUserFaceURL: "", sendUserName: "", receiverId: "", receiverName: "", code: "", redPacketType:0, instructions:"", groupId:"", localEx:"")
     }
     public var transferAccountsMessageSource: transferAccountsMessageSource {
         if let value = value {
 
             return OUIIM.transferAccountsMessageSource(
                 sendUserId: value["sendUserId"] as? String,
-                sendUserFaceURL:value["sendUserFaceURL"] as? String,
                 sendUserName:value["sendUserName"] as? String,
                 receiverId: value["receiverId"] as? String,
                 receiverName: value["receiverName"] as? String,
                 code: value["code"] as? String,
+                transferAccountsType: value["transferAccountsType"] as? Int,
                 instructions: value["instructions"] as? String,
                 currency: value["currency"] as? String,
                 money: value["money"]  as? Double,
-                transferAccountsType: value["transferAccountsType"]  as? Int,
                 localEx:localEx ?? "0")
         }
-        return OUIIM.transferAccountsMessageSource(sendUserId: "", sendUserFaceURL: "", sendUserName: "", receiverId: "", receiverName: "", code: "", instructions:"", currency:"",money:0.00,transferAccountsType:0, localEx:"")
+        return OUIIM.transferAccountsMessageSource(sendUserId: "", sendUserName: "", receiverId: "", receiverName: "", code: "", transferAccountsType:0, instructions:"", currency:"",money:0.00, localEx:"")
     }
     
     // MARK: - 张亚飞打的标记   自定义消息加工

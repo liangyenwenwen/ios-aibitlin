@@ -528,32 +528,39 @@ class BoBSendChatTransferAccountsViewController: BaseTitleController {
                     passWordView.tg_height.equal(210)
                     passWordView.payBtnClickBlock = { [weak self] passWord in
                         
-                        BoBRedPacketModel.SendTransferMoneyRequest(issuingPartyUserId:IMController.shared.uid, receiverUserId: self?.receiveUserId, currency: self?.chooseCionTypeModel?.currency, issuingPartyWallet: self?.chooseCionTypeModel?.cionType, transferAmount:self?.countTF.text ?? "0.00" ,instructions:self?.descTF.text ?? "", passWord: passWord, transferAccountsType: self?.transferAccountsType){errCode,errMsg in
-                            if errCode == 20000{
-                                SuperToast.show(title:"转账成功")
-//                                if self?.sendTransferAccountsAction != nil{
-//                                    let param1 = ["sendUserId": data.funderId ?? "",
-//                                                  "sendUserFaceURL":"",
-//                                                  "sendUserName":"",
-//                                                  "receiverId":data.receiverId ?? "",
-//                                                  "receiverName":data.receiverName ?? "",
-//                                                  "code":data.code ?? "",
-//                                                  "instructions":data.instructions ?? "",
-//                                                  "currency":data.currency ?? ""
-//                                                  "money":data.money ?? 0.00
-//                                                  "transferAccountsType":data.transferAccountsType ?? "",
-//                                                  ]
-//                                    if let jsonData = try? JSONSerialization.data(withJSONObject: param1, options: []) {
-//                                        // 尝试将Data转换成字符串
-//                                        if let jsonString = String(data: jsonData, encoding: .utf8) {
-//                                            self?.sendTransferAccountsAction(jsonString)
-//                                        }
-//                                    }
-//                                }
-                                self?.navigationController?.popViewController(animated: true)
-                            }else{
-                                SuperToast.show(title: errMsg)
+                        BoBRedPacketModel.SendTransferMoneyRequest(receiverUserId: self?.receiveUserId, currency: self?.chooseCionTypeModel?.currency, issuingPartyWallet: self?.chooseCionTypeModel?.cionType, transferAmount:self?.countTF.text ?? "0.00" ,instructions:self?.descTF.text ?? "", passWord: passWord, transferAccountsType: self?.transferAccountsType){ [weak self] data in
+                            SuperToast.show(title:"转账成功")
+                            let sendUserId = data.issuingPartyUserId ?? ""
+                            let sendUserName = data.issuingPartyUserNickName ?? ""
+                            let receiverId = data.receiverUserId ?? ""
+                            let receiverName = data.nickName ?? ""
+                            let code = data.transferCode ?? ""
+                            let transferAccountsType = data.transferAccountsType ?? 0
+                            let instructions = data.instructions ?? ""
+                            let currency = data.currency ?? ""
+                            let money = data.transferAmount ?? 0.00
+
+                            if self?.sendTransferAccountsAction != nil{
+                                let param1 = ["sendUserId": sendUserId,
+                                              "sendUserName":sendUserName,
+                                              "receiverId":receiverId,
+                                              "receiverName":receiverName,
+                                              "code":code,
+                                              "transferAccountsType":transferAccountsType,
+                                              "instructions":instructions,
+                                              "currency":currency,
+                                              "money":money
+                                              ]
+                                if let jsonData = try? JSONSerialization.data(withJSONObject: param1, options: []) {
+                                    // 尝试将Data转换成字符串
+                                    if let jsonString = String(data: jsonData, encoding: .utf8) {
+                                        self?.sendTransferAccountsAction(jsonString)
+                                    }
+                                }
                             }
+                            self?.navigationController?.popViewController(animated: true)
+                            }completionHandler:{errCode,errMsg in
+                                SuperToast.show(title: errMsg)
                         }
                     }
 

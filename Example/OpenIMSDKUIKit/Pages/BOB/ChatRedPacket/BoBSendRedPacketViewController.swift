@@ -806,7 +806,7 @@ class BoBSendRedPacketViewController: BaseTitleController {
                             let currency = self?.chooseCionTypeModel?.currency ?? ""
                             
                             let sign = (amount + funderWallet + instructions + "1" + receiverId + currency + pwd).md5
-                            param = ["amount":amount,"funderWallet":funderWallet,"redEnvelopeCover":"1","receiverId":receiverId,"currency":currency,"sign":sign]
+                            param = ["amount":amount,"funderWallet":funderWallet,"instructions":instructions,"redEnvelopeCover":"1","receiverId":receiverId,"currency":currency,"sign":sign]
                         }else{
                             if self?.redPacketType == 0{
                                 //群拼手气红包
@@ -815,9 +815,10 @@ class BoBSendRedPacketViewController: BaseTitleController {
                                 let number = self?.redPacketTF.text ?? "1"
                                 let totalQuantity = self?.redPacketTotalTF.text ?? "0.00"
                                 let funderWallet = self?.chooseCionTypeModel?.cionType ?? ""
+                                let groupId = self?.groupId ?? ""
                                 let currency = self?.chooseCionTypeModel?.currency ?? ""
-                                let sign = (number + totalQuantity + instructions + "1" + funderWallet + currency + pwd).md5
-                                param = ["number":number,"totalQuantity":totalQuantity,"instructions":instructions,"redEnvelopeCover":"1","funderWallet":funderWallet,"currency":currency,"sign":sign]
+                                let sign = (number + totalQuantity + instructions + "1" + funderWallet + currency + groupId + pwd).md5
+                                param = ["number":number,"totalQuantity":totalQuantity,"instructions":instructions,"redEnvelopeCover":"1","funderWallet":funderWallet,"currency":currency,"groupId":groupId,"sign":sign]
                             }else if self?.redPacketType == 1{
                                 //群普通红包
                                 type = 2
@@ -826,8 +827,9 @@ class BoBSendRedPacketViewController: BaseTitleController {
                                 let individualQuantity = self?.redPacketTotalTF.text ?? "0.00"
                                 let funderWallet = self?.chooseCionTypeModel?.cionType ?? ""
                                 let currency = self?.chooseCionTypeModel?.currency ?? ""
-                                let sign = (number + individualQuantity + instructions + "1" + funderWallet + currency + pwd).md5
-                                param = ["number":number,"individualQuantity":individualQuantity,"instructions":instructions,"redEnvelopeCover":"1","funderWallet":funderWallet,"currency":currency,"sign":sign]
+                                let groupId = self?.groupId ?? ""
+                                let sign = (number + individualQuantity + instructions + "1" + funderWallet + currency + groupId + pwd).md5
+                                param = ["number":number,"individualQuantity":individualQuantity,"instructions":instructions,"redEnvelopeCover":"1","funderWallet":funderWallet,"currency":currency,"groupId":groupId,"sign":sign] 
                             }else{
                                 //群专属红包
                                 type = 3
@@ -838,33 +840,10 @@ class BoBSendRedPacketViewController: BaseTitleController {
                                 let currency = self?.chooseCionTypeModel?.currency ?? ""
                                 
                                 let sign = (amount + funderWallet + instructions + "1" + receiverId + currency + pwd).md5
-                                param = ["amount":amount,"funderWallet":funderWallet,"redEnvelopeCover":"1","receiverId":receiverId,"currency":currency,"sign":sign]
+                                param = ["amount":amount,"funderWallet":funderWallet,"instructions":instructions,"redEnvelopeCover":"1","receiverId":receiverId,"currency":currency,"sign":sign]
                             }
                         }
-                        BoBRedPacketModel.SendRedPacketRequest(type:type,param:param){ data in
-                            SuperToast.show(title:"发送成功")
-                            if self?.sendRedPacketAction != nil{
-                                let param1 = ["sendUserId": data.funderId ?? "",
-                                              "sendUserFaceURL":"",
-                                              "sendUserName":"",
-                                              "receiverId":data.receiverId ?? "",
-                                              "receiverName":data.receiverName ?? "",
-                                              "code":data.code ?? "",
-                                              "redPacketType":data.redPacketType ?? "",
-                                              "instructions":data.instructions ?? "恭喜发财，大吉大利"
-                                              ]
-                                if let jsonData = try? JSONSerialization.data(withJSONObject: param1, options: []) {
-                                    // 尝试将Data转换成字符串
-                                    if let jsonString = String(data: jsonData, encoding: .utf8) {
-                                        self?.sendRedPacketAction(jsonString)
-                                    }
-                                }
-                            }
-
-                            self?.navigationController?.popViewController(animated: true)
-                        }completionHandler:{errCode,errMsg in
-                            SuperToast.show(title: errMsg)
-                        }
+                        self?.sendRedPacket(type: type, param: param)
                     }
 
                     GKCover.cover(from: self.view.window, contentView: passWordView, style: .translucent, showStyle: .center, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
@@ -890,5 +869,42 @@ class BoBSendRedPacketViewController: BaseTitleController {
         }).disposed(by: rx.disposeBag)
         return r
     }()
+    
+    func sendRedPacket(type:Int,param:[String : Any]){
+        BoBRedPacketModel.SendRedPacketRequest(type:type,param:param){[weak self] redPacketData in
+            SuperToast.show(title:"发送成功")
+            if self?.sendRedPacketAction != nil{
+                let sendUserId = redPacketData.funderId ?? ""
+                let sendUserFaceURL = redPacketData.funderImg ?? ""
+                let sendUserName = redPacketData.funderNickName ?? ""
+                let receiverId = redPacketData.receiverId ?? ""
+                let receiverName = redPacketData.receiverNickName ?? ""
+                let code = redPacketData.code ?? ""
+                let redPacketType = redPacketData.redPacketType ?? 0
+                let instructions = redPacketData.instructions ?? "恭喜发财，大吉大利"
+
+                let param = ["sendUserId": sendUserId,
+                              "sendUserFaceURL":sendUserFaceURL ,
+                              "sendUserName":sendUserName ,
+                              "receiverId":receiverId,
+                              "receiverName":receiverName,
+                              "code":code,
+                              "redPacketType":redPacketType,
+                              "instructions":instructions,
+                              "groupId": self?.groupId ?? ""
+                              ]
+                if let jsonData = try? JSONSerialization.data(withJSONObject: param, options: []) {
+                    // 尝试将Data转换成字符串
+                    if let jsonString = String(data: jsonData, encoding: .utf8) {
+                        self?.sendRedPacketAction(jsonString)
+                    }
+                }
+            }
+
+            self?.navigationController?.popViewController(animated: true)
+        }completionHandler:{errCode,errMsg in
+            SuperToast.show(title: errMsg)
+        }
+    }
     
 }

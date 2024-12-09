@@ -53,7 +53,8 @@ final class YFRedPacketController {
                                                  "receiverName":source.receiverName,
                                                  "code": source.code,
                                                  "redPacketType":source.redPacketType,
-                                                 "instructions":source.instructions],
+                                                 "instructions":source.instructions,
+                                                 "groupId":source.groupId],
                     "localEx":source.localEx]  as [String : Any]
         
         do {

@@ -16,6 +16,7 @@ import UIKit
 class BoBReceiveRedPacketAlertView: TGLinearLayout {
     var receiveRedPacketSuccess:((_ receiveRedPacketData:String)->())!
     var redPacketMessageStatus:RedPacketMessageStatus?
+    var groupId:String? = ""
     var isReceiveing:Bool = false
     init() {
         super.init(frame: .zero, orientation: .vert)
@@ -39,7 +40,7 @@ class BoBReceiveRedPacketAlertView: TGLinearLayout {
     func bindData(redPacketInfo:RedPacketMessageStatus){
         redPacketMessageStatus = redPacketInfo
         let status = Int(redPacketInfo.localEx ?? "0")
-        if status == 1{
+        if status == 0{
             contentLabel.text = redPacketInfo.data?.instructions
         }else if status == 2{
             //已过期
@@ -79,13 +80,7 @@ class BoBReceiveRedPacketAlertView: TGLinearLayout {
                 self.receieBtn.transform = self.receieBtn.transform.rotated(by:.pi)
             }) { (completed) in
                 if self.isReceiveing{
-                    self.isReceiveing = false
                     self.rotateImageView()
-                }else{
-                    //进拆红包列表
-                    if self.receiveRedPacketSuccess != nil{
-                        self.receiveRedPacketSuccess("0")
-                    }
                 }
             }
         }
@@ -97,8 +92,51 @@ class BoBReceiveRedPacketAlertView: TGLinearLayout {
         r.titleLabel?.font = .semiboldFont(52)
         r.titleLabel?.sizeToFit()
         r.rx.tap.subscribe(onNext: {[self] in
-            self.isReceiveing = true
-            self.rotateImageView()
+            let redPacketTRype = self.redPacketMessageStatus?.data?.redPacketType
+            var param : [String: Any]
+            if redPacketTRype == 0 || redPacketTRype == 3{
+                param = ["code":redPacketMessageStatus?.data?.code ?? ""]
+            }else{
+                param = ["groupId":redPacketMessageStatus?.data?.groupId ?? "","code":redPacketMessageStatus?.data?.code ?? ""]
+            }
+            rotateImageView()
+            isReceiveing = true
+            receieBtn.isUserInteractionEnabled = false
+            BoBRedPacketModel.ReceiveChatRedPacketsRequest(type: redPacketMessageStatus?.data?.redPacketType, param:param){errCode,errMsg in
+                // 0是未领取，1是已领取，2，已过期，3是已领完
+                if errCode == 20000{
+                    self.isReceiveing = false
+                    if self.receiveRedPacketSuccess != nil{
+                        self.receiveRedPacketSuccess("1")
+                    }
+                }else{
+                    self.isReceiveing = false
+                    self.receieBtn.isUserInteractionEnabled = true
+                    if errCode == 20028{
+                        //已过期
+                        if self.receiveRedPacketSuccess != nil{
+                            self.receiveRedPacketSuccess("2")
+                        }
+                    }else if errCode == 20028{
+                        //已领取
+                        if self.receiveRedPacketSuccess != nil{
+                            self.receiveRedPacketSuccess("1")
+                        }
+                    }else if errCode == 20029{
+                        //已领完
+                        if self.receiveRedPacketSuccess != nil{
+                            self.receiveRedPacketSuccess("3")
+                        }
+                    }
+                    SuperToast.show(title: errMsg)
+
+                }
+                
+                
+                
+                
+                
+            }
         })
         .disposed(by: rx.disposeBag)
         return r
