@@ -498,44 +498,26 @@ class listTableHeader: UIView {
         backgroundColor = .white
         let width = (UIScreen.main.bounds.size.width - 16*2 - 8*3)/4
 
-        
-        addSubview(newFriendView)
-        addSubview(groupView)
-        addSubview(newGroupView)
-//        addSubview(searchView)
         addSubview(addFriendView)
         addSubview(addGroupChatView)
         addSubview(creatGroupChatView)
         addSubview(videoMettingView)
+        addSubview(newFriendView)
+        addSubview(groupView)
+        addSubview(newGroupView)
+//        addSubview(searchView)
+        
 //        searchView.snp.makeConstraints { make in
 //            make.leading.trailing.equalToSuperview().inset(16.w)
 //            make.top.equalTo(4)
 //            make.height.equalTo(34)
 //        }
         
-        
-        newFriendView.snp.makeConstraints { make in
-            make.left.right.equalToSuperview()
-            make.height.equalTo(59)
-            make.top.equalTo(0)
-        }
-        
-        newGroupView.snp.makeConstraints { make in
-            make.left.right.equalToSuperview()
-            make.top.equalTo(newFriendView.snp_bottom)
-            make.height.equalTo(59)
-        }
-        
-        groupView.snp.makeConstraints { make in
-            make.left.right.equalToSuperview()
-            make.top.equalTo(newGroupView.snp_bottom)
-            make.height.equalTo(59)
-        }
         addFriendView.snp.makeConstraints { make in
             make.left.equalTo(16)
             make.width.equalTo(width)
             make.height.equalTo(58)
-            make.top.equalTo(groupView.snp_bottom).offset(10)
+            make.top.equalTo(0)
         }
         addGroupChatView.snp.makeConstraints { make in
             make.left.equalTo(addFriendView.snp_right).offset(8)
@@ -549,6 +531,25 @@ class listTableHeader: UIView {
             make.left.equalTo(creatGroupChatView.snp_right).offset(8)
             make.width.height.top.equalTo(addFriendView)
         }
+        
+        newFriendView.snp.makeConstraints { make in
+            make.left.right.equalToSuperview()
+            make.height.equalTo(59)
+            make.top.equalTo(addFriendView.snp_bottom).offset(10)
+        }
+        
+        newGroupView.snp.makeConstraints { make in
+            make.left.right.equalToSuperview()
+            make.top.equalTo(newFriendView.snp_bottom)
+            make.height.equalTo(59)
+        }
+        
+        groupView.snp.makeConstraints { make in
+            make.left.right.equalToSuperview()
+            make.top.equalTo(newGroupView.snp_bottom)
+            make.height.equalTo(59)
+        }
+        
     }
     
     
@@ -598,7 +599,8 @@ class listTableHeader: UIView {
         let r = ButtonItem()
         r.clipsToBounds = true
         r.layer.cornerRadius = 8
-        r.backgroundColor = .init(hexString: "#F3F5F9")
+        r.backgroundColor = .init(hexString: "#DBF8E1")
+        r.titleLabel.textColor = .init(hexString: "#149B0B")
         r.tag = 2096
         r.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer(target: self, action: #selector(chooseTopView(_:)))
@@ -610,7 +612,8 @@ class listTableHeader: UIView {
         let r = ButtonItem()
         r.clipsToBounds = true
         r.layer.cornerRadius = 8
-        r.backgroundColor = .init(hexString: "#F3F5F9")
+        r.backgroundColor = .init(hexString: "#FDE3FE")
+        r.titleLabel.textColor = .init(hexString: "#9D42F4")
         r.tag = 2097
         r.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer(target: self, action: #selector(chooseTopView(_:)))
@@ -622,7 +625,8 @@ class listTableHeader: UIView {
         let r = ButtonItem()
         r.clipsToBounds = true
         r.layer.cornerRadius = 8
-        r.backgroundColor = .init(hexString: "#F3F5F9")
+        r.backgroundColor = .init(hexString: "#FCECD3")
+        r.titleLabel.textColor = .init(hexString: "#C9790D")
         r.tag = 2098
         r.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer(target: self, action: #selector(chooseTopView(_:)))
