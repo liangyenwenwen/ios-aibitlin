@@ -71,6 +71,7 @@
 		0420C71E2BEB78CC0005F5B8 /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0420C71D2BEB78CC0005F5B8 /* ProfileTableViewController.swift */; };
 		042E2A1F2BF5C3B400A90CB6 /* YFOpenIMUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042E2A1E2BF5C3B400A90CB6 /* YFOpenIMUtil.swift */; };
 		0434ABA42CBBC2F7000F9B07 /* QRCodeSaveCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0434ABA32CBBC2F7000F9B07 /* QRCodeSaveCardView.swift */; };
+		0439CCD72D081E5200379537 /* BoBBuyAndSellCionMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439CCD62D081E5200379537 /* BoBBuyAndSellCionMainViewController.swift */; };
 		043A558C2C8166490041836E /* UserTagTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043A55892C8166490041836E /* UserTagTypeView.swift */; };
 		043A558D2C8166490041836E /* UserTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043A558A2C8166490041836E /* UserTagView.swift */; };
 		0445BEE22CD1E04300A46558 /* ABLNetWorkToos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445BEE12CD1E04300A46558 /* ABLNetWorkToos.swift */; };
@@ -330,6 +331,7 @@
 		04356FCD2CCA38C50001F797 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04356FD62CCA38C50001F797 /* BroadcastSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BroadcastSetupViewController.swift; sourceTree = "<group>"; };
 		04356FD82CCA38C50001F797 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0439CCD62D081E5200379537 /* BoBBuyAndSellCionMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBBuyAndSellCionMainViewController.swift; sourceTree = "<group>"; };
 		043A55892C8166490041836E /* UserTagTypeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTagTypeView.swift; sourceTree = "<group>"; };
 		043A558A2C8166490041836E /* UserTagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTagView.swift; sourceTree = "<group>"; };
 		0445BEE12CD1E04300A46558 /* ABLNetWorkToos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ABLNetWorkToos.swift; sourceTree = "<group>"; };
@@ -849,6 +851,14 @@
 			path = ScreenShareBroadcastExtensionSetupUI;
 			sourceTree = "<group>";
 		};
+		0439CCD52D081E0600379537 /* BuyAndSellCion */ = {
+			isa = PBXGroup;
+			children = (
+				0439CCD62D081E5200379537 /* BoBBuyAndSellCionMainViewController.swift */,
+			);
+			path = BuyAndSellCion;
+			sourceTree = "<group>";
+		};
 		043A558B2C8166490041836E /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -1261,6 +1271,7 @@
 		04EFEA412CECB5BC004441CB /* BOB */ = {
 			isa = PBXGroup;
 			children = (
+				0439CCD52D081E0600379537 /* BuyAndSellCion */,
 				0445C9372CFEF0AF00D1FD34 /* ChatRedPacket */,
 				0445C9382CFEF0AF00D1FD34 /* ChatTransferAccounts */,
 				048172852CFD875A007A2920 /* MineAssets */,
@@ -2230,6 +2241,7 @@
 				17C4BBAA28CA1220003782EF /* Array+deduplicate.swift in Sources */,
 				04C394492CCFBC1C00181F6B /* YFRetrievePasswordVC.swift in Sources */,
 				04F2D0892BEE21CA00D5271B /* MineSettingVC.swift in Sources */,
+				0439CCD72D081E5200379537 /* BoBBuyAndSellCionMainViewController.swift in Sources */,
 				0481727E2CFAB51A007A2920 /* BoBChooseBillView.swift in Sources */,
 				0419D4052C019350009CBE94 /* SuperUICollectionViewExtension.swift in Sources */,
 				04052E2B2CF4540400A7A554 /* BoBUnRealNameTipView.swift in Sources */,

@@ -35,7 +35,7 @@ public typealias gotoBoBTransferAccountsHandle = ((_ currentVC: UIViewController
 public typealias sendBoBTransferAccountsHandle = ((_ currentVC: UIViewController, _ receiveUserId: String ,_ groupId: String,_ completion: @escaping ((String) -> Void)) -> Void)
 
 //私聊、群聊发红包
-public typealias sendBoBRedPacketHandle = ((_ currentVC: UIViewController, _ receiveUserId: String ,_ groupId: String,_ completion: @escaping ((String) -> Void)) -> Void)
+public typealias sendBoBRedPacketHandle = ((_ currentVC: UIViewController, _ receiveUserId: String ,_ groupId: String,_ groupMemberCount: Int,_ completion: @escaping ((String) -> Void)) -> Void)
 
 //点击私聊、群聊红包
 public typealias gotoReceiveRedPacketHandle = ((_ currentVC: UIViewController,_ source:String ,_ completion: @escaping ((String) -> Void)) -> Void)

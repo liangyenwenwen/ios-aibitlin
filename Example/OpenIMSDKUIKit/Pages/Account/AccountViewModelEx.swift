@@ -106,10 +106,11 @@ extension AccountViewModel {
             vc.gotoController(sendChatTransferAccountsVC)
         }
         //聊天去发红包
-        OIMApi.sendBoBRedPacketHandle = {(vc, receiveUserId, groupId,completion: @escaping (String) -> Void) in
+        OIMApi.sendBoBRedPacketHandle = {(vc, receiveUserId, groupId,groupMemberCount,completion: @escaping (String) -> Void) in
             let sendRedPacketVC = BoBSendRedPacketViewController()
             sendRedPacketVC.receiveUserId = receiveUserId
             sendRedPacketVC.groupId = groupId
+            sendRedPacketVC.groupMemberCount = groupMemberCount
             sendRedPacketVC.sendRedPacketAction = {redPacketJson in
                 completion(redPacketJson)
                 

@@ -72,7 +72,6 @@ class BoBReceiveRedPacketDetailViewController: BaseTitleController {
             let status = self.redPacketMessage?.data?.redPacketType
             if status == 0 || status == 3{
                 if self.redPacketMessage?.data?.sendUserId == IMController.shared.uid{
-                    self.totalMoneyLabel.hide()
                     self.sectionTitleLabel.show()
                     self.lineView.show()
                     self.tipLabel.show()
@@ -93,20 +92,28 @@ class BoBReceiveRedPacketDetailViewController: BaseTitleController {
                     if self.updateRedPacketStatus != nil{
                         self.updateRedPacketStatus(status)
                     }
+                    self.listArray = data.iconTimeAmountCurrencyNamePOS
+                    self.tableView.reloadData()
                 }else{
-                    self.totalMoneyLabel.show()
                     self.totalMoneyLabel.text = String(format: "%.2f ",data.amountM ?? 0.00) + (data.currency ?? "")
                     self.sectionTitleLabel.hide()
                     self.lineView.hide()
                 }
             }else{
-                self.lineView.show()
-                self.sectionTitleLabel.text = "已领取 " + String(format: "%d/%d",((data.number ?? 0)-(data.residualNumber ?? 0)),data.number ?? 0) + " ，总共" + String(format: "%.2f ",data.amountAll ?? 0.00) + (data.currency ?? "")
-                self.listArray = data.iconTimeAmountCurrencyNamePOS
-                if self.redPacketMessage?.data?.sendUserId == IMController.shared.uid{
-                    self.tipLabel.show()
+                if self.redPacketMessage?.data?.sendUserId == IMController.shared.uid || status == 1{
+                    self.lineView.show()
+                    self.sectionTitleLabel.text = "已领取 " + String(format: "%d/%d",((data.number ?? 0)-(data.residualNumber ?? 0)),data.number ?? 0) + " ，总共" + String(format: "%.2f ",data.amountAll ?? 0.00) + (data.currency ?? "")
+                    self.listArray = data.iconTimeAmountCurrencyNamePOS
+                    if self.redPacketMessage?.data?.sendUserId == IMController.shared.uid{
+                        self.tipLabel.show()
+                    }
+                    self.tableView.reloadData()
+                }else{
+                    self.totalMoneyLabel.text = String(format: "%.2f ",data.amountM ?? 0.00) + (data.currency ?? "")
+                    self.sectionTitleLabel.hide()
+                    self.lineView.hide()
                 }
-                self.tableView.reloadData()
+                
             }
         } completionHandler:{errCode,errMsg in
             SuperToast.show(title: errMsg)

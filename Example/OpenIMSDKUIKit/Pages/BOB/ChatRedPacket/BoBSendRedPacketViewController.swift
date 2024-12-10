@@ -19,6 +19,7 @@ class BoBSendRedPacketViewController: BaseTitleController {
     var cionType = "C"
     var receiveUserId = ""
     var groupId = ""
+    var groupMemberCount:Int  = 0
     var sendRedPacketAction:((_ redPacketJson:String)->())!
     var chooseCionTypeModel:CionTypeModel?
     var cionTypeArray:[CionTypeModel] = []
@@ -402,6 +403,7 @@ class BoBSendRedPacketViewController: BaseTitleController {
             }
             var count = Int(redPacketTF.text ?? "1")
             redPacketTF.text = String(format: "%d",(count ?? 1) - 1)
+            self.calculationMoney()
         }).disposed(by: rx.disposeBag)
         return r
     }()
@@ -413,7 +415,13 @@ class BoBSendRedPacketViewController: BaseTitleController {
         r.tg_centerY.equal(0)
         r.rx.tap.subscribe(onNext: { [self] in
             var count = Int(redPacketTF.text ?? "1")
-            redPacketTF.text = String(format: "%d",(count ?? 1) + 1)
+            if groupMemberCount <=  (count ?? 1){
+                redPacketTF.text = String(format: "%d",groupMemberCount)
+                SuperToast.show(title: "红包个数不可超过当前群聊人数")
+            }else{
+                redPacketTF.text = String(format: "%d",(count ?? 1) + 1)
+            }
+            self.calculationMoney()
         }).disposed(by: rx.disposeBag)
         return r
     }()
@@ -429,15 +437,29 @@ class BoBSendRedPacketViewController: BaseTitleController {
         r.setPlaceHolderTextColor(.black999)
         r.placeholder = "输入个数"
         r.text = "1"
-        r.rx.controlEvent(.editingChanged).subscribe(onNext: { [unowned self] in
+        r.rx.controlEvent(.editingDidEnd).subscribe(onNext: { [unowned self] in
             var count = Int(r.text ?? "1")
             if count == 0{
                 r.text = "1"
             }else{
-                r.text = String(format: "%d",count ?? 1)
+                if groupMemberCount <=  (count ?? 1){
+                    r.text = String(format: "%d",groupMemberCount)
+                    SuperToast.show(title: "红包个数不可超过当前群聊人数")
+                }else{
+                    r.text = String(format: "%d",count ?? 1)
+                }
             }
             self.calculationMoney()
         }).disposed(by: rx.disposeBag)
+//        r.rx.controlEvent(.editingChanged).subscribe(onNext: { [unowned self] in
+//            var count = Int(r.text ?? "1")
+//            if count == 0{
+//                r.text = "1"
+//            }else{
+//                r.text = String(format: "%d",count ?? 1)
+//            }
+//            self.calculationMoney()
+//        }).disposed(by: rx.disposeBag)
         return r
     }()
     

@@ -26,6 +26,7 @@ extension Notification.Name {
 final class ChatViewController: UIViewController {
     
     private var toolItems: [ToolItem] = ToolItem.allCases
+    var groupMemberCount:Int = 0
     
     private enum ToolItem: CaseIterable {
         case copy
@@ -1366,7 +1367,7 @@ extension ChatViewController: ChatControllerDelegate {
         
 //        chatViewControllerNav.GroupTitleLbl.text =  "\(info.groupName!)(\(info.memberCount))"
         chatViewControllerNav.groupNumberLable.text = "[\(info.memberCount)]"
-        
+        groupMemberCount = info.memberCount
         self.showGroupAnnouncements(groupInfo: info)
     }
     
@@ -2163,11 +2164,11 @@ extension ChatViewController: CoustomInputBarAccessoryViewDelegate {
         case .voiceCall:
             chooseVoiceORVideo(isVideo: false)
         case .redPacket:
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [self] in
                 let info = self.chatController.getConversation()
                 let completion = self.completionHandler()
                 if let handler = OIMApi.sendBoBRedPacketHandle {
-                    handler(self, info.userID ?? "",info.groupID ?? "",{ [weak self] res in
+                    handler(self, info.userID ?? "",info.groupID ?? "",groupMemberCount,{ [weak self] res in
                         let source = CustomMessageSource(data: self?.getCustomRedPacketAndTransferAccountsData(10800,res))
                         self?.chatController.sendMessage(.custom(source), completion: completion)
                     })
