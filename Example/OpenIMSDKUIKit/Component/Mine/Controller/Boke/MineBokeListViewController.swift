@@ -46,7 +46,7 @@ class MineBokeListViewController: BaseTitleController {
 
         switch vcType {
         case .meWebsite:
-            title = "MyWebsite".localized()
+            title = "MeWebsite".localized()
         case .othersBlog:
             title = "UserWebsite".localizedFormat(othersName ?? "")
         case .star:
