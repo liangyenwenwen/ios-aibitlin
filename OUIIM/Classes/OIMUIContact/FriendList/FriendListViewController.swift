@@ -496,12 +496,12 @@ class listTableHeader: UIView {
         super.init(frame: frame)
         
         backgroundColor = .white
-        let width = (UIScreen.main.bounds.size.width - 16*2 - 8*3)/4
+        let width = (UIScreen.main.bounds.size.width - 16*2 - 8*2)/3
 
         addSubview(addFriendView)
         addSubview(addGroupChatView)
         addSubview(creatGroupChatView)
-        addSubview(videoMettingView)
+//        addSubview(videoMettingView)
         addSubview(newFriendView)
         addSubview(groupView)
         addSubview(newGroupView)
@@ -527,10 +527,10 @@ class listTableHeader: UIView {
             make.left.equalTo(addGroupChatView.snp_right).offset(8)
             make.width.height.top.equalTo(addFriendView)
         }
-        videoMettingView.snp.makeConstraints { make in
-            make.left.equalTo(creatGroupChatView.snp_right).offset(8)
-            make.width.height.top.equalTo(addFriendView)
-        }
+//        videoMettingView.snp.makeConstraints { make in
+//            make.left.equalTo(creatGroupChatView.snp_right).offset(8)
+//            make.width.height.top.equalTo(addFriendView)
+//        }
         
         newFriendView.snp.makeConstraints { make in
             make.left.right.equalToSuperview()

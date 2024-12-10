@@ -45,11 +45,11 @@ class MineAccountAddSafeVC: BaseTitleController {
         r.addSubview(ViewFactoryUtil.smallDivider())
         
         /// APP分离国内外
-        if AppDelegate.shared.isChine {
-            r.addSubview(changePhoneView)
-        } else {
-            r.addSubview(changeEmailView)
-        }
+//        if AppDelegate.shared.isChine {
+//            r.addSubview(changePhoneView)
+//        } else {
+//            r.addSubview(changeEmailView)
+//        }
 //        r.addSubview(changeEmailView)
 //        r.addSubview(ViewFactoryUtil.smallDivider())
 //        r.addSubview(changePhoneView)

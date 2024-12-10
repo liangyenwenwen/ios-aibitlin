@@ -98,7 +98,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     private let _disposeBag = DisposeBag();
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-
+        Localize.resetCurrentLanguageToDefault()
         IQKeyboardManager.shared.enable = true
         
         NothingToSeeHere.harmlessFunction()

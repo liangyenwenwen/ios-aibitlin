@@ -229,13 +229,13 @@ class MeHomeController: BaseLogicController {
     
     
     lazy var vipView: UIView = {
-        let vipView = ViewFactoryUtil.sectionHeaderViewAboutVIP(R.image.section_vip()!, title: "ID:", isHaveMore: true)
+        let vipView = ViewFactoryUtil.sectionHeaderViewAboutVIP(R.image.section_vip()!, title: "ID:", isHaveMore: false)
         vipView.backgroundColor = .white
         vipView.corner(MEDDLE_RADIUS)
         vipView.tg_width.equal(.fill)
         vipView.tg_height.equal(44)
         
-        let tap = UITapGestureRecognizer(target: self, action: #selector(gotoVip))
+        let tap = UITapGestureRecognizer(target: self, action: #selector(copyUserID))
         vipView.addGestureRecognizer(tap)
         
         
@@ -335,11 +335,11 @@ class MeHomeController: BaseLogicController {
                 self?.gotoControllerFromRoot(MineBokeListViewController.self)
             } else {
 
-                
-                let vc = MineBokeStatisticsVC()
-                vc.boke = item
-                
-                self?.gotoControllerFromRoot(vc)
+                SuperWebController.startAboubBlog((self?.navigationController)!, blogItem: item)
+//                let vc = MineBokeStatisticsVC()
+//                vc.boke = item
+//                
+//                self?.gotoControllerFromRoot(vc)
 
             }
         }
@@ -428,9 +428,6 @@ extension MeHomeController {
     }
     
     
-    @objc func gotoVip() {
-        gotoControllerFromRoot(YFMineHomeBuyVipVC.self)
-    }
     
     @objc func gotoMoments() {
 //        let vc = MomentsViewController()
