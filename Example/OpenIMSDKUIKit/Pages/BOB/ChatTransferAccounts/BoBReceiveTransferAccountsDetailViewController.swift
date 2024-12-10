@@ -255,6 +255,7 @@ class BoBReceiveTransferAccountsDetailViewController: BaseTitleController {
                 self?.descLabel.text = data.instructions ?? ""
                 self?.sendTimeTitleLabel.text = "转账时间"
                 self?.sendTimeLabel.text = data.sendTime
+                var status = "0"
                 if data.sign == 1{
                     //未领取
                     self?.tipLabel.show()
@@ -268,6 +269,7 @@ class BoBReceiveTransferAccountsDetailViewController: BaseTitleController {
                         self?.tipLabel.text = "24小时内你未收款将退还给对方"
                         self?.sureBtn.show()
                     }
+                    status = "0"
                 }else if data.sign == 2{
                     self?.receiveTimeView.show()
                     self?.receiveTimeTitleLabel.text = "到账时间"
@@ -280,7 +282,7 @@ class BoBReceiveTransferAccountsDetailViewController: BaseTitleController {
                     }else{
                         self?.statusLabel.text = "你已收款"
                     }
-
+                    status = "1"
                 }else if data.sign == 3{
                     //已过期
                     self?.receiveTimeView.show()
@@ -293,6 +295,10 @@ class BoBReceiveTransferAccountsDetailViewController: BaseTitleController {
                     }else{
                         self?.statusLabel.text = "你过期未收款，已退还给对方"
                     }
+                    status = "2"
+                }
+                if self!.updateTransferAccountsStatus != nil{
+                    self!.updateTransferAccountsStatus(status)
                 }
                 
             }completionHandler: {errCode,errMsg in

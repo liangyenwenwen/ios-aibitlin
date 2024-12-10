@@ -1728,6 +1728,10 @@ extension ChatViewController: ChatControllerDelegate {
             case .redPacket:
                 //点击红包
                 print(source.redPacketMessageSource.localEx)
+                popover?.dismiss()
+                        // (#330)
+                resetOffset(newBottomInset: 0)
+                inputBarView.inputResignFirstResponder()
                 let parm = ["customType": 10800, "data":["sendUserId": source.redPacketMessageSource.sendUserId,
                                                          "sendUserFaceURL":source.redPacketMessageSource.sendUserFaceURL,
                                                          "sendUserName":source.redPacketMessageSource.sendUserName,

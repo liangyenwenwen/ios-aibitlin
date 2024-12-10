@@ -112,7 +112,7 @@ class BoBReceiveRedPacketAlertView: TGLinearLayout {
                 }else{
                     self.isReceiveing = false
                     self.receieBtn.isUserInteractionEnabled = true
-                    if errCode == 20028{
+                    if errCode == 20027{
                         //已过期
                         if self.receiveRedPacketSuccess != nil{
                             self.receiveRedPacketSuccess("2")
