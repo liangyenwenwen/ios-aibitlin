@@ -8,7 +8,7 @@ class NewFriendListViewController: UIViewController {
     private let disposeBag = DisposeBag()
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "新的好友请求".innerLocalized()
+        navigationItem.title = "好友申请".innerLocalized()
         view.backgroundColor = .systemGroupedBackground
         
         initView()

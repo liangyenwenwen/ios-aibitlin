@@ -2642,13 +2642,6 @@ struct _R: Sendable {
       /// Locales: en, th
       var 新用户注册: RswiftResources.StringResource { .init(key: "新用户注册", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: New Group Chat Request
-      ///
-      /// Key: 新的群聊申请
-      ///
-      /// Locales: en, th
-      var 新的群聊申请: RswiftResources.StringResource { .init(key: "新的群聊申请", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
-
       /// en translation: Japanese
       ///
       /// Key: 日语
@@ -3145,6 +3138,13 @@ struct _R: Sendable {
       ///
       /// Locales: en, th
       var 群聊: RswiftResources.StringResource { .init(key: "群聊", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Group Request
+      ///
+      /// Key: 群聊申请
+      ///
+      /// Locales: en, th
+      var 群聊申请: RswiftResources.StringResource { .init(key: "群聊申请", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Group Chat Settings
       ///

@@ -137,8 +137,8 @@ open class FriendListViewController: UIViewController {
         headerView.creatGroupChatView.bindData(item: listTableHeader.MenuItem(title: "创建群聊".innerLocalized(), icon: UIImage(named: "friend_list_creat_group_chat_icon")))
         headerView.videoMettingView.bindData(item: listTableHeader.MenuItem(title: "视频会议".innerLocalized(), icon: UIImage(named: "friend_list_video_metting_icon")))
         
-        let data:[listTableHeader.MenuItem] = [listTableHeader.MenuItem(title: "新的好友请求".innerLocalized(), icon: UIImage(named: "friend_list_group_icon")),
-                                               listTableHeader.MenuItem(title: "新的群聊申请".localized(), icon: UIImage(named: "friend_list_group_new_icon")),
+        let data:[listTableHeader.MenuItem] = [listTableHeader.MenuItem(title: "好友申请".innerLocalized(), icon: UIImage(named: "friend_list_group_icon")),
+                                               listTableHeader.MenuItem(title: "群聊申请".localized(), icon: UIImage(named: "friend_list_group_new_icon")),
                                                listTableHeader.MenuItem(title: "我的群聊".localized(), icon: UIImage(named: "friend_list_new_friend_icon"))]
         headerView.newFriendView.bindData(item: data[0])
         headerView.newGroupView.bindData(item: data[1])
@@ -262,8 +262,8 @@ open class FriendListViewController: UIViewController {
         r.addGroupChatView.bindData(item: listTableHeader.MenuItem(title: "添加群聊".innerLocalized(), icon: UIImage(named: "friend_list_add_group_chat_icon")))
         r.creatGroupChatView.bindData(item: listTableHeader.MenuItem(title: "创建群聊".innerLocalized(), icon: UIImage(named: "friend_list_creat_group_chat_icon")))
         r.videoMettingView.bindData(item: listTableHeader.MenuItem(title: "视频会议".innerLocalized(), icon: UIImage(named: "friend_list_video_metting_icon")))
-        let data:[listTableHeader.MenuItem] = [listTableHeader.MenuItem(title: "新的好友请求".innerLocalized(), icon: UIImage(named: "friend_list_group_icon")),
-                                               listTableHeader.MenuItem(title: "新的群聊申请".localized(), icon: UIImage(named: "friend_list_group_new_icon")),
+        let data:[listTableHeader.MenuItem] = [listTableHeader.MenuItem(title: "好友申请".innerLocalized(), icon: UIImage(named: "friend_list_group_icon")),
+                                               listTableHeader.MenuItem(title: "群聊申请".localized(), icon: UIImage(named: "friend_list_group_new_icon")),
                                                listTableHeader.MenuItem(title: "我的群聊".localized(), icon: UIImage(named: "friend_list_new_friend_icon"))]
         r.newFriendView.bindData(item: data[0])
         r.newGroupView.bindData(item: data[1])
