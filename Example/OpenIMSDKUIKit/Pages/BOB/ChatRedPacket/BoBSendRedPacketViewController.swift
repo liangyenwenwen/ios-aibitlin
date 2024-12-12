@@ -818,6 +818,7 @@ class BoBSendRedPacketViewController: BaseTitleController {
                         if self?.descTF.text?.isEmpty == false{
                             instructions = self?.descTF.text ?? ""
                         }
+                        let timestamp = String(Int(Date().timeIntervalSince1970 * 1000))
                         var pwd = (IMController.shared.payPassWordSonKey + passWord).md5
                         if self?.sendRedPacketType == 0{
                             //私聊红包
@@ -827,8 +828,8 @@ class BoBSendRedPacketViewController: BaseTitleController {
                             let receiverId = self?.receiveUserId ?? ""
                             let currency = self?.chooseCionTypeModel?.currency ?? ""
                             
-                            let sign = (amount + funderWallet + instructions + "1" + receiverId + currency + pwd).md5
-                            param = ["amount":amount,"funderWallet":funderWallet,"instructions":instructions,"redEnvelopeCover":"1","receiverId":receiverId,"currency":currency,"sign":sign]
+                            let sign = (amount + funderWallet + instructions + "1" + receiverId + currency + timestamp + pwd).md5
+                            param = ["amount":amount,"funderWallet":funderWallet,"instructions":instructions,"redEnvelopeCover":"1","receiverId":receiverId,"currency":currency,"timestamp":timestamp,"sign":sign]
                         }else{
                             if self?.redPacketType == 0{
                                 //群拼手气红包
@@ -839,8 +840,8 @@ class BoBSendRedPacketViewController: BaseTitleController {
                                 let funderWallet = self?.chooseCionTypeModel?.cionType ?? ""
                                 let groupId = self?.groupId ?? ""
                                 let currency = self?.chooseCionTypeModel?.currency ?? ""
-                                let sign = (number + totalQuantity + instructions + "1" + funderWallet + currency + groupId + pwd).md5
-                                param = ["number":number,"totalQuantity":totalQuantity,"instructions":instructions,"redEnvelopeCover":"1","funderWallet":funderWallet,"currency":currency,"groupId":groupId,"sign":sign]
+                                let sign = (number + totalQuantity + instructions + "1" + funderWallet + currency + groupId + timestamp + pwd).md5
+                                param = ["number":number,"totalQuantity":totalQuantity,"instructions":instructions,"redEnvelopeCover":"1","funderWallet":funderWallet,"currency":currency,"groupId":groupId,"timestamp":timestamp,"sign":sign]
                             }else if self?.redPacketType == 1{
                                 //群普通红包
                                 type = 2
@@ -850,8 +851,8 @@ class BoBSendRedPacketViewController: BaseTitleController {
                                 let funderWallet = self?.chooseCionTypeModel?.cionType ?? ""
                                 let currency = self?.chooseCionTypeModel?.currency ?? ""
                                 let groupId = self?.groupId ?? ""
-                                let sign = (number + individualQuantity + instructions + "1" + funderWallet + currency + groupId + pwd).md5
-                                param = ["number":number,"individualQuantity":individualQuantity,"instructions":instructions,"redEnvelopeCover":"1","funderWallet":funderWallet,"currency":currency,"groupId":groupId,"sign":sign] 
+                                let sign = (number + individualQuantity + instructions + "1" + funderWallet + currency + groupId + timestamp + pwd).md5
+                                param = ["number":number,"individualQuantity":individualQuantity,"instructions":instructions,"redEnvelopeCover":"1","funderWallet":funderWallet,"currency":currency,"groupId":groupId,"timestamp":timestamp,"sign":sign]
                             }else{
                                 //群专属红包
                                 type = 3
@@ -861,8 +862,8 @@ class BoBSendRedPacketViewController: BaseTitleController {
                                 let receiverId = self?.receiveUserId ?? ""
                                 let currency = self?.chooseCionTypeModel?.currency ?? ""
                                 
-                                let sign = (amount + funderWallet + instructions + "1" + receiverId + currency + pwd).md5
-                                param = ["amount":amount,"funderWallet":funderWallet,"instructions":instructions,"redEnvelopeCover":"1","receiverId":receiverId,"currency":currency,"sign":sign]
+                                let sign = (amount + funderWallet + instructions + "1" + receiverId + currency + timestamp + pwd).md5
+                                param = ["amount":amount,"funderWallet":funderWallet,"instructions":instructions,"redEnvelopeCover":"1","receiverId":receiverId,"currency":currency,"timestamp":timestamp,"sign":sign]
                             }
                         }
                         self?.sendRedPacket(type: type, param: param)

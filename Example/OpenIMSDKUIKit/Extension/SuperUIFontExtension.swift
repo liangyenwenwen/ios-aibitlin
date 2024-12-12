@@ -22,5 +22,8 @@ extension UIFont {
     static func semiboldFont(_ size : CGFloat) -> UIFont {
         return UIFont(name: "PingFangSC-Semibold", size: size)!
     }
+    static func lightFont(_ size : CGFloat) -> UIFont {
+        return UIFont(name: "PingFangSC-Light", size: size)!
+    }
     
 }

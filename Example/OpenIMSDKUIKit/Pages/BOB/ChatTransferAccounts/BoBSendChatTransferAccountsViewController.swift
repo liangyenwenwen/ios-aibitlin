@@ -528,7 +528,7 @@ class BoBSendChatTransferAccountsViewController: BaseTitleController {
                     passWordView.tg_height.equal(210)
                     passWordView.payBtnClickBlock = { [weak self] passWord in
                         
-                        BoBRedPacketModel.SendTransferMoneyRequest(receiverUserId: self?.receiveUserId, currency: self?.chooseCionTypeModel?.currency, issuingPartyWallet: self?.chooseCionTypeModel?.cionType, transferAmount:self?.countTF.text ?? "0.00" ,instructions:self?.descTF.text ?? "", passWord: passWord, transferAccountsType: self?.transferAccountsType){ [weak self] data in
+                        BoBRedPacketModel.SendTransferMoneyRequest(receiverUserId: self?.receiveUserId, currency: self?.chooseCionTypeModel?.currency, issuingPartyWallet: self?.chooseCionTypeModel?.cionType, transferAmount:self?.countTF.text ?? "0.00" ,instructions:self?.descTF.text ?? "", passWord: passWord, transferAccountsType: self?.transferAccountsType,groupId: self?.groupId ?? ""){ [weak self] data in
                             SuperToast.show(title:"转账成功")
                             let sendUserId = data.issuingPartyUserId ?? ""
                             let sendUserName = data.issuingPartyUserNickName ?? ""

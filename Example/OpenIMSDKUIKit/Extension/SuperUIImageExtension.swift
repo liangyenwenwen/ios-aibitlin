@@ -31,6 +31,17 @@ extension UIImage {
 
         return image!
     }
+    
+    func changeImageColor(color: UIColor) -> UIImage? {
+        let templateImage = self.withRenderingMode(.alwaysTemplate)
+        UIGraphicsBeginImageContextWithOptions(templateImage.size, false, templateImage.scale)
+        color.set()
+        templateImage.draw(in: CGRect(x: 0, y: 0, width: templateImage.size.width, height: templateImage.size.height))
+        let coloredImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return coloredImage
+    }
 
 }
 

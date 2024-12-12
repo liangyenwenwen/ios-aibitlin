@@ -3794,7 +3794,7 @@ struct _R: Sendable {
     var colorBackground: RswiftResources.ColorResource { .init(name: "ColorBackground", path: [], bundle: bundle) }
   }
 
-  /// This `_R.image` struct is generated, and contains static references to 295 images.
+  /// This `_R.image` struct is generated, and contains static references to 301 images.
   struct image {
     let bundle: Foundation.Bundle
 
@@ -4409,6 +4409,24 @@ struct _R: Sendable {
 
     /// Image `mine_blocked_list_empty`.
     var mine_blocked_list_empty: RswiftResources.ImageResource { .init(name: "mine_blocked_list_empty", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `mine_buy_and_sell_cancreat_ad_icon`.
+    var mine_buy_and_sell_cancreat_ad_icon: RswiftResources.ImageResource { .init(name: "mine_buy_and_sell_cancreat_ad_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `mine_buy_and_sell_cion_type_icon`.
+    var mine_buy_and_sell_cion_type_icon: RswiftResources.ImageResource { .init(name: "mine_buy_and_sell_cion_type_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `mine_buy_and_sell_free_choose_icon`.
+    var mine_buy_and_sell_free_choose_icon: RswiftResources.ImageResource { .init(name: "mine_buy_and_sell_free_choose_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `mine_buy_and_sell_push_left_icon`.
+    var mine_buy_and_sell_push_left_icon: RswiftResources.ImageResource { .init(name: "mine_buy_and_sell_push_left_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `mine_buy_and_sell_push_right_icon`.
+    var mine_buy_and_sell_push_right_icon: RswiftResources.ImageResource { .init(name: "mine_buy_and_sell_push_right_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `mine_buy_and_sell_uncreat_ad_icon`.
+    var mine_buy_and_sell_uncreat_ad_icon: RswiftResources.ImageResource { .init(name: "mine_buy_and_sell_uncreat_ad_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
     /// Image `mine_copy_icon`.
     var mine_copy_icon: RswiftResources.ImageResource { .init(name: "mine_copy_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }

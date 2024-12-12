@@ -299,8 +299,9 @@ class BoBPaymentModel {
             return
         }
         ProgressHUD.animate()
-        let signStr = (addr! + currency! + issuingPartyWallet! + transferAmount! + (IMController.shared.payPassWordSonKey + (sign ?? "")).md5).md5
-        let param = ["addr": addr ?? "","currency": currency ?? "","issuingPartyWallet": issuingPartyWallet ?? "","transferAmount": transferAmount ?? "0.00","sign": signStr]
+        let timestamp = String(Int(Date().timeIntervalSince1970 * 1000))
+        let signStr = (addr! + currency! + issuingPartyWallet! + transferAmount! + timestamp + (IMController.shared.payPassWordSonKey + (sign ?? "")).md5).md5
+        let param = ["addr": addr ?? "","currency": currency ?? "","issuingPartyWallet": issuingPartyWallet ?? "","transferAmount": transferAmount ?? "0.00","timestamp":timestamp,"sign": signStr]
         
         Alamofire.request(API_BOB_URL + SendExternalTransfer, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
             ProgressHUD.dismiss()
@@ -563,7 +564,8 @@ class BillListData: Decodable {
          
         // 将ISO 8601字符串转换为Date对象
         guard let date = dateFormatter.date(from: changeTime ?? "") else {
-            fatalError("Date conversion failed")
+            return ""
+//            fatalError("Date conversion failed")
         }
          
         // 重新设置日期格式化器的日期格式
@@ -606,7 +608,8 @@ class BoBBillDetail: Decodable {
          
         // 将ISO 8601字符串转换为Date对象
         guard let date = dateFormatter.date(from: jiaoYiShiJian ?? "") else {
-            fatalError("Date conversion failed")
+            return ""
+//            fatalError("Date conversion failed")
         }
          
         // 重新设置日期格式化器的日期格式

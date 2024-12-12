@@ -83,6 +83,7 @@ class BoBRedPacketModel {
                                          instructions:String?,
                                          passWord:String?,
                                          transferAccountsType:Int?,
+                                         groupId:String?,
                                          valueHandler: @escaping (BoBSendTransferAccountsData) -> Void,
                                   completionHandler: @escaping CompletionHandler) {
         
@@ -91,8 +92,9 @@ class BoBRedPacketModel {
             return
         }
         ProgressHUD.animate()
-        let sign = (receiverUserId! + currency! + issuingPartyWallet! + transferAmount! + instructions! + (IMController.shared.payPassWordSonKey + (passWord ?? "")).md5).md5
-        let param = ["receiverUserId": receiverUserId ?? "","currency": currency ?? "","issuingPartyWallet": issuingPartyWallet ?? "","transferAmount": transferAmount ?? "0.00","instructions": instructions ?? "","sign": sign]
+        let timestamp = String(Int(Date().timeIntervalSince1970 * 1000))
+        let sign = (receiverUserId! + currency! + issuingPartyWallet! + transferAmount! + instructions! + groupId! + timestamp + (IMController.shared.payPassWordSonKey + (passWord ?? "")).md5).md5
+        let param = ["receiverUserId": receiverUserId ?? "","currency": currency ?? "","issuingPartyWallet": issuingPartyWallet ?? "","transferAmount": transferAmount ?? "0.00","instructions": instructions ?? "","groupId": groupId ?? "","timestamp":timestamp,"sign": sign]
         Alamofire.request(API_BOB_URL + SendTransferMoneySInner, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
             ProgressHUD.dismiss()
             
@@ -174,7 +176,6 @@ class BoBRedPacketModel {
         if !NetworkStatus.isReacheable {
             return
         }
-        ProgressHUD.animate()
         var url = ""
         if type == 0 || type == 3{
             //私聊普通红包、群专属红包
@@ -191,7 +192,6 @@ class BoBRedPacketModel {
                     
         
         Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
-            ProgressHUD.dismiss()
             
             if let data = dataRequest.data {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
@@ -481,7 +481,8 @@ func getTime(time:String) -> (String){
      
     // 将ISO 8601字符串转换为Date对象
     guard let date = dateFormatter.date(from: time) else {
-        fatalError("Date conversion failed")
+        return ""
+//        fatalError("Date conversion failed")
     }
      
     // 重新设置日期格式化器的日期格式

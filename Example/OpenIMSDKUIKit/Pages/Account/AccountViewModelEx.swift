@@ -124,7 +124,7 @@ extension AccountViewModel {
                 let status = Int(redPacketStatus.localEx ?? "0")
                 if redPacketStatus.data?.sendUserId == IMController.shared.uid{
                     //自己发的
-                    if status == 0 && redPacketStatus.data?.redPacketType != 3{
+                    if status == 0 && redPacketStatus.data?.redPacketType != 0 && redPacketStatus.data?.redPacketType != 3{
                         receiveRedpacket(vc: vc, scour: redPacketStatus,completion:completion)
                     }else{
                         //直接进列表

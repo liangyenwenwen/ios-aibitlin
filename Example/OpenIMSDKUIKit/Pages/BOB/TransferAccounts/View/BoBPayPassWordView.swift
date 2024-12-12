@@ -109,7 +109,7 @@ class BoBPayPassWordView: TGLinearLayout {
         return r
     }()
     lazy var payBtn: QMUIButton = {
-        let r = ViewFactoryUtil.linkButton("确认转账")
+        let r = ViewFactoryUtil.linkButton("确定")
         r.setTitleColor(.white, for: .normal)
         r.titleLabel?.font = .regularFont(16)
         r.backgroundColor = .primaryColor
