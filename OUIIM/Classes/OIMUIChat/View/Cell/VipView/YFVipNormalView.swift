@@ -128,8 +128,12 @@ class YFVipNormalView: UIView, StaticViewFactory, ContainerCollectionViewCellDel
                     make.left.right.top.equalTo(0)
                     if controller.source.billModel!.type == 1{
                         make.height.equalTo(315)
-                    }else{
+                    }else if controller.source.billModel!.type == 2 || controller.source.billModel!.type == 3 || controller.source.billModel!.type == 4{
                         make.height.equalTo(315-30)
+                    }else if controller.source.billModel!.type == 10 || controller.source.billModel!.type == 11 || controller.source.billModel!.type == 12{
+                        make.height.equalTo(315-50)
+                    }else{
+                        make.height.equalTo(315)
                     }
                     make.bottom.equalToSuperview().offset(0)
                 }

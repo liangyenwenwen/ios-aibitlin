@@ -82,6 +82,7 @@
 		0439CCE82D09AE7700379537 /* BoBFreeBuyAndSellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439CCE72D09AE7700379537 /* BoBFreeBuyAndSellView.swift */; };
 		0439CCEA2D09BC6E00379537 /* BoBFreeBuyAndSellCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439CCE92D09BC6E00379537 /* BoBFreeBuyAndSellCell.swift */; };
 		0439CCEC2D0A8EF000379537 /* BoBFreeFilterMoneyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439CCEB2D0A8EF000379537 /* BoBFreeFilterMoneyView.swift */; };
+		0439CCEE2D0B10A500379537 /* BoBFreeFilterPaymentMethodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439CCED2D0B10A500379537 /* BoBFreeFilterPaymentMethodView.swift */; };
 		043A558C2C8166490041836E /* UserTagTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043A55892C8166490041836E /* UserTagTypeView.swift */; };
 		043A558D2C8166490041836E /* UserTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043A558A2C8166490041836E /* UserTagView.swift */; };
 		0445BEE22CD1E04300A46558 /* ABLNetWorkToos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445BEE12CD1E04300A46558 /* ABLNetWorkToos.swift */; };
@@ -352,6 +353,7 @@
 		0439CCE72D09AE7700379537 /* BoBFreeBuyAndSellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBFreeBuyAndSellView.swift; sourceTree = "<group>"; };
 		0439CCE92D09BC6E00379537 /* BoBFreeBuyAndSellCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBFreeBuyAndSellCell.swift; sourceTree = "<group>"; };
 		0439CCEB2D0A8EF000379537 /* BoBFreeFilterMoneyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBFreeFilterMoneyView.swift; sourceTree = "<group>"; };
+		0439CCED2D0B10A500379537 /* BoBFreeFilterPaymentMethodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBFreeFilterPaymentMethodView.swift; sourceTree = "<group>"; };
 		043A55892C8166490041836E /* UserTagTypeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTagTypeView.swift; sourceTree = "<group>"; };
 		043A558A2C8166490041836E /* UserTagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTagView.swift; sourceTree = "<group>"; };
 		0445BEE12CD1E04300A46558 /* ABLNetWorkToos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ABLNetWorkToos.swift; sourceTree = "<group>"; };
@@ -893,6 +895,7 @@
 				0439CCE72D09AE7700379537 /* BoBFreeBuyAndSellView.swift */,
 				0439CCE92D09BC6E00379537 /* BoBFreeBuyAndSellCell.swift */,
 				0439CCEB2D0A8EF000379537 /* BoBFreeFilterMoneyView.swift */,
+				0439CCED2D0B10A500379537 /* BoBFreeFilterPaymentMethodView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2427,6 +2430,7 @@
 				040D85F22BEB8C0B00DCAAB3 /* ListResponse.swift in Sources */,
 				040D85C42BEB8B0400DCAAB3 /* ViewFactoryUtil.swift in Sources */,
 				04A4BD002BF32F17008FA224 /* YFMineChangePasswordVC.swift in Sources */,
+				0439CCEE2D0B10A500379537 /* BoBFreeFilterPaymentMethodView.swift in Sources */,
 				0439CCDF2D087E0300379537 /* BoBFreeCionTypeMainViewController.swift in Sources */,
 				1780764A29260BF50024399B /* InputPasswordViewController.swift in Sources */,
 				0439CCD92D087C5000379537 /* BoBQuickCionMainViewController.swift in Sources */,

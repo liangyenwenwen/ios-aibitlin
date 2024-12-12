@@ -91,21 +91,73 @@ class YFBillRecordView: UIView{
         }else{
             moneyLabel.textColor = .init(hexString: "#333333")
         }
-        if billInfo.externalTransferMessageVO?.type == 1{
+        switch billInfo.externalTransferMessageVO?.type {
+        case 1:
             typTitleLabel.text = "转账"
-            serviceChargeLabel.text = String(format: "%.2f ",(billInfo.externalTransferMessageVO?.handlingCharge ?? 0.00)) + (billInfo.externalTransferMessageVO?.currency ?? "")
+            addressTitleLabel.isHidden = false
+            addressLabel.isHidden = false
+            orderTitleLabel.isHidden = false
+            orderLabel.isHidden = false
+            timeTitleLabel.isHidden = false
+            timeLabel.isHidden = false
             serviceChargeTitleLabel.isHidden = false
             serviceChargeLabel.isHidden = false
-        }else if  billInfo.externalTransferMessageVO?.type == 2{
-            typTitleLabel.text = "收款"
-//            serviceChargeLabel.text = String(format: "%.2f",(billInfo.externalTransferMessageVO?.handlingCharge)!) + " "  + (billInfo.externalTransferMessageVO?.currency)!
+            addressTitleLabel.text = "对方地址"
+            addressLabel.numberOfLines = 2
+            addressLabel.text =  billInfo.externalTransferMessageVO?.counterpartyAddress ?? " "
+            orderTitleLabel.text = "订单编号"
+            orderLabel.text = billInfo.externalTransferMessageVO?.orderNumber
+            timeTitleLabel.text = "交易时间"
+            timeLabel.text = billInfo.externalTransferMessageVO?.tradingTime
+            serviceChargeTitleLabel.text = "手续费"
+            serviceChargeLabel.text = String(format: "%.2f ",(billInfo.externalTransferMessageVO?.handlingCharge ?? 0.00)) + (billInfo.externalTransferMessageVO?.currency ?? "")
+        case 2,3,4:
+            if billInfo.externalTransferMessageVO?.type == 2{
+                typTitleLabel.text = "收款"
+            }else if billInfo.externalTransferMessageVO?.type == 3{
+                typTitleLabel.text = "购买"
+            }else{
+                typTitleLabel.text = "出售"
+            }
+            addressTitleLabel.isHidden = false
+            addressLabel.isHidden = false
+            orderTitleLabel.isHidden = false
+            orderLabel.isHidden = false
+            timeTitleLabel.isHidden = false
+            timeLabel.isHidden = false
             serviceChargeTitleLabel.isHidden = true
             serviceChargeLabel.isHidden = true
+            addressTitleLabel.text = "对方地址"
+            addressLabel.numberOfLines = 2
+            addressLabel.text =  billInfo.externalTransferMessageVO?.counterpartyAddress ?? " "
+            orderTitleLabel.text = "订单编号"
+            orderLabel.text = billInfo.externalTransferMessageVO?.orderNumber
+            timeTitleLabel.text = "交易时间"
+            timeLabel.text = billInfo.externalTransferMessageVO?.tradingTime
+        case 10,11,12:
+            if billInfo.externalTransferMessageVO?.type == 10{
+                typTitleLabel.text = "红包-退回"
+            }else{
+                typTitleLabel.text = "转账-退回"
+            }
+            addressTitleLabel.isHidden = false
+            addressLabel.isHidden = false
+            orderTitleLabel.isHidden = false
+            orderLabel.isHidden = false
+            timeTitleLabel.isHidden = false
+            timeLabel.isHidden = false
+            serviceChargeTitleLabel.isHidden = true
+            serviceChargeLabel.isHidden = true
+            addressTitleLabel.text = "退款单号"
+            addressLabel.numberOfLines = 1
+            addressLabel.text =  billInfo.externalTransferMessageVO?.orderNumberBack ?? " "
+            orderTitleLabel.text = "退款时间"
+            orderLabel.text = billInfo.externalTransferMessageVO?.returnBackTime
+            timeTitleLabel.text = "原订单号"
+            timeLabel.text = billInfo.externalTransferMessageVO?.orderNumber
+        default: break
+            
         }
-        addressLabel.text =  billInfo.externalTransferMessageVO?.counterpartyAddress ?? " "
-        orderLabel.text = billInfo.externalTransferMessageVO?.orderNumber
-        timeLabel.text = billInfo.externalTransferMessageVO?.tradingHours
-        
     }
     lazy var titleLabel: UILabel = {
         let r = UILabel()

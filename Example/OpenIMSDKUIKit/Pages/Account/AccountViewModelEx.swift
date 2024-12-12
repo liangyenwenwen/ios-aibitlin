@@ -206,8 +206,8 @@ extension AccountViewModel {
     }
     static func receiveRedpacket(vc:UIViewController,scour:RedPacketMessageStatus,completion: @escaping (String) -> Void){
         let receiveRedPacketAlertView = BoBReceiveRedPacketAlertView()
-        receiveRedPacketAlertView.tg_width.equal(382)
-        receiveRedPacketAlertView.tg_height.equal(601)
+        receiveRedPacketAlertView.tg_width.equal(kScreenWidth-40)
+        receiveRedPacketAlertView.tg_height.equal(585)
         receiveRedPacketAlertView.bindData(redPacketInfo: scour)
         receiveRedPacketAlertView.receiveRedPacketSuccess = { redPacketStaus in
             GKCover.hide()

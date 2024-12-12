@@ -394,12 +394,42 @@ struct BillMessageContInfoSource: Hashable,Decodable {
     var direction:String? //符号（+，-）
     var type:Int?
     var counterpartyAddress:String? //对方收款地址
-    var orderNumber:String? //订单编号
+    var orderNumber:String? //原订单编号
+    var orderNumberBack:String? //退款单号
+    var backTime:String?//退款时间
     var tradingHours:String? //交易时间
     var handlingCharge:Double? //手续费
     var currency:String? //货币
+    var tradingTime:String{
+        getTime(time: tradingHours ?? "")
+    }
+    var returnBackTime:String{
+        getTime(time: backTime ?? "")
+    }
 }
+func getTime(time:String) -> (String){
+    let dateFormatter = DateFormatter()
+    // 设置日期格式化器的时区，确保输出正确的时间
+//        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+    dateFormatter.timeZone =  NSTimeZone.system
 
+     
+    // 设置日期格式化器的日期格式
+    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+     
+    // 将ISO 8601字符串转换为Date对象
+    guard let date = dateFormatter.date(from: time) else {
+        return ""
+//        fatalError("Date conversion failed")
+    }
+     
+    // 重新设置日期格式化器的日期格式
+    dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+     
+    // 将Date对象转换为需要的格式的字符串
+    let formattedDateString = dateFormatter.string(from: date)
+    return formattedDateString
+}
 
 
 

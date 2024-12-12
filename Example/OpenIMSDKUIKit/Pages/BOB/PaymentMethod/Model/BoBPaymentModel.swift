@@ -407,8 +407,7 @@ class BoBPaymentModel {
         
     }
     //账单详情
-    static func QueryBillDeatilRequest(code:String?,
-                                       changeType:Int?,
+    static func QueryBillDeatilRequest(code:Int?,
                                valueHandler: @escaping (BoBBillDetail) -> Void,
                                completionHandler: @escaping CompletionHandler) {
      
@@ -418,7 +417,7 @@ class BoBPaymentModel {
          return
      }
      ProgressHUD.animate()
-     let param = ["code": code ?? 0, "changeType": changeType ?? 1] as [String : Any]
+     let param = ["code": code ?? 0] as [String : Any]
      let url = SuperStringUtil.netUrl(API_BOB_URL + QueryBillDeatil, param)
      
      Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
@@ -546,7 +545,7 @@ class BoBBillResponse: Decodable {
     var count: Int? = 0
 }
 class BillListData: Decodable {
-    var code: String?
+    var code: Int?
     var changeTime:String?
     var changeType:Int?
     var show:String?
@@ -554,26 +553,7 @@ class BillListData: Decodable {
     var amount:Double?
     var currency:String?
     var time: String {
-        let dateFormatter = DateFormatter()
-        // 设置日期格式化器的时区，确保输出正确的时间
-//        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
-        dateFormatter.timeZone =  NSTimeZone.system
-         
-        // 设置日期格式化器的日期格式
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-         
-        // 将ISO 8601字符串转换为Date对象
-        guard let date = dateFormatter.date(from: changeTime ?? "") else {
-            return ""
-//            fatalError("Date conversion failed")
-        }
-         
-        // 重新设置日期格式化器的日期格式
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-         
-        // 将Date对象转换为需要的格式的字符串
-        let formattedDateString = dateFormatter.string(from: date)
-        return formattedDateString
+        getTransformTime(time: changeTime ?? "")
     }
 }
 class BoBBillDetailResponse: Decodable {
@@ -587,37 +567,45 @@ class BoBBillDetailData: Decodable {
     var type: Int?
     var externalTransferMessageVO: BoBBillDetail
 }
-class BoBBillDetail: Decodable {
-    var amount:Double?
-    var fuHao: String?
+struct BoBBillDetail:Decodable {
+    var amount:Double? //数量
+    var direction:String? //符号（+，-）
     var type:Int?
-    var duiFangDiZhi:String?
-    var dingDanBianHao:String?
-    var jiaoYiShiJian:String?
-    var shouXuFei:Double?
-    var biZhong:String?
-    var time: String {
-        let dateFormatter = DateFormatter()
-        // 设置日期格式化器的时区，确保输出正确的时间
-//        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
-        dateFormatter.timeZone =  NSTimeZone.system
-
-         
-        // 设置日期格式化器的日期格式
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-         
-        // 将ISO 8601字符串转换为Date对象
-        guard let date = dateFormatter.date(from: jiaoYiShiJian ?? "") else {
-            return ""
-//            fatalError("Date conversion failed")
-        }
-         
-        // 重新设置日期格式化器的日期格式
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-         
-        // 将Date对象转换为需要的格式的字符串
-        let formattedDateString = dateFormatter.string(from: date)
-        return formattedDateString
+    var counterpartyAddress:String? //对方收款地址
+    var orderNumber:String? //原订单编号
+    var orderNumberBack:String? //退款单号
+    var backTime:String?//退款时间
+    var tradingHours:String? //交易时间
+    var handlingCharge:Double? //手续费
+    var currency:String? //货币
+    var tradingTime:String{
+        getTransformTime(time: tradingHours ?? "")
     }
+    var returnBackTime:String{
+        getTransformTime(time: backTime ?? "")
+    }
+}
+func getTransformTime(time:String) -> (String){
+    let dateFormatter = DateFormatter()
+    // 设置日期格式化器的时区，确保输出正确的时间
+//        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+    dateFormatter.timeZone =  NSTimeZone.system
+
+     
+    // 设置日期格式化器的日期格式
+    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+     
+    // 将ISO 8601字符串转换为Date对象
+    guard let date = dateFormatter.date(from: time) else {
+        return ""
+//        fatalError("Date conversion failed")
+    }
+     
+    // 重新设置日期格式化器的日期格式
+    dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+     
+    // 将Date对象转换为需要的格式的字符串
+    let formattedDateString = dateFormatter.string(from: date)
+    return formattedDateString
 }
 

@@ -99,7 +99,8 @@ class MineHomeWalletView: UIView{
                 let tap = UITapGestureRecognizer()
                 tap.rx.event.subscribe {  _ in
                     if self.mineAssetsBlock != nil{
-                        self.mineAssetsBlock(walletMoneyData.quantityOfMoneyPOS![i])
+                        let data = self.walletData?.quantityOfMoneyPOS![i]
+                        self.mineAssetsBlock(data!)
                     }
                 }.disposed(by: rx.disposeBag)
                 v.addGestureRecognizer(tap)

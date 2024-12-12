@@ -56,8 +56,8 @@ class BoBReceiveRedPacketAlertView: TGLinearLayout {
     }
     lazy var bgImageView: UIImageView = {
        let r = UIImageView(image: UIImage(named: "mine_red_packet_recieve_bg_icon"))
-        r.tg_width.equal(382)
-        r.tg_height.equal(534)
+        r.tg_width.equal(kScreenWidth-40)
+        r.tg_height.equal(518)
         r.isUserInteractionEnabled = true
         r.addSubview(receieBtn)
         r.addSubview(contentLabel)

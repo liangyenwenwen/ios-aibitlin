@@ -17,6 +17,7 @@ class SuperToast {
     static func show(title: String?)  {
         let hud = MBProgressHUD.showAdded(to: AppDelegate.shared.window!, animated: true)
         hud.mode = .text
+        hud.isUserInteractionEnabled = false
         
         //背景颜色
         hud.bezelView.style = .solidColor

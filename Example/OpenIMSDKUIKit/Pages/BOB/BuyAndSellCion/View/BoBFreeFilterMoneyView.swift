@@ -30,6 +30,9 @@ class BoBFreeFilterMoneyView: TGLinearLayout {
     }
     
     func innerInit() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+                // 监听键盘将要隐藏的通知
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         corner(MEDDLE_RADIUS)
         tg_width.equal(.fill)
         tg_height.equal(.wrap)
@@ -78,8 +81,30 @@ class BoBFreeFilterMoneyView: TGLinearLayout {
             make.top.width.height.equalTo(cancleBtn)
         }
     }
+    @objc func keyboardWillShow(notification: NSNotification) {
+            if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+                let keyboardRectangle = keyboardFrame.cgRectValue
+                let keyboardHeight = keyboardRectangle.height
+                print("Keyboard height: \(keyboardHeight)")
+                // 根据键盘高度进行相应的处理
+                self.frame = CGRectMake(0, kScreenHeight-keyboardHeight-370, kScreenWidth, 370)
+            }
+        }
+     
+        @objc func keyboardWillHide(notification: NSNotification) {
+            // 键盘即将隐藏，可以在这里处理隐藏键盘后的操作
+//            if self != nil{
+//                self.frame = CGRectMake(0, kScreenHeight-370, kScreenWidth, 370)
+//            }
+            
+        }
+     
+        deinit {
+            // 移除所有通知监听
+            NotificationCenter.default.removeObserver(self)
+        }
     lazy var titleLbl: UILabel = {
-        let r = ViewFactoryUtil.customTilteLabelFill("确认购买", font: 18, textColor: .black333)
+        let r = ViewFactoryUtil.customTilteLabelFill("金额", font: 18, textColor: .black333)
         r.font = .mediumFont(18)
         r.textColor = .black333
         return r
@@ -166,19 +191,19 @@ class BoBFreeFilterMoneyView: TGLinearLayout {
             btn.border(.init(hexString: "#EAEAEA"),borderWidth: 1,cornerRadius: 6)
             btn.setTitleColor(.black666, for: .normal)
             btn.backgroundColor = .white
-            btn.rx.tap.subscribe(onNext: { [self] in
-                if self.selectBtn != btn{
-                    if self.selectBtn != nil{
-                        self.selectBtn.border(.init(hexString: "#EAEAEA"),borderWidth: 1,cornerRadius: 6)
-                        self.selectBtn.setTitleColor(.black666, for: .normal)
-                        self.selectBtn.backgroundColor = .white
+            btn.rx.tap.subscribe(onNext: { [weak self] in
+                if self?.selectBtn != btn{
+                    if self?.selectBtn != nil{
+                        self?.selectBtn.border(.init(hexString: "#EAEAEA"),borderWidth: 1,cornerRadius: 6)
+                        self?.selectBtn.setTitleColor(.black666, for: .normal)
+                        self?.selectBtn.backgroundColor = .white
                     }
                     btn.border(.primaryColor,borderWidth: 1,cornerRadius: 6)
                     btn.setTitleColor(.primaryColor, for: .normal)
                     btn.backgroundColor = .init(hexString: "#F3F8FF")
-                    self.selectBtn = btn
-                    self.chooseMoney = item
-                    self.countTF.text = item
+                    self?.selectBtn = btn
+                    self?.chooseMoney = item
+                    self?.countTF.text = item
                 }
             }).disposed(by: rx.disposeBag)
             r.addSubview(btn)
@@ -196,13 +221,13 @@ class BoBFreeFilterMoneyView: TGLinearLayout {
         r.setTitleColor(.black666, for: .normal)
         r.titleLabel?.font = .mediumFont(16)
         r.border(.init(hexString: "#EAEAEA"),borderWidth: 1,cornerRadius: 23)
-        r.rx.tap.subscribe(onNext: { [self] in
-            if self.selectBtn != nil{
-                self.selectBtn.border(.init(hexString: "#EAEAEA"),borderWidth: 1,cornerRadius: 6)
-                self.selectBtn.setTitleColor(.black666, for: .normal)
-                self.selectBtn.backgroundColor = .white
+        r.rx.tap.subscribe(onNext: { [weak self] in
+            if self?.selectBtn != nil{
+                self?.selectBtn.border(.init(hexString: "#EAEAEA"),borderWidth: 1,cornerRadius: 6)
+                self?.selectBtn.setTitleColor(.black666, for: .normal)
+                self?.selectBtn.backgroundColor = .white
             }
-            self.countTF.text = ""
+            self?.countTF.text = ""
         }).disposed(by: rx.disposeBag)
         return r
     }()
@@ -212,9 +237,9 @@ class BoBFreeFilterMoneyView: TGLinearLayout {
         r.titleLabel?.font = .mediumFont(16)
         r.backgroundColor = .primaryColor
         r.corner(23)
-        r.rx.tap.subscribe(onNext: { [self] in
-            if self.chooseMoneyBlock != nil{
-                self.chooseMoneyBlock(self.countTF.text ?? "")
+        r.rx.tap.subscribe(onNext: { [weak self] in
+            if self?.chooseMoneyBlock != nil{
+                self?.chooseMoneyBlock(self?.countTF.text ?? "")
             }
             GKCover.hide()
         }).disposed(by: rx.disposeBag)

@@ -173,7 +173,7 @@ class BoBBillDetailViewController: BaseTitleController {
         loadData()
     }
     func loadData(){
-        BoBPaymentModel.QueryBillDeatilRequest(code: billListData?.code, changeType: billListData?.changeType){data in
+        BoBPaymentModel.QueryBillDeatilRequest(code: billListData?.code ?? 0){data in
             self.billDetail = data
             self.updateUI()
         } completionHandler:{errCode,errMsg in
@@ -182,56 +182,74 @@ class BoBBillDetailViewController: BaseTitleController {
     }
     
     func updateUI(){
-        moneyLabel.text = (billDetail?.fuHao)! + String(format: "%.2f",(billDetail?.amount)!)
-        if billDetail?.fuHao == "+"{
+        moneyLabel.text = (billDetail?.direction)! + String(format: "%.2f",(billDetail?.amount)!)
+        if billDetail?.direction == "+"{
             moneyLabel.textColor = .init(hexString: "#FA7225")
         }else{
             moneyLabel.textColor = .init(hexString: "#333333")
         }
         switch billDetail?.type {
         case 1:
-            addressLabel.attributedText = getAttribute(str:(billDetail?.duiFangDiZhi)!)
-            orderLabel.attributedText = getAttribute(str:(billDetail?.dingDanBianHao)!)
-            timeLabel.text = billDetail?.jiaoYiShiJian
-            serviceChargeLabel.text = String(format: "%.2f",(billDetail?.shouXuFei)!) + " "  + (billDetail?.biZhong)!
+            addressLabel.attributedText = getAttribute(str:(billDetail?.counterpartyAddress)!)
+            orderLabel.attributedText = getAttribute(str:(billDetail?.orderNumber)!)
+            timeLabel.text = billDetail?.tradingTime
+            serviceChargeLabel.text = String(format: "%.2f",(billDetail?.handlingCharge)!) + " "  + (billDetail?.currency)!
         case 2,3,4:
-            addressLabel.attributedText = getAttribute(str:(billDetail?.duiFangDiZhi)!)
-            orderLabel.attributedText = getAttribute(str:(billDetail?.dingDanBianHao)!)
-            timeLabel.text = billDetail?.jiaoYiShiJian
+            addressLabel.attributedText = getAttribute(str:(billDetail?.counterpartyAddress)!)
+            orderLabel.attributedText = getAttribute(str:(billDetail?.orderNumber)!)
+            timeLabel.text = billDetail?.tradingTime
         case 5,6:
-            orderLabel.attributedText = getAttribute(str:(billDetail?.dingDanBianHao)!)
-            timeLabel.text = billDetail?.jiaoYiShiJian
+            orderLabel.attributedText = getAttribute(str:(billDetail?.orderNumber)!)
+            timeLabel.text = billDetail?.tradingTime
         case 7:
             if billListData?.changeZf == "+"{
                 typTitleLabel.text = "私聊-收款"
             }else{
                 typTitleLabel.text = "私聊-转账"
             }
+            addressLabel.attributedText = getAttribute(str:(billDetail?.counterpartyAddress)!)
+            orderLabel.text = billDetail?.orderNumber
+            timeLabel.text = billDetail?.tradingTime
         case 8:
             if billListData?.changeZf == "+"{
                 typTitleLabel.text = "群聊-收款"
             }else{
                 typTitleLabel.text = "群聊-转账"
             }
+            addressLabel.attributedText = getAttribute(str:(billDetail?.counterpartyAddress)!)
+            orderLabel.text = billDetail?.orderNumber
+            timeLabel.text = billDetail?.tradingTime
         case 10:
             typTitleLabel.text = "红包-退款"
-            addressTitleLabel.text = "退单编号"
+            addressTitleLabel.text = "退款单号"
             addressLabel.numberOfLines = 1
-            orderLabel.text = "退款时间"
-            timeLabel.text = "原订单号"
+            orderTitleLabel.text = "退款时间"
+            timeTitleLabel.text = "原订单号"
+            addressLabel.attributedText = getAttribute(str:(billDetail?.orderNumberBack)!)
+            orderLabel.text = billDetail?.returnBackTime
+            timeLabel.attributedText = getAttribute(str:(billDetail?.orderNumber)!)
+            timeLabel.textColor = .primaryColor
         case 11:
             typTitleLabel.text = "私聊-退款"
-            addressTitleLabel.text = "退单编号"
+            addressTitleLabel.text = "退款单号"
             addressLabel.numberOfLines = 1
-            orderLabel.text = "退款时间"
-            timeLabel.text = "原订单号"
+            orderTitleLabel.text = "退款时间"
+            timeTitleLabel.text = "原订单号"
+            addressLabel.attributedText = getAttribute(str:(billDetail?.orderNumberBack)!)
+            orderLabel.text = billDetail?.returnBackTime
+            timeLabel.attributedText = getAttribute(str:(billDetail?.orderNumber)!)
+            timeLabel.textColor = .primaryColor
             
         case 12:
             typTitleLabel.text = "群聊-退款"
-            addressTitleLabel.text = "退单编号"
+            addressTitleLabel.text = "退款单号"
             addressLabel.numberOfLines = 1
-            orderLabel.text = "退款时间"
-            timeLabel.text = "原订单号"
+            orderTitleLabel.text = "退款时间"
+            timeTitleLabel.text = "原订单号"
+            addressLabel.attributedText = getAttribute(str:(billDetail?.orderNumberBack)!)
+            orderLabel.text = billDetail?.returnBackTime
+            timeLabel.attributedText = getAttribute(str:(billDetail?.orderNumber)!)
+            timeLabel.textColor = .primaryColor
         default: break
             
         }
@@ -243,13 +261,13 @@ class BoBBillDetailViewController: BaseTitleController {
     func getAttribute(str:String) -> NSMutableAttributedString{
         let attachment = NSTextAttachment()
         attachment.image = UIImage(named: "receive_payment_copy_icon")
-        attachment.bounds = CGRect(x: 2, y: -3.0, width: 16, height: 16)
-        
-        let attributedString = NSMutableAttributedString(string: str)
+        attachment.bounds = CGRect(x: 0, y: -3.0, width: 16, height: 16)
+        let str1 = str + " "
+        let attributedString = NSMutableAttributedString(string: str1)
         let attachmentString = NSAttributedString(attachment: attachment)
         
 //        attributedString.append(attachmentString)
-        attributedString.insert(attachmentString, at: str.length)
+        attributedString.insert(attachmentString, at: str1.length)
         return attributedString
     }
     lazy var moneyLabel: UILabel = {
@@ -288,8 +306,8 @@ class BoBBillDetailViewController: BaseTitleController {
         let tap = UITapGestureRecognizer()
         tap.rx.event.subscribe {  _ in
             if self.billDetail != nil{
-                if self.billDetail?.type == 1 || self.billDetail?.type == 2 || self.billDetail?.type == 3 || self.billDetail?.type == 4{
-                    self.copyStr(str: self.billDetail?.duiFangDiZhi ?? "")
+                if self.billDetail?.type == 1 || self.billDetail?.type == 2 || self.billDetail?.type == 3 || self.billDetail?.type == 4 || self.billDetail?.type == 7 || self.billDetail?.type == 8{
+                    self.copyStr(str: self.billDetail?.counterpartyAddress ?? "")
                 }
             }
             
@@ -312,8 +330,11 @@ class BoBBillDetailViewController: BaseTitleController {
         let tap = UITapGestureRecognizer()
         tap.rx.event.subscribe {  _ in
             if self.billDetail != nil{
-                if self.billDetail?.type == 1 || self.billDetail?.type == 2 || self.billDetail?.type == 3 || self.billDetail?.type == 4 || self.billDetail?.type == 5 || self.billDetail?.type == 6{
-                    self.copyStr(str: self.billDetail?.dingDanBianHao ?? "")
+                
+                if self.billDetail?.type == 5 || self.billDetail?.type == 6{
+                    self.copyStr(str: self.billDetail?.orderNumber ?? "")
+                }else if self.billDetail?.type == 10 || self.billDetail?.type == 11 || self.billDetail?.type == 12{
+                    self.copyStr(str: self.billDetail?.orderNumberBack ?? "")
                 }
             }
             
@@ -334,7 +355,11 @@ class BoBBillDetailViewController: BaseTitleController {
         r.font = .init(name: "PingFangSC-Medium", size: 14)
         let tap = UITapGestureRecognizer()
         tap.rx.event.subscribe {  _ in
-            
+            if self.billDetail != nil{
+                if self.billDetail?.type == 10 || self.billDetail?.type == 11 || self.billDetail?.type == 12 {
+                    self.copyStr(str: self.billDetail?.orderNumber ?? "")
+                }
+            }
             
         }.disposed(by: rx.disposeBag)
         r.addGestureRecognizer(tap)

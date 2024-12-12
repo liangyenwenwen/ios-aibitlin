@@ -15,6 +15,10 @@ class BoBFreeBuyAndSellView: UIView {
     var tableView: UITableView!
     var page:Int = 1
     var chooseMoney:String = ""
+    var isChooseAll:Bool = true
+    var isChooseBank:Bool = false
+    var isChooseAli:Bool = false
+    var isChooseWx:Bool = false
     var listArray = ["我们","第一个","个体户","你干啥","想去哪","哪也不去","去浙江省杭州市西湖区"]
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -125,12 +129,13 @@ class BoBFreeBuyAndSellView: UIView {
         r.addGestureRecognizer(tap)
         return r
     }()
-    lazy var moneyLabel: UILabel = {
+    private lazy var moneyLabel: UILabel = {
         let r = UILabel()
         r.font = .regularFont(14)
         r.textColor = .black999
         //        mine_red_packet_choose_type_icon
         r.attributedText = getAttribute(str: "金额", image: UIImage(named: "mine_buy_and_sell_free_choose_icon")!)
+        
         return r
     }()
     lazy var paymentView: UIView = {
@@ -142,14 +147,41 @@ class BoBFreeBuyAndSellView: UIView {
             make.right.equalTo(r)
         }
         let tap = UITapGestureRecognizer()
-        tap.rx.event.subscribe {  _ in
-            self.paymentLabel.textColor = .primaryColor
-            self.paymentLabel.attributedText = self.getAttribute(str: "微信、支付宝、银行卡", image: UIImage(named: "mine_red_packet_choose_type_icon")!)
+        tap.rx.event.subscribe {[weak self]  _ in
+            let chooseTypeView = BoBFreeFilterPaymentMethodView(titles:["全部","银行卡","支付宝","微信"],isChooseAllBtn: self!.isChooseAll,isChooseBankBtn: self!.isChooseBank,isChooseAliBtn: self!.isChooseAli,isChooseWxBtn: self!.isChooseWx)
+            chooseTypeView.tg_width.equal(.fill)
+            chooseTypeView.tg_height.equal(265)
+            chooseTypeView.chooseMoneyBlock = {[weak self] isChooseAllBtn, isChooseBankBtn,isChooseAliBtn,isChooseWxBtn in
+                self?.isChooseAll = isChooseAllBtn
+                self?.isChooseBank = isChooseBankBtn
+                self?.isChooseAli = isChooseAliBtn
+                self?.isChooseWx = isChooseWxBtn
+                if self?.isChooseAll == true{
+                    self?.paymentLabel.textColor = .black999
+                    self?.paymentLabel.attributedText = self?.getAttribute(str: "支付方式", image: UIImage(named: "mine_buy_and_sell_free_choose_icon")!)
+                }else{
+                    self?.paymentLabel.textColor = .primaryColor
+                    var str = isChooseBankBtn ? "银行卡" :""
+                    if str.isEmpty{
+                        str = isChooseAliBtn ? "支付宝" :""
+                    }else{
+                        str = str + (isChooseAliBtn ? "、支付宝" :"")
+                    }
+                    if str.isEmpty{
+                        str = isChooseWxBtn ? "微信" :""
+                    }else{
+                        str = str + (isChooseWxBtn ? "、微信" :"")
+                    }
+                    self?.paymentLabel.attributedText = self?.getAttribute(str: str, image: UIImage(named: "mine_red_packet_choose_type_icon")!)
+                }
+                self?.refreshData()
+            }
+            GKCover.cover(from: self?.currentVC?.view.window, contentView: chooseTypeView, style: .translucent, showStyle: .bottom, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
         }.disposed(by: rx.disposeBag)
         r.addGestureRecognizer(tap)
         return r
     }()
-    lazy var paymentLabel: UILabel = {
+    private lazy var paymentLabel: UILabel = {
         let r = UILabel()
         r.font = .regularFont(14)
         r.textColor = .black999

@@ -429,7 +429,7 @@ class BoBSendRedPacketViewController: BaseTitleController {
     lazy var redPacketTF: QMUITextField = {
         let r = QMUITextField()
         r.tg_height.equal(50)
-        r.tg_width.equal(100)
+        r.tg_width.equal(kScreenWidth-32-82-30)
         r.font = .regularFont(16)
         r.tintColor = .black333
         r.textAlignment = .center
@@ -808,6 +808,18 @@ class BoBSendRedPacketViewController: BaseTitleController {
                 self.present(alert, animated: true, completion: nil)
             }else{
                 if IMController.shared.isSetPayPassWord {
+                    if self.redPacketType == 0{
+                        if let totalMoney = Double(redPacketTotalTF.text ?? "0") {
+                           if let number = Double(self.redPacketTF.text ?? "1"){
+                               if totalMoney < number*0.01{
+                                   SuperToast.show(title: "红包总数量至少" + String(format: "%.2f", number*0.01))
+                                  return
+                               }
+                            }
+                            
+                        }
+                    }
+                    
                     let passWordView = BoBPayPassWordView()
                     passWordView.tg_width.equal(.fill)
                     passWordView.tg_height.equal(210)
