@@ -147,7 +147,7 @@ class BoBFreeFilterMoneyView: TGLinearLayout {
         r.setPlaceHolderTextColor(.black999)
         r.placeholder = "请输入金额"
         r.text = chooseMoney
-        r.rx.controlEvent(.editingChanged).subscribe(onNext: { [unowned self] in
+        r.rx.controlEvent(.editingChanged).subscribe(onNext: { [weak self] in
             if ((r.text?.range(of:".")) != nil){
                 //带小数点
                 if r.text!.filter({ "." == $0 }).count == 2{
@@ -169,6 +169,14 @@ class BoBFreeFilterMoneyView: TGLinearLayout {
                         r.text = "0"
                     }
                 }
+            }
+            if self?.chooseMoney?.isEmpty == false && Int(r.text ?? "0") != Int(self?.chooseMoney ?? "0"){
+                if self?.selectBtn != nil{
+                    self?.selectBtn.border(.init(hexString: "#EAEAEA"),borderWidth: 1,cornerRadius: 6)
+                    self?.selectBtn.setTitleColor(.black666, for: .normal)
+                    self?.selectBtn.backgroundColor = .white
+                }
+                self?.chooseMoney = ""
             }
         }).disposed(by: rx.disposeBag)
         return r
@@ -228,6 +236,7 @@ class BoBFreeFilterMoneyView: TGLinearLayout {
                 self?.selectBtn.backgroundColor = .white
             }
             self?.countTF.text = ""
+            self?.chooseMoney = ""
         }).disposed(by: rx.disposeBag)
         return r
     }()

@@ -65,6 +65,8 @@ extension BoBQuickCionTypeMainViewController: JXSegmentedListContainerViewDataSo
     }
 
     func listContainerView(_ listContainerView: JXSegmentedListContainerView, initListAt index: Int) -> JXSegmentedListContainerViewListDelegate {
-        return BoBQuickBuyAndSellView()
+        let vc = BoBQuickBuyAndSellView()
+        vc.currentVC = self
+        return vc
     }
 }

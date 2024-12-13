@@ -12,6 +12,7 @@ import OUICore
 
 class BoBBuyAndSellCionMainViewController: BaseTitleController {
     let segmentedDataSource = JXSegmentedTitleDataSource()
+    var homeData:BoBBuyAndSellHomeData?
     let segmentedView = JXSegmentedView()
     lazy var listContainerView: JXSegmentedListContainerView! = {
         return JXSegmentedListContainerView(dataSource: self)
@@ -87,6 +88,13 @@ class BoBBuyAndSellCionMainViewController: BaseTitleController {
             make.left.right.bottom.equalTo(0)
         }
        
+    }
+    func loadData(){
+        BoBBuyAndSellCionModel.BuyingAndSellingCoinsHomeRequest(){[weak self]data in
+            self?.homeData = data
+        } completionHandler:{errCode,errMsg in
+            SuperToast.show(title: errMsg)
+        }
     }
     lazy var navBgView: UIView = {
         let r = UIView()

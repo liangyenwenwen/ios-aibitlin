@@ -161,9 +161,9 @@ class BoBSendRedPacketViewController: BaseTitleController {
                 }
             }else{
                 //专属红包
-                if let doubleValue = Double(redPacketTotalTF.text ?? "0") {
+                if let doubleValue = Double(redPacketNumberTF.text ?? "0") {
                     if doubleValue > 0{
-                        self.totalLabel.text = redPacketTotalTF.text
+                        self.totalLabel.text = redPacketNumberTF.text
                         self.moneyLabel.text = String(format: "≈￥%.2f",(chooseCionTypeModel?.exchangeRate)!*doubleValue)
                     }
                 }
@@ -602,30 +602,33 @@ class BoBSendRedPacketViewController: BaseTitleController {
         r.keyboardType = .decimalPad
         r.setPlaceHolderTextColor(.black999)
         r.placeholder = "输入数量"
-        r.rx.controlEvent(.editingChanged).subscribe(onNext: { [unowned self] in
-            if ((r.text?.range(of:".")) != nil){
-                //带小数点
-                if r.text!.filter({ "." == $0 }).count == 2{
-                    guard let range = r.text!.range(of: ".", options: [.backwards, .caseInsensitive], range: nil, locale: nil) else {
-                        return
+        r.rx.controlEvent(.editingChanged).subscribe(onNext: { [weak self] in
+            if self?.redPacketType != 2{
+                if ((r.text?.range(of:".")) != nil){
+                    //带小数点
+                    if r.text!.filter({ "." == $0 }).count == 2{
+                        guard let range = r.text!.range(of: ".", options: [.backwards, .caseInsensitive], range: nil, locale: nil) else {
+                            return
+                        }
+                        r.text =  r.text!.replacingCharacters(in: range, with: "")
+                    }else if r.text!.filter({ "." == $0 }).count > 2{
+                        r.text = ""
                     }
-                    r.text =  r.text!.replacingCharacters(in: range, with: "")
-                }else if r.text!.filter({ "." == $0 }).count > 2{
-                    r.text = ""
-                }
-                let arr = r.text?.components(separatedBy: ".")
-                if arr![1].count > 2{
-                    r.text = arr![0] + "." + arr![1].prefix(2)
-                }
-            }else{
-                if r.text!.length > 1 {
-                    let str = r.text?.prefix(1)
-                    if str == "0"{
-                        r.text = "0"
+                    let arr = r.text?.components(separatedBy: ".")
+                    if arr![1].count > 2{
+                        r.text = arr![0] + "." + arr![1].prefix(2)
+                    }
+                }else{
+                    if r.text!.length > 1 {
+                        let str = r.text?.prefix(1)
+                        if str == "0"{
+                            r.text = "0"
+                        }
                     }
                 }
+                self?.calculationMoney()
             }
-            self.calculationMoney()
+            
         }).disposed(by: rx.disposeBag)
         return r
     }()

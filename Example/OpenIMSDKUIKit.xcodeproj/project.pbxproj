@@ -83,6 +83,7 @@
 		0439CCEA2D09BC6E00379537 /* BoBFreeBuyAndSellCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439CCE92D09BC6E00379537 /* BoBFreeBuyAndSellCell.swift */; };
 		0439CCEC2D0A8EF000379537 /* BoBFreeFilterMoneyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439CCEB2D0A8EF000379537 /* BoBFreeFilterMoneyView.swift */; };
 		0439CCEE2D0B10A500379537 /* BoBFreeFilterPaymentMethodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439CCED2D0B10A500379537 /* BoBFreeFilterPaymentMethodView.swift */; };
+		0439CCF12D0C140B00379537 /* BoBBuyAndSellCionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439CCF02D0C140B00379537 /* BoBBuyAndSellCionModel.swift */; };
 		043A558C2C8166490041836E /* UserTagTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043A55892C8166490041836E /* UserTagTypeView.swift */; };
 		043A558D2C8166490041836E /* UserTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043A558A2C8166490041836E /* UserTagView.swift */; };
 		0445BEE22CD1E04300A46558 /* ABLNetWorkToos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445BEE12CD1E04300A46558 /* ABLNetWorkToos.swift */; };
@@ -354,6 +355,7 @@
 		0439CCE92D09BC6E00379537 /* BoBFreeBuyAndSellCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBFreeBuyAndSellCell.swift; sourceTree = "<group>"; };
 		0439CCEB2D0A8EF000379537 /* BoBFreeFilterMoneyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBFreeFilterMoneyView.swift; sourceTree = "<group>"; };
 		0439CCED2D0B10A500379537 /* BoBFreeFilterPaymentMethodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBFreeFilterPaymentMethodView.swift; sourceTree = "<group>"; };
+		0439CCF02D0C140B00379537 /* BoBBuyAndSellCionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBBuyAndSellCionModel.swift; sourceTree = "<group>"; };
 		043A55892C8166490041836E /* UserTagTypeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTagTypeView.swift; sourceTree = "<group>"; };
 		043A558A2C8166490041836E /* UserTagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTagView.swift; sourceTree = "<group>"; };
 		0445BEE12CD1E04300A46558 /* ABLNetWorkToos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ABLNetWorkToos.swift; sourceTree = "<group>"; };
@@ -876,6 +878,7 @@
 		0439CCD52D081E0600379537 /* BuyAndSellCion */ = {
 			isa = PBXGroup;
 			children = (
+				0439CCEF2D0C13E900379537 /* Model */,
 				0439CCE02D08873600379537 /* View */,
 				0439CCD62D081E5200379537 /* BoBBuyAndSellCionMainViewController.swift */,
 				0439CCD82D087C5000379537 /* BoBQuickCionMainViewController.swift */,
@@ -898,6 +901,14 @@
 				0439CCED2D0B10A500379537 /* BoBFreeFilterPaymentMethodView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		0439CCEF2D0C13E900379537 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0439CCF02D0C140B00379537 /* BoBBuyAndSellCionModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		043A558B2C8166490041836E /* Home */ = {
@@ -2385,6 +2396,7 @@
 				0439CCE42D09784300379537 /* BoBChoosePushAdTypeView.swift in Sources */,
 				0445C90E2CFDF52C00D1FD34 /* BoBMineAssetsExplainView.swift in Sources */,
 				040D85EE2BEB8C0B00DCAAB3 /* BaseLogicController.swift in Sources */,
+				0439CCF12D0C140B00379537 /* BoBBuyAndSellCionModel.swift in Sources */,
 				048172772CF9E597007A2920 /* BoBBillListViewController.swift in Sources */,
 				04484ED62CF742EF00893E4C /* BoBReceivePaymentViewController.swift in Sources */,
 				0445C93B2CFEF2D000D1FD34 /* BoBSendChatTransferAccountsViewController.swift in Sources */,
