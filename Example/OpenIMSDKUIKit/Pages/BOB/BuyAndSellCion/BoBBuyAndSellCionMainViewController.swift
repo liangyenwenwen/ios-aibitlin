@@ -14,6 +14,9 @@ class BoBBuyAndSellCionMainViewController: BaseTitleController {
     let segmentedDataSource = JXSegmentedTitleDataSource()
     var homeData:BoBBuyAndSellHomeData?
     let segmentedView = JXSegmentedView()
+    var quickCionVC:BoBQuickCionMainViewController?
+    var freeCionVC:BoBFreeCionMainViewController?
+
     lazy var listContainerView: JXSegmentedListContainerView! = {
         return JXSegmentedListContainerView(dataSource: self)
     }()
@@ -87,6 +90,7 @@ class BoBBuyAndSellCionMainViewController: BaseTitleController {
             make.top.equalTo(unRealNameTipView.snp_bottom)
             make.left.right.bottom.equalTo(0)
         }
+        loadData()
        
     }
     func loadData(){
@@ -140,13 +144,17 @@ extension BoBBuyAndSellCionMainViewController: JXSegmentedListContainerViewDataS
 
     func listContainerView(_ listContainerView: JXSegmentedListContainerView, initListAt index: Int) -> JXSegmentedListContainerViewListDelegate {
         if index == 0{
-            let vc = BoBQuickCionMainViewController()
-            vc.currentVC = self
-            return vc
+            if quickCionVC == nil{
+                quickCionVC = BoBQuickCionMainViewController()
+                quickCionVC!.currentVC = self
+            }
+            return quickCionVC!
         }else{
-            let vc = BoBFreeCionMainViewController()
-            vc.currentVC = self
-            return vc
+            if freeCionVC == nil{
+                freeCionVC = BoBFreeCionMainViewController()
+                freeCionVC!.currentVC = self
+            }
+            return freeCionVC!
         }
         
     }

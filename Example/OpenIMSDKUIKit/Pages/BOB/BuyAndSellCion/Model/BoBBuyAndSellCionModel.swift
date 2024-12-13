@@ -86,7 +86,7 @@ class BoBBuyAndSellHomeData: Decodable {
     var userBankAndWeiXinAndZFBPO:PaymentMethodData? //支付方式
     var needRegistrationDay:Int? //需要注册天数
     var needAuthenticationDay:Int?//需要身份认证天数
-    var currencyAndIconPO:[currencyAndIconPO] //币种
+//    var currencyAndIconPO:[currencyAndIconPO] //币种
     var advertisingName:String?//广告商名称
     var minimumAdvertisedRate:Double?//最低广告汇率
     var maximumAdvertisedRate:Double?//最高广告汇率
