@@ -227,7 +227,7 @@ class BoBSendRedPacketViewController: BaseTitleController {
                         self!.redPacketNextIcon.show()
                         self!.choosePeopleBtn.show()
                         self!.redPacketNumberTF.text = ""
-                        self!.redpacketTotalLabel.text = "单给谁"
+                        self!.redpacketTotalLabel.text = "发给谁"
                         self!.redPacketTotalTF.text = ""
                         self!.redPacketTotalTF.placeholder = "选择发红包对象"
                         self!.redPacketTotalTF.isUserInteractionEnabled = false
