@@ -75,8 +75,14 @@ class BoBFreeCionMainViewController: UIViewController {
         choosePushAdTypeView.choosePushAdTypeBlock = { [weak self] typeIndex in
             if typeIndex == 0{
                 //购买
+                let vc = BoBCreatAdvertisementViewController()
+                vc.advertisementType = 2
+                self?.currentVC?.navigationController?.pushViewController(vc, animated: true)
             }else if typeIndex == 1{
                 //出售
+                let vc = BoBCreatAdvertisementViewController()
+                vc.advertisementType = 1
+                self?.currentVC?.navigationController?.pushViewController(vc, animated: true)
             }
         }
         GKCover.cover(from: self.view.window, contentView: choosePushAdTypeView, style: .translucent, showStyle: .bottom, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)

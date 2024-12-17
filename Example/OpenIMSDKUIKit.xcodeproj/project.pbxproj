@@ -86,6 +86,7 @@
 		0439CCF12D0C140B00379537 /* BoBBuyAndSellCionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439CCF02D0C140B00379537 /* BoBBuyAndSellCionModel.swift */; };
 		0439CCF32D101A0700379537 /* BoBChoosePaymentMethodTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439CCF22D101A0700379537 /* BoBChoosePaymentMethodTypeView.swift */; };
 		0439CCF52D10232900379537 /* BoBChoosePaymentMethodTypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439CCF42D10232900379537 /* BoBChoosePaymentMethodTypeCell.swift */; };
+		0439CCF72D114F7300379537 /* BoBCreatAdvertisementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439CCF62D114F7300379537 /* BoBCreatAdvertisementViewController.swift */; };
 		043A558C2C8166490041836E /* UserTagTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043A55892C8166490041836E /* UserTagTypeView.swift */; };
 		043A558D2C8166490041836E /* UserTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043A558A2C8166490041836E /* UserTagView.swift */; };
 		0445BEE22CD1E04300A46558 /* ABLNetWorkToos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445BEE12CD1E04300A46558 /* ABLNetWorkToos.swift */; };
@@ -360,6 +361,7 @@
 		0439CCF02D0C140B00379537 /* BoBBuyAndSellCionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBBuyAndSellCionModel.swift; sourceTree = "<group>"; };
 		0439CCF22D101A0700379537 /* BoBChoosePaymentMethodTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBChoosePaymentMethodTypeView.swift; sourceTree = "<group>"; };
 		0439CCF42D10232900379537 /* BoBChoosePaymentMethodTypeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBChoosePaymentMethodTypeCell.swift; sourceTree = "<group>"; };
+		0439CCF62D114F7300379537 /* BoBCreatAdvertisementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBCreatAdvertisementViewController.swift; sourceTree = "<group>"; };
 		043A55892C8166490041836E /* UserTagTypeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTagTypeView.swift; sourceTree = "<group>"; };
 		043A558A2C8166490041836E /* UserTagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTagView.swift; sourceTree = "<group>"; };
 		0445BEE12CD1E04300A46558 /* ABLNetWorkToos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ABLNetWorkToos.swift; sourceTree = "<group>"; };
@@ -889,6 +891,7 @@
 				0439CCDA2D087D1A00379537 /* BoBQuickCionTypeMainViewController.swift */,
 				0439CCDC2D087DE500379537 /* BoBFreeCionMainViewController.swift */,
 				0439CCDE2D087E0300379537 /* BoBFreeCionTypeMainViewController.swift */,
+				0439CCF62D114F7300379537 /* BoBCreatAdvertisementViewController.swift */,
 			);
 			path = BuyAndSellCion;
 			sourceTree = "<group>";
@@ -2314,6 +2317,7 @@
 				17B11A442ABD28C600DB8980 /* NavigationController.swift in Sources */,
 				1790EE7A2921EAFC00C4024A /* MainTabViewController.swift in Sources */,
 				0439CCDB2D087D1A00379537 /* BoBQuickCionTypeMainViewController.swift in Sources */,
+				0439CCF72D114F7300379537 /* BoBCreatAdvertisementViewController.swift in Sources */,
 				04F2D08A2BEE21CA00D5271B /* MineAccountAddSafeVC.swift in Sources */,
 				04EFEA7D2CEDAF94004441CB /* BoBRealNameModel.swift in Sources */,
 				17620CE42A4D1E5200B74C96 /* String+Extension.swift in Sources */,
