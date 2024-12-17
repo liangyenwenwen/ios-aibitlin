@@ -14,8 +14,11 @@ import OUICore
 class BoBFreeCionMainViewController: UIViewController {
     var currentVC:UIViewController?
     var titles = ["购买", "出售"]
+    var homeData:BoBBuyAndSellHomeData?
     let segmentedDataSource = JXSegmentedTitleDataSource()
     let segmentedView = JXSegmentedView()
+    var buyVC:BoBFreeCionTypeMainViewController?
+    var sellVC:BoBFreeCionTypeMainViewController?
     lazy var listContainerView: JXSegmentedListContainerView! = {
         return JXSegmentedListContainerView(dataSource: self)
     }()
@@ -55,6 +58,15 @@ class BoBFreeCionMainViewController: UIViewController {
         }
         
     }
+    func reloadVCData(data:BoBBuyAndSellHomeData){
+        homeData = data
+        if buyVC != nil{
+            buyVC?.reloadVCData(data: data)
+        }
+        if sellVC != nil{
+            sellVC?.reloadVCData(data: data)
+        }
+    }
     func creatAd(){
         let choosePushAdTypeView = BoBChoosePushAdTypeView()
         choosePushAdTypeView.tg_width.equal(.fill)
@@ -74,6 +86,7 @@ class BoBFreeCionMainViewController: UIViewController {
         warnView.tg_width.equal(290)
         warnView.tg_height.equal(.wrap)
         warnView.tg_centerY.equal(0)
+        warnView.bindData(homeData: homeData)
         GKCover.cover(from: currentVC?.view, contentView: warnView, style: .translucent, showStyle: .center, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: true)
     }
     lazy var rightView: UIView = {
@@ -102,9 +115,63 @@ class BoBFreeCionMainViewController: UIViewController {
                 if typeIndex == 0{
                     //创建广告
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-//                        self?.creatAd()
-                        self?.warnAlertView()
+                        if IMController.shared.certificationLevel == 0 {
+                            let alert = UIAlertController(title: "提示", message: "请先进行实名认证".innerLocalized(), preferredStyle: .alert)
+                            // 创建UIAlertAction，用于处理用户的选择
+                            let cancleAction = UIAlertAction(title: "取消", style: .default) { _ in
+                            }
+                            let okAction = UIAlertAction(title: "去认证", style: .default) { _ in
+                                let vc =  BoBRealNameMainViewController()
+                                self?.currentVC?.navigationController?.pushViewController(vc, animated: true)
+                            }
+                            // 将action添加到alertController上
+                            alert.addAction(cancleAction)
+                            alert.addAction(okAction)
+                            // 弹出alert
+                            self?.currentVC?.present(alert, animated: true, completion: nil)
+                            return
+                        }
+                        if self?.homeData?.payment == false{
+                            let alert = UIAlertController(title: "提示", message: "您还没有支付方式，请添加支付方式".innerLocalized(), preferredStyle: .alert)
+                            // 创建UIAlertAction，用于处理用户的选择
+                            let cancleAction = UIAlertAction(title: "取消", style: .default) { _ in
+                            }
+                            let okAction = UIAlertAction(title: "去添加", style: .default) { _ in
+                                let vc = BoBAddPaymentMethodViewController()
+                                vc.name = self?.homeData?.userBankAndWeiXinAndZFBPO?.name
+                                self?.currentVC?.navigationController?.pushViewController(vc, animated: true)
+                            }
+                            // 将action添加到alertController上
+                            alert.addAction(cancleAction)
+                            alert.addAction(okAction)
+                            // 弹出alert
+                            self?.currentVC?.present(alert, animated: true, completion: nil)
+                            return
+                        }
+                        if IMController.shared.isSetPayPassWord == false{
+                            let alert = UIAlertController(title: "提示", message: "为了您的财产安全，请设置安全密码".innerLocalized(), preferredStyle: .alert)
+                            // 创建UIAlertAction，用于处理用户的选择
+                            let cancleAction = UIAlertAction(title: "取消", style: .default) { _ in
+                            }
+                            let okAction = UIAlertAction(title: "去设置", style: .default) { _ in
+                                let vc = BoBChangePayPassWordViewController()
+                                vc.passWordType = 0
+                                self?.currentVC?.navigationController?.pushViewController(vc,animated: true)
+                            }
+                            // 将action添加到alertController上
+                            alert.addAction(cancleAction)
+                            alert.addAction(okAction)
+                            // 弹出alert
+                            self?.currentVC?.present(alert, animated: true, completion: nil)
+                            return
+                        }
+                        if (self?.homeData?.needRegistrationDay ?? 0 > self?.homeData?.mregistrationDay ?? 0) || (self?.homeData?.needAuthenticationDay ?? 0 > self?.homeData?.mauthenticationDay ?? 0) || IMController.shared.certificationLevel == 0{
+                            self?.warnAlertView()
+                            return
+                        }
+                        self?.creatAd()
                     }
+                    
                     
                 }else if typeIndex == 1{
                     //我的广告
@@ -165,8 +232,22 @@ extension BoBFreeCionMainViewController: JXSegmentedListContainerViewDataSource 
     }
 
     func listContainerView(_ listContainerView: JXSegmentedListContainerView, initListAt index: Int) -> JXSegmentedListContainerViewListDelegate {
-        let vc = BoBFreeCionTypeMainViewController()
-        vc.currentVC = currentVC
-        return vc
+        if index == 0{
+            if buyVC == nil{
+                buyVC = BoBFreeCionTypeMainViewController()
+                buyVC!.currentVC = self
+                buyVC!.homeData = homeData
+                buyVC!.type = 1
+            }
+            return buyVC!
+        }else{
+            if sellVC == nil{
+                sellVC = BoBFreeCionTypeMainViewController()
+                sellVC!.currentVC = self
+                sellVC!.homeData = homeData
+                sellVC!.type = 2
+            }
+            return sellVC!
+        }
     }
 }

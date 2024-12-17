@@ -200,18 +200,21 @@ class BoBPrimaryRealNameViewController:UIViewController{
         let r = UILabel()
         r.font = UIFont(name: "PingFangSC-Regular", size: 16)
         r.textColor = .black333
+        r.text = ""
         return r
     }()
     lazy var nameLabel:UILabel = {
         let r = UILabel()
         r.font = UIFont(name: "PingFangSC-Regular", size: 16)
         r.textColor = .black333
+        r.text = ""
         return r
     }()
     lazy var idCardLabel:UILabel = {
         let r = UILabel()
         r.font = UIFont(name: "PingFangSC-Regular", size: 16)
         r.textColor = .black333
+        r.text = ""
         return r
     }()
     lazy var sumbitBtn: QMUIButton = {

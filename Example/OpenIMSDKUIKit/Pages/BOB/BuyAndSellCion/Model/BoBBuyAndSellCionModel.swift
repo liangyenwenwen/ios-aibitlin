@@ -19,7 +19,8 @@ class BoBBuyAndSellCionModel {
     
     
     private static let BuyingAndSellingCoinsHome = "/wallet/advertisement/buyingAndSellingCoinsHome" //买卖币首页数据
-    
+    private static let RefreshTheExchangeRate = "/wallet/advertisement/refreshTheExchangeRate"//获取当前利率
+    private static let FreeAreaList = "/wallet/advertisement/selfSelectedArea"//自选区
     
     static func getHttpHeader() -> HTTPHeaders{
         let httpHeaders : HTTPHeaders = [
@@ -63,6 +64,74 @@ class BoBBuyAndSellCionModel {
         }
         
     }
+    static func RefreshTheExchangeRateRequest(
+                                  valueHandler: @escaping (Double) -> Void,
+                                  completionHandler: @escaping CompletionHandler) {
+        if !NetworkStatus.isReacheable {
+            return
+        }
+        ProgressHUD.animate()
+
+        
+        Alamofire.request(API_BOB_URL + RefreshTheExchangeRate, method: .post, parameters: nil,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
+            ProgressHUD.dismiss()
+            
+            if let data = dataRequest.data {
+                let strData = String.init(data: data, encoding: String.Encoding.utf8)
+                print(strData!)
+                if let res = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellResponse<Double>.self) {
+
+                    if res.code == 20000  {
+                        valueHandler(res.data)
+                    } else {
+                        completionHandler(res.code, res.message)
+                    }
+                } else {
+                    completionHandler(-1, "failure")
+                }
+            } else {
+                completionHandler(-1, "failure")
+            }
+        }
+        
+    }
+    
+    static func FreeAreaListRequest(type:Int,
+                                    currency:String,
+                                    amount:String,
+                                    payment:String,
+                                    pageNum:Int,
+                                    pageSize:Int,
+                                    valueHandler: @escaping ([BoBBuyAndSellFreeAreaList]) -> Void,
+                                    completionHandler: @escaping CompletionHandler) {
+        if !NetworkStatus.isReacheable {
+            return
+        }
+        ProgressHUD.animate()
+        let param = ["type": type, "currency": currency,"amount": amount,"payment": payment,"pageNum": pageNum,"pageSize": pageSize] as [String : Any]
+        let url = SuperStringUtil.netUrl(API_BOB_URL + FreeAreaList, param)
+        Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
+            ProgressHUD.dismiss()
+            
+            if let data = dataRequest.data {
+                let strData = String.init(data: data, encoding: String.Encoding.utf8)
+                print(strData!)
+                if let res = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellFreeAreaData.self) {
+
+                    if res.code == 20000  {
+                        valueHandler(res.data)
+                    } else {
+                        completionHandler(res.code, res.message)
+                    }
+                } else {
+                    completionHandler(-1, "failure")
+                }
+            } else {
+                completionHandler(-1, "failure")
+            }
+        }
+        
+    }
 }
 class BoBBuyAndSellResponse<T: Decodable>: Decodable {
     var data: T
@@ -86,7 +155,7 @@ class BoBBuyAndSellHomeData: Decodable {
     var userBankAndWeiXinAndZFBPO:PaymentMethodData? //支付方式
     var needRegistrationDay:Int? //需要注册天数
     var needAuthenticationDay:Int?//需要身份认证天数
-//    var currencyAndIconPO:[currencyAndIconPO] //币种
+    var currencyAndIconPO:[currencyAndIconPO] //币种
     var advertisingName:String?//广告商名称
     var minimumAdvertisedRate:Double?//最低广告汇率
     var maximumAdvertisedRate:Double?//最高广告汇率
@@ -96,5 +165,28 @@ class BoBBuyAndSellHomeData: Decodable {
 class currencyAndIconPO: Decodable {
     var currency:String? //币种
     var icon:String? //图标
+}
+class BoBBuyAndSellFreeAreaData: Decodable {
+    var data: [BoBBuyAndSellFreeAreaList]
+    var flag: Bool = false
+    var code: Int = 20000
+    var message: String? = nil
+    var count: Int? = 0
+}
+class BoBBuyAndSellFreeAreaList: Decodable {
+    var advertisingCurrency:String? //币种
+    var advertisingType:Int? //广告类型1:出售 2:购买 3:兑换
+    var transactionMode:String? //交易方式1:银行卡 2:支付宝 3:微信
+    var surplusQuantity:Double?//数量
+    var quotaMin:Double?//最小限额
+    var quotaMax:Double?//最大限额
+    var advertisingName:String?//广告商名称
+    var orderAndTransactionRatesPO:orderAndTransactionRatesPO? //订单数和成单率
+    var code:String?
+    var setExchangeRate:Double?//设置汇率
+}
+class orderAndTransactionRatesPO:Decodable {
+    var order:Int?//订单数
+    var transactionRates:Double?//成单率(0-1)
 }
 

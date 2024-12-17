@@ -10,15 +10,24 @@ import Foundation
 import JXSegmentedView
 
 class BoBQuickCionTypeMainViewController: UIViewController {
-    var titles = ["C", "USDT"]
+    var currentVC:UIViewController?
+    var titles = ["C"]
+    var type:Int = 1 //1是购买，2是出售
     let segmentedDataSource = JXSegmentedTitleDataSource()
     let segmentedView = JXSegmentedView()
+    var homeData:BoBBuyAndSellHomeData?
     lazy var listContainerView: JXSegmentedListContainerView! = {
         return JXSegmentedListContainerView(dataSource: self)
     }()
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        if homeData != nil{
+            var list: [String] = []
+            for item in homeData!.currencyAndIconPO {
+                list.append(item.currency ?? "")
+            }
+            titles = list
+        }
         view.backgroundColor = .clear
         //配置数据源
         segmentedDataSource.isTitleColorGradientEnabled = true
@@ -43,7 +52,20 @@ class BoBQuickCionTypeMainViewController: UIViewController {
         segmentedView.listContainer = listContainerView
         view.addSubview(listContainerView)
     }
-
+    func reloadVCData(data:BoBBuyAndSellHomeData){
+        if homeData == nil{
+            homeData = data
+            var list: [String] = []
+            for item in data.currencyAndIconPO {
+                list.append(item.currency ?? "")
+            }
+            titles = list
+            segmentedDataSource.titles = titles
+            segmentedView.reloadData()
+        }else{
+            homeData = data
+        }
+    }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         listContainerView.frame = CGRect(x: 0, y: 40, width: view.bounds.size.width, height: view.bounds.size.height - 40)
@@ -65,7 +87,11 @@ extension BoBQuickCionTypeMainViewController: JXSegmentedListContainerViewDataSo
     }
 
     func listContainerView(_ listContainerView: JXSegmentedListContainerView, initListAt index: Int) -> JXSegmentedListContainerViewListDelegate {
-        let vc = BoBQuickBuyAndSellView()
+        var currencyIcon = ""
+        if let obj = homeData?.currencyAndIconPO[index]{
+            currencyIcon = obj.icon ?? ""
+        }
+        let vc = BoBQuickBuyAndSellView(data: homeData,viewType: type,currentCurrency: titles[index],currentCurrencyIcon:currencyIcon)
         vc.currentVC = self
         return vc
     }

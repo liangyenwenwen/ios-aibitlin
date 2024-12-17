@@ -84,6 +84,8 @@
 		0439CCEC2D0A8EF000379537 /* BoBFreeFilterMoneyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439CCEB2D0A8EF000379537 /* BoBFreeFilterMoneyView.swift */; };
 		0439CCEE2D0B10A500379537 /* BoBFreeFilterPaymentMethodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439CCED2D0B10A500379537 /* BoBFreeFilterPaymentMethodView.swift */; };
 		0439CCF12D0C140B00379537 /* BoBBuyAndSellCionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439CCF02D0C140B00379537 /* BoBBuyAndSellCionModel.swift */; };
+		0439CCF32D101A0700379537 /* BoBChoosePaymentMethodTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439CCF22D101A0700379537 /* BoBChoosePaymentMethodTypeView.swift */; };
+		0439CCF52D10232900379537 /* BoBChoosePaymentMethodTypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439CCF42D10232900379537 /* BoBChoosePaymentMethodTypeCell.swift */; };
 		043A558C2C8166490041836E /* UserTagTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043A55892C8166490041836E /* UserTagTypeView.swift */; };
 		043A558D2C8166490041836E /* UserTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043A558A2C8166490041836E /* UserTagView.swift */; };
 		0445BEE22CD1E04300A46558 /* ABLNetWorkToos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445BEE12CD1E04300A46558 /* ABLNetWorkToos.swift */; };
@@ -356,6 +358,8 @@
 		0439CCEB2D0A8EF000379537 /* BoBFreeFilterMoneyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBFreeFilterMoneyView.swift; sourceTree = "<group>"; };
 		0439CCED2D0B10A500379537 /* BoBFreeFilterPaymentMethodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBFreeFilterPaymentMethodView.swift; sourceTree = "<group>"; };
 		0439CCF02D0C140B00379537 /* BoBBuyAndSellCionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBBuyAndSellCionModel.swift; sourceTree = "<group>"; };
+		0439CCF22D101A0700379537 /* BoBChoosePaymentMethodTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBChoosePaymentMethodTypeView.swift; sourceTree = "<group>"; };
+		0439CCF42D10232900379537 /* BoBChoosePaymentMethodTypeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBChoosePaymentMethodTypeCell.swift; sourceTree = "<group>"; };
 		043A55892C8166490041836E /* UserTagTypeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTagTypeView.swift; sourceTree = "<group>"; };
 		043A558A2C8166490041836E /* UserTagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTagView.swift; sourceTree = "<group>"; };
 		0445BEE12CD1E04300A46558 /* ABLNetWorkToos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ABLNetWorkToos.swift; sourceTree = "<group>"; };
@@ -899,6 +903,8 @@
 				0439CCE92D09BC6E00379537 /* BoBFreeBuyAndSellCell.swift */,
 				0439CCEB2D0A8EF000379537 /* BoBFreeFilterMoneyView.swift */,
 				0439CCED2D0B10A500379537 /* BoBFreeFilterPaymentMethodView.swift */,
+				0439CCF22D101A0700379537 /* BoBChoosePaymentMethodTypeView.swift */,
+				0439CCF42D10232900379537 /* BoBChoosePaymentMethodTypeCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2302,6 +2308,7 @@
 				0445C90A2CFDA8DD00D1FD34 /* PagingListBaseView.swift in Sources */,
 				0445C90C2CFDD21A00D1FD34 /* BoBMineAssetsViewHeadView.swift in Sources */,
 				04C394412CCF85A500181F6B /* YFPhoneLoginVC.swift in Sources */,
+				0439CCF32D101A0700379537 /* BoBChoosePaymentMethodTypeView.swift in Sources */,
 				04F2D08F2BEE21CA00D5271B /* UsermessageBokeListCell.swift in Sources */,
 				04D2E2072CBE4E5500582B13 /* HDRunTime.swift in Sources */,
 				17B11A442ABD28C600DB8980 /* NavigationController.swift in Sources */,
@@ -2396,6 +2403,7 @@
 				0439CCE42D09784300379537 /* BoBChoosePushAdTypeView.swift in Sources */,
 				0445C90E2CFDF52C00D1FD34 /* BoBMineAssetsExplainView.swift in Sources */,
 				040D85EE2BEB8C0B00DCAAB3 /* BaseLogicController.swift in Sources */,
+				0439CCF52D10232900379537 /* BoBChoosePaymentMethodTypeCell.swift in Sources */,
 				0439CCF12D0C140B00379537 /* BoBBuyAndSellCionModel.swift in Sources */,
 				048172772CF9E597007A2920 /* BoBBillListViewController.swift in Sources */,
 				04484ED62CF742EF00893E4C /* BoBReceivePaymentViewController.swift in Sources */,

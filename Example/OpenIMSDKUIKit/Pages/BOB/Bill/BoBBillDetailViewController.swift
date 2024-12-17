@@ -270,33 +270,33 @@ class BoBBillDetailViewController: BaseTitleController {
         attributedString.insert(attachmentString, at: str1.length)
         return attributedString
     }
-    lazy var moneyLabel: UILabel = {
+    private lazy var moneyLabel: UILabel = {
         let r = UILabel()
         r.textColor = .init(hexString: "#FA7225")
         r.font = .init(name: "PingFangSC-Medium", size: 36)
         r.textAlignment = .center
         return r
     }()
-    lazy var typTitleLabel: UILabel = {
+    private lazy var typTitleLabel: UILabel = {
         let r = UILabel()
         r.textColor = .init(hexString: "#666666")
         r.font = .init(name: "PingFangSC-Medium", size: 16)
         r.textAlignment = .center
         return r
     }()
-    lazy var lineView: UIView = {
+    private lazy var lineView: UIView = {
         let r = UIView()
         r.backgroundColor = .init(hexString: "#EAEAEA")
         return r
     }()
-    lazy var addressTitleLabel: UILabel = {
+    private lazy var addressTitleLabel: UILabel = {
         let r = UILabel()
         r.textColor = .init(hexString: "#999999")
         r.font = .init(name: "PingFangSC-Medium", size: 14)
         r.text = "对方地址"
         return r
     }()
-    lazy var addressLabel: UILabel = {
+    private lazy var addressLabel: UILabel = {
         let r = UILabel()
         r.textColor = .init(hexString: "#333333")
         r.font = .init(name: "PingFangSC-Medium", size: 14)
@@ -315,14 +315,14 @@ class BoBBillDetailViewController: BaseTitleController {
         r.addGestureRecognizer(tap)
         return r
     }()
-    lazy var orderTitleLabel: UILabel = {
+    private lazy var orderTitleLabel: UILabel = {
         let r = UILabel()
         r.textColor = .init(hexString: "#999999")
         r.font = .init(name: "PingFangSC-Medium", size: 14)
         r.text = "订单编号"
         return r
     }()
-    lazy var orderLabel: UILabel = {
+    private lazy var orderLabel: UILabel = {
         let r = UILabel()
         r.textColor = .init(hexString: "#333333")
         r.font = .init(name: "PingFangSC-Medium", size: 14)
@@ -342,14 +342,14 @@ class BoBBillDetailViewController: BaseTitleController {
         r.addGestureRecognizer(tap)
         return r
     }()
-    lazy var timeTitleLabel: UILabel = {
+    private lazy var timeTitleLabel: UILabel = {
         let r = UILabel()
         r.textColor = .init(hexString: "#999999")
         r.font = .init(name: "PingFangSC-Medium", size: 14)
         r.text = "交易时间"
         return r
     }()
-    lazy var timeLabel: UILabel = {
+    private lazy var timeLabel: UILabel = {
         let r = UILabel()
         r.textColor = .init(hexString: "#333333")
         r.font = .init(name: "PingFangSC-Medium", size: 14)
@@ -365,14 +365,14 @@ class BoBBillDetailViewController: BaseTitleController {
         r.addGestureRecognizer(tap)
         return r
     }()
-    lazy var serviceChargeTitleLabel: UILabel = {
+    private lazy var serviceChargeTitleLabel: UILabel = {
         let r = UILabel()
         r.textColor = .init(hexString: "#999999")
         r.font = .init(name: "PingFangSC-Medium", size: 14)
         r.text = "手续费"
         return r
     }()
-    lazy var serviceChargeLabel: UILabel = {
+    private lazy var serviceChargeLabel: UILabel = {
         let r = UILabel()
         r.textColor = .init(hexString: "#333333")
         r.font = .init(name: "PingFangSC-Medium", size: 14)

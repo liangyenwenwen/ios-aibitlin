@@ -40,7 +40,34 @@ class BoBCreatAdWarnAlertView: TGLinearLayout {
         addSubview(realNameTimeView)
         addSubview(closeBtn)
     }
-    
+    func bindData(homeData:BoBBuyAndSellHomeData?){
+        registerView.warnLabel.text = "注册时间>" + String(format: "%d", homeData?.needRegistrationDay ?? 0) + "天"
+        registerView.contentLabel.text = String(format: "%d", homeData?.mregistrationDay ?? 0) + "天"
+        realNameView.warnLabel.text = "身份认证"
+        realNameTimeView.warnLabel.text = "身份认证时间>" + String(format: "%d", homeData?.needAuthenticationDay ?? 0) + "天"
+        realNameTimeView.contentLabel.text = String(format: "%d", homeData?.mauthenticationDay ?? 0) + "天"
+        if homeData?.needRegistrationDay ?? 0 > homeData?.mregistrationDay ?? 0{
+            registerView.backgroundColor = .init(hexString: "#FFE8E8")
+            registerView.icon.image = UIImage(named: "mine_buy_and_sell_uncreat_ad_icon")
+        }else{
+            registerView.backgroundColor = .init(hexString: "#D1F9EB")
+            registerView.icon.image = UIImage(named: "mine_buy_and_sell_cancreat_ad_icon")
+        }
+        if IMController.shared.certificationLevel == 0{
+            realNameView.backgroundColor = .init(hexString: "#FFE8E8")
+            realNameView.icon.image = UIImage(named: "mine_buy_and_sell_uncreat_ad_icon")
+        }else{
+            realNameView.backgroundColor = .init(hexString: "#D1F9EB")
+            realNameView.icon.image = UIImage(named: "mine_buy_and_sell_cancreat_ad_icon")
+        }
+        if homeData?.needAuthenticationDay ?? 0 > homeData?.mauthenticationDay ?? 0{
+            realNameTimeView.backgroundColor = .init(hexString: "#FFE8E8")
+            realNameTimeView.icon.image = UIImage(named: "mine_buy_and_sell_uncreat_ad_icon")
+        }else{
+            realNameTimeView.backgroundColor = .init(hexString: "#D1F9EB")
+            realNameTimeView.icon.image = UIImage(named: "mine_buy_and_sell_cancreat_ad_icon")
+        }
+    }
     lazy var warnIcon: UIImageView = {
         let r = UIImageView(image: UIImage(named: "mine_transfer_accounts_expire_icon"))
         r.tg_top.equal(40)

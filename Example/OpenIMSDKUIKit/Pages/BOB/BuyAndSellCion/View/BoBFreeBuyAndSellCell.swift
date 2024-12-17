@@ -18,7 +18,7 @@ class BoBFreeBuyAndSellCell: UITableViewCell {
         bgView.addSubview(nameLabel)
         bgView.addSubview(saleResultLabel)
         bgView.addSubview(unitLabel)
-        bgView.addSubview(moneyLabel)
+        bgView.addSubview(freeMoneyLabel)
         bgView.addSubview(countTitleLabel)
         bgView.addSubview(countLabel)
         bgView.addSubview(limitTitleLabel)
@@ -52,10 +52,10 @@ class BoBFreeBuyAndSellCell: UITableViewCell {
         }
         unitLabel.snp_makeConstraints { make in
             make.left.equalTo(shortNameLabel)
-            make.bottom.equalTo(moneyLabel)
+            make.bottom.equalTo(freeMoneyLabel)
             make.height.equalTo(13)
         }
-        moneyLabel.snp_makeConstraints { make in
+        freeMoneyLabel.snp_makeConstraints { make in
             make.left.equalTo(unitLabel.snp_right)
             make.top.equalTo(saleResultLabel.snp_bottom).offset(14)
             make.right.equalTo(saleResultLabel)
@@ -63,13 +63,13 @@ class BoBFreeBuyAndSellCell: UITableViewCell {
         }
         countTitleLabel.snp_makeConstraints { make in
             make.left.equalTo(shortNameLabel)
-            make.top.equalTo(moneyLabel.snp_bottom).offset(10)
+            make.top.equalTo(freeMoneyLabel.snp_bottom).offset(10)
             make.height.equalTo(15)
         }
         countLabel.snp_makeConstraints { make in
             make.left.equalTo(countTitleLabel.snp_right).offset(4)
             make.centerY.height.equalTo(countTitleLabel)
-//            make.right.equalTo(moneyLabel)
+//            make.right.equalTo(freeMoneyLabel)
         }
         limitTitleLabel.snp_makeConstraints { make in
             make.left.equalTo(shortNameLabel)
@@ -79,7 +79,7 @@ class BoBFreeBuyAndSellCell: UITableViewCell {
         limitCountLabel.snp_makeConstraints { make in
             make.left.equalTo(limitTitleLabel.snp_right).offset(4)
             make.centerY.height.equalTo(limitTitleLabel)
-//            make.right.equalTo(moneyLabel)
+//            make.right.equalTo(freeMoneyLabel)
         }
         saleBtn.snp_makeConstraints { make in
             make.right.equalTo(-16)
@@ -141,7 +141,7 @@ class BoBFreeBuyAndSellCell: UITableViewCell {
         v.text = "￥"
         return v
     }()
-    lazy var moneyLabel: UILabel = {
+    lazy var freeMoneyLabel: UILabel = {
         let v = UILabel()
         v.font = .mediumFont(24)
         v.textColor = .black333

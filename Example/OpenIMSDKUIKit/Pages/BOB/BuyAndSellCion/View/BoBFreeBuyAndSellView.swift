@@ -12,6 +12,7 @@ import OUICore
 
 class BoBFreeBuyAndSellView: UIView {
     var currentVC:UIViewController?
+    var homeData:BoBBuyAndSellHomeData?
     var tableView: UITableView!
     var page:Int = 1
     var chooseMoney:String = ""
@@ -19,10 +20,16 @@ class BoBFreeBuyAndSellView: UIView {
     var isChooseBank:Bool = false
     var isChooseAli:Bool = false
     var isChooseWx:Bool = false
-    var listArray = ["我们","第一个","个体户","你干啥","想去哪","哪也不去","去浙江省杭州市西湖区"]
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    var type:Int = 1 //1是购买，2是出售
+    var currency:String? //币种
+
+    var listArray:[BoBBuyAndSellFreeAreaList] = []
+    init(data: BoBBuyAndSellHomeData?,viewType:Int,currentCurrency:String?) {
+        super.init(frame: .zero)
         self.backgroundColor = .clear
+        homeData = data
+        type = viewType
+        currency = currentCurrency
         addSubview(moneyCountView)
         addSubview(paymentView)
         moneyCountView.snp_makeConstraints { make in
@@ -70,34 +77,44 @@ class BoBFreeBuyAndSellView: UIView {
         loadData(pageNum: page+1)
     }
     func loadData(pageNum:Int){
-        listArray = ["我们","第一个","个体户","你干啥","想去哪","哪也不去","去浙江省杭州市西湖区"]
-        tableView.reloadData()
-        tableView.mj_header?.endRefreshing()
-        tableView.mj_footer?.endRefreshing()
-//        BoBPaymentModel.GetMyBillList(tpye: chooseType, timeStart: timeStart, timeEnd: timeEnd, currency: "C", pageSize: 20, pageNum: pageNum) { data in
-//            self.page = pageNum
-//            if pageNum == 1{
-//                self.listArray.removeAll()
-//            }
-//            self.listArray.append(contentsOf: data)
-//            self.tableView.reloadData()
-//            self.tableView.mj_header?.endRefreshing()
-//            if data.count < 20{
-//                if var footer = self.tableView.mj_footer as? MJRefreshAutoNormalFooter {
-//                    footer.setTitle("加载完成，没有更多了...".innerLocalized(), for: .noMoreData)
-//                    footer.stateLabel?.textColor = .init(hexString: "#CCCCCC")
-//                    footer.stateLabel?.font = .mediumFont(16)
-//                    footer.endRefreshingWithNoMoreData()
-//                }
-//            }else{
-//                self.tableView.mj_footer?.endRefreshing()
-//            }
-//        }completionHandler: {errCode,errMsg in
-//            SuperToast.show(title: errMsg)
-//            self.tableView.mj_header?.endRefreshing()
-//            self.tableView.mj_footer?.endRefreshing()
-//
-//        }
+        var payment = ""
+        if isChooseAll{
+            payment = "1,2,3"
+        }else{
+            if isChooseBank{
+                payment = "1"
+            }
+            if isChooseAli{
+                payment = payment + (payment.isEmpty ? "2" : ",2")
+            }
+            if isChooseWx{
+                payment = payment + (payment.isEmpty ? "3" : ",3")
+            }
+        }
+        BoBBuyAndSellCionModel.FreeAreaListRequest(type: type, currency: currency ?? "C", amount: chooseMoney.isEmpty ? "0" :chooseMoney, payment: payment, pageNum: pageNum, pageSize: 20) { data in
+            self.page = pageNum
+            if pageNum == 1{
+                self.listArray.removeAll()
+            }
+            self.listArray.append(contentsOf: data)
+            self.tableView.reloadData()
+            self.tableView.mj_header?.endRefreshing()
+            if data.count < 20{
+                if var footer = self.tableView.mj_footer as? MJRefreshAutoNormalFooter {
+                    footer.setTitle("加载完成，没有更多了...".innerLocalized(), for: .noMoreData)
+                    footer.stateLabel?.textColor = .init(hexString: "#CCCCCC")
+                    footer.stateLabel?.font = .mediumFont(16)
+                    footer.endRefreshingWithNoMoreData()
+                }
+            }else{
+                self.tableView.mj_footer?.endRefreshing()
+            }
+        }completionHandler: {errCode,errMsg in
+            SuperToast.show(title: errMsg)
+            self.tableView.mj_header?.endRefreshing()
+            self.tableView.mj_footer?.endRefreshing()
+
+        }
     }
     lazy var moneyCountView: UIView = {
         let r = UIView()
@@ -138,7 +155,7 @@ class BoBFreeBuyAndSellView: UIView {
         
         return r
     }()
-    lazy var paymentView: UIView = {
+    private lazy var paymentView: UIView = {
         let r = UIView()
         r.addSubview(paymentLabel)
         paymentLabel.snp_makeConstraints { make in
@@ -209,23 +226,73 @@ func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> 
 
 func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "BoBFreeBuyAndSellCell", for: indexPath) as! BoBFreeBuyAndSellCell
-    let name = listArray[indexPath.row]
-    cell.shortNameLabel.text = String(name.prefix(1))
-    cell.shortNameLabel.backgroundColor = .primaryColor
-    cell.nameLabel.text = name
-    cell.saleResultLabel.text = "159订单  |  成单率43.12%"
-    cell.moneyLabel.text = "88888.88"
-    cell.countLabel.text = "27744.00 C"
-    cell.limitCountLabel.text = "1998.00-27744.00 CNY"
-    cell.paymentMethodType1.show()
-    cell.paymentMethodType1.lineView.backgroundColor = .init(hexString: "#15AB43")
-    cell.paymentMethodType1.paymentMethodNameLabel.text = "微信"
-    cell.paymentMethodType2.show()
-    cell.paymentMethodType2.lineView.backgroundColor = .init(hexString: "#277FE6")
-    cell.paymentMethodType2.paymentMethodNameLabel.text = "支付宝"
-    cell.paymentMethodType3.show()
-    cell.paymentMethodType3.lineView.backgroundColor = .init(hexString: "#EF5151")
-    cell.paymentMethodType3.paymentMethodNameLabel.text = "银行卡"
+    let item = listArray[indexPath.row]
+    cell.shortNameLabel.text = String(item.advertisingName!.prefix(1))
+    cell.shortNameLabel.backgroundColor = type == 1 ?.init(hexString: "#5FA9FF") : .init(hexString: "#FFA741")
+    cell.nameLabel.text = item.advertisingName
+    cell.saleResultLabel.text =  String(format: "%d", item.orderAndTransactionRatesPO?.order ?? 0) + "订单  |  成单率" + String(format: "%.2f",(item.orderAndTransactionRatesPO?.transactionRates ?? 0.0000)*100) + "%"
+    cell.freeMoneyLabel.text = String(format: "%.2f", item.setExchangeRate ?? 1.00)
+    cell.countLabel.text = String(format: "%.2f ", item.surplusQuantity ?? 0.00) +  (item.advertisingCurrency ?? "C")
+    cell.limitCountLabel.text = String(format: "%.2f-%.2f CNY", item.quotaMin ?? 0.00,item.quotaMax ?? 0.00)
+    let arr = item.transactionMode!.components(separatedBy:",")
+    if arr.count == 1{
+        cell.paymentMethodType1.show()
+        cell.paymentMethodType2.hide()
+        cell.paymentMethodType3.hide()
+        if arr[0] == "1"{
+            cell.paymentMethodType1.lineView.backgroundColor = .init(hexString: "#EF5151")
+            cell.paymentMethodType1.paymentMethodNameLabel.text = "银行卡"
+        }else if arr[0] == "2"{
+            cell.paymentMethodType1.lineView.backgroundColor = .init(hexString: "#277FE6")
+            cell.paymentMethodType1.paymentMethodNameLabel.text = "支付宝"
+        }else{
+            cell.paymentMethodType1.lineView.backgroundColor = .init(hexString: "#15AB43")
+            cell.paymentMethodType1.paymentMethodNameLabel.text = "微信"
+        }
+    }else if arr.count == 2{
+        cell.paymentMethodType1.show()
+        cell.paymentMethodType2.show()
+        cell.paymentMethodType3.hide()
+        if arr[0] == "1"{
+            cell.paymentMethodType1.lineView.backgroundColor = .init(hexString: "#EF5151")
+            cell.paymentMethodType1.paymentMethodNameLabel.text = "银行卡"
+        }else if arr[0] == "2"{
+            cell.paymentMethodType1.lineView.backgroundColor = .init(hexString: "#277FE6")
+            cell.paymentMethodType1.paymentMethodNameLabel.text = "支付宝"
+        }else if arr[0] == "3"{
+            cell.paymentMethodType1.lineView.backgroundColor = .init(hexString: "#15AB43")
+            cell.paymentMethodType1.paymentMethodNameLabel.text = "微信"
+        }
+        if arr[1] == "1"{
+            cell.paymentMethodType2.lineView.backgroundColor = .init(hexString: "#EF5151")
+            cell.paymentMethodType2.paymentMethodNameLabel.text = "银行卡"
+        }else if arr[1] == "2"{
+            cell.paymentMethodType2.lineView.backgroundColor = .init(hexString: "#277FE6")
+            cell.paymentMethodType2.paymentMethodNameLabel.text = "支付宝"
+        }else if arr[1] == "3"{
+            cell.paymentMethodType2.lineView.backgroundColor = .init(hexString: "#15AB43")
+            cell.paymentMethodType2.paymentMethodNameLabel.text = "微信"
+        }
+    }else{
+        cell.paymentMethodType1.show()
+        cell.paymentMethodType2.show()
+        cell.paymentMethodType3.show()
+        cell.paymentMethodType1.lineView.backgroundColor = .init(hexString: "#15AB43")
+        cell.paymentMethodType1.paymentMethodNameLabel.text = "微信"
+        cell.paymentMethodType2.lineView.backgroundColor = .init(hexString: "#277FE6")
+        cell.paymentMethodType2.paymentMethodNameLabel.text = "支付宝"
+        cell.paymentMethodType3.lineView.backgroundColor = .init(hexString: "#EF5151")
+        cell.paymentMethodType3.paymentMethodNameLabel.text = "银行卡"
+    }
+    cell.saleBtn.setTitle(type == 1 ? "购买":"出售", for: .normal)
+    cell.saleBtn.backgroundColor = type == 1 ?.primaryColor : .init(hexString: "#EF5938")
+    cell.saleBtn.rx.tap.subscribe(onNext: { [weak self] in
+        if self?.type == 1{
+            //购买
+        }else{
+            //出售
+        }
+    }).disposed(by: rx.disposeBag)
     return cell
 }
 
@@ -233,8 +300,8 @@ func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) ->
     return 154
 }
 func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    let vc = BoBBillDetailViewController()
-    currentVC?.navigationController?.pushViewController(vc, animated: true)
+//    let vc = BoBBillDetailViewController()
+//    currentVC?.navigationController?.pushViewController(vc, animated: true)
 }
 
 }

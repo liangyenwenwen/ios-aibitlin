@@ -13,6 +13,10 @@ class BoBAddPaymentMethodViewController:UIViewController{
     var paymentType:Int = 0 //0银行卡，1支付宝，2微信
     var name:String?
     var paymentDetail:stringAndDatePOS?
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = false
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .colorBackgroundAPP
@@ -320,6 +324,7 @@ class BoBAddPaymentMethodViewController:UIViewController{
             BoBPaymentModel.AddPaymentMethod(type:type,paymentType: paymentType, param: param){errCode, errMsg in
                 if errCode == 20000{
                     SuperToast.show(title:type == 1 ? "添加成功" : "修改成功")
+                    NotificationCenter.default.post(name: Notification.Name("addPaymentSuccess"), object: nil)
                     self.navigationController?.popViewController(animated: true)
                 }else{
                     SuperToast.show(title: errMsg)

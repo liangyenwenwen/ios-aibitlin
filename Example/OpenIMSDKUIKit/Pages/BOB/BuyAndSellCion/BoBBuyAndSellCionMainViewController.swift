@@ -91,11 +91,36 @@ class BoBBuyAndSellCionMainViewController: BaseTitleController {
             make.left.right.bottom.equalTo(0)
         }
         loadData()
-       
+        NotificationCenter.default.addObserver(self, selector: #selector(addPaymentSuccess), name: Notification.Name("addPaymentSuccess"), object: nil)
+
+    }
+    deinit {
+        // 移除所有通知监听
+        NotificationCenter.default.removeObserver(self)
+    }
+    @objc func addPaymentSuccess(){
+        BoBBuyAndSellCionModel.BuyingAndSellingCoinsHomeRequest(){[weak self]data in
+            self?.homeData = data
+            if self?.quickCionVC != nil{
+                self?.quickCionVC?.reloadVCData(data: data)
+            }
+            if self?.freeCionVC != nil{
+                self?.freeCionVC?.reloadVCData(data: data)
+            }
+            NotificationCenter.default.post(name: Notification.Name("refreshPaymentList"), object: nil,userInfo: ["homeData":data])
+        } completionHandler:{errCode,errMsg in
+            SuperToast.show(title: errMsg)
+        }
     }
     func loadData(){
         BoBBuyAndSellCionModel.BuyingAndSellingCoinsHomeRequest(){[weak self]data in
             self?.homeData = data
+            if self?.quickCionVC != nil{
+                self?.quickCionVC?.reloadVCData(data: data)
+            }
+            if self?.freeCionVC != nil{
+                self?.freeCionVC?.reloadVCData(data: data)
+            }
         } completionHandler:{errCode,errMsg in
             SuperToast.show(title: errMsg)
         }
@@ -119,7 +144,7 @@ class BoBBuyAndSellCionMainViewController: BaseTitleController {
         return v
     }()
     @objc func reloadRealNameStatusAction() {
-        if IMController.shared.certificationLevel == 1 {
+        if IMController.shared.certificationLevel == 0 {
             self.unRealNameTipView.show()
             unRealNameTipView.snp_updateConstraints { make in
                 make.height.equalTo(44)
@@ -147,12 +172,14 @@ extension BoBBuyAndSellCionMainViewController: JXSegmentedListContainerViewDataS
             if quickCionVC == nil{
                 quickCionVC = BoBQuickCionMainViewController()
                 quickCionVC!.currentVC = self
+                quickCionVC!.homeData = homeData
             }
             return quickCionVC!
         }else{
             if freeCionVC == nil{
                 freeCionVC = BoBFreeCionMainViewController()
                 freeCionVC!.currentVC = self
+                freeCionVC!.homeData = homeData
             }
             return freeCionVC!
         }
