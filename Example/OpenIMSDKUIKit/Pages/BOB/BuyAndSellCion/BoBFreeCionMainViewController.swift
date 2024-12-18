@@ -76,11 +76,13 @@ class BoBFreeCionMainViewController: UIViewController {
             if typeIndex == 0{
                 //购买
                 let vc = BoBCreatAdvertisementViewController()
+                vc.homeData = self?.homeData
                 vc.advertisementType = 2
                 self?.currentVC?.navigationController?.pushViewController(vc, animated: true)
             }else if typeIndex == 1{
                 //出售
                 let vc = BoBCreatAdvertisementViewController()
+                vc.homeData = self?.homeData
                 vc.advertisementType = 1
                 self?.currentVC?.navigationController?.pushViewController(vc, animated: true)
             }
@@ -94,6 +96,17 @@ class BoBFreeCionMainViewController: UIViewController {
         warnView.tg_centerY.equal(0)
         warnView.bindData(homeData: homeData)
         GKCover.cover(from: currentVC?.view, contentView: warnView, style: .translucent, showStyle: .center, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: true)
+    }
+    func creatAdNameAlertView(){
+        let adNameView = BoBCreatAdNameAlertView()
+        adNameView.tg_width.equal(293)
+        adNameView.tg_height.equal(.wrap)
+        adNameView.tg_centerY.equal(0)
+        adNameView.bindData(adName: homeData?.advertisingName)
+        adNameView.updateAdvertisingName = { [weak self] adName in
+            self?.homeData?.advertisingName = adName
+        }
+        GKCover.cover(from: currentVC?.view, contentView: adNameView, style: .translucent, showStyle: .center, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: true)
     }
     lazy var rightView: UIView = {
         let r = UIView()
@@ -169,6 +182,10 @@ class BoBFreeCionMainViewController: UIViewController {
                             alert.addAction(okAction)
                             // 弹出alert
                             self?.currentVC?.present(alert, animated: true, completion: nil)
+                            return
+                        }
+                        if (self?.homeData?.advertisingName ?? "").isEmpty == true{
+                            self?.creatAdNameAlertView()
                             return
                         }
                         if (self?.homeData?.needRegistrationDay ?? 0 > self?.homeData?.mregistrationDay ?? 0) || (self?.homeData?.needAuthenticationDay ?? 0 > self?.homeData?.mauthenticationDay ?? 0) || IMController.shared.certificationLevel == 0{

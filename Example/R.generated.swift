@@ -3794,7 +3794,7 @@ struct _R: Sendable {
     var colorBackground: RswiftResources.ColorResource { .init(name: "ColorBackground", path: [], bundle: bundle) }
   }
 
-  /// This `_R.image` struct is generated, and contains static references to 303 images.
+  /// This `_R.image` struct is generated, and contains static references to 305 images.
   struct image {
     let bundle: Foundation.Bundle
 
@@ -4418,6 +4418,12 @@ struct _R: Sendable {
 
     /// Image `mine_buy_and_sell_cancreat_ad_icon`.
     var mine_buy_and_sell_cancreat_ad_icon: RswiftResources.ImageResource { .init(name: "mine_buy_and_sell_cancreat_ad_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `mine_buy_and_sell_check_icon`.
+    var mine_buy_and_sell_check_icon: RswiftResources.ImageResource { .init(name: "mine_buy_and_sell_check_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `mine_buy_and_sell_checked_icon`.
+    var mine_buy_and_sell_checked_icon: RswiftResources.ImageResource { .init(name: "mine_buy_and_sell_checked_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
     /// Image `mine_buy_and_sell_cion_type_icon`.
     var mine_buy_and_sell_cion_type_icon: RswiftResources.ImageResource { .init(name: "mine_buy_and_sell_cion_type_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }

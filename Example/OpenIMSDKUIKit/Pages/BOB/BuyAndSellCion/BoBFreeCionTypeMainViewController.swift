@@ -61,7 +61,6 @@ class BoBFreeCionTypeMainViewController: UIViewController {
             make.top.equalTo(segmentedView.snp_bottom).offset(-1)
             make.height.equalTo(1)
         }
-        
     }
     func reloadVCData(data:BoBBuyAndSellHomeData){
         if homeData == nil{

@@ -91,11 +91,11 @@ class BoBSendRedPacketViewController: BaseTitleController {
         .disposed(by:rx.disposeBag)
     }
     func loadData(){
-        BoBRedPacketModel.TransferMoneyInnerSHomeRequest(){data in
-            IMController.shared.isSetPayPassWord = data.secure ?? false
-            IMController.shared.certificationLevel = data.certificationLevel ?? 0
-            for item in data.expenditureHomePagePOS{
-                let model1 = CionTypeModel(icon: item.icon, currency: item.currency, quota: item.quota, handlingCharge: 0.00, minimumCommission: 0.00, cionType: "0", money: item.t0, type: 0, isSelect: true,exchangeRate:item.exchangeRate)
+            BoBRedPacketModel.TransferMoneyInnerSHomeRequest(){data in
+                IMController.shared.isSetPayPassWord = data.secure ?? false
+                IMController.shared.certificationLevel = data.certificationLevel ?? 0
+                for item in data.expenditureHomePagePOS{
+                    let model1 = CionTypeModel(icon: item.icon, currency: item.currency, quota: item.quota, handlingCharge: 0.00, minimumCommission: 0.00, cionType: "0", money: item.t0, type: 0, isSelect: true,exchangeRate:item.exchangeRate)
                 let model2 = CionTypeModel(icon: item.icon, currency: item.currency, quota: item.quota, handlingCharge: 0.00, minimumCommission: 0.00, cionType: "1", money: item.t1, type: 1, isSelect: false,exchangeRate:item.exchangeRate)
                 self.cionTypeArray.append(model1)
                 self.cionTypeArray.append(model2)

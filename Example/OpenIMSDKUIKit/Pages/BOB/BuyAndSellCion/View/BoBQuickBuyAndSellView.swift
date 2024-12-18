@@ -189,18 +189,14 @@ class BoBQuickBuyAndSellView: UIView {
             }
         }
     func loadData(){
-        BoBRedPacketModel.TransferMoneyInnerSHomeRequest(){data in
-            IMController.shared.isSetPayPassWord = data.secure ?? false
-            IMController.shared.certificationLevel = data.certificationLevel ?? 0
-            for item in data.expenditureHomePagePOS{
-                let model1 = CionTypeModel(icon: item.icon, currency: item.currency, quota: item.quota, handlingCharge: 0.00, minimumCommission: 0.00, cionType: "0", money: item.t0, type: 0, isSelect: true,exchangeRate:item.exchangeRate)
-                let model2 = CionTypeModel(icon: item.icon, currency: item.currency, quota: item.quota, handlingCharge: 0.00, minimumCommission: 0.00, cionType: "1", money: item.t1, type: 1, isSelect: false,exchangeRate:item.exchangeRate)
-                self.cionTypeArray.append(model1)
-                self.cionTypeArray.append(model2)
-            }
-            if self.cionTypeArray.count > 0{
-                self.chooseCionTypeModel = self.cionTypeArray[0]
-                self.refreshUI()
+        BoBBuyAndSellCionModel.QueryBalanceByCurrencyRequest(currency:currency ?? "C"){[weak self] data in
+            let model1 = CionTypeModel(icon: data.icon, currency: self?.currency, quota: 0.00, handlingCharge: 0.00, minimumCommission: 0.00, cionType: "0", money: data.t0, type: 0, isSelect: true,exchangeRate:0.00)
+            let model2 = CionTypeModel(icon: data.icon, currency: self?.currency, quota: 0.00, handlingCharge: 0.00, minimumCommission: 0.00, cionType: "1", money: data.t1, type: 1, isSelect: false,exchangeRate:0.00)
+            self?.cionTypeArray.append(model1)
+            self?.cionTypeArray.append(model2)
+            if self?.cionTypeArray.count ?? 0 > 0{
+                self?.chooseCionTypeModel = self?.cionTypeArray[0]
+                self?.refreshUI()
             }
         } completionHandler: {errCode,errMsg in
             SuperToast.show(title: errMsg)
