@@ -15,15 +15,20 @@ import RxGesture
 import OUIIM
 import IQKeyboardManagerSwift
 class BoBCreatAdvertisementViewController: BaseTitleController {
+    var updateAdData:((_ adDetailData:BoBMineAdList)->())!
     var homeData:BoBBuyAndSellHomeData?
     var advertisementType:Int = 1 //1出售，2购买
-    var paymentType:Int = 1 //1银行卡，2支付宝，3微信
+//    var paymentType:Int = 1 //1银行卡，2支付宝，3微信
+    var isChooseBank:Bool = false
+    var isChooseAli:Bool = false
+    var isChooseWx:Bool = false
     var exchangeRateType:Int = 2 //1浮动，2固定
     var advertisingName:String? //广告商名字
     var code = "000"//广告编号
     var currency = "C"
     var chooseCionTypeModel:CionTypeModel?
     var cionTypeArray:[CionTypeModel] = []
+    var adDetailData:BoBMineAdList?
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
@@ -37,8 +42,16 @@ class BoBCreatAdvertisementViewController: BaseTitleController {
         super.initViews()
         setBackGroundColor(.colorBackgroundAPP)
         initScrollSafeArea()
+        if adDetailData != nil{
+            title = "修改广告"
+            advertisementType = adDetailData?.advertisingType ?? 1
+            exchangeRateType = adDetailData?.exchangeRateType ?? 2
+            code = adDetailData?.code ?? ""
+            currency = adDetailData?.advertisingCurrency ?? "C"
+        }else{
+            title = "创建广告"
+        }
         advertisingName = homeData?.advertisingName
-        title = "创建广告"
         chooseCionTypeModel = CionTypeModel(icon: "", currency: currency, quota: 0.00, handlingCharge: 0.00, minimumCommission: 0.00, cionType:"0", money:0.00, type: 0, isSelect: true,exchangeRate:1.00)
         scrollViewContainer.tg_padding = UIEdgeInsets(top: 0, left: PADDING_OUTER, bottom: PADDING_OUTER, right: PADDING_OUTER)
         superFooterContainerContainer.tg_bottom.equal(0)
@@ -60,6 +73,66 @@ class BoBCreatAdvertisementViewController: BaseTitleController {
             self.view.endEditing(true)
         }.disposed(by: rx.disposeBag)
         scrollViewContainer.addGestureRecognizer(tap)
+        if adDetailData != nil{
+            if exchangeRateType == 1{
+                //浮动
+                exchangeRateTF.text = String(format: "%.2f", adDetailData?.floatingIndex ?? 1.00)
+            }else{
+                //固定
+                exchangeRateTF.text = String(format: "%.2f", adDetailData?.setExchangeRate ?? 1.00)
+            }
+            if advertisementType == 1{
+                chooseCionTypeModel = CionTypeModel(icon: adDetailData?.icon, currency: currency, quota: 0.00, handlingCharge: 0.00, minimumCommission: 0.00, cionType:String(format: "%d", adDetailData?.currencyWallet ?? 0), money:0.00, type: adDetailData?.currencyWallet ?? 0, isSelect: true,exchangeRate:1.00)
+                cionTypeImageView.sd_setImage(with: URL(string: chooseCionTypeModel?.icon))
+                cionNameLabel.text = chooseCionTypeModel?.currency
+                if chooseCionTypeModel?.type == 0{
+                    walletType.text = "T+0钱包"
+                    walletType.textColor = .init(hexString: "#00AA3C")
+                    walletType.backgroundColor = .init(hexString: "#E5F6EB")
+                }else{
+                    walletType.text = "T+1钱包"
+                    walletType.textColor = .init(hexString: "#FFA756")
+                    walletType.backgroundColor = .init(hexString: "#FFF7E5")
+                }
+            }
+            advertisementCountTF.text = String(format: "%.2f", adDetailData?.surplusQuantity ?? 0.00)
+            advertisementCountTF.isUserInteractionEnabled = false
+            limitMixMoneyTF.text = String(format: "%.2f", adDetailData?.quotaMin ?? 0.00)
+            limitMaxMoneyTF.text = String(format: "%.2f", adDetailData?.quotaMax ?? 0.00)
+            if adDetailData?.termsOfTradeZc ?? 0 > 0{
+                limitRegisterTF.text = String(format: "%d", adDetailData?.termsOfTradeZc ?? 0)
+                limitRegisterBtn.isSelected = true
+            }
+            calculationExchangeRate()
+        }
+        for i in 0..<(homeData?.userBankAndWeiXinAndZFBPO?.stringAndDatePOS?.count ?? 0) {
+            let data = (homeData?.userBankAndWeiXinAndZFBPO?.stringAndDatePOS![safe: i]!)! as stringAndDatePOS
+            if data.type == "bank"{
+                isChooseBank = true
+            }else if data.type == "weiXin"{
+               isChooseWx = true
+            }else{
+                isChooseAli = true
+            }
+            if isChooseBank && isChooseWx && isChooseAli{
+                break
+            }
+        }
+        bankBtn.alpha = isChooseBank ? 1 : 0.5
+        bankBtn.isUserInteractionEnabled = isChooseBank
+        bankBtn.border(isChooseBank ? .init(hexString: "#277FE6") : .white,borderWidth: 1,cornerRadius: 8)
+        bankBtn.backgroundColor = isChooseBank ? .init(hexString: "#F3F7FB") : .white
+        bankBtn.selectStatusImageView.isHidden = !isChooseBank
+        aliBtn.alpha = isChooseAli ? 1 : 0.5
+        aliBtn.isUserInteractionEnabled = isChooseAli
+        aliBtn.border(isChooseAli ? .init(hexString: "#277FE6") : .white,borderWidth: 1,cornerRadius: 8)
+        aliBtn.backgroundColor = isChooseAli ? .init(hexString: "#F3F7FB") : .white
+        aliBtn.selectStatusImageView.isHidden = !isChooseAli
+        weixinBtn.alpha = isChooseWx ? 1 : 0.5
+        weixinBtn.isUserInteractionEnabled = isChooseWx
+        weixinBtn.border(isChooseWx ? .init(hexString: "#277FE6") : .white,borderWidth: 1,cornerRadius: 8)
+        weixinBtn.backgroundColor = isChooseWx ? .init(hexString: "#F3F7FB") : .white
+        weixinBtn.selectStatusImageView.isHidden = !isChooseWx
     }
     func loadData(){
         BoBBuyAndSellCionModel.QueryBalanceByCurrencyRequest(currency:currency){[weak self] data in
@@ -67,10 +140,12 @@ class BoBCreatAdvertisementViewController: BaseTitleController {
             let model2 = CionTypeModel(icon: data.icon, currency: self?.currency, quota: 0.00, handlingCharge: 0.00, minimumCommission: 0.00, cionType: "1", money: data.t1, type: 1, isSelect: false,exchangeRate:0.00)
             self?.cionTypeArray.append(model1)
             self?.cionTypeArray.append(model2)
-            if self?.cionTypeArray.count ?? 0 > 0{
-                self?.chooseCionTypeModel = self?.cionTypeArray[0]
-                self?.refreshUI()
+            if self?.chooseCionTypeModel?.type == model1.type{
+                self?.chooseCionTypeModel = model1
+            }else{
+                self?.chooseCionTypeModel = model2
             }
+            self?.refreshUI()
         } completionHandler: {errCode,errMsg in
             SuperToast.show(title: errMsg)
         }
@@ -165,8 +240,8 @@ class BoBCreatAdvertisementViewController: BaseTitleController {
         r.bindData(title: currency, icon: UIImage(named: "mine_home_cion_c_icon")!)
         r.border(.init(hexString: "#277FE6"),borderWidth: 1,cornerRadius: 8)
         r.selectStatusImageView.show()
-        r.btn.rx.tap.subscribe(onNext: { [self] in
-
+        r.btn.rx.tap.subscribe(onNext: { [weak self] in
+            self?.view.endEditing(true)
         }).disposed(by: rx.disposeBag)
         return r
     }()
@@ -205,23 +280,15 @@ class BoBCreatAdvertisementViewController: BaseTitleController {
         r.tg_left.equal(0)
         r.tg_height.equal(40)
         r.tg_width.equal((kScreenWidth-32-34)/3)
-        r.backgroundColor = .init(hexString: "#F3F7FB")
+        r.backgroundColor = .white
+        r.border(.white,borderWidth: 1,cornerRadius: 8)
         r.bindData(title: "银行卡", icon: UIImage(named: "mine_payment_method_bank_icon")!)
-        r.border(.init(hexString: "#277FE6"),borderWidth: 1,cornerRadius: 8)
-        r.selectStatusImageView.show()
         r.btn.rx.tap.subscribe(onNext: { [weak self] in
-            if self?.paymentType != 1{
-                self?.paymentType = 1
-                r.border(.init(hexString: "#277FE6"),borderWidth: 1,cornerRadius: 8)
-                r.backgroundColor = .init(hexString: "#F3F7FB")
-                r.selectStatusImageView.show()
-                self?.aliBtn.border(.white,borderWidth: 1,cornerRadius: 8)
-                self?.aliBtn.selectStatusImageView.hide()
-                self?.aliBtn.backgroundColor = .white
-                self?.weixinBtn.border(.white,borderWidth: 1,cornerRadius: 8)
-                self?.weixinBtn.selectStatusImageView.hide()
-                self?.weixinBtn.backgroundColor = .white
-            }
+            self?.view.endEditing(true)
+            self?.isChooseBank = !(self?.isChooseBank ?? false)
+            r.border(self?.isChooseBank == true ? .init(hexString: "#277FE6") : .white,borderWidth: 1,cornerRadius: 8)
+            r.backgroundColor = self?.isChooseBank == true ? .init(hexString: "#F3F7FB") : .white
+            r.selectStatusImageView.isHidden = !(self?.isChooseBank ?? false)
         }).disposed(by: rx.disposeBag)
         return r
     }()
@@ -232,20 +299,14 @@ class BoBCreatAdvertisementViewController: BaseTitleController {
         r.tg_height.equal(40)
         r.tg_width.equal((kScreenWidth-32-34)/3)
         r.backgroundColor = .white
+        r.border(.white,borderWidth: 1,cornerRadius: 8)
         r.bindData(title: "支付宝", icon: UIImage(named: "mine_payment_method_ali_icon")!)
         r.btn.rx.tap.subscribe(onNext: { [weak self] in
-            if self?.paymentType != 2{
-                self?.paymentType = 2
-                r.border(.init(hexString: "#277FE6"),borderWidth: 1,cornerRadius: 8)
-                r.backgroundColor = .init(hexString: "#F3F7FB")
-                r.selectStatusImageView.show()
-                self?.bankBtn.border(.white,borderWidth: 1,cornerRadius: 8)
-                self?.bankBtn.selectStatusImageView.hide()
-                self?.bankBtn.backgroundColor = .white
-                self?.weixinBtn.border(.white,borderWidth: 1,cornerRadius: 8)
-                self?.weixinBtn.selectStatusImageView.hide()
-                self?.weixinBtn.backgroundColor = .white
-            }
+            self?.view.endEditing(true)
+            self?.isChooseAli = !(self?.isChooseAli ?? false)
+            r.border(self?.isChooseAli == true ? .init(hexString: "#277FE6") : .white,borderWidth: 1,cornerRadius: 8)
+            r.backgroundColor = self?.isChooseAli == true ? .init(hexString: "#F3F7FB") : .white
+            r.selectStatusImageView.isHidden = !(self?.isChooseAli ?? false)
         }).disposed(by: rx.disposeBag)
         return r
     }()
@@ -259,18 +320,11 @@ class BoBCreatAdvertisementViewController: BaseTitleController {
         r.border(.white,borderWidth: 1,cornerRadius: 8)
         r.bindData(title: "微信", icon: UIImage(named: "mine_payment_method_weixin_icon")!)
         r.btn.rx.tap.subscribe(onNext: { [weak self] in
-            if self?.paymentType != 3{
-                self?.paymentType = 3
-                r.border(.init(hexString: "#277FE6"),borderWidth: 1,cornerRadius: 8)
-                r.backgroundColor = .init(hexString: "#F3F7FB")
-                r.selectStatusImageView.show()
-                self?.bankBtn.border(.white,borderWidth: 1,cornerRadius: 8)
-                self?.bankBtn.selectStatusImageView.hide()
-                self?.bankBtn.backgroundColor = .white
-                self?.aliBtn.border(.white,borderWidth: 1,cornerRadius: 8)
-                self?.aliBtn.selectStatusImageView.hide()
-                self?.aliBtn.backgroundColor = .white
-            }
+            self?.view.endEditing(true)
+            self?.isChooseWx = !(self?.isChooseWx ?? false)
+            r.border(self?.isChooseWx == true ? .init(hexString: "#277FE6") : .white,borderWidth: 1,cornerRadius: 8)
+            r.backgroundColor = self?.isChooseWx == true ? .init(hexString: "#F3F7FB") : .white
+            r.selectStatusImageView.isHidden = !(self?.isChooseWx ?? false)
         }).disposed(by: rx.disposeBag)
         return r
     }()
@@ -315,10 +369,11 @@ class BoBCreatAdvertisementViewController: BaseTitleController {
         }
         let tap = UITapGestureRecognizer()
         tap.rx.event.subscribe {  _ in
+            self.view.endEditing(true)
             //选择
             let choosePushAdTypeView = BoBChoosePushAdTypeView()
             choosePushAdTypeView.tg_width.equal(.fill)
-            choosePushAdTypeView.tg_height.equal(245)
+            choosePushAdTypeView.tg_height.equal(193)
             choosePushAdTypeView.drawUI(array: ["固定","浮动"])
             choosePushAdTypeView.choosePushAdTypeBlock = { [weak self] typeIndex in
                 if typeIndex == 0{
@@ -386,6 +441,7 @@ class BoBCreatAdvertisementViewController: BaseTitleController {
         r.tg_height.equal(34)
         r.tg_centerY.equal(0)
         r.rx.tap.subscribe(onNext: { [weak self] in
+            self?.view.endEditing(true)
             if let doubleValue = Double(self?.exchangeRateTF.text ?? "0.01") {
                 if doubleValue == 0.01{
                     return
@@ -406,6 +462,7 @@ class BoBCreatAdvertisementViewController: BaseTitleController {
         r.tg_height.equal(34)
         r.tg_centerY.equal(0)
         r.rx.tap.subscribe(onNext: { [weak self] in
+            self?.view.endEditing(true)
             if let doubleValue = Double(self?.exchangeRateTF.text ?? "0.01") {
                 self?.exchangeRateTF.text = String(format: "%.2f",doubleValue + 0.01)
             }else{
@@ -1089,6 +1146,10 @@ class BoBCreatAdvertisementViewController: BaseTitleController {
         r.titleLabel?.font = .semiboldFont(16)
         r.backgroundColor = .primaryColor
         r.rx.tap.subscribe(onNext: { [weak self] in
+            if self?.isChooseBank == false && self?.isChooseAli == false && self?.isChooseWx == false{
+                SuperToast.show(title: "请选择支付方式")
+                return
+            }
             if let doubleValue = Double(self?.advertisementCountTF.text ?? "0") {
                 if doubleValue == 0{
                     SuperToast.show(title: "请输入广告数")
@@ -1127,6 +1188,16 @@ class BoBCreatAdvertisementViewController: BaseTitleController {
             if self?.limitRegisterBtn.isSelected == true && self?.limitRegisterTF.text?.isEmpty == false{
                 limitRegisterDate = self?.limitRegisterTF.text ?? "0"
             }
+            var payment = ""
+            if self?.isChooseBank == true{
+                payment = "1"
+            }
+            if self?.isChooseAli == true{
+                payment = payment + (payment.isEmpty ? "2" : ",2")
+            }
+            if self?.isChooseWx == true{
+                payment = payment + (payment.isEmpty ? "3" : ",3")
+            }
             if self?.advertisementType == 1{
                 //出售
                 let passWordView = BoBPayPassWordView()
@@ -1137,7 +1208,7 @@ class BoBCreatAdvertisementViewController: BaseTitleController {
                     let advertisingCurrency = self?.currency ?? "C"
                     let currencyWallet = self?.chooseCionTypeModel?.cionType ?? "0"
                     let advertisingType = String(format: "%d", self?.advertisementType ?? 1)
-                    let transactionMode = String(format: "%d", self?.paymentType ?? 1)
+                    let transactionMode = payment
                     let exchangeRateType = String(format: "%d", self?.exchangeRateType ?? 2)
                     let setExchangeRate = self?.exchangeRateTF.text ?? ""
                     let floatingIndex = self?.exchangeRateTF.text ?? ""
@@ -1161,7 +1232,7 @@ class BoBCreatAdvertisementViewController: BaseTitleController {
                 var param : [String: Any]
                 let advertisingCurrency = self?.currency ?? "C"
                 let advertisingType = String(format: "%d", self?.advertisementType ?? 1)
-                let transactionMode = String(format: "%d", self?.paymentType ?? 1)
+                let transactionMode = payment
                 let exchangeRateType = String(format: "%d", self?.exchangeRateType ?? 2)
                 let setExchangeRate = self?.exchangeRateTF.text ?? ""
                 let floatingIndex = self?.exchangeRateTF.text ?? ""
@@ -1185,6 +1256,23 @@ class BoBCreatAdvertisementViewController: BaseTitleController {
                     SuperToast.show(title:"创建成功")
                 }else{
                     SuperToast.show(title:"修改成功")
+                    self?.adDetailData?.transactionMode = param["transactionMode"] as? String
+                    self?.adDetailData?.exchangeRateType = self?.exchangeRateType ?? 2
+                    self?.adDetailData?.floatingIndex = Double(self?.exchangeRateTF.text ?? "0.01")
+                    if self?.exchangeRateType ?? 2 == 1{
+                        //浮动
+                        self?.adDetailData?.setExchangeRate =  (Double(self?.exchangeRateTF.text ?? "0.01") ?? 1.00)*(self?.homeData?.exchangeRate ?? 1.00)
+                    }else{
+                        //固定
+                        self?.adDetailData?.setExchangeRate = Double(self?.exchangeRateTF.text ?? "0.01")
+                    }
+                    self?.adDetailData?.quotaMin = Double(self?.limitMixMoneyTF.text ?? "0.01")
+                    self?.adDetailData?.quotaMax = Double(self?.limitMaxMoneyTF.text ?? "0.01")
+                    self?.adDetailData?.termsOfTradeZc = Int((param["termsOfTradeZc"] as? String) ?? "0")
+                    self?.adDetailData?.advertisingState = self?.nowCommitBtn.isSelected == true ? 1 : 2
+                    if self?.updateAdData != nil{
+                        self?.updateAdData((self?.adDetailData!)!)
+                    }
                 }
                 self?.navigationController?.popViewController(animated: true)
             }else{

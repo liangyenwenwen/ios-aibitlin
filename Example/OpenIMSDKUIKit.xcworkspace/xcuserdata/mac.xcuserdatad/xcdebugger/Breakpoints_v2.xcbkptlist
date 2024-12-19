@@ -14,40 +14,10 @@
             filePath = "OpenIMSDKUIKit/Pages/BOB/BuyAndSellCion/Model/BoBBuyAndSellCionModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "186"
-            endingLineNumber = "186"
+            startingLineNumber = "190"
+            endingLineNumber = "190"
             landmarkName = "CreatAdvertisementRequest(type:param:completionHandler:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "80BC4F95-5F7D-4B5D-BF38-7059ED203FEF - 924257b7c90beb12"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "static IM_NCER.BoBBuyAndSellCionModel.CreatAdvertisementRequest(type: Swift.Optional&lt;Swift.Int&gt;, param: Swift.Dictionary&lt;Swift.String, Any&gt;, completionHandler: (Swift.Int, Swift.Optional&lt;Swift.String&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "IM-NCER"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/%E9%A1%B9%E7%9B%AE/Example/OpenIMSDKUIKit/Pages/BOB/BuyAndSellCion/Model/BoBBuyAndSellCionModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "186"
-                  endingLineNumber = "186">
-               </Location>
-               <Location
-                  uuid = "80BC4F95-5F7D-4B5D-BF38-7059ED203FEF - ce23d25c3c51cb61"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Alamofire.DataResponse&lt;Any&gt;) -&gt; () in static IM_NCER.BoBBuyAndSellCionModel.CreatAdvertisementRequest(type: Swift.Optional&lt;Swift.Int&gt;, param: Swift.Dictionary&lt;Swift.String, Any&gt;, completionHandler: (Swift.Int, Swift.Optional&lt;Swift.String&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "IM-NCER"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/%E9%A1%B9%E7%9B%AE/Example/OpenIMSDKUIKit/Pages/BOB/BuyAndSellCion/Model/BoBBuyAndSellCionModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "186"
-                  endingLineNumber = "186">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -60,8 +30,8 @@
             filePath = "OpenIMSDKUIKit/Pages/BOB/BuyAndSellCion/BoBCreatAdvertisementViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1183"
-            endingLineNumber = "1183"
+            startingLineNumber = "1254"
+            endingLineNumber = "1254"
             landmarkName = "CreatAdvertisement(type:param:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -76,10 +46,26 @@
             filePath = "OpenIMSDKUIKit/Pages/BOB/BuyAndSellCion/BoBCreatAdvertisementViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1152"
-            endingLineNumber = "1152"
+            startingLineNumber = "1223"
+            endingLineNumber = "1223"
             landmarkName = "BoBCreatAdvertisementViewController"
             landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "AA8B31FC-4276-4F23-9954-970FCE744F02"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "OpenIMSDKUIKit/Pages/BOB/BuyAndSellCion/BoBCreatAdvertisementViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "244"
+            endingLineNumber = "244"
+            landmarkName = "currencyBtn"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

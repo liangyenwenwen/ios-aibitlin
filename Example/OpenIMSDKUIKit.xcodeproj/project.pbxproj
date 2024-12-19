@@ -88,6 +88,8 @@
 		0439CCF52D10232900379537 /* BoBChoosePaymentMethodTypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439CCF42D10232900379537 /* BoBChoosePaymentMethodTypeCell.swift */; };
 		0439CCF72D114F7300379537 /* BoBCreatAdvertisementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439CCF62D114F7300379537 /* BoBCreatAdvertisementViewController.swift */; };
 		0439CCF92D12C2D600379537 /* BoBCreatAdNameAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439CCF82D12C2D600379537 /* BoBCreatAdNameAlertView.swift */; };
+		0439CCFB2D12E6D500379537 /* BoBMineAdvertisementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439CCFA2D12E6D500379537 /* BoBMineAdvertisementViewController.swift */; };
+		0439CCFD2D12FFE800379537 /* BoBMineAdvertisementCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439CCFC2D12FFE800379537 /* BoBMineAdvertisementCell.swift */; };
 		043A558C2C8166490041836E /* UserTagTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043A55892C8166490041836E /* UserTagTypeView.swift */; };
 		043A558D2C8166490041836E /* UserTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043A558A2C8166490041836E /* UserTagView.swift */; };
 		0445BEE22CD1E04300A46558 /* ABLNetWorkToos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445BEE12CD1E04300A46558 /* ABLNetWorkToos.swift */; };
@@ -364,6 +366,8 @@
 		0439CCF42D10232900379537 /* BoBChoosePaymentMethodTypeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBChoosePaymentMethodTypeCell.swift; sourceTree = "<group>"; };
 		0439CCF62D114F7300379537 /* BoBCreatAdvertisementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBCreatAdvertisementViewController.swift; sourceTree = "<group>"; };
 		0439CCF82D12C2D600379537 /* BoBCreatAdNameAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBCreatAdNameAlertView.swift; sourceTree = "<group>"; };
+		0439CCFA2D12E6D500379537 /* BoBMineAdvertisementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBMineAdvertisementViewController.swift; sourceTree = "<group>"; };
+		0439CCFC2D12FFE800379537 /* BoBMineAdvertisementCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBMineAdvertisementCell.swift; sourceTree = "<group>"; };
 		043A55892C8166490041836E /* UserTagTypeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTagTypeView.swift; sourceTree = "<group>"; };
 		043A558A2C8166490041836E /* UserTagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTagView.swift; sourceTree = "<group>"; };
 		0445BEE12CD1E04300A46558 /* ABLNetWorkToos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ABLNetWorkToos.swift; sourceTree = "<group>"; };
@@ -894,6 +898,7 @@
 				0439CCDC2D087DE500379537 /* BoBFreeCionMainViewController.swift */,
 				0439CCDE2D087E0300379537 /* BoBFreeCionTypeMainViewController.swift */,
 				0439CCF62D114F7300379537 /* BoBCreatAdvertisementViewController.swift */,
+				0439CCFA2D12E6D500379537 /* BoBMineAdvertisementViewController.swift */,
 			);
 			path = BuyAndSellCion;
 			sourceTree = "<group>";
@@ -911,6 +916,7 @@
 				0439CCF22D101A0700379537 /* BoBChoosePaymentMethodTypeView.swift */,
 				0439CCF42D10232900379537 /* BoBChoosePaymentMethodTypeCell.swift */,
 				0439CCF82D12C2D600379537 /* BoBCreatAdNameAlertView.swift */,
+				0439CCFC2D12FFE800379537 /* BoBMineAdvertisementCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2429,6 +2435,7 @@
 				04F1FCEF2CB67E5000080742 /* YFMineQRCodeVC.swift in Sources */,
 				0445C9902D0339D700D1FD34 /* BoBReceiveTransferAccountsDetailViewController.swift in Sources */,
 				04484EDC2CF847B700893E4C /* BoBTransferAccountsViewController.swift in Sources */,
+				0439CCFD2D12FFE800379537 /* BoBMineAdvertisementCell.swift in Sources */,
 				0481726F2CF95D9A007A2920 /* BoBChooseCionTypeCell.swift in Sources */,
 				04052E272CF4268300A7A554 /* BoBPaymentMethodBankListCell.swift in Sources */,
 				049D30252CC2032800649DC4 /* YFNotNetTopTipView.swift in Sources */,
@@ -2445,6 +2452,7 @@
 				040D85E82BEB8C0B00DCAAB3 /* BaseCollectionViewCell.swift in Sources */,
 				040D85B52BEB8AD100DCAAB3 /* Config.swift in Sources */,
 				1790EE812922294600C4024A /* AccountViewModel.swift in Sources */,
+				0439CCFB2D12E6D500379537 /* BoBMineAdvertisementViewController.swift in Sources */,
 				04052E292CF4269300A7A554 /* BoBPaymentMethodListCell.swift in Sources */,
 				04F87EF52C8E8D3D00C82A37 /* SuperUIFontExtension.swift in Sources */,
 				0439CCE82D09AE7700379537 /* BoBFreeBuyAndSellView.swift in Sources */,

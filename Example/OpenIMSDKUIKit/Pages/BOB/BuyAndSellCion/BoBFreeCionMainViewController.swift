@@ -198,7 +198,9 @@ class BoBFreeCionMainViewController: UIViewController {
                     
                 }else if typeIndex == 1{
                     //我的广告
-                    
+                    let vc = BoBMineAdvertisementViewController()
+                    vc.homeData = self?.homeData
+                    self?.currentVC?.navigationController?.pushViewController(vc, animated: true)
                 }else{
                     //订单
                     

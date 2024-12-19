@@ -25,7 +25,11 @@ class BoBBuyAndSellCionModel {
     private static let CreatingAdvertisementPurchase = "/wallet/advertisement/creatingAdvertisementPurchase"//创建、编辑购买广告
     private static let CreatingAdvertisementSell = "/wallet/advertisement/creatingAdvertisementSell"//创建、编辑出售广告
     private static let UpdateNameOfAdvertiser = "/wallet/advertisement/updateNameOfAdvertiser"//修改广告商名称
-    
+    private static let MyAdvertisementList = "/wallet/advertisement/myAdvertisement"//我的广告列表
+    private static let ListingAdvertising = "/wallet/advertisement/listingAdvertising"//上架广告
+    private static let TakeDownAdvertising = "/wallet/advertisement/takeDownAdvertising"//下架广告
+    private static let DelAdvertising = "/wallet/advertisement/delAdvertising"//删除广告
+
     static func getHttpHeader() -> HTTPHeaders{
         let httpHeaders : HTTPHeaders = [
             "token":UserDefaults.standard.string(forKey: "bussinessTokenKey")!,
@@ -222,6 +226,77 @@ class BoBBuyAndSellCionModel {
         }
         
     }
+
+    static func MyAdvertisementListRequest(currency:String,
+                                           type:Int,
+                                           state:Int,
+                                           pageNum:Int,
+                                           pageSize:Int,
+                                           valueHandler: @escaping ([BoBMineAdList]) -> Void,
+                                           completionHandler: @escaping CompletionHandler) {
+        if !NetworkStatus.isReacheable {
+            return
+        }
+        ProgressHUD.animate()
+        let param = ["currency": currency, "type": type,"state": state,"pageNum": pageNum,"pageSize": pageSize] as [String : Any]
+        let url = SuperStringUtil.netUrl(API_BOB_URL + MyAdvertisementList, param)
+        Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
+            ProgressHUD.dismiss()
+            
+            if let data = dataRequest.data {
+                let strData = String.init(data: data, encoding: String.Encoding.utf8)
+                print(strData!)
+                if let res = JsonTool.fromJson(strData!, toClass: BoBMineAdData.self) {
+
+                    if res.code == 20000  {
+                        valueHandler(res.data)
+                    } else {
+                        completionHandler(res.code, res.message)
+                    }
+                } else {
+                    completionHandler(-1, "failure")
+                }
+            } else {
+                completionHandler(-1, "failure")
+            }
+        }
+        
+    }
+    static func MyAdvertisementChangeRequest(type:Int,
+                                             code:String,
+                                             completionHandler: @escaping CompletionHandler) {
+        if !NetworkStatus.isReacheable {
+            return
+        }
+        ProgressHUD.animate()
+        let param = ["code": code] as [String : Any]
+        var url = ""
+        if type == 0{
+            //去下架
+            url = SuperStringUtil.netUrl(API_BOB_URL + TakeDownAdvertising, param)
+        }else if type == 1{
+            //去上架
+            url = SuperStringUtil.netUrl(API_BOB_URL + ListingAdvertising, param)
+        }else{
+            //去删除
+            url = SuperStringUtil.netUrl(API_BOB_URL + DelAdvertising, param)
+        }
+        Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
+            ProgressHUD.dismiss()
+            if let data = dataRequest.data {
+                let strData = String.init(data: data, encoding: String.Encoding.utf8)
+                print(strData!)
+                if let res = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellNODataResponse.self) {
+                    completionHandler(res.code, res.message)
+                } else {
+                    completionHandler(-1, "failure")
+                }
+            } else {
+                completionHandler(-1, "failure")
+            }
+        }
+        
+    }
 }
 class BoBBuyAndSellResponse<T: Decodable>: Decodable {
     var data: T
@@ -283,5 +358,30 @@ class CionDetailTypeModel:Decodable {
     var t0:Double?
     var t1:Double?
     var icon:String?
+}
+class BoBMineAdData: Decodable {
+    var data: [BoBMineAdList]
+    var flag: Bool = false
+    var code: Int = 20000
+    var message: String? = nil
+    var count: Int? = 0
+}
+class BoBMineAdList: Decodable {
+    var advertisingCurrency:String? //币种
+    var currencyWallet:Int? //钱包（t0,t1）
+    var advertisingType:Int? //广告类型1:出售 2:购买 3:兑换
+    var transactionMode:String? //交易方式1:银行卡 2:支付宝 3:微信
+    var exchangeRateType:Int? //汇率类型，1:浮动 2:固定
+    var setExchangeRate:Double?//设置汇率
+    var floatingIndex:Double?//浮动指数
+    var surplusQuantity:Double?//数量
+    var quotaMin:Double?//最小限额
+    var quotaMax:Double?//最大限额
+    var termsOfTradeZc:Int? // 注册天数限制
+    var advertisingName:String?//广告商名称
+    var userId:String?
+    var code:String?//广告编号
+    var icon:String? //货币图标
+    var advertisingState:Int?//1:上架中 2:已下架
 }
 
