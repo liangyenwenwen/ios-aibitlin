@@ -10,7 +10,7 @@ import Foundation
 import JXSegmentedView
 
 class BoBOrderListSubViewController: UIViewController {
-    var titles = [String]()
+    var titles = ["全部", "进行中", "已完成", "已取消"]
     let segmentedDataSource = JXSegmentedTitleDataSource()
     let segmentedView = JXSegmentedView()
     lazy var listContainerView: JXSegmentedListContainerView! = {
@@ -24,9 +24,10 @@ class BoBOrderListSubViewController: UIViewController {
         //配置数据源
         segmentedDataSource.isTitleColorGradientEnabled = true
         segmentedDataSource.titles = titles
-        segmentedDataSource.titleNormalColor = .black999
-        segmentedDataSource.titleSelectedColor = .init(hexString: "#388CEF")
-        segmentedDataSource.titleNormalFont = UIFont(name: "PingFangSC-Regular", size: 16)!
+        segmentedDataSource.titleNormalColor = .black666
+        segmentedDataSource.titleSelectedColor = .primaryColor
+        segmentedDataSource.titleNormalFont = .mediumFont(16)
+        segmentedDataSource.titleSelectedFont = .mediumFont(16)
         //配置指示器
         let indicator = JXSegmentedIndicatorLineView()
         indicator.indicatorWidth = JXSegmentedViewAutomaticDimension
@@ -37,8 +38,14 @@ class BoBOrderListSubViewController: UIViewController {
         segmentedView.dataSource = segmentedDataSource
         segmentedView.indicators = [indicator]
         segmentedView.frame = CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 44)
-        segmentedView.backgroundColor = UIColor.white
+        segmentedView.backgroundColor = UIColor.clear
+        view.addSubview(lineView)
         view.addSubview(segmentedView)
+        lineView.snp_makeConstraints { make in
+            make.left.right.equalTo(0)
+            make.bottom.equalTo(segmentedView)
+            make.height.equalTo(1)
+        }
 
         segmentedView.listContainer = listContainerView
         view.addSubview(listContainerView)
@@ -49,6 +56,11 @@ class BoBOrderListSubViewController: UIViewController {
 
         listContainerView.frame = CGRect(x: 0, y: 44, width: view.bounds.size.width, height: view.bounds.size.height - 44)
     }
+    lazy var lineView: UIView = {
+        let r = UIView()
+        r.backgroundColor = .init(hexString: "#EAEAEA")
+        return r
+    }()
 }
 
 extension BoBOrderListSubViewController: JXSegmentedListContainerViewListDelegate {

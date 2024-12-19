@@ -275,7 +275,6 @@ class MeHomeController: BaseLogicController {
         r.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer()
         tap.rx.event.subscribe {  _ in
-//            SuperToast.show(title: "开发中")
             self.gotoControllerFromRoot(BoBBuyAndSellCionMainViewController.self)
         }.disposed(by: rx.disposeBag)
         r.addGestureRecognizer(tap)

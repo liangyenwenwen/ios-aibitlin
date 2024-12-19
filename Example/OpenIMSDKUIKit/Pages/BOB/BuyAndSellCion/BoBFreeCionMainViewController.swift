@@ -203,7 +203,8 @@ class BoBFreeCionMainViewController: UIViewController {
                     self?.currentVC?.navigationController?.pushViewController(vc, animated: true)
                 }else{
                     //订单
-                    
+                    let vc = BoBOrderListMainViewController()
+                    self?.currentVC?.navigationController?.pushViewController(vc, animated: true)
                 }
             }
             GKCover.cover(from: self.view.window, contentView: choosePushAdTypeView, style: .translucent, showStyle: .bottom, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)

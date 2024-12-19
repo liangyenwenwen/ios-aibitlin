@@ -146,7 +146,8 @@ class BoBMineAssetsViewController: BaseTitleController {
         r.titleEdgeInsets = UIEdgeInsets(top: 0, left: spacing, bottom: 0, right: 0)
         r.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: spacing)
         r.rx.tap.subscribe(onNext: { [self] in
-            SuperToast.show(title: "开发中")
+//            SuperToast.show(title: "开发中")
+            self.gotoController(BoBBuyAndSellCionMainViewController.self)
         }).disposed(by: rx.disposeBag)
         return r
     }()

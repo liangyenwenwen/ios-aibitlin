@@ -8,8 +8,9 @@
 
 import Foundation
 import JXSegmentedView
+import OUICore
 
-class BoBOrderListMainViewController: UIViewController {
+class BoBOrderListMainViewController: BaseTitleController {
     let segmentedDataSource = JXSegmentedTitleDataSource()
     let segmentedView = JXSegmentedView()
     lazy var listContainerView: JXSegmentedListContainerView! = {
@@ -17,49 +18,42 @@ class BoBOrderListMainViewController: UIViewController {
     }()
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.navigationBar.isHidden = false
+        navigationController?.navigationBar.isHidden = true
     }
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
+    override func initViews() {
+        super.initViews()
         view.backgroundColor = .colorBackgroundAPP
-
-        let totalItemWidth: CGFloat = 172
-        let titles = ["买入订单", "卖出订单"]
+        initLinearLayoutSafeArea()
+        container.tg_padding = UIEdgeInsets(top: 0, left: PADDING_OUTER, bottom: 0, right: PADDING_OUTER)
+        
+        let titles = ["全部订单", "商家订单"]
         //segmentedViewDataSource一定要通过属性强持有！！！！！！！！！
-        segmentedDataSource.itemWidth = totalItemWidth/CGFloat(titles.count)
         segmentedDataSource.titles = titles
         segmentedDataSource.isTitleMaskEnabled = true
-        segmentedDataSource.titleNormalColor = .black333
-        segmentedDataSource.titleSelectedColor = .black333
-        segmentedDataSource.titleNormalFont = UIFont(name: "PingFangSC-Regular", size: 13)!
-        segmentedDataSource.itemSpacing = 2
-
+        segmentedDataSource.titleNormalColor = .black666
+        segmentedDataSource.titleSelectedColor = .primaryColor
+        segmentedDataSource.titleNormalFont = .mediumFont(18)
+        segmentedDataSource.titleSelectedFont = .mediumFont(18)
+        segmentedDataSource.itemSpacing = 10
+        
         let indicator = JXSegmentedIndicatorBackgroundView()
-        indicator.indicatorHeight = 28
-        indicator.indicatorCornerRadius = 7
-        indicator.indicatorWidthIncrement = 0
-        indicator.indicatorColor = UIColor.white
-
-        segmentedView.frame = CGRect(x: 0, y: 0, width: totalItemWidth+10, height: 32)
-        segmentedView.layer.masksToBounds = true
-        segmentedView.layer.cornerRadius = 9
-        segmentedView.backgroundColor = .init(hexString: "#E8E8E8")
+        indicator.indicatorColor = UIColor.clear
+        
+//        segmentedView.frame = CGRect(x: 0, y: 0, width: kScreenWidth, height: 32)
         segmentedView.dataSource = segmentedDataSource
         segmentedView.indicators = [indicator]
-        navigationItem.titleView = segmentedView
-
+        view.addSubview(segmentedView)
+        segmentedView.snp_makeConstraints { make in
+            make.centerX.equalTo(view)
+            make.width.equalTo(260)
+            make.height.equalTo(32)
+            make.bottom.equalTo(navView.snp_bottom).offset(-6)
+        }
+        
         segmentedView.listContainer = listContainerView
-        view.addSubview(listContainerView)
-    }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-
-//        listContainerView.frame = view.bounds
+        container.addSubview(listContainerView)
         listContainerView.snp_makeConstraints { make in
-            make.left.right.bottom.equalTo(0)
-            make.top.equalTo(self.view.safeAreaLayoutGuide)
+            make.top.left.right.bottom.equalTo(0)
         }
     }
 }
@@ -74,7 +68,6 @@ extension BoBOrderListMainViewController: JXSegmentedListContainerViewDataSource
 
     func listContainerView(_ listContainerView: JXSegmentedListContainerView, initListAt index: Int) -> JXSegmentedListContainerViewListDelegate {
         let vc = BoBOrderListSubViewController()
-        vc.titles = ["全部", "待确认", "待付款", "待发货", "已完成"]
         return vc
     }
 }

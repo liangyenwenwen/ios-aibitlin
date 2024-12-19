@@ -362,7 +362,8 @@ extension BoBMineAdvertisementViewController{
             cell.statusLabel.text = "已下架"
             cell.statusLabel.backgroundColor = .init(hexString: "#FFA756")
         }
-        cell.exchangeRateLabel.text = item.exchangeRateType == 1 ? String(format: "¥%.2f", item.floatingIndex ?? 1.00) : String(format: "¥%.2f", item.setExchangeRate ?? 1.00)
+//        cell.exchangeRateLabel.text = item.exchangeRateType == 1 ? String(format: "¥%.2f", item.floatingIndex ?? 1.00) : String(format: "¥%.2f", item.setExchangeRate ?? 1.00)
+        cell.exchangeRateLabel.text = String(format: "¥%.2f", item.setExchangeRate ?? 1.00)
         cell.countLabel.text = String(format: "%.2f ", item.surplusQuantity ?? 0.00) +  (item.advertisingCurrency ?? "C")
         cell.limitCountLabel.text = String(format: "%.2f-%.2f CNY", item.quotaMin ?? 0.00,item.quotaMax ?? 0.00)
         return cell
