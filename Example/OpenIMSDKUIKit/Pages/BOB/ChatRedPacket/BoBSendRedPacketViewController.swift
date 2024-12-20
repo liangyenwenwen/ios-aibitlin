@@ -47,22 +47,20 @@ class BoBSendRedPacketViewController: BaseTitleController {
         if sendRedPacketType == 0{
             //私聊红包
             scrollViewContainer.addSubview(cionTypeView)
-            scrollViewContainer.addSubview(redPacketCountNmberView)
             scrollViewContainer.addSubview(redPacketDescView)
             scrollViewContainer.addSubview(bottomView)
             scrollViewContainer.addSubview(sureBtn)
             cionTypeView.tg_top.equal(8)
-            redPacketCountNmberView.show()
         }else{
             //群红包
             scrollViewContainer.addSubview(redPacketTypeBtn)
             scrollViewContainer.addSubview(cionTypeView)
             scrollViewContainer.addSubview(redPacketCountView)
-            scrollViewContainer.addSubview(redPacketCountNmberView)
             scrollViewContainer.addSubview(redpacketTotalView)
             scrollViewContainer.addSubview(redPacketDescView)
             scrollViewContainer.addSubview(bottomView)
             scrollViewContainer.addSubview(sureBtn)
+            redPacketTypeTitleLabel.text = "发出总数量"
         }
         
         let tap = UITapGestureRecognizer()
@@ -82,7 +80,7 @@ class BoBSendRedPacketViewController: BaseTitleController {
                 if self.redPacketType == 2{
                     $0.count > 0 && $1.count > 0
                 }else{
-                    $0.count >= 0 && $1.count > 0
+                    $0.count > 0 && $1.count >= 0
                 }
             }
             
@@ -109,7 +107,6 @@ class BoBSendRedPacketViewController: BaseTitleController {
         }
     }
     func refreshUI(){
-        cionTypeImageView.sd_setImage(with: URL(string: chooseCionTypeModel?.icon))
         cionNameLabel.text = chooseCionTypeModel?.currency
         if chooseCionTypeModel?.type == 0{
             self.walletType.text = "T+0钱包"
@@ -145,15 +142,15 @@ class BoBSendRedPacketViewController: BaseTitleController {
             //群聊红包
             if self.redPacketType == 0{
                 //拼手气红包
-                if let doubleValue = Double(redPacketTotalTF.text ?? "0") {
+                if let doubleValue = Double(redPacketNumberTF.text ?? "0") {
                     if doubleValue > 0{
-                        self.totalLabel.text = redPacketTotalTF.text
+                        self.totalLabel.text = redPacketNumberTF.text
                         self.moneyLabel.text = String(format: "≈￥%.2f",(chooseCionTypeModel?.exchangeRate)!*doubleValue)
                     }
                 }
             }else if self.redPacketType == 1{
                 //普通红包
-                if let doubleValue = Double(redPacketTotalTF.text ?? "0") {
+                if let doubleValue = Double(redPacketNumberTF.text ?? "0") {
                     if doubleValue > 0{
                         self.totalLabel.text = String(format: "%.2f",doubleValue*(Double(redPacketTF.text ?? "1") ?? 1))
                         self.moneyLabel.text = String(format: "≈￥%.2f",(chooseCionTypeModel?.exchangeRate)!*doubleValue*(Double(redPacketTF.text ?? "1") ?? 1))
@@ -200,37 +197,28 @@ class BoBSendRedPacketViewController: BaseTitleController {
                     self!.redPacketType = typeIndex
                     if typeIndex == 0{
                         //拼手气红包
+                        self!.redPacketTypeTitleLabel.text = "发出总数量"
+                        self!.redPacketNumberTF.text = ""
                         self!.redPacketCountView.show()
-                        self!.redPacketCountNmberView.hide()
-                        self!.redPacketNextIcon.hide()
-                        self!.choosePeopleBtn.hide()
+                        self!.redpacketTotalView.hide()
                         self!.redPacketTF.text = "1"
-                        self!.redpacketTotalLabel.text = "发出总数量"
                         self!.redPacketTotalTF.text = ""
-                        self!.redPacketTotalTF.placeholder = "输入数量"
-                        self!.redPacketTotalTF.isUserInteractionEnabled = true
                     }else if typeIndex == 1{
                         //普通红包
+                        self!.redPacketTypeTitleLabel.text = "单个发出数量"
+                        self!.redPacketNumberTF.text = ""
                         self!.redPacketCountView.show()
-                        self!.redPacketCountNmberView.hide()
-                        self!.redPacketNextIcon.hide()
-                        self!.choosePeopleBtn.hide()
+                        self!.redpacketTotalView.hide()
                         self!.redPacketTF.text = "1"
-                        self!.redpacketTotalLabel.text = "单个发出数量"
                         self!.redPacketTotalTF.text = ""
-                        self!.redPacketTotalTF.placeholder = "输入数量"
-                        self!.redPacketTotalTF.isUserInteractionEnabled = true
                     }else{
                         //专属红包
-                        self!.redPacketCountView.hide()
-                        self!.redPacketCountNmberView.show()
-                        self!.redPacketNextIcon.show()
-                        self!.choosePeopleBtn.show()
+                        self!.redPacketTypeTitleLabel.text = "发出数量"
                         self!.redPacketNumberTF.text = ""
-                        self!.redpacketTotalLabel.text = "发给谁"
+                        self!.redPacketCountView.hide()
+                        self!.redpacketTotalView.show()
+                        self!.redPacketNumberTF.text = ""
                         self!.redPacketTotalTF.text = ""
-                        self!.redPacketTotalTF.placeholder = "选择发红包对象"
-                        self!.redPacketTotalTF.isUserInteractionEnabled = false
                     }
                     self!.totalLabel.text = "0.00"
                     self!.moneyLabel.text = "≈￥0.00"
@@ -247,28 +235,51 @@ class BoBSendRedPacketViewController: BaseTitleController {
         r.tg_left.equal(0)
         r.tg_height.equal(118)
         r.tg_width.equal(kScreenWidth-32)
+        r.addSubview(redPacketTypeTitleLabel)
+        let bgView = UIView()
+        bgView.tg_top.equal(0)
+        bgView.tg_left.equal(0)
+        bgView.tg_width.equal(kScreenWidth-32)
+        bgView.tg_height.equal(50)
+        r.addSubview(bgView)
         let v = TGLinearLayout(.horz)
-        v.tg_top.equal(0)
-        v.tg_left.equal(0)
-        v.tg_height.equal(50)
-        v.tg_width.equal(kScreenWidth-32)
         v.backgroundColor = .white
         v.corner(8)
-        v.addSubview(cionTypeImageView)
+        bgView.addSubview(redPacketCountNmberView)
+        bgView.addSubview(v)
+        redPacketCountNmberView.snp_makeConstraints { make in
+            make.top.equalTo(redPacketTypeTitleLabel.snp_bottom)
+            make.left.equalTo(0)
+            make.right.equalTo(v.snp_left).offset(-10)
+            make.height.equalTo(50)
+        }
+        v.snp_makeConstraints { make in
+            make.right.equalTo(0)
+            make.top.bottom.equalTo(redPacketCountNmberView)
+            make.width.equalTo(128)
+        }
         v.addSubview(cionNameLabel)
         v.addSubview(walletType)
         let rightIcon = UIImageView(image: UIImage(named: "SuperChevronRight"))
         rightIcon.tintColor = .black80
         rightIcon.contentMode = .scaleAspectFit
         v.addSubview(rightIcon)
-        r.addSubview(cionTypeTitleLabel)
-        r.addSubview(v)
         r.addSubview(exchangeRateLabel)
         r.addSubview(totalMoneyLabel)
         rightIcon.snp_makeConstraints { make in
             make.centerY.equalTo(v)
             make.right.equalTo(-16)
             make.width.height.equalTo(15)
+        }
+        cionNameLabel.snp_makeConstraints { make in
+            make.left.equalTo(10)
+            make.centerY.equalTo(v)
+        }
+        walletType.snp_makeConstraints { make in
+            make.left.equalTo(cionNameLabel.snp_right).offset(7)
+            make.centerY.equalTo(cionNameLabel)
+            make.width.equalTo(62)
+            make.height.equalTo(26)
         }
         exchangeRateLabel.snp_makeConstraints { make in
             make.left.bottom.equalTo(0)
@@ -297,7 +308,7 @@ class BoBSendRedPacketViewController: BaseTitleController {
         r.addGestureRecognizer(tap)
        return r
     }()
-    lazy var cionTypeTitleLabel: UILabel = {
+    lazy var redPacketTypeTitleLabel: UILabel = {
         let r = UILabel()
         r.tg_width.equal(kScreenWidth-32)
         r.tg_height.equal(38)
@@ -305,23 +316,11 @@ class BoBSendRedPacketViewController: BaseTitleController {
         r.tg_left.equal(0)
         r.textColor = .black333
         r.font = .semiboldFont(16)
-        r.text = "币种"
-        return r
-    }()
-    lazy var cionTypeImageView: UIImageView = {
-        let r = UIImageView(image: UIImage(named: "mine_home_cion_c_icon"))
-        r.tg_width.equal(26)
-        r.tg_height.equal(26)
-        r.tg_centerY.equal(0)
-        r.tg_left.equal(16)
+        r.text = "发出数量"
         return r
     }()
     lazy var cionNameLabel: UILabel = {
         let r = UILabel()
-        r.tg_width.equal(.wrap)
-        r.tg_height.equal(26)
-        r.tg_centerY.equal(0)
-        r.tg_left.equal(10)
         r.font = .mediumFont(16)
         r.text = cionType
         r.textColor = .black333
@@ -329,10 +328,6 @@ class BoBSendRedPacketViewController: BaseTitleController {
     }()
     lazy var walletType: UILabel = {
         let r = UILabel()
-        r.tg_width.equal(62)
-        r.tg_height.equal(26)
-        r.tg_centerY.equal(0)
-        r.tg_left.equal(7)
         r.textColor = .init(hexString: "#00AA3C")
         r.backgroundColor = .init(hexString: "#E5F6EB")
         r.corner(13)
@@ -465,39 +460,18 @@ class BoBSendRedPacketViewController: BaseTitleController {
     
     lazy var redPacketCountNmberView: TGLinearLayout = {
         let r = TGLinearLayout(.vert)
-        r.hide()
-        r.tg_top.equal(12)
-        r.tg_left.equal(0)
-        r.tg_height.equal(88)
-        r.tg_width.equal(kScreenWidth-32)
-        let v = UILabel()
-        v.tg_width.equal(kScreenWidth-32)
-        v.tg_height.equal(38)
-        v.tg_top.equal(0)
-        v.tg_left.equal(0)
-        v.textColor = .black333
-        v.font = .semiboldFont(16)
-        v.text = "发出数量"
-        r.addSubview(v)
-        let bgView = TGLinearLayout(.horz)
-        bgView.tg_top.equal(0)
-        bgView.tg_left.equal(0)
-        bgView.tg_height.equal(50)
-        bgView.tg_width.equal(kScreenWidth-32)
-        bgView.tg_gravity = .horz.between
-        bgView.backgroundColor = .white
-        bgView.corner(8)
-        r.addSubview(bgView)
-        bgView.addSubview(redPacketNumberTF)
+        r.backgroundColor = .white
+        r.corner(8)
+        r.addSubview(redPacketNumberTF)
+        redPacketNumberTF.snp_makeConstraints { make in
+            make.left.equalTo(16)
+            make.right.equalTo(-16)
+            make.top.bottom.equalTo(r)
+        }
         return r
     }()
-   
     lazy var redPacketNumberTF: QMUITextField = {
         let r = QMUITextField()
-        r.tg_height.equal(50)
-        r.tg_top.equal(0)
-        r.tg_left.equal(16)
-        r.tg_width.equal(240)
         r.font = .regularFont(16)
         r.tintColor = .black333
         r.keyboardType = .decimalPad
@@ -531,11 +505,9 @@ class BoBSendRedPacketViewController: BaseTitleController {
         return r
     }()
     
-    
-    
-    
     lazy var redpacketTotalView: TGLinearLayout = {
         let r = TGLinearLayout(.vert)
+        r.hide()
         r.tg_top.equal(12)
         r.tg_left.equal(0)
         r.tg_height.equal(88)
@@ -562,7 +534,6 @@ class BoBSendRedPacketViewController: BaseTitleController {
     }()
     lazy var choosePeopleBtn:UIButton = {
         let r = UIButton()
-        r.hide()
         r.backgroundColor = .clear
         r.rx.tap.subscribe(onNext: {
             let vc = MentionViewController(types: [.members], sourceID: self.groupId, allowsMultipleSelection: false)
@@ -587,7 +558,7 @@ class BoBSendRedPacketViewController: BaseTitleController {
         r.tg_left.equal(0)
         r.textColor = .black333
         r.font = .semiboldFont(16)
-        r.text = "发出总数量"
+        r.text = "发给谁"
         return r
     }()
     
@@ -599,37 +570,9 @@ class BoBSendRedPacketViewController: BaseTitleController {
         r.tg_width.equal(240)
         r.font = .regularFont(16)
         r.tintColor = .black333
-        r.keyboardType = .decimalPad
         r.setPlaceHolderTextColor(.black999)
-        r.placeholder = "输入数量"
-        r.rx.controlEvent(.editingChanged).subscribe(onNext: { [weak self] in
-            if self?.redPacketType != 2{
-                if ((r.text?.range(of:".")) != nil){
-                    //带小数点
-                    if r.text!.filter({ "." == $0 }).count == 2{
-                        guard let range = r.text!.range(of: ".", options: [.backwards, .caseInsensitive], range: nil, locale: nil) else {
-                            return
-                        }
-                        r.text =  r.text!.replacingCharacters(in: range, with: "")
-                    }else if r.text!.filter({ "." == $0 }).count > 2{
-                        r.text = ""
-                    }
-                    let arr = r.text?.components(separatedBy: ".")
-                    if arr![1].count > 2{
-                        r.text = arr![0] + "." + arr![1].prefix(2)
-                    }
-                }else{
-                    if r.text!.length > 1 {
-                        let str = r.text?.prefix(1)
-                        if str == "0"{
-                            r.text = "0"
-                        }
-                    }
-                }
-                self?.calculationMoney()
-            }
-            
-        }).disposed(by: rx.disposeBag)
+        r.placeholder = "选择发红包对象"
+        r.isUserInteractionEnabled = false
         return r
     }()
     lazy var redPacketNextIcon: UIImageView = {
@@ -640,7 +583,6 @@ class BoBSendRedPacketViewController: BaseTitleController {
         r.tg_height.equal(15)
         r.tintColor = .black80
         r.contentMode = .scaleAspectFit
-        r.hide()
         return r
     }()
     lazy var redPacketDescView: TGLinearLayout = {
@@ -714,9 +656,6 @@ class BoBSendRedPacketViewController: BaseTitleController {
         r.font = .regularFont(16)
         r.tintColor = .black333
         r.maximumTextLength = 20
-//        r.isUserInteractionEnabled = true
-//        r.keyboardType = .default
-//        r.returnKeyType = .default
         r.setPlaceHolderTextColor(.black999)
         r.placeholder = "恭喜发财，大吉大利"
         return r
@@ -812,7 +751,7 @@ class BoBSendRedPacketViewController: BaseTitleController {
             }else{
                 if IMController.shared.isSetPayPassWord {
                     if self.redPacketType == 0{
-                        if let totalMoney = Double(redPacketTotalTF.text ?? "0") {
+                        if let totalMoney = Double(redPacketNumberTF.text ?? "0") {
                            if let number = Double(self.redPacketTF.text ?? "1"){
                                if totalMoney < number*0.01{
                                    SuperToast.show(title: "红包总数量至少" + String(format: "%.2f", number*0.01))
@@ -849,9 +788,8 @@ class BoBSendRedPacketViewController: BaseTitleController {
                             if self?.redPacketType == 0{
                                 //群拼手气红包
                                 type = 1
-                                param = ["amount":""]
                                 let number = self?.redPacketTF.text ?? "1"
-                                let totalQuantity = self?.redPacketTotalTF.text ?? "0.00"
+                                let totalQuantity = self?.redPacketNumberTF.text ?? "0.00"
                                 let funderWallet = self?.chooseCionTypeModel?.cionType ?? ""
                                 let groupId = self?.groupId ?? ""
                                 let currency = self?.chooseCionTypeModel?.currency ?? ""
@@ -860,9 +798,8 @@ class BoBSendRedPacketViewController: BaseTitleController {
                             }else if self?.redPacketType == 1{
                                 //群普通红包
                                 type = 2
-                                param = ["amount":""]
                                 let number = self?.redPacketTF.text ?? "1"
-                                let individualQuantity = self?.redPacketTotalTF.text ?? "0.00"
+                                let individualQuantity = self?.redPacketNumberTF.text ?? "0.00"
                                 let funderWallet = self?.chooseCionTypeModel?.cionType ?? ""
                                 let currency = self?.chooseCionTypeModel?.currency ?? ""
                                 let groupId = self?.groupId ?? ""
