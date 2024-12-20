@@ -284,15 +284,13 @@ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> U
         cell.paymentMethodType3.lineView.backgroundColor = .init(hexString: "#EF5151")
         cell.paymentMethodType3.paymentMethodNameLabel.text = "银行卡"
     }
-    cell.saleBtn.setTitle(type == 1 ? "购买":"出售", for: .normal)
-    cell.saleBtn.backgroundColor = type == 1 ?.primaryColor : .init(hexString: "#EF5938")
-    cell.saleBtn.rx.tap.subscribe(onNext: { [weak self] in
-        if self?.type == 1{
-            //购买
-        }else{
-            //出售
-        }
-    }).disposed(by: rx.disposeBag)
+    if (item.surplusQuantity ?? 0.00)*(item.setExchangeRate ?? 1.00) < (item.quotaMin ?? 0.00){
+        cell.saleBtn.setTitle("数量不足", for: .normal)
+        cell.saleBtn.backgroundColor = .init(hexString: "#CCCCCC")
+    }else{
+        cell.saleBtn.setTitle(type == 1 ? "购买":"出售", for: .normal)
+        cell.saleBtn.backgroundColor = type == 1 ?.primaryColor : .init(hexString: "#EF5938")
+    }
     return cell
 }
 
@@ -300,8 +298,15 @@ func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) ->
     return 154
 }
 func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//    let vc = BoBBillDetailViewController()
-//    currentVC?.navigationController?.pushViewController(vc, animated: true)
+    let item = listArray[indexPath.row]
+    if (item.surplusQuantity ?? 0.00)*(item.setExchangeRate ?? 1.00) < (item.quotaMin ?? 0.00){
+        SuperToast.show(title: "该广告数量不足")
+        return
+    }
+    let vc = BoBBuyAndSellCionDetailViewController()
+    vc.homeData = homeData
+    vc.detailData = item
+    currentVC?.navigationController?.pushViewController(vc, animated: true)
 }
 
 }

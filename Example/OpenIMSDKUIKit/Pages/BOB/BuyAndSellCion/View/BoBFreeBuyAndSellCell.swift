@@ -181,8 +181,7 @@ class BoBFreeBuyAndSellCell: UITableViewCell {
         r.titleLabel?.font = .regularFont(12)
         r.backgroundColor = .init(hexString: "#EF5938")
         r.corner(15)
-        r.rx.tap.subscribe(onNext: { [self] in
-        }).disposed(by: rx.disposeBag)
+        r.isUserInteractionEnabled = false
         return r
     }()
     lazy var paymentMethodType1: PaymentMethodTypeView = {

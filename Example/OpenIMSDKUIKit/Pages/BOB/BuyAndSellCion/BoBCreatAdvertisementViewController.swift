@@ -732,7 +732,7 @@ class BoBCreatAdvertisementViewController: BaseTitleController {
         r.placeholder = "请输入广告数"
         r.text = ""
         r.rx.controlEvent(.editingDidEnd).subscribe(onNext: { [weak self] in
-            if let doubleValue = Double(self?.exchangeRateTF.text ?? "0.00") {
+            if let doubleValue = Double(self?.advertisementCountTF.text ?? "0.00") {
                 if doubleValue < 0.01{
                     self?.advertisementCountTF.text = ""
                 }
@@ -857,7 +857,7 @@ class BoBCreatAdvertisementViewController: BaseTitleController {
         r.placeholder = "最小限额"
         r.text = ""
         r.rx.controlEvent(.editingDidEnd).subscribe(onNext: { [weak self] in
-            if let doubleValue = Double(self?.exchangeRateTF.text ?? "0.00") {
+            if let doubleValue = Double(self?.limitMixMoneyTF.text ?? "0.00") {
                 if doubleValue < 0.01{
                     self?.limitMixMoneyTF.text = ""
                 }
@@ -922,7 +922,7 @@ class BoBCreatAdvertisementViewController: BaseTitleController {
         r.placeholder = "最大限额"
         r.text = ""
         r.rx.controlEvent(.editingDidEnd).subscribe(onNext: { [weak self] in
-            if let doubleValue = Double(self?.exchangeRateTF.text ?? "0.00") {
+            if let doubleValue = Double(self?.limitMaxMoneyTF.text ?? "0.00") {
                 if doubleValue < 0.01{
                     self?.limitMaxMoneyTF.text = ""
                 }
