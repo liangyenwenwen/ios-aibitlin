@@ -40,29 +40,24 @@ class BoBSendChatTransferAccountsViewController: BaseTitleController {
         chooseCionTypeModel = CionTypeModel(icon: "", currency: cionType, quota: 0.00, handlingCharge: 0.00, minimumCommission: 0.00, cionType: "0", money:0.00, type: 0, isSelect: true,exchangeRate:1.00)
         container.tg_padding = UIEdgeInsets(top: PADDING_OUTER, left: PADDING_OUTER, bottom: PADDING_OUTER, right: PADDING_OUTER)
         transferAccountsType = groupId.isEmpty ? 0 : 1
-        container.addSubview(cionTypeView)
-        container.addSubview(countView)
+        container.addSubview(transferCountView)
         if transferAccountsType == 1  {
             container.addSubview(choosePeopleView)
         }
         container.addSubview(descView)
         container.addSubview(bottomView)
         container.addSubview(sureBtn)
-        cionTypeView.snp_makeConstraints { make in
+        transferCountView.snp_makeConstraints { make in
             make.top.equalTo(8)
             make.left.equalTo(16)
             make.right.equalTo(-16)
             make.height.equalTo(118)
         }
-        countView.snp_makeConstraints { make in
-            make.left.right.equalTo(cionTypeView)
-            make.top.equalTo(cionTypeView.snp_bottom).offset(12)
-            make.height.equalTo(88)
-        }
         if transferAccountsType == 1  {
             choosePeopleView.snp_makeConstraints { make in
-                make.left.right.height.equalTo(countView)
-                make.top.equalTo(countView.snp_bottom).offset(12)
+                make.left.right.equalTo(transferCountView)
+                make.top.equalTo(transferCountView.snp_bottom).offset(12)
+                make.height.equalTo(88)
             }
             descView.snp_makeConstraints { make in
                 make.left.right.height.equalTo(choosePeopleView)
@@ -70,8 +65,9 @@ class BoBSendChatTransferAccountsViewController: BaseTitleController {
             }
         }else{
             descView.snp_makeConstraints { make in
-                make.left.right.height.equalTo(countView)
-                make.top.equalTo(countView.snp_bottom).offset(12)
+                make.left.right.equalTo(transferCountView)
+                make.top.equalTo(transferCountView.snp_bottom).offset(12)
+                make.height.equalTo(88)
             }
         }
         
@@ -120,7 +116,6 @@ class BoBSendChatTransferAccountsViewController: BaseTitleController {
         }
     }
     func refreshUI(){
-        cionTypeImageView.sd_setImage(with: URL(string: chooseCionTypeModel?.icon))
         cionNameLabel.text = chooseCionTypeModel?.currency
         if chooseCionTypeModel?.type == 0{
             self.walletType.text = "T+0钱包"
@@ -151,50 +146,31 @@ class BoBSendChatTransferAccountsViewController: BaseTitleController {
             }
         }
     }
-    lazy var cionTypeView: UIView = {
+    lazy var transferCountView: UIView = {
         let r = UIView()
-        let v = UIView()
-        v.backgroundColor = .white
-        v.corner(8)
-        v.addSubview(cionTypeImageView)
-        v.addSubview(cionNameLabel)
-        v.addSubview(walletType)
-        let rightIcon = UIImageView(image: UIImage(named: "SuperChevronRight"))
-        rightIcon.tintColor = .black80
-        rightIcon.contentMode = .scaleAspectFit
-        v.addSubview(rightIcon)
-        r.addSubview(cionTypeTitleLabel)
+        let v = UILabel()
+        v.textColor = .black333
+        v.font = .semiboldFont(16)
+        v.text = "转账数量"
         r.addSubview(v)
-        r.addSubview(exchangeRateLabel)
-        r.addSubview(totalMoneyLabel)
-        cionTypeTitleLabel.snp_makeConstraints { make in
+        v.snp_makeConstraints { make in
             make.left.top.right.equalTo(0)
             make.height.equalTo(38)
         }
-        v.snp_makeConstraints { make in
-            make.left.right.equalTo(0)
-            make.top.equalTo(cionTypeTitleLabel.snp_bottom)
+        r.addSubview(countView)
+        r.addSubview(cionTypeView)
+        r.addSubview(exchangeRateLabel)
+        r.addSubview(totalMoneyLabel)
+        countView.snp_makeConstraints { make in
+            make.left.equalTo(0)
+            make.top.equalTo(v.snp_bottom)
             make.height.equalTo(50)
+            make.right.equalTo(cionTypeView.snp_left).offset(-10)
         }
-        cionTypeImageView.snp_makeConstraints { make in
-            make.left.equalTo(16)
-            make.centerY.equalTo(v)
-            make.width.height.equalTo(26)
-        }
-        cionNameLabel.snp_makeConstraints { make in
-            make.left.equalTo(cionTypeImageView.snp_right).offset(10)
-            make.centerY.equalTo(cionTypeImageView.snp_centerY)
-        }
-        walletType.snp_makeConstraints { make in
-            make.left.equalTo(cionNameLabel.snp_right).offset(7)
-            make.centerY.equalTo(cionNameLabel)
-            make.width.equalTo(62)
-            make.height.equalTo(26)
-        }
-        rightIcon.snp_makeConstraints { make in
-            make.right.equalTo(-16)
-            make.centerY.equalTo(v)
-            make.width.height.equalTo(15)
+        cionTypeView.snp_makeConstraints { make in
+            make.right.equalTo(0)
+            make.top.height.equalTo(countView)
+            make.width.equalTo(128)
         }
         exchangeRateLabel.snp_makeConstraints { make in
             make.left.bottom.equalTo(0)
@@ -205,6 +181,33 @@ class BoBSendChatTransferAccountsViewController: BaseTitleController {
             make.right.bottom.equalTo(0)
             make.left.equalTo(exchangeRateLabel.snp_right).offset(5)
             make.height.equalTo(18)
+        }
+        return r
+    }()
+    lazy var cionTypeView: UIView = {
+        let r = UIView()
+        r.backgroundColor = .white
+        r.corner(8)
+        r.addSubview(cionNameLabel)
+        r.addSubview(walletType)
+        let rightIcon = UIImageView(image: UIImage(named: "SuperChevronRight"))
+        rightIcon.tintColor = .black80
+        rightIcon.contentMode = .scaleAspectFit
+        r.addSubview(rightIcon)
+        cionNameLabel.snp_makeConstraints { make in
+            make.left.equalTo(10)
+            make.centerY.equalTo(r)
+        }
+        walletType.snp_makeConstraints { make in
+            make.left.equalTo(cionNameLabel.snp_right).offset(7)
+            make.centerY.equalTo(cionNameLabel)
+            make.width.equalTo(62)
+            make.height.equalTo(26)
+        }
+        rightIcon.snp_makeConstraints { make in
+            make.right.equalTo(-16)
+            make.centerY.equalTo(r)
+            make.width.height.equalTo(15)
         }
         let tap = UITapGestureRecognizer()
         tap.rx.event.subscribe {  _ in
@@ -222,17 +225,6 @@ class BoBSendChatTransferAccountsViewController: BaseTitleController {
         }
         r.addGestureRecognizer(tap)
        return r
-    }()
-    lazy var cionTypeTitleLabel: UILabel = {
-        let r = UILabel()
-        r.textColor = .black333
-        r.font = .semiboldFont(16)
-        r.text = "币种"
-        return r
-    }()
-    lazy var cionTypeImageView: UIImageView = {
-        let r = UIImageView(image: UIImage(named: "mine_home_cion_c_icon"))
-        return r
     }()
     lazy var cionNameLabel: UILabel = {
         let r = UILabel()
@@ -273,29 +265,12 @@ class BoBSendChatTransferAccountsViewController: BaseTitleController {
     
     lazy var countView: UIView = {
         let r = UIView()
-        let v = UILabel()
-        v.textColor = .black333
-        v.font = .semiboldFont(16)
-        v.text = "转账数量"
-        r.addSubview(v)
-        v.snp_makeConstraints { make in
-            make.left.top.right.equalTo(0)
-            make.height.equalTo(38)
-        }
-        
-        let bgView = UIView()
-        bgView.backgroundColor = .white
-        bgView.corner(8)
-        r.addSubview(bgView)
-        bgView.snp_makeConstraints { make in
-            make.left.right.equalTo(r)
-            make.bottom.equalTo(0)
-            make.height.equalTo(50)
-        }
-        bgView.addSubview(countTF)
+        r.backgroundColor = .white
+        r.corner(8)
+        r.addSubview(countTF)
         countTF.snp_makeConstraints { make in
             make.left.equalTo(16)
-            make.centerY.equalTo(bgView)
+            make.centerY.equalTo(r)
             make.right.equalTo(-16)
         }
         return r

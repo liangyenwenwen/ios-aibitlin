@@ -507,7 +507,8 @@ class TransferAccountsHomeData: Decodable {
 class externalTransferOutPOS: Decodable {
     var icon: String? //币种图标
     var currency:String? //币种
-    var quota:Double? //限额
+    var quota:Double? //剩余限额
+    var aggregateLimit:Double? //限额
     var handlingCharge:Double? //手续费
     var minimumCommission:Double? //最小手续费
     var t0:Double?
@@ -517,6 +518,7 @@ class CionTypeModel: Decodable {
     var icon: String?
     var currency:String?
     var quota:Double?
+    var aggregateLimit:Double?
     var handlingCharge:Double?
     var minimumCommission:Double?
     var cionType:String?
@@ -524,10 +526,11 @@ class CionTypeModel: Decodable {
     var type:Int?
     var isSelect:Bool
     var exchangeRate:Double?
-    init(icon: String? = nil, currency: String? = nil, quota: Double? = nil, handlingCharge: Double? = nil, minimumCommission: Double? = nil, cionType: String? = nil, money: Double? = nil, type: Int? = nil, isSelect: Bool? = false, exchangeRate: Double? = 1) {
+    init(icon: String? = nil, currency: String? = nil, quota: Double? = nil, aggregateLimit: Double? = nil, handlingCharge: Double? = nil, minimumCommission: Double? = nil, cionType: String? = nil, money: Double? = nil, type: Int? = nil, isSelect: Bool? = false, exchangeRate: Double? = 1) {
         self.icon = icon
         self.currency = currency
         self.quota = quota
+        self.aggregateLimit = aggregateLimit
         self.handlingCharge = handlingCharge
         self.minimumCommission = minimumCommission
         self.cionType = cionType

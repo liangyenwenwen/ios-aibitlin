@@ -30,19 +30,19 @@ class BoBTransferAccountsViewController:BaseTitleController{
                 make.left.right.equalTo(0)
                 make.height.equalTo(44)
             }
-            titleLabel.snp_remakeConstraints { make in
+            addressContentView.snp_remakeConstraints { make in
                 make.left.equalTo(16)
                 make.right.equalTo(-16)
                 make.top.equalTo(unRealNameTipView.snp_bottom)
-                make.height.equalTo(36)
+                make.height.equalTo(76)
             }
         }else{
             unRealNameTipView.hide()
-            titleLabel.snp_remakeConstraints { make in
+            addressContentView.snp_remakeConstraints { make in
                 make.left.equalTo(16)
                 make.right.equalTo(-16)
                 make.top.equalTo(0)
-                make.height.equalTo(36)
+                make.height.equalTo(76)
             }
         }
     }
@@ -51,38 +51,26 @@ class BoBTransferAccountsViewController:BaseTitleController{
         view.backgroundColor = .colorBackgroundAPP
         initLinearLayoutSafeArea()
         title = "转账"
-        chooseCionTypeModel = CionTypeModel(icon: "", currency: cionType, quota: 0.00, handlingCharge: 0.00, minimumCommission: 0.00, cionType: "0", money:0.00, type: 0, isSelect: true,exchangeRate:1.00)
+        chooseCionTypeModel = CionTypeModel(icon: "", currency: cionType, quota: 0.00, aggregateLimit: 800000.00,handlingCharge: 0.00, minimumCommission: 0.00, cionType: "0", money:0.00, type: 0, isSelect: true,exchangeRate:1.00)
         container.tg_padding = UIEdgeInsets(top: 0, left: PADDING_OUTER, bottom: 0, right: PADDING_OUTER)
         container.addSubview(unRealNameTipView)
-        container.addSubview(titleLabel)
-        container.addSubview(cionTypeView)
         container.addSubview(addressContentView)
         container.addSubview(countView)
         container.addSubview(tipLabel1)
         container.addSubview(tipLabel2)
         container.addSubview(tipLabel3)
         container.addSubview(sureBtn)
-        titleLabel.snp_makeConstraints { make in
+        
+        addressContentView.snp_makeConstraints { make in
             make.left.equalTo(16)
             make.right.equalTo(-16)
             make.top.equalTo(0)
-            make.height.equalTo(36)
-        }
-        cionTypeView.snp_makeConstraints { make in
-            make.top.equalTo(titleLabel.snp_bottom)
-            make.left.equalTo(16)
-            make.right.equalTo(-16)
-            make.height.equalTo(50)
-        }
-        addressContentView.snp_makeConstraints { make in
-            make.left.right.equalTo(cionTypeView)
-            make.top.equalTo(cionTypeView.snp_bottom).offset(24)
             make.height.equalTo(76)
         }
         countView.snp_makeConstraints { make in
-            make.left.right.equalTo(cionTypeView)
+            make.left.right.equalTo(addressContentView)
             make.top.equalTo(addressContentView.snp_bottom).offset(24)
-            make.height.equalTo(160)
+            make.height.equalTo(160+25)
         }
         tipLabel1.snp_makeConstraints { make in
             make.left.right.equalTo(countView)
@@ -100,7 +88,7 @@ class BoBTransferAccountsViewController:BaseTitleController{
             make.left.equalTo(16)
             make.right.equalTo(-16)
             make.height.equalTo(56)
-            make.bottom.equalTo(view.snp.bottomMargin)
+            make.top.equalTo(tipLabel3.snp.bottom).offset(25)
         }
         let tap = UITapGestureRecognizer()
         tap.rx.event.subscribe {  _ in
@@ -123,8 +111,8 @@ class BoBTransferAccountsViewController:BaseTitleController{
             IMController.shared.isSetPayPassWord = data.secure ?? false
             IMController.shared.certificationLevel = data.certificationLevel ?? 0
             for item in self.transferAccountsHomeData!.externalTransferOutPOS{
-                let model1 = CionTypeModel(icon: item.icon, currency: item.currency, quota: item.quota, handlingCharge: item.handlingCharge, minimumCommission: item.minimumCommission, cionType: "0", money: item.t0, type: 0, isSelect: true,exchangeRate:0.00)
-                let model2 = CionTypeModel(icon: item.icon, currency: item.currency, quota: item.quota, handlingCharge: item.handlingCharge, minimumCommission: item.minimumCommission, cionType: "1", money: item.t1, type: 1, isSelect: false,exchangeRate:0.00)
+                let model1 = CionTypeModel(icon: item.icon, currency: item.currency, quota: item.quota,aggregateLimit:item.aggregateLimit, handlingCharge: item.handlingCharge, minimumCommission: item.minimumCommission, cionType: "0", money: item.t0, type: 0, isSelect: true,exchangeRate:0.00)
+                let model2 = CionTypeModel(icon: item.icon, currency: item.currency, quota: item.quota,aggregateLimit:item.aggregateLimit, handlingCharge: item.handlingCharge, minimumCommission: item.minimumCommission, cionType: "1", money: item.t1, type: 1, isSelect: false,exchangeRate:0.00)
                 self.cionTypeArray.append(model1)
                 self.cionTypeArray.append(model2)
             }
@@ -149,19 +137,18 @@ class BoBTransferAccountsViewController:BaseTitleController{
             self.walletType.textColor = .init(hexString: "#FFA756")
             self.walletType.backgroundColor = .init(hexString: "#FFF7E5")
         }
-        self.countCionImageView.sd_setImage(with: URL(string: chooseCionTypeModel?.icon))
         let str = "可用余额：" + String(format: "%.2f",(chooseCionTypeModel?.money)!) + (chooseCionTypeModel?.currency)!
         let attributedString = NSMutableAttributedString(string: str)
         attributedString.addAttribute(.foregroundColor, value: UIColor.black666, range: NSRange(location: 0, length: 5))
         self.totalLabel.attributedText = attributedString
         if (chooseCionTypeModel?.quota)! > 0{
-            self.countTF.placeholder = "限额" + "0.01~" + String(format: "%.2f ",(chooseCionTypeModel?.quota)!) + (chooseCionTypeModel?.currency)!
+            self.countTF.placeholder = "0.01~" + String(format: "%.2f",(chooseCionTypeModel?.quota)!) + (chooseCionTypeModel?.currency)!
         }else{
-            self.countTF.placeholder = "限额" + "0.00 " + (chooseCionTypeModel?.currency)!
+            self.countTF.placeholder = "0.00" + (chooseCionTypeModel?.currency)!
         }
         self.countTitleLabel.text = "到账数量" + String(format: "（%@)",(chooseCionTypeModel?.currency)!)
         self.calculationMoney()
-        self.tipLabel1.text = "24h转账额度：0.01/" + String(format: "%.2f ",(chooseCionTypeModel?.quota)!) + (chooseCionTypeModel?.currency)!
+        tipLabel1.text = "24h转账额度：" + String(format: "%.2f/%.2f ", (chooseCionTypeModel?.aggregateLimit ?? 0.00)-(chooseCionTypeModel?.quota ?? 0.00),chooseCionTypeModel?.aggregateLimit ?? 0.00) + (chooseCionTypeModel?.currency ?? "C")
     }
     func calculationMoney(){
         self.countLabel.text = "0.00"
@@ -191,82 +178,6 @@ class BoBTransferAccountsViewController:BaseTitleController{
         }.disposed(by: rx.disposeBag)
         v.addGestureRecognizer(tap)
         return v
-    }()
-    lazy var titleLabel: UILabel = {
-        let r = UILabel()
-        r.textColor = .black333
-        r.font = .semiboldFont(16)
-        r.text = "币种"
-        return r
-    }()
-    lazy var cionTypeView: UIView = {
-        let r = UIView()
-        r.backgroundColor = .white
-        r.corner(8)
-        r.addSubview(cionTypeImageView)
-        r.addSubview(cionNameLabel)
-        r.addSubview(walletType)
-        let v = UIImageView(image: UIImage(named: "SuperChevronRight"))
-        v.tintColor = .black80
-        v.contentMode = .scaleAspectFit
-        r.addSubview(v)
-        cionTypeImageView.snp_makeConstraints { make in
-            make.left.equalTo(16)
-            make.centerY.equalTo(r)
-            make.width.height.equalTo(26)
-        }
-        cionNameLabel.snp_makeConstraints { make in
-            make.left.equalTo(cionTypeImageView.snp_right).offset(10)
-            make.centerY.equalTo(cionTypeImageView.snp_centerY)
-        }
-        walletType.snp_makeConstraints { make in
-            make.left.equalTo(cionNameLabel.snp_right).offset(7)
-            make.centerY.equalTo(cionNameLabel)
-            make.width.equalTo(62)
-            make.height.equalTo(26)
-        }
-        v.snp_makeConstraints { make in
-            make.right.equalTo(-16)
-            make.centerY.equalTo(r)
-            make.width.height.equalTo(15)
-        }
-        let tap = UITapGestureRecognizer()
-        tap.rx.event.subscribe {  _ in
-            self.view.endEditing(true)
-            let chooseTypeView = BoBChooseCionTypeView()
-            chooseTypeView.tg_width.equal(.fill)
-            chooseTypeView.tg_height.equal(240)
-            chooseTypeView.reloadListArray(array: self.cionTypeArray)
-            chooseTypeView.chooseCionBlock = { [weak self] model,array in
-                self?.chooseCionTypeModel = model
-                self?.cionTypeArray = array
-                self?.refreshUI()
-            }
-            GKCover.cover(from: self.view.window, contentView: chooseTypeView, style: .translucent, showStyle: .bottom, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
-        }.disposed(by: rx.disposeBag)
-        r.addGestureRecognizer(tap)
-       return r
-    }()
-    lazy var cionTypeImageView: UIImageView = {
-        let r = UIImageView(image: UIImage(named: "mine_home_cion_c_icon"))
-        return r
-    }()
-    lazy var cionNameLabel: UILabel = {
-        let r = UILabel()
-        r.font = .mediumFont(16)
-        r.text = cionType
-        r.textColor = .black333
-        return r
-    }()
-    lazy var walletType: UILabel = {
-        let r = UILabel()
-        r.textColor = .init(hexString: "#00AA3C")
-        r.backgroundColor = .init(hexString: "#E5F6EB")
-        r.corner(13)
-        r.font = .regularFont(12)
-        r.text = "T+0钱包"
-        r.textAlignment = .center
-        return r
     }()
     lazy var addressContentView: UIView = {
         let r = UIView()
@@ -358,37 +269,39 @@ class BoBTransferAccountsViewController:BaseTitleController{
             make.width.equalTo(64)
             make.height.equalTo(14)
         }
-        r.addSubview(totalLabel)
-        totalLabel.snp_makeConstraints { make in
-            make.centerY.equalTo(v)
-            make.right.equalTo(r)
-        }
         
         let bgView = UIView()
         bgView.backgroundColor = .white
         bgView.corner(8)
         r.addSubview(bgView)
+        r.addSubview(cionTypeView)
         bgView.snp_makeConstraints { make in
-            make.left.right.equalTo(r)
+            make.left.equalTo(r)
             make.top.equalTo(v.snp_bottom).offset(12)
             make.height.equalTo(50)
+            make.right.equalTo(cionTypeView.snp_left).offset(-10)
         }
-        bgView.addSubview(countCionImageView)
+        cionTypeView.snp_makeConstraints { make in
+            make.width.equalTo(150)
+            make.right.equalTo(r)
+            make.top.bottom.equalTo(bgView)
+        }
         bgView.addSubview(countTF)
         bgView.addSubview(allBtn)
-        countCionImageView.snp_makeConstraints { make in
-            make.left.equalTo(16)
-            make.width.height.equalTo(26)
-            make.centerY.equalTo(bgView)
-        }
         countTF.snp_makeConstraints { make in
-            make.left.equalTo(countCionImageView.snp_right).offset(10)
+            make.left.equalTo(16)
             make.centerY.equalTo(bgView)
-            make.right.equalTo(allBtn.snp_left).offset(-5)
+            make.right.equalTo(allBtn.snp_left).offset(-2)
         }
         allBtn.snp_makeConstraints { make in
-            make.width.equalTo(61)
+            make.width.equalTo(45)
             make.top.bottom.right.equalTo(bgView)
+        }
+        r.addSubview(totalLabel)
+        totalLabel.snp_makeConstraints { make in
+            make.top.equalTo(bgView.snp_bottom).offset(5)
+            make.right.equalTo(r)
+            make.height.equalTo(25)
         }
         let bgView1 = UIView()
         bgView1.backgroundColor = .white
@@ -430,17 +343,13 @@ class BoBTransferAccountsViewController:BaseTitleController{
         r.attributedText = attributedString
         return r
     }()
-    lazy var countCionImageView:UIImageView  = {
-        let r = UIImageView(image: UIImage(named: "mine_home_cion_c_icon"))
-        return r
-    }()
     lazy var countTF: QMUITextField = {
         let r = QMUITextField()
         r.font = .regularFont(16)
         r.tintColor = .black333
         r.keyboardType = .decimalPad
         r.setPlaceHolderTextColor(.black999)
-        r.placeholder = "限额0.01~100,000 C"
+        r.placeholder = "0.01~100000C"
         r.rx.controlEvent(.editingChanged).subscribe(onNext: { [unowned self] in
             if ((r.text?.range(of:".")) != nil){
                 //带小数点
@@ -477,6 +386,75 @@ class BoBTransferAccountsViewController:BaseTitleController{
         }).disposed(by: rx.disposeBag)
         return r
     }()
+    lazy var cionTypeView: UIView = {
+        let r = UIView()
+        r.backgroundColor = .white
+        r.corner(8)
+        r.addSubview(cionTypeImageView)
+        r.addSubview(cionNameLabel)
+        r.addSubview(walletType)
+        let v = UIImageView(image: UIImage(named: "SuperChevronRight"))
+        v.tintColor = .black80
+        v.contentMode = .scaleAspectFit
+        r.addSubview(v)
+        cionTypeImageView.snp_makeConstraints { make in
+            make.left.equalTo(8)
+            make.centerY.equalTo(r)
+            make.width.height.equalTo(26)
+        }
+        cionNameLabel.snp_makeConstraints { make in
+            make.left.equalTo(cionTypeImageView.snp_right).offset(6)
+            make.centerY.equalTo(cionTypeImageView.snp_centerY)
+        }
+        walletType.snp_makeConstraints { make in
+            make.left.equalTo(cionNameLabel.snp_right).offset(5)
+            make.centerY.equalTo(cionNameLabel)
+            make.width.equalTo(62)
+            make.height.equalTo(26)
+        }
+        v.snp_makeConstraints { make in
+            make.right.equalTo(-8)
+            make.centerY.equalTo(r)
+            make.width.height.equalTo(15)
+        }
+        let tap = UITapGestureRecognizer()
+        tap.rx.event.subscribe {  _ in
+            self.view.endEditing(true)
+            let chooseTypeView = BoBChooseCionTypeView()
+            chooseTypeView.tg_width.equal(.fill)
+            chooseTypeView.tg_height.equal(240)
+            chooseTypeView.reloadListArray(array: self.cionTypeArray)
+            chooseTypeView.chooseCionBlock = { [weak self] model,array in
+                self?.chooseCionTypeModel = model
+                self?.cionTypeArray = array
+                self?.refreshUI()
+            }
+            GKCover.cover(from: self.view.window, contentView: chooseTypeView, style: .translucent, showStyle: .bottom, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
+        }.disposed(by: rx.disposeBag)
+        r.addGestureRecognizer(tap)
+       return r
+    }()
+    lazy var cionTypeImageView: UIImageView = {
+        let r = UIImageView(image: UIImage(named: "mine_home_cion_c_icon"))
+        return r
+    }()
+    lazy var cionNameLabel: UILabel = {
+        let r = UILabel()
+        r.font = .mediumFont(16)
+        r.text = cionType
+        r.textColor = .black333
+        return r
+    }()
+    lazy var walletType: UILabel = {
+        let r = UILabel()
+        r.textColor = .init(hexString: "#00AA3C")
+        r.backgroundColor = .init(hexString: "#E5F6EB")
+        r.corner(13)
+        r.font = .regularFont(12)
+        r.text = "T+0钱包"
+        r.textAlignment = .center
+        return r
+    }()
     lazy var countTitleLabel: UILabel = {
         let r = UILabel()
         r.textColor = .black333
@@ -505,7 +483,7 @@ class BoBTransferAccountsViewController:BaseTitleController{
         r.textColor = .black666
         r.font = .regularFont(14)
         r.numberOfLines = 0
-        r.text = "24h转账额度：0.01/800,000.00C"
+        r.text = "24h转账额度：0.01/800,000.00 C"
         return r
     }()
     lazy var tipLabel2: UILabel = {
