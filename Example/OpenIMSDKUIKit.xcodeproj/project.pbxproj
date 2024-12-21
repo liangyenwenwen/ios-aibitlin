@@ -92,6 +92,7 @@
 		0439CCFD2D12FFE800379537 /* BoBMineAdvertisementCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439CCFC2D12FFE800379537 /* BoBMineAdvertisementCell.swift */; };
 		0439CCFF2D141ACB00379537 /* BoBBuyAndSellCionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439CCFE2D141ACB00379537 /* BoBBuyAndSellCionDetailViewController.swift */; };
 		0439CD012D14435800379537 /* BoBBuyAndSellCionSubDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439CD002D14435800379537 /* BoBBuyAndSellCionSubDetailViewController.swift */; };
+		0439CD032D16A26300379537 /* BoBSetExchangeRateTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439CD022D16A26300379537 /* BoBSetExchangeRateTypeView.swift */; };
 		043A558C2C8166490041836E /* UserTagTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043A55892C8166490041836E /* UserTagTypeView.swift */; };
 		043A558D2C8166490041836E /* UserTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043A558A2C8166490041836E /* UserTagView.swift */; };
 		0445BEE22CD1E04300A46558 /* ABLNetWorkToos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445BEE12CD1E04300A46558 /* ABLNetWorkToos.swift */; };
@@ -372,6 +373,7 @@
 		0439CCFC2D12FFE800379537 /* BoBMineAdvertisementCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBMineAdvertisementCell.swift; sourceTree = "<group>"; };
 		0439CCFE2D141ACB00379537 /* BoBBuyAndSellCionDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBBuyAndSellCionDetailViewController.swift; sourceTree = "<group>"; };
 		0439CD002D14435800379537 /* BoBBuyAndSellCionSubDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBBuyAndSellCionSubDetailViewController.swift; sourceTree = "<group>"; };
+		0439CD022D16A26300379537 /* BoBSetExchangeRateTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBSetExchangeRateTypeView.swift; sourceTree = "<group>"; };
 		043A55892C8166490041836E /* UserTagTypeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTagTypeView.swift; sourceTree = "<group>"; };
 		043A558A2C8166490041836E /* UserTagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTagView.swift; sourceTree = "<group>"; };
 		0445BEE12CD1E04300A46558 /* ABLNetWorkToos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ABLNetWorkToos.swift; sourceTree = "<group>"; };
@@ -922,6 +924,7 @@
 				0439CCF22D101A0700379537 /* BoBChoosePaymentMethodTypeView.swift */,
 				0439CCF42D10232900379537 /* BoBChoosePaymentMethodTypeCell.swift */,
 				0439CCF82D12C2D600379537 /* BoBCreatAdNameAlertView.swift */,
+				0439CD022D16A26300379537 /* BoBSetExchangeRateTypeView.swift */,
 				0439CCFC2D12FFE800379537 /* BoBMineAdvertisementCell.swift */,
 			);
 			path = View;
@@ -2390,6 +2393,7 @@
 				0439CCEA2D09BC6E00379537 /* BoBFreeBuyAndSellCell.swift in Sources */,
 				04F2D0872BEE21CA00D5271B /* MineDeleteAccountChooseWayVC.swift in Sources */,
 				04ECEC5F2CBD1DC10005495F /* RunTimeAbout.swift in Sources */,
+				0439CD032D16A26300379537 /* BoBSetExchangeRateTypeView.swift in Sources */,
 				17B11A432ABD28C600DB8980 /* NavigationInteractiveTransition.swift in Sources */,
 				17BBFAC42925D4C10025B686 /* CountDownTimerButton.swift in Sources */,
 				04F2D09E2BEE221400D5271B /* GKCover.m in Sources */,

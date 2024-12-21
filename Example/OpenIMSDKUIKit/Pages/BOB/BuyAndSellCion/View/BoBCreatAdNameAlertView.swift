@@ -39,6 +39,9 @@ class BoBCreatAdNameAlertView: TGLinearLayout {
         addSubview(bgView)
         addSubview(nameTipLabel)
         addSubview(bottomView)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+                // 监听键盘将要隐藏的通知
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     func bindData(adName:String?){
         advertisingName = adName ?? ""
@@ -46,7 +49,31 @@ class BoBCreatAdNameAlertView: TGLinearLayout {
         nameTF.text = advertisingName
         countLabel.text = String(format: "%d", advertisingName.length) + "/20"
         sureBtn.isEnabled = false
+        nameTF.becomeFirstResponder()
     }
+    @objc func keyboardWillShow(notification: NSNotification) {
+            if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+                let keyboardRectangle = keyboardFrame.cgRectValue
+                let keyboardHeight = keyboardRectangle.height
+                print("Keyboard height: \(keyboardHeight)")
+                // 根据键盘高度进行相应的处理
+                let width = self.frame.size.width
+                let height = self.frame.size.height
+                self.frame = CGRectMake((kScreenWidth-width)/2, kScreenHeight-keyboardHeight-height, width, height)
+            }
+        }
+     
+        @objc func keyboardWillHide(notification: NSNotification) {
+            // 键盘即将隐藏，可以在这里处理隐藏键盘后的操作
+            let width = self.frame.size.width
+            let height = self.frame.size.height
+            self.frame = CGRectMake((kScreenWidth-width)/2, (kScreenHeight-height)/2, width, height)
+        }
+     
+        deinit {
+            // 移除所有通知监听
+            NotificationCenter.default.removeObserver(self)
+        }
     lazy var titleLabel: UILabel = {
         let r = UILabel()
         r.tg_left.equal(16)

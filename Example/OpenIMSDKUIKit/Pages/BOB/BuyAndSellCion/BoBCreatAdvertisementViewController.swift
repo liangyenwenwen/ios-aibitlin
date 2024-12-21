@@ -97,6 +97,8 @@ class BoBCreatAdvertisementViewController: BaseTitleController {
             }
             advertisementCountTF.text = String(format: "%.2f", adDetailData?.surplusQuantity ?? 0.00)
             advertisementCountTF.isUserInteractionEnabled = false
+            advertisementCurrencyLabel.textColor = .init(hexString: "#EAEAEA")
+            advertisementCountTF.textColor = .init(hexString: "#EAEAEA")
             limitMixMoneyTF.text = String(format: "%.2f", adDetailData?.quotaMin ?? 0.00)
             limitMaxMoneyTF.text = String(format: "%.2f", adDetailData?.quotaMax ?? 0.00)
             if adDetailData?.termsOfTradeZc ?? 0 > 0{
@@ -371,11 +373,11 @@ class BoBCreatAdvertisementViewController: BaseTitleController {
         tap.rx.event.subscribe {  _ in
             self.view.endEditing(true)
             //选择
-            let choosePushAdTypeView = BoBChoosePushAdTypeView()
+            
+            let choosePushAdTypeView = BoBSetExchangeRateTypeView()
             choosePushAdTypeView.tg_width.equal(.fill)
-            choosePushAdTypeView.tg_height.equal(193)
-            choosePushAdTypeView.drawUI(array: ["固定","浮动"])
-            choosePushAdTypeView.choosePushAdTypeBlock = { [weak self] typeIndex in
+            choosePushAdTypeView.tg_height.equal(234)
+            choosePushAdTypeView.chooseTypeBlock = { [weak self] typeIndex in
                 if typeIndex == 0{
                     //固定
                     self?.exchangeRateTypeLabel.text = "固定"
@@ -860,9 +862,11 @@ class BoBCreatAdvertisementViewController: BaseTitleController {
             if let doubleValue = Double(self?.limitMixMoneyTF.text ?? "0.00") {
                 if doubleValue < 0.01{
                     self?.limitMixMoneyTF.text = ""
+                    SuperToast.show(title: "最小限额0.01")
                 }
             }else{
                 self?.limitMixMoneyTF.text = ""
+                SuperToast.show(title: "最小限额0.01")
             }
             self?.calculationExchangeRate()
         }).disposed(by: rx.disposeBag)
@@ -925,9 +929,11 @@ class BoBCreatAdvertisementViewController: BaseTitleController {
             if let doubleValue = Double(self?.limitMaxMoneyTF.text ?? "0.00") {
                 if doubleValue < 0.01{
                     self?.limitMaxMoneyTF.text = ""
+                    SuperToast.show(title: "最大限额0.01")
                 }
             }else{
                 self?.limitMaxMoneyTF.text = ""
+                SuperToast.show(title: "最大限额0.01")
             }
             self?.calculationExchangeRate()
         }).disposed(by: rx.disposeBag)
@@ -1254,6 +1260,9 @@ class BoBCreatAdvertisementViewController: BaseTitleController {
             if errCode == 20000{
                 if self?.code ?? "000" == "000"{
                     SuperToast.show(title:"创建成功")
+                    if self?.updateAdData != nil{
+                        self?.updateAdData(BoBMineAdList())
+                    }
                 }else{
                     SuperToast.show(title:"修改成功")
                     self?.adDetailData?.transactionMode = param["transactionMode"] as? String

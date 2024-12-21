@@ -121,19 +121,13 @@ class BoBMineAdvertisementViewController:BaseTitleController {
         choosePushAdTypeView.tg_height.equal(193)
         choosePushAdTypeView.drawUI(array: ["购买","出售"])
         choosePushAdTypeView.choosePushAdTypeBlock = { [weak self] typeIndex in
-            if typeIndex == 0{
-                //购买
-                let vc = BoBCreatAdvertisementViewController()
-                vc.homeData = self?.homeData
-                vc.advertisementType = 2
-                self?.navigationController?.pushViewController(vc, animated: true)
-            }else if typeIndex == 1{
-                //出售
-                let vc = BoBCreatAdvertisementViewController()
-                vc.homeData = self?.homeData
-                vc.advertisementType = 1
-                self?.navigationController?.pushViewController(vc, animated: true)
+            let vc = BoBCreatAdvertisementViewController()
+            vc.homeData = self?.homeData
+            vc.advertisementType = typeIndex == 0 ? 2 :1
+            vc.updateAdData = { [weak self] adDetailData in
+                self?.refreshData()
             }
+            self?.navigationController?.pushViewController(vc, animated: true)
         }
         GKCover.cover(from: self.view.window, contentView: choosePushAdTypeView, style: .translucent, showStyle: .bottom, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
     }
@@ -149,10 +143,11 @@ class BoBMineAdvertisementViewController:BaseTitleController {
         let adNameView = BoBCreatAdNameAlertView()
         adNameView.tg_width.equal(293)
         adNameView.tg_height.equal(.wrap)
-        adNameView.tg_centerY.equal(0)
         adNameView.bindData(adName: homeData?.advertisingName)
         adNameView.updateAdvertisingName = { [weak self] adName in
             self?.homeData?.advertisingName = adName
+            self?.adNameLabel.textColor = .black333
+            self?.adNameLabel.text = adName
         }
         GKCover.cover(from: self.view.window, contentView: adNameView, style: .translucent, showStyle: .center, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: true)
     }
@@ -211,10 +206,15 @@ class BoBMineAdvertisementViewController:BaseTitleController {
     lazy var adNameView: UIView = {
         let r = UIView()
         r.backgroundColor = .init(hexString: "#EAEAEA")
+        r.addSubview(adNameTitleLabel)
         r.addSubview(adNameLabel)
         r.addSubview(editBtn)
-        adNameLabel.snp_makeConstraints { make in
+        adNameTitleLabel.snp_makeConstraints { make in
             make.left.equalTo(16)
+            make.centerY.equalTo(r)
+        }
+        adNameLabel.snp_makeConstraints { make in
+            make.left.equalTo(adNameTitleLabel.snp_right)
             make.centerY.equalTo(r)
             make.right.equalTo(editBtn.snp_left).offset(-10)
         }
@@ -226,25 +226,23 @@ class BoBMineAdvertisementViewController:BaseTitleController {
         }
         let tap = UITapGestureRecognizer()
         tap.rx.event.subscribe {[weak self]  _ in
-            let adNameView = BoBCreatAdNameAlertView()
-            adNameView.tg_width.equal(293)
-            adNameView.tg_height.equal(.wrap)
-            adNameView.tg_centerY.equal(0)
-            adNameView.bindData(adName: self?.homeData?.advertisingName)
-            adNameView.updateAdvertisingName = { [weak self] adName in
-                self?.homeData?.advertisingName = adName
-                self?.adNameLabel.text = "广告商名称  |  " + adName
-            }
-            GKCover.cover(from: self?.view, contentView: adNameView, style: .translucent, showStyle: .center, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: true)
+            self?.creatAdNameAlertView()
         }.disposed(by: rx.disposeBag)
         r.addGestureRecognizer(tap)
         return r
     }()
-    lazy var adNameLabel: UILabel = {
+    lazy var adNameTitleLabel: UILabel = {
         let r = UILabel()
         r.textColor = .black333
         r.font = .regularFont(16)
-        r.text = "广告商名称  |  " + (homeData?.advertisingName ?? "")
+        r.text = "广告商名称  |  "
+        return r
+    }()
+    lazy var adNameLabel: UILabel = {
+        let r = UILabel()
+        r.textColor = (homeData?.advertisingName ?? "").length > 0 ? .black333 : .black999
+        r.font = .regularFont(16)
+        r.text = (homeData?.advertisingName ?? "").length > 0 ? (homeData?.advertisingName ?? "") :"未设置广告商名称"
         return r
     }()
     lazy var editBtn: QMUIButton = {

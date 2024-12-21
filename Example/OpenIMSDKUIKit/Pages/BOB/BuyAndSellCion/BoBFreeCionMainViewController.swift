@@ -73,19 +73,10 @@ class BoBFreeCionMainViewController: UIViewController {
         choosePushAdTypeView.tg_height.equal(193)
         choosePushAdTypeView.drawUI(array: ["购买","出售"])
         choosePushAdTypeView.choosePushAdTypeBlock = { [weak self] typeIndex in
-            if typeIndex == 0{
-                //购买
-                let vc = BoBCreatAdvertisementViewController()
-                vc.homeData = self?.homeData
-                vc.advertisementType = 2
-                self?.currentVC?.navigationController?.pushViewController(vc, animated: true)
-            }else if typeIndex == 1{
-                //出售
-                let vc = BoBCreatAdvertisementViewController()
-                vc.homeData = self?.homeData
-                vc.advertisementType = 1
-                self?.currentVC?.navigationController?.pushViewController(vc, animated: true)
-            }
+            let vc = BoBCreatAdvertisementViewController()
+            vc.homeData = self?.homeData
+            vc.advertisementType = typeIndex == 0 ? 2 :1
+            self?.currentVC?.navigationController?.pushViewController(vc, animated: true)
         }
         GKCover.cover(from: self.view.window, contentView: choosePushAdTypeView, style: .translucent, showStyle: .bottom, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
     }
@@ -101,7 +92,6 @@ class BoBFreeCionMainViewController: UIViewController {
         let adNameView = BoBCreatAdNameAlertView()
         adNameView.tg_width.equal(293)
         adNameView.tg_height.equal(.wrap)
-        adNameView.tg_centerY.equal(0)
         adNameView.bindData(adName: homeData?.advertisingName)
         adNameView.updateAdvertisingName = { [weak self] adName in
             self?.homeData?.advertisingName = adName
