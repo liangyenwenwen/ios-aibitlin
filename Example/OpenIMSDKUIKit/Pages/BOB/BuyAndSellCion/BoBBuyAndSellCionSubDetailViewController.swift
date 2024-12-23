@@ -633,11 +633,26 @@ class BoBBuyAndSellCionSubDetailViewController: BaseTitleController {
                 self?.present(alert, animated: true, completion: nil)
             }else{
                 if IMController.shared.isSetPayPassWord {
-                    let confirmPurchaseView = BoBConfirmPurchaseAlertView()
-                    confirmPurchaseView.tg_width.equal(kScreenWidth)
-        //            confirmPurchaseView.tg_height.equal(.wrap)
-                    confirmPurchaseView.tg_height.equal(500)
-                    confirmPurchaseView.currentVC = self
+//                    let confirmPurchaseView = BoBConfirmPurchaseAlertView()
+//                    confirmPurchaseView.tg_width.equal(kScreenWidth)
+//        //            confirmPurchaseView.tg_height.equal(.wrap)
+//                    confirmPurchaseView.tg_height.equal(500)
+//                    confirmPurchaseView.currentVC = self
+//                    let buyType = self?.buyType ?? 1
+//                    let type = self?.type ?? 1
+//                    let money = (self?.buyMoneyView.buyCounLabel.text ?? "").replacingOccurrences(of: "¥", with: "")
+//                    let walletType = self?.chooseCionTypeModel ?? CionTypeModel()
+//                    let paymentType = self?.choosePaymentMethod ?? stringAndDatePOS(id: 0, dateValue: "", type: "")
+//                    let unitPrice = String(format: "%.2f", self?.detailData?.setExchangeRate ?? 1.00)
+//                    let count = self?.buyCountView.buyCounLabel.text ?? "0.00"
+//                    let code = self?.detailData?.code ?? ""
+//                    confirmPurchaseView.bindData(buyType: buyType, type: type, walletType: walletType, paymentType: paymentType, unitPrice: unitPrice, money: money, count: count, code: code)
+//                    confirmPurchaseView.commitSuccessBlock = {[weak self] in
+//                        self?.navigationController?.popViewController(animated: true)
+//                    }
+//                    GKCover.cover(from: self?.view.window, contentView: confirmPurchaseView, style: .translucent, showStyle: .bottom, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
+                    let maskView = BoBConfirmPurchaseAlertView()
+                    maskView.currentVC = self
                     let buyType = self?.buyType ?? 1
                     let type = self?.type ?? 1
                     let money = (self?.buyMoneyView.buyCounLabel.text ?? "").replacingOccurrences(of: "¥", with: "")
@@ -646,11 +661,11 @@ class BoBBuyAndSellCionSubDetailViewController: BaseTitleController {
                     let unitPrice = String(format: "%.2f", self?.detailData?.setExchangeRate ?? 1.00)
                     let count = self?.buyCountView.buyCounLabel.text ?? "0.00"
                     let code = self?.detailData?.code ?? ""
-                    confirmPurchaseView.bindData(buyType: buyType, type: type, walletType: walletType, paymentType: paymentType, unitPrice: unitPrice, money: money, count: count, code: code)
-                    confirmPurchaseView.commitSuccessBlock = {[weak self] in
+                    maskView.bindData(buyType: buyType, type: type, walletType: walletType, paymentType: paymentType, unitPrice: unitPrice, money: money, count: count, code: code)
+                    maskView.commitSuccessBlock = {[weak self] in
                         self?.navigationController?.popViewController(animated: true)
                     }
-                    GKCover.cover(from: self?.view.window, contentView: confirmPurchaseView, style: .translucent, showStyle: .bottom, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
+                    maskView.showMask(view:self!.view.window!)
                 }else{
                     let alert = UIAlertController(title: "提示", message: "为了您的财产安全，请设置安全密码".innerLocalized(), preferredStyle: .alert)
                     // 创建UIAlertAction，用于处理用户的选择

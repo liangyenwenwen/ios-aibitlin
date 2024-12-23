@@ -106,8 +106,8 @@
             filePath = "OpenIMSDKUIKit/Pages/BOB/BuyAndSellCion/View/BoBConfirmPurchaseAlertView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "71"
-            endingLineNumber = "71"
+            startingLineNumber = "102"
+            endingLineNumber = "102"
             landmarkName = "bindData(buyType:type:walletType:paymentType:unitPrice:money:count:code:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -147,49 +147,17 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "C28ED5C2-C7DE-428A-9110-25DA091F1C53"
+            uuid = "8DFDBACA-CA99-4017-8689-060EAF7195BC"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "OpenIMSDKUIKit/Pages/BOB/BuyAndSellCion/View/BoBConfirmPurchaseAlertView.swift"
+            filePath = "OpenIMSDKUIKit/Pages/BOB/BuyAndSellCion/Model/BoBBuyAndSellCionModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "282"
-            endingLineNumber = "282"
-            landmarkName = "BoBConfirmPurchaseAlertView"
-            landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "9B518766-2F27-4E1A-BAE7-BB3F83005C2F"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "OpenIMSDKUIKit/Pages/BOB/BuyAndSellCion/View/BoBConfirmPurchaseAlertView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "267"
-            endingLineNumber = "267"
-            landmarkName = "BoBConfirmPurchaseAlertView"
-            landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "A52F1A9E-20BE-4CF8-BFC2-BFBC2DCD15E7"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "OpenIMSDKUIKit/Pages/BOB/BuyAndSellCion/View/BoBConfirmPurchaseAlertView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "300"
-            endingLineNumber = "300"
-            landmarkName = "BoBConfirmPurchaseAlertView"
-            landmarkType = "3">
+            startingLineNumber = "419"
+            endingLineNumber = "419"
+            landmarkName = "IntendedSellRequest(code:amount:currencyWallet:payment:quantity:exchangeRate:paymentId:type:pwd:completionHandler:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

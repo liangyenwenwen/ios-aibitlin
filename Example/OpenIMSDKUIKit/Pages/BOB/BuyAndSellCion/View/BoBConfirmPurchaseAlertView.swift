@@ -13,7 +13,7 @@ import RxCocoa
 import RxSwift
 import TangramKit
 import UIKit
-class BoBConfirmPurchaseAlertView: TGLinearLayout {
+class BoBConfirmPurchaseAlertView: UIView {
     var currentVC:UIViewController?
     var payment:Int = 1 //支付方式
     var buyType:Int = 1 //按金额购买，2按数量购买
@@ -25,31 +25,61 @@ class BoBConfirmPurchaseAlertView: TGLinearLayout {
     var money:String?//金额
     var code:String?//广告编码
     var commitSuccessBlock:(()->())!
-    init() {
-        super.init(frame: .zero, orientation: .vert)
+    
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
         innerInit()
+
     }
     
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        innerInit()
+    required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     func innerInit() {
-        corner(MEDDLE_RADIUS)
-        tg_width.equal(.fill)
-        tg_height.equal(.wrap)
-        tg_space = PADDING_MEDDLE
-        tg_padding = UIEdgeInsets(top: 0, left: PADDING_OUTER, bottom: PADDING_MEDDLE, right: PADDING_OUTER)
-        backgroundColor = .white
-        addSubview(topView)
-        addSubview(payMoneyView)
-        addSubview(paymentBgView)
-        addSubview(unitPriceView)
-        addSubview(countView)
-        addSubview(tipView)
-        addSubview(bottomView)
+        backgroundColor = UIColor.black.withAlphaComponent(0.5) // 半透明背景
+        addSubview(contentView)
+        contentView.addSubview(topView)
+        contentView.addSubview(payMoneyView)
+        contentView.addSubview(paymentBgView)
+        contentView.addSubview(unitPriceView)
+        contentView.addSubview(countView)
+        contentView.addSubview(tipView)
+        contentView.addSubview(bottomView)
     }
+    // 自定义弹框视图
+    func showMask(view: UIView) {
+        self.frame = view.bounds
+        view.addSubview(self)
+        // 动画显示遮罩
+        alpha = 0
+        UIView.animate(withDuration: 0.3) {
+            self.alpha = 1
+        }
+    }
+    
+    // 隐藏遮罩
+    func hideMask() {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.alpha = 0
+        }) { _ in
+            self.removeFromSuperview()
+        }
+    }
+    lazy var contentView: TGLinearLayout = {
+        let r = TGLinearLayout(.vert)
+        r.corner(MEDDLE_RADIUS)
+        r.tg_width.equal(.fill)
+        r.tg_height.equal(.wrap)
+        r.tg_space = PADDING_MEDDLE
+//        r.tg_width.equal(kScreenWidth)
+////            confirmPurchaseView.tg_height.equal(.wrap)
+//        r.tg_height.equal(500)
+        r.tg_bottom.equal(0)
+        r.tg_padding = UIEdgeInsets(top: 0, left: PADDING_OUTER, bottom: PADDING_MEDDLE+34, right: PADDING_OUTER)
+        r.backgroundColor = .white
+        return r
+    }()
     func bindData(buyType:Int,type:Int,walletType:CionTypeModel,paymentType:stringAndDatePOS,unitPrice:String,money:String,count:String,code:String){
         self.type = type
         self.buyType = buyType
@@ -59,6 +89,7 @@ class BoBConfirmPurchaseAlertView: TGLinearLayout {
         self.money = money
         self.count = count
         self.code = code
+        payMoneyView.buyCounLabel.text = "¥" + money
        if type == 1 {
             //购买
             titleLbl.text = "确认购买"
@@ -98,8 +129,8 @@ class BoBConfirmPurchaseAlertView: TGLinearLayout {
     }()
     lazy var closeBtn: QMUIButton = {
         let r = ViewFactoryUtil.imageBtn(R.image.close_cirle_icon()!, 28)
-        r.rx.tap.subscribe(onNext: {
-            GKCover.hide()
+        r.rx.tap.subscribe(onNext: {[weak self] in
+            self?.hideMask()
         })
         .disposed(by: rx.disposeBag)
         return r
@@ -251,7 +282,7 @@ class BoBConfirmPurchaseAlertView: TGLinearLayout {
         r.titleLabel?.font = .mediumFont(16)
         r.border(.init(hexString: "#EAEAEA"),borderWidth: 1,cornerRadius: 23)
         r.rx.tap.subscribe(onNext: { [weak self] in
-            GKCover.hide()
+            self?.hideMask()
         }).disposed(by: rx.disposeBag)
         return r
     }()
@@ -269,10 +300,10 @@ class BoBConfirmPurchaseAlertView: TGLinearLayout {
                 BoBBuyAndSellCionModel.IntendedBuyRequest(code: self?.code ?? "", amount: self?.money ?? "", payment: String(format: "%d", self?.payment ?? 1), quantity: self?.count ?? "", exchangeRate: self?.unitPrice ?? "", type: self?.type ?? 1){[weak self] errCode, errMsg in
                     if errCode == 20000{
                         SuperToast.show(title:"购买成功")
-                        GKCover.hide()
                         if self?.commitSuccessBlock != nil{
                             self?.commitSuccessBlock()
                         }
+                        self?.hideMask()
                     }else{
                         SuperToast.show(title: errMsg)
                     }
@@ -288,10 +319,10 @@ class BoBConfirmPurchaseAlertView: TGLinearLayout {
                         BoBBuyAndSellCionModel.IntendedSellRequest(code: self?.code ?? "", amount: self?.money ?? "",currencyWallet:self?.walletType?.cionType ?? "0" ,payment: String(format: "%d", self?.payment ?? 1), quantity: self?.count ?? "", exchangeRate: self?.unitPrice ?? "",paymentId:String(format: "%d", self?.paymentType?.id ?? 0),type: self?.type ?? 1,pwd:passWord){[weak self] errCode, errMsg in
                             if errCode == 20000{
                                 SuperToast.show(title:"出售成功")
-                                GKCover.hide()
                                 if self?.commitSuccessBlock != nil{
                                     self?.commitSuccessBlock()
                                 }
+                                self?.hideMask()
                             }else{
                                 SuperToast.show(title: errMsg)
                             }
