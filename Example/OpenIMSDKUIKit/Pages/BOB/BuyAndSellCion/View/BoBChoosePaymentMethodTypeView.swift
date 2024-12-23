@@ -22,6 +22,9 @@ class BoBChoosePaymentMethodTypeView: TGLinearLayout {
     var bankList:[stringAndDatePOS] = []
     var aliList:[stringAndDatePOS] = []
     var wxList:[stringAndDatePOS] = []
+    var isSupportBank:Bool = true
+    var isSupportAli:Bool = true
+    var isSupportWeixin:Bool = true
     var paymentType:Int = 0 //0银行卡、1支付宝、2微信
     init() {
         super.init(frame: .zero, orientation: .vert)
@@ -75,9 +78,12 @@ class BoBChoosePaymentMethodTypeView: TGLinearLayout {
         }
         
     }
-    func bindData(paymentData:PaymentMethodData?,choosePayment:stringAndDatePOS?){
+    func bindData(paymentData:PaymentMethodData?,choosePayment:stringAndDatePOS?,isSupportBank:Bool?,isSupportAli:Bool?,isSupportWeixin:Bool?){
         paymentMethodData = paymentData
         choosePaymentMethod = choosePayment
+        self.isSupportBank = isSupportBank ?? true
+        self.isSupportAli = isSupportAli ?? true
+        self.isSupportWeixin = isSupportWeixin ?? true
         bankList.removeAll()
         aliList.removeAll()
         wxList.removeAll()
@@ -91,21 +97,21 @@ class BoBChoosePaymentMethodTypeView: TGLinearLayout {
                 aliList.append(data)
             }
         }
-        if bankList.count > 0{
+        if bankList.count > 0 && self.isSupportBank{
             bankBtn.alpha = 1
             bankBtn.isUserInteractionEnabled = true
         }else{
             bankBtn.alpha = 0.5
             bankBtn.isUserInteractionEnabled = false
         }
-        if aliList.count > 0{
+        if aliList.count > 0 && self.isSupportAli{
             aliBtn.alpha = 1
             aliBtn.isUserInteractionEnabled = true
         }else{
             aliBtn.alpha = 0.5
             aliBtn.isUserInteractionEnabled = false
         }
-        if wxList.count > 0{
+        if wxList.count > 0 && self.isSupportWeixin{
             weixinBtn.alpha = 1
             weixinBtn.isUserInteractionEnabled = true
         }else{
@@ -113,7 +119,7 @@ class BoBChoosePaymentMethodTypeView: TGLinearLayout {
             weixinBtn.isUserInteractionEnabled = false
         }
         if paymentType == 0{
-            if bankList.count > 0{
+            if bankList.count > 0 && self.isSupportBank{
                 listArray = bankList
                 bankBtn.border(.init(hexString: "#277FE6"),borderWidth: 1,cornerRadius: 8)
                 bankBtn.selectStatusImageView.show()
@@ -126,7 +132,7 @@ class BoBChoosePaymentMethodTypeView: TGLinearLayout {
             }
         }
         if paymentType == 1{
-            if aliList.count > 0{
+            if aliList.count > 0 && self.isSupportAli{
                 listArray = aliList
                 aliBtn.border(.init(hexString: "#277FE6"),borderWidth: 1,cornerRadius: 8)
                 aliBtn.selectStatusImageView.show()
@@ -139,7 +145,7 @@ class BoBChoosePaymentMethodTypeView: TGLinearLayout {
             }
         }
         if paymentType == 2{
-            if wxList.count > 0{
+            if wxList.count > 0 && self.isSupportWeixin{
                 listArray = wxList
                 weixinBtn.border(.init(hexString: "#277FE6"),borderWidth: 1,cornerRadius: 8)
                 weixinBtn.selectStatusImageView.show()
@@ -149,6 +155,8 @@ class BoBChoosePaymentMethodTypeView: TGLinearLayout {
                 aliBtn.selectStatusImageView.hide()
             }else{
                 paymentType = 0
+                bankBtn.border(.init(hexString: "#D6DEE6"),borderWidth: 1,cornerRadius: 8)
+                bankBtn.selectStatusImageView.hide()
             }
         }
         tableView.reloadData()
@@ -262,10 +270,21 @@ class BoBChoosePaymentMethodTypeView: TGLinearLayout {
         r.backgroundColor = .init(hexString: "#388CEF")
         r.setTitleColor(.white, for: .normal)
         r.titleLabel?.font = .mediumFont(16)
-        r.rx.tap.subscribe(onNext: {
+        r.rx.tap.subscribe(onNext: { [weak self] in
             let vc = BoBAddPaymentMethodViewController()
-            vc.name = self.paymentMethodData?.name
-            self.currentVC?.navigationController?.pushViewController(vc, animated: true)
+            vc.name = self?.paymentMethodData?.name
+            if self?.isSupportBank == true{
+                vc.paymentType = 0
+            }else{
+                if self?.isSupportAli == true{
+                    vc.paymentType = 1
+                }else{
+                    if self?.isSupportWeixin == true{
+                        vc.paymentType = 2
+                    }
+                }
+            }
+            self?.currentVC?.navigationController?.pushViewController(vc, animated: true)
             GKCover.hide()
         })
         .disposed(by: rx.disposeBag)

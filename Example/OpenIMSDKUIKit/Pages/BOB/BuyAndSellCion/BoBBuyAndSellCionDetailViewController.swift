@@ -16,6 +16,8 @@ class BoBBuyAndSellCionDetailViewController: BaseTitleController {
     var isRefresh:Bool = false
     let segmentedDataSource = JXSegmentedTitleDataSource()
     let segmentedView = JXSegmentedView()
+    var moneyPaymentVC:BoBBuyAndSellCionSubDetailViewController?
+    var currencyPaymentVC:BoBBuyAndSellCionSubDetailViewController?
     lazy var listContainerView: JXSegmentedListContainerView! = {
         return JXSegmentedListContainerView(dataSource: self)
     }()
@@ -27,7 +29,7 @@ class BoBBuyAndSellCionDetailViewController: BaseTitleController {
         super.initViews()
         setBackGroundColor(.white)
         initLinearLayoutSafeArea()
-        title = (detailData?.advertisingType == 1 ? "出售" : "买入") + (detailData?.advertisingCurrency ?? "C")
+        title = (detailData?.advertisingType == 1 ? "买入" : "出售") + (detailData?.advertisingCurrency ?? "C")
         container.tg_padding = UIEdgeInsets(top: 0, left: 0, bottom: 15, right: 0)
         container.addSubview(exchangeRateView)
         let titles = ["按金额购买", "按数量购买"]
@@ -72,7 +74,23 @@ class BoBBuyAndSellCionDetailViewController: BaseTitleController {
             make.bottom.equalTo(segmentedView)
             make.height.equalTo(1)
         }
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshPaymentList(_:)), name: Notification.Name("refreshPaymentList"), object: nil)
     }
+    deinit {
+        // 移除所有通知监听
+        NotificationCenter.default.removeObserver(self)
+    }
+    @objc func refreshPaymentList(_ notidication: Notification) {
+            if  let userinfo = notidication.userInfo, let data = userinfo["homeData"] as? BoBBuyAndSellHomeData {
+                homeData = data
+                if moneyPaymentVC != nil{
+                    moneyPaymentVC?.reloadVCData(data: data)
+                }
+                if currencyPaymentVC != nil{
+                    currencyPaymentVC?.reloadVCData(data: data)
+                }
+            }
+        }
     lazy var exchangeRateView: UIView = {
         let r = UIView()
         r.tg_top.equal(0)
@@ -102,7 +120,7 @@ class BoBBuyAndSellCionDetailViewController: BaseTitleController {
         tap.rx.event.subscribe {[weak self]  _ in
             if self?.isRefresh == false {
                 self?.isRefresh = true
-                BoBBuyAndSellCionModel.RefreshTheExchangeRateRequest(){data in
+                BoBBuyAndSellCionModel.RefreshUnitPriceRequest(code:self?.detailData?.code ?? ""){data in
                     self?.stopRote()
                     self?.exchangeRateLabel.text = "单价" + String(format: " ￥%.2f", data)
                 } completionHandler:{errCode,errMsg in
@@ -138,7 +156,7 @@ class BoBBuyAndSellCionDetailViewController: BaseTitleController {
         let r = UILabel()
         r.textColor = .black666
         r.font = .mediumFont(14)
-        r.text = "单价" + " ￥1.00"
+        r.text = "单价" + String(format: " ￥%.2f", detailData?.setExchangeRate ?? 1.00)
         return r
     }()
     private lazy var refreshImageView: UIView = {
@@ -160,9 +178,22 @@ extension BoBBuyAndSellCionDetailViewController: JXSegmentedListContainerViewDat
     }
 
     func listContainerView(_ listContainerView: JXSegmentedListContainerView, initListAt index: Int) -> JXSegmentedListContainerViewListDelegate {
-        let vc = BoBBuyAndSellCionSubDetailViewController()
-        vc.homeData = homeData
-        vc.detailData = detailData
-        return vc
+        if index == 0{
+            if moneyPaymentVC == nil{
+                moneyPaymentVC = BoBBuyAndSellCionSubDetailViewController()
+                moneyPaymentVC!.homeData = homeData
+                moneyPaymentVC!.detailData = detailData
+                moneyPaymentVC!.buyType = 1
+            }
+            return moneyPaymentVC!
+        }else{
+            if currencyPaymentVC == nil{
+                currencyPaymentVC = BoBBuyAndSellCionSubDetailViewController()
+                currencyPaymentVC!.homeData = homeData
+                currencyPaymentVC!.detailData = detailData
+                currencyPaymentVC!.buyType = 2
+            }
+            return currencyPaymentVC!
+        }
     }
 }

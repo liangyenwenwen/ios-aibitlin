@@ -93,6 +93,7 @@
 		0439CCFF2D141ACB00379537 /* BoBBuyAndSellCionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439CCFE2D141ACB00379537 /* BoBBuyAndSellCionDetailViewController.swift */; };
 		0439CD012D14435800379537 /* BoBBuyAndSellCionSubDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439CD002D14435800379537 /* BoBBuyAndSellCionSubDetailViewController.swift */; };
 		0439CD032D16A26300379537 /* BoBSetExchangeRateTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439CD022D16A26300379537 /* BoBSetExchangeRateTypeView.swift */; };
+		0439CD052D16C3F200379537 /* BoBConfirmPurchaseAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439CD042D16C3F200379537 /* BoBConfirmPurchaseAlertView.swift */; };
 		043A558C2C8166490041836E /* UserTagTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043A55892C8166490041836E /* UserTagTypeView.swift */; };
 		043A558D2C8166490041836E /* UserTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043A558A2C8166490041836E /* UserTagView.swift */; };
 		0445BEE22CD1E04300A46558 /* ABLNetWorkToos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445BEE12CD1E04300A46558 /* ABLNetWorkToos.swift */; };
@@ -374,6 +375,7 @@
 		0439CCFE2D141ACB00379537 /* BoBBuyAndSellCionDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBBuyAndSellCionDetailViewController.swift; sourceTree = "<group>"; };
 		0439CD002D14435800379537 /* BoBBuyAndSellCionSubDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBBuyAndSellCionSubDetailViewController.swift; sourceTree = "<group>"; };
 		0439CD022D16A26300379537 /* BoBSetExchangeRateTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBSetExchangeRateTypeView.swift; sourceTree = "<group>"; };
+		0439CD042D16C3F200379537 /* BoBConfirmPurchaseAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBConfirmPurchaseAlertView.swift; sourceTree = "<group>"; };
 		043A55892C8166490041836E /* UserTagTypeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTagTypeView.swift; sourceTree = "<group>"; };
 		043A558A2C8166490041836E /* UserTagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTagView.swift; sourceTree = "<group>"; };
 		0445BEE12CD1E04300A46558 /* ABLNetWorkToos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ABLNetWorkToos.swift; sourceTree = "<group>"; };
@@ -926,6 +928,7 @@
 				0439CCF82D12C2D600379537 /* BoBCreatAdNameAlertView.swift */,
 				0439CD022D16A26300379537 /* BoBSetExchangeRateTypeView.swift */,
 				0439CCFC2D12FFE800379537 /* BoBMineAdvertisementCell.swift */,
+				0439CD042D16C3F200379537 /* BoBConfirmPurchaseAlertView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2421,6 +2424,7 @@
 				04C394472CCFB3ED00181F6B /* YFNewRegisterVC.swift in Sources */,
 				04D6A6782C9131ED008193E7 /* YFNetworkUtils.swift in Sources */,
 				0445BEE22CD1E04300A46558 /* ABLNetWorkToos.swift in Sources */,
+				0439CD052D16C3F200379537 /* BoBConfirmPurchaseAlertView.swift in Sources */,
 				0439CCF92D12C2D600379537 /* BoBCreatAdNameAlertView.swift in Sources */,
 				040D860A2BEB8C4200DCAAB3 /* SuperUIViewControllerExtension.swift in Sources */,
 				04EFEA6B2CECBE7B004441CB /* BoBOrderListCell.swift in Sources */,

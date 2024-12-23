@@ -14,8 +14,9 @@ import OUICore
 class BoBBuyAndSellCionSubDetailViewController: BaseTitleController {
     var detailData:BoBBuyAndSellFreeAreaList?
     var homeData:BoBBuyAndSellHomeData?
+    var intendedOrderHome:IntendedOrderHome?
     var buyType:Int = 1 //按金额购买，2按数量购买
-    var type:Int = 1 //1:出售 2:购买
+    var type:Int = 1 //1:购买 2:出售
     var currency:String = "C" //币种
     var chooseCionTypeModel:CionTypeModel?
     var cionTypeArray:[CionTypeModel] = []
@@ -66,12 +67,12 @@ class BoBBuyAndSellCionSubDetailViewController: BaseTitleController {
         chooseCionTypeModel = CionTypeModel(icon: "", currency: currency, quota: 0.00, handlingCharge: 0.00, minimumCommission: 0.00, cionType:"0", money:0.00, type: 0, isSelect: true,exchangeRate:1.00)
         scrollViewContainer.tg_padding = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         superFooterContainerContainer.tg_bottom.equal(0)
-        if type == 1{
+        if type == 2{
             scrollViewContainer.addSubview(walletView)
             loadWalletData()
         }
         scrollViewContainer.addSubview(countView)
-        if type == 1{
+        if type == 2{
             scrollViewContainer.addSubview(totalMoneyLabel)
         }
         scrollViewContainer.addSubview(buyCountView)
@@ -93,9 +94,32 @@ class BoBBuyAndSellCionSubDetailViewController: BaseTitleController {
         scrollViewContainer.addSubview(counterpartyView)
         scrollViewContainer.addSubview(singularizationTotalView)
         scrollViewContainer.addSubview(buyAndSellTotalView)
+        let tap = UITapGestureRecognizer()
+        tap.rx.event.subscribe { [weak self] _ in
+            self?.view.endEditing(true)
+        }.disposed(by: rx.disposeBag)
+        self.view.addGestureRecognizer(tap)
         if homeData?.payment == true{
             addView.hide()
             choosePaymentMethodView.show()
+        }
+        loadData()
+    }
+    func loadData(){
+        BoBBuyAndSellCionModel.IntendedOrderHomePageRequest(code:detailData?.code ?? ""){[weak self] data in
+            self?.intendedOrderHome = data
+            self?.paymentLimitTimeLabel.text = String(format: "%d", data.timeOfPayment ?? 0) + "分钟"
+            self?.completedCountView.buyCounLabel.text = String(format: "%d", data.completed ?? 0)
+            self?.singularizationCountView.buyCounLabel.text = String(format: "%d", data.order30 ?? 0)
+            self?.completionRateView.buyCounLabel.text = String(format: "%.2f",(data.transactionRates30 ?? 0.00)*100) + "%"
+            self?.accountCreatedView.buyCounLabel.text = String(format: "%d", data.creationDays ?? 0) + "天"
+            self?.firstTransactionView.buyCounLabel.text = String(format: "%d", data.firstTradingTime ?? 0) + "天"
+            self?.counterpartyView.buyCounLabel.text = String(format: "%d", data.counterparty ?? 0)
+            self?.singularizationTotalView.buyCounLabel.text = String(format: "%d", data.assemblyNumber ?? 0) + "次"
+            self?.buyCountLabel.text = "买入" + String(format: "%d", data.buy ?? 0)
+            self?.sellCountLabel.text = "卖出" + String(format: "%d", data.sell ?? 0)
+        } completionHandler: {errCode,errMsg in
+            SuperToast.show(title: errMsg)
         }
     }
     func loadWalletData(){
@@ -133,12 +157,15 @@ class BoBBuyAndSellCionSubDetailViewController: BaseTitleController {
         cionTypeImageView.sd_setImage(with: URL(string: chooseCionTypeModel?.icon))
         cionNameLabel.text = chooseCionTypeModel?.currency
     }
+    func reloadVCData(data:BoBBuyAndSellHomeData){
+        homeData = data
+    }
     func choosePaymentMedthodType(){
         let chooseTypeView = BoBChoosePaymentMethodTypeView()
         chooseTypeView.tg_width.equal(.fill)
         chooseTypeView.tg_height.equal(447)
         chooseTypeView.currentVC = self
-        chooseTypeView.bindData(paymentData: homeData?.userBankAndWeiXinAndZFBPO,choosePayment: choosePaymentMethod)
+        chooseTypeView.bindData(paymentData: homeData?.userBankAndWeiXinAndZFBPO,choosePayment: choosePaymentMethod,isSupportBank: isSupportBank,isSupportAli: isSupportAli,isSupportWeixin: isSupportWeixin)
         chooseTypeView.choosePaymentMethodTypeBlock = {[weak self] choosePayment,newPaymentMethodData in
             self?.choosePaymentMethod = choosePayment
             self?.homeData?.userBankAndWeiXinAndZFBPO = newPaymentMethodData
@@ -170,9 +197,9 @@ class BoBBuyAndSellCionSubDetailViewController: BaseTitleController {
     lazy var countView: UIView = {
         let r = UIView()
         if type == 1{
-            r.tg_top.equal(12)
-        }else{
             r.tg_top.equal(16)
+        }else{
+            r.tg_top.equal(12)
         }
         r.tg_left.equal(16)
         r.tg_right.equal(16)
@@ -202,7 +229,7 @@ class BoBBuyAndSellCionSubDetailViewController: BaseTitleController {
         let r = UILabel()
         r.textColor = .black333
         r.font = .mediumFont(16)
-        r.text = currency
+        r.text = buyType == 1 ? "¥" : currency
         return r
     }()
     lazy var countTF: QMUITextField = {
@@ -211,17 +238,35 @@ class BoBBuyAndSellCionSubDetailViewController: BaseTitleController {
         r.tintColor = .black333
         r.keyboardType = .decimalPad
         r.setPlaceHolderTextColor(.black999)
-        r.placeholder = "限额 1799~1800 C"
+        if buyType == 1{
+            let quotaMin = (detailData?.quotaMin ?? 0.00)*(detailData?.setExchangeRate ?? 1.00)
+            let quotaMax = (detailData?.quotaMax ?? 0.00)*(detailData?.setExchangeRate ?? 1.00)
+            r.placeholder = "限额" + String(format: " ¥%.2f~¥%.2f ",quotaMin, quotaMax)
+        }else{
+            r.placeholder = "限额" + String(format: " %.2f~%.2f ", detailData?.quotaMin ?? 0.00,detailData?.quotaMax ?? 0.00) + (detailData?.advertisingCurrency ?? "C")
+        }
         r.text = ""
         r.rx.controlEvent(.editingDidEnd).subscribe(onNext: { [weak self] in
             if let doubleValue = Double(self?.countTF.text ?? "0.00") {
                 if doubleValue < 0.01{
                     self?.countTF.text = ""
+                    self?.buyCountView.buyCounLabel.text = "0.00"
+                    self?.buyMoneyView.buyCounLabel.text = "¥0.00"
+                }else{
+                    if self?.buyType == 1{
+                        self?.buyCountView.buyCounLabel.text = String(format: "%.2f",doubleValue/(self?.detailData?.setExchangeRate ?? 1.00))
+                        self?.buyMoneyView.buyCounLabel.text = self?.countTF.text ?? "¥0.00"
+                    }else{
+                        self?.buyCountView.buyCounLabel.text = self?.countTF.text ?? "0.00"
+                        self?.buyMoneyView.buyCounLabel.text = String(format: "%.2f",doubleValue*(self?.detailData?.setExchangeRate ?? 1.00))
+                    }
                 }
             }else{
                 self?.countTF.text = ""
+                self?.buyCountView.buyCounLabel.text = "0.00"
+                self?.buyMoneyView.buyCounLabel.text = "¥0.00"
             }
-//            self?.calculationExchangeRate()
+           
         }).disposed(by: rx.disposeBag)
         r.rx.controlEvent(.editingChanged).subscribe(onNext: {  [weak self] in
             if ((r.text?.range(of:".")) != nil){
@@ -254,8 +299,17 @@ class BoBBuyAndSellCionSubDetailViewController: BaseTitleController {
         r.setTitleColor(.primaryColor, for: .normal)
         r.titleLabel?.font = .regularFont(14)
         r.contentHorizontalAlignment = .right
-        r.rx.tap.subscribe(onNext: { [self] in
-//            self.countTF.text = String(format: "%.2f",(chooseCionTypeModel?.money)!)
+        r.rx.tap.subscribe(onNext: { [weak self] in
+            self?.view.endEditing(true)
+            if self?.buyType == 1{
+                self?.countTF.text = String(format: "%.2f",(self?.detailData?.quotaMax ?? 0.00)*(self?.detailData?.setExchangeRate ?? 1.00))
+                self?.buyCountView.buyCounLabel.text = String(format: "%.2f",self?.detailData?.quotaMax ?? 0.00)
+                self?.buyMoneyView.buyCounLabel.text = "¥" + (self?.countTF.text ?? "0.00")
+            }else{
+                self?.countTF.text = String(format: "%.2f",self?.detailData?.quotaMax ?? 0.00)
+                self?.buyCountView.buyCounLabel.text = self?.countTF.text ?? ""
+                self?.buyMoneyView.buyCounLabel.text = "¥" + String(format: "%.2f",(self?.detailData?.quotaMax ?? 0.00)*(self?.detailData?.setExchangeRate ?? 1.00))
+            }
         }).disposed(by: rx.disposeBag)
         return r
     }()
@@ -350,7 +404,7 @@ class BoBBuyAndSellCionSubDetailViewController: BaseTitleController {
         r.tg_left.equal(16)
         r.tg_right.equal(16)
         r.tg_height.equal(16)
-        r.buyCountTitleLabel.text = (type == 1 ? "出售数量" : "购买数量") + currency
+        r.buyCountTitleLabel.text = (type == 1 ? "购买数量" : "出售数量") + currency
         r.buyCounLabel.text = "0.00"
         return r
     }()
@@ -360,7 +414,7 @@ class BoBBuyAndSellCionSubDetailViewController: BaseTitleController {
         r.tg_left.equal(16)
         r.tg_right.equal(16)
         r.tg_height.equal(16)
-        r.buyCountTitleLabel.text = (type == 1 ? "出售金额" : "购买金额") + "(CNY)"
+        r.buyCountTitleLabel.text = (type == 1 ? "购买金额" : "出售金额") + "(CNY)"
         r.buyCounLabel.text = "¥0.00"
         return r
     }()
@@ -538,7 +592,7 @@ class BoBBuyAndSellCionSubDetailViewController: BaseTitleController {
     }()
     
     private lazy var buyBtn: QMUIButton = {
-        let r = ViewFactoryUtil.linkButton((type == 1 ? "出售" : "购买") + currency)
+        let r = ViewFactoryUtil.linkButton((type == 1 ? "购买" : "出售") + currency)
         r.tg_top.equal(16)
         r.tg_left.equal(16)
         r.tg_right.equal(16)
@@ -548,13 +602,14 @@ class BoBBuyAndSellCionSubDetailViewController: BaseTitleController {
         r.titleLabel?.font = .semiboldFont(16)
         r.backgroundColor = .primaryColor
         r.rx.tap.subscribe(onNext: { [weak self] in
+            self?.view.endEditing(true)
             if let doubleValue = Double(self?.countTF.text ?? "0") {
                 if doubleValue == 0{
-                    SuperToast.show(title: "请输入" + (self?.type == 1 ? "出售":"购买") + (self?.buyType == 1 ? "金额":"数量"))
+                    SuperToast.show(title: "请输入" + (self?.type == 1 ? "购买":"出售") + (self?.buyType == 1 ? "金额":"数量"))
                     return
                 }
             }else{
-                SuperToast.show(title: "请输入" + (self?.type == 1 ? "出售":"购买") + (self?.buyType == 1 ? "金额":"数量"))
+                SuperToast.show(title: "请输入" + (self?.type == 1 ? "购买":"出售") + (self?.buyType == 1 ? "金额":"数量"))
                 return
             }
             if self?.choosePaymentMethod == nil{
@@ -577,18 +632,25 @@ class BoBBuyAndSellCionSubDetailViewController: BaseTitleController {
                 // 弹出alert
                 self?.present(alert, animated: true, completion: nil)
             }else{
-                
                 if IMController.shared.isSetPayPassWord {
-                    let passWordView = BoBPayPassWordView()
-                    passWordView.tg_width.equal(.fill)
-                    passWordView.tg_height.equal(210)
-                    passWordView.payBtnClickBlock = { [weak self] passWord in
-                        
-
+                    let confirmPurchaseView = BoBConfirmPurchaseAlertView()
+                    confirmPurchaseView.tg_width.equal(kScreenWidth)
+        //            confirmPurchaseView.tg_height.equal(.wrap)
+                    confirmPurchaseView.tg_height.equal(500)
+                    confirmPurchaseView.currentVC = self
+                    let buyType = self?.buyType ?? 1
+                    let type = self?.type ?? 1
+                    let money = (self?.buyMoneyView.buyCounLabel.text ?? "").replacingOccurrences(of: "¥", with: "")
+                    let walletType = self?.chooseCionTypeModel ?? CionTypeModel()
+                    let paymentType = self?.choosePaymentMethod ?? stringAndDatePOS(id: 0, dateValue: "", type: "")
+                    let unitPrice = String(format: "%.2f", self?.detailData?.setExchangeRate ?? 1.00)
+                    let count = self?.buyCountView.buyCounLabel.text ?? "0.00"
+                    let code = self?.detailData?.code ?? ""
+                    confirmPurchaseView.bindData(buyType: buyType, type: type, walletType: walletType, paymentType: paymentType, unitPrice: unitPrice, money: money, count: count, code: code)
+                    confirmPurchaseView.commitSuccessBlock = {[weak self] in
+                        self?.navigationController?.popViewController(animated: true)
                     }
-
-                    GKCover.cover(from: self?.view.window, contentView: passWordView, style: .translucent, showStyle: .center, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
-                    
+                    GKCover.cover(from: self?.view.window, contentView: confirmPurchaseView, style: .translucent, showStyle: .bottom, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
                 }else{
                     let alert = UIAlertController(title: "提示", message: "为了您的财产安全，请设置安全密码".innerLocalized(), preferredStyle: .alert)
                     // 创建UIAlertAction，用于处理用户的选择

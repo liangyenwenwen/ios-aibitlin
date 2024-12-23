@@ -253,23 +253,23 @@ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> U
         cell.paymentMethodType1.show()
         cell.paymentMethodType2.show()
         cell.paymentMethodType3.hide()
-        if arr[0] == "1"{
+        if arr[1] == "1"{
             cell.paymentMethodType1.lineView.backgroundColor = .init(hexString: "#EF5151")
             cell.paymentMethodType1.paymentMethodNameLabel.text = "银行卡"
-        }else if arr[0] == "2"{
+        }else if arr[1] == "2"{
             cell.paymentMethodType1.lineView.backgroundColor = .init(hexString: "#277FE6")
             cell.paymentMethodType1.paymentMethodNameLabel.text = "支付宝"
-        }else if arr[0] == "3"{
+        }else if arr[1] == "3"{
             cell.paymentMethodType1.lineView.backgroundColor = .init(hexString: "#15AB43")
             cell.paymentMethodType1.paymentMethodNameLabel.text = "微信"
         }
-        if arr[1] == "1"{
+        if arr[0] == "1"{
             cell.paymentMethodType2.lineView.backgroundColor = .init(hexString: "#EF5151")
             cell.paymentMethodType2.paymentMethodNameLabel.text = "银行卡"
-        }else if arr[1] == "2"{
+        }else if arr[0] == "2"{
             cell.paymentMethodType2.lineView.backgroundColor = .init(hexString: "#277FE6")
             cell.paymentMethodType2.paymentMethodNameLabel.text = "支付宝"
-        }else if arr[1] == "3"{
+        }else if arr[0] == "3"{
             cell.paymentMethodType2.lineView.backgroundColor = .init(hexString: "#15AB43")
             cell.paymentMethodType2.paymentMethodNameLabel.text = "微信"
         }

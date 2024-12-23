@@ -29,6 +29,11 @@ class BoBBuyAndSellCionModel {
     private static let ListingAdvertising = "/wallet/advertisement/listingAdvertising"//上架广告
     private static let TakeDownAdvertising = "/wallet/advertisement/takeDownAdvertising"//下架广告
     private static let DelAdvertising = "/wallet/advertisement/delAdvertising"//删除广告
+    private static let RefreshUnitPrice = "/wallet/userOrderDetails/refreshUnitPrice"//刷新意向单单价
+    private static let IntendedOrderHomePage = "/wallet/userOrderDetails/intendedOrderHomePage"//意向单首页
+    private static let IntendedBuy = "/wallet/userOrderDetails/intendedBuy"//意向购买
+    private static let IntendedSell = "/wallet/userOrderDetails/intendedSell"//意向出售
+
 
     static func getHttpHeader() -> HTTPHeaders{
         let httpHeaders : HTTPHeaders = [
@@ -297,6 +302,133 @@ class BoBBuyAndSellCionModel {
         }
         
     }
+    static func RefreshUnitPriceRequest(code:String,
+                                        valueHandler: @escaping (Double) -> Void,
+                                        completionHandler: @escaping CompletionHandler) {
+        if !NetworkStatus.isReacheable {
+            return
+        }
+        ProgressHUD.animate()
+        let param = ["code": code] as [String : Any]
+        let url = SuperStringUtil.netUrl(API_BOB_URL + RefreshUnitPrice, param)
+        Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
+            ProgressHUD.dismiss()
+            
+            if let data = dataRequest.data {
+                let strData = String.init(data: data, encoding: String.Encoding.utf8)
+                print(strData!)
+                if let res = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellResponse<Double>.self) {
+
+                    if res.code == 20000  {
+                        valueHandler(res.data)
+                    } else {
+                        completionHandler(res.code, res.message)
+                    }
+                } else {
+                    completionHandler(-1, "failure")
+                }
+            } else {
+                completionHandler(-1, "failure")
+            }
+        }
+        
+    }
+    static func IntendedOrderHomePageRequest(code:String,
+                                        valueHandler: @escaping (IntendedOrderHome) -> Void,
+                                        completionHandler: @escaping CompletionHandler) {
+        if !NetworkStatus.isReacheable {
+            return
+        }
+        ProgressHUD.animate()
+        let param = ["code": code] as [String : Any]
+        let url = SuperStringUtil.netUrl(API_BOB_URL + IntendedOrderHomePage, param)
+        Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
+            ProgressHUD.dismiss()
+            
+            if let data = dataRequest.data {
+                let strData = String.init(data: data, encoding: String.Encoding.utf8)
+                print(strData!)
+                if let res = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellResponse<IntendedOrderHome>.self) {
+
+                    if res.code == 20000  {
+                        valueHandler(res.data)
+                    } else {
+                        completionHandler(res.code, res.message)
+                    }
+                } else {
+                    completionHandler(-1, "failure")
+                }
+            } else {
+                completionHandler(-1, "failure")
+            }
+        }
+        
+    }
+    static func IntendedBuyRequest(code:String,
+                                   amount:String,
+                                   payment:String,
+                                   quantity:String,
+                                   exchangeRate:String,
+                                   type:Int,
+                                   completionHandler: @escaping CompletionHandler) {
+        if !NetworkStatus.isReacheable {
+            return
+        }
+        ProgressHUD.animate()
+        let param = ["code": code,"amount":amount,"payment":payment,"quantity":quantity,"exchangeRate":exchangeRate,"type":type] as [String : Any]
+        var url = SuperStringUtil.netUrl(API_BOB_URL + IntendedBuy, param)
+        Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
+            ProgressHUD.dismiss()
+            if let data = dataRequest.data {
+                let strData = String.init(data: data, encoding: String.Encoding.utf8)
+                print(strData!)
+                if let res = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellNODataResponse.self) {
+                    completionHandler(res.code, res.message)
+                } else {
+                    completionHandler(-1, "failure")
+                }
+            } else {
+                completionHandler(-1, "failure")
+            }
+        }
+        
+    }
+    static func IntendedSellRequest(code:String,
+                                   amount:String,
+                                   currencyWallet:String,
+                                   payment:String,
+                                   quantity:String,
+                                   exchangeRate:String,
+                                   paymentId:String,
+                                   type:Int,
+                                   pwd:String,
+                                   completionHandler: @escaping CompletionHandler) {
+        if !NetworkStatus.isReacheable {
+            return
+        }
+        ProgressHUD.animate()
+        let timestamp = String(Int(Date().timeIntervalSince1970 * 1000))
+        let passWord = (IMController.shared.payPassWordSonKey + pwd).md5
+        let sign = (code + amount + currencyWallet + payment + quantity + exchangeRate + paymentId + timestamp + String(type) + passWord).md5
+
+        let param = ["code": code,"amount":amount,"currencyWallet":currencyWallet,"payment":payment,"quantity":quantity,"exchangeRate":exchangeRate,"paymentId":paymentId,"timestamp":timestamp,"type":type,"sign":sign] as [String : Any]
+        var url = SuperStringUtil.netUrl(API_BOB_URL + IntendedSell, param)
+        Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
+            ProgressHUD.dismiss()
+            if let data = dataRequest.data {
+                let strData = String.init(data: data, encoding: String.Encoding.utf8)
+                print(strData!)
+                if let res = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellNODataResponse.self) {
+                    completionHandler(res.code, res.message)
+                } else {
+                    completionHandler(-1, "failure")
+                }
+            } else {
+                completionHandler(-1, "failure")
+            }
+        }
+        
+    }
 }
 class BoBBuyAndSellResponse<T: Decodable>: Decodable {
     var data: T
@@ -383,5 +515,24 @@ class BoBMineAdList: Decodable {
     var code:String?//广告编号
     var icon:String? //货币图标
     var advertisingState:Int?//1:上架中 2:已下架
+}
+class IntendedOrderHome: Decodable {
+    var icon:String? //货币图标
+    var price:Double? //单价
+    var quotaMin:Double?//最小限额
+    var quotaMax:Double?//最大限
+    var advertisingCurrency:String? //币种
+    var advertisingType:Int? //广告类型1:出售 2:购买 3:兑换
+    var transactionMode:String? //交易方式1:银行卡 2:支付宝 3:微信
+    var timeOfPayment:Int?//付款时限(单位分钟)
+    var completed:Int? //已完成次数
+    var order30:Int? //30天的成单数
+    var transactionRates30:Double? //30天的成单率
+    var creationDays:Int? //账户已创建
+    var firstTradingTime:Int? //首次交易至今
+    var counterparty:Int? //交易对手
+    var assemblyNumber:Int? //总成单数
+    var buy:Int? // 买入
+    var sell:Int? // 卖出
 }
 

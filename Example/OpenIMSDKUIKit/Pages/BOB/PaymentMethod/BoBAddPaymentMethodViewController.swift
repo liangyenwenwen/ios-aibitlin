@@ -59,6 +59,25 @@ class BoBAddPaymentMethodViewController:UIViewController{
                 make.height.equalTo(48)
                 make.top.equalTo(bankView.snp_bottom).offset(20)
             }
+            if paymentType == 1{
+                aliBtn.border(.init(hexString: "#277FE6"),borderWidth: 1,cornerRadius: 8)
+                aliBtn.selectStatusImageView.show()
+                bankBtn.border(.init(hexString: "#D6DEE6"),borderWidth: 1,cornerRadius: 8)
+                bankBtn.selectStatusImageView.hide()
+                weixinBtn.border(.init(hexString: "#D6DEE6"),borderWidth: 1,cornerRadius: 8)
+                weixinBtn.selectStatusImageView.hide()
+                bankView.hide()
+                aliView.show()
+            }else if paymentType == 2{
+                weixinBtn.border(.init(hexString: "#277FE6"),borderWidth: 1,cornerRadius: 8)
+                weixinBtn.selectStatusImageView.show()
+                bankBtn.border(.init(hexString: "#D6DEE6"),borderWidth: 1,cornerRadius: 8)
+                bankBtn.selectStatusImageView.hide()
+                aliBtn.border(.init(hexString: "#D6DEE6"),borderWidth: 1,cornerRadius: 8)
+                aliBtn.selectStatusImageView.hide()
+                bankView.hide()
+                wxView.show()
+            }
         }else{
             if let res = JsonTool.fromJson((paymentDetail?.stringValue)!, toClass: paymentDdetailData.self) {
                 if paymentDetail?.type == "bank"{
