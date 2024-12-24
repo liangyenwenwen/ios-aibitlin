@@ -469,6 +469,17 @@ class BoBBuyAndSellCionSubDetailViewController: BaseTitleController {
                 self?.present(alert, animated: true, completion: nil)
             }else{
                 let vc = BoBAddPaymentMethodViewController()
+                if self?.isSupportBank == true{
+                    vc.paymentType = 0
+                }else{
+                    if self?.isSupportAli == true{
+                        vc.paymentType = 1
+                    }else{
+                        if self?.isSupportWeixin == true{
+                            vc.paymentType = 2
+                        }
+                    }
+                }
                 vc.name = self?.homeData?.userBankAndWeiXinAndZFBPO?.name
                 self?.navigationController?.pushViewController(vc, animated: true)
             }

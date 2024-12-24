@@ -119,6 +119,9 @@
 		0413A27DFF382B1B45DFA4E8337AC93C /* OIMDefine.h in Headers */ = {isa = PBXBuildFile; fileRef = EB3A60EFDBB3697095BC6AF561F4BB05 /* OIMDefine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		043732665F9B4041C26A8C88F4CE86E2 /* QMUIKeyboardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E5CFB1DB86C65767EE978FB3AECDF29 /* QMUIKeyboardManager.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		0438E60B15C9D408BCECE49D09A38193 /* AvatarHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A13C591223C436F4081CCA5688839AD /* AvatarHelper.swift */; };
+		0439CD072D19519300379537 /* ChatOrderSystemMessgae.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439CD062D19519300379537 /* ChatOrderSystemMessgae.swift */; };
+		0439CD0A2D19548A00379537 /* BoBCustomNav.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439CD092D19548A00379537 /* BoBCustomNav.swift */; };
+		0439CD0C2D1954A000379537 /* OrderSystemMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439CD0B2D1954A000379537 /* OrderSystemMessageCell.swift */; };
 		043C12E812A5A5B8070F14393C1C4CE9 /* VideoParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BD12C70B877460F9D0E78258845570 /* VideoParameters.swift */; };
 		044173D7367E4C51DBB3B3949C38A565 /* MomentLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB12B60173E9DCC66069899310814AA /* MomentLabel.swift */; };
 		04704E0763387E69AD468FD987820D0E /* RxTabBarDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626673FF6A0CB9792D8277CC631CE1F7 /* RxTabBarDelegateProxy.swift */; };
@@ -4528,6 +4531,9 @@
 		0408A84E886FCF5E5C3A759A47A08F19 /* ZFUtilities.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZFUtilities.h; path = ZFPlayer/Classes/ControlView/ZFUtilities.h; sourceTree = "<group>"; };
 		041D6FD57840A213DC40E55698E175D6 /* TypingIndicator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TypingIndicator.swift; sourceTree = "<group>"; };
 		04297925DA2FD60F1BA506898E9B4664 /* UIView+IQKeyboardToolbarObjc.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIView+IQKeyboardToolbarObjc.swift"; path = "IQKeyboardManagerSwift/IQKeyboardToolbar/IQKeyboardExtension/UIView+IQKeyboardToolbarObjc.swift"; sourceTree = "<group>"; };
+		0439CD062D19519300379537 /* ChatOrderSystemMessgae.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatOrderSystemMessgae.swift; sourceTree = "<group>"; };
+		0439CD092D19548A00379537 /* BoBCustomNav.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBCustomNav.swift; sourceTree = "<group>"; };
+		0439CD0B2D1954A000379537 /* OrderSystemMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderSystemMessageCell.swift; sourceTree = "<group>"; };
 		04410A3C58D15B90D9FE2B2E79BB77CF /* MathUtils.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MathUtils.swift; path = Sources/SwiftProtobuf/MathUtils.swift; sourceTree = "<group>"; };
 		0442FF1EB06CFFD229BD8EBDFA0AA537 /* ZFPlayer.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = ZFPlayer.modulemap; sourceTree = "<group>"; };
 		045D08D236C955AE6903470A94FFF016 /* IGListIndexPathResultInternal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IGListIndexPathResultInternal.h; path = Source/IGListDiffKit/Internal/IGListIndexPathResultInternal.h; sourceTree = "<group>"; };
@@ -9071,6 +9077,15 @@
 			path = RxSwift;
 			sourceTree = "<group>";
 		};
+		0439CD082D19545C00379537 /* OrderSystemMessage */ = {
+			isa = PBXGroup;
+			children = (
+				0439CD092D19548A00379537 /* BoBCustomNav.swift */,
+				0439CD0B2D1954A000379537 /* OrderSystemMessageCell.swift */,
+			);
+			path = OrderSystemMessage;
+			sourceTree = "<group>";
+		};
 		04650C97CDFF2FB88D395D096FEFFBEF /* QMUIImagePickerLibrary */ = {
 			isa = PBXGroup;
 			children = (
@@ -10588,6 +10603,7 @@
 				ECFBC68FCD787CE95733C3BC483F9544 /* ChatViewControllerBuilder.swift */,
 				B20C69A68FDC84DD9E47CE823CF92194 /* LocationViewController.swift */,
 				A92CB9FB5072938CBE2422326652B823 /* MentionViewController.swift */,
+				0439CD062D19519300379537 /* ChatOrderSystemMessgae.swift */,
 				99A4F6ED0D600D0FA38437E5733151C5 /* Controller */,
 				036C1E35CC30DCFBD97D043660856E83 /* File */,
 				404D39835F316B90D0242F56C4B69D9B /* ForwardList */,
@@ -12655,6 +12671,7 @@
 		87369EEF5D0107E148E04349AF53FDE5 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				0439CD082D19545C00379537 /* OrderSystemMessage */,
 				D2BF6D77696BDD6317AB1567E5BDEB22 /* CellBaseView.swift */,
 				09CB763433DDAE9472C12CF7DE648C34 /* AudioView */,
 				E26D5287AAAF1E177063FA013A0D454D /* AvatarView */,
@@ -21736,6 +21753,7 @@
 				BFCB62944BF955D2B40AFC5C0D053BDD /* MemberListViewModel.swift in Sources */,
 				A9AE868D549F6EC436C89234F2877F94 /* MemoryDataCache.swift in Sources */,
 				CB2BC5ADAC6074A5D644B986E94904DD /* MentionViewController.swift in Sources */,
+				0439CD0A2D19548A00379537 /* BoBCustomNav.swift in Sources */,
 				1D65A10B52A3C94DDE1F274F8DF8A20D /* MergeController.swift in Sources */,
 				330796C574E369F33A8A4A1CF36A7753 /* MergeView.swift in Sources */,
 				FD6DB1758E3FDCFDE1E1A6B038ABDC34 /* Message.swift in Sources */,
@@ -21752,6 +21770,7 @@
 				B1A3C07D4FCDDE3681E5366FDC00106C /* NoticeView.swift in Sources */,
 				3A697469DB7273F193FBAFE15175879F /* NoticeViewController.swift in Sources */,
 				84935F932EB9BDECA6F93179EEA7A642 /* OANoticeView.swift in Sources */,
+				0439CD072D19519300379537 /* ChatOrderSystemMessgae.swift in Sources */,
 				6C05B6A65F8DB92568CFBCAD2AC3EC93 /* OANoticeViewController.swift in Sources */,
 				C382140E86D65C36E44E541B219C92ED /* OUIIM-dummy.m in Sources */,
 				FAA553A45781A1F5CA9975822256013C /* PermissionsHelper.swift in Sources */,
@@ -21765,6 +21784,7 @@
 				29D9A876829ABDD215A3153C41C53872 /* ReplyViewController.swift in Sources */,
 				7E025CF3EB01A0811D532AD6C77B8F1C /* RevokedMessageStorage.swift in Sources */,
 				C6CB80262EA4B7946ABA661C6F64CCE6 /* ScanViewController.swift in Sources */,
+				0439CD0C2D1954A000379537 /* OrderSystemMessageCell.swift in Sources */,
 				27968FCD4895150F27AB6DD8A1F74F76 /* SearchContainerViewController.swift in Sources */,
 				D9E4662881F368BAA781A462F0D23473 /* SearchFriendIndexViewController.swift in Sources */,
 				BDA9213BBA74096B35A654CECADF8EA1 /* SearchFriendViewController.swift in Sources */,

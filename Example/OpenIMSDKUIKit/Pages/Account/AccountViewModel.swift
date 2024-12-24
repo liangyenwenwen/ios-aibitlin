@@ -71,7 +71,7 @@ open class AccountViewModel {
     private let _disposeBag = DisposeBag()
     static func getHttpHeader() -> HTTPHeaders{
         let httpHeaders : HTTPHeaders = [
-            "token":UserDefaults.standard.string(forKey: "bussinessTokenKey")!,
+            "token":IMController.shared.chatToken,
             "X-Forwarded-For":IMController.shared.publicIP,
             "Authorization":"eyJ1c2VySW5mbyI6InVzZXJCbG9nWWFuWmhlbmdUb2tlbiJ9",
             "Content-Type":"application/json",
@@ -437,7 +437,7 @@ open class AccountViewModel {
         }
         var req = try! URLRequest(url: API_BASE_URL + changePasswordTypeAPI, method: .post)
         req.httpBody = body
-        req.addValue(UserDefaults.standard.string(forKey: bussinessTokenKey)!, forHTTPHeaderField: "token")
+        req.addValue(IMController.shared.chatToken, forHTTPHeaderField: "token")
         //        req.addValue(UUID().uuidString, forHTTPHeaderField: "operationID")
         req.addValue(String(Int(Date().timeIntervalSince1970)), forHTTPHeaderField: "operationID")
         req.addValue(String.getCurrentLanguageHeader(), forHTTPHeaderField: "language")
@@ -495,7 +495,7 @@ open class AccountViewModel {
         
         var req = try! URLRequest(url: API_BASE_URL + UpdateUserInfoAPI, method: .post)
         req.httpBody = body
-        req.addValue(UserDefaults.standard.string(forKey: bussinessTokenKey)!, forHTTPHeaderField: "token")
+        req.addValue(IMController.shared.chatToken, forHTTPHeaderField: "token")
         //        req.addValue(UUID().uuidString, forHTTPHeaderField: "operationID")
         req.addValue(String(Int(Date().timeIntervalSince1970)), forHTTPHeaderField: "operationID")
         req.addValue(String.getCurrentLanguageHeader(), forHTTPHeaderField: "language")
@@ -533,7 +533,7 @@ open class AccountViewModel {
         
         var req = try! URLRequest(url: API_BASE_URL + QueryUserInfoAPI, method: .post)
         req.httpBody = body
-        req.addValue(UserDefaults.standard.string(forKey: bussinessTokenKey)!, forHTTPHeaderField: "token")
+        req.addValue(IMController.shared.chatToken, forHTTPHeaderField: "token")
         //        req.addValue(UUID().uuidString, forHTTPHeaderField: "operationID")
         req.addValue(String(Int(Date().timeIntervalSince1970)), forHTTPHeaderField: "operationID")
         
@@ -569,7 +569,7 @@ open class AccountViewModel {
         
         var req = try! URLRequest(url: API_BASE_URL + SearchUserFullInfoAPI, method: .post)
         req.httpBody = body
-        req.addValue(UserDefaults.standard.string(forKey: bussinessTokenKey)!, forHTTPHeaderField: "token")
+        req.addValue(IMController.shared.chatToken, forHTTPHeaderField: "token")
         //        req.addValue(UUID().uuidString, forHTTPHeaderField: "operationID")
         req.addValue(String(Int(Date().timeIntervalSince1970)), forHTTPHeaderField: "operationID")
         req.addValue(String.getCurrentLanguageHeader(), forHTTPHeaderField: "language")
@@ -612,6 +612,7 @@ open class AccountViewModel {
     }
     
     static func saveUser(uid: String?, imToken: String?, chatToken: String?) {
+        IMController.shared.chatToken = chatToken ?? ""
         UserDefaults.standard.set(uid, forKey: IMUidKey)
         UserDefaults.standard.set(imToken, forKey: IMTokenKey)
         UserDefaults.standard.set(chatToken, forKey: bussinessTokenKey)

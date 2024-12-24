@@ -29,7 +29,8 @@ class BoBBuyAndSellCionMainViewController: BaseTitleController {
         super.initViews()
         view.backgroundColor = .colorBackgroundAPP
         initLinearLayoutSafeArea()
-        container.tg_padding = UIEdgeInsets(top: PADDING_OUTER, left: PADDING_OUTER, bottom: PADDING_OUTER, right: PADDING_OUTER)
+        container.tg_padding = UIEdgeInsets(top: PADDING_OUTER, left: PADDING_OUTER, bottom: 0, right: PADDING_OUTER)
+        superFooterContainerContainer.tg_bottom.equal(0)
         let totalItemWidth: CGFloat = 175
         let titles = ["快捷区", "自选区"]
         //segmentedViewDataSource一定要通过属性强持有！！！！！！！！！

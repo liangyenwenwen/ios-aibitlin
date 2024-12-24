@@ -123,7 +123,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 //        print(YFNetworkUtils.getIPAddress())
 //        print(YFNetworkUtils.getIPAddress2())
         IMController.shared.publicIP = UserDefaults.standard.string(forKey: "publicIP") ?? "60.177.29.150"
-        
+        IMController.shared.chatToken = UserDefaults.standard.string(forKey:"bussinessTokenKey") ?? ""
         YFNetworkUtils.getPublicIP { ip in
             if let ip = ip{
                 IMController.shared.publicIP = ip

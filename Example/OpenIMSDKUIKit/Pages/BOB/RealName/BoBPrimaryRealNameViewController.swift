@@ -239,6 +239,7 @@ class BoBPrimaryRealNameViewController:UIViewController{
                     if errCode == 20000{
                         SuperToast.show(title: "认证成功")
                         IMController.shared.certificationLevel = 1
+                        NotificationCenter.default.post(name: Notification.Name("addPaymentSuccess"), object: nil)
                         if (self.navigationController?.viewControllers.count)! > 2{
                             let vc = self.navigationController?.viewControllers[(self.navigationController?.viewControllers.count)!-3]
                             self.navigationController?.popToViewController(vc!, animated: true)

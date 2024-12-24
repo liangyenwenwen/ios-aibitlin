@@ -31,7 +31,7 @@ open class BoBRealNameModel {
 //    ]
     static func getHttpHeader() -> HTTPHeaders{
         let httpHeaders : HTTPHeaders = [
-            "token":UserDefaults.standard.string(forKey: "bussinessTokenKey")!,
+            "token":IMController.shared.chatToken,
             "X-Forwarded-For":IMController.shared.publicIP,
             "Authorization":"eyJ1c2VySW5mbyI6InVzZXJCbG9nWWFuWmhlbmdUb2tlbiJ9",
             "Content-Type":"application/json",
@@ -41,7 +41,7 @@ open class BoBRealNameModel {
     }
     //更改语言
     static func AddUserLanguageRequest(uid: String) {
-        let param = ["userLanguage":String.getCurrentLanguageFirst(), "userToken":UserDefaults.standard.string(forKey: "bussinessTokenKey")!]
+        let param = ["userLanguage":String.getCurrentLanguageFirst(), "userToken":IMController.shared.chatToken]
         let url = SuperStringUtil.netUrl(API_BOB_URL + AddUserLanguageToken, param)
         
         Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in

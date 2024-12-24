@@ -37,7 +37,7 @@ class BoBBuyAndSellCionModel {
 
     static func getHttpHeader() -> HTTPHeaders{
         let httpHeaders : HTTPHeaders = [
-            "token":UserDefaults.standard.string(forKey: "bussinessTokenKey")!,
+            "token":IMController.shared.chatToken,
             "X-Forwarded-For":IMController.shared.publicIP,
             "Authorization":"eyJ1c2VySW5mbyI6InVzZXJCbG9nWWFuWmhlbmdUb2tlbiJ9",
             "Content-Type":"application/json",

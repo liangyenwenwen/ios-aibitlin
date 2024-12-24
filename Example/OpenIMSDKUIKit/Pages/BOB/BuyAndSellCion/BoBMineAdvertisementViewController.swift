@@ -27,6 +27,7 @@ class BoBMineAdvertisementViewController:BaseTitleController {
         title = "我的广告"
         addRightTextButton("创建广告", color: .primaryColor)
         container.addSubview(headView)
+        superFooterContainerContainer.tg_bottom.equal(0)
         headView.snp_makeConstraints { make in
             make.left.right.top.equalTo(0)
             make.height.equalTo(78)

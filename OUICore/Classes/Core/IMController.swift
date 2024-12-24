@@ -185,6 +185,7 @@ public class IMController: NSObject {
     public var certificationLevel = 0 //用户实名认证等级 0:未认证 1:初级认证 2:高级认证
     public var uid: String = ""
     public var token: String = ""
+    public var chatToken:String = ""
     // 查询在线状态等使用
     public var sdkAPIAdrr = ""
     // 业务层查询组织架构等使用

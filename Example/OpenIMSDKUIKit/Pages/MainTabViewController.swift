@@ -268,6 +268,7 @@ class MainTabViewController: UITabBarController {
         IMController.shared.certificationLevel = 0
         IMController.shared.isSetPayPassWord = false
         IMController.shared.payPassWordSonKey = ""
+        IMController.shared.chatToken = ""
         AccountViewModel.saveUser(uid: nil, imToken: nil, chatToken: nil)
         presentLoginController()
     }
@@ -283,6 +284,7 @@ class MainTabViewController: UITabBarController {
         IMController.shared.certificationLevel = 0
         IMController.shared.isSetPayPassWord = false
         IMController.shared.payPassWordSonKey = ""
+        IMController.shared.chatToken = ""
         AccountViewModel.saveUser(uid: nil, imToken: nil, chatToken: nil)
         presentLoginController()
     }
