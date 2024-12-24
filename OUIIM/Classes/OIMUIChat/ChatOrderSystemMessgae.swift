@@ -147,10 +147,6 @@ class ChatOrderSystemMessgae:UIViewController{
         tableView.reloadData()
         NSLog("======%@", listArray)
     }
-//    IMController.shared.imManager.markMessageAsRead(byMsgID: <#T##String#>, clientMsgIDs: <#T##[String]#>) { <#String?#> in
-//        
-//    }
-    
 }
 extension ChatOrderSystemMessgae: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -172,6 +168,19 @@ extension ChatOrderSystemMessgae: UITableViewDataSource, UITableViewDelegate {
         let model1 = model.subArray[row]
         cell.moreMessageBlock = {[weak self] in
             model.isOpen = !model.isOpen!
+            if model.unReadCount ?? 0 > 0{
+                model.unReadCount = 0
+                var array:[String] = []
+                for item in model.subArray {
+                    if item.isRead == true{
+                        array.append(item.msgID ?? "")
+                        item.isRead = false
+                    }
+                }
+                IMController.shared.imManager.markMessageAsRead(byMsgID: self?.conversationID ?? "", clientMsgIDs: array) { str in
+            
+                }
+            }
             self?.tableView.reloadSections(IndexSet(integer: indexPath.section), with: .fade)
         }
         cell.titleNameLabel.text = model1.notificationName
