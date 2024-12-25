@@ -172,9 +172,9 @@ extension ChatOrderSystemMessgae: UITableViewDataSource, UITableViewDelegate {
                 model.unReadCount = 0
                 var array:[String] = []
                 for item in model.subArray {
-                    if item.isRead == true{
+                    if item.isRead == false{
                         array.append(item.msgID ?? "")
-                        item.isRead = false
+                        item.isRead = true
                     }
                 }
                 IMController.shared.imManager.markMessageAsRead(byMsgID: self?.conversationID ?? "", clientMsgIDs: array) { str in
@@ -188,6 +188,11 @@ extension ChatOrderSystemMessgae: UITableViewDataSource, UITableViewDelegate {
         cell.timeLabel.text = model1.detail?.changeTime
         cell.icon.image = UIImage(named: model.isOpen == true ? "order_stytem_message_close_icon" : "order_stytem_message_open_icon")
         if row == 0{
+            if model1.isRead == false{
+                IMController.shared.imManager.markMessageAsRead(byMsgID: self.conversationID ?? "", clientMsgIDs: [model1.msgID ?? ""]) { str in
+            
+                }
+            }
             if model.isOpen == true{
                 cell.bottomView.isHidden = true
             }else{

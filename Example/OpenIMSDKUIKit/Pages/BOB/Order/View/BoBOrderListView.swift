@@ -11,6 +11,7 @@ import JXSegmentedView
 import OUICore
 
 class BoBOrderListView: UIView {
+    var currentVC:UIViewController?
     var tableView: UITableView!
     var page:Int = 1
     var listArray:[BoBMineAdList] = []
@@ -115,6 +116,10 @@ extension BoBOrderListView: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 160
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = BoBOrderDetailViewController()
+        self.currentVC?.navigationController?.pushViewController(vc, animated: true)
     }
 
 }

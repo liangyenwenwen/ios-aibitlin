@@ -3794,7 +3794,7 @@ struct _R: Sendable {
     var colorBackground: RswiftResources.ColorResource { .init(name: "ColorBackground", path: [], bundle: bundle) }
   }
 
-  /// This `_R.image` struct is generated, and contains static references to 307 images.
+  /// This `_R.image` struct is generated, and contains static references to 312 images.
   struct image {
     let bundle: Foundation.Bundle
 
@@ -4577,6 +4577,21 @@ struct _R: Sendable {
 
     /// Image `moments_icon`.
     var moments_icon: RswiftResources.ImageResource { .init(name: "moments_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `order_detail_qrcode_big_icon`.
+    var order_detail_qrcode_big_icon: RswiftResources.ImageResource { .init(name: "order_detail_qrcode_big_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `order_detail_show_voucher_close_icon`.
+    var order_detail_show_voucher_close_icon: RswiftResources.ImageResource { .init(name: "order_detail_show_voucher_close_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `order_detail_upload_voucher_icon`.
+    var order_detail_upload_voucher_icon: RswiftResources.ImageResource { .init(name: "order_detail_upload_voucher_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `order_detail_voucher_example_weixin_icon`.
+    var order_detail_voucher_example_weixin_icon: RswiftResources.ImageResource { .init(name: "order_detail_voucher_example_weixin_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `order_detail_voucher_example_zhifubao_icon`.
+    var order_detail_voucher_example_zhifubao_icon: RswiftResources.ImageResource { .init(name: "order_detail_voucher_example_zhifubao_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
     /// Image `order_stytem_message_close_icon`.
     var order_stytem_message_close_icon: RswiftResources.ImageResource { .init(name: "order_stytem_message_close_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }

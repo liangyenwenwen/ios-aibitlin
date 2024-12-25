@@ -78,6 +78,8 @@ extension BoBOrderListSubViewController: JXSegmentedListContainerViewDataSource 
     }
 
     func listContainerView(_ listContainerView: JXSegmentedListContainerView, initListAt index: Int) -> JXSegmentedListContainerViewListDelegate {
-        return BoBOrderListView()
+        let vc = BoBOrderListView()
+        vc.currentVC = self
+        return vc
     }
 }

@@ -63,6 +63,10 @@
 		040D860C2BEB8C4200DCAAB3 /* SuperUIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040D86012BEB8C4200DCAAB3 /* SuperUIImageExtension.swift */; };
 		040D860D2BEB8C4200DCAAB3 /* SuperUIStringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040D86022BEB8C4200DCAAB3 /* SuperUIStringExtension.swift */; };
 		040D860E2BEB8C4200DCAAB3 /* SuperUIColorExtensionswift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040D86032BEB8C4200DCAAB3 /* SuperUIColorExtensionswift.swift */; };
+		040E00AE2D1AA8DB002EB7AE /* BoBOrderDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040E00AD2D1AA8DB002EB7AE /* BoBOrderDetailViewController.swift */; };
+		040E00B02D1BD9CE002EB7AE /* BoBOrderDetailPaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040E00AF2D1BD9CE002EB7AE /* BoBOrderDetailPaymentView.swift */; };
+		040E00B22D1BF5A6002EB7AE /* BoBUploadVoucherAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040E00B12D1BF5A6002EB7AE /* BoBUploadVoucherAlertView.swift */; };
+		040E00B42D1C0371002EB7AE /* BoBShowVoucherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040E00B32D1C0371002EB7AE /* BoBShowVoucherView.swift */; };
 		0411DD272C05CCB800EDD135 /* SuperDialogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0411DD262C05CCB800EDD135 /* SuperDialogController.swift */; };
 		0411DD282C05CE3C00EDD135 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0411DD2A2C05CE3C00EDD135 /* InfoPlist.strings */; };
 		0418B5792BF1E79F00108808 /* YFFeedbackVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0418B5782BF1E79F00108808 /* YFFeedbackVC.swift */; };
@@ -337,6 +341,10 @@
 		040D86012BEB8C4200DCAAB3 /* SuperUIImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuperUIImageExtension.swift; sourceTree = "<group>"; };
 		040D86022BEB8C4200DCAAB3 /* SuperUIStringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuperUIStringExtension.swift; sourceTree = "<group>"; };
 		040D86032BEB8C4200DCAAB3 /* SuperUIColorExtensionswift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuperUIColorExtensionswift.swift; sourceTree = "<group>"; };
+		040E00AD2D1AA8DB002EB7AE /* BoBOrderDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBOrderDetailViewController.swift; sourceTree = "<group>"; };
+		040E00AF2D1BD9CE002EB7AE /* BoBOrderDetailPaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBOrderDetailPaymentView.swift; sourceTree = "<group>"; };
+		040E00B12D1BF5A6002EB7AE /* BoBUploadVoucherAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBUploadVoucherAlertView.swift; sourceTree = "<group>"; };
+		040E00B32D1C0371002EB7AE /* BoBShowVoucherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBShowVoucherView.swift; sourceTree = "<group>"; };
 		0411DD262C05CCB800EDD135 /* SuperDialogController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuperDialogController.swift; sourceTree = "<group>"; };
 		0411DD292C05CE3C00EDD135 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0411DD2B2C05CE3E00EDD135 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
@@ -1373,6 +1381,7 @@
 				04EFEA6C2CED7B0D004441CB /* View */,
 				04EFEA432CECB5E9004441CB /* BoBOrderListMainViewController.swift */,
 				04EFEA682CECBDE3004441CB /* BoBOrderListSubViewController.swift */,
+				040E00AD2D1AA8DB002EB7AE /* BoBOrderDetailViewController.swift */,
 			);
 			path = Order;
 			sourceTree = "<group>";
@@ -1400,6 +1409,9 @@
 			children = (
 				04EFEA662CECBCB7004441CB /* BoBOrderListView.swift */,
 				04EFEA6A2CECBE7B004441CB /* BoBOrderListCell.swift */,
+				040E00AF2D1BD9CE002EB7AE /* BoBOrderDetailPaymentView.swift */,
+				040E00B12D1BF5A6002EB7AE /* BoBUploadVoucherAlertView.swift */,
+				040E00B32D1C0371002EB7AE /* BoBShowVoucherView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2393,6 +2405,7 @@
 				040D85C52BEB8B0400DCAAB3 /* SuperStringUtil.swift in Sources */,
 				04052E212CF41AF600A7A554 /* BoBPaymentMethodListViewController.swift in Sources */,
 				0445C9392CFEF0AF00D1FD34 /* BoBSendRedPacketViewController.swift in Sources */,
+				040E00B22D1BF5A6002EB7AE /* BoBUploadVoucherAlertView.swift in Sources */,
 				0439CCEA2D09BC6E00379537 /* BoBFreeBuyAndSellCell.swift in Sources */,
 				04F2D0872BEE21CA00D5271B /* MineDeleteAccountChooseWayVC.swift in Sources */,
 				04ECEC5F2CBD1DC10005495F /* RunTimeAbout.swift in Sources */,
@@ -2444,9 +2457,11 @@
 				170E4B2329344C5D007A6535 /* DiscoveryViewController.swift in Sources */,
 				040D85C12BEB8B0400DCAAB3 /* DefaultPreferenceUtil.swift in Sources */,
 				040D85AE2BEB899900DCAAB3 /* DefalutRepository.swift in Sources */,
+				040E00B02D1BD9CE002EB7AE /* BoBOrderDetailPaymentView.swift in Sources */,
 				049C643E2BEC619300B679C4 /* YFLoginVC.swift in Sources */,
 				04484ED92CF7552C00893E4C /* BoBShareReceivePaymentQrCodeViewController.swift in Sources */,
 				040D85EF2BEB8C0B00DCAAB3 /* BaseCommentController.swift in Sources */,
+				040E00B42D1C0371002EB7AE /* BoBShowVoucherView.swift in Sources */,
 				04F2D0902BEE21CA00D5271B /* UserMessageHeaderView.swift in Sources */,
 				04F1FCEF2CB67E5000080742 /* YFMineQRCodeVC.swift in Sources */,
 				0445C9902D0339D700D1FD34 /* BoBReceiveTransferAccountsDetailViewController.swift in Sources */,
@@ -2457,6 +2472,7 @@
 				049D30252CC2032800649DC4 /* YFNotNetTopTipView.swift in Sources */,
 				1790EE742921EAFC00C4024A /* MineViewController.swift in Sources */,
 				0445C98C2D030EC300D1FD34 /* BoBReceiveRedPacketCell.swift in Sources */,
+				040E00AE2D1AA8DB002EB7AE /* BoBOrderDetailViewController.swift in Sources */,
 				04EFEA712CED7F1C004441CB /* BoBRealNameMainViewController.swift in Sources */,
 				040D860D2BEB8C4200DCAAB3 /* SuperUIStringExtension.swift in Sources */,
 				0439CCE62D0989A200379537 /* BoBCreatAdWarnAlertView.swift in Sources */,
