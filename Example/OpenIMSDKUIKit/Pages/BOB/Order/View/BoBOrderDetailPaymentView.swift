@@ -13,6 +13,7 @@ class BoBOrderDetailPaymentView: TGLinearLayout {
     var chooseRedPacketTypeBlock:((_ typeTitle:String,_ typeIndex:Int)->())!
     var paymentDetail:paymentDdetailData?
     var currentVC:UIViewController?
+    var type:Int = 1
     init() {
         super.init(frame: .zero, orientation: .vert)
         innerInit()
@@ -41,6 +42,7 @@ class BoBOrderDetailPaymentView: TGLinearLayout {
     }
     func bindData(type:Int,data:paymentDdetailData){
         paymentDetail = data
+        self.type = type
         if type == 1{
             addSubview(bankView)
             bankIcon.sd_setImage(with: URL(string: data.icon ?? ""))
@@ -55,17 +57,19 @@ class BoBOrderDetailPaymentView: TGLinearLayout {
             aliPayView.numberView.buyCounLabel.attributedText = getAttribute(str: data.zfbCode ?? "")
         }else if type == 3{
             addSubview(weixinPayView)
-            aliPayView.payIcon.sd_setImage(with: URL(string: data.img ?? ""))
-            aliPayView.userNameView.buyCounLabel.attributedText = getAttribute(str: data.name ?? "")
-            aliPayView.userNickNameView.buyCounLabel.text = data.nickName
+            weixinPayView.payIcon.sd_setImage(with: URL(string: data.img ?? ""))
+            weixinPayView.userNameView.buyCounLabel.attributedText = getAttribute(str: data.name ?? "")
+            weixinPayView.userNickNameView.buyCounLabel.text = data.nickName
         }
     }
     func showQrCode(){
         let voucherView = BoBShowVoucherView()
         voucherView.tg_width.equal(300)
-        voucherView.tg_height.equal(713)
-        voucherView.voucherImageView.sd_setImage(with: URL(string: paymentDetail?.img))
-        GKCover.cover(from: self.currentVC?.view?.window, contentView: voucherView, style: .translucent, showStyle: .center, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
+        voucherView.tg_height.equal(.wrap)
+        voucherView.tg_centerY.equal(0)
+        voucherView.bindData(image:nil, url: paymentDetail?.img)
+//        voucherView.voucherImageView.sd_setImage(with: URL(string: paymentDetail?.img))
+        GKCover.cover(from: self.currentVC?.view?.window, contentView: voucherView, style: .translucent, showStyle: .center, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: true)
     }
     lazy var bankView: UIView = {
         let r = UIView()

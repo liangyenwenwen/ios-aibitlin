@@ -202,13 +202,10 @@ class BoBUploadVoucherAlertView: UIView {
         btn.rx.tap.subscribe(onNext: { [weak self] in
             let voucherView = BoBShowVoucherView()
             voucherView.tg_width.equal(300)
-            voucherView.tg_height.equal(713)
-            if self?.type == 2{
-                voucherView.voucherImageView.image = UIImage(named: "order_detail_voucher_example_zhifubao_icon")
-            }else{
-                voucherView.voucherImageView.image = UIImage(named: "order_detail_voucher_example_weixin_icon")
-            }
-            GKCover.cover(from: self?.currentVC?.view?.window, contentView: voucherView, style: .translucent, showStyle: .center, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
+            voucherView.tg_height.equal(.wrap)
+            voucherView.tg_centerY.equal(0)
+            voucherView.bindData(image: UIImage(named: self?.type == 2 ? "order_detail_voucher_example_zhifubao_icon" :"order_detail_voucher_example_weixin_icon"), url: nil)
+            GKCover.cover(from: self?.currentVC?.view?.window, contentView: voucherView, style: .translucent, showStyle: .center, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: true)
         }).disposed(by: rx.disposeBag)
         r.addSubview(btn)
         btn.snp_makeConstraints { make in

@@ -34,16 +34,32 @@ class BoBShowVoucherView: TGLinearLayout {
         addSubview(voucherImageView)
         addSubview(closeBtn)
     }
+    func bindData(image:UIImage?,url:String?){
+        if image != nil{
+            let width = image?.size.width ?? 300
+            let height = image?.size.height ?? 300
+            voucherImageView.tg_height.equal((300/width)*height)
+            voucherImageView.image = image
+        }else{
+            voucherImageView.sd_setImage(with: URL(string: url), placeholderImage: nil, options:.highPriority, completed: { [weak self](image, error, cacheType, url) in
+                if image != nil {
+                    let width = image!.size.width
+                    let height = image!.size.height
+                    self?.voucherImageView.tg_height.equal((300/width)*height)
+                }
+            })
+        }
+    }
     lazy var voucherImageView: UIImageView = {
         let r = UIImageView()
         r.tg_width.equal(300)
-        r.tg_height.equal(649)
-        r.isUserInteractionEnabled = true
-        let tap = UITapGestureRecognizer()
-        tap.rx.event.subscribe { [weak self] _ in
-            GKCover.hide()
-        }.disposed(by: rx.disposeBag)
-        r.addGestureRecognizer(tap)
+        r.tg_height.equal(.wrap)
+//        r.isUserInteractionEnabled = true
+//        let tap = UITapGestureRecognizer()
+//        tap.rx.event.subscribe { [weak self] _ in
+//            GKCover.hideWithoutAnimation()
+//        }.disposed(by: rx.disposeBag)
+//        r.addGestureRecognizer(tap)
         return r
     }()
     lazy var closeBtn: QMUIButton = {
@@ -53,7 +69,7 @@ class BoBShowVoucherView: TGLinearLayout {
         r.tg_height.equal(44)
         r.setImage(UIImage(named: "order_detail_show_voucher_close_icon"), for: .normal)
         r.rx.tap.subscribe(onNext: { [weak self] in
-            GKCover.hide()
+            GKCover.hideWithoutAnimation()
         }).disposed(by: rx.disposeBag)
         return r
     }()

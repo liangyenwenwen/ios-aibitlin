@@ -667,9 +667,10 @@ class BoBOrderDetailViewController: BaseTitleController {
         tap.rx.event.subscribe { [weak self] _ in
             let voucherView = BoBShowVoucherView()
             voucherView.tg_width.equal(300)
-            voucherView.tg_height.equal(713)
-            voucherView.voucherImageView.sd_setImage(with: URL(string: self?.orderDetail?.paymentCredentials))
-            GKCover.cover(from: self?.view?.window, contentView: voucherView, style: .translucent, showStyle: .center, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
+            voucherView.tg_height.equal(.wrap)
+            voucherView.tg_centerY.equal(0)
+            voucherView.bindData(image:nil, url: self?.orderDetail?.paymentCredentials)
+            GKCover.cover(from: self?.view?.window, contentView: voucherView, style: .translucent, showStyle: .center, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: true)
         }.disposed(by: rx.disposeBag)
         r.addGestureRecognizer(tap)
         return r
@@ -721,9 +722,11 @@ class BoBOrderDetailViewController: BaseTitleController {
         tap.rx.event.subscribe { [weak self] _ in
             let voucherView = BoBShowVoucherView()
             voucherView.tg_width.equal(300)
-            voucherView.tg_height.equal(713)
-            voucherView.voucherImageView.sd_setImage(with: URL(string: self?.orderDetail?.paymentCredentials))
-            GKCover.cover(from: self?.view?.window, contentView: voucherView, style: .translucent, showStyle: .center, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
+            voucherView.tg_height.equal(.wrap)
+            voucherView.tg_centerY.equal(0)
+            voucherView.bindData(image:nil, url: self?.orderDetail?.paymentCredentials)
+//            voucherView.voucherImageView.sd_setImage(with: URL(string: self?.orderDetail?.paymentCredentials))
+            GKCover.cover(from: self?.view?.window, contentView: voucherView, style: .translucent, showStyle: .center, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: true)
         }.disposed(by: rx.disposeBag)
         r.addGestureRecognizer(tap)
         return r
