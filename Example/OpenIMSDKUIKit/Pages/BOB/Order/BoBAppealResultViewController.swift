@@ -9,6 +9,9 @@
 import Foundation
 import TangramKit
 import OUICore
+import ZLPhotoBrowser
+import OUICoreView
+
 class BoBAppealResultViewController: BaseTitleController {
     var code:String = ""
     override func viewWillAppear(_ animated: Bool) {
@@ -86,6 +89,7 @@ class BoBAppealResultViewController: BaseTitleController {
         r.tg_width.equal(.fill)
         r.tg_height.equal(.wrap)
         r.hide()
+        r.currentVC = self
         return r
     }()
     lazy var sellAppealDetailView: BoBAppealResultView = {
@@ -94,12 +98,14 @@ class BoBAppealResultViewController: BaseTitleController {
         r.tg_width.equal(.fill)
         r.tg_height.equal(.wrap)
         r.hide()
+        r.currentVC = self
         return r
     }()
 }
 
 class BoBAppealResultView: TGLinearLayout {
-    
+    var imageArray:[String] = []
+    var currentVC:UIViewController?
     init() {
         super.init(frame: .zero, orientation: .vert)
         innerInit()
@@ -123,9 +129,9 @@ class BoBAppealResultView: TGLinearLayout {
     func bindData(buyOrSell:Int,data:BoBMineOrderAppealDetail?){
         appealDetailTitleLabel.text = buyOrSell == 1 ? "买方申诉详情" : "卖方申诉详情"
         appealDetailContentLabel.text = data?.representationDetails
-        let arr = data?.screenshot!.components(separatedBy:",") ?? []
+        imageArray = data?.screenshot!.components(separatedBy:",") ?? []
         let imageWidth = (UIScreen.main.bounds.width - 12 - 32) / 3
-        for (i,item) in arr.enumerated()  {
+        for (i,item) in imageArray.enumerated()  {
             let imageView = UIImageView()
             imageView.border(.init(hexString: "#CCCCCC"),borderWidth: 1,cornerRadius: 8)
             let left = Int(i % 3) * Int(imageWidth + 8)
@@ -135,9 +141,22 @@ class BoBAppealResultView: TGLinearLayout {
             imageView.tg_width.equal(imageWidth)
             imageView.tg_height.equal(imageWidth)
             imageView.sd_setImage(with: URL(string: item))
+            imageView.isUserInteractionEnabled = true
+            let tap = UITapGestureRecognizer()
+            tap.rx.event.subscribe { [weak self] _ in
+                self?.browserImages(i)
+            }.disposed(by: rx.disposeBag)
+            imageView.addGestureRecognizer(tap)
             picView.addSubview(imageView)
         }
         appealResultContentLabel.text = data?.resultPresentation
+    }
+    // 预览图片
+    func browserImages(_ index: Int) {
+        let sources = imageArray.map{ MediaResource(thumbUrl: URL(fileURLWithPath: $0), url: URL(fileURLWithPath: $0)) }
+        let vc = MediaPreviewViewController(resources: sources, index: index, showIndicator: true)
+        vc.isShowMore = false
+        vc.showIn(controller: currentVC!, senders: [])
     }
     lazy var appealDetailTitleLabel: UILabel = {
         let r = UILabel()

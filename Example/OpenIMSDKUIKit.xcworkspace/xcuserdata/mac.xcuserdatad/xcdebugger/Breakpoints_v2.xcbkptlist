@@ -34,36 +34,6 @@
             endingLineNumber = "44"
             landmarkName = "bindData(image:url:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "704E3F16-E8E5-4E86-A322-CF02CAA199BF - d4a6adab9ad5f175"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "IM_NCER.BoBShowVoucherView.bindData(image: Swift.Optional&lt;__C.UIImage&gt;, url: Swift.Optional&lt;Swift.String&gt;) -&gt; ()"
-                  moduleName = "IM-NCER"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/%E9%A1%B9%E7%9B%AE/Example/OpenIMSDKUIKit/Pages/BOB/Order/View/BoBShowVoucherView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "44"
-                  endingLineNumber = "44">
-               </Location>
-               <Location
-                  uuid = "704E3F16-E8E5-4E86-A322-CF02CAA199BF - 75733da51df0385d"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;__C.UIImage&gt;, Swift.Optional&lt;Swift.Error&gt;, __C.SDImageCacheType, Swift.Optional&lt;Foundation.URL&gt;) -&gt; () in IM_NCER.BoBShowVoucherView.bindData(image: Swift.Optional&lt;__C.UIImage&gt;, url: Swift.Optional&lt;Swift.String&gt;) -&gt; ()"
-                  moduleName = "IM-NCER"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/%E9%A1%B9%E7%9B%AE/Example/OpenIMSDKUIKit/Pages/BOB/Order/View/BoBShowVoucherView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "44"
-                  endingLineNumber = "44">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

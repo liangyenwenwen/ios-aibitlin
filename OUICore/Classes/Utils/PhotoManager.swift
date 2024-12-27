@@ -411,12 +411,12 @@ open class PhotoHelper {
                 request.addResource(with: .photo, data: imageData, options: nil)
             }
         }) { (success, error) in
+            ProgressHUD.dismiss()
             if success {
                 print("图片保存成功！")
                 if showToast {
                     DispatchQueue.main.async {
 //                        ProgressHUD.success("图片保存成功".innerLocalized())
-                        
                         if let handler = OIMApi.showTipHandle {
                                         
                             handler("图片保存成功".innerLocalized(), { res in

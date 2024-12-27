@@ -39,6 +39,7 @@ public class MediaPreviewViewController: UIViewController {
     
     private var showIndicator = false
     private let modalView = PreviewModalView()
+    public var isShowMore:Bool = true
     
     public init(resources: [MediaResource], index: Int = 0, showIndicator: Bool = false) {
         super.init(nibName: nil, bundle: nil)
@@ -131,6 +132,9 @@ public class MediaPreviewViewController: UIViewController {
                 }
                 lanternCell?.longPressedHandler = { [weak self, weak lanternCell] in
                     guard let self else { return }
+                    if isShowMore == false{
+                        return
+                    }
                     modalView.show()
                     modalView.onButtonAction = { type in
                         switch type {
@@ -168,6 +172,9 @@ public class MediaPreviewViewController: UIViewController {
                 }
                 lanternCell?.longPressedAction = { [weak self, weak lanternCell] (cell, state) in
                     guard let self, let image = cell.imageView.image else { return }
+                    if isShowMore == false{
+                        return
+                    }
                     modalView.show()
                     modalView.onButtonAction = { type in
                         switch type {

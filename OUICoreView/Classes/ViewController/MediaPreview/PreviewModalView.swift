@@ -110,7 +110,6 @@ public class PreviewModalView: UIView {
     private func setupUI() {
         backgroundColor = .black.withAlphaComponent(0.6)
         alpha = 0
-
         let buttonStackView1 = UIStackView(arrangedSubviews: [forwardButton, forwardLabel])
         buttonStackView1.axis = .vertical
         buttonStackView1.alignment = .center
