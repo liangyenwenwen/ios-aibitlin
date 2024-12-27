@@ -83,6 +83,7 @@ class BoBOrderChoosePaymentTypeView: UIView {
             make.bottom.equalTo(addBtn.snp_top).offset(-30)
         }
         NotificationCenter.default.addObserver(self, selector: #selector(addPaymentSuccess), name: Notification.Name("addPaymentSuccess"), object: nil)
+        loadData()
     }
     deinit {
         // 移除所有通知监听
@@ -215,8 +216,8 @@ class BoBOrderChoosePaymentTypeView: UIView {
     }()
     lazy var closeBtn: QMUIButton = {
         let r = ViewFactoryUtil.imageBtn(R.image.close_cirle_icon()!, 28)
-        r.rx.tap.subscribe(onNext: {
-            GKCover.hide()
+        r.rx.tap.subscribe(onNext: {[weak self] in
+            self?.hideMask()
         })
         .disposed(by: rx.disposeBag)
         return r
@@ -312,9 +313,9 @@ class BoBOrderChoosePaymentTypeView: UIView {
     }()
     lazy var addBtn: QMUIButton = {
         let r = ViewFactoryUtil.linkButton("添加")
-        r.corner(23)
         r.setTitleColor(.black666, for: .normal)
         r.titleLabel?.font = .mediumFont(16)
+        r.border(.black999,borderWidth: 1,cornerRadius: 23)
         r.rx.tap.subscribe(onNext: { [weak self] in
             let vc = BoBAddPaymentMethodViewController()
             vc.name = self?.paymentMethodData?.name
@@ -330,7 +331,6 @@ class BoBOrderChoosePaymentTypeView: UIView {
                 }
             }
             self?.currentVC?.navigationController?.pushViewController(vc, animated: true)
-            GKCover.hide()
         })
         .disposed(by: rx.disposeBag)
         return r
@@ -405,5 +405,6 @@ extension BoBOrderChoosePaymentTypeView: UITableViewDataSource, UITableViewDeleg
     
     public func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
         choosePaymentMethod = listArray[indexPath.row]
+        tableView.reloadData()
     }
 }

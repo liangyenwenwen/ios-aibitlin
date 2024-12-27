@@ -531,10 +531,20 @@ class BoBOrderDetailViewController: BaseTitleController {
         return v
     }()
     lazy var orderStatusLabel:  UILabel = {
-        let v = UILabel()
-        v.font = .regularFont(14)
-        v.textColor = .black666
-        return v
+        let r = UILabel()
+        r.font = .regularFont(14)
+        r.textColor = .black666
+        r.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer()
+        tap.rx.event.subscribe { [weak self] _ in
+            if self?.orderDetail?.orderStatus == 3 && self?.orderDetail?.buyOrSell == 1{
+                //跳到账单列表
+                let vc = BoBBillListViewController()
+                self?.navigationController?.pushViewController(vc, animated: true)
+            }
+        }.disposed(by: rx.disposeBag)
+        r.addGestureRecognizer(tap)
+        return r
     }()
     lazy var orderDetailTitleLabel: UILabel = {
         let r = UILabel()
@@ -829,6 +839,7 @@ class BoBOrderDetailViewController: BaseTitleController {
                 }
             }else{
                 let choosePaymentTypeView = BoBOrderChoosePaymentTypeView()
+                choosePaymentTypeView.currentVC = self
                 var isSupportBank = false
                 var isSupportAli = false
                 var isSupportWeixin = false
@@ -858,6 +869,9 @@ class BoBOrderDetailViewController: BaseTitleController {
         r.rx.tap.subscribe(onNext: { [weak self] in
             let vc = BoBSendAppealViewController()
             vc.code = self?.code ?? ""
+            vc.uploadAppealSuccessBlock = {[weak self] in
+                self?.loadData()
+            }
             self?.navigationController?.pushViewController(vc)
         }).disposed(by: rx.disposeBag)
         return r
@@ -908,6 +922,9 @@ class BoBOrderDetailViewController: BaseTitleController {
         r.rx.tap.subscribe(onNext: { [weak self] in
             let vc = BoBSendAppealViewController()
             vc.code = self?.code ?? ""
+            vc.uploadAppealSuccessBlock = {[weak self] in
+                self?.loadData()
+            }
             self?.navigationController?.pushViewController(vc)
         }).disposed(by: rx.disposeBag)
         return r

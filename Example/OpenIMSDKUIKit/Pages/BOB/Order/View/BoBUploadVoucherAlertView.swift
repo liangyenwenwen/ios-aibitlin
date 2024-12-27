@@ -146,6 +146,16 @@ class BoBUploadVoucherAlertView: UIView {
             }
         }
     }
+    func setupAttributedText(text: String, targetWords: [String], color: UIColor) -> NSAttributedString {
+        let attributedString = NSMutableAttributedString(string: text)
+        for word in targetWords {
+            if let range = text.range(of: word) {
+                let nsRange = NSRange(range, in: text)
+                attributedString.addAttribute(.foregroundColor, value: color, range: nsRange)
+            }
+        }
+        return NSAttributedString(attributedString: attributedString)
+    }
     lazy var contentView: UIView = {
         let r = UIView()
         r.corner(MEDDLE_RADIUS)
@@ -176,7 +186,8 @@ class BoBUploadVoucherAlertView: UIView {
         r.font = .regularFont(16)
         r.textColor = .black666
         r.numberOfLines = 0
-        r.text = "请您上传这笔交易完整的回执单，包含完整的图片、金额、姓名"
+        r.attributedText = setupAttributedText(text: "请您上传这笔交易完整的回执单，包含完整的图片、金额、姓名", targetWords: ["图片、金额、姓名"], color: .init(hexString: "#F32525"))
+//        r.text = "请您上传这笔交易完整的回执单，包含完整的图片、金额、姓名"
         return r
     }()
     lazy var voucherTipLabel: UILabel = {
@@ -184,7 +195,8 @@ class BoBUploadVoucherAlertView: UIView {
         r.font = .regularFont(16)
         r.textColor = .black666
         r.numberOfLines = 0
-        r.text = "点击，查看微信付款凭证示例"
+//        r.text = "点击，查看微信付款凭证示例"
+        r.attributedText = setupAttributedText(text: "点击，查看微信付款凭证示例", targetWords: ["查看微信付款凭证示例"], color: .primaryColor)
         r.isUserInteractionEnabled = true
         let btn = QMUIButton()
         btn.rx.tap.subscribe(onNext: { [weak self] in
