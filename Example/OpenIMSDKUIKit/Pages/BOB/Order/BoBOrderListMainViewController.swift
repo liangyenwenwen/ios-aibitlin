@@ -26,7 +26,7 @@ class BoBOrderListMainViewController: BaseTitleController {
         initLinearLayoutSafeArea()
         container.tg_padding = UIEdgeInsets(top: 0, left: PADDING_OUTER, bottom: 0, right: PADDING_OUTER)
         
-        let titles = ["全部订单", "商家订单"]
+        let titles = ["买家订单", "卖家订单"]
         //segmentedViewDataSource一定要通过属性强持有！！！！！！！！！
         segmentedDataSource.titles = titles
         segmentedDataSource.isTitleMaskEnabled = true
@@ -68,6 +68,7 @@ extension BoBOrderListMainViewController: JXSegmentedListContainerViewDataSource
 
     func listContainerView(_ listContainerView: JXSegmentedListContainerView, initListAt index: Int) -> JXSegmentedListContainerViewListDelegate {
         let vc = BoBOrderListSubViewController()
+        vc.sign = index+1
         return vc
     }
 }

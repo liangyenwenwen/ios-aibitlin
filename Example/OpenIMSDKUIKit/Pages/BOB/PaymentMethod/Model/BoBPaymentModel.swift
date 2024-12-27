@@ -473,6 +473,7 @@ class paymentDdetailData: Decodable {
     var bankId:String?
     var bankDeposit:String?
     var bankBranch:String?
+    var icon:String?
 }
 class BoBBankResponse: Decodable {
     var data: [paymentBankData]

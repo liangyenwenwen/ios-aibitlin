@@ -129,6 +129,7 @@ class ChatOrderSystemMessgae:UIViewController{
             }
             
         }
+        var tempArray1:[orderMessageModel] = []
         for item in tempArray {
             var isExit = false
             for items in listArray {
@@ -141,9 +142,11 @@ class ChatOrderSystemMessgae:UIViewController{
             }
             if isExit == false{
                 listArray.append(item)
+            }else{
+                tempArray1.append(item)
             }
         }
-        listArray = listArray + tempArray
+        listArray.append(contentsOf: tempArray1)
         tableView.reloadData()
         NSLog("======%@", listArray)
     }

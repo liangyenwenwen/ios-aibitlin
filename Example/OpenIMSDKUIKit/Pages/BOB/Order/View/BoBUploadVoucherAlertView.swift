@@ -14,7 +14,7 @@ import RxSwift
 import TangramKit
 import UIKit
 class BoBUploadVoucherAlertView: UIView {
-    var choosePushAdTypeBlock:((_ typeIndex:Int)->())!
+    var uploadVoucherSuccessBlock:(()->())!
     var currentVC:UIViewController?
     var voucherUrl:String?
     var type:Int = 1 //1银行卡2支付宝，3微信
@@ -146,14 +146,14 @@ class BoBUploadVoucherAlertView: UIView {
             }
         }
     }
-    lazy var contentView: TGLinearLayout = {
-        let r = TGLinearLayout(.vert)
+    lazy var contentView: UIView = {
+        let r = UIView()
         r.corner(MEDDLE_RADIUS)
-        r.tg_width.equal(.fill)
-        r.tg_height.equal(.wrap)
-        r.tg_space = PADDING_MEDDLE
-        r.tg_bottom.equal(0)
-        r.tg_padding = UIEdgeInsets(top: 0, left: PADDING_OUTER, bottom: PADDING_MEDDLE+34, right: PADDING_OUTER)
+//        r.tg_width.equal(.fill)
+//        r.tg_height.equal(.wrap)
+//        r.tg_space = PADDING_MEDDLE
+//        r.tg_bottom.equal(0)
+//        r.tg_padding = UIEdgeInsets(top: 0, left: PADDING_OUTER, bottom: PADDING_MEDDLE+34, right: PADDING_OUTER)
         r.backgroundColor = .white
         return r
     }()
@@ -165,8 +165,8 @@ class BoBUploadVoucherAlertView: UIView {
     }()
     lazy var closeBtn: QMUIButton = {
         let r = ViewFactoryUtil.imageBtn(R.image.close_cirle_icon()!, 28)
-        r.rx.tap.subscribe(onNext: {
-            GKCover.hide()
+        r.rx.tap.subscribe(onNext: {[weak self] in
+            self?.hideMask()
         })
         .disposed(by: rx.disposeBag)
         return r
@@ -185,17 +185,23 @@ class BoBUploadVoucherAlertView: UIView {
         r.textColor = .black666
         r.numberOfLines = 0
         r.text = "点击，查看微信付款凭证示例"
-        let tap = UITapGestureRecognizer()
-        tap.rx.event.subscribe { [weak self] _ in
+        r.isUserInteractionEnabled = true
+        let btn = QMUIButton()
+        btn.rx.tap.subscribe(onNext: { [weak self] in
             let voucherView = BoBShowVoucherView()
+            voucherView.tg_width.equal(300)
+            voucherView.tg_height.equal(713)
             if self?.type == 2{
                 voucherView.voucherImageView.image = UIImage(named: "order_detail_voucher_example_zhifubao_icon")
             }else{
                 voucherView.voucherImageView.image = UIImage(named: "order_detail_voucher_example_weixin_icon")
             }
-            voucherView.showMask(view:self!.currentVC!.view.window!)
-        }.disposed(by: rx.disposeBag)
-        r.addGestureRecognizer(tap)
+            GKCover.cover(from: self?.currentVC?.view?.window, contentView: voucherView, style: .translucent, showStyle: .center, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
+        }).disposed(by: rx.disposeBag)
+        r.addSubview(btn)
+        btn.snp_makeConstraints { make in
+            make.left.right.top.bottom.equalTo(r)
+        }
         return r
     }()
     lazy var upLoadBgView: UIImageView = {
@@ -241,7 +247,7 @@ class BoBUploadVoucherAlertView: UIView {
         r.titleLabel?.font = .mediumFont(16)
         r.border(.init(hexString: "#EAEAEA"),borderWidth: 1,cornerRadius: 23)
         r.rx.tap.subscribe(onNext: { [weak self] in
-            GKCover.hide()
+            self?.hideMask()
         }).disposed(by: rx.disposeBag)
         return r
     }()
@@ -252,8 +258,21 @@ class BoBUploadVoucherAlertView: UIView {
         r.backgroundColor = .primaryColor
         r.corner(23)
         r.rx.tap.subscribe(onNext: { [weak self] in
-           
-            GKCover.hide()
+            if (self?.voucherUrl ?? "").length == 0{
+                SuperToast.show(title: "请上传付款凭证")
+                return
+            }
+            BoBBuyAndSellCionModel.UploadCredentialsRequest(code: self?.code ?? "", credentials: self?.voucherUrl ?? ""){[weak self] errCode,errMsg in
+                if errCode == 20000{
+                    SuperToast.show(title: "上传成功")
+                    if self?.uploadVoucherSuccessBlock != nil{
+                        self?.uploadVoucherSuccessBlock()
+                    }
+                    self?.hideMask()
+                }else{
+                    SuperToast.show(title: errMsg)
+                }
+            }
         }).disposed(by: rx.disposeBag)
         return r
     }()

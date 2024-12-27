@@ -13,6 +13,7 @@ class BoBAddPaymentMethodViewController:UIViewController{
     var paymentType:Int = 0 //0银行卡，1支付宝，2微信
     var name:String?
     var paymentDetail:stringAndDatePOS?
+    var bankIcon:String?
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = false
@@ -95,6 +96,7 @@ class BoBAddPaymentMethodViewController:UIViewController{
                         make.height.equalTo(48)
                         make.top.equalTo(bankView.snp_bottom).offset(20)
                     }
+                    bankIcon = res.icon
                     bankView.nameView.textFieldView.text = res.name
                     bankView.bankNumberView.textFieldView.text = res.bankId
                     bankView.bankNameView.textFieldView.text = res.bankDeposit
@@ -261,8 +263,9 @@ class BoBAddPaymentMethodViewController:UIViewController{
         let r = BoBAddBankPaymentView()
         r.chooseBankBlock = {
             let vc = BoBChooseBankListViewController()
-            vc.chooseBankBlock = {[weak self] bankName in
+            vc.chooseBankBlock = {[weak self] bankName,bankIcon in
                 r.bankNameView.textFieldView.text = bankName
+                self?.bankIcon = bankIcon
             }
             self.navigationController?.pushViewController(vc, animated: true)
         }
@@ -304,7 +307,8 @@ class BoBAddPaymentMethodViewController:UIViewController{
                 param = ["name":name ?? "",
                          "bankId":self.bankView.bankNumberView.textFieldView.text ?? "",
                          "bankDeposit":self.bankView.bankNameView.textFieldView.text ?? "",
-                         "bankBranch":self.bankView.bankSubView.textFieldView.text ?? ""]
+                         "bankBranch":self.bankView.bankSubView.textFieldView.text ?? "",
+                         "icon":self.bankIcon ?? ""]
             }else if paymentType == 1{
                 if self.aliView.qrUrl?.isEmpty == true{
                     SuperToast.show(title: "请上传支付宝收款码")

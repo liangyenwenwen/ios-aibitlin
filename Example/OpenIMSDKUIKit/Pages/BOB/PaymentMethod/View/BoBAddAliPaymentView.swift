@@ -152,6 +152,7 @@ class BoBAddAliPaymentView:TGLinearLayout {
     }()
     lazy var aliNumberView: SuperSettingView = {
         let r = SuperSettingView.createInput("支付宝账号*", placeholder: "请输入支付宝账号")
+        r.titleView.changeColor(changeColorStr: "*")
         r.textFieldView.textAlignment = .right
         r.isMediumFont()
         r.needLimitLength(length: 64)

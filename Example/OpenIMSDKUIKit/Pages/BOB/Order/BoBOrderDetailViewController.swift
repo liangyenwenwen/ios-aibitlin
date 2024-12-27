@@ -12,7 +12,11 @@ import OUICore
 
 
 class BoBOrderDetailViewController: BaseTitleController {
-
+    var code:String = ""
+    var orderDetail:BoBMineOrderList?
+    var countdownTime:Int = 0
+    var timeCount:Int = 0
+    private var timer: DispatchSourceTimer?
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
@@ -26,7 +30,7 @@ class BoBOrderDetailViewController: BaseTitleController {
         initScrollSafeArea()
         title = "订单详情"
         scrollViewContainer.tg_padding = UIEdgeInsets(top: 0, left: PADDING_OUTER, bottom: 0, right: PADDING_OUTER)
-        superFooterContainerContainer.addSubview(bottomBtnView)
+        superFooterContainerContainer.addSubview(bottomView)
         scrollViewContainer.addSubview(timeView)
         scrollViewContainer.addSubview(orderStatusView)
         scrollViewContainer.addSubview(orderDetailTitleLabel)
@@ -44,6 +48,416 @@ class BoBOrderDetailViewController: BaseTitleController {
         scrollViewContainer.addSubview(dealDoneTimeView)
         scrollViewContainer.addSubview(checkPaymentVoucherLabel)
         scrollViewContainer.addSubview(orderAppealStatus)
+        loadData()
+    }
+    func loadData(){
+        BoBBuyAndSellCionModel.OrderDetailsRequest(code: code) {[weak self] data in
+            self?.orderDetail = data
+            self?.updateUI()
+        } completionHandler:{errCode,errMsg in
+            SuperToast.show(title: errMsg)
+        }
+    }
+    func updateUI(){
+        //1:等待用户付款 2:等待商家确认 3:已完成 4:用户取消 5:商家取消 6:等待商家付款 7:等待用户确认 8:等待卖家接单 9:等待买家接单 10:已超时
+        if orderDetail?.orderStatus == 1 || orderDetail?.orderStatus == 6{
+            title = orderDetail?.buyOrSell == 1 ? "等待您付款" : "等待买家付款"
+            orderStatusLabel.text = orderDetail?.buyOrSell == 1 ? "订单交易资金已锁定，请放心转款" : "等待买家付款"
+        }else if orderDetail?.orderStatus == 2 || orderDetail?.orderStatus == 7{
+            title = orderDetail?.buyOrSell == 1 ? "等待卖家确认收款" : "请您确认收款"
+            orderStatusLabel.text = orderDetail?.buyOrSell == 1 ? "订单交易资金已锁定，等待放款" : "买家已付款，请确认收款"
+        }else if orderDetail?.orderStatus == 3{
+            title = "交易完成"
+            if orderDetail?.buyOrSell == 1{
+                let text = "交易完成，查看账单确认资金是否到账"
+                let attributedText = setupAttributedText(text: text, targetWords: ["账单"], color: .primaryColor)
+                orderStatusLabel.attributedText = attributedText
+            }else{
+                orderStatusLabel.text = "交易成功，已放币给买家"
+            }
+            
+        }else if orderDetail?.orderStatus == 4 || orderDetail?.orderStatus == 5{
+            title = "交易取消"
+            orderStatusLabel.text = orderDetail?.buyOrSell == 1 ? "交易取消，您可以选择新的卖家重新发起交易" : "交易取消，您可以选择新的买家重新发起交易"
+        }else if orderDetail?.orderStatus == 8{
+            title = orderDetail?.buyOrSell == 1 ? "等待卖家接单" : "等待您接单"
+            orderStatusLabel.text = orderDetail?.buyOrSell == 1 ? "订单已创建，等待卖家接单" : "订单已创建，等待您接单"
+        }else if orderDetail?.orderStatus == 9{
+            title = orderDetail?.buyOrSell == 1 ? "等待您接单" : "等待买家接单"
+            orderStatusLabel.text = orderDetail?.buyOrSell == 1 ? "订单已创建，等待您接单" : "订单已创建，等待买家接单"
+        }else if orderDetail?.orderStatus == 10{
+            title = "订单已超时"
+            orderStatusLabel.text = "订单已超时，请勿付款"
+            orderStatusLabel.textColor = .init(hexString: "#F32525")
+        }
+        if orderDetail?.representationType == 1{
+            title = "申诉中"
+        }
+            
+        countdownTime = orderDetail?.countdownTime ?? 0
+        if countdownTime > 0{
+            stopTimer()
+            timeView.show()
+            timeLabel.text = convertSecondsToMinuteSecondFormat(countdownTime)
+            timeCount = 0
+            startTimer()
+        }else{
+            timeView.hide()
+        }
+        if orderDetail?.buyOrSell == 1{
+            //买家
+            shortNameLabel.text = String((orderDetail?.advertisingNameSell ?? " ").prefix(1))
+            nameLabel.text = orderDetail?.advertisingNameSell ?? ""
+            shortNameLabel.backgroundColor = .init(hexString: "#5FA9FF")
+            orderDetailTitleLabel.text = "购买" + " " + (orderDetail?.currency ?? "C")
+            paymentMethodView.buyCounLabel.textColor = .black333
+            paymentMethodNameView.hide()
+        }else{
+            //卖家
+            shortNameLabel.text = String((orderDetail?.advertisingNameBuy ?? " ").prefix(1))
+            nameLabel.text = orderDetail?.advertisingNameBuy ?? ""
+            shortNameLabel.backgroundColor = .init(hexString: "#FFA741")
+            orderDetailTitleLabel.text = "出售" + " " + (orderDetail?.currency ?? "C")
+            paymentMethodView.buyCounLabel.textColor = .primaryColor
+            if orderDetail?.buyOrSell == 9{
+                paymentMethodNameView.hide()
+            }else{
+                paymentMethodNameView.show()
+                paymentMethodNameView.buyCountTitleLabel.text = orderDetail?.payer ?? ""
+            }
+        }
+        orderNumberView.buyCounLabel.attributedText = getAttribute(str:(orderDetail?.orderNumber)!)
+        payMoneyView.buyCounLabel.text = String(format: "¥%.2f", orderDetail?.amount ?? 0.00)
+        unitPriceView.buyCountTitleLabel.text = "单价" + "(" + (orderDetail?.currency ?? "C") + ")"
+        unitPriceView.buyCounLabel.text = String(format: "¥%.2f", orderDetail?.price ?? 0.00)
+        countView.buyCountTitleLabel.text = "数量" + "(" + (orderDetail?.currency ?? "C") + ")"
+        countView.buyCounLabel.text = String(format: "¥%.2f", orderDetail?.quantity ?? 0.00)
+        paymentMethodView.buyCounLabel.text = orderDetail?.payment == 1 ? "银行卡" : (orderDetail?.payment == 2 ? "支付宝":"微信")
+        if orderDetail?.paymentMethodDetails == nil && (orderDetail?.paymentCredentials ?? "").length == 0{
+            payTitleLabel.hide()
+            payView.hide()
+            buyVoucherImageView.hide()
+        }else{
+            payTitleLabel.show()
+            if orderDetail?.buyOrSell == 1{
+                payTitleLabel.text = "卖家收款方式"
+                payView.show()
+                payView.bindData(type: orderDetail?.payment ?? 1 ,data: orderDetail?.paymentMethodDetails ?? paymentDdetailData())
+                buyVoucherImageView.hide()
+            }else{
+                if (orderDetail?.paymentCredentials ?? "").length > 0{
+                    payView.hide()
+                    payTitleLabel.text = "买家支付凭证"
+                    buyVoucherImageView.show()
+                    buyVoucherImageView.sd_setImage(with: URL(string: orderDetail?.paymentCredentials))
+                }else{
+                    payTitleLabel.text = "我的收款方式"
+                    payView.show()
+                    payView.bindData(type: orderDetail?.payment ?? 1 ,data: orderDetail?.paymentMethodDetails ?? paymentDdetailData())
+                    buyVoucherImageView.hide()
+                }
+            }
+        }
+        if (orderDetail?.payTime ?? "").length > 0{
+            creatTimeView.show()
+            payTimeView.show()
+            creatTimeView.buyCounLabel.text = orderDetail?.creatTime
+            payTimeView.buyCounLabel.text = orderDetail?.payTime
+        }else{
+            creatTimeView.hide()
+            payTimeView.hide()
+        }
+        if (orderDetail?.completeTime ?? "").length > 0{
+            dealDoneTimeView.show()
+            dealDoneTimeView.buyCountTitleLabel.text = "交易完成时间"
+            dealDoneTimeView.buyCounLabel.text = orderDetail?.completeTime
+        }else{
+            if (orderDetail?.canceTime ?? "").length > 0 && (orderDetail?.payTime ?? "").length > 0{
+                dealDoneTimeView.show()
+                dealDoneTimeView.buyCountTitleLabel.text = "交易取消时间"
+                dealDoneTimeView.buyCounLabel.text = orderDetail?.canceTime
+            }else{
+                dealDoneTimeView.hide()
+            }
+        }
+        if orderDetail?.buyOrSell == 1 && (orderDetail?.paymentCredentials ?? "").length > 0{
+            checkPaymentVoucherLabel.show()
+        }else{
+            checkPaymentVoucherLabel.hide()
+        }
+        if orderDetail?.representationType == 1{
+            //申诉中
+            orderAppealStatus.show()
+            orderAppealStatus.text = "订单申诉中，请耐心等待..."
+            orderAppealStatus.textColor = .init(hexString: "#F32525")
+        }else if orderDetail?.representationType == 2{
+            //申诉完成
+            orderAppealStatus.show()
+            orderAppealStatus.text = "订单申诉已完成"
+            orderAppealStatus.textColor = .primaryColor
+        }else{
+            orderAppealStatus.hide()
+        }
+        if orderDetail?.buyOrSell == 1{
+            //买家
+            if orderDetail?.orderStatus == 10{
+                //已超时
+                bottomView.tg_height.equal(66+48)
+                checkOtherAppeal.show()
+                appealBtn.show()
+                uploadVoucherBtn.show()
+                cancleBtn.hide()
+                acceptOrderBtn.hide()
+                receivePaymentBtn.hide()
+                checkAppealResultBtn.hide()
+                mineAppealBtn.hide()
+            }else{
+                bottomView.tg_height.equal(66)
+                checkOtherAppeal.hide()
+                if orderDetail?.orderStatus == 1{
+                    //等待用户付款
+                    cancleBtn.tg_width.equal(114)
+                    cancleBtn.show()
+                    uploadVoucherBtn.show()
+                    appealBtn.hide()
+                    acceptOrderBtn.hide()
+                    receivePaymentBtn.hide()
+                    checkAppealResultBtn.hide()
+                    mineAppealBtn.hide()
+                    
+                }else if orderDetail?.orderStatus == 2{
+                    //等待商家确认
+                    bottomView.hide()
+                }else if orderDetail?.orderStatus == 3{
+                    //已完成
+                    cancleBtn.hide()
+                    uploadVoucherBtn.hide()
+                    appealBtn.hide()
+                    acceptOrderBtn.hide()
+                    receivePaymentBtn.hide()
+                    if orderDetail?.representationType ?? 0 > 0{
+                        checkAppealResultBtn.tg_width.equal(.fill)
+                        checkAppealResultBtn.show()
+                        mineAppealBtn.hide()
+                    }else{
+                        if orderDetail?.representationTypeOther ?? 0 > 0{
+                            checkAppealResultBtn.tg_width.equal(114)
+                            checkAppealResultBtn.show()
+                            mineAppealBtn.show()
+                        }else{
+                            checkAppealResultBtn.hide()
+                            mineAppealBtn.show()
+                        }
+                    }
+                }else if orderDetail?.orderStatus == 4 || orderDetail?.orderStatus == 5{
+                    if orderDetail?.paymentMethodDetails != nil{
+                        cancleBtn.hide()
+                        uploadVoucherBtn.hide()
+                        appealBtn.hide()
+                        acceptOrderBtn.hide()
+                        receivePaymentBtn.hide()
+                        if orderDetail?.representationType ?? 0 > 0{
+                            checkAppealResultBtn.tg_width.equal(.fill)
+                            checkAppealResultBtn.show()
+                            mineAppealBtn.hide()
+                        }else{
+                            if orderDetail?.representationTypeOther ?? 0 > 0{
+                                checkAppealResultBtn.tg_width.equal(114)
+                                checkAppealResultBtn.show()
+                                mineAppealBtn.show()
+                            }else{
+                                checkAppealResultBtn.hide()
+                                mineAppealBtn.show()
+                            }
+                        }
+                    }else{
+                        bottomView.hide()
+                    }
+                }else if orderDetail?.orderStatus == 8{
+                    cancleBtn.tg_width.equal(.fill)
+                    cancleBtn.show()
+                    uploadVoucherBtn.hide()
+                    appealBtn.hide()
+                    acceptOrderBtn.hide()
+                    receivePaymentBtn.hide()
+                    checkAppealResultBtn.hide()
+                    mineAppealBtn.hide()
+                }else if orderDetail?.orderStatus == 9{
+                    cancleBtn.tg_width.equal(114)
+                    cancleBtn.show()
+                    acceptOrderBtn.show()
+                    uploadVoucherBtn.hide()
+                    appealBtn.hide()
+                    receivePaymentBtn.hide()
+                    checkAppealResultBtn.hide()
+                    mineAppealBtn.hide()
+                }
+            }
+        }else{
+            //卖家
+            bottomView.tg_height.equal(66)
+            checkOtherAppeal.hide()
+            if orderDetail?.orderStatus == 1{
+                //等待买家付款
+                bottomView.hide()
+            }else if orderDetail?.orderStatus == 2{
+                //请您确认收款
+                appealBtn.show()
+                receivePaymentBtn.show()
+                cancleBtn.hide()
+                acceptOrderBtn.hide()
+                uploadVoucherBtn.hide()
+                checkAppealResultBtn.hide()
+                mineAppealBtn.hide()
+                
+                bottomView.hide()
+            }else if orderDetail?.orderStatus == 3{
+                //已完成
+                cancleBtn.hide()
+                uploadVoucherBtn.hide()
+                appealBtn.hide()
+                acceptOrderBtn.hide()
+                receivePaymentBtn.hide()
+                if orderDetail?.representationType ?? 0 > 0{
+                    checkAppealResultBtn.tg_width.equal(.fill)
+                    checkAppealResultBtn.show()
+                    mineAppealBtn.hide()
+                }else{
+                    if orderDetail?.representationTypeOther ?? 0 > 0{
+                        checkAppealResultBtn.tg_width.equal(114)
+                        checkAppealResultBtn.show()
+                        mineAppealBtn.show()
+                    }else{
+                        checkAppealResultBtn.hide()
+                        mineAppealBtn.show()
+                    }
+                }
+            }else if orderDetail?.orderStatus == 4 || orderDetail?.orderStatus == 5{
+                if orderDetail?.paymentMethodDetails != nil{
+                    cancleBtn.hide()
+                    uploadVoucherBtn.hide()
+                    appealBtn.hide()
+                    acceptOrderBtn.hide()
+                    receivePaymentBtn.hide()
+                    if orderDetail?.representationType ?? 0 > 0{
+                        checkAppealResultBtn.tg_width.equal(.fill)
+                        checkAppealResultBtn.show()
+                        mineAppealBtn.hide()
+                    }else{
+                        if orderDetail?.representationTypeOther ?? 0 > 0{
+                            checkAppealResultBtn.tg_width.equal(114)
+                            checkAppealResultBtn.show()
+                            mineAppealBtn.show()
+                        }else{
+                            checkAppealResultBtn.hide()
+                            mineAppealBtn.show()
+                        }
+                    }
+                }else{
+                    bottomView.hide()
+                }
+            }else if orderDetail?.orderStatus == 8{
+                //等待您接单
+                cancleBtn.tg_width.equal(114)
+                cancleBtn.show()
+                acceptOrderBtn.show()
+                uploadVoucherBtn.hide()
+                appealBtn.hide()
+                receivePaymentBtn.hide()
+                checkAppealResultBtn.hide()
+                mineAppealBtn.hide()
+            }else if orderDetail?.orderStatus == 9{
+                cancleBtn.tg_width.equal(.fill)
+                cancleBtn.show()
+                acceptOrderBtn.hide()
+                uploadVoucherBtn.hide()
+                appealBtn.hide()
+                receivePaymentBtn.hide()
+                checkAppealResultBtn.hide()
+                mineAppealBtn.hide()
+            }else if orderDetail?.orderStatus == 10{
+                //已超时
+                cancleBtn.hide()
+                uploadVoucherBtn.hide()
+                appealBtn.hide()
+                acceptOrderBtn.hide()
+                receivePaymentBtn.hide()
+                if orderDetail?.representationType ?? 0 > 0{
+                    checkAppealResultBtn.tg_width.equal(.fill)
+                    checkAppealResultBtn.show()
+                    mineAppealBtn.hide()
+                }else{
+                    if orderDetail?.representationTypeOther ?? 0 > 0{
+                        checkAppealResultBtn.tg_width.equal(114)
+                        checkAppealResultBtn.show()
+                        mineAppealBtn.show()
+                    }else{
+                        checkAppealResultBtn.hide()
+                        mineAppealBtn.show()
+                    }
+                }
+            }
+        }
+    }
+    
+    func setupAttributedText(text: String, targetWords: [String], color: UIColor) -> NSAttributedString {
+        let attributedString = NSMutableAttributedString(string: text)
+        for word in targetWords {
+            if let range = text.range(of: word) {
+                let nsRange = NSRange(range, in: text)
+                attributedString.addAttribute(.foregroundColor, value: color, range: nsRange)
+            }
+        }
+        return NSAttributedString(attributedString: attributedString)
+    }
+    func getAttribute(str:String) -> NSMutableAttributedString{
+        let attachment = NSTextAttachment()
+        attachment.image = UIImage(named: "receive_payment_copy_icon")
+        attachment.bounds = CGRect(x: 0, y: -3.0, width: 16, height: 16)
+        let str1 = str + " "
+        let attributedString = NSMutableAttributedString(string: str1)
+        let attachmentString = NSAttributedString(attachment: attachment)
+        
+//        attributedString.append(attachmentString)
+        attributedString.insert(attachmentString, at: str1.length)
+        return attributedString
+    }
+    func convertSecondsToMinuteSecondFormat(_ totalSeconds: Int) -> String {
+        let minutes = totalSeconds / 60
+        let remainingSeconds = totalSeconds % 60
+        return String(format: "%02d:%02d", minutes, remainingSeconds)
+    }
+    func startTimer() {
+        // 创建一个基于全局并发队列的定时器源
+        timer = DispatchSource.makeTimerSource(queue: DispatchQueue.global())
+        // 设置定时器触发间隔为1秒
+        timer?.schedule(deadline:.now(), repeating:.seconds(1))
+        // 设置定时器触发时执行的闭包
+        timer?.setEventHandler {[weak self] in
+            if self?.countdownTime == 0{
+                self?.stopTimer()
+                self?.loadData()
+            }else{
+                DispatchQueue.main.async {
+                    self?.countdownTime = (self?.countdownTime ?? 0)-1
+                    self?.timeLabel.text = self?.convertSecondsToMinuteSecondFormat(self?.countdownTime ?? 0)
+                    self?.timeCount = (self?.timeCount ?? 0)+1
+                    if self?.timeCount == 30 && self?.countdownTime ?? 0 > 10{
+                        self?.loadData()
+                        self?.timeCount = 0
+                    }
+                }
+            }
+        }
+        // 启动定时器
+        timer?.resume()
+    }
+    func stopTimer() {
+        if timer != nil{
+            timer?.cancel()
+            timer = nil
+            timeCount = 0
+        }
     }
     lazy var timeView: TGLinearLayout = {
         let r = TGLinearLayout(.horz)
@@ -67,7 +481,7 @@ class BoBOrderDetailViewController: BaseTitleController {
     }()
     lazy var timeLabel: UILabel = {
         let r = UILabel()
-        r.tg_width.equal(.wrap)
+        r.tg_width.equal(45)
         r.tg_height.equal(.fill)
         r.font = .mediumFont(16)
         r.textColor = .init(hexString: "#F32525")
@@ -140,7 +554,14 @@ class BoBOrderDetailViewController: BaseTitleController {
         r.tg_right.equal(0)
         r.tg_height.equal(16)
         r.buyCountTitleLabel.text = "订单号"
-        r.buyCounLabel.text = "20240116235412100321"
+        r.buyCounLabel.text = ""
+        r.buyCounLabel.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer()
+        tap.rx.event.subscribe { [weak self] _ in
+            UIPasteboard.general.string = self?.orderDetail?.orderNumber ?? ""
+            SuperToast.show(title: "复制成功".localized())
+        }.disposed(by: rx.disposeBag)
+        r.addGestureRecognizer(tap)
         return r
     }()
     lazy var payMoneyView: buyAndSellTitleView = {
@@ -181,7 +602,7 @@ class BoBOrderDetailViewController: BaseTitleController {
         r.tg_left.equal(0)
         r.tg_right.equal(0)
         r.tg_height.equal(16)
-        r.buyCountTitleLabel.text = "付款方式"
+        r.buyCountTitleLabel.text = "支付方式"
         r.buyCounLabel.text = "银行卡"
         r.buyCounLabel.textColor = .init(hexString: "#388CEF")
         return r
@@ -214,6 +635,7 @@ class BoBOrderDetailViewController: BaseTitleController {
         r.tg_left.equal(0)
         r.tg_right.equal(0)
         r.tg_height.equal(.wrap)
+        r.currentVC = self
         return r
     }()
     lazy var buyVoucherImageView: UIImageView = {
@@ -233,7 +655,11 @@ class BoBOrderDetailViewController: BaseTitleController {
         }
         let tap = UITapGestureRecognizer()
         tap.rx.event.subscribe { [weak self] _ in
-            
+            let voucherView = BoBShowVoucherView()
+            voucherView.tg_width.equal(300)
+            voucherView.tg_height.equal(713)
+            voucherView.voucherImageView.sd_setImage(with: URL(string: self?.orderDetail?.paymentCredentials))
+            GKCover.cover(from: self?.view?.window, contentView: voucherView, style: .translucent, showStyle: .center, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
         }.disposed(by: rx.disposeBag)
         r.addGestureRecognizer(tap)
         return r
@@ -280,9 +706,14 @@ class BoBOrderDetailViewController: BaseTitleController {
         r.font = .regularFont(14)
         r.textColor = .primaryColor
         r.text = "查看我的支付凭证"
+        r.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer()
         tap.rx.event.subscribe { [weak self] _ in
-            
+            let voucherView = BoBShowVoucherView()
+            voucherView.tg_width.equal(300)
+            voucherView.tg_height.equal(713)
+            voucherView.voucherImageView.sd_setImage(with: URL(string: self?.orderDetail?.paymentCredentials))
+            GKCover.cover(from: self?.view?.window, contentView: voucherView, style: .translucent, showStyle: .center, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
         }.disposed(by: rx.disposeBag)
         r.addGestureRecognizer(tap)
         return r
@@ -299,17 +730,45 @@ class BoBOrderDetailViewController: BaseTitleController {
         return r
     }()
     
+    lazy var bottomView: TGLinearLayout = {
+        let r = TGLinearLayout(.vert)
+        r.tg_width.equal(.fill)
+//        r.tg_height.equal(66+48)
+        r.tg_height.equal(66)
+        r.tg_hspace = 0
+        r.tg_padding = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        r.addSubview(checkOtherAppeal)
+        r.addSubview(bottomBtnView)
+        cancleBtn.tg_width.equal(114)
+        return r
+    }()
+    lazy var checkOtherAppeal: QMUIButton = {
+        let r = ViewFactoryUtil.linkButton("查看申诉结果")
+        r.tg_height.equal(48)
+        r.tg_width.equal(.fill)
+        r.hide()
+        r.setTitleColor(.init(hexString: "#FFA756"), for: .normal)
+        r.titleLabel?.font = .mediumFont(14)
+        r.rx.tap.subscribe(onNext: { [weak self] in
+            let vc = BoBAppealResultViewController()
+            vc.code = self?.code ?? ""
+            self?.navigationController?.pushViewController(vc)
+        }).disposed(by: rx.disposeBag)
+        return r
+    }()
     lazy var bottomBtnView: TGLinearLayout = {
         let r = TGLinearLayout(.horz)
         r.tg_width.equal(.fill)
-//        r.tg_left.equal(16)
-//        r.tg_right.equal(16)
         r.tg_height.equal(66)
         r.tg_hspace = 10
         r.tg_padding = UIEdgeInsets(top: 10, left: PADDING_OUTER, bottom: 10, right: PADDING_OUTER)
         r.addSubview(cancleBtn)
+        r.addSubview(appealBtn)
+        r.addSubview(checkAppealResultBtn)
+        r.addSubview(acceptOrderBtn)
         r.addSubview(uploadVoucherBtn)
-        cancleBtn.tg_width.equal(114)
+        r.addSubview(receivePaymentBtn)
+        r.addSubview(mineAppealBtn)
         return r
     }()
     lazy var cancleBtn: QMUIButton = {
@@ -318,9 +777,16 @@ class BoBOrderDetailViewController: BaseTitleController {
         r.tg_width.equal(.fill)
         r.setTitleColor(.black666, for: .normal)
         r.titleLabel?.font = .mediumFont(16)
-        r.border(.init(hexString: "#EAEAEA"),borderWidth: 1,cornerRadius: 24)
+        r.border(.black999,borderWidth: 1,cornerRadius: 24)
         r.rx.tap.subscribe(onNext: { [weak self] in
-            
+            BoBBuyAndSellCionModel.CancelOrderRequest(code: self?.code ?? ""){[weak self] errCode,errMsg in
+                if errCode == 20000{
+                    SuperToast.show(title: "取消成功")
+                    self?.loadData()
+                }else{
+                    SuperToast.show(title: errMsg)
+                }
+            }
         }).disposed(by: rx.disposeBag)
         return r
     }()
@@ -334,9 +800,12 @@ class BoBOrderDetailViewController: BaseTitleController {
         r.corner(24)
         r.rx.tap.subscribe(onNext: { [weak self] in
             let uploadVoucherView = BoBUploadVoucherAlertView()
-            uploadVoucherView.bindData(type: 2, code: "")
+            uploadVoucherView.bindData(type: self?.orderDetail?.payment ?? 1, code: self?.code ?? "")
             uploadVoucherView.currentVC = self
-            uploadVoucherView.showMask(view: self!.view.window!)
+            uploadVoucherView.uploadVoucherSuccessBlock = {[weak self] in 
+                self?.loadData()
+            }
+            uploadVoucherView.showMask(view: self!.view)
         }).disposed(by: rx.disposeBag)
         return r
     }()
@@ -349,7 +818,33 @@ class BoBOrderDetailViewController: BaseTitleController {
         r.backgroundColor = .primaryColor
         r.corner(24)
         r.rx.tap.subscribe(onNext: { [weak self] in
-            
+            if self?.orderDetail?.buyOrSell == 1{
+                BoBBuyAndSellCionModel.BuyerReceiveOrdersRequest(code: self?.code ?? ""){[weak self] errCode,errMsg in
+                    if errCode == 20000{
+                        SuperToast.show(title: "接单成功")
+                        self?.loadData()
+                    }else{
+                        SuperToast.show(title: errMsg)
+                    }
+                }
+            }else{
+                let choosePaymentTypeView = BoBOrderChoosePaymentTypeView()
+                var isSupportBank = false
+                var isSupportAli = false
+                var isSupportWeixin = false
+                if self?.orderDetail?.payment == 1{
+                    isSupportBank = true
+                }else if self?.orderDetail?.payment == 2{
+                    isSupportAli = true
+                }else{
+                    isSupportWeixin = true
+                }
+                choosePaymentTypeView.bindData(code: self?.code ?? "", isSupportBank: isSupportBank, isSupportAli: isSupportAli, isSupportWeixin: isSupportWeixin)
+                choosePaymentTypeView.receiveOrderSuccessBlock = {[weak self] in
+                    self?.loadData()
+                }
+                choosePaymentTypeView.showMask(view: self!.view)
+            }
         }).disposed(by: rx.disposeBag)
         return r
     }()
@@ -359,9 +854,11 @@ class BoBOrderDetailViewController: BaseTitleController {
         r.tg_width.equal(114)
         r.setTitleColor(.black666, for: .normal)
         r.titleLabel?.font = .mediumFont(16)
-        r.border(.init(hexString: "#EAEAEA"),borderWidth: 1,cornerRadius: 24)
+        r.border(.black999,borderWidth: 1,cornerRadius: 24)
         r.rx.tap.subscribe(onNext: { [weak self] in
-            
+            let vc = BoBSendAppealViewController()
+            vc.code = self?.code ?? ""
+            self?.navigationController?.pushViewController(vc)
         }).disposed(by: rx.disposeBag)
         return r
     }()
@@ -374,22 +871,44 @@ class BoBOrderDetailViewController: BaseTitleController {
         r.backgroundColor = .primaryColor
         r.corner(24)
         r.rx.tap.subscribe(onNext: { [weak self] in
-            
+            BoBBuyAndSellCionModel.SellerDepositCoinRequest(code:self?.code ?? ""){errCode,errMsg in
+                if errCode == 20000{
+                    SuperToast.show(title: "通知成功")
+                    self?.loadData()
+                }else{
+                    SuperToast.show(title: errMsg)
+                }
+            }
         }).disposed(by: rx.disposeBag)
         return r
     }()
     lazy var checkAppealResultBtn: QMUIButton = {
+        let r = ViewFactoryUtil.linkButton("查看申诉结果")
+        r.tg_height.equal(48)
+        r.tg_width.equal(.fill)
+        r.setTitleColor(.white, for: .normal)
+        r.titleLabel?.font = .mediumFont(16)
+        r.backgroundColor = .init(hexString: "#FFA756")
+        r.corner(24)
+        r.rx.tap.subscribe(onNext: { [weak self] in
+            let vc = BoBAppealResultViewController()
+            vc.code = self?.code ?? ""
+            self?.navigationController?.pushViewController(vc)
+        }).disposed(by: rx.disposeBag)
+        return r
+    }()
+    lazy var mineAppealBtn: QMUIButton = {
         let r = ViewFactoryUtil.linkButton("申诉")
         r.tg_height.equal(48)
         r.tg_width.equal(.fill)
         r.setTitleColor(.white, for: .normal)
         r.titleLabel?.font = .mediumFont(16)
         r.backgroundColor = .primaryColor
-//        r.backgroundColor = .init(hexString: "#FFA756")
-//        r.setTitle("查看申诉结果", for: .normal)
         r.corner(24)
         r.rx.tap.subscribe(onNext: { [weak self] in
-            
+            let vc = BoBSendAppealViewController()
+            vc.code = self?.code ?? ""
+            self?.navigationController?.pushViewController(vc)
         }).disposed(by: rx.disposeBag)
         return r
     }()

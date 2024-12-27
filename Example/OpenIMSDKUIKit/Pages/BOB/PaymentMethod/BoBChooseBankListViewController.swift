@@ -12,7 +12,7 @@ import OUICore
 class BoBChooseBankListViewController:UIViewController, UISearchBarDelegate{
     var allArray:[paymentBankData] = []
     var listArray:[paymentBankData] = []
-    var chooseBankBlock: ((_ bankName: String)->Void)!
+    var chooseBankBlock: ((_ bankName: String, _ bankIcon:String)->Void)!
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -96,7 +96,7 @@ extension BoBChooseBankListViewController: UITableViewDataSource, UITableViewDel
     public func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item = listArray[indexPath.row]
         if chooseBankBlock != nil{
-            chooseBankBlock(item.name!)
+            chooseBankBlock(item.name ?? "",item.icon ?? "")
         }
         self.navigationController?.popViewController(animated: true)
     }

@@ -67,6 +67,9 @@
 		040E00B02D1BD9CE002EB7AE /* BoBOrderDetailPaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040E00AF2D1BD9CE002EB7AE /* BoBOrderDetailPaymentView.swift */; };
 		040E00B22D1BF5A6002EB7AE /* BoBUploadVoucherAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040E00B12D1BF5A6002EB7AE /* BoBUploadVoucherAlertView.swift */; };
 		040E00B42D1C0371002EB7AE /* BoBShowVoucherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040E00B32D1C0371002EB7AE /* BoBShowVoucherView.swift */; };
+		040E00B62D1D926F002EB7AE /* BoBSendAppealViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040E00B52D1D926F002EB7AE /* BoBSendAppealViewController.swift */; };
+		040E00B82D1D928D002EB7AE /* BoBAppealResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040E00B72D1D928D002EB7AE /* BoBAppealResultViewController.swift */; };
+		040E00BA2D1E4573002EB7AE /* BoBOrderChoosePaymentTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040E00B92D1E4573002EB7AE /* BoBOrderChoosePaymentTypeView.swift */; };
 		0411DD272C05CCB800EDD135 /* SuperDialogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0411DD262C05CCB800EDD135 /* SuperDialogController.swift */; };
 		0411DD282C05CE3C00EDD135 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0411DD2A2C05CE3C00EDD135 /* InfoPlist.strings */; };
 		0418B5792BF1E79F00108808 /* YFFeedbackVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0418B5782BF1E79F00108808 /* YFFeedbackVC.swift */; };
@@ -345,6 +348,9 @@
 		040E00AF2D1BD9CE002EB7AE /* BoBOrderDetailPaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBOrderDetailPaymentView.swift; sourceTree = "<group>"; };
 		040E00B12D1BF5A6002EB7AE /* BoBUploadVoucherAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBUploadVoucherAlertView.swift; sourceTree = "<group>"; };
 		040E00B32D1C0371002EB7AE /* BoBShowVoucherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBShowVoucherView.swift; sourceTree = "<group>"; };
+		040E00B52D1D926F002EB7AE /* BoBSendAppealViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBSendAppealViewController.swift; sourceTree = "<group>"; };
+		040E00B72D1D928D002EB7AE /* BoBAppealResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBAppealResultViewController.swift; sourceTree = "<group>"; };
+		040E00B92D1E4573002EB7AE /* BoBOrderChoosePaymentTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBOrderChoosePaymentTypeView.swift; sourceTree = "<group>"; };
 		0411DD262C05CCB800EDD135 /* SuperDialogController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuperDialogController.swift; sourceTree = "<group>"; };
 		0411DD292C05CE3C00EDD135 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0411DD2B2C05CE3E00EDD135 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
@@ -1382,6 +1388,8 @@
 				04EFEA432CECB5E9004441CB /* BoBOrderListMainViewController.swift */,
 				04EFEA682CECBDE3004441CB /* BoBOrderListSubViewController.swift */,
 				040E00AD2D1AA8DB002EB7AE /* BoBOrderDetailViewController.swift */,
+				040E00B52D1D926F002EB7AE /* BoBSendAppealViewController.swift */,
+				040E00B72D1D928D002EB7AE /* BoBAppealResultViewController.swift */,
 			);
 			path = Order;
 			sourceTree = "<group>";
@@ -1412,6 +1420,7 @@
 				040E00AF2D1BD9CE002EB7AE /* BoBOrderDetailPaymentView.swift */,
 				040E00B12D1BF5A6002EB7AE /* BoBUploadVoucherAlertView.swift */,
 				040E00B32D1C0371002EB7AE /* BoBShowVoucherView.swift */,
+				040E00B92D1E4573002EB7AE /* BoBOrderChoosePaymentTypeView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2339,6 +2348,7 @@
 				04F2D0892BEE21CA00D5271B /* MineSettingVC.swift in Sources */,
 				0439CCD72D081E5200379537 /* BoBBuyAndSellCionMainViewController.swift in Sources */,
 				0481727E2CFAB51A007A2920 /* BoBChooseBillView.swift in Sources */,
+				040E00B82D1D928D002EB7AE /* BoBAppealResultViewController.swift in Sources */,
 				0419D4052C019350009CBE94 /* SuperUICollectionViewExtension.swift in Sources */,
 				04052E2B2CF4540400A7A554 /* BoBUnRealNameTipView.swift in Sources */,
 				0445C9052CFDA79900D1FD34 /* JXPagingListRefreshView.swift in Sources */,
@@ -2421,6 +2431,7 @@
 				0445C95F2CFF299A00D1FD34 /* BoBRedPacketModel.swift in Sources */,
 				040D85F02BEB8C0B00DCAAB3 /* BaseTitleController.swift in Sources */,
 				040D85C02BEB8B0400DCAAB3 /* CountDownUtil.swift in Sources */,
+				040E00B62D1D926F002EB7AE /* BoBSendAppealViewController.swift in Sources */,
 				04D8BF802C8AB00100C1244E /* MineBokeNotificationSettingVC.swift in Sources */,
 				17BCADFC2A8DBA0A0022767D /* AboutUsViewController.swift in Sources */,
 				04052E2D2CF45A0200A7A554 /* BoBAddPaymentMethodViewController.swift in Sources */,
@@ -2446,6 +2457,7 @@
 				0445C90E2CFDF52C00D1FD34 /* BoBMineAssetsExplainView.swift in Sources */,
 				040D85EE2BEB8C0B00DCAAB3 /* BaseLogicController.swift in Sources */,
 				0439CCF52D10232900379537 /* BoBChoosePaymentMethodTypeCell.swift in Sources */,
+				040E00BA2D1E4573002EB7AE /* BoBOrderChoosePaymentTypeView.swift in Sources */,
 				0439CCF12D0C140B00379537 /* BoBBuyAndSellCionModel.swift in Sources */,
 				048172772CF9E597007A2920 /* BoBBillListViewController.swift in Sources */,
 				04484ED62CF742EF00893E4C /* BoBReceivePaymentViewController.swift in Sources */,

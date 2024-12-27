@@ -10,6 +10,7 @@ import Foundation
 import JXSegmentedView
 
 class BoBOrderListSubViewController: UIViewController {
+    var sign:Int = 1//1全部订单 2商家订单
     var titles = ["全部", "进行中", "已完成", "已取消"]
     let segmentedDataSource = JXSegmentedTitleDataSource()
     let segmentedView = JXSegmentedView()
@@ -80,6 +81,8 @@ extension BoBOrderListSubViewController: JXSegmentedListContainerViewDataSource 
     func listContainerView(_ listContainerView: JXSegmentedListContainerView, initListAt index: Int) -> JXSegmentedListContainerViewListDelegate {
         let vc = BoBOrderListView()
         vc.currentVC = self
+        vc.type = index
+        vc.sign = sign
         return vc
     }
 }

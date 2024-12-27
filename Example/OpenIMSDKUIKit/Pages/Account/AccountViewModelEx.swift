@@ -205,21 +205,70 @@ extension AccountViewModel {
         }
     }
     static func receiveRedpacket(vc:UIViewController,scour:RedPacketMessageStatus,completion: @escaping (String) -> Void){
-        let receiveRedPacketAlertView = BoBReceiveRedPacketAlertView()
-        receiveRedPacketAlertView.tg_width.equal(kScreenWidth-40)
-        receiveRedPacketAlertView.tg_height.equal(585)
-        receiveRedPacketAlertView.bindData(redPacketInfo: scour)
-        receiveRedPacketAlertView.receiveRedPacketSuccess = { redPacketStaus in
-            GKCover.hide()
-            completion(redPacketStaus)
-            if scour.data?.sendUserId == IMController.shared.uid || redPacketStaus == "1"{
-                let redPacketDetailVC = BoBReceiveRedPacketDetailViewController()
-                redPacketDetailVC.redPacketMessage = scour
-                redPacketDetailVC.hidesBottomBarWhenPushed = true
-                vc.gotoController(redPacketDetailVC)
+        let status = Int(scour.localEx ?? "0")
+        if status == 0{
+            BoBRedPacketModel.GetRedPacketStatusRequest(code: scour.data?.code,groupId: (scour.data?.redPacketType == 0 || scour.data?.redPacketType == 3) ? "000":scour.data?.groupId){data in
+                var redPacketStatus = 0
+                if data == 1{
+                    //已过期
+                    redPacketStatus = 2
+                }else if data == 2{
+                    //已领取
+                    redPacketStatus = 1
+                }else if data == 3{
+                    //未领取
+                    redPacketStatus = 0
+                }else if data == 4{
+                    //已领完
+                    redPacketStatus = 3
+                }
+                if redPacketStatus != 0{
+                    completion(String(format: "%d", redPacketStatus))
+                    scour.localEx = String(format: "%d", redPacketStatus)
+                }
+                if redPacketStatus == 2{
+                    let redPacketDetailVC = BoBReceiveRedPacketDetailViewController()
+                    redPacketDetailVC.redPacketMessage = scour
+                    redPacketDetailVC.hidesBottomBarWhenPushed = true
+                    vc.gotoController(redPacketDetailVC)
+                }else{
+                    let receiveRedPacketAlertView = BoBReceiveRedPacketAlertView()
+                    receiveRedPacketAlertView.tg_width.equal(kScreenWidth-40)
+                    receiveRedPacketAlertView.tg_height.equal(585)
+                    receiveRedPacketAlertView.bindData(redPacketInfo: scour)
+                    receiveRedPacketAlertView.receiveRedPacketSuccess = { redPacketStaus in
+                        GKCover.hide()
+                        completion(redPacketStaus)
+                        if scour.data?.sendUserId == IMController.shared.uid || redPacketStaus == "1"{
+                            let redPacketDetailVC = BoBReceiveRedPacketDetailViewController()
+                            redPacketDetailVC.redPacketMessage = scour
+                            redPacketDetailVC.hidesBottomBarWhenPushed = true
+                            vc.gotoController(redPacketDetailVC)
+                        }
+                    }
+                    GKCover.cover(from: vc.view, contentView: receiveRedPacketAlertView, style: .translucent, showStyle: .center, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
+                }
+                
+            } completionHandler:{errCode,errMsg in
+                SuperToast.show(title: errMsg)
             }
+        }else{
+            let receiveRedPacketAlertView = BoBReceiveRedPacketAlertView()
+            receiveRedPacketAlertView.tg_width.equal(kScreenWidth-40)
+            receiveRedPacketAlertView.tg_height.equal(585)
+            receiveRedPacketAlertView.bindData(redPacketInfo: scour)
+            receiveRedPacketAlertView.receiveRedPacketSuccess = { redPacketStaus in
+                GKCover.hide()
+                completion(redPacketStaus)
+                if scour.data?.sendUserId == IMController.shared.uid || redPacketStaus == "1"{
+                    let redPacketDetailVC = BoBReceiveRedPacketDetailViewController()
+                    redPacketDetailVC.redPacketMessage = scour
+                    redPacketDetailVC.hidesBottomBarWhenPushed = true
+                    vc.gotoController(redPacketDetailVC)
+                }
+            }
+            GKCover.cover(from: vc.view, contentView: receiveRedPacketAlertView, style: .translucent, showStyle: .center, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
         }
-        GKCover.cover(from: vc.view, contentView: receiveRedPacketAlertView, style: .translucent, showStyle: .center, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
     }
     
     

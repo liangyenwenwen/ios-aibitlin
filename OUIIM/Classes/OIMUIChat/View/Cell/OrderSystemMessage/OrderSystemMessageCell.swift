@@ -121,6 +121,7 @@ class OrderSystemMessageCell: UITableViewCell {
         r.backgroundColor = .init(hexString: "#FD5344")
         r.textColor = .white
         r.font = UIFont(name: "PingFangSC-Regular", size: 11)
+        r.layer.masksToBounds = true
         r.layer.cornerRadius = 8
         r.textAlignment = .center
         return r

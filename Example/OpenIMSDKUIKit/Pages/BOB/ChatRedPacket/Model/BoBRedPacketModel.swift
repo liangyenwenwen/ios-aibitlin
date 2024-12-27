@@ -31,6 +31,7 @@ class BoBRedPacketModel {
     
     private static let RedPacketsDetails = "/wallet/redPacket/redEnvelopeDetails"//红包详情
     private static let TransferAccountsDetails = "/wallet/transferMoneyInner/internalTransferdetails"//转账详情
+    private static let GetRedPacketStatus = "/wallet/redPacket/redType"//判断红包状态
     
     
     static func getHttpHeader() -> HTTPHeaders{
@@ -286,6 +287,38 @@ class BoBRedPacketModel {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 print(strData!)
                 if let res = JsonTool.fromJson(strData!, toClass: BoBSendTransferAccountsResponse.self) {
+                    if res.code == 20000  {
+                        valueHandler(res.data)
+                    } else {
+                        completionHandler(res.code, res.message)
+                    }
+                } else {
+                    completionHandler(-1, "failure")
+                }
+            } else {
+                completionHandler(-1, "failure")
+            }
+        }
+        
+    }
+    
+    static func GetRedPacketStatusRequest(code: String?,
+                                          groupId:String?,
+                                          valueHandler: @escaping (Int) -> Void,
+                                          completionHandler: @escaping CompletionHandler) {
+        if !NetworkStatus.isReacheable {
+            return
+        }
+        ProgressHUD.animate()
+        let param = ["code":code ?? "","groupId":groupId ?? ""]
+        let url = SuperStringUtil.netUrl(API_BOB_URL + GetRedPacketStatus, param)
+        Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
+            ProgressHUD.dismiss()
+            
+            if let data = dataRequest.data {
+                let strData = String.init(data: data, encoding: String.Encoding.utf8)
+                print(strData!)
+                if let res = JsonTool.fromJson(strData!, toClass: BoBRedPacketResponse<Int>.self) {
                     if res.code == 20000  {
                         valueHandler(res.data)
                     } else {
