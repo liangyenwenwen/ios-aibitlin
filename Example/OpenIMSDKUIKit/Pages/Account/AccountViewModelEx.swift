@@ -62,6 +62,13 @@ extension AccountViewModel {
             vc.gotoController(settingVC)
             
         }
+        OIMApi.gotoBoBDetailHandle = { (vc, code, completion: @escaping (String) -> Void) in
+          
+            let orderDetailVC = BoBOrderDetailViewController()
+            orderDetailVC.code = code
+            vc.gotoController(orderDetailVC)
+            
+        }
         
         OIMApi.gotoNewFriendHandle = { (vc, completion: @escaping (String) -> Void) in
             vc.gotoControllerFromRoot(YFChatNewFriendListVC.self)

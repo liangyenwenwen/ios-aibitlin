@@ -13,16 +13,26 @@ class OrderSystemMessageCell: UITableViewCell {
         selectionStyle = .none
         self.backgroundColor = .clear
         contentView.backgroundColor = .clear
+        contentView.addSubview(topCornerView)
+        contentView.addSubview(timeBottomCornerView)
         contentView.addSubview(bgView)
         bgView.addSubview(titleNameLabel)
         bgView.addSubview(orderNumberLabel)
         bgView.addSubview(timeLabel)
         bgView.addSubview(lineView)
         bgView.addSubview(bottomView)
+        topCornerView.snp_makeConstraints { make in
+            make.left.right.top.equalTo(bgView)
+            make.height.equalTo(24)
+        }
         bgView.snp_makeConstraints { make in
             make.left.equalTo(16)
             make.right.equalTo(-16)
             make.top.bottom.equalTo(0)
+        }
+        timeBottomCornerView.snp_makeConstraints { make in
+            make.left.right.bottom.equalTo(bgView)
+            make.height.equalTo(24)
         }
         titleNameLabel.snp_makeConstraints { make in
             make.left.equalTo(14)
@@ -61,6 +71,12 @@ class OrderSystemMessageCell: UITableViewCell {
             self.moreMessageBlock()
         }
     }
+    lazy var topCornerView: UIView = {
+        let r = UIView()
+        r.backgroundColor = .white
+        r.isHidden = true
+        return r
+    }()
     lazy var bgView: UIView = {
         let r = UIView()
         r.backgroundColor = .white
@@ -72,6 +88,12 @@ class OrderSystemMessageCell: UITableViewCell {
         let r = UILabel()
         r.font = UIFont(name: "PingFangSC-Semibold", size: 16)
         r.textColor = .init(hexString: "#333333")
+        return r
+    }()
+    lazy var timeBottomCornerView: UIView = {
+        let r = UIView()
+        r.backgroundColor = .white
+        r.isHidden = true
         return r
     }()
     lazy var orderNumberLabel:  UILabel = {

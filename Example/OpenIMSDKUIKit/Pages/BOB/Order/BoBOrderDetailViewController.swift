@@ -200,6 +200,7 @@ class BoBOrderDetailViewController: BaseTitleController {
         }
         if orderDetail?.buyOrSell == 1{
             //买家
+            bottomView.show()
             if orderDetail?.orderStatus == 10{
                 //已超时
                 bottomView.tg_height.equal(66+48)
@@ -296,6 +297,7 @@ class BoBOrderDetailViewController: BaseTitleController {
         }else{
             //卖家
             bottomView.tg_height.equal(66)
+            bottomView.show()
             checkOtherAppeal.hide()
             if orderDetail?.orderStatus == 1{
                 //等待买家付款
@@ -310,7 +312,6 @@ class BoBOrderDetailViewController: BaseTitleController {
                 checkAppealResultBtn.hide()
                 mineAppealBtn.hide()
                 
-                bottomView.hide()
             }else if orderDetail?.orderStatus == 3{
                 //已完成
                 cancleBtn.hide()

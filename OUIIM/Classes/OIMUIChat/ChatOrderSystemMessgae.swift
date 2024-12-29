@@ -59,6 +59,9 @@ class ChatOrderSystemMessgae:UIViewController{
     lazy var navView: BoBCustomNav = {
         let r = BoBCustomNav()
         r.backBlock = {[weak self] in
+//            IMController.shared.deleteConversation(conversationID:self?.conversationID ?? ""){_ in 
+//                
+//            }
             self?.navigationController?.popViewController(animated: true)
         }
         return r
@@ -98,6 +101,7 @@ class ChatOrderSystemMessgae:UIViewController{
                 if (jsonData != nil){
                     do {
                         let user = try JSONDecoder().decode(systemCustomNotitifyItem.self, from: jsonData!)
+                        print("+++=====",item.isRead,user.cont)
                         if let detail = JsonTool.fromJson(user.cont!, toClass: orderMessageContentDetail.self){
                             model1.detail = detail
                             var isExit = false
@@ -129,7 +133,7 @@ class ChatOrderSystemMessgae:UIViewController{
             }
             
         }
-        var tempArray1:[orderMessageModel] = []
+//        var tempArray1:[orderMessageModel] = []
         for item in tempArray {
             var isExit = false
             for items in listArray {
@@ -142,13 +146,18 @@ class ChatOrderSystemMessgae:UIViewController{
             }
             if isExit == false{
                 listArray.append(item)
-            }else{
-                tempArray1.append(item)
+                if item.messageInfo?.isRead == false{
+                    item.messageInfo?.isRead = true
+                    IMController.shared.imManager.markMessageAsRead(byMsgID: self.conversationID ?? "", clientMsgIDs: [item.messageInfo?.msgID ?? ""]) { str in
+                    }
+                }
             }
+//            else{
+//                tempArray1.append(item)
+//            }
         }
-        listArray.append(contentsOf: tempArray1)
+//        listArray.append(contentsOf: tempArray1)
         tableView.reloadData()
-        NSLog("======%@", listArray)
     }
 }
 extension ChatOrderSystemMessgae: UITableViewDataSource, UITableViewDelegate {
@@ -191,14 +200,17 @@ extension ChatOrderSystemMessgae: UITableViewDataSource, UITableViewDelegate {
         cell.timeLabel.text = model1.detail?.changeTime
         cell.icon.image = UIImage(named: model.isOpen == true ? "order_stytem_message_close_icon" : "order_stytem_message_open_icon")
         if row == 0{
-            if model1.isRead == false{
-                IMController.shared.imManager.markMessageAsRead(byMsgID: self.conversationID ?? "", clientMsgIDs: [model1.msgID ?? ""]) { str in
-            
-                }
-            }
+//            if model1.isRead == false{
+//                IMController.shared.imManager.markMessageAsRead(byMsgID: self.conversationID ?? "", clientMsgIDs: [model1.msgID ?? ""]) { str in
+//            
+//                }
+//            }
+            cell.topCornerView.isHidden = true
             if model.isOpen == true{
                 cell.bottomView.isHidden = true
+                cell.timeBottomCornerView.isHidden = false
             }else{
+                cell.timeBottomCornerView.isHidden = true
                 if model.subArray.count > 1{
                     cell.bottomView.isHidden = false
                     if model.unReadCount ?? 0 > 0{
@@ -220,6 +232,7 @@ extension ChatOrderSystemMessgae: UITableViewDataSource, UITableViewDelegate {
                 }
             }
         }else{
+            cell.topCornerView.isHidden = false
             if row == model.subArray.count-1{
                 cell.bottomView.isHidden = false
                 cell.unReadNumberLabel.isHidden = true
@@ -227,8 +240,10 @@ extension ChatOrderSystemMessgae: UITableViewDataSource, UITableViewDelegate {
                 cell.messageCountTitleLabel.snp_updateConstraints { make in
                     make.left.equalTo(14)
                 }
+                cell.timeBottomCornerView.isHidden = true
             }else{
                 cell.bottomView.isHidden = true
+                cell.timeBottomCornerView.isHidden = false
             }
         }
         return cell
@@ -264,7 +279,17 @@ extension ChatOrderSystemMessgae: UITableViewDataSource, UITableViewDelegate {
         return 10
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        let section = indexPath.section
+        let row = indexPath.row
+        let model = listArray[section]
+        let model1 = model.subArray[row]
+        if let handler = OIMApi.gotoBoBDetailHandle {
+            
+            self.view.endEditing(true)
+            handler(self, model1.detail?.code ?? "", { res in
+               
+            })
+        }
     }
 }
 class orderMessageModel: Decodable {

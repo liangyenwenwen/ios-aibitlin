@@ -21,6 +21,7 @@ public typealias gotoNewFriendHandle = ((_ currentVC: UIViewController, _ comple
 
 public typealias showChatVCShoeethandle = ((_ currentVC: UIViewController, _  userID: String, _ completion: @escaping ((String) -> Void)) -> Void)
 public typealias gotoSystemSettingHandle = ((_ currentVC: UIViewController, _  userID: String, _ completion: @escaping ((String) -> Void)) -> Void)
+public typealias gotoBoBDetailHandle = ((_ currentVC: UIViewController, _  code: String, _ completion: @escaping ((String) -> Void)) -> Void)
 public typealias addFriendhandle = ((_ currentVC: UIViewController, _  userID: String, _ completion: @escaping ((String) -> Void)) -> Void)
 
 
@@ -196,6 +197,7 @@ public class OIMApi {
     public static var gotoNewFriendHandle: gotoNewFriendHandle?
     public static var showChatVCShoeethandle: showChatVCShoeethandle?
     public static var gotoSystemSettingHandle: gotoSystemSettingHandle?
+    public static var gotoBoBDetailHandle: gotoBoBDetailHandle?
     public static var addFriendhandle: addFriendhandle?
     public static var updateConversationEx: updateConversationEx?
     public static var reportMomentsHandle: reportMomentsHandle?
