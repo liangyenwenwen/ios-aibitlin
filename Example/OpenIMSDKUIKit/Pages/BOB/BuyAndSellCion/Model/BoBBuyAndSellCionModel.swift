@@ -22,6 +22,7 @@ class BoBBuyAndSellCionModel {
     private static let RefreshTheExchangeRate = "/wallet/advertisement/refreshTheExchangeRate"//获取当前利率
     private static let FreeAreaList = "/wallet/advertisement/selfSelectedArea"//自选区
     private static let QueryBalanceByCurrency = "/wallet/advertisement/queryBalanceByCurrency"//根据币种显示余额
+    private static let QueryDailyLimit = "/wallet/advertisement/dailyLimit"//获取剩余限额
     private static let CreatingAdvertisementPurchase = "/wallet/advertisement/creatingAdvertisementPurchase"//创建、编辑购买广告
     private static let CreatingAdvertisementSell = "/wallet/advertisement/creatingAdvertisementSell"//创建、编辑出售广告
     private static let UpdateNameOfAdvertiser = "/wallet/advertisement/updateNameOfAdvertiser"//修改广告商名称
@@ -42,6 +43,8 @@ class BoBBuyAndSellCionModel {
     private static let CancelOrder = "/wallet/userOrderDetails/cancelOrder"//订单取消
     private static let UpLoadAppeal = "/wallet/userOrderStatement/petitionInitiate"//上传申诉
     private static let QueryStatementDetails = "/wallet/userOrderStatement/queryStatementDetails"//查看申诉详情
+    private static let QuickBuyCoin = "/wallet/fast/fastBuy"//快捷买币
+    private static let QuickSellCoin = "/wallet/fast/fastSell"//快捷卖币
 
     static func getHttpHeader() -> HTTPHeaders{
         let httpHeaders : HTTPHeaders = [
@@ -139,6 +142,34 @@ class BoBBuyAndSellCionModel {
                 print(strData!)
                 if let res = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellFreeAreaData.self) {
 
+                    if res.code == 20000  {
+                        valueHandler(res.data)
+                    } else {
+                        completionHandler(res.code, res.message)
+                    }
+                } else {
+                    completionHandler(-1, "failure")
+                }
+            } else {
+                completionHandler(-1, "failure")
+            }
+        }
+        
+    }
+    static func QueryDailyLimitRequest(currency:String,
+                                       valueHandler: @escaping (DailyLimitModel) -> Void,
+                                       completionHandler: @escaping CompletionHandler) {
+        if !NetworkStatus.isReacheable {
+            return
+        }
+        let param = ["currency": currency] as [String : Any]
+        let url = SuperStringUtil.netUrl(API_BOB_URL + QueryDailyLimit, param)
+        Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
+            
+            if let data = dataRequest.data {
+                let strData = String.init(data: data, encoding: String.Encoding.utf8)
+                print(strData!)
+                if let res = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellResponse<DailyLimitModel>.self) {
                     if res.code == 20000  {
                         valueHandler(res.data)
                     } else {
@@ -671,6 +702,75 @@ class BoBBuyAndSellCionModel {
             }
         }
     }
+    static func QuickBuyCoinRequest(paymentId:String,
+                                    payment:String,
+                                    amountOrNumber:String,
+                                    input:String,
+                                    currency:String,
+                                    valueHandler: @escaping (String) -> Void,
+                                    completionHandler: @escaping CompletionHandler) {
+        if !NetworkStatus.isReacheable {
+            return
+        }
+        ProgressHUD.animate()
+        let param = ["paymentId": paymentId,"payment":payment,"amountOrNumber":amountOrNumber,"input":input,"currency":currency] as [String : Any]
+        let url = SuperStringUtil.netUrl(API_BOB_URL + QuickBuyCoin, param)
+        Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
+            ProgressHUD.dismiss()
+            if let data = dataRequest.data {
+                let strData = String.init(data: data, encoding: String.Encoding.utf8)
+                print(strData!)
+                if let res = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellResponse<String>.self) {
+                    if res.code == 20000  {
+                        valueHandler(res.data)
+                    } else {
+                        completionHandler(res.code, res.message)
+                    }
+                } else {
+                    completionHandler(-1, "failure")
+                }
+            } else {
+                completionHandler(-1, "failure")
+            }
+        }
+    }
+    static func QuickSellCoinRequest(paymentId:String,
+                                     payment:String,
+                                     amountOrNumber:String,
+                                     input:String,
+                                     currency:String,
+                                     currencyWallet:String,
+                                     passWord:String,
+                                     valueHandler: @escaping (String) -> Void,
+                                     completionHandler: @escaping CompletionHandler) {
+        if !NetworkStatus.isReacheable {
+            return
+        }
+        ProgressHUD.animate()
+        let timestamp = String(Int(Date().timeIntervalSince1970 * 1000))
+        let pwd = (IMController.shared.payPassWordSonKey + passWord).md5
+        let sign = (paymentId + payment + amountOrNumber + input + currency + currencyWallet + timestamp + pwd).md5
+        let param = ["paymentId": paymentId,"payment":payment,"amountOrNumber":amountOrNumber,"input":input,"currency":currency,"currencyWallet":currencyWallet,"timestamp":timestamp,"sign":sign] as [String : Any]
+        let url = SuperStringUtil.netUrl(API_BOB_URL + QuickSellCoin, param)
+        Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
+            ProgressHUD.dismiss()
+            if let data = dataRequest.data {
+                let strData = String.init(data: data, encoding: String.Encoding.utf8)
+                print(strData!)
+                if let res = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellResponse<String>.self) {
+                    if res.code == 20000  {
+                        valueHandler(res.data)
+                    } else {
+                        completionHandler(res.code, res.message)
+                    }
+                } else {
+                    completionHandler(-1, "failure")
+                }
+            } else {
+                completionHandler(-1, "failure")
+            }
+        }
+    }
 }
 class BoBBuyAndSellResponse<T: Decodable>: Decodable {
     var data: T
@@ -704,6 +804,10 @@ class BoBBuyAndSellHomeData: Decodable {
 class currencyAndIconPO: Decodable {
     var currency:String? //币种
     var icon:String? //图标
+}
+class DailyLimitModel:Decodable {
+    var dailyLimitBuy:Double?
+    var dailyLimitSell:Double?
 }
 class BoBBuyAndSellFreeAreaData: Decodable {
     var data: [BoBBuyAndSellFreeAreaList]

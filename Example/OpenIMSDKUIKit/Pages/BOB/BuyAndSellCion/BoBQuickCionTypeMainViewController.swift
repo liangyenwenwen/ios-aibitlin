@@ -19,6 +19,9 @@ class BoBQuickCionTypeMainViewController: UIViewController {
     lazy var listContainerView: JXSegmentedListContainerView! = {
         return JXSegmentedListContainerView(dataSource: self)
     }()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         if homeData != nil{
@@ -76,9 +79,14 @@ extension BoBQuickCionTypeMainViewController: JXSegmentedListContainerViewListDe
     func listView() -> UIView {
         return view
     }
+    func listWillAppear(){
+        if listContainerView.validListDict.count > segmentedView.selectedIndex{
+            let vc = listContainerView.validListDict[segmentedView.selectedIndex] as! BoBQuickBuyAndSellView
+            vc.loadDailyLimit()
+        }
+    }
 }
-
-extension BoBQuickCionTypeMainViewController: JXSegmentedListContainerViewDataSource {
+extension BoBQuickCionTypeMainViewController: JXSegmentedListContainerViewDataSource{
     func numberOfLists(in listContainerView: JXSegmentedListContainerView) -> Int {
         if let titleDataSource = segmentedView.dataSource as? JXSegmentedBaseDataSource {
             return titleDataSource.dataSource.count
@@ -93,6 +101,7 @@ extension BoBQuickCionTypeMainViewController: JXSegmentedListContainerViewDataSo
         }
         let vc = BoBQuickBuyAndSellView(data: homeData,viewType: type,currentCurrency: titles[index],currentCurrencyIcon:currencyIcon)
         vc.currentVC = self
+        vc.loadDailyLimit()
         return vc
     }
 }

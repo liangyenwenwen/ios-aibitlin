@@ -14,6 +14,7 @@ import OUICore
 class BoBQuickBuyAndSellView: UIView {
     var currentVC:UIViewController?
     var homeData:BoBBuyAndSellHomeData?
+    var dailyLimitModel:DailyLimitModel?
     var titleArray = ["100","500","1000","3000","5000","10000","20000","30000"]
     var chooseMoney = ""
     var currency:String? //币种
@@ -152,7 +153,7 @@ class BoBQuickBuyAndSellView: UIView {
         }.disposed(by: rx.disposeBag)
         self.addGestureRecognizer(tap)
         NotificationCenter.default.addObserver(self, selector: #selector(refreshPaymentList(_:)), name: Notification.Name("refreshPaymentList"), object: nil)
-
+//        self.loadDailyLimit()
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -201,6 +202,51 @@ class BoBQuickBuyAndSellView: UIView {
         } completionHandler: {errCode,errMsg in
             SuperToast.show(title: errMsg)
         }
+    }
+    func loadDailyLimit(){
+        BoBBuyAndSellCionModel.QueryDailyLimitRequest(currency:currency ?? "C"){[weak self] data in
+            self?.dailyLimitModel = data
+            self?.refreshDailyLimitUI()
+        } completionHandler: {errCode,errMsg in
+            SuperToast.show(title: errMsg)
+        }
+    }
+    func refreshDailyLimitUI(){
+        if type == 1{
+            //购买
+            if buyTypeBtn.isSelected == true{
+                //限额¥
+                if dailyLimitModel?.dailyLimitBuy == 0{
+                    countTF.placeholder = "限额" + "¥0.00"
+                }else{
+                    countTF.placeholder = "限额" + String(format: "￥0.01~%.2f", (dailyLimitModel?.dailyLimitBuy ?? 0.01)*(homeData?.exchangeRate ?? 1.00))
+                }
+            }else{
+                //限额C
+                if dailyLimitModel?.dailyLimitBuy == 0{
+                    countTF.placeholder = "限额" + "0.00" + (currency ?? "C")
+                }else{
+                    countTF.placeholder = "限额" + String(format: "0.01~%.2f", (dailyLimitModel?.dailyLimitBuy ?? 0.01)) + (currency ?? "C")
+                }
+            }
+         }else{
+             //出售
+             if buyTypeBtn.isSelected == true{
+                 //限额¥
+                 if dailyLimitModel?.dailyLimitSell == 0{
+                     countTF.placeholder = "限额" + "¥0.00"
+                 }else{
+                     countTF.placeholder = "限额" + String(format: "￥0.01~%.2f", (dailyLimitModel?.dailyLimitSell ?? 0.01)*(homeData?.exchangeRate ?? 1.00))
+                 }
+             }else{
+                 //限额C
+                 if dailyLimitModel?.dailyLimitSell == 0{
+                     countTF.placeholder = "限额" + "0.00" + (currency ?? "C")
+                 }else{
+                     countTF.placeholder = "限额" + String(format: "0.01~%.2f", (dailyLimitModel?.dailyLimitSell ?? 0.01)) + (currency ?? "C")
+                 }
+             }
+         }
     }
     func refreshUI(){
         if chooseCionTypeModel?.type == 0{
@@ -291,12 +337,12 @@ class BoBQuickBuyAndSellView: UIView {
             self?.countTF.text = ""
             if r.isSelected{
                 self?.titleLabel.text = "金额"
-                self?.countTF.placeholder = "限额￥100~30,000"
+//                self?.countTF.placeholder = "限额￥100~30,000"
                 self?.cionImageView.image = UIImage(named: "mine_buy_and_sell_buy_money_icon")
                 self?.expectedIncomeLabel.text = "0.00 C"
             }else{
                 self?.titleLabel.text = "数量"
-                self?.countTF.placeholder = "限额100~30,000 C"
+//                self?.countTF.placeholder = "限额100~30,000 C"
                 if self?.currencyIcon?.isEmpty == true{
                     self?.cionImageView.image = UIImage(named: "mine_home_cion_c_icon")
                 }else{
@@ -304,6 +350,7 @@ class BoBQuickBuyAndSellView: UIView {
                 }
                 self?.expectedIncomeLabel.text = "¥0.00"
             }
+            self?.refreshDailyLimitUI()
             for i in 0..<(self?.btnArray.count ?? 0) {
                 let btn = self?.btnArray[i]
                 let titleStr = self?.titleArray[i]
@@ -855,39 +902,71 @@ class BoBQuickBuyAndSellView: UIView {
                 // 弹出alert
                 self?.currentVC?.present(alert, animated: true, completion: nil)
             }else{
-                
-                if IMController.shared.isSetPayPassWord {
-                    let passWordView = BoBPayPassWordView()
-                    passWordView.tg_width.equal(.fill)
-                    passWordView.tg_height.equal(210)
-                    passWordView.payBtnClickBlock = { [weak self] passWord in
-                        
-
-                    }
-
-                    GKCover.cover(from: self?.currentVC?.view.window, contentView: passWordView, style: .translucent, showStyle: .center, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
-                    
+                var payment = "1"
+                if self?.choosePaymentMethod?.type == "bank"{
+                    payment = "1"
+                }else if self?.choosePaymentMethod?.type == "weiXin"{
+                    payment = "3"
                 }else{
-                    let alert = UIAlertController(title: "提示", message: "为了您的财产安全，请设置安全密码".innerLocalized(), preferredStyle: .alert)
-                    // 创建UIAlertAction，用于处理用户的选择
-                    let cancleAction = UIAlertAction(title: "取消", style: .default) { _ in
-                    }
-                    let okAction = UIAlertAction(title: "去设置", style: .default) { _ in
-                        let vc = BoBChangePayPassWordViewController()
-                        vc.passWordType = 0
-                        self?.currentVC?.navigationController?.pushViewController(vc,animated: true)
-                    }
-                    // 将action添加到alertController上
-                    alert.addAction(cancleAction)
-                    alert.addAction(okAction)
-                    // 弹出alert
-                    self?.currentVC?.present(alert, animated: true, completion: nil)
+                    payment = "2"
                 }
-                
+                if self?.type == 1{
+                    //购买
+                    BoBBuyAndSellCionModel.QuickBuyCoinRequest(paymentId: String(self?.choosePaymentMethod?.id ?? 0), payment: payment, amountOrNumber: (self?.buyTypeBtn.isSelected)!  ? "2":"1", input: self?.countTF.text ?? "0", currency: self?.currency ?? "C"){code in
+                        let vc = BoBOrderDetailViewController()
+                        vc.code = code
+                        self?.currentVC?.navigationController?.pushViewController(vc, animated: true)
+                    } completionHandler:{errCode,errMsg in
+                        self?.errorAlertViewShow()
+                    }
+                }else{
+                    //出售
+                    if IMController.shared.isSetPayPassWord {
+                        let passWordView = BoBPayPassWordView()
+                        passWordView.tg_width.equal(.fill)
+                        passWordView.tg_height.equal(210)
+                        passWordView.payBtnClickBlock = { [weak self] passWord in
+                            BoBBuyAndSellCionModel.QuickSellCoinRequest(paymentId: String(self?.choosePaymentMethod?.id ?? 0), payment: payment, amountOrNumber: (self?.buyTypeBtn.isSelected)!  ? "2":"1", input: self?.countTF.text ?? "0", currency: self?.currency ?? "C",currencyWallet:self?.chooseCionTypeModel?.cionType ?? "0",passWord:passWord){code in
+                                let vc = BoBOrderDetailViewController()
+                                vc.code = code
+                                self?.currentVC?.navigationController?.pushViewController(vc, animated: true)
+                            } completionHandler:{errCode,errMsg in
+                                self?.errorAlertViewShow()
+                            }
+
+                        }
+
+                        GKCover.cover(from: self?.currentVC?.view.window, contentView: passWordView, style: .translucent, showStyle: .center, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
+                        
+                    }else{
+                        let alert = UIAlertController(title: "提示", message: "为了您的财产安全，请设置安全密码".innerLocalized(), preferredStyle: .alert)
+                        // 创建UIAlertAction，用于处理用户的选择
+                        let cancleAction = UIAlertAction(title: "取消", style: .default) { _ in
+                        }
+                        let okAction = UIAlertAction(title: "去设置", style: .default) { _ in
+                            let vc = BoBChangePayPassWordViewController()
+                            vc.passWordType = 0
+                            self?.currentVC?.navigationController?.pushViewController(vc,animated: true)
+                        }
+                        // 将action添加到alertController上
+                        alert.addAction(cancleAction)
+                        alert.addAction(okAction)
+                        // 弹出alert
+                        self?.currentVC?.present(alert, animated: true, completion: nil)
+                    }
+                }
             }
         }).disposed(by: rx.disposeBag)
         return r
     }()
+    
+    func errorAlertViewShow(){
+        let errorAlertView = BoBQuickBuyAndSellErrorAlertView()
+        errorAlertView.tg_width.equal(.fill)
+        errorAlertView.tg_height.equal(224)
+        errorAlertView.contentLabel.text = (type == 1 ? "购买":"出售") + (buyTypeBtn.isSelected ? "金额: ￥":"数量: ") + (self.countTF.text ?? "0.00") + (buyTypeBtn.isSelected ? "":(currency ?? "C"))
+        GKCover.cover(from: self.currentVC?.view.window, contentView: errorAlertView, style: .translucent, showStyle: .bottom, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
+    }
 }
 
 extension BoBQuickBuyAndSellView: JXSegmentedListContainerViewListDelegate {

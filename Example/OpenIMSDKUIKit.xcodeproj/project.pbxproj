@@ -103,6 +103,7 @@
 		0439CD052D16C3F200379537 /* BoBConfirmPurchaseAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439CD042D16C3F200379537 /* BoBConfirmPurchaseAlertView.swift */; };
 		043A558C2C8166490041836E /* UserTagTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043A55892C8166490041836E /* UserTagTypeView.swift */; };
 		043A558D2C8166490041836E /* UserTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043A558A2C8166490041836E /* UserTagView.swift */; };
+		043C7A2B2D21035300394284 /* BoBQuickBuyAndSellErrorAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043C7A2A2D21035300394284 /* BoBQuickBuyAndSellErrorAlertView.swift */; };
 		0445BEE22CD1E04300A46558 /* ABLNetWorkToos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445BEE12CD1E04300A46558 /* ABLNetWorkToos.swift */; };
 		0445C9042CFDA79900D1FD34 /* JXPagingListContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445C8FE2CFDA79900D1FD34 /* JXPagingListContainerView.swift */; };
 		0445C9052CFDA79900D1FD34 /* JXPagingListRefreshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445C8FF2CFDA79900D1FD34 /* JXPagingListRefreshView.swift */; };
@@ -392,6 +393,7 @@
 		0439CD042D16C3F200379537 /* BoBConfirmPurchaseAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBConfirmPurchaseAlertView.swift; sourceTree = "<group>"; };
 		043A55892C8166490041836E /* UserTagTypeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTagTypeView.swift; sourceTree = "<group>"; };
 		043A558A2C8166490041836E /* UserTagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTagView.swift; sourceTree = "<group>"; };
+		043C7A2A2D21035300394284 /* BoBQuickBuyAndSellErrorAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBQuickBuyAndSellErrorAlertView.swift; sourceTree = "<group>"; };
 		0445BEE12CD1E04300A46558 /* ABLNetWorkToos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ABLNetWorkToos.swift; sourceTree = "<group>"; };
 		0445C8FE2CFDA79900D1FD34 /* JXPagingListContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JXPagingListContainerView.swift; sourceTree = "<group>"; };
 		0445C8FF2CFDA79900D1FD34 /* JXPagingListRefreshView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JXPagingListRefreshView.swift; sourceTree = "<group>"; };
@@ -931,6 +933,7 @@
 			isa = PBXGroup;
 			children = (
 				0439CCE12D08876A00379537 /* BoBQuickBuyAndSellView.swift */,
+				043C7A2A2D21035300394284 /* BoBQuickBuyAndSellErrorAlertView.swift */,
 				0439CCE32D09784300379537 /* BoBChoosePushAdTypeView.swift */,
 				0439CCE52D0989A200379537 /* BoBCreatAdWarnAlertView.swift */,
 				0439CCE72D09AE7700379537 /* BoBFreeBuyAndSellView.swift */,
@@ -2437,6 +2440,7 @@
 				04052E2D2CF45A0200A7A554 /* BoBAddPaymentMethodViewController.swift in Sources */,
 				0445C9042CFDA79900D1FD34 /* JXPagingListContainerView.swift in Sources */,
 				0418B5792BF1E79F00108808 /* YFFeedbackVC.swift in Sources */,
+				043C7A2B2D21035300394284 /* BoBQuickBuyAndSellErrorAlertView.swift in Sources */,
 				040D86052BEB8C4200DCAAB3 /* SuperUILableExtension.swift in Sources */,
 				0445C9072CFDA79900D1FD34 /* JXPagingSmoothView.swift in Sources */,
 				04F2D0852BEE21CA00D5271B /* MineDeleteAccountReasonVC.swift in Sources */,

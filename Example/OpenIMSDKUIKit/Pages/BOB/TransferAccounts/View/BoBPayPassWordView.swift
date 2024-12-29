@@ -116,10 +116,11 @@ class BoBPayPassWordView: TGLinearLayout {
         r.isUserInteractionEnabled = true
         r.isEnabled = false
         r.corner(22)
-        r.rx.tap.subscribe(onNext: { [self] in
-            if payBtnClickBlock != nil{
-                payBtnClickBlock(self.pwdTf.text!)
+        r.rx.tap.subscribe(onNext: { [weak self] in
+            if self?.payBtnClickBlock != nil{
+                self?.payBtnClickBlock(self?.pwdTf.text ?? "")
             }
+            self?.endEditing(true)
             GKCover.hide()
         }).disposed(by: rx.disposeBag)
         return r
