@@ -286,7 +286,7 @@ extension ChatOrderSystemMessgae: UITableViewDataSource, UITableViewDelegate {
         if let handler = OIMApi.gotoBoBDetailHandle {
             
             self.view.endEditing(true)
-            handler(self, model1.detail?.code ?? "", { res in
+            handler(self, model1.detail?.code ?? "",false, { res in
                
             })
         }
@@ -315,6 +315,7 @@ class orderMessageDetail: Decodable {
     var detail:orderMessageContentDetail?
 }
 class orderMessageContentDetail: Decodable {
+    var reminders:Bool?//是否是强提醒,true强提醒
     var code: String?
     var time:String?
     var type:Int?

@@ -17,18 +17,31 @@ class BoBOrderDetailViewController: BaseTitleController {
     var countdownTime:Int = 0
     var timeCount:Int = 0
     private var timer: DispatchSourceTimer?
+    private var refreshTimer: DispatchSourceTimer?
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        self.stopTimer()
+        self.stopRefreshTimer()
+    }
+    override func leftBtnClick(_ sender: QMUIButton) {
+       
+            self.navigationController?.popViewController(animated: true)
+            IMController.shared.showStrongNoticeView()
+            self.dismiss(animated: true)
+       
+        self.stopTimer()
+        self.stopRefreshTimer()
     }
     override func initViews() {
         super.initViews()
         setBackGroundColor(.white)
         initScrollSafeArea()
         title = "订单详情"
+        addLeftImageButton(R.image.arrowLeft()!.withTintColor())
         scrollViewContainer.tg_padding = UIEdgeInsets(top: 0, left: PADDING_OUTER, bottom: 0, right: PADDING_OUTER)
         superFooterContainerContainer.addSubview(bottomView)
         scrollViewContainer.addSubview(timeView)
@@ -48,10 +61,20 @@ class BoBOrderDetailViewController: BaseTitleController {
         scrollViewContainer.addSubview(dealDoneTimeView)
         scrollViewContainer.addSubview(checkPaymentVoucherLabel)
         scrollViewContainer.addSubview(orderAppealStatus)
+        scrollViewContainer.hide()
         loadData()
+    }
+    deinit {
+        self.stopTimer()
+        self.stopRefreshTimer()
     }
     func loadData(){
         BoBBuyAndSellCionModel.OrderDetailsRequest(code: code) {[weak self] data in
+            if self?.orderDetail == nil{
+                self?.scrollViewContainer.show()
+                self?.startRefreshTimer()
+            }
+            self?.timeCount = 0
             self?.orderDetail = data
             self?.updateUI()
         } completionHandler:{errCode,errMsg in
@@ -63,11 +86,14 @@ class BoBOrderDetailViewController: BaseTitleController {
         if orderDetail?.orderStatus == 1 || orderDetail?.orderStatus == 6{
             title = orderDetail?.buyOrSell == 1 ? "等待您付款" : "等待买家付款"
             orderStatusLabel.text = orderDetail?.buyOrSell == 1 ? "订单交易资金已锁定，请放心转款" : "等待买家付款"
+            orderStatusLabel.textColor = .black666
         }else if orderDetail?.orderStatus == 2 || orderDetail?.orderStatus == 7{
             title = orderDetail?.buyOrSell == 1 ? "等待卖家确认收款" : "请您确认收款"
             orderStatusLabel.text = orderDetail?.buyOrSell == 1 ? "订单交易资金已锁定，等待放款" : "买家已付款，请确认收款"
+            orderStatusLabel.textColor = .black666
         }else if orderDetail?.orderStatus == 3{
             title = "交易完成"
+            orderStatusLabel.textColor = .black666
             if orderDetail?.buyOrSell == 1{
                 let text = "交易完成，查看账单确认资金是否到账"
                 let attributedText = setupAttributedText(text: text, targetWords: ["账单"], color: .primaryColor)
@@ -79,19 +105,29 @@ class BoBOrderDetailViewController: BaseTitleController {
         }else if orderDetail?.orderStatus == 4 || orderDetail?.orderStatus == 5{
             title = "交易取消"
             orderStatusLabel.text = orderDetail?.buyOrSell == 1 ? "交易取消，您可以选择新的卖家重新发起交易" : "交易取消，您可以选择新的买家重新发起交易"
+            orderStatusLabel.textColor = .black666
         }else if orderDetail?.orderStatus == 8{
             title = orderDetail?.buyOrSell == 1 ? "等待卖家接单" : "等待您接单"
             orderStatusLabel.text = orderDetail?.buyOrSell == 1 ? "订单已创建，等待卖家接单" : "订单已创建，等待您接单"
+            orderStatusLabel.textColor = .black666
         }else if orderDetail?.orderStatus == 9{
             title = orderDetail?.buyOrSell == 1 ? "等待您接单" : "等待买家接单"
             orderStatusLabel.text = orderDetail?.buyOrSell == 1 ? "订单已创建，等待您接单" : "订单已创建，等待买家接单"
+            orderStatusLabel.textColor = .black666
         }else if orderDetail?.orderStatus == 10{
             title = "订单已超时"
             orderStatusLabel.text = "订单已超时，请勿付款"
             orderStatusLabel.textColor = .init(hexString: "#F32525")
-        }
-        if orderDetail?.representationType == 1{
+        }else if orderDetail?.orderStatus == 11{
             title = "申诉中"
+            if orderDetail?.representationType == 1{
+                orderStatusLabel.text = "已发起申诉，请耐心等待"
+                orderStatusLabel.textColor = .black666
+            }else{
+                orderStatusLabel.text = "对方发起申诉，请耐心等待"
+                orderStatusLabel.textColor = .black666
+            }
+            
         }
             
         countdownTime = orderDetail?.countdownTime ?? 0
@@ -99,7 +135,6 @@ class BoBOrderDetailViewController: BaseTitleController {
             stopTimer()
             timeView.show()
             timeLabel.text = convertSecondsToMinuteSecondFormat(countdownTime)
-            timeCount = 0
             startTimer()
         }else{
             timeView.hide()
@@ -185,12 +220,12 @@ class BoBOrderDetailViewController: BaseTitleController {
         }else{
             checkPaymentVoucherLabel.hide()
         }
-        if orderDetail?.representationType == 1{
+        if orderDetail?.representationType == 1 || orderDetail?.representationTypeOther == 1{
             //申诉中
             orderAppealStatus.show()
             orderAppealStatus.text = "订单申诉中，请耐心等待..."
             orderAppealStatus.textColor = .init(hexString: "#F32525")
-        }else if orderDetail?.representationType == 2{
+        }else if (orderDetail?.representationType == 2 && orderDetail?.representationTypeOther != 1) || (orderDetail?.representationType != 1 && orderDetail?.representationTypeOther == 2){
             //申诉完成
             orderAppealStatus.show()
             orderAppealStatus.text = "订单申诉已完成"
@@ -203,15 +238,39 @@ class BoBOrderDetailViewController: BaseTitleController {
             bottomView.show()
             if orderDetail?.orderStatus == 10{
                 //已超时
-                bottomView.tg_height.equal(66+48)
-                checkOtherAppeal.show()
-                appealBtn.show()
-                uploadVoucherBtn.show()
                 cancleBtn.hide()
                 acceptOrderBtn.hide()
                 receivePaymentBtn.hide()
-                checkAppealResultBtn.hide()
                 mineAppealBtn.hide()
+                uploadVoucherBtn.show()
+                if orderDetail?.representationType ?? 0 == 1{
+                    bottomView.tg_height.equal(66)
+                    checkOtherAppeal.hide()
+                    appealBtn.hide()
+                    if orderDetail?.representationTypeOther ?? 0 == 2{
+                        checkAppealResultBtn.show()
+                        checkAppealResultBtn.tg_width.equal(114)
+                    }else{
+                        checkAppealResultBtn.hide()
+                    }
+                }else if orderDetail?.representationType ?? 0 == 2{
+                    bottomView.tg_height.equal(66)
+                    checkOtherAppeal.hide()
+                    appealBtn.hide()
+                    checkAppealResultBtn.show()
+                    checkAppealResultBtn.tg_width.equal(114)
+                }else{
+                    appealBtn.tg_width.equal(114)
+                    appealBtn.show()
+                    checkAppealResultBtn.hide()
+                    if orderDetail?.representationTypeOther ?? 0 == 2{
+                        bottomView.tg_height.equal(66+48)
+                        checkOtherAppeal.show()
+                    }else{
+                        bottomView.tg_height.equal(66)
+                        checkOtherAppeal.hide()
+                    }
+                }
             }else{
                 bottomView.tg_height.equal(66)
                 checkOtherAppeal.hide()
@@ -236,18 +295,25 @@ class BoBOrderDetailViewController: BaseTitleController {
                     appealBtn.hide()
                     acceptOrderBtn.hide()
                     receivePaymentBtn.hide()
-                    if orderDetail?.representationType ?? 0 > 0{
+                    if orderDetail?.representationType ?? 0 == 2{
                         checkAppealResultBtn.tg_width.equal(.fill)
                         checkAppealResultBtn.show()
                         mineAppealBtn.hide()
-                    }else{
-                        if orderDetail?.representationTypeOther ?? 0 > 0{
-                            checkAppealResultBtn.tg_width.equal(114)
+                    }else if orderDetail?.representationType ?? 0 == 1{
+                        mineAppealBtn.hide()
+                        if orderDetail?.representationTypeOther ?? 0 == 2{
+                            checkAppealResultBtn.tg_width.equal(.fill)
                             checkAppealResultBtn.show()
-                            mineAppealBtn.show()
                         }else{
                             checkAppealResultBtn.hide()
-                            mineAppealBtn.show()
+                        }
+                    }else{
+                        mineAppealBtn.show()
+                        if orderDetail?.representationTypeOther ?? 0 == 2{
+                            checkAppealResultBtn.tg_width.equal(114)
+                            checkAppealResultBtn.show()
+                        }else{
+                            checkAppealResultBtn.hide()
                         }
                     }
                 }else if orderDetail?.orderStatus == 4 || orderDetail?.orderStatus == 5{
@@ -257,18 +323,25 @@ class BoBOrderDetailViewController: BaseTitleController {
                         appealBtn.hide()
                         acceptOrderBtn.hide()
                         receivePaymentBtn.hide()
-                        if orderDetail?.representationType ?? 0 > 0{
+                        if orderDetail?.representationType ?? 0 == 2{
                             checkAppealResultBtn.tg_width.equal(.fill)
                             checkAppealResultBtn.show()
                             mineAppealBtn.hide()
-                        }else{
-                            if orderDetail?.representationTypeOther ?? 0 > 0{
-                                checkAppealResultBtn.tg_width.equal(114)
+                        }else if orderDetail?.representationType ?? 0 == 1{
+                            mineAppealBtn.hide()
+                            if orderDetail?.representationTypeOther ?? 0 == 2{
+                                checkAppealResultBtn.tg_width.equal(.fill)
                                 checkAppealResultBtn.show()
-                                mineAppealBtn.show()
                             }else{
                                 checkAppealResultBtn.hide()
-                                mineAppealBtn.show()
+                            }
+                        }else{
+                            mineAppealBtn.show()
+                            if orderDetail?.representationTypeOther ?? 0 == 2{
+                                checkAppealResultBtn.tg_width.equal(114)
+                                checkAppealResultBtn.show()
+                            }else{
+                                checkAppealResultBtn.hide()
                             }
                         }
                     }else{
@@ -292,6 +365,8 @@ class BoBOrderDetailViewController: BaseTitleController {
                     receivePaymentBtn.hide()
                     checkAppealResultBtn.hide()
                     mineAppealBtn.hide()
+                }else if orderDetail?.orderStatus == 11 {
+                    bottomView.hide()
                 }
             }
         }else{
@@ -319,18 +394,25 @@ class BoBOrderDetailViewController: BaseTitleController {
                 appealBtn.hide()
                 acceptOrderBtn.hide()
                 receivePaymentBtn.hide()
-                if orderDetail?.representationType ?? 0 > 0{
+                if orderDetail?.representationType ?? 0 == 2{
                     checkAppealResultBtn.tg_width.equal(.fill)
                     checkAppealResultBtn.show()
                     mineAppealBtn.hide()
-                }else{
-                    if orderDetail?.representationTypeOther ?? 0 > 0{
-                        checkAppealResultBtn.tg_width.equal(114)
+                }else if orderDetail?.representationType ?? 0 == 1{
+                    mineAppealBtn.hide()
+                    if orderDetail?.representationTypeOther ?? 0 == 2{
+                        checkAppealResultBtn.tg_width.equal(.fill)
                         checkAppealResultBtn.show()
-                        mineAppealBtn.show()
                     }else{
                         checkAppealResultBtn.hide()
-                        mineAppealBtn.show()
+                    }
+                }else{
+                    mineAppealBtn.show()
+                    if orderDetail?.representationTypeOther ?? 0 == 2{
+                        checkAppealResultBtn.tg_width.equal(114)
+                        checkAppealResultBtn.show()
+                    }else{
+                        checkAppealResultBtn.hide()
                     }
                 }
             }else if orderDetail?.orderStatus == 4 || orderDetail?.orderStatus == 5{
@@ -340,18 +422,25 @@ class BoBOrderDetailViewController: BaseTitleController {
                     appealBtn.hide()
                     acceptOrderBtn.hide()
                     receivePaymentBtn.hide()
-                    if orderDetail?.representationType ?? 0 > 0{
+                    if orderDetail?.representationType ?? 0 == 2{
                         checkAppealResultBtn.tg_width.equal(.fill)
                         checkAppealResultBtn.show()
                         mineAppealBtn.hide()
-                    }else{
-                        if orderDetail?.representationTypeOther ?? 0 > 0{
-                            checkAppealResultBtn.tg_width.equal(114)
+                    }else if orderDetail?.representationType ?? 0 == 1{
+                        mineAppealBtn.hide()
+                        if orderDetail?.representationTypeOther ?? 0 == 2{
+                            checkAppealResultBtn.tg_width.equal(.fill)
                             checkAppealResultBtn.show()
-                            mineAppealBtn.show()
                         }else{
                             checkAppealResultBtn.hide()
-                            mineAppealBtn.show()
+                        }
+                    }else{
+                        mineAppealBtn.show()
+                        if orderDetail?.representationTypeOther ?? 0 == 2{
+                            checkAppealResultBtn.tg_width.equal(114)
+                            checkAppealResultBtn.show()
+                        }else{
+                            checkAppealResultBtn.hide()
                         }
                     }
                 }else{
@@ -383,20 +472,29 @@ class BoBOrderDetailViewController: BaseTitleController {
                 appealBtn.hide()
                 acceptOrderBtn.hide()
                 receivePaymentBtn.hide()
-                if orderDetail?.representationType ?? 0 > 0{
+                if orderDetail?.representationType ?? 0 == 2{
                     checkAppealResultBtn.tg_width.equal(.fill)
                     checkAppealResultBtn.show()
                     mineAppealBtn.hide()
-                }else{
-                    if orderDetail?.representationTypeOther ?? 0 > 0{
-                        checkAppealResultBtn.tg_width.equal(114)
+                }else if orderDetail?.representationType ?? 0 == 1{
+                    mineAppealBtn.hide()
+                    if orderDetail?.representationTypeOther ?? 0 == 2{
+                        checkAppealResultBtn.tg_width.equal(.fill)
                         checkAppealResultBtn.show()
-                        mineAppealBtn.show()
                     }else{
                         checkAppealResultBtn.hide()
-                        mineAppealBtn.show()
+                    }
+                }else{
+                    mineAppealBtn.show()
+                    if orderDetail?.representationTypeOther ?? 0 == 2{
+                        checkAppealResultBtn.tg_width.equal(114)
+                        checkAppealResultBtn.show()
+                    }else{
+                        checkAppealResultBtn.hide()
                     }
                 }
+            }else if orderDetail?.orderStatus == 11 {
+                bottomView.hide()
             }
         }
     }
@@ -442,11 +540,6 @@ class BoBOrderDetailViewController: BaseTitleController {
                 DispatchQueue.main.async {
                     self?.countdownTime = (self?.countdownTime ?? 0)-1
                     self?.timeLabel.text = self?.convertSecondsToMinuteSecondFormat(self?.countdownTime ?? 0)
-                    self?.timeCount = (self?.timeCount ?? 0)+1
-                    if self?.timeCount == 30 && self?.countdownTime ?? 0 > 10{
-                        self?.loadData()
-                        self?.timeCount = 0
-                    }
                 }
             }
         }
@@ -457,6 +550,30 @@ class BoBOrderDetailViewController: BaseTitleController {
         if timer != nil{
             timer?.cancel()
             timer = nil
+        }
+    }
+    func startRefreshTimer() {
+        // 创建一个基于全局并发队列的定时器源
+        refreshTimer = DispatchSource.makeTimerSource(queue: DispatchQueue.global())
+        // 设置定时器触发间隔为1秒
+        refreshTimer?.schedule(deadline:.now(), repeating:.seconds(1))
+        // 设置定时器触发时执行的闭包
+        refreshTimer?.setEventHandler {[weak self] in
+            DispatchQueue.main.async {
+                self?.timeCount = (self?.timeCount ?? 0)+1
+                if self?.timeCount == 5 {
+                    self?.loadData()
+                    self?.timeCount = 0
+                }
+            }
+        }
+        // 启动定时器
+        refreshTimer?.resume()
+    }
+    func stopRefreshTimer() {
+        if refreshTimer != nil{
+            refreshTimer?.cancel()
+            refreshTimer = nil
             timeCount = 0
         }
     }

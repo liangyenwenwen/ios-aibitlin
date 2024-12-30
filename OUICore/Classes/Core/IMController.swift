@@ -198,6 +198,10 @@ public class IMController: NSObject {
     // 开启震动
     public var enableVibration = true
     
+    private var isShowNoticeMessageView = false
+    var listArray:[orderMessageNoticDetail] = [] //强提醒订单消息列表
+
+    
     // 设置业务服务器的参数
     public func setup(businessServer: String, businessToken: String?) {
         Self.shared.businessServer = businessServer
@@ -1654,9 +1658,64 @@ extension IMController: OIMAdvancedMsgListener {
                 }
             })
         }
+        if msg.contentType.rawValue == 1400 && msg.sendID == "10001"{
+            if let model1 = JsonTool.fromJson((msg.notificationElem?.detail)!, toClass: orderMessageNoticDetail.self) {
+                let jsonData = model1.text!.data(using: .utf8)
+                if (jsonData != nil){
+                    do {
+                        let user = try JSONDecoder().decode(systemCustomNotitifyItem.self, from: jsonData!)
+                        if let detail = JsonTool.fromJson(user.cont!, toClass: orderMessageNoticContentDetail.self){
+                            model1.detail = detail
+                            if model1.detail?.reminders == true{
+                                showOrderNoticeView(detail: model1)
+                            }
+                            
+                        }
+                    }catch {
+                        
+                    }
+                }
+            }
+        }
         newMsgReceivedSubject.onNext(msg.toMessageInfo())
     }
-    
+    public func showStrongNoticeView(){
+        if listArray.count ?? 0 > 0{
+            let model = listArray.first
+            listArray.remove(at: 0)
+            showOrderNoticeView(detail: model!)
+        }
+    }
+    func showOrderNoticeView(detail:orderMessageNoticDetail){
+        if isShowNoticeMessageView == false{
+            let orderNoticeView = OrderNoticeMessageView()
+            isShowNoticeMessageView = true
+            orderNoticeView.bindData(detail: detail)
+            orderNoticeView.clickBtnBlock = {[weak self] index in
+                self?.isShowNoticeMessageView = false
+                if index == 0{
+                    //稍后处理
+                    let model = self?.listArray.first
+                    if self?.listArray.count ?? 0 > 0{
+                        let model = self?.listArray.first
+                        self?.listArray.remove(at: 0)
+                        self?.showOrderNoticeView(detail: model!)
+                    }
+                }else{
+                    //立即处理
+                    if let handler = OIMApi.gotoBoBDetailHandle {
+                        
+                        handler(UIViewController(), detail.detail?.code ?? "",true, { res in
+                           
+                        })
+                    }
+
+                }
+            }
+        }else{
+            listArray.append(detail)
+        }
+    }
     public func onRecvC2CReadReceipt(_ receiptList: [OIMReceiptInfo]) {
         c2cReadReceiptReceived.onNext(receiptList.compactMap { $0.toReceiptInfo() })
     }

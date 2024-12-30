@@ -21,7 +21,7 @@ public typealias gotoNewFriendHandle = ((_ currentVC: UIViewController, _ comple
 
 public typealias showChatVCShoeethandle = ((_ currentVC: UIViewController, _  userID: String, _ completion: @escaping ((String) -> Void)) -> Void)
 public typealias gotoSystemSettingHandle = ((_ currentVC: UIViewController, _  userID: String, _ completion: @escaping ((String) -> Void)) -> Void)
-public typealias gotoBoBDetailHandle = ((_ currentVC: UIViewController, _  code: String, _ completion: @escaping ((String) -> Void)) -> Void)
+public typealias gotoBoBDetailHandle = ((_ currentVC: UIViewController, _  code: String, _ isPresent: Bool, _ completion: @escaping ((String) -> Void)) -> Void)
 public typealias addFriendhandle = ((_ currentVC: UIViewController, _  userID: String, _ completion: @escaping ((String) -> Void)) -> Void)
 
 

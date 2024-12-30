@@ -62,12 +62,20 @@ extension AccountViewModel {
             vc.gotoController(settingVC)
             
         }
-        OIMApi.gotoBoBDetailHandle = { (vc, code, completion: @escaping (String) -> Void) in
+        OIMApi.gotoBoBDetailHandle = { (vc, code,isPresent, completion: @escaping (String) -> Void) in
           
             let orderDetailVC = BoBOrderDetailViewController()
             orderDetailVC.code = code
-            vc.gotoController(orderDetailVC)
-            
+            if isPresent{
+//                orderDetailVC.modalPresentationStyle = .overCurrentContext
+//                UIViewController.currentViewController().present(orderDetailVC, animated: true)
+                orderDetailVC.modalPresentationStyle = .fullScreen
+                let nav = UINavigationController.init(rootViewController:  orderDetailVC)
+                nav.modalPresentationStyle = .fullScreen
+                UIViewController.currentViewController().present(nav, animated: true)
+            }else{
+                vc.gotoController(orderDetailVC)
+            }
         }
         
         OIMApi.gotoNewFriendHandle = { (vc, completion: @escaping (String) -> Void) in
