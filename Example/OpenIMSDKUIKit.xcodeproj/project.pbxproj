@@ -104,6 +104,7 @@
 		043A558C2C8166490041836E /* UserTagTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043A55892C8166490041836E /* UserTagTypeView.swift */; };
 		043A558D2C8166490041836E /* UserTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043A558A2C8166490041836E /* UserTagView.swift */; };
 		043C7A2B2D21035300394284 /* BoBQuickBuyAndSellErrorAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043C7A2A2D21035300394284 /* BoBQuickBuyAndSellErrorAlertView.swift */; };
+		043C7A382D22A4C700394284 /* AdvertisingLaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043C7A372D22A4C700394284 /* AdvertisingLaunchViewController.swift */; };
 		0445BEE22CD1E04300A46558 /* ABLNetWorkToos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445BEE12CD1E04300A46558 /* ABLNetWorkToos.swift */; };
 		0445C9042CFDA79900D1FD34 /* JXPagingListContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445C8FE2CFDA79900D1FD34 /* JXPagingListContainerView.swift */; };
 		0445C9052CFDA79900D1FD34 /* JXPagingListRefreshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445C8FF2CFDA79900D1FD34 /* JXPagingListRefreshView.swift */; };
@@ -394,6 +395,7 @@
 		043A55892C8166490041836E /* UserTagTypeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTagTypeView.swift; sourceTree = "<group>"; };
 		043A558A2C8166490041836E /* UserTagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTagView.swift; sourceTree = "<group>"; };
 		043C7A2A2D21035300394284 /* BoBQuickBuyAndSellErrorAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBQuickBuyAndSellErrorAlertView.swift; sourceTree = "<group>"; };
+		043C7A372D22A4C700394284 /* AdvertisingLaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisingLaunchViewController.swift; sourceTree = "<group>"; };
 		0445BEE12CD1E04300A46558 /* ABLNetWorkToos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ABLNetWorkToos.swift; sourceTree = "<group>"; };
 		0445C8FE2CFDA79900D1FD34 /* JXPagingListContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JXPagingListContainerView.swift; sourceTree = "<group>"; };
 		0445C8FF2CFDA79900D1FD34 /* JXPagingListRefreshView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JXPagingListRefreshView.swift; sourceTree = "<group>"; };
@@ -966,6 +968,14 @@
 				043A55892C8166490041836E /* UserTagTypeView.swift */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		043C7A362D22A4A300394284 /* AdvertisingLaunch  */ = {
+			isa = PBXGroup;
+			children = (
+				043C7A372D22A4C700394284 /* AdvertisingLaunchViewController.swift */,
+			);
+			path = "AdvertisingLaunch ";
 			sourceTree = "<group>";
 		};
 		0445BEE02CD1DF8B00A46558 /* NetWork */ = {
@@ -1893,6 +1903,7 @@
 		DC28F0E627EE1BD90068B545 /* Pages */ = {
 			isa = PBXGroup;
 			children = (
+				043C7A362D22A4A300394284 /* AdvertisingLaunch  */,
 				04EFEA412CECB5BC004441CB /* BOB */,
 				1790EE6A2921EAFC00C4024A /* MainTabViewController.swift */,
 				040D44232C882ABA007DB6FB /* Chat */,
@@ -2056,7 +2067,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$SRCROOT/R.generated.swift",
+				$SRCROOT/R.generated.swift,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2418,6 +2429,7 @@
 				040D85C52BEB8B0400DCAAB3 /* SuperStringUtil.swift in Sources */,
 				04052E212CF41AF600A7A554 /* BoBPaymentMethodListViewController.swift in Sources */,
 				0445C9392CFEF0AF00D1FD34 /* BoBSendRedPacketViewController.swift in Sources */,
+				043C7A382D22A4C700394284 /* AdvertisingLaunchViewController.swift in Sources */,
 				040E00B22D1BF5A6002EB7AE /* BoBUploadVoucherAlertView.swift in Sources */,
 				0439CCEA2D09BC6E00379537 /* BoBFreeBuyAndSellCell.swift in Sources */,
 				04F2D0872BEE21CA00D5271B /* MineDeleteAccountChooseWayVC.swift in Sources */,

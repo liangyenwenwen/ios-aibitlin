@@ -21,6 +21,7 @@ open class BoBRealNameModel {
     private static let QueryRealNameAuthentication = "/wallet/realNameAuthentication/queryRealNameAuthentication" //查看实名认证
     private static let ReceiveIdentityCardHeadshots = "/wallet/realNameAuthentication/receiveIdentityCardHeadshots" //接收身份证的头像面
     private static let PrimaryRealNameAuthentication = "/wallet/realNameAuthentication/primaryRealNameAuthentication"//初级实名认证
+    private static let GetOpenScreenPage = "/wallet/wallet/openScreenPage"//开屏广告
 
 //    private static var httpHeaders : HTTPHeaders = [
 //        "token":UserDefaults.standard.string(forKey: "bussinessTokenKey")!,
@@ -199,6 +200,39 @@ open class BoBRealNameModel {
         }
         
     }
+    
+    static func GetOpenScreenPageRequest(valueHandler: @escaping (OpenScreenAdInfo) -> Void,
+                                         completionHandler: @escaping CompletionHandler) {
+        
+        
+        if !NetworkStatus.isReacheable {
+//            SuperToast.show(title: "")
+            return
+        }
+        let url = API_BOB_URL + GetOpenScreenPage
+        Alamofire.request(url, method: .post, parameters: nil,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
+            if let data = dataRequest.data {
+                let strData = String.init(data: data, encoding: String.Encoding.utf8)
+                print(strData!)
+                if let res = JsonTool.fromJson(strData!, toClass: RealNameInfoResponse<OpenScreenAdInfo>.self) {
+                    if res.code == 20000  {
+                        valueHandler(res.data)
+//                        var data1 = res.data
+//                        data1.img = "https://img2.baidu.com/it/u=3931248722,2037178766&fm=253&fmt=auto&app=138&f=JPEG?w=281&h=500"
+//                        data1.showType = 2
+//                        valueHandler(data1)
+                    } else {
+                        completionHandler(res.code, res.message)
+                    }
+                } else {
+                    completionHandler(-1, "failure")
+                }
+            } else {
+                completionHandler(-1, "failure")
+            }
+        }
+        
+    }
 }
 class UserIDRequest: Encodable {
     
@@ -251,5 +285,10 @@ struct RealNameIdCardInfo: Codable {
     var name:String //姓名
     var cardId:String //身份证号
 }
+struct OpenScreenAdInfo: Codable {
+    var showType: Int? //开屏页展示,1关闭 2开启
+    var img:String? //开屏广告地址
+}
+
 
 

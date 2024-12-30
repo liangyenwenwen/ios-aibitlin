@@ -50,6 +50,7 @@ class MainTabViewController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadOpenScreenAd()
         var controllers: [UIViewController] = []
         
         // 注册对名为"myNotification"的通知的观察
@@ -453,6 +454,23 @@ extension MainTabViewController {
             IMController.shared.certificationLevel = data.certificationLevel ?? 0
         }, completionHandler: {(errCode, errMsg) in
         })
+    }
+    //下载广告页
+    func loadOpenScreenAd(){
+        BoBRealNameModel.GetOpenScreenPageRequest(){data in
+            UserDefaults.standard.setValue(data.showType, forKey: "showOpenScreenPage")
+            if data.showType == 2{
+                DispatchQueue.global().async {
+                    SDWebImageManager.shared.loadImage(with:URL(string: data.img), options:.highPriority, progress: nil) { (image, data, error, cacheType, finished, url) in
+                        if image != nil{
+                            SDImageCache.shared.store(image, forKey: "cached_ad_image")
+                        }
+                    }
+                }
+            }
+        } completionHandler:{errCode,errMsg in
+            
+        }
     }
     //检查更新
     func checkAppVersion(uid: String){

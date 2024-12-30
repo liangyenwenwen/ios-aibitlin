@@ -226,6 +226,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         OIMApi.rotationHandler = { [weak self] o in
             self?.orientation = o
         }
+        window = UIWindow(frame: UIScreen.main.bounds)
+        let splashViewController = AdvertisingLaunchViewController()
+        window?.rootViewController = splashViewController
+        window?.makeKeyAndVisible()
         return true
     }
     
