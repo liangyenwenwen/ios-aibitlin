@@ -24,15 +24,11 @@ class BoBOrderDetailViewController: BaseTitleController {
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.stopTimer()
-        self.stopRefreshTimer()
     }
     override func leftBtnClick(_ sender: QMUIButton) {
-       
-            self.navigationController?.popViewController(animated: true)
-            IMController.shared.showStrongNoticeView()
-            self.dismiss(animated: true)
-       
+        self.navigationController?.popViewController(animated: true)
+        IMController.shared.showStrongNoticeView()
+        self.dismiss(animated: true)
         self.stopTimer()
         self.stopRefreshTimer()
     }
@@ -760,7 +756,16 @@ class BoBOrderDetailViewController: BaseTitleController {
         r.tg_left.equal(0)
         r.tg_right.equal(0)
         r.tg_height.equal(.wrap)
-        r.currentVC = self
+//        r.currentVC = self
+        r.showQrCode = {[weak self] imageUrl in
+            let voucherView = BoBShowVoucherView()
+            voucherView.tg_width.equal(300)
+            voucherView.tg_height.equal(.wrap)
+            voucherView.tg_centerY.equal(0)
+            voucherView.bindData(image:nil, url: imageUrl)
+    //        voucherView.voucherImageView.sd_setImage(with: URL(string: paymentDetail?.img))
+            GKCover.cover(from: self?.view?.window, contentView: voucherView, style: .translucent, showStyle: .center, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: true)
+        }
         return r
     }()
     lazy var buyVoucherImageView: UIImageView = {

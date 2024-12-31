@@ -9,11 +9,14 @@
 import Foundation
 import OUICore
 import TangramKit
+import RxSwift
+
 class BoBOrderDetailPaymentView: TGLinearLayout {
-    var chooseRedPacketTypeBlock:((_ typeTitle:String,_ typeIndex:Int)->())!
+    var showQrCode:((_ imageUrl:String)->())!
     var paymentDetail:paymentDdetailData?
     var currentVC:UIViewController?
     var type:Int = 1
+    let disposeBag = DisposeBag()
     init() {
         super.init(frame: .zero, orientation: .vert)
         innerInit()
@@ -62,15 +65,15 @@ class BoBOrderDetailPaymentView: TGLinearLayout {
             weixinPayView.userNickNameView.buyCounLabel.text = data.nickName
         }
     }
-    func showQrCode(){
-        let voucherView = BoBShowVoucherView()
-        voucherView.tg_width.equal(300)
-        voucherView.tg_height.equal(.wrap)
-        voucherView.tg_centerY.equal(0)
-        voucherView.bindData(image:nil, url: paymentDetail?.img)
-//        voucherView.voucherImageView.sd_setImage(with: URL(string: paymentDetail?.img))
-        GKCover.cover(from: self.currentVC?.view?.window, contentView: voucherView, style: .translucent, showStyle: .center, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: true)
-    }
+//    func showQrCode(){
+//        let voucherView = BoBShowVoucherView()
+//        voucherView.tg_width.equal(300)
+//        voucherView.tg_height.equal(.wrap)
+//        voucherView.tg_centerY.equal(0)
+//        voucherView.bindData(image:nil, url: paymentDetail?.img)
+////        voucherView.voucherImageView.sd_setImage(with: URL(string: paymentDetail?.img))
+//        GKCover.cover(from: self.currentVC?.view?.window, contentView: voucherView, style: .translucent, showStyle: .center, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: true)
+//    }
     lazy var bankView: UIView = {
         let r = UIView()
         r.tg_top.equal(0)
@@ -126,7 +129,7 @@ class BoBOrderDetailPaymentView: TGLinearLayout {
         tap.rx.event.subscribe {[weak self]  _ in
             UIPasteboard.general.string = self?.paymentDetail?.bankId ?? ""
             SuperToast.show(title: "复制成功".localized())
-        }.disposed(by: rx.disposeBag)
+        }.disposed(by: self.disposeBag)
         r.addGestureRecognizer(tap)
         return r
     }()
@@ -139,7 +142,7 @@ class BoBOrderDetailPaymentView: TGLinearLayout {
         tap.rx.event.subscribe {[weak self]  _ in
             UIPasteboard.general.string = self?.paymentDetail?.name ?? ""
             SuperToast.show(title: "复制成功".localized())
-        }.disposed(by: rx.disposeBag)
+        }.disposed(by: self.disposeBag)
         r.addGestureRecognizer(tap)
         return r
     }()
@@ -158,20 +161,20 @@ class BoBOrderDetailPaymentView: TGLinearLayout {
         r.numberView.buyCounLabel.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer()
         tap.rx.event.subscribe { [weak self] _ in
-            self?.showQrCode()
-        }.disposed(by: rx.disposeBag)
+            self?.showQrCode(self?.paymentDetail?.img ?? "")
+        }.disposed(by: self.disposeBag)
         r.leftView.addGestureRecognizer(tap)
         let tap1 = UITapGestureRecognizer()
         tap1.rx.event.subscribe {[weak self]  _ in
             UIPasteboard.general.string = self?.paymentDetail?.name ?? ""
             SuperToast.show(title: "复制成功".localized())
-        }.disposed(by: rx.disposeBag)
+        }.disposed(by: self.disposeBag)
         r.userNameView.buyCounLabel.addGestureRecognizer(tap1)
         let tap2 = UITapGestureRecognizer()
         tap2.rx.event.subscribe {[weak self]  _ in
             UIPasteboard.general.string = self?.paymentDetail?.zfbCode ?? ""
             SuperToast.show(title: "复制成功".localized())
-        }.disposed(by: rx.disposeBag)
+        }.disposed(by: self.disposeBag)
         r.numberView.buyCounLabel.addGestureRecognizer(tap2)
         return r
     }()
@@ -189,14 +192,14 @@ class BoBOrderDetailPaymentView: TGLinearLayout {
         r.numberView.hide()
         let tap = UITapGestureRecognizer()
         tap.rx.event.subscribe { [weak self] _ in
-            self?.showQrCode()
-        }.disposed(by: rx.disposeBag)
+            self?.showQrCode(self?.paymentDetail?.img ?? "")
+        }.disposed(by: self.disposeBag)
         r.leftView.addGestureRecognizer(tap)
         let tap1 = UITapGestureRecognizer()
         tap1.rx.event.subscribe {[weak self]  _ in
             UIPasteboard.general.string = self?.paymentDetail?.name ?? ""
             SuperToast.show(title: "复制成功".localized())
-        }.disposed(by: rx.disposeBag)
+        }.disposed(by: self.disposeBag)
         r.userNameView.buyCounLabel.addGestureRecognizer(tap1)
         return r
     }()
