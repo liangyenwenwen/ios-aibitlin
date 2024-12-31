@@ -131,11 +131,9 @@ class BoBBuyAndSellCionModel {
         if !NetworkStatus.isReacheable {
             return
         }
-        ProgressHUD.animate()
         let param = ["type": type, "currency": currency,"amount": amount,"payment": payment,"pageNum": pageNum,"pageSize": pageSize] as [String : Any]
         let url = SuperStringUtil.netUrl(API_BOB_URL + FreeAreaList, param)
         Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
-            ProgressHUD.dismiss()
             
             if let data = dataRequest.data {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)

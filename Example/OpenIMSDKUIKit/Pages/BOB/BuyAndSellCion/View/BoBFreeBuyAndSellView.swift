@@ -22,7 +22,9 @@ class BoBFreeBuyAndSellView: UIView {
     var isChooseWx:Bool = false
     var type:Int = 1 //1是购买，2是出售
     var currency:String? //币种
-
+    
+    private var timer: DispatchSourceTimer?
+    var countdownTime:Int = 5
     var listArray:[BoBBuyAndSellFreeAreaList] = []
     init(data: BoBBuyAndSellHomeData?,viewType:Int,currentCurrency:String?) {
         super.init(frame: .zero)
@@ -70,6 +72,36 @@ class BoBFreeBuyAndSellView: UIView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    func startTimer() {
+        // 创建一个基于全局并发队列的定时器源
+        timer = DispatchSource.makeTimerSource(queue: DispatchQueue.global())
+        // 设置定时器触发间隔为1秒
+        timer?.schedule(deadline:.now(), repeating:.seconds(1))
+        // 设置定时器触发时执行的闭包
+        timer?.setEventHandler {[weak self] in
+            if self?.countdownTime == 0{
+                self?.countdownTime = 5
+                self?.refreshData()
+            }else{
+                self?.countdownTime = (self?.countdownTime ?? 0)-1
+            }
+        }
+        // 启动定时器
+        timer?.resume()
+    }
+    func stopTimer() {
+        if timer != nil{
+            timer?.cancel()
+            timer = nil
+        }
+    }
+    func judgeTimerStatus(){
+        if tableView.contentOffset.y == 0{
+            startTimer()
+        }else{
+            stopTimer()
+        }
+    }
     @objc func refreshData(){
         loadData(pageNum:1)
     }
@@ -91,29 +123,28 @@ class BoBFreeBuyAndSellView: UIView {
                 payment = payment + (payment.isEmpty ? "3" : ",3")
             }
         }
-        BoBBuyAndSellCionModel.FreeAreaListRequest(type: type, currency: currency ?? "C", amount: chooseMoney.isEmpty ? "0" :chooseMoney, payment: payment, pageNum: pageNum, pageSize: 20) { data in
-            self.page = pageNum
+        BoBBuyAndSellCionModel.FreeAreaListRequest(type: type, currency: currency ?? "C", amount: chooseMoney.isEmpty ? "0" :chooseMoney, payment: payment, pageNum: pageNum, pageSize: 20) {[weak self] data in
+            self?.page = pageNum
             if pageNum == 1{
-                self.listArray.removeAll()
+                self?.listArray.removeAll()
             }
-            self.listArray.append(contentsOf: data)
-            self.tableView.reloadData()
-            self.tableView.mj_header?.endRefreshing()
+            self?.listArray.append(contentsOf: data)
+            self?.tableView.reloadData()
+            self?.tableView.mj_header?.endRefreshing()
             if data.count < 20{
-                if var footer = self.tableView.mj_footer as? MJRefreshAutoNormalFooter {
+                if var footer = self?.tableView.mj_footer as? MJRefreshAutoNormalFooter {
                     footer.setTitle("加载完成，没有更多了...".innerLocalized(), for: .noMoreData)
                     footer.stateLabel?.textColor = .init(hexString: "#CCCCCC")
                     footer.stateLabel?.font = .mediumFont(16)
                     footer.endRefreshingWithNoMoreData()
                 }
             }else{
-                self.tableView.mj_footer?.endRefreshing()
+                self?.tableView.mj_footer?.endRefreshing()
             }
-        }completionHandler: {errCode,errMsg in
+        }completionHandler: {[weak self]errCode,errMsg in
             SuperToast.show(title: errMsg)
-            self.tableView.mj_header?.endRefreshing()
-            self.tableView.mj_footer?.endRefreshing()
-
+            self?.tableView.mj_header?.endRefreshing()
+            self?.tableView.mj_footer?.endRefreshing()
         }
     }
     lazy var moneyCountView: UIView = {
@@ -309,6 +340,17 @@ func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     currentVC?.navigationController?.pushViewController(vc, animated: true)
 }
 
+}
+extension BoBFreeBuyAndSellView: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+            if scrollView == tableView {
+                if scrollView.contentOffset.y == 0{
+                    startTimer()
+                }else{
+                    stopTimer()
+                }
+            }
+        }
 }
 extension BoBFreeBuyAndSellView: JXSegmentedListContainerViewListDelegate {
     func listView() -> UIView {
