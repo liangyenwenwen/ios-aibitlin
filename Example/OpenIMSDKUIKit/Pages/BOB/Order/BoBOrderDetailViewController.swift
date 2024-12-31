@@ -146,7 +146,6 @@ class BoBOrderDetailViewController: BaseTitleController {
             shortNameLabel.backgroundColor = .init(hexString: "#5FA9FF")
             orderDetailTitleLabel.text = "购买" + " " + (orderDetail?.currency ?? "C")
             paymentMethodView.buyCounLabel.textColor = .black333
-            paymentMethodNameView.hide()
         }else{
             //卖家
             shortNameLabel.text = String((orderDetail?.advertisingNameBuy ?? " ").prefix(1))
@@ -154,32 +153,30 @@ class BoBOrderDetailViewController: BaseTitleController {
             shortNameLabel.backgroundColor = .init(hexString: "#FFA741")
             orderDetailTitleLabel.text = "出售" + " " + (orderDetail?.currency ?? "C")
             paymentMethodView.buyCounLabel.textColor = .primaryColor
-            if orderDetail?.buyOrSell == 9{
-                paymentMethodNameView.hide()
-            }else{
-                paymentMethodNameView.show()
-                paymentMethodNameView.buyCountTitleLabel.text = orderDetail?.payer ?? ""
-            }
         }
         orderNumberView.buyCounLabel.attributedText = getAttribute(str:(orderDetail?.orderNumber)!)
         payMoneyView.buyCounLabel.text = String(format: "¥%.2f", orderDetail?.amount ?? 0.00)
         unitPriceView.buyCountTitleLabel.text = "单价" + "(" + (orderDetail?.currency ?? "C") + ")"
         unitPriceView.buyCounLabel.text = String(format: "¥%.2f", orderDetail?.price ?? 0.00)
         countView.buyCountTitleLabel.text = "数量" + "(" + (orderDetail?.currency ?? "C") + ")"
-        countView.buyCounLabel.text = String(format: "¥%.2f", orderDetail?.quantity ?? 0.00)
+        countView.buyCounLabel.text = String(format: "%.2f", orderDetail?.quantity ?? 0.00)
         paymentMethodView.buyCounLabel.text = orderDetail?.payment == 1 ? "银行卡" : (orderDetail?.payment == 2 ? "支付宝":"微信")
         if orderDetail?.paymentMethodDetails == nil && (orderDetail?.paymentCredentials ?? "").length == 0{
+            paymentMethodNameView.hide()
             payTitleLabel.hide()
             payView.hide()
             buyVoucherImageView.hide()
         }else{
             payTitleLabel.show()
             if orderDetail?.buyOrSell == 1{
+                paymentMethodNameView.hide()
                 payTitleLabel.text = "卖家收款方式"
                 payView.show()
                 payView.bindData(type: orderDetail?.payment ?? 1 ,data: orderDetail?.paymentMethodDetails ?? paymentDdetailData())
                 buyVoucherImageView.hide()
             }else{
+                paymentMethodNameView.show()
+                paymentMethodNameView.buyCounLabel.text = orderDetail?.payer ?? ""
                 if (orderDetail?.paymentCredentials ?? "").length > 0{
                     payView.hide()
                     payTitleLabel.text = "买家支付凭证"

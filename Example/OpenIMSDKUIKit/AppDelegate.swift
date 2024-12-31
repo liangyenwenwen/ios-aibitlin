@@ -226,10 +226,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         OIMApi.rotationHandler = { [weak self] o in
             self?.orientation = o
         }
-        window = UIWindow(frame: UIScreen.main.bounds)
-        let splashViewController = AdvertisingLaunchViewController()
-        window?.rootViewController = splashViewController
-        window?.makeKeyAndVisible()
+        let showType = Int(UserDefaults.standard.string(forKey: "showOpenScreenPage") ?? "1")
+        let cachedImage = SDImageCache.shared.imageFromDiskCache(forKey: "cached_ad_image")
+        if cachedImage != nil && showType == 2{
+            // 加载广告页
+            window = UIWindow(frame: UIScreen.main.bounds)
+            let splashViewController = AdvertisingLaunchViewController()
+            window?.rootViewController = splashViewController
+            window?.makeKeyAndVisible()
+        }
         return true
     }
     

@@ -229,8 +229,6 @@ class OrderNoticeMessageView: UIView {
         r.setTitleColor(.white, for: .normal)
         r.layer.masksToBounds = true
         r.layer.cornerRadius = 23
-        r.layer.borderWidth = 1
-        r.layer.borderColor = UIColor.init(hexString: "#999999")?.cgColor
         r.backgroundColor = .init(hexString: "#388CEF")
         r.rx.tap.subscribe(onNext: { [weak self] in
             self?.hideMask()

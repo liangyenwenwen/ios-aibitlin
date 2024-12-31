@@ -97,7 +97,7 @@ class BoBQuickBuyAndSellErrorAlertView: TGLinearLayout {
         r.textColor = .init(hexString: "#F32525")
         r.font = .mediumFont(14)
         r.textAlignment = .center
-        r.text = "订单已取消，请重新下单"
+        r.text = "暂无匹配的广告，请重新选择"
         return r
     }()
 }

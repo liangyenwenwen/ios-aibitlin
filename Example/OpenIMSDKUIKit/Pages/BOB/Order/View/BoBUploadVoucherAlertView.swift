@@ -106,6 +106,9 @@ class BoBUploadVoucherAlertView: UIView {
             upLoadBgView.snp_updateConstraints { make in
                 make.top.equalTo(tipLabel.snp_bottom).offset(12)
             }
+        }else{
+            let str = type == 2 ? "查看支付宝付款凭证示例":"查看微信付款凭证示例"
+            voucherTipLabel.attributedText = setupAttributedText(text: "点击，" + str, targetWords: [str], color: .primaryColor)
         }
     }
     @objc func chooseImage() {

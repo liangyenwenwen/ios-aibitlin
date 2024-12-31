@@ -26,7 +26,7 @@ class BoBShowVoucherView: TGLinearLayout {
     }
     
     func innerInit() {
-        corner(MEDDLE_RADIUS)
+//        corner(MEDDLE_RADIUS)
         tg_width.equal(.fill)
         tg_height.equal(.wrap)
         tg_gravity = .horz.center
@@ -54,6 +54,7 @@ class BoBShowVoucherView: TGLinearLayout {
         let r = UIImageView()
         r.tg_width.equal(300)
         r.tg_height.equal(.wrap)
+        r.corner(10)
 //        r.isUserInteractionEnabled = true
 //        let tap = UITapGestureRecognizer()
 //        tap.rx.event.subscribe { [weak self] _ in

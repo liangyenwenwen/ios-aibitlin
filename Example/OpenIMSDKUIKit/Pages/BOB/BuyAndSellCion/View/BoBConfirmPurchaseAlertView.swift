@@ -90,6 +90,8 @@ class BoBConfirmPurchaseAlertView: UIView {
         self.count = count
         self.code = code
         payMoneyView.buyCounLabel.text = "¥" + money
+        unitPriceView.buyCounLabel.text = "¥" + unitPrice
+        countView.buyCounLabel.text =  count
        if type == 1 {
             //购买
             titleLbl.text = "确认购买"
@@ -110,6 +112,7 @@ class BoBConfirmPurchaseAlertView: UIView {
             paymentNameLabel.text = "支付宝"
             payment = 2
         }
+        
     }
     lazy var topView: TGLinearLayout = {
         let r = TGLinearLayout(.horz)

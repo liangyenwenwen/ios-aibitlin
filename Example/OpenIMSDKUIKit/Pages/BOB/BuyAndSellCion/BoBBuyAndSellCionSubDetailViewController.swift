@@ -239,11 +239,11 @@ class BoBBuyAndSellCionSubDetailViewController: BaseTitleController {
         r.keyboardType = .decimalPad
         r.setPlaceHolderTextColor(.black999)
         if buyType == 1{
-            let quotaMin = (detailData?.quotaMin ?? 0.00)*(detailData?.setExchangeRate ?? 1.00)
-            let quotaMax = (detailData?.quotaMax ?? 0.00)*(detailData?.setExchangeRate ?? 1.00)
-            r.placeholder = "限额" + String(format: " ¥%.2f~¥%.2f ",quotaMin, quotaMax)
+            r.placeholder = "限额" + String(format: " ¥%.2f~¥%.2f ",detailData?.quotaMin ?? 0.00,detailData?.quotaMax ?? 0.00)
         }else{
-            r.placeholder = "限额" + String(format: " %.2f~%.2f ", detailData?.quotaMin ?? 0.00,detailData?.quotaMax ?? 0.00) + (detailData?.advertisingCurrency ?? "C")
+            let quotaMin = (detailData?.quotaMin ?? 0.00)/((detailData?.setExchangeRate ?? 1.00)*1.00)
+            let quotaMax = (detailData?.quotaMax ?? 0.00)/((detailData?.setExchangeRate ?? 1.00)*1.00)
+            r.placeholder = "限额" + String(format: " %.2f~%.2f ", quotaMin,quotaMax) + (detailData?.advertisingCurrency ?? "C")
         }
         r.text = ""
         r.rx.controlEvent(.editingDidEnd).subscribe(onNext: { [weak self] in
@@ -254,11 +254,11 @@ class BoBBuyAndSellCionSubDetailViewController: BaseTitleController {
                     self?.buyMoneyView.buyCounLabel.text = "¥0.00"
                 }else{
                     if self?.buyType == 1{
-                        self?.buyCountView.buyCounLabel.text = String(format: "%.2f",doubleValue/(self?.detailData?.setExchangeRate ?? 1.00))
-                        self?.buyMoneyView.buyCounLabel.text = self?.countTF.text ?? "¥0.00"
+                        self?.buyCountView.buyCounLabel.text = String(format: "%.2f",doubleValue/((self?.detailData?.setExchangeRate ?? 1.00)*1.00))
+                        self?.buyMoneyView.buyCounLabel.text = "¥" + (self?.countTF.text ?? "0.00")
                     }else{
                         self?.buyCountView.buyCounLabel.text = self?.countTF.text ?? "0.00"
-                        self?.buyMoneyView.buyCounLabel.text = String(format: "%.2f",doubleValue*(self?.detailData?.setExchangeRate ?? 1.00))
+                        self?.buyMoneyView.buyCounLabel.text = "¥" + String(format: "%.2f",doubleValue*(self?.detailData?.setExchangeRate ?? 1.00))
                     }
                 }
             }else{

@@ -327,6 +327,7 @@ class BoBQuickBuyAndSellView: UIView {
         r.titleEdgeInsets = UIEdgeInsets(top: 0, left: spacing, bottom: 0, right: 0)
         r.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: spacing)
         r.rx.tap.subscribe(onNext: { [weak self] in
+            self?.endEditing(true)
             r.isSelected = !r.isSelected
             if self?.selectBtn != nil{
                 self?.selectBtn.border(.init(hexString: "#EAEAEA"),borderWidth: 1,cornerRadius: 6)
@@ -488,6 +489,7 @@ class BoBQuickBuyAndSellView: UIView {
             chooseTypeView.tg_height.equal(240)
             chooseTypeView.reloadListArray(array: self?.cionTypeArray ?? [])
             chooseTypeView.chooseCionBlock = { [weak self] model,array in
+                self?.endEditing(true)
                 self?.chooseCionTypeModel = model
                 self?.cionTypeArray = array
                 self?.refreshUI()
@@ -539,6 +541,7 @@ class BoBQuickBuyAndSellView: UIView {
             btn.setTitleColor(.black666, for: .normal)
             btn.backgroundColor = .white
             btn.rx.tap.subscribe(onNext: { [weak self] in
+                self?.endEditing(true)
                 if self?.selectBtn != btn{
                     if self?.selectBtn != nil{
                         self?.selectBtn.border(.init(hexString: "#EAEAEA"),borderWidth: 1,cornerRadius: 6)
@@ -652,6 +655,7 @@ class BoBQuickBuyAndSellView: UIView {
         }
         let tap = UITapGestureRecognizer()
         tap.rx.event.subscribe {[weak self]  _ in
+            self?.endEditing(true)
             if self?.isRefresh == false {
                 self?.isRefresh = true
                 BoBBuyAndSellCionModel.RefreshTheExchangeRateRequest(){data in
@@ -873,6 +877,7 @@ class BoBQuickBuyAndSellView: UIView {
         r.titleLabel?.font = .semiboldFont(16)
         r.backgroundColor = .primaryColor
         r.rx.tap.subscribe(onNext: { [weak self] in
+            self?.endEditing(true)
             if let doubleValue = Double(self?.countTF.text ?? "0") {
                 if doubleValue == 0{
                     SuperToast.show(title: "请输入" + (self?.type == 1 ? "购买":"出售") + ((self?.buyTypeBtn.isSelected)! ? "金额":"数量"))
@@ -931,7 +936,9 @@ class BoBQuickBuyAndSellView: UIView {
                                 vc.code = code
                                 self?.currentVC?.navigationController?.pushViewController(vc, animated: true)
                             } completionHandler:{errCode,errMsg in
-                                self?.errorAlertViewShow()
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                    self?.errorAlertViewShow()
+                                }
                             }
 
                         }
