@@ -154,7 +154,7 @@ class OrderNoticeMessageView: UIView {
     }
     func bindData(detail:orderMessageNoticDetail){
         currentShowMessage = detail
-        titleLabel.text = currentShowMessage?.notificationName
+        titleLabel.text = currentShowMessage?.detail?.remindersDetails
         loadData()
     }
     func showMask() {
@@ -250,6 +250,7 @@ class orderMessageNoticDetail: Decodable {
 class orderMessageNoticContentDetail: Decodable {
     var reminders:Bool?//是否是强提醒,true强提醒
     var code: String?
+    var remindersDetails:String?
     var orderStatus:Int?
     var time:String?
     var type:Int?
