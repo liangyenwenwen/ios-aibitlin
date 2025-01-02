@@ -24,7 +24,7 @@ class BoBConfirmPurchaseAlertView: UIView {
     var count:String?//数量
     var money:String?//金额
     var code:String?//广告编码
-    var commitSuccessBlock:(()->())!
+    var commitSuccessBlock:((_ code:String)->())!
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -300,16 +300,14 @@ class BoBConfirmPurchaseAlertView: UIView {
         r.rx.tap.subscribe(onNext: { [weak self] in
             if self?.type == 1{
                 //购买
-                BoBBuyAndSellCionModel.IntendedBuyRequest(code: self?.code ?? "", amount: self?.money ?? "", payment: String(format: "%d", self?.payment ?? 1), quantity: self?.count ?? "", exchangeRate: self?.unitPrice ?? "", type: self?.type ?? 1){[weak self] errCode, errMsg in
-                    if errCode == 20000{
-                        SuperToast.show(title:"购买成功")
-                        if self?.commitSuccessBlock != nil{
-                            self?.commitSuccessBlock()
-                        }
-                        self?.hideMask()
-                    }else{
-                        SuperToast.show(title: errMsg)
+                BoBBuyAndSellCionModel.IntendedBuyRequest(code: self?.code ?? "", amount: self?.money ?? "", payment: String(format: "%d", self?.payment ?? 1), quantity: self?.count ?? "", exchangeRate: self?.unitPrice ?? "", type: self?.type ?? 1){[weak self] data in
+                    if self?.commitSuccessBlock != nil{
+                        self?.commitSuccessBlock(data)
                     }
+                    self?.hideMask()
+                   
+                } completionHandler: {errCode,errMsg in
+                    SuperToast.show(title: errMsg)
                 }
             }else{
                 //出售
@@ -319,16 +317,14 @@ class BoBConfirmPurchaseAlertView: UIView {
                     passWordView.tg_width.equal(.fill)
                     passWordView.tg_height.equal(210)
                     passWordView.payBtnClickBlock = { [weak self] passWord in
-                        BoBBuyAndSellCionModel.IntendedSellRequest(code: self?.code ?? "", amount: self?.money ?? "",currencyWallet:self?.walletType?.cionType ?? "0" ,payment: String(format: "%d", self?.payment ?? 1), quantity: self?.count ?? "", exchangeRate: self?.unitPrice ?? "",paymentId:String(format: "%d", self?.paymentType?.id ?? 0),type: self?.type ?? 1,pwd:passWord){[weak self] errCode, errMsg in
-                            if errCode == 20000{
-                                SuperToast.show(title:"出售成功")
-                                if self?.commitSuccessBlock != nil{
-                                    self?.commitSuccessBlock()
-                                }
-                                self?.hideMask()
-                            }else{
-                                SuperToast.show(title: errMsg)
+                        BoBBuyAndSellCionModel.IntendedSellRequest(code: self?.code ?? "", amount: self?.money ?? "",currencyWallet:self?.walletType?.cionType ?? "0" ,payment: String(format: "%d", self?.payment ?? 1), quantity: self?.count ?? "", exchangeRate: self?.unitPrice ?? "",paymentId:String(format: "%d", self?.paymentType?.id ?? 0),type: self?.type ?? 1,pwd:passWord){[weak self] data in
+                            if self?.commitSuccessBlock != nil{
+                                self?.commitSuccessBlock(data)
                             }
+                            self?.hideMask()
+                           
+                        } completionHandler: {errCode,errMsg in
+                            SuperToast.show(title: errMsg)
                         }
                     }
                     GKCover.cover(from: self?.currentVC?.view.window, contentView: passWordView, style: .translucent, showStyle: .center, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)

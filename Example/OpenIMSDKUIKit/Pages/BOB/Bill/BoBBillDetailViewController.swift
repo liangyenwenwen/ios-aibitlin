@@ -38,8 +38,8 @@ class BoBBillDetailViewController: BaseTitleController {
             make.top.equalTo(150)
             make.height.equalTo(1)
         }
-        if billListData?.changeType == 5 || billListData?.changeType == 6{
-            //红包
+        if  billListData?.changeType == 3 || billListData?.changeType == 4 || billListData?.changeType == 5 || billListData?.changeType == 6{
+            //购买、出售、红包
             container.addSubview(orderTitleLabel)
             container.addSubview(orderLabel)
             container.addSubview(timeTitleLabel)
@@ -63,17 +63,28 @@ class BoBBillDetailViewController: BaseTitleController {
                 make.centerY.equalTo(timeTitleLabel)
             }
             moneyLabel.text = (billListData?.changeZf)! + String(format: "%.2f ",(billListData?.amount)!)
-            if billListData?.changeZf == "+"{
+            if billListData?.changeType == 3{
                 moneyLabel.textColor = .init(hexString: "#FA7225")
-                typTitleLabel.text = "红包-收到"
-            }else{
+                typTitleLabel.text = "购买"
+            }else if billListData?.changeType == 4{
                 moneyLabel.textColor = .black333
-                typTitleLabel.text = "红包"
-            }
-            if billListData?.changeType == 6{
+                typTitleLabel.text = "出售"
+            }else if billListData?.changeType == 6{
                 typTitleLabel.text = "调账"
+                if billListData?.changeZf == "+"{
+                    moneyLabel.textColor = .init(hexString: "#FA7225")
+                }else{
+                    moneyLabel.textColor = .black333
+                }
+            }else{
+                if billListData?.changeZf == "+"{
+                    moneyLabel.textColor = .init(hexString: "#FA7225")
+                    typTitleLabel.text = "红包-收到"
+                }else{
+                    moneyLabel.textColor = .black333
+                    typTitleLabel.text = "红包"
+                }
             }
-
         }else{
             container.addSubview(addressTitleLabel)
             container.addSubview(addressLabel)
@@ -182,7 +193,7 @@ class BoBBillDetailViewController: BaseTitleController {
     }
     
     func updateUI(){
-        moneyLabel.text = (billDetail?.direction)! + String(format: "%.2f",(billDetail?.amount)!)
+        moneyLabel.text = (billDetail?.direction)! + String(format: "%.2f",billDetail?.amount ?? 0.00)
         if billDetail?.direction == "+"{
             moneyLabel.textColor = .init(hexString: "#FA7225")
         }else{
@@ -190,16 +201,16 @@ class BoBBillDetailViewController: BaseTitleController {
         }
         switch billDetail?.type {
         case 1:
-            addressLabel.attributedText = getAttribute(str:(billDetail?.counterpartyAddress)!)
-            orderLabel.attributedText = getAttribute(str:(billDetail?.orderNumber)!)
-            timeLabel.text = billDetail?.tradingTime
-            serviceChargeLabel.text = String(format: "%.2f",(billDetail?.handlingCharge)!) + " "  + (billDetail?.currency)!
-        case 2,3,4:
-            addressLabel.attributedText = getAttribute(str:(billDetail?.counterpartyAddress)!)
-            orderLabel.attributedText = getAttribute(str:(billDetail?.orderNumber)!)
-            timeLabel.text = billDetail?.tradingTime
-        case 5,6:
-            orderLabel.attributedText = getAttribute(str:(billDetail?.orderNumber)!)
+            addressLabel.attributedText = getAttribute(str:billDetail?.counterpartyAddress ?? "")
+            orderLabel.attributedText = getAttribute(str:billDetail?.orderNumber ?? "")
+            timeLabel.text = billDetail?.tradingTime ?? ""
+            serviceChargeLabel.text = String(format: "%.2f",billDetail?.handlingCharge ?? 0.00) + " "  + (billDetail?.currency ?? "C")
+        case 2:
+            addressLabel.attributedText = getAttribute(str:billDetail?.counterpartyAddress ?? "")
+            orderLabel.attributedText = getAttribute(str:billDetail?.orderNumber ?? "")
+            timeLabel.text = billDetail?.tradingTime ?? ""
+        case 3,4,5,6:
+            orderLabel.attributedText = getAttribute(str:billDetail?.orderNumber ?? "")
             timeLabel.text = billDetail?.tradingTime
         case 7:
             if billListData?.changeZf == "+"{
@@ -207,27 +218,27 @@ class BoBBillDetailViewController: BaseTitleController {
             }else{
                 typTitleLabel.text = "私聊-转账"
             }
-            addressLabel.attributedText = getAttribute(str:(billDetail?.counterpartyAddress)!)
-            orderLabel.text = billDetail?.orderNumber
-            timeLabel.text = billDetail?.tradingTime
+            addressLabel.attributedText = getAttribute(str:billDetail?.counterpartyAddress ?? "")
+            orderLabel.text = billDetail?.orderNumber ?? ""
+            timeLabel.text = billDetail?.tradingTime ?? ""
         case 8:
             if billListData?.changeZf == "+"{
                 typTitleLabel.text = "群聊-收款"
             }else{
                 typTitleLabel.text = "群聊-转账"
             }
-            addressLabel.attributedText = getAttribute(str:(billDetail?.counterpartyAddress)!)
-            orderLabel.text = billDetail?.orderNumber
-            timeLabel.text = billDetail?.tradingTime
+            addressLabel.attributedText = getAttribute(str:billDetail?.counterpartyAddress ?? "")
+            orderLabel.text = billDetail?.orderNumber ?? ""
+            timeLabel.text = billDetail?.tradingTime ?? ""
         case 10:
             typTitleLabel.text = "红包-退款"
             addressTitleLabel.text = "退款单号"
             addressLabel.numberOfLines = 1
             orderTitleLabel.text = "退款时间"
             timeTitleLabel.text = "原订单号"
-            addressLabel.attributedText = getAttribute(str:(billDetail?.orderNumberBack)!)
-            orderLabel.text = billDetail?.returnBackTime
-            timeLabel.attributedText = getAttribute(str:(billDetail?.orderNumber)!)
+            addressLabel.attributedText = getAttribute(str:billDetail?.orderNumberBack ?? "")
+            orderLabel.text = billDetail?.returnBackTime ?? ""
+            timeLabel.attributedText = getAttribute(str:billDetail?.orderNumber ?? "")
             timeLabel.textColor = .primaryColor
         case 11:
             typTitleLabel.text = "私聊-退款"
@@ -235,9 +246,9 @@ class BoBBillDetailViewController: BaseTitleController {
             addressLabel.numberOfLines = 1
             orderTitleLabel.text = "退款时间"
             timeTitleLabel.text = "原订单号"
-            addressLabel.attributedText = getAttribute(str:(billDetail?.orderNumberBack)!)
+            addressLabel.attributedText = getAttribute(str:billDetail?.orderNumberBack ?? "")
             orderLabel.text = billDetail?.returnBackTime
-            timeLabel.attributedText = getAttribute(str:(billDetail?.orderNumber)!)
+            timeLabel.attributedText = getAttribute(str:billDetail?.orderNumber ?? "")
             timeLabel.textColor = .primaryColor
             
         case 12:
@@ -246,9 +257,9 @@ class BoBBillDetailViewController: BaseTitleController {
             addressLabel.numberOfLines = 1
             orderTitleLabel.text = "退款时间"
             timeTitleLabel.text = "原订单号"
-            addressLabel.attributedText = getAttribute(str:(billDetail?.orderNumberBack)!)
+            addressLabel.attributedText = getAttribute(str:billDetail?.orderNumberBack ?? "")
             orderLabel.text = billDetail?.returnBackTime
-            timeLabel.attributedText = getAttribute(str:(billDetail?.orderNumber)!)
+            timeLabel.attributedText = getAttribute(str:billDetail?.orderNumber ?? "")
             timeLabel.textColor = .primaryColor
         default: break
             
@@ -306,7 +317,7 @@ class BoBBillDetailViewController: BaseTitleController {
         let tap = UITapGestureRecognizer()
         tap.rx.event.subscribe {  _ in
             if self.billDetail != nil{
-                if self.billDetail?.type == 1 || self.billDetail?.type == 2 || self.billDetail?.type == 3 || self.billDetail?.type == 4 || self.billDetail?.type == 7 || self.billDetail?.type == 8{
+                if self.billDetail?.type == 1 || self.billDetail?.type == 2 || self.billDetail?.type == 7 || self.billDetail?.type == 8{
                     self.copyStr(str: self.billDetail?.counterpartyAddress ?? "")
                 }
             }
@@ -331,11 +342,12 @@ class BoBBillDetailViewController: BaseTitleController {
         tap.rx.event.subscribe {  _ in
             if self.billDetail != nil{
                 
-                if self.billDetail?.type == 5 || self.billDetail?.type == 6{
+                if self.billDetail?.type == 1 || self.billDetail?.type == 2 || self.billDetail?.type == 3 || self.billDetail?.type == 4 || self.billDetail?.type == 5 || self.billDetail?.type == 6{
                     self.copyStr(str: self.billDetail?.orderNumber ?? "")
-                }else if self.billDetail?.type == 10 || self.billDetail?.type == 11 || self.billDetail?.type == 12{
-                    self.copyStr(str: self.billDetail?.orderNumberBack ?? "")
                 }
+//                else if self.billDetail?.type == 10 || self.billDetail?.type == 11 || self.billDetail?.type == 12{
+//                    self.copyStr(str: self.billDetail?.orderNumberBack ?? "")
+//                }
             }
             
         }.disposed(by: rx.disposeBag)

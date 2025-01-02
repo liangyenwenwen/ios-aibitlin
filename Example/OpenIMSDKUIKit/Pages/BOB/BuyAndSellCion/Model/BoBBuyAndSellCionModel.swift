@@ -407,6 +407,7 @@ class BoBBuyAndSellCionModel {
                                    quantity:String,
                                    exchangeRate:String,
                                    type:Int,
+                                   valueHandler: @escaping (String) -> Void,
                                    completionHandler: @escaping CompletionHandler) {
         if !NetworkStatus.isReacheable {
             return
@@ -419,8 +420,12 @@ class BoBBuyAndSellCionModel {
             if let data = dataRequest.data {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 print(strData!)
-                if let res = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellNODataResponse.self) {
-                    completionHandler(res.code, res.message)
+                if let res = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellResponse<String>.self) {
+                    if res.code == 20000  {
+                        valueHandler(res.data)
+                    } else {
+                        completionHandler(res.code, res.message)
+                    }
                 } else {
                     completionHandler(-1, "failure")
                 }
@@ -439,6 +444,7 @@ class BoBBuyAndSellCionModel {
                                    paymentId:String,
                                    type:Int,
                                    pwd:String,
+                                   valueHandler: @escaping (String) -> Void,
                                    completionHandler: @escaping CompletionHandler) {
         if !NetworkStatus.isReacheable {
             return
@@ -455,8 +461,12 @@ class BoBBuyAndSellCionModel {
             if let data = dataRequest.data {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 print(strData!)
-                if let res = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellNODataResponse.self) {
-                    completionHandler(res.code, res.message)
+                if let res = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellResponse<String>.self) {
+                    if res.code == 20000  {
+                        valueHandler(res.data)
+                    } else {
+                        completionHandler(res.code, res.message)
+                    }
                 } else {
                     completionHandler(-1, "failure")
                 }

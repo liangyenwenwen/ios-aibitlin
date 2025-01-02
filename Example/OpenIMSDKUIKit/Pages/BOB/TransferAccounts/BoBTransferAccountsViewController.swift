@@ -142,9 +142,9 @@ class BoBTransferAccountsViewController:BaseTitleController{
         attributedString.addAttribute(.foregroundColor, value: UIColor.black666, range: NSRange(location: 0, length: 5))
         self.totalLabel.attributedText = attributedString
         if (chooseCionTypeModel?.quota)! > 0{
-            self.countTF.placeholder = "0.01~" + String(format: "%.2f",(chooseCionTypeModel?.quota)!) + (chooseCionTypeModel?.currency)!
+            self.countTF.placeholder = "限额" + String(format: "%.2f",(chooseCionTypeModel?.quota)!) + (chooseCionTypeModel?.currency)!
         }else{
-            self.countTF.placeholder = "0.00" + (chooseCionTypeModel?.currency)!
+            self.countTF.placeholder = "限额0.00" + (chooseCionTypeModel?.currency)!
         }
         self.countTitleLabel.text = "到账数量" + String(format: "（%@)",(chooseCionTypeModel?.currency)!)
         self.calculationMoney()
@@ -287,15 +287,20 @@ class BoBTransferAccountsViewController:BaseTitleController{
             make.top.bottom.equalTo(bgView)
         }
         bgView.addSubview(countTF)
-        bgView.addSubview(allBtn)
+//        bgView.addSubview(allBtn)
+//        countTF.snp_makeConstraints { make in
+//            make.left.equalTo(16)
+//            make.centerY.equalTo(bgView)
+//            make.right.equalTo(allBtn.snp_left).offset(-2)
+//        }
+//        allBtn.snp_makeConstraints { make in
+//            make.width.equalTo(45)
+//            make.top.bottom.right.equalTo(bgView)
+//        }
         countTF.snp_makeConstraints { make in
             make.left.equalTo(16)
             make.centerY.equalTo(bgView)
-            make.right.equalTo(allBtn.snp_left).offset(-2)
-        }
-        allBtn.snp_makeConstraints { make in
-            make.width.equalTo(45)
-            make.top.bottom.right.equalTo(bgView)
+            make.right.equalTo(-5)
         }
         r.addSubview(totalLabel)
         totalLabel.snp_makeConstraints { make in
@@ -349,7 +354,7 @@ class BoBTransferAccountsViewController:BaseTitleController{
         r.tintColor = .black333
         r.keyboardType = .decimalPad
         r.setPlaceHolderTextColor(.black999)
-        r.placeholder = "0.01~100000C"
+        r.placeholder = "限额100000C"
         r.rx.controlEvent(.editingChanged).subscribe(onNext: { [unowned self] in
             if ((r.text?.range(of:".")) != nil){
                 //带小数点

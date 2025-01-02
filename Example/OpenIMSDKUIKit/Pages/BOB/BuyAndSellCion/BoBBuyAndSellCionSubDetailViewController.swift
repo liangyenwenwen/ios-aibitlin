@@ -673,8 +673,11 @@ class BoBBuyAndSellCionSubDetailViewController: BaseTitleController {
                     let count = self?.buyCountView.buyCounLabel.text ?? "0.00"
                     let code = self?.detailData?.code ?? ""
                     maskView.bindData(buyType: buyType, type: type, walletType: walletType, paymentType: paymentType, unitPrice: unitPrice, money: money, count: count, code: code)
-                    maskView.commitSuccessBlock = {[weak self] in
-                        self?.navigationController?.popViewController(animated: true)
+                    maskView.commitSuccessBlock = {[weak self] code in
+                        let vc = BoBOrderDetailViewController()
+                        vc.code = code
+                        self?.navigationController?.pushViewController(vc, animated: true)
+//                        self?.navigationController?.popViewController(animated: true)
                     }
                     maskView.showMask(view:self!.view.window!)
                 }else{
