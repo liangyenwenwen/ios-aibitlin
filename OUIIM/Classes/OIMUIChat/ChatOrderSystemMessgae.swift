@@ -112,6 +112,7 @@ class ChatOrderSystemMessgae:UIViewController{
                                         items.unReadCount = (items.unReadCount ?? 0) + 1
                                     }
                                     items.subArray.insert(model1, at: 0)
+                                    items.messageInfo = model1
 //                                    items.subArray.append(model1)
                                     isExit = true
                                     break
@@ -135,7 +136,10 @@ class ChatOrderSystemMessgae:UIViewController{
             
         }
 //        var tempArray1:[orderMessageModel] = []
-        for item in tempArray {
+        
+        let tempArray1 = tempArray.sorted(by: { $0.messageInfo?.detail?.timeData.compare($1.messageInfo?.detail?.timeData ?? Date()) == .orderedDescending })
+
+        for item in tempArray1 {
             var isExit = false
             for items in listArray {
                 if item.messageInfo?.detail?.code == items.messageInfo?.detail?.code{
@@ -323,4 +327,23 @@ class orderMessageContentDetail: Decodable {
     var changeTime:String{
         getTime(time: time ?? "")
     }
+    var timeData:Date{
+        getTimeData(time: time ?? "")
+    }
+}
+func getTimeData(time:String) -> (Date){
+    let dateFormatter = DateFormatter()
+    // 设置日期格式化器的时区，确保输出正确的时间
+//        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+    dateFormatter.timeZone =  NSTimeZone.system
+     
+    // 设置日期格式化器的日期格式
+    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+     
+    // 将ISO 8601字符串转换为Date对象
+    guard let date = dateFormatter.date(from: time) else {
+        return Date()
+//        fatalError("Date conversion failed")
+    }
+    return date
 }
