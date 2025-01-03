@@ -276,7 +276,7 @@ class BoBUploadVoucherAlertView: UIView {
             }
             BoBBuyAndSellCionModel.UploadCredentialsRequest(code: self?.code ?? "", credentials: self?.voucherUrl ?? ""){[weak self] errCode,errMsg in
                 if errCode == 20000{
-                    SuperToast.show(title: "上传成功")
+                    SuperToast.show(title: "付款成功")
                     if self?.uploadVoucherSuccessBlock != nil{
                         self?.uploadVoucherSuccessBlock()
                     }

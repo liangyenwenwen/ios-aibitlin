@@ -41,13 +41,14 @@ class BoBQuickCionMainViewController: UIViewController {
 
         //segmentedViewDataSource一定要通过属性强持有！！！！！！！！！
         segmentedView.dataSource = segmentedDataSource
-        segmentedView.contentEdgeInsetLeft = 0
+        segmentedView.contentEdgeInsetLeft = 5
         segmentedView.backgroundColor = .white
         view.addSubview(segmentedView)
         segmentedView.snp_makeConstraints { make in
-            make.left.equalTo(bgView).offset(16)
+            make.left.equalTo(bgView).offset(11)
             make.top.equalTo(bgView).offset(5)
             make.height.equalTo(30)
+//            make.width.equalTo(240)
             make.right.equalTo(bgView).offset(-16)
         }
         segmentedView.listContainer = listContainerView

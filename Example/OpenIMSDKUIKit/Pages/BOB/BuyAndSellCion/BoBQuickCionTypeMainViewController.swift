@@ -79,12 +79,6 @@ extension BoBQuickCionTypeMainViewController: JXSegmentedListContainerViewListDe
     func listView() -> UIView {
         return view
     }
-    func listWillAppear(){
-        if listContainerView.validListDict.count > segmentedView.selectedIndex{
-            let vc = listContainerView.validListDict[segmentedView.selectedIndex] as! BoBQuickBuyAndSellView
-            vc.loadDailyLimit()
-        }
-    }
 }
 extension BoBQuickCionTypeMainViewController: JXSegmentedListContainerViewDataSource{
     func numberOfLists(in listContainerView: JXSegmentedListContainerView) -> Int {
@@ -100,8 +94,8 @@ extension BoBQuickCionTypeMainViewController: JXSegmentedListContainerViewDataSo
             currencyIcon = obj.icon ?? ""
         }
         let vc = BoBQuickBuyAndSellView(data: homeData,viewType: type,currentCurrency: titles[index],currentCurrencyIcon:currencyIcon)
-        vc.currentVC = self
-        vc.loadDailyLimit()
+        vc.currentVC = currentVC
+//        vc.loadDailyLimit()
         return vc
     }
 }

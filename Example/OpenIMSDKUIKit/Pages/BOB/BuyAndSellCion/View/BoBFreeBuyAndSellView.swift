@@ -356,4 +356,10 @@ extension BoBFreeBuyAndSellView: JXSegmentedListContainerViewListDelegate {
     func listView() -> UIView {
         return self
     }
+    func listWillAppear(){
+        judgeTimerStatus()
+    }
+    func listWillDisappear(){
+        stopTimer()
+    }
 }

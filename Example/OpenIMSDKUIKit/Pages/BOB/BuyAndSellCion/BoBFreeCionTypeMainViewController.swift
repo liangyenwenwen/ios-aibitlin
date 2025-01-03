@@ -92,18 +92,6 @@ extension BoBFreeCionTypeMainViewController: JXSegmentedListContainerViewListDel
     func listView() -> UIView {
         return view
     }
-    func listWillAppear(){
-        if listContainerView.validListDict.count > segmentedView.selectedIndex{
-            let vc = listContainerView.validListDict[segmentedView.selectedIndex] as! BoBFreeBuyAndSellView
-            vc.judgeTimerStatus()
-        }
-    }
-    func listWillDisappear(){
-        if listContainerView.validListDict.count > segmentedView.selectedIndex{
-            let vc = listContainerView.validListDict[segmentedView.selectedIndex] as! BoBFreeBuyAndSellView
-            vc.stopTimer()
-        }
-    }
 }
 
 extension BoBFreeCionTypeMainViewController: JXSegmentedListContainerViewDataSource {

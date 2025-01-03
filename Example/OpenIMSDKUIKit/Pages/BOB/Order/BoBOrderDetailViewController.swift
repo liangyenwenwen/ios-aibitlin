@@ -58,6 +58,7 @@ class BoBOrderDetailViewController: BaseTitleController {
         scrollViewContainer.addSubview(checkPaymentVoucherLabel)
         scrollViewContainer.addSubview(orderAppealStatus)
         scrollViewContainer.hide()
+        bottomView.hide()
         loadData()
     }
     deinit {
@@ -68,6 +69,7 @@ class BoBOrderDetailViewController: BaseTitleController {
         BoBBuyAndSellCionModel.OrderDetailsRequest(code: code) {[weak self] data in
             if self?.orderDetail == nil{
                 self?.scrollViewContainer.show()
+                self?.bottomView.show()
                 self?.startRefreshTimer()
             }
             self?.timeCount = 0
@@ -527,8 +529,10 @@ class BoBOrderDetailViewController: BaseTitleController {
         // 设置定时器触发时执行的闭包
         timer?.setEventHandler {[weak self] in
             if self?.countdownTime == 0{
-                self?.stopTimer()
-                self?.loadData()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    self?.stopTimer()
+                    self?.loadData()
+                }
             }else{
                 DispatchQueue.main.async {
                     self?.countdownTime = (self?.countdownTime ?? 0)-1
@@ -876,7 +880,7 @@ class BoBOrderDetailViewController: BaseTitleController {
         return r
     }()
     lazy var checkOtherAppeal: QMUIButton = {
-        let r = ViewFactoryUtil.linkButton("查看申诉结果")
+        let r = ViewFactoryUtil.linkButton("申诉结果")
         r.tg_height.equal(48)
         r.tg_width.equal(.fill)
         r.hide()
@@ -1010,7 +1014,6 @@ class BoBOrderDetailViewController: BaseTitleController {
         r.rx.tap.subscribe(onNext: { [weak self] in
             BoBBuyAndSellCionModel.SellerDepositCoinRequest(code:self?.code ?? ""){errCode,errMsg in
                 if errCode == 20000{
-                    SuperToast.show(title: "通知成功")
                     self?.loadData()
                 }else{
                     SuperToast.show(title: errMsg)
@@ -1020,7 +1023,7 @@ class BoBOrderDetailViewController: BaseTitleController {
         return r
     }()
     lazy var checkAppealResultBtn: QMUIButton = {
-        let r = ViewFactoryUtil.linkButton("查看申诉结果")
+        let r = ViewFactoryUtil.linkButton("申诉结果")
         r.tg_height.equal(48)
         r.tg_width.equal(.fill)
         r.setTitleColor(.white, for: .normal)

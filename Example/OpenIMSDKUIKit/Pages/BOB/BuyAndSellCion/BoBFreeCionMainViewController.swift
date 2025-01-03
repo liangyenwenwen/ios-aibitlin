@@ -38,9 +38,9 @@ class BoBFreeCionMainViewController: UIViewController {
 
         //segmentedViewDataSource一定要通过属性强持有！！！！！！！！！
         segmentedView.dataSource = segmentedDataSource
-        segmentedView.frame = CGRect(x: 16, y: 5, width: view.bounds.size.width-32, height: 30)
+        segmentedView.frame = CGRect(x: 11, y: 5, width: view.bounds.size.width-32, height: 30)
 //        segmentedView.backgroundColor = UIColor.white
-        segmentedView.contentEdgeInsetLeft = 0
+        segmentedView.contentEdgeInsetLeft = 5
         view.addSubview(segmentedView)
 //        segmentedView.snp_makeConstraints { make in
 //            make.left.equalTo(16)
@@ -237,6 +237,7 @@ extension BoBFreeCionMainViewController: JXSegmentedListContainerViewListDelegat
     func listView() -> UIView {
         return view
     }
+    
 }
 
 extension BoBFreeCionMainViewController: JXSegmentedListContainerViewDataSource {

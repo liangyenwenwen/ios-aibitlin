@@ -922,7 +922,11 @@ class BoBQuickBuyAndSellView: UIView {
                         vc.code = code
                         self?.currentVC?.navigationController?.pushViewController(vc, animated: true)
                     } completionHandler:{errCode,errMsg in
-                        self?.errorAlertViewShow()
+                        if errCode == 20082{
+                            self?.errorAlertViewShow()
+                        }else{
+                            SuperToast.show(title: errMsg)
+                        }
                     }
                 }else{
                     //出售
@@ -936,8 +940,12 @@ class BoBQuickBuyAndSellView: UIView {
                                 vc.code = code
                                 self?.currentVC?.navigationController?.pushViewController(vc, animated: true)
                             } completionHandler:{errCode,errMsg in
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                    self?.errorAlertViewShow()
+                                if errCode == 20082{
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                        self?.errorAlertViewShow()
+                                    }
+                                }else{
+                                    SuperToast.show(title: errMsg)
                                 }
                             }
 
@@ -979,6 +987,12 @@ class BoBQuickBuyAndSellView: UIView {
 extension BoBQuickBuyAndSellView: JXSegmentedListContainerViewListDelegate {
     func listView() -> UIView {
         return self
+    }
+    func listWillAppear() {
+        loadDailyLimit()
+    }
+    func listWillDisappear() {
+        self.endEditing(true)
     }
 }
 
