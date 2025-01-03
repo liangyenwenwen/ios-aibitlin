@@ -32,7 +32,7 @@ class BoBBuyAndSellCionDetailViewController: BaseTitleController {
         title = (detailData?.advertisingType == 1 ? "买入" : "出售") + (detailData?.advertisingCurrency ?? "C")
         container.tg_padding = UIEdgeInsets(top: 0, left: 0, bottom: 15, right: 0)
         container.addSubview(exchangeRateView)
-        let titles = ["按金额购买", "按数量购买"]
+        let titles = detailData?.advertisingType == 1 ? ["按金额购买", "按数量购买"] : ["按金额出售", "按数量出售"]
         //segmentedViewDataSource一定要通过属性强持有！！！！！！！！！
 //        segmentedDataSource.titles = titles
 //        segmentedDataSource.isTitleMaskEnabled = true

@@ -104,6 +104,7 @@ class ChatOrderSystemMessgae:UIViewController{
                         print("+++=====",item.isRead,user.cont)
                         if let detail = JsonTool.fromJson(user.cont!, toClass: orderMessageContentDetail.self){
                             model1.detail = detail
+                            print("detail ==== ",detail)
                             var isExit = false
                             for items in tempArray {
                                 if items.messageInfo?.detail?.code == model1.detail?.code{

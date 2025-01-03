@@ -237,11 +237,13 @@ extension AccountViewModel {
                     //已领完
                     redPacketStatus = 3
                 }
+                
                 if redPacketStatus != 0{
                     completion(String(format: "%d", redPacketStatus))
                     scour.localEx = String(format: "%d", redPacketStatus)
                 }
-                if redPacketStatus == 2{
+    
+                if redPacketStatus == 1 || (scour.data?.sendUserId == IMController.shared.uid && redPacketStatus != 0){
                     let redPacketDetailVC = BoBReceiveRedPacketDetailViewController()
                     redPacketDetailVC.redPacketMessage = scour
                     redPacketDetailVC.hidesBottomBarWhenPushed = true

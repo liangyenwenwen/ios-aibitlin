@@ -302,13 +302,27 @@ class BoBBuyAndSellCionSubDetailViewController: BaseTitleController {
         r.rx.tap.subscribe(onNext: { [weak self] in
             self?.view.endEditing(true)
             if self?.buyType == 1{
-                self?.countTF.text = String(format: "%.2f",self?.detailData?.quotaMax ?? 0.00)
-                self?.buyCountView.buyCounLabel.text = String(format: "%.2f",(self?.detailData?.quotaMax ?? 0.00)/((self?.detailData?.setExchangeRate ?? 1.00)*1.00))
-                self?.buyMoneyView.buyCounLabel.text = "¥" + (self?.countTF.text ?? "0.00")
+                let maxMoney = (self?.intendedOrderHome?.surplusQuantity ?? 0.00) * (self?.detailData?.setExchangeRate ?? 1.00)
+                if maxMoney > self?.detailData?.quotaMax ?? 0.00{
+                    self?.countTF.text = String(format: "%.2f",self?.intendedOrderHome?.quotaMax ?? 0.00)
+                    self?.buyCountView.buyCounLabel.text = String(format: "%.2f",(self?.intendedOrderHome?.quotaMax ?? 0.00)/((self?.detailData?.setExchangeRate ?? 1.00)*1.00))
+                    self?.buyMoneyView.buyCounLabel.text = "¥" + (self?.countTF.text ?? "0.00")
+                }else{
+                    self?.countTF.text = String(format: "%.2f",maxMoney)
+                    self?.buyCountView.buyCounLabel.text = String(format: "%.2f",self?.intendedOrderHome?.surplusQuantity ?? 0.00)
+                    self?.buyMoneyView.buyCounLabel.text = "¥" + (self?.countTF.text ?? "0.00")
+                }
             }else{
-                self?.countTF.text = String(format: "%.2f",(self?.detailData?.quotaMax ?? 0.00)/((self?.detailData?.setExchangeRate ?? 1.00)*1.00))
-                self?.buyCountView.buyCounLabel.text = self?.countTF.text ?? ""
-                self?.buyMoneyView.buyCounLabel.text = "¥" + String(format: "%.2f",self?.detailData?.quotaMax ?? 0.00)
+                let maxCount = (self?.intendedOrderHome?.quotaMax ?? 0.00)/((self?.detailData?.setExchangeRate ?? 1.00)*1.00)
+                if maxCount > self?.intendedOrderHome?.surplusQuantity ?? 0.00{
+                    self?.countTF.text = String(format: "%.2f",self?.intendedOrderHome?.surplusQuantity ?? 0.00)
+                    self?.buyCountView.buyCounLabel.text = self?.countTF.text ?? ""
+                    self?.buyMoneyView.buyCounLabel.text = "¥" + String(format: "%.2f",(self?.intendedOrderHome?.surplusQuantity ?? 0.00)*(self?.detailData?.setExchangeRate ?? 1.00))
+                }else{
+                    self?.countTF.text = String(format: "%.2f",maxCount)
+                    self?.buyCountView.buyCounLabel.text = self?.countTF.text ?? ""
+                    self?.buyMoneyView.buyCounLabel.text = "¥" + String(format: "%.2f",self?.intendedOrderHome?.quotaMax ?? 0.00)
+                }
             }
         }).disposed(by: rx.disposeBag)
         return r

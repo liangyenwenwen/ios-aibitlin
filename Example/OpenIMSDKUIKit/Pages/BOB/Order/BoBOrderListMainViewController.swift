@@ -25,7 +25,7 @@ class BoBOrderListMainViewController: BaseTitleController {
         view.backgroundColor = .colorBackgroundAPP
         initLinearLayoutSafeArea()
         container.tg_padding = UIEdgeInsets(top: 0, left: PADDING_OUTER, bottom: 0, right: PADDING_OUTER)
-        
+        superFooterContainerContainer.tg_bottom.equal(0)
         let titles = ["买家订单", "卖家订单"]
         //segmentedViewDataSource一定要通过属性强持有！！！！！！！！！
         segmentedDataSource.titles = titles

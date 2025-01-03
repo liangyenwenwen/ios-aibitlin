@@ -875,6 +875,7 @@ class IntendedOrderHome: Decodable {
     var price:Double? //单价
     var quotaMin:Double?//最小限额
     var quotaMax:Double?//最大限
+    var surplusQuantity:Double? //广告剩余数量
     var advertisingCurrency:String? //币种
     var advertisingType:Int? //广告类型1:出售 2:购买 3:兑换
     var transactionMode:String? //交易方式1:银行卡 2:支付宝 3:微信
