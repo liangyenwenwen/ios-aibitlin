@@ -159,6 +159,10 @@ class BoBBuyAndSellCionSubDetailViewController: BaseTitleController {
     }
     func reloadVCData(data:BoBBuyAndSellHomeData){
         homeData = data
+        if homeData?.payment == true{
+            addView.hide()
+            choosePaymentMethodView.show()
+        }
     }
     func choosePaymentMedthodType(){
         let chooseTypeView = BoBChoosePaymentMethodTypeView()
