@@ -484,12 +484,12 @@ class BoBQuickBuyAndSellView: UIView {
         }
         let tap = UITapGestureRecognizer()
         tap.rx.event.subscribe {[weak self]  _ in
+            self?.endEditing(true)
             let chooseTypeView = BoBChooseCionTypeView()
             chooseTypeView.tg_width.equal(.fill)
             chooseTypeView.tg_height.equal(240)
             chooseTypeView.reloadListArray(array: self?.cionTypeArray ?? [])
             chooseTypeView.chooseCionBlock = { [weak self] model,array in
-                self?.endEditing(true)
                 self?.chooseCionTypeModel = model
                 self?.cionTypeArray = array
                 self?.refreshUI()
