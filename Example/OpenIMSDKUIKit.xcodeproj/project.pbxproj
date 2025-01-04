@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		04016EF42CA543F900D54020 /* YFChatNewFriendListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04016EF32CA543F900D54020 /* YFChatNewFriendListVC.swift */; };
-		04016EF62CA5442800D54020 /* YFChatNewFriendListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04016EF52CA5442800D54020 /* YFChatNewFriendListCell.swift */; };
-		0403477B2BEF054A00C7C4EF /* TabMoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0403477A2BEF054A00C7C4EF /* TabMoreView.swift */; };
 		04052E1E2CF0674800A7A554 /* MineHomeWalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04052E1D2CF0674800A7A554 /* MineHomeWalletView.swift */; };
 		04052E212CF41AF600A7A554 /* BoBPaymentMethodListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04052E202CF41AF600A7A554 /* BoBPaymentMethodListViewController.swift */; };
 		04052E242CF4249300A7A554 /* BoBPaymentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04052E232CF4249300A7A554 /* BoBPaymentModel.swift */; };
@@ -20,7 +17,6 @@
 		04052E2F2CF4709800A7A554 /* BoBAddBankPaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04052E2E2CF4709800A7A554 /* BoBAddBankPaymentView.swift */; };
 		04052E312CF48A0600A7A554 /* BoBAddAliPaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04052E302CF48A0600A7A554 /* BoBAddAliPaymentView.swift */; };
 		040D44252C882AE8007DB6FB /* YFSystemMessageSettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040D44242C882AE8007DB6FB /* YFSystemMessageSettingVC.swift */; };
-		040D44272C894E78007DB6FB /* MineBokeStatisticsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040D44262C894E78007DB6FB /* MineBokeStatisticsVC.swift */; };
 		040D85AB2BEB87B800DCAAB3 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040D85AA2BEB87B800DCAAB3 /* R.generated.swift */; };
 		040D85AE2BEB899900DCAAB3 /* DefalutRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040D85AD2BEB899900DCAAB3 /* DefalutRepository.swift */; };
 		040D85B12BEB89CB00DCAAB3 /* DefaultService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040D85B02BEB89CB00DCAAB3 /* DefaultService.swift */; };
@@ -34,7 +30,6 @@
 		040D85C52BEB8B0400DCAAB3 /* SuperStringUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040D85BD2BEB8B0400DCAAB3 /* SuperStringUtil.swift */; };
 		040D85C62BEB8B0400DCAAB3 /* ResurceUntil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040D85BE2BEB8B0400DCAAB3 /* ResurceUntil.swift */; };
 		040D85E52BEB8C0B00DCAAB3 /* SuperSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040D85CA2BEB8C0A00DCAAB3 /* SuperSettingView.swift */; };
-		040D85E62BEB8C0B00DCAAB3 /* SectionItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040D85CC2BEB8C0A00DCAAB3 /* SectionItemsView.swift */; };
 		040D85E72BEB8C0B00DCAAB3 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040D85CE2BEB8C0A00DCAAB3 /* BaseTableViewCell.swift */; };
 		040D85E82BEB8C0B00DCAAB3 /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040D85CF2BEB8C0A00DCAAB3 /* BaseCollectionViewCell.swift */; };
 		040D85E92BEB8C0B00DCAAB3 /* BottomBtnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040D85D12BEB8C0A00DCAAB3 /* BottomBtnView.swift */; };
@@ -136,7 +131,6 @@
 		04484EDC2CF847B700893E4C /* BoBTransferAccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04484EDB2CF847B700893E4C /* BoBTransferAccountsViewController.swift */; };
 		045B8BF72BF4496D0094E080 /* MineChooseBottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045B8BF62BF4496C0094E080 /* MineChooseBottomSheetView.swift */; };
 		045B8BF92BF481AF0094E080 /* UserMessageBottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045B8BF82BF481AF0094E080 /* UserMessageBottomSheetView.swift */; };
-		045B8BFD2BF4B7070094E080 /* YFChatBokeBottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045B8BFC2BF4B7070094E080 /* YFChatBokeBottomSheetView.swift */; };
 		047753C62BFDCD27006DBFD3 /* YFTranslateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047753C52BFDCD27006DBFD3 /* YFTranslateVC.swift */; };
 		047BF6B62CA2B6DF00706117 /* YFFileDataUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047BF6B52CA2B6DF00706117 /* YFFileDataUtil.swift */; };
 		0481726D2CF89790007A2920 /* BoBChooseCionTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0481726C2CF89790007A2920 /* BoBChooseCionTypeView.swift */; };
@@ -150,10 +144,7 @@
 		048172842CFD45F0007A2920 /* BoBBillDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048172832CFD45F0007A2920 /* BoBBillDetailViewController.swift */; };
 		048172872CFD8792007A2920 /* BoBMineAssetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048172862CFD8792007A2920 /* BoBMineAssetsViewController.swift */; };
 		049B98032CB521360032E7B8 /* YFChooseUserAvatarCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049B98022CB521360032E7B8 /* YFChooseUserAvatarCardView.swift */; };
-		049C643E2BEC619300B679C4 /* YFLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049C643D2BEC619300B679C4 /* YFLoginVC.swift */; };
-		049C64402BEC622300B679C4 /* YFLoginChooseHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049C643F2BEC622300B679C4 /* YFLoginChooseHeaderView.swift */; };
 		049C64432BEC689100B679C4 /* YFTitleAddUnderlineChooseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049C64422BEC689100B679C4 /* YFTitleAddUnderlineChooseView.swift */; };
-		049C64452BECC62D00B679C4 /* YFRegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049C64442BECC62C00B679C4 /* YFRegisterVC.swift */; };
 		049C64472BECD49700B679C4 /* YFControllerUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049C64462BECD49700B679C4 /* YFControllerUtil.swift */; };
 		049D30222CC1F5DB00649DC4 /* YFNetworkStatusUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049D30212CC1F5DB00649DC4 /* YFNetworkStatusUtil.swift */; };
 		049D30252CC2032800649DC4 /* YFNotNetTopTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049D30242CC2032800649DC4 /* YFNotNetTopTipView.swift */; };
@@ -172,9 +163,6 @@
 		04D45E832CA250390052F05A /* AccountViewModelEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D45E822CA250390052F05A /* AccountViewModelEx.swift */; };
 		04D5C1ED2C93DF72005EBF86 /* YFMineNetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D5C1EC2C93DF72005EBF86 /* YFMineNetViewModel.swift */; };
 		04D6A6782C9131ED008193E7 /* YFNetworkUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D6A6772C9131ED008193E7 /* YFNetworkUtils.swift */; };
-		04D8BF802C8AB00100C1244E /* MineBokeNotificationSettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D8BF7F2C8AB00100C1244E /* MineBokeNotificationSettingVC.swift */; };
-		04D8BF822C8AD0AA00C1244E /* MineBokeVisitorListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D8BF812C8AD0AA00C1244E /* MineBokeVisitorListCell.swift */; };
-		04D8BF842C8AD7EC00C1244E /* MineBokeVisitorListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D8BF832C8AD7EC00C1244E /* MineBokeVisitorListVC.swift */; };
 		04DA67922CCF2ACB00FCA60C /* YFAibitlinHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DA67912CCF2ACB00FCA60C /* YFAibitlinHome.swift */; };
 		04DA67942CCF2B2100FCA60C /* YFAibitlinHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DA67932CCF2B2100FCA60C /* YFAibitlinHomeView.swift */; };
 		04DB1E3E2CA6B0C000EE8B8C /* YFDateUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DB1E3D2CA6B0C000EE8B8C /* YFDateUtil.swift */; };
@@ -198,26 +186,16 @@
 		04F2D0882BEE21CA00D5271B /* ChangeMessageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F2D06F2BEE21CA00D5271B /* ChangeMessageVC.swift */; };
 		04F2D0892BEE21CA00D5271B /* MineSettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F2D0712BEE21CA00D5271B /* MineSettingVC.swift */; };
 		04F2D08A2BEE21CA00D5271B /* MineAccountAddSafeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F2D0722BEE21CA00D5271B /* MineAccountAddSafeVC.swift */; };
-		04F2D08B2BEE21CA00D5271B /* MineBokeEditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F2D0742BEE21CA00D5271B /* MineBokeEditVC.swift */; };
-		04F2D08C2BEE21CA00D5271B /* MineBokeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F2D0752BEE21CA00D5271B /* MineBokeListViewController.swift */; };
 		04F2D08D2BEE21CA00D5271B /* UserMessageThridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F2D0782BEE21CA00D5271B /* UserMessageThridView.swift */; };
 		04F2D08E2BEE21CA00D5271B /* UserMessageThridTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F2D0792BEE21CA00D5271B /* UserMessageThridTypeView.swift */; };
-		04F2D08F2BEE21CA00D5271B /* UsermessageBokeListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F2D07A2BEE21CA00D5271B /* UsermessageBokeListCell.swift */; };
 		04F2D0902BEE21CA00D5271B /* UserMessageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F2D07B2BEE21CA00D5271B /* UserMessageHeaderView.swift */; };
 		04F2D0912BEE21CA00D5271B /* UserMessageContactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F2D07C2BEE21CA00D5271B /* UserMessageContactView.swift */; };
 		04F2D0922BEE21CA00D5271B /* MineDeleteAccountReasonBottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F2D07E2BEE21CA00D5271B /* MineDeleteAccountReasonBottomSheetView.swift */; };
-		04F2D0932BEE21CA00D5271B /* MineBokeListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F2D0802BEE21CA00D5271B /* MineBokeListCell.swift */; };
-		04F2D0942BEE21CA00D5271B /* MineBokeFooterEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F2D0812BEE21CA00D5271B /* MineBokeFooterEditView.swift */; };
 		04F2D09D2BEE221400D5271B /* UIView+GKExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F2D0992BEE221400D5271B /* UIView+GKExtension.m */; };
 		04F2D09E2BEE221400D5271B /* GKCover.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F2D09C2BEE221400D5271B /* GKCover.m */; };
-		04F4EE792C8C2B180028E895 /* YFMineHomeBuyVipVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4EE782C8C2B180028E895 /* YFMineHomeBuyVipVC.swift */; };
-		04F4EE7C2C8C2C350028E895 /* YFMineHomeBuyVipCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4EE7B2C8C2C350028E895 /* YFMineHomeBuyVipCell.swift */; };
-		04F4EE7E2C8C38220028E895 /* YFMineHomeBuyVipCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4EE7D2C8C38220028E895 /* YFMineHomeBuyVipCardView.swift */; };
-		04F533F02BF84BC2005D0405 /* YFChatBottomSheetBokeListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F533EF2BF84BC2005D0405 /* YFChatBottomSheetBokeListCell.swift */; };
 		04F533F22BF84C8C005D0405 /* TestDataUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F533F12BF84C8C005D0405 /* TestDataUtil.swift */; };
 		04F5CFC32CBD35A4007BC74D /* YFEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F5CFC22CBD35A4007BC74D /* YFEmptyView.swift */; };
 		04F87EF52C8E8D3D00C82A37 /* SuperUIFontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F87EF42C8E8D3D00C82A37 /* SuperUIFontExtension.swift */; };
-		170E4B2329344C5D007A6535 /* DiscoveryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170E4B2229344C5D007A6535 /* DiscoveryViewController.swift */; };
 		1760BE5C2BD9FFAD0096CD1C /* SimpleInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1760BE5B2BD9FFAD0096CD1C /* SimpleInputViewController.swift */; };
 		17620CE42A4D1E5200B74C96 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17620CE32A4D1E5200B74C96 /* String+Extension.swift */; };
 		17620CE62A4D232200B74C96 /* ModifyPswViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17620CE52A4D232200B74C96 /* ModifyPswViewController.swift */; };
@@ -290,9 +268,6 @@
 
 /* Begin PBXFileReference section */
 		00ACE97CD11157EF0EBB4361 /* Pods-OpenIMSDKUIKit_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenIMSDKUIKit_Example.release.xcconfig"; path = "Target Support Files/Pods-OpenIMSDKUIKit_Example/Pods-OpenIMSDKUIKit_Example.release.xcconfig"; sourceTree = "<group>"; };
-		04016EF32CA543F900D54020 /* YFChatNewFriendListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFChatNewFriendListVC.swift; sourceTree = "<group>"; };
-		04016EF52CA5442800D54020 /* YFChatNewFriendListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFChatNewFriendListCell.swift; sourceTree = "<group>"; };
-		0403477A2BEF054A00C7C4EF /* TabMoreView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabMoreView.swift; sourceTree = "<group>"; };
 		04052E1D2CF0674800A7A554 /* MineHomeWalletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineHomeWalletView.swift; sourceTree = "<group>"; };
 		04052E202CF41AF600A7A554 /* BoBPaymentMethodListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBPaymentMethodListViewController.swift; sourceTree = "<group>"; };
 		04052E232CF4249300A7A554 /* BoBPaymentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBPaymentModel.swift; sourceTree = "<group>"; };
@@ -303,7 +278,6 @@
 		04052E2E2CF4709800A7A554 /* BoBAddBankPaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBAddBankPaymentView.swift; sourceTree = "<group>"; };
 		04052E302CF48A0600A7A554 /* BoBAddAliPaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBAddAliPaymentView.swift; sourceTree = "<group>"; };
 		040D44242C882AE8007DB6FB /* YFSystemMessageSettingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFSystemMessageSettingVC.swift; sourceTree = "<group>"; };
-		040D44262C894E78007DB6FB /* MineBokeStatisticsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineBokeStatisticsVC.swift; sourceTree = "<group>"; };
 		040D85AA2BEB87B800DCAAB3 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
 		040D85AD2BEB899900DCAAB3 /* DefalutRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefalutRepository.swift; sourceTree = "<group>"; };
 		040D85B02BEB89CB00DCAAB3 /* DefaultService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultService.swift; sourceTree = "<group>"; };
@@ -317,7 +291,6 @@
 		040D85BD2BEB8B0400DCAAB3 /* SuperStringUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuperStringUtil.swift; sourceTree = "<group>"; };
 		040D85BE2BEB8B0400DCAAB3 /* ResurceUntil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResurceUntil.swift; sourceTree = "<group>"; };
 		040D85CA2BEB8C0A00DCAAB3 /* SuperSettingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuperSettingView.swift; sourceTree = "<group>"; };
-		040D85CC2BEB8C0A00DCAAB3 /* SectionItemsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionItemsView.swift; sourceTree = "<group>"; };
 		040D85CE2BEB8C0A00DCAAB3 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		040D85CF2BEB8C0A00DCAAB3 /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
 		040D85D12BEB8C0A00DCAAB3 /* BottomBtnView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomBtnView.swift; sourceTree = "<group>"; };
@@ -435,7 +408,6 @@
 		04585F912CCFB4D900BFA8E8 /* customSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = customSound.mp3; sourceTree = "<group>"; };
 		045B8BF62BF4496C0094E080 /* MineChooseBottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineChooseBottomSheetView.swift; sourceTree = "<group>"; };
 		045B8BF82BF481AF0094E080 /* UserMessageBottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMessageBottomSheetView.swift; sourceTree = "<group>"; };
-		045B8BFC2BF4B7070094E080 /* YFChatBokeBottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFChatBokeBottomSheetView.swift; sourceTree = "<group>"; };
 		046D26942BFF255F00FEA10F /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/Main.strings; sourceTree = "<group>"; };
 		046D26952BFF255F00FEA10F /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		047753C52BFDCD27006DBFD3 /* YFTranslateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFTranslateVC.swift; sourceTree = "<group>"; };
@@ -451,10 +423,7 @@
 		048172832CFD45F0007A2920 /* BoBBillDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBBillDetailViewController.swift; sourceTree = "<group>"; };
 		048172862CFD8792007A2920 /* BoBMineAssetsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBMineAssetsViewController.swift; sourceTree = "<group>"; };
 		049B98022CB521360032E7B8 /* YFChooseUserAvatarCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFChooseUserAvatarCardView.swift; sourceTree = "<group>"; };
-		049C643D2BEC619300B679C4 /* YFLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFLoginVC.swift; sourceTree = "<group>"; };
-		049C643F2BEC622300B679C4 /* YFLoginChooseHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFLoginChooseHeaderView.swift; sourceTree = "<group>"; };
 		049C64422BEC689100B679C4 /* YFTitleAddUnderlineChooseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFTitleAddUnderlineChooseView.swift; sourceTree = "<group>"; };
-		049C64442BECC62C00B679C4 /* YFRegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFRegisterVC.swift; sourceTree = "<group>"; };
 		049C64462BECD49700B679C4 /* YFControllerUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFControllerUtil.swift; sourceTree = "<group>"; };
 		049D30212CC1F5DB00649DC4 /* YFNetworkStatusUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFNetworkStatusUtil.swift; sourceTree = "<group>"; };
 		049D30242CC2032800649DC4 /* YFNotNetTopTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFNotNetTopTipView.swift; sourceTree = "<group>"; };
@@ -486,9 +455,6 @@
 		04D45E822CA250390052F05A /* AccountViewModelEx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewModelEx.swift; sourceTree = "<group>"; };
 		04D5C1EC2C93DF72005EBF86 /* YFMineNetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFMineNetViewModel.swift; sourceTree = "<group>"; };
 		04D6A6772C9131ED008193E7 /* YFNetworkUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFNetworkUtils.swift; sourceTree = "<group>"; };
-		04D8BF7F2C8AB00100C1244E /* MineBokeNotificationSettingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineBokeNotificationSettingVC.swift; sourceTree = "<group>"; };
-		04D8BF812C8AD0AA00C1244E /* MineBokeVisitorListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineBokeVisitorListCell.swift; sourceTree = "<group>"; };
-		04D8BF832C8AD7EC00C1244E /* MineBokeVisitorListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineBokeVisitorListVC.swift; sourceTree = "<group>"; };
 		04DA67912CCF2ACB00FCA60C /* YFAibitlinHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFAibitlinHome.swift; sourceTree = "<group>"; };
 		04DA67932CCF2B2100FCA60C /* YFAibitlinHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFAibitlinHomeView.swift; sourceTree = "<group>"; };
 		04DB1E3D2CA6B0C000EE8B8C /* YFDateUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFDateUtil.swift; sourceTree = "<group>"; };
@@ -524,25 +490,16 @@
 		04F2D06F2BEE21CA00D5271B /* ChangeMessageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeMessageVC.swift; sourceTree = "<group>"; };
 		04F2D0712BEE21CA00D5271B /* MineSettingVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineSettingVC.swift; sourceTree = "<group>"; };
 		04F2D0722BEE21CA00D5271B /* MineAccountAddSafeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineAccountAddSafeVC.swift; sourceTree = "<group>"; };
-		04F2D0742BEE21CA00D5271B /* MineBokeEditVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineBokeEditVC.swift; sourceTree = "<group>"; };
-		04F2D0752BEE21CA00D5271B /* MineBokeListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineBokeListViewController.swift; sourceTree = "<group>"; };
 		04F2D0782BEE21CA00D5271B /* UserMessageThridView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserMessageThridView.swift; sourceTree = "<group>"; };
 		04F2D0792BEE21CA00D5271B /* UserMessageThridTypeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserMessageThridTypeView.swift; sourceTree = "<group>"; };
-		04F2D07A2BEE21CA00D5271B /* UsermessageBokeListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsermessageBokeListCell.swift; sourceTree = "<group>"; };
 		04F2D07B2BEE21CA00D5271B /* UserMessageHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserMessageHeaderView.swift; sourceTree = "<group>"; };
 		04F2D07C2BEE21CA00D5271B /* UserMessageContactView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserMessageContactView.swift; sourceTree = "<group>"; };
 		04F2D07E2BEE21CA00D5271B /* MineDeleteAccountReasonBottomSheetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineDeleteAccountReasonBottomSheetView.swift; sourceTree = "<group>"; };
-		04F2D0802BEE21CA00D5271B /* MineBokeListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineBokeListCell.swift; sourceTree = "<group>"; };
-		04F2D0812BEE21CA00D5271B /* MineBokeFooterEditView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineBokeFooterEditView.swift; sourceTree = "<group>"; };
 		04F2D0972BEE221400D5271B /* GKCover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKCover.h; sourceTree = "<group>"; };
 		04F2D0992BEE221400D5271B /* UIView+GKExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+GKExtension.m"; sourceTree = "<group>"; };
 		04F2D09A2BEE221400D5271B /* UIView+GKExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+GKExtension.h"; sourceTree = "<group>"; };
 		04F2D09B2BEE221400D5271B /* GKCoverEnum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKCoverEnum.h; sourceTree = "<group>"; };
 		04F2D09C2BEE221400D5271B /* GKCover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKCover.m; sourceTree = "<group>"; };
-		04F4EE782C8C2B180028E895 /* YFMineHomeBuyVipVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFMineHomeBuyVipVC.swift; sourceTree = "<group>"; };
-		04F4EE7B2C8C2C350028E895 /* YFMineHomeBuyVipCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFMineHomeBuyVipCell.swift; sourceTree = "<group>"; };
-		04F4EE7D2C8C38220028E895 /* YFMineHomeBuyVipCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFMineHomeBuyVipCardView.swift; sourceTree = "<group>"; };
-		04F533EF2BF84BC2005D0405 /* YFChatBottomSheetBokeListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFChatBottomSheetBokeListCell.swift; sourceTree = "<group>"; };
 		04F533F12BF84C8C005D0405 /* TestDataUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDataUtil.swift; sourceTree = "<group>"; };
 		04F5CFC22CBD35A4007BC74D /* YFEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFEmptyView.swift; sourceTree = "<group>"; };
 		04F87EF42C8E8D3D00C82A37 /* SuperUIFontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperUIFontExtension.swift; sourceTree = "<group>"; };
@@ -551,7 +508,6 @@
 		170A2B3828F29C5000CA68EA /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		170A2B3A28F29C5000CA68EA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		170A2B4228F29E8D00CA68EA /* NotificationService.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotificationService.entitlements; sourceTree = "<group>"; };
-		170E4B2229344C5D007A6535 /* DiscoveryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryViewController.swift; sourceTree = "<group>"; };
 		175D46672B307ABD006DE918 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		1760BE5B2BD9FFAD0096CD1C /* SimpleInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleInputViewController.swift; sourceTree = "<group>"; };
 		17620CE32A4D1E5200B74C96 /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
@@ -636,30 +592,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		04016EF22CA543D100D54020 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				04016EF32CA543F900D54020 /* YFChatNewFriendListVC.swift */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		040347782BEF053100C7C4EF /* More */ = {
-			isa = PBXGroup;
-			children = (
-				040347792BEF053C00C7C4EF /* View */,
-			);
-			path = More;
-			sourceTree = "<group>";
-		};
-		040347792BEF053C00C7C4EF /* View */ = {
-			isa = PBXGroup;
-			children = (
-				0403477A2BEF054A00C7C4EF /* TabMoreView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		04052E1F2CF41ACD00A7A554 /* PaymentMethod */ = {
 			isa = PBXGroup;
 			children = (
@@ -765,7 +697,6 @@
 				04F5CFC02CBD357B007BC74D /* emptyView */,
 				049C64412BEC682100B679C4 /* ChooseView */,
 				040D85C92BEB8C0A00DCAAB3 /* SettingView */,
-				040D85CB2BEB8C0A00DCAAB3 /* CommentView */,
 				040D85CD2BEB8C0A00DCAAB3 /* BaseCell */,
 				040D85D02BEB8C0A00DCAAB3 /* BottomBtnView */,
 				040D85D22BEB8C0A00DCAAB3 /* BaseNavView */,
@@ -779,14 +710,6 @@
 				040D85CA2BEB8C0A00DCAAB3 /* SuperSettingView.swift */,
 			);
 			path = SettingView;
-			sourceTree = "<group>";
-		};
-		040D85CB2BEB8C0A00DCAAB3 /* CommentView */ = {
-			isa = PBXGroup;
-			children = (
-				040D85CC2BEB8C0A00DCAAB3 /* SectionItemsView.swift */,
-			);
-			path = CommentView;
 			sourceTree = "<group>";
 		};
 		040D85CD2BEB8C0A00DCAAB3 /* BaseCell */ = {
@@ -1131,7 +1054,6 @@
 		045B8BFA2BF4B6D60094E080 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
-				04016EF22CA543D100D54020 /* Controller */,
 				045B8BFB2BF4B6DE0094E080 /* View */,
 			);
 			path = Chat;
@@ -1140,9 +1062,6 @@
 		045B8BFB2BF4B6DE0094E080 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				045B8BFC2BF4B7070094E080 /* YFChatBokeBottomSheetView.swift */,
-				04F533EF2BF84BC2005D0405 /* YFChatBottomSheetBokeListCell.swift */,
-				04016EF52CA5442800D54020 /* YFChatNewFriendListCell.swift */,
 				049B98022CB521360032E7B8 /* YFChooseUserAvatarCardView.swift */,
 			);
 			path = View;
@@ -1193,32 +1112,6 @@
 				048172862CFD8792007A2920 /* BoBMineAssetsViewController.swift */,
 			);
 			path = MineAssets;
-			sourceTree = "<group>";
-		};
-		049C643A2BEC602E00B679C4 /* LoginAndRegister */ = {
-			isa = PBXGroup;
-			children = (
-				049C643C2BEC60BC00B679C4 /* View */,
-				049C643B2BEC60B100B679C4 /* Controller */,
-			);
-			path = LoginAndRegister;
-			sourceTree = "<group>";
-		};
-		049C643B2BEC60B100B679C4 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				049C643D2BEC619300B679C4 /* YFLoginVC.swift */,
-				049C64442BECC62C00B679C4 /* YFRegisterVC.swift */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		049C643C2BEC60BC00B679C4 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				049C643F2BEC622300B679C4 /* YFLoginChooseHeaderView.swift */,
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		049C64412BEC682100B679C4 /* ChooseView */ = {
@@ -1477,9 +1370,7 @@
 			isa = PBXGroup;
 			children = (
 				045B8BFA2BF4B6D60094E080 /* Chat */,
-				040347782BEF053100C7C4EF /* More */,
 				04F2D0632BEE21CA00D5271B /* Mine */,
-				049C643A2BEC602E00B679C4 /* LoginAndRegister */,
 				04DA678E2CCF2A4F00FCA60C /* NewLoginAndRegister */,
 			);
 			path = Component;
@@ -1500,7 +1391,6 @@
 			children = (
 				04F2D0672BEE21CA00D5271B /* MeHomeController.swift */,
 				04F1FCED2CB67E3600080742 /* QRCode */,
-				04F4EE772C8C2AE00028E895 /* Vip */,
 				047753C42BFDCD00006DBFD3 /* Translate */,
 				0418B5772BF1E75000108808 /* Feedback */,
 				04F2D0652BEE21CA00D5271B /* MineMessage */,
@@ -1508,7 +1398,6 @@
 				04F2D06A2BEE21CA00D5271B /* DeleteAccount */,
 				04F2D06E2BEE21CA00D5271B /* ChangeMessageVC */,
 				04F2D0702BEE21CA00D5271B /* Setting */,
-				04F2D0732BEE21CA00D5271B /* Boke */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1559,28 +1448,14 @@
 			path = Setting;
 			sourceTree = "<group>";
 		};
-		04F2D0732BEE21CA00D5271B /* Boke */ = {
-			isa = PBXGroup;
-			children = (
-				04F2D0742BEE21CA00D5271B /* MineBokeEditVC.swift */,
-				04F2D0752BEE21CA00D5271B /* MineBokeListViewController.swift */,
-				040D44262C894E78007DB6FB /* MineBokeStatisticsVC.swift */,
-				04D8BF7F2C8AB00100C1244E /* MineBokeNotificationSettingVC.swift */,
-				04D8BF832C8AD7EC00C1244E /* MineBokeVisitorListVC.swift */,
-			);
-			path = Boke;
-			sourceTree = "<group>";
-		};
 		04F2D0762BEE21CA00D5271B /* View */ = {
 			isa = PBXGroup;
 			children = (
 				0434ABA22CBBC2D8000F9B07 /* QRCode */,
-				04F4EE7A2C8C2C160028E895 /* Vip */,
 				043A558B2C8166490041836E /* Home */,
 				045B8BF52BF448880094E080 /* Feedback */,
 				04F2D0772BEE21CA00D5271B /* UserMessage */,
 				04F2D07D2BEE21CA00D5271B /* DeleteAccount */,
-				04F2D07F2BEE21CA00D5271B /* Boke */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1590,7 +1465,6 @@
 			children = (
 				04F2D0782BEE21CA00D5271B /* UserMessageThridView.swift */,
 				04F2D0792BEE21CA00D5271B /* UserMessageThridTypeView.swift */,
-				04F2D07A2BEE21CA00D5271B /* UsermessageBokeListCell.swift */,
 				04F2D07B2BEE21CA00D5271B /* UserMessageHeaderView.swift */,
 				04F2D07C2BEE21CA00D5271B /* UserMessageContactView.swift */,
 				045B8BF82BF481AF0094E080 /* UserMessageBottomSheetView.swift */,
@@ -1604,16 +1478,6 @@
 				04F2D07E2BEE21CA00D5271B /* MineDeleteAccountReasonBottomSheetView.swift */,
 			);
 			path = DeleteAccount;
-			sourceTree = "<group>";
-		};
-		04F2D07F2BEE21CA00D5271B /* Boke */ = {
-			isa = PBXGroup;
-			children = (
-				04F2D0802BEE21CA00D5271B /* MineBokeListCell.swift */,
-				04F2D0812BEE21CA00D5271B /* MineBokeFooterEditView.swift */,
-				04D8BF812C8AD0AA00C1244E /* MineBokeVisitorListCell.swift */,
-			);
-			path = Boke;
 			sourceTree = "<group>";
 		};
 		04F2D0952BEE21EC00D5271B /* Vender */ = {
@@ -1645,23 +1509,6 @@
 			path = Category;
 			sourceTree = "<group>";
 		};
-		04F4EE772C8C2AE00028E895 /* Vip */ = {
-			isa = PBXGroup;
-			children = (
-				04F4EE782C8C2B180028E895 /* YFMineHomeBuyVipVC.swift */,
-			);
-			path = Vip;
-			sourceTree = "<group>";
-		};
-		04F4EE7A2C8C2C160028E895 /* Vip */ = {
-			isa = PBXGroup;
-			children = (
-				04F4EE7B2C8C2C350028E895 /* YFMineHomeBuyVipCell.swift */,
-				04F4EE7D2C8C38220028E895 /* YFMineHomeBuyVipCardView.swift */,
-			);
-			path = Vip;
-			sourceTree = "<group>";
-		};
 		04F5CFC02CBD357B007BC74D /* emptyView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1678,14 +1525,6 @@
 				170A2B3A28F29C5000CA68EA /* Info.plist */,
 			);
 			path = NotificationService;
-			sourceTree = "<group>";
-		};
-		170E4B2129344C51007A6535 /* Discovery */ = {
-			isa = PBXGroup;
-			children = (
-				170E4B2229344C5D007A6535 /* DiscoveryViewController.swift */,
-			);
-			path = Discovery;
 			sourceTree = "<group>";
 		};
 		1790EE592921EAFC00C4024A /* Mine */ = {
@@ -1908,7 +1747,6 @@
 				1790EE6A2921EAFC00C4024A /* MainTabViewController.swift */,
 				040D44232C882ABA007DB6FB /* Chat */,
 				17B11A3E2ABD28C600DB8980 /* NavigationControllerPopGesture */,
-				170E4B2129344C51007A6535 /* Discovery */,
 				1790EE642921EAFC00C4024A /* Account */,
 				1790EE592921EAFC00C4024A /* Mine */,
 			);
@@ -2302,8 +2140,6 @@
 				0439CCEC2D0A8EF000379537 /* BoBFreeFilterMoneyView.swift in Sources */,
 				042E2A1F2BF5C3B400A90CB6 /* YFOpenIMUtil.swift in Sources */,
 				040D860E2BEB8C4200DCAAB3 /* SuperUIColorExtensionswift.swift in Sources */,
-				049C64452BECC62D00B679C4 /* YFRegisterVC.swift in Sources */,
-				04D8BF842C8AD7EC00C1244E /* MineBokeVisitorListVC.swift in Sources */,
 				04F2D08D2BEE21CA00D5271B /* UserMessageThridView.swift in Sources */,
 				04DA67922CCF2ACB00FCA60C /* YFAibitlinHome.swift in Sources */,
 				040D860C2BEB8C4200DCAAB3 /* SuperUIImageExtension.swift in Sources */,
@@ -2332,12 +2168,10 @@
 				040D85EB2BEB8C0B00DCAAB3 /* SuperToast.swift in Sources */,
 				0481726D2CF89790007A2920 /* BoBChooseCionTypeView.swift in Sources */,
 				04F2D08E2BEE21CA00D5271B /* UserMessageThridTypeView.swift in Sources */,
-				040D85E62BEB8C0B00DCAAB3 /* SectionItemsView.swift in Sources */,
 				040D85F52BEB8C0B00DCAAB3 /* BaseCommon.swift in Sources */,
 				0418B57B2BF21EF000108808 /* YFMineUserPrivateVC.swift in Sources */,
 				04052E2F2CF4709800A7A554 /* BoBAddBankPaymentView.swift in Sources */,
 				0445C98A2D02FDA600D1FD34 /* BoBReceiveRedPacketDetailViewController.swift in Sources */,
-				04F4EE7E2C8C38220028E895 /* YFMineHomeBuyVipCardView.swift in Sources */,
 				04F2D0842BEE21CA00D5271B /* UserMessageVC.swift in Sources */,
 				040D85F12BEB8C0B00DCAAB3 /* BaseResponse.swift in Sources */,
 				040D86062BEB8C4200DCAAB3 /* ImageViewKingfisherExtension.swift in Sources */,
@@ -2348,13 +2182,10 @@
 				04EFEA6F2CED7C69004441CB /* BoBPrimaryRealNameViewController.swift in Sources */,
 				040D85F62BEB8C0B00DCAAB3 /* BaseId.swift in Sources */,
 				04F5CFC32CBD35A4007BC74D /* YFEmptyView.swift in Sources */,
-				04F2D08C2BEE21CA00D5271B /* MineBokeListViewController.swift in Sources */,
-				040D44272C894E78007DB6FB /* MineBokeStatisticsVC.swift in Sources */,
 				0439CCFF2D141ACB00379537 /* BoBBuyAndSellCionDetailViewController.swift in Sources */,
 				04D5C1ED2C93DF72005EBF86 /* YFMineNetViewModel.swift in Sources */,
 				04052E312CF48A0600A7A554 /* BoBAddAliPaymentView.swift in Sources */,
 				04484ED32CF71EC200893E4C /* BoBChooseBankListCell.swift in Sources */,
-				04F4EE792C8C2B180028E895 /* YFMineHomeBuyVipVC.swift in Sources */,
 				04C394432CCF874300181F6B /* YFAibitlinHomeChooseHeaderView.swift in Sources */,
 				04DB1E3E2CA6B0C000EE8B8C /* YFDateUtil.swift in Sources */,
 				17C4BBAA28CA1220003782EF /* Array+deduplicate.swift in Sources */,
@@ -2370,7 +2201,6 @@
 				0445C90C2CFDD21A00D1FD34 /* BoBMineAssetsViewHeadView.swift in Sources */,
 				04C394412CCF85A500181F6B /* YFPhoneLoginVC.swift in Sources */,
 				0439CCF32D101A0700379537 /* BoBChoosePaymentMethodTypeView.swift in Sources */,
-				04F2D08F2BEE21CA00D5271B /* UsermessageBokeListCell.swift in Sources */,
 				04D2E2072CBE4E5500582B13 /* HDRunTime.swift in Sources */,
 				17B11A442ABD28C600DB8980 /* NavigationController.swift in Sources */,
 				1790EE7A2921EAFC00C4024A /* MainTabViewController.swift in Sources */,
@@ -2380,11 +2210,9 @@
 				04EFEA7D2CEDAF94004441CB /* BoBRealNameModel.swift in Sources */,
 				17620CE42A4D1E5200B74C96 /* String+Extension.swift in Sources */,
 				04D45E832CA250390052F05A /* AccountViewModelEx.swift in Sources */,
-				04D8BF822C8AD0AA00C1244E /* MineBokeVisitorListCell.swift in Sources */,
 				040D85C32BEB8B0400DCAAB3 /* ParamUtil.swift in Sources */,
 				040D85F72BEB8C0B00DCAAB3 /* BaseModel.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
-				04016EF62CA5442800D54020 /* YFChatNewFriendListCell.swift in Sources */,
 				1790EE792921EAFC00C4024A /* LoginViewController.swift in Sources */,
 				040D85E92BEB8C0B00DCAAB3 /* BottomBtnView.swift in Sources */,
 				1790EE762921EAFC00C4024A /* ConfigViewController.swift in Sources */,
@@ -2394,8 +2222,6 @@
 				0420C71E2BEB78CC0005F5B8 /* ProfileTableViewController.swift in Sources */,
 				0445C9082CFDA79900D1FD34 /* JXPagingView.swift in Sources */,
 				0411DD272C05CCB800EDD135 /* SuperDialogController.swift in Sources */,
-				04F2D0932BEE21CA00D5271B /* MineBokeListCell.swift in Sources */,
-				04F2D0942BEE21CA00D5271B /* MineBokeFooterEditView.swift in Sources */,
 				047753C62BFDCD27006DBFD3 /* YFTranslateVC.swift in Sources */,
 				040D85F32BEB8C0B00DCAAB3 /* DetailResponse.swift in Sources */,
 				04D2E2082CBE4E5500582B13 /* UIScrollView+Empty.swift in Sources */,
@@ -2409,7 +2235,6 @@
 				040D85EA2BEB8C0B00DCAAB3 /* BaseNavView.swift in Sources */,
 				0439CCDD2D087DE500379537 /* BoBFreeCionMainViewController.swift in Sources */,
 				1790EE6D2921EAFC00C4024A /* SettingTableViewController.swift in Sources */,
-				04F533F02BF84BC2005D0405 /* YFChatBottomSheetBokeListCell.swift in Sources */,
 				1790EE6F2921EAFC00C4024A /* SettingViewModel.swift in Sources */,
 				047BF6B62CA2B6DF00706117 /* YFFileDataUtil.swift in Sources */,
 				040D85ED2BEB8C0B00DCAAB3 /* BaseController.swift in Sources */,
@@ -2417,10 +2242,8 @@
 				04AAD6C82CF4BB0000E4F7D1 /* BoBChooseBankListViewController.swift in Sources */,
 				04F2D0912BEE21CA00D5271B /* UserMessageContactView.swift in Sources */,
 				040D86082BEB8C4200DCAAB3 /* SuperNSObjectExtension.swift in Sources */,
-				045B8BFD2BF4B7070094E080 /* YFChatBokeBottomSheetView.swift in Sources */,
 				04F2D0922BEE21CA00D5271B /* MineDeleteAccountReasonBottomSheetView.swift in Sources */,
 				040D85E72BEB8C0B00DCAAB3 /* BaseTableViewCell.swift in Sources */,
-				04F4EE7C2C8C2C350028E895 /* YFMineHomeBuyVipCell.swift in Sources */,
 				04F2D0822BEE21CA00D5271B /* MineMessageVC.swift in Sources */,
 				04F2D0832BEE21CA00D5271B /* MeHomeController.swift in Sources */,
 				040D86092BEB8C4200DCAAB3 /* SuperUIThemeExtension.swift in Sources */,
@@ -2440,14 +2263,12 @@
 				04F2D09E2BEE221400D5271B /* GKCover.m in Sources */,
 				0445C9622D00454D00D1FD34 /* BoBRedPacketTypeView.swift in Sources */,
 				040D85BF2BEB8B0400DCAAB3 /* Constant.swift in Sources */,
-				04F2D08B2BEE21CA00D5271B /* MineBokeEditVC.swift in Sources */,
 				04F2D0882BEE21CA00D5271B /* ChangeMessageVC.swift in Sources */,
 				043A558D2C8166490041836E /* UserTagView.swift in Sources */,
 				0445C95F2CFF299A00D1FD34 /* BoBRedPacketModel.swift in Sources */,
 				040D85F02BEB8C0B00DCAAB3 /* BaseTitleController.swift in Sources */,
 				040D85C02BEB8B0400DCAAB3 /* CountDownUtil.swift in Sources */,
 				040E00B62D1D926F002EB7AE /* BoBSendAppealViewController.swift in Sources */,
-				04D8BF802C8AB00100C1244E /* MineBokeNotificationSettingVC.swift in Sources */,
 				17BCADFC2A8DBA0A0022767D /* AboutUsViewController.swift in Sources */,
 				04052E2D2CF45A0200A7A554 /* BoBAddPaymentMethodViewController.swift in Sources */,
 				0445C9042CFDA79900D1FD34 /* JXPagingListContainerView.swift in Sources */,
@@ -2479,14 +2300,11 @@
 				04484ED62CF742EF00893E4C /* BoBReceivePaymentViewController.swift in Sources */,
 				0445C93B2CFEF2D000D1FD34 /* BoBSendChatTransferAccountsViewController.swift in Sources */,
 				0439CD012D14435800379537 /* BoBBuyAndSellCionSubDetailViewController.swift in Sources */,
-				0403477B2BEF054A00C7C4EF /* TabMoreView.swift in Sources */,
 				04EFEA442CECB5E9004441CB /* BoBOrderListMainViewController.swift in Sources */,
 				045B8BF72BF4496D0094E080 /* MineChooseBottomSheetView.swift in Sources */,
-				170E4B2329344C5D007A6535 /* DiscoveryViewController.swift in Sources */,
 				040D85C12BEB8B0400DCAAB3 /* DefaultPreferenceUtil.swift in Sources */,
 				040D85AE2BEB899900DCAAB3 /* DefalutRepository.swift in Sources */,
 				040E00B02D1BD9CE002EB7AE /* BoBOrderDetailPaymentView.swift in Sources */,
-				049C643E2BEC619300B679C4 /* YFLoginVC.swift in Sources */,
 				04484ED92CF7552C00893E4C /* BoBShareReceivePaymentQrCodeViewController.swift in Sources */,
 				040D85EF2BEB8C0B00DCAAB3 /* BaseCommentController.swift in Sources */,
 				040E00B42D1C0371002EB7AE /* BoBShowVoucherView.swift in Sources */,
@@ -2506,8 +2324,6 @@
 				0439CCE62D0989A200379537 /* BoBCreatAdWarnAlertView.swift in Sources */,
 				04F2D09D2BEE221400D5271B /* UIView+GKExtension.m in Sources */,
 				045B8BF92BF481AF0094E080 /* UserMessageBottomSheetView.swift in Sources */,
-				04016EF42CA543F900D54020 /* YFChatNewFriendListVC.swift in Sources */,
-				049C64402BEC622300B679C4 /* YFLoginChooseHeaderView.swift in Sources */,
 				049C64472BECD49700B679C4 /* YFControllerUtil.swift in Sources */,
 				040D85E82BEB8C0B00DCAAB3 /* BaseCollectionViewCell.swift in Sources */,
 				040D85B52BEB8AD100DCAAB3 /* Config.swift in Sources */,

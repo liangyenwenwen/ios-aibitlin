@@ -59,7 +59,7 @@ class SuperWebController: BaseTitleController, WKNavigationDelegate {
             timer?.invalidate()
             timer = nil
             if timeCount > 0 {
-                YFMineNetViewModel.scanBlog(blog: blog, duration: timeCount)
+//                YFMineNetViewModel.scanBlog(blog: blog, duration: timeCount)
             }
             
         }

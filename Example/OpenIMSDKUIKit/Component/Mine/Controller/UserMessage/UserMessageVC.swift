@@ -52,14 +52,6 @@ class UserMessageVC: BaseTitleController {
         addMore()
         initTableViewSafeAreCustom(.grouped)
         container.tg_padding = UIEdgeInsets(top: PADDING_MEDDLE, left: PADDING_OUTER, bottom: PADDING_MEDDLE, right: PADDING_OUTER)
-        
-//        tableView.tableHeaderView = tableHeaderView
-//        view.layoutIfNeeded()
-//        print(userHeaderView.frame)
-//        datum = TestDataUtil.BokeData.filter({ item in
-//            item.state == .normal
-//        })
-        tableView.register(MineBokeListCell.self, forCellReuseIdentifier: MineBokeListCell.className)
         tableView.contentInsetAdjustmentBehavior = .never
         
 
@@ -67,15 +59,7 @@ class UserMessageVC: BaseTitleController {
         
         superFooterContainer.backgroundColor = .colorSurface
         superFooterContainerContainer.addSubview(footerBtnView)
-        
-//        IMController.shared.getConversation(sessionType: .c2c, sourceId: userID) { [weak self] (conversation: ConversationInfo?) in
-//            guard let conversation else { return }
-//
-//            self?.ConversationInfo = conversation
-//            self?.updataUI()
-//        }
         getUserInfo()
-//        othersSeeMyBlog()
         view.addSubview(netWorkTipView)
         netWorkTipView.snp_remakeConstraints { make in
             make.top.equalTo(44 + kStatusBarHeight)
@@ -99,21 +83,11 @@ class UserMessageVC: BaseTitleController {
     
     
     func getUserInfo() {
-        
-//        IMController.shared.getUserInfo(uids: [userID], groupID: nil) { [self] users in
-//            guard let sdkUser = users.first else { return }
-//            userInfo = sdkUser
-//            
-//            print(userInfo?.showName)
-//            
-//            
-//        }
         ProgressHUD.animate()
         AccountViewModel.queryUserInfo(userIDList: [userID],
                                        valueHandler: { [weak self] (users: [QueryUserInfo]) in
             ProgressHUD.dismiss()
             guard let user: QueryUserInfo = users.first else { return }
-//            print(user.nickname, user.phoneNumber, user.email)
             self?.userInfo = user
             self?.updataUI()
         }, completionHandler: {(errCode, errMsg) in
@@ -190,9 +164,6 @@ class UserMessageVC: BaseTitleController {
         return r
     }()
     
-    var sectionBlogTitleLbl = UILabel()
-    var sectionMomentsTitleLbl = UILabel()
-    
     lazy var footerBtnView: BottomBtnView = {
         let r = BottomBtnView()
         r.setStyle(.sendMessage)
@@ -231,7 +202,7 @@ class UserMessageVC: BaseTitleController {
         }
     func toChat()  {
         
-        // MARK: - 张亚飞打的标记  获取会话信息
+        // MARK: -    获取会话信息
         IMController.shared.getConversation(sessionType: .c2c, sourceId: userID) { [weak self] (conversation: ConversationInfo?) in
             guard let conversation else { return }
 
@@ -288,7 +259,7 @@ class UserMessageVC: BaseTitleController {
         
         if(title == "解除好友关系".localized()) {
             
-            // MARK: - 张亚飞打的标记  刷新首页
+            // MARK: -    刷新首页
             let navController = self.tabBarController?.children.first as? UINavigationController;
             let vc: ChatListViewController? = navController?.viewControllers.first(where: { vc in
                 return vc is ChatListViewController
@@ -347,243 +318,24 @@ class UserMessageVC: BaseTitleController {
                     }
                 })
             }
-            
-//            let isFriend = sdkUser.friendInfo != nil
-            
-//            guard !isFriend else {
-////                allowSendMsg.accept(true)
-//                self.footerBtnView.setStyle(.sendMessageAndAttention)
-//                return
-//            }
-            
-            
         }
-    }
-    
-    lazy var tableSectionHeader: UIView = {
-//        let r = TGLinearLayout(.vert)
-        let section = ViewFactoryUtil.sectionHeaderView(title:"Blog".localized(), isHaveMore: true)
-//        sectionTitleLbl = section.viewWithTag(20001) as! UILabel
-//        if ConversationInfo != nil {
-//            sectionTitleLbl.text = R.string.localizable.userBlog(ConversationInfo?.showName ?? "")
-//        }
-        
-        section.tg_width.equal(.fill)
-        section.tg_height.equal(44)
-        section.tg_top.equal(12)
-        section.backgroundColor = .white
-        section.layer.cornerRadius = 14
-        section.layer.maskedCorners  = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-//        r.addSubview(section)
-        let tap = UITapGestureRecognizer(target: self, action: #selector(gotoBokeList))
-        section.addGestureRecognizer(tap)
-        return section
-    }()
-    
-    
-    
-    class tableViewSectionHeader : TGLinearLayout {
-        
-        
-        init() {
-            super.init(frame: .zero, orientation: .vert)
-            innerInit()
-        }
-        
-        required init?(coder: NSCoder) {
-            super.init(coder: coder)
-            innerInit()
-            tg_height.equal(56)
-        }
-        
-        func innerInit()  {
-            addSubview(sectionView)
-        }
-        
-        lazy var sectionView: UIView = {
-            let section = ViewFactoryUtil.sectionHeaderView(title: "Blog".localized(), isHaveMore: true)
-            section.tg_width.equal(.fill)
-            section.tg_height.equal(44)
-            section.tg_top.equal(12)
-            section.backgroundColor = .white
-            section.layer.cornerRadius = 14
-            section.layer.maskedCorners  = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-            return section
-        }()
-        
-        
     }
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
-    
-//    override func viewWillLayoutSubviews() {
-//        view.layoutIfNeeded()
-//    }
-}
-
-extension UserMessageVC {
-    
-    func othersSeeMyBlog() {
-        ProgressHUD.animate()
-        YFMineNetViewModel.otherSeeMyBlog(userId: userID) { [weak self] data in
-            ProgressHUD.dismiss()
-            self?.datum = data
-            self?.tableView.reloadData()
-        } completionHandler: { errCode, errMsg in
-            ProgressHUD.dismiss()
-            SuperToast.show(title: errMsg?.localized())
-        }
-
-    }
 }
 
 
-
 extension UserMessageVC {
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let r = tableSectionHeader
-//        
-//        let titleLbl = r.viewWithTag(20001) as! UILabel
-//        if section == 0 {
-//            titleLbl.text = R.string.localizable.userMoments(ConversationInfo?.showName ?? "")
-//            sectionMomentsTitleLbl = titleLbl
-//        } else {
-//            titleLbl.text = R.string.localizable.userBlog(ConversationInfo?.showName ?? "")
-//            sectionBlogTitleLbl = titleLbl
-//        }
-//        
-//        return r
-        
-        let userShowname = SuperStringUtil.getUserShowname(showname: userInfo?.nickname ?? "")
-        
-        let r = tableViewSectionHeader()
-        let sectionLbl = r.sectionView.viewWithTag(20001) as! UILabel
-        let leftImg = r.sectionView.viewWithTag(20003) as! UIImageView
-        leftImg.image = section == 0 ? R.image.section_moments_icon()! : R.image.boke_icon()
-        if section == 0 {
-            
-            r.sectionView.layer.maskedCorners  = [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-            sectionMomentsTitleLbl = sectionLbl
-            if userInfo != nil {
-                sectionLbl.text = "动态".localized()
-            }
-            let tap = UITapGestureRecognizer(target: self, action: #selector(gotoMoments))
-            r.sectionView.addGestureRecognizer(tap)
-        } else {
-            if datum.count == 0 {
-                r.sectionView.layer.maskedCorners  = [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-            } else {
-                r.sectionView.layer.maskedCorners  = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-            }
-            
-            sectionBlogTitleLbl = sectionLbl
-            if userInfo != nil {
-                sectionLbl.text = "博客".localized()
-            }
-            
-            let tap = UITapGestureRecognizer(target: self, action: #selector(gotoBokeList))
-            r.sectionView.addGestureRecognizer(tap)
-        }
-        
-        return r
-    }
-    
-    
-    @objc func gotoBokeList() {
-        
-        let userShowname = SuperStringUtil.getUserShowname(showname: userInfo?.nickname ?? "")
-        
-        let vc = MineBokeListViewController()
-        vc.vcType = .othersBlog
-        vc.othersID = userInfo?.userID
-        vc.othersName = userShowname
-        gotoController(vc)
-        
-    }
-    
-    
-    @objc func gotoMoments() {
-//        let vc = MomentsViewController()
-//        vc.hidesBottomBarWhenPushed = true
-//        self.navigationController.setNavigationBarHidden(false, animated: true)
-//        self.pushViewController(vc)
-//        self.navigationController?.pushViewController(vc)
-        
-        if let user = userInfo {
-            let vc = OthersViewController(userID: user.userID!, nickname: SuperStringUtil.getUserShowname(showname: user.nickname ?? ""), faceURL: user.faceURL)
-            navigationController?.pushViewController(vc, animated: true)
-        }
-        
-        
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 56
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        
-        if self.userInfo != nil {
-            return 0
-        } else {
-            return 0
-        }
-        
-    }
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if  section == 0 {
-            return 0
-        }
-        return datum.count
+        return 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: MineBokeListCell.className, for: indexPath) as! MineBokeListCell
-        cell.isClean()
-        cell.bindData(datum[indexPath.row] as! myBlogShowBlogPOModel)
+        let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.className, for: indexPath)
         return cell
     }
-    
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let item = datum[indexPath.row] as! myBlogShowBlogPOModel
-//        SuperWebController.start((self.navigationController!), uri: item.userBlogUrl)
-//        YFMineNetViewModel.scanBlog(blog: item)
-
-        SuperWebController.startAboubBlog(self.navigationController!, blogItem: item)
-    }
-    
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        
-        if section == 0 {
-            return nil
-        } else {
-            let r = TGLinearLayout(.vert)
-            r.tg_width.equal(.fill)
-            let height = datum.count > 0 ? 20 : 0
-            r.tg_height.equal(height)
-            r.backgroundColor = .white
-            r.layer.cornerRadius = 10
-            r.layer.maskedCorners  = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-            return r
-        }
-        
-    }
-    
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        
-        if section == 0 {
-            return 0
-        } else {
-            return datum.count > 0 ? 20 : 0
-        }
-    }
-    
-    
 }
 
 

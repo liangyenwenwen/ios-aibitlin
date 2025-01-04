@@ -2,7 +2,7 @@ import ChatLayout
 import Foundation
 import OUICore
 
-// MARK: - 张亚飞打的标记  自定义消息 boke
+// MARK: -    自定义消息 boke
 
 class YFBokeView: UIView, ContainerCollectionViewCellDelegate  {
 

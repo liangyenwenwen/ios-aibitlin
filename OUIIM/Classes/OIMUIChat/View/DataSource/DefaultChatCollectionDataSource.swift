@@ -5,7 +5,7 @@ import Foundation
 import UIKit
 import RxSwift
 
-// MARK: - 张亚飞打的标记  消息cell
+// MARK: -    消息cell
 
 // 调整成右侧头像
 //typealias TextMessageCollectionCell = ContainerCollectionViewCell<MessageContainerView<EditingAccessoryView, MainContainerView<ChatAvatarView, TextMessageView, StatusView>>>
@@ -24,12 +24,12 @@ typealias CardCollectionCell = ContainerCollectionViewCell<MessageContainerView<
 typealias LocationCollectionCell = ContainerCollectionViewCell<MessageContainerView<EditingAccessoryView, MainContainerView<ChatAvatarView, LocationView, ChatAvatarView>>>
 typealias NoticeCollectionCell = ContainerCollectionViewCell<MessageContainerView<EditingAccessoryView, MainContainerView<ChatAvatarView, NoticeView, ChatAvatarView>>>
 
-// MARK: - 张亚飞打的标记  初始系统通知
+// MARK: -    初始系统通知
 typealias OANoticeCollectionCell = ContainerCollectionViewCell<MessageContainerView<EditingAccessoryView, MainContainerView<ChatAvatarView, OANoticeView, ChatAvatarView>>>
 typealias CustomViewCollectionCell = ContainerCollectionViewCell<MessageContainerView<EditingAccessoryView, MainContainerView<ChatAvatarView, CustomView, ChatAvatarView>>>
 typealias BlankCustomViewCollectionCell = ContainerCollectionViewCell<MessageContainerView<EditingAccessoryView, MainContainerView<ChatAvatarView, BlankCustomView, ChatAvatarView>>>
 
-// MARK: - 张亚飞打的标记  自定义BokeCell
+// MARK: -    自定义BokeCell
 typealias BokeCollectionCell = ContainerCollectionViewCell<MessageContainerView<EditingAccessoryView, MainContainerView<ChatAvatarView, YFBokeView, ChatAvatarView>>>
 // 红包cell
 typealias RedPacketCollectionCell = ContainerCollectionViewCell<MessageContainerView<EditingAccessoryView, MainContainerView<ChatAvatarView, YFRedPacketView, ChatAvatarView>>>
@@ -37,11 +37,11 @@ typealias RedPacketCollectionCell = ContainerCollectionViewCell<MessageContainer
 typealias TransferAccountsCollectionCell = ContainerCollectionViewCell<MessageContainerView<EditingAccessoryView, MainContainerView<ChatAvatarView, YFTransferAccountsView, ChatAvatarView>>>
 
 
-// MARK: - 张亚飞打的标记  没有头像的消息Cell
+// MARK: -    没有头像的消息Cell
 typealias UserTitleCollectionCell = ContainerCollectionViewCell<SwappingContainerView<EdgeAligningView<UILabel>, UIImageView>>
 typealias TitleCollectionCell = ContainerCollectionViewCell<SystemTipsView>
 
-// MARK: - 张亚飞打的标记  通知消息
+// MARK: -    通知消息
 typealias VipNormolCollectionCell = ContainerCollectionViewCell<YFVipNormalView>
 typealias VipContactCollectionCell = ContainerCollectionViewCell<YFVipContactView>
 
@@ -111,7 +111,7 @@ final class DefaultChatCollectionDataSource: NSObject, ChatCollectionDataSource 
         collectionView.register(TextTitleView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: TextTitleView.reuseIdentifier)
         collectionView.register(TextTitleView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: TextTitleView.reuseIdentifier)
         
-        // MARK: - 张亚飞打的标记  自定义消息注册
+        // MARK: -    自定义消息注册
         collectionView.register(BokeCollectionCell.self, forCellWithReuseIdentifier: BokeCollectionCell.reuseIdentifier)
         collectionView.register(RedPacketCollectionCell.self, forCellWithReuseIdentifier: RedPacketCollectionCell.reuseIdentifier)
         collectionView.register(TransferAccountsCollectionCell.self, forCellWithReuseIdentifier: TransferAccountsCollectionCell.reuseIdentifier)
@@ -596,7 +596,7 @@ final class DefaultChatCollectionDataSource: NSObject, ChatCollectionDataSource 
         return cell
     }
     
-    // MARK: - 张亚飞打的标记   创建自定义cell
+    // MARK: -     创建自定义cell
     private func createCustomCell(collectionView: UICollectionView,
                                 messageId: String,
                                 isSelected: Bool,
@@ -807,7 +807,7 @@ final class DefaultChatCollectionDataSource: NSObject, ChatCollectionDataSource 
     }
     
     // 设置时间组cell/系统提示cell
-    // MARK: - 张亚飞打的标记 没有头像的Cell
+    // MARK: -   没有头像的Cell
     private func createTipsTitle(collectionView: UICollectionView,
                                  indexPath: IndexPath,
                                  alignment: ChatItemAlignment,
@@ -942,7 +942,7 @@ final class DefaultChatCollectionDataSource: NSObject, ChatCollectionDataSource 
      }
      */
     
-    // MARK: - 张亚飞打的标记 设置头像
+    // MARK: -   设置头像
     // 设置头像
     private func setupMainMessageView(_ cellView: MainContainerView<ChatAvatarView, some Any, ChatAvatarView>,
                                       user: User,
@@ -965,7 +965,7 @@ final class DefaultChatCollectionDataSource: NSObject, ChatCollectionDataSource 
             delayShowIndicators[messageID] = false
         }
         
-        // MARK: - 张亚飞打的标记  隐藏每条消息发送时间
+        // MARK: -    隐藏每条消息发送时间
         if sessionType == .group && (isTop || ( !isTop && user.id != lastID) ) && alignment.isIncoming{
             cellView.contentContainer.setTitle(title: "\(sessionType == .single ? "" : user.name)", messageType: alignment.isIncoming ? .incoming : .outgoing)
         } else {
@@ -977,7 +977,7 @@ final class DefaultChatCollectionDataSource: NSObject, ChatCollectionDataSource 
         cellView.contentContainer.showErrorButton(false)
         cellView.contentContainer.setReadStatus(title: nil)
         
-        // MARK: - 张亚飞打的标记  隐藏已读未读lbl
+        // MARK: -    隐藏已读未读lbl
         cellView.contentContainer.hidenReadStatusLbl(true)
         
         switch status {
@@ -1030,7 +1030,7 @@ final class DefaultChatCollectionDataSource: NSObject, ChatCollectionDataSource 
             }
         }
         
-        // MARK: - 张亚飞打的标记  头像显示
+        // MARK: -    头像显示
         if let avatarView = cellView.containerView.leadingView {
             let avatarViewController = AvatarViewController(user: user, bubble: bubble)
             avatarView.setup(with: avatarViewController)
@@ -1211,7 +1211,7 @@ extension DefaultChatCollectionDataSource: UICollectionViewDataSource {
             let cell = createGroupTitle(collectionView: collectionView, indexPath: indexPath, alignment: cell.alignment, title: group.title)
             
             return cell
-            // MARK: - 张亚飞打的标记  显示消息Cell
+            // MARK: -    显示消息Cell
         case let .message(message, bubbleType: bubbleType):
             switch message.data {
             case let .text(source):
@@ -1228,7 +1228,7 @@ extension DefaultChatCollectionDataSource: UICollectionViewDataSource {
                 
                 return cell
             case let .custom(source):
-                // MARK: - 张亚飞打的标记  博客消息Cell
+                // MARK: -    博客消息Cell
                 let cell = createCustomCell(collectionView: collectionView, messageId: message.id, isSelected: message.isSelected, indexPath: indexPath, source: source, anchor: message.isAnchor, date: message.date, alignment: cell.alignment, user: message.owner, bubbleType: bubbleType, status: message.status, messageType: message.type, sessionType: message.sessionType, isTop: indexPath.item == 0, lastID: lastID)
                 
                 return cell
@@ -1276,7 +1276,7 @@ extension DefaultChatCollectionDataSource: UICollectionViewDataSource {
                 let cell = createLocationCell(collectionView: collectionView, messageId: message.id, isSelected: message.isSelected, indexPath: indexPath, source: source, date: message.date, alignment: cell.alignment, user: message.owner, bubbleType: bubbleType, status: message.status, messageType: message.type, sessionType: message.sessionType, isTop: indexPath.item == 0, lastID: lastID)
                 
                 return cell
-            // MARK: - 张亚飞打的标记  通知消息Cell
+            // MARK: -    通知消息Cell
             case let .notice(source):
 //                let cell = createNoticeCell(collectionView: collectionView, messageId: message.id, isSelected: message.isSelected, indexPath: indexPath, source: source, date: message.date, alignment: cell.alignment, user: message.owner, bubbleType: bubbleType, status: message.status, messageType: message.type, sessionType: message.sessionType)
                 //测试修改
@@ -1331,7 +1331,7 @@ extension DefaultChatCollectionDataSource: ChatLayoutDelegate {
         true
     }
     
-    // MARK: - 张亚飞打的标记  消息的高度
+    // MARK: -    消息的高度
     public func sizeForItem(_ chatLayout: CollectionViewChatLayout, of kind: ItemKind, at indexPath: IndexPath) -> ItemSize {
         switch kind {
         case .cell:

@@ -36,7 +36,7 @@ final class DefaultChatController: ChatController {
     
     private let conversationType: ConversationType // 会话类型
     
-    // MARK: - 张亚飞打的标记  会话信息
+    // MARK: -    会话信息
 
     private let conversation: ConversationInfo
     
@@ -575,7 +575,7 @@ final class DefaultChatController: ChatController {
     
     // MARK: send message
 
-    // MARK: - 张亚飞打的标记  ******** 重中之重  发送消息 ***********
+    // MARK: -    ******** 重中之重  发送消息 ***********
 
     func sendMessage(_ data: Message.Data, completion: @escaping ([Section]) -> Void) {
         switch data {
@@ -668,7 +668,7 @@ final class DefaultChatController: ChatController {
         }
     }
     
-    // MARK: - 张亚飞打的标记  ******** 重中之重  发送博客方法 ***********
+    // MARK: -    ******** 重中之重  发送博客方法 ***********
 
     private func sendBoke(source: bokeMessageSource, completion: @escaping ([Section]) -> Void) {
 //        let boke = BokeElem(title: source.title, iconUrl: source.iconUrl, linkUrl: source.linkUrl, intro: source.intro)
@@ -975,7 +975,7 @@ final class DefaultChatController: ChatController {
         }
     }
     
-    // MARK: - 张亚飞打的标记  消息添加到消息列表
+    // MARK: -    消息添加到消息列表
 
     private func appendConvertingToMessages(_ rawMessages: [MessageInfo], removeAll: Bool = false) {
         if removeAll {
@@ -1184,7 +1184,7 @@ final class DefaultChatController: ChatController {
             case .text:
                 let textElem = msg.textElem!
 
-                // MARK: - 张亚飞打的标记  重中之重 消息的扩展给文本消息
+                // MARK: -    重中之重 消息的扩展给文本消息
 
                 var source = TextMessageSource(text: textElem.content, ex: msg.ex)
                 
@@ -1570,7 +1570,7 @@ extension DefaultChatController: DataProviderDelegate {
         delegate?.isInGroup(with: isIn)
     }
     
-    // MARK: - 张亚飞打的标记  接收消息
+    // MARK: -    接收消息
 
     func received(message: MessageInfo) {
         let sendID = message.sendID
@@ -1591,7 +1591,7 @@ extension DefaultChatController: DataProviderDelegate {
         if isCurGroupChat || isCurSingleChat {
             recvMessageIsCurrentChat = true
             
-            // MARK: - 张亚飞打的标记 conversation的扩展给message
+            // MARK: -   conversation的扩展给message
             print(conversation.ex)
             message.ex = conversation.ex
 
@@ -1625,7 +1625,7 @@ extension DefaultChatController: DataProviderDelegate {
         }
     }
     
-    // MARK: - 张亚飞打的标记  翻译接收到的文字
+    // MARK: -    翻译接收到的文字
 
     func translateReceivedMessage(_ content: String, from: String, to : String, messageID: String, message: MessageInfo) {
         print(content)
@@ -1676,7 +1676,7 @@ extension DefaultChatController: DataProviderDelegate {
         }
     }
     
-    // MARK: - 张亚飞打的标记  刷新conversation.ex
+    // MARK: -    刷新conversation.ex
 
     func updataeConversationEx() {
         OIMApi.updateConversationEx = { (conversationEx, _: @escaping (String) -> Void) in
@@ -1772,7 +1772,7 @@ extension DefaultChatController: DataProviderDelegate {
     }
 }
 
-// MARK: - 张亚飞打的标记  聊天刷新
+// MARK: -    聊天刷新
 
 extension DefaultChatController: ReloadDelegate {
     func reloadMessage(with id: String) {

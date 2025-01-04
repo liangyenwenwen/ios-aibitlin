@@ -200,7 +200,7 @@ public class AvatarView: UIView {
         }
     }
     
-    // MARK: - 张亚飞打的标记  设置聊天主页头像
+    // MARK: -    设置聊天主页头像
     public func setGroupInfoImg(item: GroupInfo) {
         
         

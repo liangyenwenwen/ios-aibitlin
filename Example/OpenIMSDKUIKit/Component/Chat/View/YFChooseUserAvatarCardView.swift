@@ -497,9 +497,6 @@ extension YFChooseUserAvatarCardView {
             if self?.currentIndex ?? -1 > -1  {
                 self?.topCameraImg.show(data[self!.currentIndex])
             }
-            
-           
-            
         } completionHandler: { errCode, errMsg in
             
         }

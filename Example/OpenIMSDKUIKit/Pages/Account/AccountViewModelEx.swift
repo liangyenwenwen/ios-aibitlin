@@ -9,7 +9,7 @@
 import Foundation
 import OUICore
 
-// MARK: - 张亚飞打的标记  业务交互
+// MARK: -    业务交互
 extension AccountViewModel {
     
     static func initInteraction() {
@@ -21,7 +21,7 @@ extension AccountViewModel {
     
     
     
-    // MARK: - 张亚飞打的标记  业务交互 跳转
+    // MARK: -    业务交互 跳转
     static func IMGotoAppVC() {
        
         OIMApi.gotoUserMessageHandle = {(vc, userid, nickName, faceUrl, completion: @escaping (String) -> Void) in
@@ -76,10 +76,6 @@ extension AccountViewModel {
             }else{
                 vc.gotoController(orderDetailVC)
             }
-        }
-        
-        OIMApi.gotoNewFriendHandle = { (vc, completion: @escaping (String) -> Void) in
-            vc.gotoControllerFromRoot(YFChatNewFriendListVC.self)
         }
         
         OIMApi.getUserMessageHandle = { (userID, completion: @escaping (String) -> Void) in
@@ -290,44 +286,16 @@ extension AccountViewModel {
     
     
     
-    // MARK: - 张亚飞打的标记  博客相关
+    // MARK: -    博客相关
     static func showBoke() {
         
-        // MARK: - 张亚飞打的标记 展示博客
+        // MARK: -   展示博客
         OIMApi.showBokeHandle = { (keywords, completion: @escaping (String) -> Void) in
             print(keywords)
             completion("测试完成")
         }
         
-        OIMApi.showBokeSheetHandle = { (vc, completion: @escaping (String) -> Void) in
-            
-            
-            let contentView = YFChatBokeBottomSheetView()
-            contentView.tg_width.equal(.fill)
-            contentView.tg_height.equal(350)
-            contentView.hideSheetView = {
-                GKCover.hide()
-            }
-            contentView.chooseBoke = { item in
-//                let result = "\(item.userBlogName)####\(item.userBlogIcon)####\(item.userBlogUrl)####\(item.userBlogIntro)"
-                
-                let encoder = JSONEncoder()
-                do  {
-                    let jsondata = try encoder.encode(item.myBlogShowBlogPO)
-                    if let jsonString = String(data: jsondata, encoding: .utf8) {
-                        print(jsonString)
-                        completion(jsonString)
-                    }
-                } catch {
-                    print(error.localizedDescription)
-                }
-
-                GKCover.hide()
-            }
-            GKCover.cover(from: vc.view.window, contentView: contentView, style: .translucent, showStyle: .bottom, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
-        }
-        
-        // MARK: - 张亚飞打的标记   博客跳转
+        // MARK: -     博客跳转
         OIMApi.showBokeLinkHandle = { (vc, link, _: @escaping (String) -> Void) in
             print("link ----- \(link)")
             let target = SuperWebController()
@@ -335,7 +303,7 @@ extension AccountViewModel {
             vc.navigationController?.pushViewController(target, animated: true)
         }
         
-        // MARK: - 张亚飞打的标记   收藏博客
+        // MARK: -     收藏博客
         OIMApi.starBokeLinkHandle = { (jsonString, completion: @escaping (String) -> Void)  in
             
             
@@ -378,7 +346,7 @@ extension AccountViewModel {
         
     }
     
-    // MARK: - 张亚飞打的标记  提示
+    // MARK: -    提示
     static func  showTip() {
         OIMApi.showTipHandle = { (tips, _: @escaping (String) -> Void) in
             SuperToast.show(title: tips)

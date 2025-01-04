@@ -176,7 +176,7 @@ class YFTranslateVC: BaseTitleController, QMUITextViewDelegate {
         }
     }
     
-    // MARK: - 张亚飞打的标记  翻译API
+    // MARK: -    翻译API
     func translateReceivedMessage(_ content: String) {
         print(content)
         

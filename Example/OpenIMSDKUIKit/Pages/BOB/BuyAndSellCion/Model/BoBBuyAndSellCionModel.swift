@@ -13,9 +13,6 @@ import ProgressHUD
 import RxSwift
 import Network
 class BoBBuyAndSellCionModel {
-    // 业务服务器地址
-    private static let API_BOB_URL = "http://192.168.7.128:18729"
-//    public static let API_BOB_URL = "http://143.92.40.164:18729"
     
     
     private static let BuyingAndSellingCoinsHome = "/wallet/advertisement/buyingAndSellingCoinsHome" //买卖币首页数据
@@ -65,7 +62,6 @@ class BoBBuyAndSellCionModel {
         }
         ProgressHUD.animate()
 
-        
         Alamofire.request(API_BOB_URL + BuyingAndSellingCoinsHome, method: .post, parameters: nil,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
             ProgressHUD.dismiss()
             

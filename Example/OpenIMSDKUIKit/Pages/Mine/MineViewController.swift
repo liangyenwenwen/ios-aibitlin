@@ -210,7 +210,6 @@ extension MineViewController: UITableViewDataSource, UITableViewDelegate {
             }
         case .aboutUs:
             let vc = AboutUsViewController()
-//            let  vc = MineBokeListViewController()
             vc.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(vc, animated: true)
         default:

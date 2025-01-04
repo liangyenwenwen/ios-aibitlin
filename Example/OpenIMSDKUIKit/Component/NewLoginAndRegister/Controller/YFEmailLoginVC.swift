@@ -228,9 +228,6 @@ extension YFEmailLoginVC {
         codeView.codeBtn.isEnabled = false
     }
     
-    @objc func chooseDelegate(_ btn: QMUIButton)  {
-        btn.isSelected = !btn.isSelected
-    }
     
     @objc func login() {
         //        print(useType!)

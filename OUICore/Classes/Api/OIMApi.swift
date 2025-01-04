@@ -6,7 +6,7 @@ public typealias CompletionHandler<T: Any> = (Int, T) -> Void
 public typealias QueryInfoHandler = ((_ keywords: [String], _ completion: @escaping (([UserInfo]) -> Void)) -> Void)
 public typealias QueryDataHandler<T: Any> = ((_ completion: @escaping CompletionHandler<T>) -> Void)
 
-// MARK: - 张亚飞打的标记  博客相关
+// MARK: -    博客相关
 public typealias showBoke = ((_ keywords: String , _ completion: @escaping ((String) -> Void)) -> Void)
 public typealias currentVCShowBokeHandle = ((_ currentVC: UIViewController , _ completion: @escaping ((String) -> Void)) -> Void)
 public typealias showBokeLinkHandle = ((_ currentVC: UIViewController, _  bokeLink: String ,_ completion: @escaping ((String) -> Void)) -> Void)
@@ -14,10 +14,9 @@ public typealias showBokeLinkHandle = ((_ currentVC: UIViewController, _  bokeLi
 public typealias starBokeLinkHandle = ((_ blogJson: String,  _ completion: @escaping ((String) -> Void)) -> Void)
 
 
-// MARK: - 张亚飞打的标记  其他跳转  比如 个人资料
+// MARK: -    其他跳转  比如 个人资料
 public typealias gotoUserMessageHandle = ((_ currentVC: UIViewController, _  userID: String, _ nickname: String, _ faceURL: String ,_ completion: @escaping ((String) -> Void)) -> Void)
 public typealias gotoGroupSettingHandle = ((_ currentVC: UIViewController, _  groupID: String, _ nickname: String, _ completion: @escaping ((String) -> Void)) -> Void)
-public typealias gotoNewFriendHandle = ((_ currentVC: UIViewController, _ completion: @escaping ((String) -> Void)) -> Void)
 
 public typealias showChatVCShoeethandle = ((_ currentVC: UIViewController, _  userID: String, _ completion: @escaping ((String) -> Void)) -> Void)
 public typealias gotoSystemSettingHandle = ((_ currentVC: UIViewController, _  userID: String, _ completion: @escaping ((String) -> Void)) -> Void)
@@ -45,14 +44,14 @@ public typealias gotoReceiveRedPacketHandle = ((_ currentVC: UIViewController,_ 
 public typealias gotoReceiveTransferAccountsHandle = ((_ currentVC: UIViewController,_ source:String ,_ completion: @escaping ((String) -> Void)) -> Void)
 
 
-// MARK: - 张亚飞打的标记  更新会话的ex
+// MARK: -    更新会话的ex
 public typealias updateConversationEx = ((_ conversationEx : String, _ completion: @escaping ((String) -> Void)) -> Void)
 
 public typealias updateConversationCell = ((_ messageID : String, _ completion: @escaping ((String) -> Void)) -> Void)
 public typealias reloadCollectionView = ((_ messageID : String,_ completion: @escaping ((String) -> Void)) -> Void)
 
 
-// MARK: - 张亚飞打的标记  tip
+// MARK: -    tip
 public typealias showTipHandle = ((_ tips : String, _ completion: @escaping ((String) -> Void)) -> Void)
 
 public typealias showTipWithViewHandle = ((_ view: UIView,_ tips : String, _ completion: @escaping ((String) -> Void)) -> Void)
@@ -187,14 +186,12 @@ public class OIMApi {
     public static var rotationHandler: ((UIInterfaceOrientationMask) -> Void)?
     
     public static var showBokeHandle: showBoke?
-    public static var showBokeSheetHandle: currentVCShowBokeHandle?
     public static var showBokeLinkHandle: showBokeLinkHandle?
     public static var starBokeLinkHandle: starBokeLinkHandle?
     
     
     public static var gotoUserMessageHandle: gotoUserMessageHandle?
     public static var gotoGroupSettingHandle: gotoGroupSettingHandle?
-    public static var gotoNewFriendHandle: gotoNewFriendHandle?
     public static var showChatVCShoeethandle: showChatVCShoeethandle?
     public static var gotoSystemSettingHandle: gotoSystemSettingHandle?
     public static var gotoBoBDetailHandle: gotoBoBDetailHandle?

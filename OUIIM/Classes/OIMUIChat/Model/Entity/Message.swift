@@ -6,7 +6,7 @@ import OUICore
 import CoreLocation
 
 // 控制消息出入
-// MARK: - 张亚飞打的标记  消息来源 对方或者自己
+// MARK: -    消息来源 对方或者自己
 enum MessageType: Hashable {
     case incoming
     case outgoing
@@ -265,7 +265,7 @@ struct FaceMessageSource: Hashable {
     var index: Int
 }
 
-// MARK: - 张亚飞打的标记  博客消息
+// MARK: -    博客消息
 struct bokeMessageSource: Hashable, Codable {
 //    var title: String?
 //    var iconUrl: String?
@@ -344,7 +344,7 @@ struct transferAccountsMessageSource: Hashable {
     
     var localEx:String = "0" // 0是未领取，1是已领取，2，已过期
 }
-// MARK: - 张亚飞打的标记  通知消息
+// MARK: -    通知消息
 struct NoticeMessageSource: Hashable {
     enum MixType: Int {
         case text = 0
@@ -435,7 +435,7 @@ func getTime(time:String) -> (String){
 
 
 // 自定义消息
-// MARK: - 张亚飞打的标记  自定义消息
+// MARK: -    自定义消息
 struct CustomMessageSource: Hashable {
     public enum CustomMessageType: Int {
         case call = 901 // 音视频
@@ -470,7 +470,7 @@ extension CustomMessageSource {
         
         return nil
     }
-    // MARK: - 张亚飞打的标记   获取博客信息
+    // MARK: -     获取博客信息
     public var bokeMessageSource: bokeMessageSource {
         if let value = value {
 //            let title = value["title"]
@@ -529,7 +529,7 @@ extension CustomMessageSource {
         return OUIIM.transferAccountsMessageSource(sendUserId: "", sendUserName: "", receiverId: "", receiverName: "", code: "", transferAccountsType:0, instructions:"", currency:"",money:0.00, localEx:"")
     }
     
-    // MARK: - 张亚飞打的标记   自定义消息加工
+    // MARK: -     自定义消息加工
     public var type: CustomMessageType? {
         if let data = data {
             let obj = try! JSONSerialization.jsonObject(with: data.data(using: .utf8)!) as! [String: Any]
@@ -542,7 +542,7 @@ extension CustomMessageSource {
     }
 }
 
-// MARK: - 张亚飞打的标记   消息类型
+// MARK: -     消息类型
 struct Message: Hashable {
     
     indirect enum Data: Hashable {

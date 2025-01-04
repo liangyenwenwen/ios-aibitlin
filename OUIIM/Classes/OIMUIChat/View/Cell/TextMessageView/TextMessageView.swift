@@ -76,7 +76,7 @@ class TextMessageView: UIView, ContainerCollectionViewCellDelegate {
         textView.text = nil
     }
     
-    // MARK: - 张亚飞打的标记  文本信息  需要加翻译
+    // MARK: -    文本信息  需要加翻译
     func reloadData() {
         guard let controller else {
             return

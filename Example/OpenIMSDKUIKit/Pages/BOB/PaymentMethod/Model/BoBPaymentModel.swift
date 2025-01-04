@@ -12,11 +12,7 @@ import OUICore
 import ProgressHUD
 import RxSwift
 import Network
-class BoBPaymentModel {
-    // 业务服务器地址
-    public static let API_BOB_URL = "http://192.168.7.128:18729"
-//    public static let API_BOB_URL = "http://143.92.40.164:18729"
-    
+class BoBPaymentModel {    
     
     private static let UserPaymentMedothList = "/wallet/userPayment/queryUserPayment" //支付方式列表
     private static let DeletePayment = "/wallet/userPayment/delUserPayment" //删除支付方式

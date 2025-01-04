@@ -15,7 +15,7 @@ enum CustomAttachment {
     case file(String)
     case face(URL, String?)
     
-    // MARK: - 张亚飞打的标记  添加博客
+    // MARK: -    添加博客
     case boke(String?)
 }
 
@@ -464,7 +464,7 @@ class CoustomInputBarAccessoryView: InputBarAccessoryView {
     }
     
     // 发送
-    // MARK: - 张亚飞打的标记   底部发送消息
+    // MARK: -     底部发送消息
     private func sendAttachments(attachments: [CustomAttachment]) {
         DispatchQueue.main.async { [self] in
             if attachments.count > 0 {
@@ -733,7 +733,7 @@ extension CoustomInputBarAccessoryView: UIDocumentBrowserViewControllerDelegate 
     }
 }
 
-// MARK: - 张亚飞打的标记  第二步 聊天底部 被点击
+// MARK: -    第二步 聊天底部 被点击
 extension CoustomInputBarAccessoryView: InputPadViewDelegate {
     func didSelect(type: PadItemType) {
         (self.delegate as? CoustomInputBarAccessoryViewDelegate)?

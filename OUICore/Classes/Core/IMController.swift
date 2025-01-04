@@ -274,7 +274,7 @@ public class IMController: NSObject {
     public var chatingConversationID: String = ""
     
     // 响铃或者震动
-    // MARK: - 张亚飞打的标记  响铃或者震动
+    // MARK: -    响铃或者震动
     func ringAndVibrate() {
         if NSDate().timeIntervalSince1970 - remindTimeStamp >= 1 { // 响铃间隔1秒钟
             // 如果当前会话有
@@ -980,7 +980,7 @@ extension IMController {
         sendOIMMessage(message: message, to: recvID, conversationType: conversationType, onComplete: onComplete)
     }
     
-    // MARK: - 张亚飞打的标记  ------ 发送博客消息
+    // MARK: -    ------ 发送博客消息
     public func sendBokeMessage(boke: BokeElem,
                                 to recvID: String,
                                 conversationType: ConversationType,
@@ -1347,7 +1347,7 @@ extension IMController {
         }
     }
     
-    // MARK: - 张亚飞打的标记  localEx 存储
+    // MARK: -    localEx 存储
     public func setMessageLocalEx(conversationID: String, clientMsgID: String, ex: String) {
         Self.shared.imManager.setMessageLocalEx(conversationID, clientMsgID: clientMsgID, localEx: ex) { r in
             print("\(#function) success:\(r)")
@@ -2294,7 +2294,7 @@ public class CardElem: Codable {
     }
 }
 
-// MARK: - 张亚飞打的标记   博客消息元素
+// MARK: -     博客消息元素
 public class BokeElem: Codable {
     
 //    public var title: String?

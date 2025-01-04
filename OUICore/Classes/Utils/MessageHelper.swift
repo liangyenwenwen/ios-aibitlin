@@ -31,7 +31,7 @@ public struct MessageHelper {
         ]
     }
     
-    // MARK: - 张亚飞打的标记  获取消息摘要
+    // MARK: -    获取消息摘要
     /// 获取消息摘要
     public static func getAbstructOf(conversation: ConversationInfo, highlight: Bool = true) -> NSAttributedString {
         var abstruct = ""
@@ -108,7 +108,7 @@ public struct MessageHelper {
 //            print(conversation.ex?.count)
 //            print("\n\n\n\n")
 //            print(conversation.ex, "+++++++++++", conversation.conversationID)
-            // MARK: - 张亚飞打的标记  消息摘要显示翻译图片
+            // MARK: -    消息摘要显示翻译图片
             
 //            if let ex = message.localEx {
 //                let ex = JsonTool.fromJson(ex, toClass: MessageEx.self)
@@ -319,7 +319,7 @@ public struct MessageHelper {
 }
 
 
-// MARK: - 张亚飞打的标记  引入MessageEx
+// MARK: -    引入MessageEx
 struct MessageEx: Hashable, Codable {
     var audioHasReaded: Bool = false
     var isFace: Bool = false

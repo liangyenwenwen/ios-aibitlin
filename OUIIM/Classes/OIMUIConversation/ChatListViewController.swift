@@ -464,7 +464,7 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
 //        return 52
 //    }
     
-    // MARK: - 张亚飞打的标记  业务层调用SDK里面的页面
+    // MARK: -    业务层调用SDK里面的页面
     func actionAboutApp() {
         
         OIMApi.addFriendhandle = { (vc , userid, completion: @escaping (String) -> Void) in

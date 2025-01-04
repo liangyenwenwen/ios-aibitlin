@@ -51,16 +51,6 @@ class YFAibitlinHome: BaseLogicController {
             container.addSubview(typeView)
         }
         
-//        container.addSubview(thridView)
-//       
-//        
-//        let lineView = UIView()
-//        lineView.backgroundColor = .init(hexString: "#F5F5F5")
-//        lineView.tg_width.equal(.fill)
-//        lineView.tg_height.equal(1)
-//        lineView.tg_top.equal(10)
-//        container.addSubview(lineView)
-        
         container.addSubview(registerAndFindwordView)
         
         superFooterContainerContainer.tg_padding = UIEdgeInsets(top: 0, left: PADDING_LARGE_HOME, bottom: 0, right: PADDING_LARGE_HOME)
@@ -124,7 +114,7 @@ class YFAibitlinHome: BaseLogicController {
         return r
     }()
     
-    // MARK: - 张亚飞打的标记 添加找回密码
+    // MARK: -   添加找回密码
     lazy var forgotButton: UIButton = {
         
         let r = ViewFactoryUtil.linkButton("忘记密码".localized())
@@ -173,7 +163,7 @@ class YFAibitlinHome: BaseLogicController {
         agreeStr.bs_color = .placeholder
         
         
-        // MARK: - 张亚飞打的标记  点击协议内容切换是否同意协议
+        // MARK: -    点击协议内容切换是否同意协议
         var range = agreementString.range(of: "我已阅读并同意OTC+IM《隐私协议》《注册协议》".localized())!
         agreeStr.bs_set(textHighlightRange: agreementString.nsRange(from: range), color: .placeholder, backgroundColor: nil) { [weak self] _, _, _, _ in
             
@@ -286,10 +276,6 @@ extension YFAibitlinHome {
     }
     
     func toForgotPassword() {
-//        if !chooseDelegateBtn.isSelected {
-//            SuperToast.show(title: "请勾选协议".localized())
-//            return
-//        }
         gotoController(YFRetrievePasswordVC.self)
     }
     

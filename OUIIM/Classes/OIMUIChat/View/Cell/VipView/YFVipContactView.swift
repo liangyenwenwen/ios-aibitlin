@@ -250,7 +250,7 @@ class YFContactNormalView: UIView {
 //        }
         
 //        if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
-            // MARK: - 张亚飞打的标记  获取会话信息
+            // MARK: -    获取会话信息
             IMController.shared.getConversation(sessionType: .c2c, sourceId: userItem!.userID!) { [weak self] (conversation: ConversationInfo?) in
                 guard let conversation else { return }
 //                print("获取控制器成功")

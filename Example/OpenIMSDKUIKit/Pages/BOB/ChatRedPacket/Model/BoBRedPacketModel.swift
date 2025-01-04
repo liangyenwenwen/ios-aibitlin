@@ -12,11 +12,7 @@ import OUICore
 import ProgressHUD
 import RxSwift
 import Network
-class BoBRedPacketModel {
-    // 业务服务器地址
-    public static let API_BOB_URL = "http://192.168.7.128:18729"
-//    public static let API_BOB_URL = "http://143.92.40.164:18729"
-    
+class BoBRedPacketModel {    
     
     private static let TransferMoneyInnerSHome = "/wallet/transferMoneyInner/transferMoneyInnerSHome" //聊天转账首页
     private static let SendTransferMoneySInner = "/wallet/transferMoneyInner/sendTransferMoneySInner" //私聊转账

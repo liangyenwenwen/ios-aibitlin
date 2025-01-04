@@ -2,7 +2,7 @@
 import OUICore
 import Kingfisher
 
-// MARK: - 张亚飞打的标记  首页聊天列表CEll
+// MARK: -    首页聊天列表CEll
 class ChatTableViewCell: UITableViewCell {
     
     let avatarImageView: AvatarView = {
@@ -269,7 +269,7 @@ extension ChatTableViewCell {
         muteImageView.isHidden = item.recvMsgOpt == .receive
         
 //        avatarImageView.reset()
-        // MARK: - 张亚飞打的标记 群头像 头像区分
+        // MARK: -   群头像 头像区分
        
         if item.conversationType == .superGroup {
             
@@ -354,7 +354,7 @@ extension ChatTableViewCell {
 
     }
     
-    // MARK: - 张亚飞打的标记 获取用户信息
+    // MARK: -   获取用户信息
 //    func  updateNickName(userID: String, item: ConversationInfo) {
 //        if let handler = OIMApi.getUserMessageHandle {
 //            
@@ -389,7 +389,7 @@ extension ChatTableViewCell {
 
 
 
-// MARK: - 张亚飞打的标记 用户tag
+// MARK: -   用户tag
 class userTag: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)

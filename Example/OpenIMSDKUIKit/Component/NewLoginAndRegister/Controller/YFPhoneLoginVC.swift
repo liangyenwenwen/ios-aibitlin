@@ -230,13 +230,8 @@ extension YFPhoneLoginVC {
         // 禁用按钮
         codeView.codeBtn.isEnabled = false
     }
-    @objc func chooseDelegate(_ btn: QMUIButton)  {
-        btn.isSelected = !btn.isSelected
-    }
     
     @objc func login() {
-        //        print(useType!)
-        //        print(#function)
         
         ProgressHUD.animate()
         var account: String?

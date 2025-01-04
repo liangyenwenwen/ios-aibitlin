@@ -36,10 +36,6 @@ class MainTabViewController: UITabBarController {
 //    private let callRecordsViewController = CallRecordsViewController()
     private let conversationViewController = ChatListViewController()
 //    private let CallRecordsViewController = CallRecordsViewController()
-    private lazy var _moreView: TabMoreView = {
-        let v = TabMoreView()
-        return v
-    }()
     
     private lazy var _YFChooseUserAvatarCardView: YFChooseUserAvatarCardView = {
         let v = YFChooseUserAvatarCardView()
@@ -140,12 +136,6 @@ class MainTabViewController: UITabBarController {
         
         loginExsitAccount()
         
-//        tabBar.backgroundColor = .black183
-        
-//        let appearance = tabBar.standardAppearance.copy()
-//        appearance.backgroundImage = UIImage.getImageAboutColor(color: .clear)
-//        appearance.shadowImage = UIImage.getImageAboutColor(color: .clear)
-//        tabBar.standardAppearance = appearance
         
         tabBar.layer.shadowOpacity = 0.0
         
@@ -175,16 +165,6 @@ class MainTabViewController: UITabBarController {
         print(notidication.userInfo)
         
         if  let userinfo = notidication.userInfo, let receivedValue = userinfo["value"] as? String {
-            
-            
-//            let root = self?.tabBarController
-//            let tabBarItem = root?.tabBar.items![0]
-//            if count > 0 {
-//                tabBarItem?.badgeValue = count > 99 ? "99+" : "\(count)"
-//            } else {
-//                tabBarItem?.badgeValue = nil
-//            }
-            
             let tabBarItem = self.tabBar.items![1]
             let count = Int(receivedValue) ?? 0
             if  count > 0  {
@@ -208,13 +188,6 @@ class MainTabViewController: UITabBarController {
             viewControllers?[index].tabBarItem.title = element
             
         }
-//        
-//        viewControllers?[0].tabBarItem.title = "消息".localized()
-//        viewControllers?[1].tabBarItem.title = "通话记录".localized()
-//        viewControllers?[2].tabBarItem.title = "通讯录".localized()
-//        viewControllers?[3].tabBarItem.title = "我的".localized()
-//        viewControllers?[4].tabBarItem.title = "工具箱".localized()
-        
        
     }
     
@@ -296,98 +269,17 @@ class MainTabViewController: UITabBarController {
             self.viewControllers?[1].tabBarItem.badgeValue = nil
             viewControllers.forEach({ $0.navigationController?.popToRootViewController(animated: false) })
         }
-        var isNew = true
-        if isNew {
-            let vc = YFAibitlinHome()
-            vc.modalPresentationStyle = .fullScreen
-            let nav = UINavigationController.init(rootViewController: vc)
-            nav.modalPresentationStyle = .fullScreen
-            self.present(nav, animated: false) {
-                self.selectedIndex = 0
-                CallingManager.calculateCount()
-                self.mineNavigationController?.popToRootViewController(animated: false)
-                
-            }
-        } else {
-            let vc = YFLoginVC()
-            vc.loginBtn.rx.tap.subscribe(onNext: {  [weak vc, weak self] in
-                guard let controller = vc, let phone = controller.phone, !phone.isEmpty else { return }
-                
-                if !controller.chooseDelegateBtn.isSelected {
-                    SuperToast.show(title: "请勾选协议".localized())
-                    return
-                }
-
-                if vc?.useType == .usePhone {
-                    if !SuperStringUtil.isPhoneNumber(controller.phone!) {
-                        SuperToast.show(title:  "填写正确的手机号码".localized())
-                        return
-                    }                   
-                } else {
-                   
-                    if !SuperStringUtil.isEmail(controller.phone!) {
-                        SuperToast.show(title:  "填写正确的邮箱".localized())
-                        return
-                    }
-                }
-
-                
-
-                let psw = controller.password
-                let code = controller.verificationCode
-                
-
-                
-                var account: String?
-                
-                ProgressHUD.animate()
-                let curAccount = vc?.useType == .usePhone ? phone : nil
-                let preAccount = AccountViewModel.perLoginAccount
-                
-                if curAccount != preAccount {
-                    self?.clearConversation()
-                }
-                
-                AccountViewModel.loginDemo(phone: vc?.useType == .usePhone ? phone : nil,
-                                           account: account,
-                                           email: vc?.useType == .useEmail ? phone : nil,
-                                           psw: code != nil ? nil : psw,
-                                           verificationCode: code,
-                                           areaCode: controller.areaCode!,
-                                           LoginType: 0) {[weak self] (errCode, errMsg) in
-                    
-                    
-                    if errMsg != nil {
-                        ProgressHUD.dismiss()
-                        SuperToast.show(title: String(errCode).localized())
-                        self?.presentLoginController()
-                        
-                    } else {
-                        UserDefaults.standard.setValue(vc?.useType.rawValue, forKey: loginTypeKey)
-                        UserDefaults.standard.synchronize()
-                        self?.loginSuccess(dismiss: true)
-
-                    }
-                }
-                
-            }).disposed(by: _disposeBag)
-            vc.modalPresentationStyle = .fullScreen
-            let nav = UINavigationController.init(rootViewController: vc)
-            nav.modalPresentationStyle = .fullScreen
-//            self.present(nav, animated: false)
-            self.present(nav, animated: false) {
-                self.selectedIndex = 0
-                CallingManager.calculateCount()
-                self.mineNavigationController?.popToRootViewController(animated: false)
-                
-            }
+        let vc = YFAibitlinHome()
+        vc.modalPresentationStyle = .fullScreen
+        let nav = UINavigationController.init(rootViewController: vc)
+        nav.modalPresentationStyle = .fullScreen
+        self.present(nav, animated: false) {
+            self.selectedIndex = 0
+            CallingManager.calculateCount()
+            self.mineNavigationController?.popToRootViewController(animated: false)
+            
         }
-        
-        
         return;
-        
-        
-        
     }
     
     func loginSuccess(dismiss: Bool = false) {
@@ -447,13 +339,12 @@ extension MainTabViewController {
     }
     //
     func loadUserCertificationLevel(uid: String){
-        AccountViewModel.queryUserWalletInfo(
-                                             valueHandler: { [weak self] (data :MineWalletMoneyData) in
+        AccountViewModel.queryUserWalletInfo() {(data :MineWalletMoneyData) in
             IMController.shared.isSetPayPassWord = data.secure ?? false
             IMController.shared.payPassWordSonKey = data.sonKey ?? ""
             IMController.shared.certificationLevel = data.certificationLevel ?? 0
-        }, completionHandler: {(errCode, errMsg) in
-        })
+        } completionHandler: {errCode, errMsg in
+        }
     }
     //下载广告页
     func loadOpenScreenAd(){
@@ -506,7 +397,7 @@ extension MainTabViewController {
         }
     }
     
-    // MARK: - 张亚飞打的标记 更新语言
+    // MARK: -   更新语言
     
     func updateLanguage(uid: String) {
         

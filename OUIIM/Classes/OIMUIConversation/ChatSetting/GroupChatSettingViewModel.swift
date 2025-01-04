@@ -141,7 +141,7 @@ class GroupChatSettingViewModel {
         }
     }
     
-    // MARK: - 张亚飞打的标记 获取群成员
+    // MARK: -   获取群成员
     private func queryMembers(groupID: String, endHandler: @escaping () -> Void) {
         
         let group = DispatchGroup()
@@ -222,7 +222,7 @@ class GroupChatSettingViewModel {
         })
     }
     
-    // MARK: - 张亚飞打的标记  置顶聊天
+    // MARK: -    置顶聊天
     func toggleTopContacts() {
         IMController.shared.pinConversation(id: conversation.conversationID, isPinned: !setTopContactRelay.value, completion: { [weak self] _ in
             guard let sself = self else { return }

@@ -1,7 +1,7 @@
 import InputBarAccessoryView
 import OUICore
 
-// MARK: - 张亚飞打的标记  聊天底部菜单栏 选择
+// MARK: -    聊天底部菜单栏 选择
 public enum PadItemType: CaseIterable {
     case album
     case camera
@@ -80,7 +80,7 @@ public protocol InputPadViewDelegate: AnyObject {
     func didSelect(type: PadItemType)
 }
 
-// MARK: - 张亚飞打的标记  底部弹窗
+// MARK: -    底部弹窗
 class InputPadView: UIView {
 
     private var size: CGSize? = CGSize(width: UIScreen.main.bounds.width, height: 254) {
@@ -97,7 +97,7 @@ class InputPadView: UIView {
     
     // 每行要展示的 item 数量
     private let itemsPerRow = 4
-    // MARK: - 张亚飞打的标记  第一步修改下方按钮  聊天功能下面展示内容
+    // MARK: -    第一步修改下方按钮  聊天功能下面展示内容
 //    private let items: [PadItemType] = PadItemType.allCases
     private let items: [PadItemType] = [.camera, .album, .videoCall, .voiceCall,.redPacket,.transferAccounts, .card, .file]
     

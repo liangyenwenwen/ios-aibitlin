@@ -21,7 +21,7 @@ extension Notification.Name {
     static let clearRecord = Notification.Name("chat.clear.record")
 }
 
-// MARK: - 张亚飞打的标记  聊天界面
+// MARK: -    聊天界面
 
 final class ChatViewController: UIViewController {
     
@@ -193,7 +193,7 @@ final class ChatViewController: UIViewController {
         return v
     }()
     
-    // MARK: - 张亚飞打的标记  聊天界面右上角弹窗
+    // MARK: -    聊天界面右上角弹窗
     @objc
     private func settingButtonAction() {
         popover?.dismiss()
@@ -345,7 +345,7 @@ final class ChatViewController: UIViewController {
         NotificationCenter.default.removeObserver(self)
     }
     
-    // MARK: - 张亚飞打的标记  自定义 nav
+    // MARK: -    自定义 nav
     lazy var chatViewControllerNav: ChatViewControllerNav = {
         let r = ChatViewControllerNav()
         let info = chatController.getConversation()
@@ -618,7 +618,7 @@ final class ChatViewController: UIViewController {
     
     
     
-    // MARK: - 张亚飞打的标记  聊天页面nav上的按钮
+    // MARK: -    聊天页面nav上的按钮
     private func setRightButtons(show: Bool) {
         if show {
 #if ENABLE_CALL
@@ -874,7 +874,7 @@ final class ChatViewController: UIViewController {
         }
     }
     
-    // MARK: - 张亚飞打的标记  音视频
+    // MARK: -    音视频
     private func chooseVoiceORVideo(isVideo: Bool) {
         popover?.dismiss()
         // (#330)
@@ -910,7 +910,7 @@ final class ChatViewController: UIViewController {
     }
     
     
-    // MARK: - 张亚飞打的标记  音视频通话
+    // MARK: -    音视频通话
     // 音视频通话
     private func startMedia(isVideo: Bool) {
         guard mediaButton.isEnabled else { return }
@@ -1434,7 +1434,7 @@ extension ChatViewController: ChatControllerDelegate {
         }
     }
     
-    // MARK: - 张亚飞打的标记  点击消息
+    // MARK: -    点击消息
     func didTapContent(with id: String, data: Message.Data) {
         popover?.dismiss()
         print("-------------------------\(id)")
@@ -1511,7 +1511,7 @@ extension ChatViewController: ChatControllerDelegate {
         
         switch data {
         case .text(let string):
-            print(#file,#line, "张亚飞", "文本")
+            print(#file,#line, " ", "文本")
             break
         case .attributeText(let nSAttributedString):
             break
@@ -1718,7 +1718,7 @@ extension ChatViewController: ChatControllerDelegate {
                 }
 #endif
             case .boke:
-                // MARK: - 张亚飞打的标记  博客被点击
+                // MARK: -    博客被点击
                 print(source.bokeMessageSource.userBlogUrl)
                 print("boke 被点击")
                 if source.bokeMessageSource.userBlogUrl != nil {
@@ -2007,7 +2007,7 @@ extension ChatViewController: UIGestureRecognizerDelegate {
 }
 
 // MARK: CoustomInputBarAccessoryViewDelegate
-// MARK: - 张亚飞打的标记   聊天界面底部功能菜单 代理
+// MARK: -     聊天界面底部功能菜单 代理
 extension ChatViewController: CoustomInputBarAccessoryViewDelegate {
     
     func setBarBotomHeigthZero() {
@@ -2145,7 +2145,7 @@ extension ChatViewController: CoustomInputBarAccessoryViewDelegate {
         })
     }
     
-    // MARK: - 张亚飞打的标记  第三步 遵循代理实现点击方法
+    // MARK: -    第三步 遵循代理实现点击方法
     func inputBar(_ inputBar: InputBarAccessoryView, didPressPadItemWith type: PadItemType) {
 //        resetOffset(newBottomInset: 0)
         
@@ -2264,24 +2264,8 @@ extension ChatViewController: CoustomInputBarAccessoryViewDelegate {
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    // MARK: - 张亚飞打的标记  第四步 展示博客列表 博客聊表被点击 返回参数  发送博客信息  
+    // MARK: -    第四步 展示博客列表 博客聊表被点击 返回参数  发送博客信息  
     private func showBokeView()  {
-        let completion = completionHandler()
-        
-        if let handler = OIMApi.showBokeSheetHandle {
-            handler(self, { [weak self]res in
-                print(#file, #line, res)
-//                let dataStr = String.init(data: try! JSONSerialization.data(withJSONObject: ["customType": customType.rawValue,
-//                                                                                                     "data": data]),
-//                                                  encoding: .utf8)!
-//                        return OIMMessageInfo.createCustomMessage(dataStr, extension: nil, description: nil).toMessageInfo()
-                
-               
-//                let result = "博客标题####博客图片####博客链接"
-                let source = CustomMessageSource(data: self?.getCustomBokeData(res))
-                self?.chatController.sendMessage(.custom(source), completion: completion)
-            })
-        }
     }
     
     func getCustomBokeData(_ title: String) -> String {
@@ -2452,7 +2436,7 @@ extension ChatViewController: KeyboardListenerDelegate {
         }
     }
     
-    // MARK: - 张亚飞打的标记  回收键盘
+    // MARK: -    回收键盘
     func resetOffset(newBottomInset: CGFloat, duration: CGFloat = 0.25) {
         let positionSnapshot = chatLayout.getContentOffsetSnapshot(from: .bottom)
         inputBarViewBottomAnchor.constant = -newBottomInset
@@ -2654,22 +2638,6 @@ extension ChatViewController: GestureDelegate {
     private func starAction(id: String, source: bokeMessageSource) -> PopoverCollectionViewController.MenuItem {
         return PopoverCollectionViewController.MenuItem(title: ToolItem.star.title, image: ToolItem.star.image) { [weak self] in
             print("收藏", source)
-            
-//            if let handler = OIMApi.showBokeSheetHandle {
-//                handler(self, { [weak self]res in
-//                    print(#file, #line, res)
-//
-//                    let source = CustomMessageSource(data: self?.getCustomBokeData(res))
-//                    self?.chatController.sendMessage(.custom(source), completion: completion)
-//                })
-//            }
-            
-//            if let handler = OIMApi.starBokeLinkHandle {
-//                handler(source.userBlogName ?? "" , source.userBlogIcon ?? "", source.userBlogUrl ?? "", source.userBlogIntro  ?? "",  {[weak self] res in
-//                    
-//                })
-//            }
-            
             if let handler = OIMApi.starBokeLinkHandle {
                 
                 let encoder = JSONEncoder()
@@ -2690,7 +2658,7 @@ extension ChatViewController: GestureDelegate {
         }
     }
     
-    // MARK: - 张亚飞打的标记 长按手势 代理
+    // MARK: -   长按手势 代理
     func longPress(with indexPath: IndexPath, sourceView: UIView, point: CGPoint) {
         
         guard !editNotifier.isEditing else { return }

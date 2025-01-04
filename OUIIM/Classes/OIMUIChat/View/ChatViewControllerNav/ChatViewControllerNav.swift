@@ -171,7 +171,7 @@ class ChatViewControllerNav: UIView {
     
     
     
-    // MARK: - 张亚飞打的标记 获取用户信息
+    // MARK: -   获取用户信息
     func  updateNickName(userID: String) {
         if let handler = OIMApi.getUserMessageHandle {
             

@@ -240,14 +240,6 @@ open class FriendListViewController: UIViewController {
             let vc = NewFriendListViewController()
             vc.hidesBottomBarWhenPushed = true
             self?.navigationController?.pushViewController(vc, animated: true)
-            
-//            if let handler = OIMApi.gotoNewFriendHandle {
-//                
-//                handler(self!, { res in
-//                   
-//                })
-//            }
-            
         }
         r.newGroupClick = { [weak self] in
             ApplicationStorage.lastGroupApplicationReadTime = ApplicationStorage.lastGroupApplicationTime

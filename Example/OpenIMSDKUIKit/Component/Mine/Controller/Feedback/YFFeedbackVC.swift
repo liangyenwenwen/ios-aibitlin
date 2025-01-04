@@ -22,7 +22,6 @@ class YFFeedbackVC: BaseTitleController {
     var imageTitle:String!
     var tempStr:String = ""
     
-    var blogItem: myBlogShowBlogPOModel!
     var conversationItem: ConversationInfo!
     var userItem: QueryUserInfo!
     var reportCommentUserId:String = ""
@@ -41,20 +40,11 @@ class YFFeedbackVC: BaseTitleController {
         if reportType == .moments{
             navView.hide()
         }
-        
-//        title = useType == .useFeedback ? "反馈".localized() : "举报".localized();
-//        title = "举报".localized();
+
         setTitle()
         
         container.tg_padding = UIEdgeInsets(top: PADDING_OUTER, left: PADDING_OUTER, bottom: PADDING_OUTER, right: PADDING_OUTER)
         container.addSubview(meesageView)
-        
-//        container.addSubview(ViewFactoryUtil.smallDivider(space: 0))
-//        container.addSubview(topTitleView)
-//        container.addSubview(ViewFactoryUtil.smallDivider())
-//        container.addSubview(contentView)
-//        container.addSubview(ViewFactoryUtil.smallDivider())
-//        container.addSubview(imageView)
         
         superFooterContainerContainer.tg_padding = UIEdgeInsets(top: PADDING_OUTER, left: 10, bottom: 10, right: 10)
         superFooterContainerContainer.addSubview(bottomBtn)
@@ -80,11 +70,6 @@ class YFFeedbackVC: BaseTitleController {
         r.addSubview(topTitleView)
         r.addSubview(contentView)
         r.addSubview(imageView)
-        
-//        topTitleView.backgroundColor = .green
-//        contentView.backgroundColor = .yellow
-//        imageView.backgroundColor = .red
-        
         return r
     }()
     
@@ -106,23 +91,6 @@ class YFFeedbackVC: BaseTitleController {
             contentViewTitle = "\("举报描述".localized())*"
             imageTitle = "截图证据".localized()
         }
-        
-        
-//        switch useType {
-//
-//        case .useFeedback:
-//            title = "反馈".localized()
-//            topViewTitle = "\("标题".localized())*"
-//            contentViewTitle = "\("问题描述".localized())*"
-//            imageTitle = "截图".localized()
-//        case .useReport:
-//            title = R.string.localizable.report()
-//            topViewTitle = "\("举报原因".localized())*"
-//            contentViewTitle = "\("举报描述".localized())*"
-//            imageTitle = "截图证据".localized()
-//        default:
-//            break
-//        }
     }
     
     
@@ -139,31 +107,8 @@ class YFFeedbackVC: BaseTitleController {
         }
         r.isMediumFont()
         r.titleView.changeColor(changeColorStr: "*")
-//        if useType == .useReport {
-//            r.isReport()
-//        }
         return r
     }()
-    
-    func reportChoose() {
-//        if self.useType == .useReport {
-//            let alert = UIAlertController(title: "举报", message: "举报该账号的原因", preferredStyle: .actionSheet)
-//
-//            let frameSizes: [String] = ["发布不适当内容对我造成骚扰", "钱财欺诈", "怀疑账号被盗用", "其他"]
-//            let pickerViewValues: [[String]] = [frameSizes]
-//            let pickerViewSelectedValue: PickerViewViewController.Index = (column: 0, row: frameSizes.firstIndex(of: self.tempStr) ?? 0)
-//
-//            alert.addPickerView(values: pickerViewValues, initialSelection: pickerViewSelectedValue, withSerchBar: false) { [weak self] vc, picker, index, values  in
-//                self?.tempStr = values[0][index.row]
-//                self?.topTitleView.textFieldView.text =  values[0][index.row]
-//            }
-//
-//            //cacel 取消也改变值  defalut 必须选择 alert才会消失
-//            alert.addAction(title: "Done".localized(), style: .cancel)
-//            alert.show()
-//            self.showReportSheet()
-//        }
-    }
     
     func showReportSheet() {
         let contentView = MineChooseBottomSheetView()
@@ -293,14 +238,6 @@ class YFFeedbackVC: BaseTitleController {
     @objc func addPic(gesture: UITapGestureRecognizer) {
         print(gesture.view?.tag ?? "11111")
         if gesture.view!.tag - 6000 == datum.count {
-//            presentSelectedPictureActionSheet { [weak self] in
-//                guard let self else { return }
-//                _photoHelper.setConfigToPickAvatar(9 - datum.count)
-//                _photoHelper.presentPhotoLibrary(byController: self)
-//            } cameraHandler: {[weak self] in
-//                guard let self else { return }
-//                _photoHelper.presentCamera(byController: self)
-//            }
             _photoHelper.setConfigToMultipleSelected(forVideo: false, maxSelectCount: 9 - datum.count)
             _photoHelper.showSelectMetaSheet(byController: self)
         }
@@ -317,25 +254,6 @@ class YFFeedbackVC: BaseTitleController {
             
             self?.datum = self!.datum + images
             self?.refreshUI()
-//            ProgressHUD.animate()
-//            first = first.compress(expectSize: 20 * 1024)
-//            let result = FileHelper.shared.saveImage(image: first)
-//
-//            if result.isSuccess {
-//                self?._viewModel.uploadFile(fullPath: result.fullPath, onProgress: { [weak self] progress in
-////                    ProgressHUD.progress(progress)
-//                }, onComplete: { [weak self] code, msg in
-//                    if code == 0 {
-//                        self?.user?.faceURL = "file://" + result.fullPath
-//                        self?.reloadData()
-//                        ProgressHUD.dismiss()
-//                    } else {
-//                        ProgressHUD.error(msg)
-//                    }
-//                })
-//            } else {
-//                ProgressHUD.dismiss()
-//            }
         }
         
         v.didCameraFinished = { [weak self] (photo: UIImage?, _: URL?) in
@@ -344,23 +262,6 @@ class YFFeedbackVC: BaseTitleController {
                 
                 self?.datum.append(photo)
                 self?.refreshUI()
-//                ProgressHUD.animate()
-//
-//                photo = photo.compress(expectSize: 20 * 1024)
-//                let result = FileHelper.shared.saveImage(image: photo)
-//                if result.isSuccess {
-//                    self?._viewModel.uploadFile(fullPath: result.fullPath, onProgress: { [weak self] progress in
-////                        ProgressHUD.progress(progress)
-//                    }, onComplete: { [weak self] code, msg in
-//                        if code == 0 {
-//                            self?.user?.faceURL = "file://" + result.fullPath
-//                            self?.reloadData()
-//                            ProgressHUD.dismiss()
-//                        } else {
-//                            ProgressHUD.error(msg)
-//                        }
-//                    })
-//                }
             }
         }
         return v
@@ -431,20 +332,6 @@ extension YFFeedbackVC {
         
         var paramters : [String : Any] = [:]
         switch reportType {
-        case .blog:
-            paramters = ["beReportedUserId":blogItem.myBlogShowBlogPO.userId ?? "",
-                         "blogId": blogItem.myBlogShowBlogPO.id!,
-                         "userBlogUrl": blogItem.myBlogShowBlogPO.userBlogUrl!,
-                         "userBlogIcon": blogItem.myBlogShowBlogPO.userBlogIcon!,
-                         "userBlogName": SuperStringUtil.getUserShowname(showname: blogItem.myBlogShowBlogPO.userBlogName!),
-                         "userBlogIntro": blogItem.myBlogShowBlogPO.userBlogIntro!,
-                         "userBlogCreatIp": blogItem.myBlogShowBlogPO.userBlogCreatIp!,
-                         "userBlogCreatAffiliatingArea": blogItem.myBlogShowBlogPO.userBlogIntro!,
-
-                         "reportReason":topTitleView.inputText!,
-                         "reportDescription":contentView.textView.text!,
-                         "reportImgs": reportImgs,
-                         "reportUserId": IMController.shared.uid]
         case .chatHistory:
             paramters = [ "beReportedUserId": conversationItem.userID!,
                           "beReportedUserImg": conversationItem.faceURL ?? "",
@@ -457,7 +344,6 @@ extension YFFeedbackVC {
             paramters = [ "beReportedUserId": userItem.userID!,
                           "beReportedUserName": SuperStringUtil.getUserShowname(showname: userItem.nickname!),
                           "beReportedUserImg": userItem.faceURL ?? "",
-//                          "": "",
                           "reportReason":topTitleView.inputText!,
                          "reportDescription":contentView.textView.text!,
                          "reportImgs": reportImgs,
@@ -466,7 +352,6 @@ extension YFFeedbackVC {
             paramters = [ "beReportedUserId": reportCommentUserId,
                           "beReportedUserName": "就传你",
                           "beReportedUserImg": "",
-//                          "": "",
                           "reportReason":topTitleView.inputText!,
                          "reportDescription":contentView.textView.text!,
                          "reportImgs": reportImgs,
@@ -474,7 +359,6 @@ extension YFFeedbackVC {
             default:
                 break
         }
-        
         
         YFMineNetViewModel.reportUserNet(paramters: paramters, reportType: reportType,valueHandler: { [weak self] infos in
             self?.navigationController?.popViewController(animated: true)

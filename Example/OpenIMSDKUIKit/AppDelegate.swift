@@ -35,17 +35,6 @@ let sdkAPIRoute = ""
 let sdkWSPort = ":10001"
 let sdkWSRoute = ""
 
-//let adminPort = ":10008"
-//let adminRoute = ":10008/chat_enterprise"
-//let sdkAPIPort = ":10002"
-//let sdkAPIRoute = ":10002/api_enterprise"
-//let sdkWSPort = ":10001"
-//let sdkWSRoute = ":10001/msg_gateway_enterprise"
-
-//let defaultAppAddress = "imserver.aibitlin.com/chat"
-//let defaultIMAddress = "imserver.aibitlin.com/api"
-//let defaultAdminAddress = "imserver.aibitlin.com/msg_gateway"
-
 //let defaultAppAddress = "143.92.40.164"
 //let defaultIMAddress = "143.92.40.164"
 //let defaultAdminAddress = "143.92.40.164"
@@ -58,29 +47,9 @@ let defaultAppAddress = "192.168.7.16"
 let defaultIMAddress = "192.168.7.16"
 let defaultAdminAddress = "192.168.7.16"
 
-//let defaultAppAddress = "web.rentsoft.cn"
-//let defaultIMAddress = "web.rentsoft.cn"
-//let defaultAdminAddress = "web.rentsoft.cn"
+let API_BOB_URL = "http://192.168.7.128:18729"
+//let API_BOB_URL = "http://143.92.40.164:18729"
 
-/// 本地 102
-/// let defaultAppAddress = "192.168.7.16"
-/// let defaultAppAddress = "192.168.7.102"
-//let defaultAppAddress = "192.168.7.102"
-//let defaultIMAddress = "192.168.7.102"
-//let defaultAdminAddress = "192.168.7.102"
-
-//let defaultAppAddress = "192.168.7.16"
-//let defaultIMAddress = "192.168.7.16"
-//let defaultAdminAddress = "192.168.7.16"
-
-//let defaultAppAddress = "chat-api.test.bitswith.com"
-//let defaultIMAddress = "api.test.bitswith.com"
-//let defaultAdminAddress = "msg-gateway.test.bitswith.com"
-
-//BLOG_AUTH = "http://110.42.42.31:18898/";
-//APP_AUTH = "http://demo.aibitlin.com:10008/";
-//IM_API = "http://demo.aibitlin.com:10002";
-//IM_WS = "ws://demo.aibitlin.com:10001";
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate,GeTuiSdkDelegate {

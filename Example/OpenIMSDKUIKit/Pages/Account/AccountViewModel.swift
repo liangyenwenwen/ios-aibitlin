@@ -21,8 +21,6 @@ open class AccountViewModel {
     // 业务服务器地址
     static let API_BASE_URL = UserDefaults.standard.string(forKey: bussinessSeverAddrKey)!
     static let ADMIN_BASE_URL = UserDefaults.standard.string(forKey: adminSeverAddrKey)!
-    static let API_BOB_URL = "http://192.168.7.128:18729"
-//    public static let API_BOB_URL = "http://143.92.40.164:18729"
    
     // 实际开发，抽离网络部分
     static let IMPreLoginAccountKey = "IMPreLoginAccountKey"
@@ -682,9 +680,6 @@ open class AccountViewModel {
             //            SuperToast.show(title: "")
             return
         }
-//        let param = []
-//        let url = SuperStringUtil.netUrl(API_BOB_URL + getMineHomeWalletAPI, param)
-//        let url = API_BOB_URL + getMineHomeWalletAPI
         Alamofire.request(API_BOB_URL + getMineHomeWalletAPI, method: .post, parameters: nil,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
             if let data = dataRequest.data {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)

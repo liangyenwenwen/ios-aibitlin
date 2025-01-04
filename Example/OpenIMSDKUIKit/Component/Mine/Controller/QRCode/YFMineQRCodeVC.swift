@@ -46,7 +46,7 @@ class YFMineQRCodeVC: BaseTitleController {
         
     }
     
-    // MARK: - 张亚飞打的标记 卡片
+    // MARK: -   卡片
     /// 用户卡片
     lazy var userCardView: TGLinearLayout = {
         let r = TGLinearLayout(.vert)

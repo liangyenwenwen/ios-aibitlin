@@ -130,7 +130,7 @@ class MineDeleteAccountReasonVC: BaseTitleController {
         
         let contentView = MineDeleteAccountReasonBottomSheetView()
         contentView.tg_width.equal(.fill)
-        // MARK: - 张亚飞打的标记  判断语言
+        // MARK: -    判断语言
         let height = String.getCurrentLanguage().starts(with: "zh") ? view.frame.height / 2 : view.frame.height * 2 / 3
         contentView.tg_height.equal(height)
         contentView.deleteAccountAction = {

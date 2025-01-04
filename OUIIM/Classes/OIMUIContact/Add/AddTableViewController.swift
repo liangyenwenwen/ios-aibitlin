@@ -118,7 +118,7 @@ open class AddTableViewController: UITableViewController {
             }
         case .scanQrcode:
             let vc = ScanViewController()
-            // MARK: - 张亚飞打的标记  扫码添加好友
+            // MARK: -    扫码添加好友
             vc.scanDidComplete = { [weak self] (result: String) in
                 if result.contains(IMController.addFriendPrefix) {
 //                    self?.navigationController?.popViewController(animated: false)

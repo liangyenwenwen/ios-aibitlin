@@ -90,7 +90,7 @@ class NewFriendListViewController: UIViewController {
 //                self?.navigationController?.pushViewController(vc, animated: true)
 //                print("背电极 \(application.fromUserID) +++++++  \(application.toUserID))")
                 
-                // MARK: - 张亚飞打的标记  获取会话信息
+                // MARK: -    获取会话信息
                 IMController.shared.getConversation(sessionType: .c2c, sourceId: application.fromUserID) { [weak self] (conversation: ConversationInfo?) in
                     guard let conversation else { return }
 

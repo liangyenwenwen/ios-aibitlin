@@ -295,33 +295,11 @@ extension YFNewRegisterVC {
         alert.addAction(title: "cancel".localized(), style: .cancel)
         present(alert, animated: true)
     }
-    
-    @objc func gotoRegister() {
-        print(#function)
-        gotoController(YFRegisterVC())
-    }
-    
-    @objc func gotoRegisterDelegate() {
-        print(#function)
-//        SuperWebController.start((self.navigationController!), uri: "http://bitswith.com/ys/#/userAgreement")
-        if String.getCurrentLanguage().starts(with: "zh")  {
-            SuperWebController.start((self.navigationController!), uri: "http://143.92.40.164/#/pages/registration/index?lang=zh")
-        } else if String.getCurrentLanguage().starts(with: "th") {
-            SuperWebController.start((self.navigationController!), uri: "http://143.92.40.164/#/pages/registration/index?lang=Thai")
-        } else {
-            SuperWebController.start((self.navigationController!), uri: "http://143.92.40.164/#/pages/registration/index?lang=en")
-        }
-    }
-    
-    @objc func chooseDelegate(_ btn: QMUIButton) {
-        btn.isSelected = !btn.isSelected
-    }
 
     
     @objc func register() {
 
         if !pwdView.textFieldView.text!.validatePassword() {
-//            ProgressHUD.error("plsEnterRightX".localizedFormat("password".localized()))
             SuperToast.show(title: "plsEnterRightX".localizedFormat("password".localized()))
             return
         }
@@ -337,17 +315,8 @@ extension YFNewRegisterVC {
     /// 验证邀请码
     func toVerifyCode() {
         AccountViewModel.verifyCode(phone: useType == .usePhone ? phone : nil, areaCode: _areaCode, email: useType == .useEmail ? phone : nil, useFor: .register, verificationCode: "") { [weak self] errCode, _ in
-            
-            guard let self else { return }
-            
             if errCode != 0 {
-//                ProgressHUD.error(String(errCode).localized())
                 SuperToast.show(title: String(errCode).localized())
-            } else {
-//                basicInfo["verCode"] = code
-//                let vc = InputPasswordViewController(usedFor: usedFor, operateType: operateType)
-//                vc.basicInfo = basicInfo
-//                navigationController?.pushViewController(vc, animated: true)
             }
         }
     }
@@ -357,7 +326,6 @@ extension YFNewRegisterVC {
         view.endEditing(true)
         
         guard let name = nicknameView.inputText?.trimmingCharacters(in: .whitespacesAndNewlines), !name.isEmpty else {
-//            ProgressHUD.error("plsEnterYourX".localizedFormat("nickname".localized()))
             SuperToast.show(title: "plsEnterYourX".localizedFormat("nickname".localized()))
             return
         }

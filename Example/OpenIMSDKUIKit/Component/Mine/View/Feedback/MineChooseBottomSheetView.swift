@@ -171,7 +171,7 @@ class MineChooseBottomSheetView: TGLinearLayout {
 //        let titleArr2 = ["Block".localized(), "Report".localized(),"解除好友关系".localized()]
         let titleArr2 = isFriend == true ?["Block".localized(), "Report".localized(),"解除好友关系".localized()]:["Block".localized(), "Report".localized()]
         for i in titleArr2.indices {
-            // MARK: - 张亚飞打的标记  黑名单处理
+            // MARK: -    黑名单处理
             if i == 0 {
                 let settingView = SuperSettingView.create(title: titleArr2[i]) { _ in
                     
@@ -345,7 +345,7 @@ class MineChooseBottomSheetView: TGLinearLayout {
                     IMController.shared.imManager.setConversationEx(self?.conversationInfo?.conversationID ?? "", ex: ex!, onSuccess: { res in
                         print(res as Any)
                         
-                        // MARK: - 张亚飞打的标记  更新chatvc里面的ConversationEx 
+                        // MARK: -    更新chatvc里面的ConversationEx 
                         if let handler = OIMApi.updateConversationEx {
                             handler(ex!, {res in
                                 
@@ -477,7 +477,7 @@ class MineChooseBottomSheetView: TGLinearLayout {
         IMController.shared.imManager.setConversationEx(self.conversationInfo?.conversationID ?? "", ex: ex, onSuccess: { res in
             print(res as Any)
             
-            // MARK: - 张亚飞打的标记  更新chatvc里面的ConversationEx
+            // MARK: -    更新chatvc里面的ConversationEx
             if let handler = OIMApi.updateConversationEx {
                 handler(ex, {res in
                     
@@ -545,7 +545,7 @@ class MineChooseBottomSheetView: TGLinearLayout {
             IMController.shared.imManager.setConversationEx(self?.conversationInfo?.conversationID ?? "", ex: ex!, onSuccess: { res in
                 print(res as Any)
                 
-                // MARK: - 张亚飞打的标记  更新chatvc里面的ConversationEx
+                // MARK: -    更新chatvc里面的ConversationEx
                 if let handler = OIMApi.updateConversationEx {
                     handler(ex!, {res in
                         
