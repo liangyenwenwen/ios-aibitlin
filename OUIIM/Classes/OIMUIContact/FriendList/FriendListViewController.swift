@@ -301,8 +301,10 @@ open class FriendListViewController: UIViewController {
         r.creatGroupChatClick = { [weak self] in
             
             print("-----" , "creatGroupChatClick")
-            self?.creatGroupChat(groupType: .working)
-            
+//            self?.creatGroupChat(groupType: .working)
+            let vc = NewGroupViewController()
+            vc.hidesBottomBarWhenPushed = true
+            self?.navigationController?.pushViewController(vc, animated: true)
         }
         r.videoMettingClick = { [weak self] in
             
@@ -367,8 +369,8 @@ open class FriendListViewController: UIViewController {
             let users = r.map {UserInfo(userID: $0.ID!, nickname: $0.name, faceURL: $0.faceURL)}
             
             if users.count > 1 {
-                let vc = NewGroupViewController(users: users, groupType: .working)
-                navigationController?.pushViewController(vc, animated: true)
+//                let vc = NewGroupViewController(users: users, groupType: .working)
+//                navigationController?.pushViewController(vc, animated: true)
             } else {
                 guard let userID = users.first?.userID else { return }
                 ProgressHUD.animate()

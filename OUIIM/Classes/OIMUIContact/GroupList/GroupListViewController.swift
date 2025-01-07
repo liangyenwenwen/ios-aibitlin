@@ -41,9 +41,9 @@ class GroupListViewController: UIViewController {
         vc.selectedContact(hasSelected: []) { [weak self] (_, r: [ContactInfo]) in
             guard let sself = self else { return }
             
-            let users = r.map{UserInfo(userID: $0.ID!, nickname: $0.name, faceURL: $0.faceURL)}
-            let vc = NewGroupViewController(users: users, groupType: groupType)
-            sself.navigationController?.pushViewController(vc, animated: true)
+//            let users = r.map{UserInfo(userID: $0.ID!, nickname: $0.name, faceURL: $0.faceURL)}
+//            let vc = NewGroupViewController(users: users, groupType: groupType)
+//            sself.navigationController?.pushViewController(vc, animated: true)
         }
         vc.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(vc, animated: true)
@@ -66,7 +66,9 @@ class GroupListViewController: UIViewController {
         v.rx.tap.subscribe(onNext: { [weak self] in
             if self?.chooseType == 0{
                 //创建
-                self?.creatGroupChat(groupType: .working)
+//                self?.creatGroupChat(groupType: .working)
+                let vc = NewGroupViewController()
+                self?.navigationController?.pushViewController(vc, animated: true)
             }else{
                 //添加
                 let vc = SearchGroupViewController()
@@ -242,8 +244,8 @@ class GroupListViewController: UIViewController {
             let users = r.map {UserInfo(userID: $0.ID!, nickname: $0.name, faceURL: $0.faceURL)}
             
             if users.count > 1 {
-                let vc = NewGroupViewController(users: users, groupType: .working)
-                navigationController?.pushViewController(vc, animated: true)
+//                let vc = NewGroupViewController(users: users, groupType: .working)
+//                navigationController?.pushViewController(vc, animated: true)
             } else {
                 guard let userID = users.first?.userID else { return }
                 ProgressHUD.animate()

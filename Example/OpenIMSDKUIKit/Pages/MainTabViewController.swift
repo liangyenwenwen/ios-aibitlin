@@ -10,6 +10,7 @@ import MJExtension
 import IQKeyboardManagerSwift
 import GTSDK
 import Alamofire
+import FirebaseMessaging
 #if ENABLE_MOMENTS
 import OUIMoments
 #endif
@@ -412,6 +413,7 @@ class MainTabViewController: UITabBarController {
             
             updateLanguage(uid: r.userID)
 //            checkAppVersion(uid:r.userID)
+            updateFcmToken()
             pushBindAlias(true)
             ProgressHUD.dismiss()
             UserDefaults.standard.set("0", forKey: "blogVersion\(Open_im_sdkGetLoginUserID())")
@@ -503,6 +505,19 @@ extension MainTabViewController {
         contentView.tg_height.equal(280)
         
         GKCover.cover(from: UIApplication.shared.keyWindow, contentView: contentView, style: .translucent, showStyle: .center, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: true)
+    }
+    //绑定token
+    func updateFcmToken(){
+        Messaging.messaging().token { token, error in
+          if let error = error {
+            print("Error fetching FCM registration token: \(error)")
+          } else if let token = token {
+              IMController.shared.imManager.updateFcmToken(token, expireTime: 2592000) { str in
+              } onFailure: { code, errorMsg in
+                  print("=====",errorMsg as Any)
+              }
+          }
+        }
     }
     
     // MARK: - 张亚飞打的标记 更新语言

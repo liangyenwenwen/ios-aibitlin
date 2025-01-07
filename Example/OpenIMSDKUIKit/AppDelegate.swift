@@ -7,6 +7,8 @@ import GTSDK
 import AlamofireNetworkActivityLogger
 import Bugly
 import IQKeyboardManagerSwift
+import Firebase
+import FirebaseMessaging
 
 let kGtAppId = "aaG9GXroFD6J5AdyPp59E7"
 let kGtAppKey = "z4bVbPVLys7OgGEvIQMDA5"
@@ -46,9 +48,17 @@ let sdkWSRoute = ""
 //let defaultIMAddress = "imserver.aibitlin.com/api"
 //let defaultAdminAddress = "imserver.aibitlin.com/msg_gateway"
 
-let defaultAppAddress = "192.168.7.126"
-let defaultIMAddress = "192.168.7.126"
-let defaultAdminAddress = "192.168.7.126"
+//let defaultAppAddress = "192.168.7.126"
+//let defaultIMAddress = "192.168.7.126"
+//let defaultAdminAddress = "192.168.7.126"
+
+let defaultAppAddress = "192.168.7.16"
+let defaultIMAddress = "192.168.7.16"
+let defaultAdminAddress = "192.168.7.16"
+
+//let defaultAppAddress = "134.122.184.87"
+//let defaultIMAddress = "134.122.184.87"
+//let defaultAdminAddress = "134.122.184.87"
 
 //let defaultAppAddress = "192.168.7.109"
 //let defaultIMAddress = "192.168.7.109"
@@ -79,7 +89,7 @@ let defaultAdminAddress = "192.168.7.126"
 //IM_WS = "ws://demo.aibitlin.com:10001";
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate,GeTuiSdkDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate,GeTuiSdkDelegate,MessagingDelegate {
     
     var backgroundTaskIdentifier: UIBackgroundTaskIdentifier?
     var orientation = UIInterfaceOrientationMask.portrait
@@ -97,7 +107,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
    
     private let _disposeBag = DisposeBag();
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
+        FirebaseApp.configure()
+        Messaging.messaging().delegate = self
+//        // 请求通知权限
+//        UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.sound,.badge]) { (granted, error) in
+//            if let error = error {
+//                print("请求通知权限出错: \(error)")
+//            } else if granted {
+//                application.registerForRemoteNotifications()
+//            }
+//        }
+//        PushNotificationService.shared.messaging.delegate = PushNotificationService.shared
 
         IQKeyboardManager.shared.enable = true
         
@@ -266,11 +286,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let token = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
         print("deviceToken: %@", token)
+//        IMController.shared.imManager.updateFcmToken(token, expireTime: 2592000) { str in
+//            print("=====")
+//        } onFailure: { code, errorMsg in
+//            print("=====",errorMsg as Any)
+//        }
+
 
     }
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         print("did Fail To Register For Remote Notifications With Error: %@", error)
+    }
+    // MARK: - MessagingDelegate
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+            print("接收到新的FCM注册令牌: \(fcmToken)")
+        if IMController.shared.uid != ""{
+            updateFcmToken(token:fcmToken ?? "")
+        }
+    }
+    func updateFcmToken(token:String){
+        IMController.shared.imManager.updateFcmToken(token, expireTime: 2592000) { str in
+        } onFailure: { code, errorMsg in
+            print("=====",errorMsg as Any)
+        }
     }
     
     // MARK: - GeTuiSdkDelegate

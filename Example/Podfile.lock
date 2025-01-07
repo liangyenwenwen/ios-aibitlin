@@ -22,6 +22,58 @@ PODS:
   - Differentiator (5.0.0)
   - DynamicColor (5.0.1)
   - FDFullscreenPopGesture (1.1)
+  - Firebase/CoreOnly (11.6.0):
+    - FirebaseCore (~> 11.6.0)
+  - Firebase/Messaging (11.6.0):
+    - Firebase/CoreOnly
+    - FirebaseMessaging (~> 11.6.0)
+  - FirebaseCore (11.6.0):
+    - FirebaseCoreInternal (~> 11.6.0)
+    - GoogleUtilities/Environment (~> 8.0)
+    - GoogleUtilities/Logger (~> 8.0)
+  - FirebaseCoreInternal (11.6.0):
+    - "GoogleUtilities/NSData+zlib (~> 8.0)"
+  - FirebaseInstallations (11.6.0):
+    - FirebaseCore (~> 11.6.0)
+    - GoogleUtilities/Environment (~> 8.0)
+    - GoogleUtilities/UserDefaults (~> 8.0)
+    - PromisesObjC (~> 2.4)
+  - FirebaseMessaging (11.6.0):
+    - FirebaseCore (~> 11.6.0)
+    - FirebaseInstallations (~> 11.0)
+    - GoogleDataTransport (~> 10.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 8.0)
+    - GoogleUtilities/Environment (~> 8.0)
+    - GoogleUtilities/Reachability (~> 8.0)
+    - GoogleUtilities/UserDefaults (~> 8.0)
+    - nanopb (~> 3.30910.0)
+  - GoogleDataTransport (10.1.0):
+    - nanopb (~> 3.30910.0)
+    - PromisesObjC (~> 2.4)
+  - GoogleUtilities/AppDelegateSwizzler (8.0.2):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Network
+    - GoogleUtilities/Privacy
+  - GoogleUtilities/Environment (8.0.2):
+    - GoogleUtilities/Privacy
+  - GoogleUtilities/Logger (8.0.2):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Privacy
+  - GoogleUtilities/Network (8.0.2):
+    - GoogleUtilities/Logger
+    - "GoogleUtilities/NSData+zlib"
+    - GoogleUtilities/Privacy
+    - GoogleUtilities/Reachability
+  - "GoogleUtilities/NSData+zlib (8.0.2)":
+    - GoogleUtilities/Privacy
+  - GoogleUtilities/Privacy (8.0.2)
+  - GoogleUtilities/Reachability (8.0.2):
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Privacy
+  - GoogleUtilities/UserDefaults (8.0.2):
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Privacy
   - GTSDK (2.7.1.0-noidfa):
     - ZXSDK-Noidfa
   - IGListDiffKit (4.0.0)
@@ -97,6 +149,11 @@ PODS:
   - Moya/Core (13.0.1):
     - Alamofire (~> 4.1)
     - Result (~> 4.1)
+  - nanopb (3.30910.0):
+    - nanopb/decode (= 3.30910.0)
+    - nanopb/encode (= 3.30910.0)
+  - nanopb/decode (3.30910.0)
+  - nanopb/encode (3.30910.0)
   - "NSObject+Rx (5.2.2)":
     - RxSwift (~> 6.2)
   - OpenIMSDK (3.5.1-e-1.1.4):
@@ -189,6 +246,7 @@ PODS:
     - OUICoreView
     - ZLPhotoBrowser
   - ProgressHUD (14.1.3)
+  - PromisesObjC (2.4.0)
   - QMUIKit (4.5.1):
     - QMUIKit/QMUIComponents (= 4.5.1)
     - QMUIKit/QMUICore (= 4.5.1)
@@ -565,6 +623,7 @@ DEPENDENCIES:
   - BSText
   - Bugly
   - DynamicColor
+  - Firebase/Messaging
   - GTSDK (= 2.7.1.0-noidfa)
   - InputBarAccessoryView (from `../3rd`)
   - IQKeyboardManagerSwift
@@ -607,6 +666,13 @@ SPEC REPOS:
     - Differentiator
     - DynamicColor
     - FDFullscreenPopGesture
+    - Firebase
+    - FirebaseCore
+    - FirebaseCoreInternal
+    - FirebaseInstallations
+    - FirebaseMessaging
+    - GoogleDataTransport
+    - GoogleUtilities
     - GTSDK
     - IGListDiffKit
     - IGListKit
@@ -627,7 +693,9 @@ SPEC REPOS:
     - MJRefresh
     - MMBAlertsPickers
     - Moya
+    - nanopb
     - "NSObject+Rx"
+    - PromisesObjC
     - QMUIKit
     - R.swift
     - Reachability
@@ -689,6 +757,13 @@ SPEC CHECKSUMS:
   Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
   DynamicColor: d049834ef86d8ecf150b0ca1ebe54ee733a0ec22
   FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
+  Firebase: 374a441a91ead896215703a674d58cdb3e9d772b
+  FirebaseCore: 48b0dd707581cf9c1a1220da68223fb0a562afaa
+  FirebaseCoreInternal: d98ab91e2d80a56d7b246856a8885443b302c0c2
+  FirebaseInstallations: efc0946fc756e4d22d8113f7c761948120322e8c
+  FirebaseMessaging: e1aca1fcc23e8b9eddb0e33f375ff90944623021
+  GoogleDataTransport: aae35b7ea0c09004c3797d53c8c41f66f219d6a7
+  GoogleUtilities: 26a3abef001b6533cf678d3eb38fd3f614b7872d
   GTSDK: 4ad19708180f6ff6aa7650d07f5b57698bb4445f
   IGListDiffKit: 665d6cf43ce726e676013db9c7d6c4294259b6b2
   IGListKit: fd5a5d21935298f5849fa49d426843cff97b77c7
@@ -711,6 +786,7 @@ SPEC CHECKSUMS:
   MJRefresh: ff9e531227924c84ce459338414550a05d2aea78
   MMBAlertsPickers: d52d288114c7dad4e4f1282fb2b1f1189ccc117a
   Moya: f4a4b80ff2f8a4ffc208dfb31cd91636622fee6e
+  nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
   "NSObject+Rx": 61cf1f7306a73dcef8b36649198af0813ec18dfd
   OpenIMSDK: 6eb7fa1ddd5a585c3988bb683a12f24e9a2f9efe
   OUICalling: bd237be3bf620c82b8d20c80dea9c5543982391e
@@ -720,6 +796,7 @@ SPEC CHECKSUMS:
   OUILive: 87ba2f5d337f3b7eb33a7fde0076294f1d0e1d39
   OUIMoments: a6a2a9c584dc0bdd0f98ac1e9fc20c2841c43308
   ProgressHUD: b736f0c6de97f37f64e847f80689c23a14026adf
+  PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   QMUIKit: 3e717c45730ecdf5011ca76751990ad1a23ba7e1
   R.swift: 33e7082885d0c0bac7ae20ef7d2845a6a920ca11
   Reachability: fd0ecd23705e2599e4cceeb943222ae02296cbc6
@@ -742,6 +819,6 @@ SPEC CHECKSUMS:
   ZLPhotoBrowser: cd023607d05a72d27a3ae57f50dbf86910713a2c
   ZXSDK-Noidfa: f3cc8e4b6b4775df301489ae0792b727e193e7d3
 
-PODFILE CHECKSUM: 40d79580c60ddf80e78836d1118d67dd758d4099
+PODFILE CHECKSUM: bb446142ad7c80d13daaf9e5c879522434461a53
 
 COCOAPODS: 1.15.2

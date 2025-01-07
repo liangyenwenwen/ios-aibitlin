@@ -60,9 +60,16 @@
 		0418B57B2BF21EF000108808 /* YFMineUserPrivateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0418B57A2BF21EF000108808 /* YFMineUserPrivateVC.swift */; };
 		0419D4052C019350009CBE94 /* SuperUICollectionViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0419D4042C019350009CBE94 /* SuperUICollectionViewExtension.swift */; };
 		0420C71E2BEB78CC0005F5B8 /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0420C71D2BEB78CC0005F5B8 /* ProfileTableViewController.swift */; };
+		042AD9CA2D295B9E00CB5041 /* ReplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17B485F529C082CA002571B8 /* ReplayKit.framework */; };
+		042AD9CD2D295B9E00CB5041 /* SampleHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042AD9CC2D295B9E00CB5041 /* SampleHandler.swift */; };
+		042AD9D42D295B9E00CB5041 /* ReplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17B485F529C082CA002571B8 /* ReplayKit.framework */; };
+		042AD9D52D295B9E00CB5041 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04D2E1CB2CBE4A4900582B13 /* UIKit.framework */; };
+		042AD9D82D295B9E00CB5041 /* BroadcastSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042AD9D72D295B9E00CB5041 /* BroadcastSetupViewController.swift */; };
+		042AD9DC2D295B9E00CB5041 /* ScreenShareBroadcastExtensionSetupUI.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 042AD9D32D295B9E00CB5041 /* ScreenShareBroadcastExtensionSetupUI.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		042AD9DF2D295B9E00CB5041 /* ScreenShareBroadcastExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 042AD9C92D295B9E00CB5041 /* ScreenShareBroadcastExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		042AD9E72D295E4600CB5041 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 042AD9E62D295E4600CB5041 /* GoogleService-Info.plist */; };
 		042E2A1F2BF5C3B400A90CB6 /* YFOpenIMUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042E2A1E2BF5C3B400A90CB6 /* YFOpenIMUtil.swift */; };
 		0434ABA42CBBC2F7000F9B07 /* QRCodeSaveCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0434ABA32CBBC2F7000F9B07 /* QRCodeSaveCardView.swift */; };
-		0439CCD12D06F3C900379537 /* NotificationService.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 0439CCCA2D06F3C900379537 /* NotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		043A558C2C8166490041836E /* UserTagTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043A55892C8166490041836E /* UserTagTypeView.swift */; };
 		043A558D2C8166490041836E /* UserTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043A558A2C8166490041836E /* UserTagView.swift */; };
 		0445BEE22CD1E04300A46558 /* ABLNetWorkToos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445BEE12CD1E04300A46558 /* ABLNetWorkToos.swift */; };
@@ -71,6 +78,8 @@
 		045B8BFD2BF4B7070094E080 /* YFChatBokeBottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045B8BFC2BF4B7070094E080 /* YFChatBokeBottomSheetView.swift */; };
 		047753C62BFDCD27006DBFD3 /* YFTranslateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047753C52BFDCD27006DBFD3 /* YFTranslateVC.swift */; };
 		047BF6B62CA2B6DF00706117 /* YFFileDataUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047BF6B52CA2B6DF00706117 /* YFFileDataUtil.swift */; };
+		048593C72D2BA8AA0095FE0A /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048593C62D2BA8AA0095FE0A /* NotificationService.swift */; };
+		048593CB2D2BA8AA0095FE0A /* NotificationService.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 048593C42D2BA8AA0095FE0A /* NotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		049B98032CB521360032E7B8 /* YFChooseUserAvatarCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049B98022CB521360032E7B8 /* YFChooseUserAvatarCardView.swift */; };
 		049C643E2BEC619300B679C4 /* YFLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049C643D2BEC619300B679C4 /* YFLoginVC.swift */; };
 		049C64402BEC622300B679C4 /* YFLoginChooseHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049C643F2BEC622300B679C4 /* YFLoginChooseHeaderView.swift */; };
@@ -165,6 +174,7 @@
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
+		9726FA6C505B248C1E3C0E99 /* Pods_ScreenShareBroadcastExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 801E02C1C4ADEDF0845D7AE9 /* Pods_ScreenShareBroadcastExtension.framework */; };
 		A8EF84539A491F5F8246C0D5 /* Pods_OpenIMSDKUIKit_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A910E09A82370C0DA41D3DC /* Pods_OpenIMSDKUIKit_Example.framework */; };
 		DC0B7DF2282DFA09003896C1 /* UnderlineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0B7DF1282DFA09003896C1 /* UnderlineButton.swift */; };
 		DC0B7DF6282DFA85003896C1 /* DemoUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0B7DF5282DFA85003896C1 /* DemoUI.swift */; };
@@ -172,11 +182,25 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		0439CCCF2D06F3C900379537 /* PBXContainerItemProxy */ = {
+		042AD9DA2D295B9E00CB5041 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 607FACC81AFB9204008FA782 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 0439CCC92D06F3C900379537;
+			remoteGlobalIDString = 042AD9D22D295B9E00CB5041;
+			remoteInfo = ScreenShareBroadcastExtensionSetupUI;
+		};
+		042AD9DD2D295B9E00CB5041 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 607FACC81AFB9204008FA782 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 042AD9C82D295B9E00CB5041;
+			remoteInfo = ScreenShareBroadcastExtension;
+		};
+		048593C92D2BA8AA0095FE0A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 607FACC81AFB9204008FA782 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 048593C32D2BA8AA0095FE0A;
 			remoteInfo = NotificationService;
 		};
 /* End PBXContainerItemProxy section */
@@ -188,7 +212,9 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				0439CCD12D06F3C900379537 /* NotificationService.appex in Embed App Extensions */,
+				042AD9DF2D295B9E00CB5041 /* ScreenShareBroadcastExtension.appex in Embed App Extensions */,
+				048593CB2D2BA8AA0095FE0A /* NotificationService.appex in Embed App Extensions */,
+				042AD9DC2D295B9E00CB5041 /* ScreenShareBroadcastExtensionSetupUI.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -254,9 +280,15 @@
 		0419D4042C019350009CBE94 /* SuperUICollectionViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperUICollectionViewExtension.swift; sourceTree = "<group>"; };
 		0420C7182BEB61350005F5B8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		0420C71D2BEB78CC0005F5B8 /* ProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
+		042AD9C92D295B9E00CB5041 /* ScreenShareBroadcastExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ScreenShareBroadcastExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		042AD9CC2D295B9E00CB5041 /* SampleHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleHandler.swift; sourceTree = "<group>"; };
+		042AD9CE2D295B9E00CB5041 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		042AD9D32D295B9E00CB5041 /* ScreenShareBroadcastExtensionSetupUI.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ScreenShareBroadcastExtensionSetupUI.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		042AD9D72D295B9E00CB5041 /* BroadcastSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BroadcastSetupViewController.swift; sourceTree = "<group>"; };
+		042AD9D92D295B9E00CB5041 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		042AD9E62D295E4600CB5041 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		042E2A1E2BF5C3B400A90CB6 /* YFOpenIMUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFOpenIMUtil.swift; sourceTree = "<group>"; };
 		0434ABA32CBBC2F7000F9B07 /* QRCodeSaveCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeSaveCardView.swift; sourceTree = "<group>"; };
-		0439CCCA2D06F3C900379537 /* NotificationService.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationService.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		043A55892C8166490041836E /* UserTagTypeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTagTypeView.swift; sourceTree = "<group>"; };
 		043A558A2C8166490041836E /* UserTagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTagView.swift; sourceTree = "<group>"; };
 		0445BEE12CD1E04300A46558 /* ABLNetWorkToos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ABLNetWorkToos.swift; sourceTree = "<group>"; };
@@ -268,6 +300,9 @@
 		046D26952BFF255F00FEA10F /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		047753C52BFDCD27006DBFD3 /* YFTranslateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFTranslateVC.swift; sourceTree = "<group>"; };
 		047BF6B52CA2B6DF00706117 /* YFFileDataUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFFileDataUtil.swift; sourceTree = "<group>"; };
+		048593C42D2BA8AA0095FE0A /* NotificationService.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationService.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		048593C62D2BA8AA0095FE0A /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		048593C82D2BA8AA0095FE0A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		049B98022CB521360032E7B8 /* YFChooseUserAvatarCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFChooseUserAvatarCardView.swift; sourceTree = "<group>"; };
 		049C643D2BEC619300B679C4 /* YFLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFLoginVC.swift; sourceTree = "<group>"; };
 		049C643F2BEC622300B679C4 /* YFLoginChooseHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFLoginChooseHeaderView.swift; sourceTree = "<group>"; };
@@ -336,9 +371,6 @@
 		04F87EF42C8E8D3D00C82A37 /* SuperUIFontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperUIFontExtension.swift; sourceTree = "<group>"; };
 		04F896A22C00714100C90A44 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0A910E09A82370C0DA41D3DC /* Pods_OpenIMSDKUIKit_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenIMSDKUIKit_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		170A2B3828F29C5000CA68EA /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
-		170A2B3A28F29C5000CA68EA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		170A2B4228F29E8D00CA68EA /* NotificationService.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotificationService.entitlements; sourceTree = "<group>"; };
 		170E4B2229344C5D007A6535 /* DiscoveryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryViewController.swift; sourceTree = "<group>"; };
 		175D46672B307ABD006DE918 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		1760BE5B2BD9FFAD0096CD1C /* SimpleInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleInputViewController.swift; sourceTree = "<group>"; };
@@ -392,7 +424,25 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		0439CCC72D06F3C900379537 /* Frameworks */ = {
+		042AD9C62D295B9E00CB5041 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				042AD9CA2D295B9E00CB5041 /* ReplayKit.framework in Frameworks */,
+				9726FA6C505B248C1E3C0E99 /* Pods_ScreenShareBroadcastExtension.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		042AD9D02D295B9E00CB5041 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				042AD9D42D295B9E00CB5041 /* ReplayKit.framework in Frameworks */,
+				042AD9D52D295B9E00CB5041 /* UIKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		048593C12D2BA8AA0095FE0A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -628,6 +678,24 @@
 			path = Feedback;
 			sourceTree = "<group>";
 		};
+		042AD9CB2D295B9E00CB5041 /* ScreenShareBroadcastExtension */ = {
+			isa = PBXGroup;
+			children = (
+				042AD9CC2D295B9E00CB5041 /* SampleHandler.swift */,
+				042AD9CE2D295B9E00CB5041 /* Info.plist */,
+			);
+			path = ScreenShareBroadcastExtension;
+			sourceTree = "<group>";
+		};
+		042AD9D62D295B9E00CB5041 /* ScreenShareBroadcastExtensionSetupUI */ = {
+			isa = PBXGroup;
+			children = (
+				042AD9D72D295B9E00CB5041 /* BroadcastSetupViewController.swift */,
+				042AD9D92D295B9E00CB5041 /* Info.plist */,
+			);
+			path = ScreenShareBroadcastExtensionSetupUI;
+			sourceTree = "<group>";
+		};
 		0434ABA22CBBC2D8000F9B07 /* QRCode */ = {
 			isa = PBXGroup;
 			children = (
@@ -695,6 +763,15 @@
 				047753C52BFDCD27006DBFD3 /* YFTranslateVC.swift */,
 			);
 			path = Translate;
+			sourceTree = "<group>";
+		};
+		048593C52D2BA8AA0095FE0A /* NotificationService */ = {
+			isa = PBXGroup;
+			children = (
+				048593C62D2BA8AA0095FE0A /* NotificationService.swift */,
+				048593C82D2BA8AA0095FE0A /* Info.plist */,
+			);
+			path = NotificationService;
 			sourceTree = "<group>";
 		};
 		049C643A2BEC602E00B679C4 /* LoginAndRegister */ = {
@@ -1004,16 +1081,6 @@
 			path = emptyView;
 			sourceTree = "<group>";
 		};
-		170A2B3728F29C5000CA68EA /* NotificationService */ = {
-			isa = PBXGroup;
-			children = (
-				170A2B4228F29E8D00CA68EA /* NotificationService.entitlements */,
-				170A2B3828F29C5000CA68EA /* NotificationService.swift */,
-				170A2B3A28F29C5000CA68EA /* Info.plist */,
-			);
-			path = NotificationService;
-			sourceTree = "<group>";
-		};
 		170E4B2129344C51007A6535 /* Discovery */ = {
 			isa = PBXGroup;
 			children = (
@@ -1090,7 +1157,9 @@
 				DCD9C9762849145C00487806 /* OpenIMSDKUIKit_Example.entitlements */,
 				607FACD21AFB9204008FA782 /* OpenIMSDKUIKit */,
 				607FACF51AFB993E008FA782 /* Podspec Metadata */,
-				170A2B3728F29C5000CA68EA /* NotificationService */,
+				042AD9CB2D295B9E00CB5041 /* ScreenShareBroadcastExtension */,
+				042AD9D62D295B9E00CB5041 /* ScreenShareBroadcastExtensionSetupUI */,
+				048593C52D2BA8AA0095FE0A /* NotificationService */,
 				607FACD11AFB9204008FA782 /* Products */,
 				CAC64E6711B5A6903B4FCC8D /* Pods */,
 				641162BB15A7DD76EBF4C191 /* Frameworks */,
@@ -1101,7 +1170,9 @@
 			isa = PBXGroup;
 			children = (
 				607FACD01AFB9204008FA782 /* IM-NCER.app */,
-				0439CCCA2D06F3C900379537 /* NotificationService.appex */,
+				042AD9C92D295B9E00CB5041 /* ScreenShareBroadcastExtension.appex */,
+				042AD9D32D295B9E00CB5041 /* ScreenShareBroadcastExtensionSetupUI.appex */,
+				048593C42D2BA8AA0095FE0A /* NotificationService.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1138,6 +1209,7 @@
 		607FACD31AFB9204008FA782 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				042AD9E62D295E4600CB5041 /* GoogleService-Info.plist */,
 				607FACD41AFB9204008FA782 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -1218,13 +1290,48 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		0439CCC92D06F3C900379537 /* NotificationService */ = {
+		042AD9C82D295B9E00CB5041 /* ScreenShareBroadcastExtension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0439CCD42D06F3C900379537 /* Build configuration list for PBXNativeTarget "NotificationService" */;
+			buildConfigurationList = 042AD9E32D295B9E00CB5041 /* Build configuration list for PBXNativeTarget "ScreenShareBroadcastExtension" */;
 			buildPhases = (
-				0439CCC62D06F3C900379537 /* Sources */,
-				0439CCC72D06F3C900379537 /* Frameworks */,
-				0439CCC82D06F3C900379537 /* Resources */,
+				3C584913DF848CA52C4D02C9 /* [CP] Check Pods Manifest.lock */,
+				042AD9C52D295B9E00CB5041 /* Sources */,
+				042AD9C62D295B9E00CB5041 /* Frameworks */,
+				042AD9C72D295B9E00CB5041 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ScreenShareBroadcastExtension;
+			productName = ScreenShareBroadcastExtension;
+			productReference = 042AD9C92D295B9E00CB5041 /* ScreenShareBroadcastExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		042AD9D22D295B9E00CB5041 /* ScreenShareBroadcastExtensionSetupUI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 042AD9E02D295B9E00CB5041 /* Build configuration list for PBXNativeTarget "ScreenShareBroadcastExtensionSetupUI" */;
+			buildPhases = (
+				042AD9CF2D295B9E00CB5041 /* Sources */,
+				042AD9D02D295B9E00CB5041 /* Frameworks */,
+				042AD9D12D295B9E00CB5041 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ScreenShareBroadcastExtensionSetupUI;
+			productName = ScreenShareBroadcastExtensionSetupUI;
+			productReference = 042AD9D32D295B9E00CB5041 /* ScreenShareBroadcastExtensionSetupUI.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		048593C32D2BA8AA0095FE0A /* NotificationService */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 048593CC2D2BA8AA0095FE0A /* Build configuration list for PBXNativeTarget "NotificationService" */;
+			buildPhases = (
+				048593C02D2BA8AA0095FE0A /* Sources */,
+				048593C12D2BA8AA0095FE0A /* Frameworks */,
+				048593C22D2BA8AA0095FE0A /* Resources */,
 			);
 			buildRules = (
 			);
@@ -1232,7 +1339,7 @@
 			);
 			name = NotificationService;
 			productName = NotificationService;
-			productReference = 0439CCCA2D06F3C900379537 /* NotificationService.appex */;
+			productReference = 048593C42D2BA8AA0095FE0A /* NotificationService.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 		607FACCF1AFB9204008FA782 /* OpenIMSDKUIKit_Example */ = {
@@ -1252,7 +1359,9 @@
 			buildRules = (
 			);
 			dependencies = (
-				0439CCD02D06F3C900379537 /* PBXTargetDependency */,
+				042AD9DB2D295B9E00CB5041 /* PBXTargetDependency */,
+				042AD9DE2D295B9E00CB5041 /* PBXTargetDependency */,
+				048593CA2D2BA8AA0095FE0A /* PBXTargetDependency */,
 			);
 			name = OpenIMSDKUIKit_Example;
 			productName = OpenIMSDKUIKit;
@@ -1270,7 +1379,13 @@
 				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = rentsoft;
 				TargetAttributes = {
-					0439CCC92D06F3C900379537 = {
+					042AD9C82D295B9E00CB5041 = {
+						CreatedOnToolsVersion = 15.4;
+					};
+					042AD9D22D295B9E00CB5041 = {
+						CreatedOnToolsVersion = 15.4;
+					};
+					048593C32D2BA8AA0095FE0A = {
 						CreatedOnToolsVersion = 15.4;
 					};
 					607FACCF1AFB9204008FA782 = {
@@ -1296,13 +1411,29 @@
 			projectRoot = "";
 			targets = (
 				607FACCF1AFB9204008FA782 /* OpenIMSDKUIKit_Example */,
-				0439CCC92D06F3C900379537 /* NotificationService */,
+				042AD9C82D295B9E00CB5041 /* ScreenShareBroadcastExtension */,
+				042AD9D22D295B9E00CB5041 /* ScreenShareBroadcastExtensionSetupUI */,
+				048593C32D2BA8AA0095FE0A /* NotificationService */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		0439CCC82D06F3C900379537 /* Resources */ = {
+		042AD9C72D295B9E00CB5041 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		042AD9D12D295B9E00CB5041 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		048593C22D2BA8AA0095FE0A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1318,6 +1449,7 @@
 				DCE04171283E5BD30095874E /* Localizable.strings in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
+				042AD9E72D295E4600CB5041 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1342,6 +1474,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT/R.generated.swift\"\n";
+		};
+		3C584913DF848CA52C4D02C9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ScreenShareBroadcastExtension-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
 		7BFD01A5FEB30DFE770069BC /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1380,6 +1534,12 @@
 				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
 				"${BUILT_PRODUCTS_DIR}/DynamicColor/DynamicColor.framework",
 				"${BUILT_PRODUCTS_DIR}/FDFullscreenPopGesture/FDFullscreenPopGesture.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseCore/FirebaseCore.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseCoreInternal/FirebaseCoreInternal.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseInstallations/FirebaseInstallations.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseMessaging/FirebaseMessaging.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleDataTransport/GoogleDataTransport.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/IGListDiffKit/IGListDiffKit.framework",
 				"${BUILT_PRODUCTS_DIR}/IGListKit/IGListKit.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardCore/IQKeyboardCore.framework",
@@ -1401,6 +1561,7 @@
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/NSObject+Rx/NSObject_Rx.framework",
 				"${BUILT_PRODUCTS_DIR}/ProgressHUD/ProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
 				"${BUILT_PRODUCTS_DIR}/QMUIKit/QMUIKit.framework",
 				"${BUILT_PRODUCTS_DIR}/R.swift/RswiftResources.framework",
 				"${BUILT_PRODUCTS_DIR}/Reachability/Reachability.framework",
@@ -1421,6 +1582,7 @@
 				"${BUILT_PRODUCTS_DIR}/YYImage/YYImage.framework",
 				"${BUILT_PRODUCTS_DIR}/ZLPhotoBrowser/ZLPhotoBrowser.framework",
 				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 				"${PODS_XCFRAMEWORKS_BUILD_DIR}/LiveKitWebRTC/LiveKitWebRTC.framework/LiveKitWebRTC",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -1433,6 +1595,12 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DynamicColor.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FDFullscreenPopGesture.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCoreInternal.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseInstallations.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseMessaging.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleDataTransport.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IGListDiffKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IGListKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardCore.framework",
@@ -1454,6 +1622,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NSObject_Rx.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QMUIKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RswiftResources.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
@@ -1474,6 +1643,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZLPhotoBrowser.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LiveKitWebRTC.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1526,10 +1696,27 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		0439CCC62D06F3C900379537 /* Sources */ = {
+		042AD9C52D295B9E00CB5041 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				042AD9CD2D295B9E00CB5041 /* SampleHandler.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		042AD9CF2D295B9E00CB5041 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				042AD9D82D295B9E00CB5041 /* BroadcastSetupViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		048593C02D2BA8AA0095FE0A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				048593C72D2BA8AA0095FE0A /* NotificationService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1698,10 +1885,20 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		0439CCD02D06F3C900379537 /* PBXTargetDependency */ = {
+		042AD9DB2D295B9E00CB5041 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 0439CCC92D06F3C900379537 /* NotificationService */;
-			targetProxy = 0439CCCF2D06F3C900379537 /* PBXContainerItemProxy */;
+			target = 042AD9D22D295B9E00CB5041 /* ScreenShareBroadcastExtensionSetupUI */;
+			targetProxy = 042AD9DA2D295B9E00CB5041 /* PBXContainerItemProxy */;
+		};
+		042AD9DE2D295B9E00CB5041 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 042AD9C82D295B9E00CB5041 /* ScreenShareBroadcastExtension */;
+			targetProxy = 042AD9DD2D295B9E00CB5041 /* PBXContainerItemProxy */;
+		};
+		048593CA2D2BA8AA0095FE0A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 048593C32D2BA8AA0095FE0A /* NotificationService */;
+			targetProxy = 048593C92D2BA8AA0095FE0A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1751,7 +1948,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		0439CCD22D06F3C900379537 /* Debug */ = {
+		042AD9E12D295B9E00CB5041 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1764,7 +1961,182 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = MJ53XF6GM4;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ScreenShareBroadcastExtensionSetupUI/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ScreenShareBroadcastExtensionSetupUI;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 rentsoft. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D ENABLE_MOMENTS -D ENABLE_CALL";
+				PRODUCT_BUNDLE_IDENTIFIER = uniim.com.ScreenShareBroadcastExtensionSetupUI;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		042AD9E22D295B9E00CB5041 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = MJ53XF6GM4;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ScreenShareBroadcastExtensionSetupUI/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ScreenShareBroadcastExtensionSetupUI;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 rentsoft. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D ENABLE_MOMENTS -D ENABLE_CALL";
+				PRODUCT_BUNDLE_IDENTIFIER = uniim.com.ScreenShareBroadcastExtensionSetupUI;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		042AD9E42D295B9E00CB5041 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EA353ED940185D57061D542E /* Pods-ScreenShareBroadcastExtension.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = MJ53XF6GM4;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ScreenShareBroadcastExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ScreenShareBroadcastExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 rentsoft. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D ENABLE_MOMENTS -D ENABLE_CALL";
+				PRODUCT_BUNDLE_IDENTIFIER = uniim.com.ScreenShareBroadcastExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		042AD9E52D295B9E00CB5041 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6169D967D8679239F7608427 /* Pods-ScreenShareBroadcastExtension.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = MJ53XF6GM4;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ScreenShareBroadcastExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ScreenShareBroadcastExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 rentsoft. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D ENABLE_MOMENTS -D ENABLE_CALL";
+				PRODUCT_BUNDLE_IDENTIFIER = uniim.com.ScreenShareBroadcastExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		048593CD2D2BA8AA0095FE0A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1775,8 +2147,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NotificationService/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = NotificationService;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2024 rentsoft. All rights reserved.";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 rentsoft. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1796,7 +2168,7 @@
 			};
 			name = Debug;
 		};
-		0439CCD32D06F3C900379537 /* Release */ = {
+		048593CE2D2BA8AA0095FE0A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1809,7 +2181,6 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1819,8 +2190,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NotificationService/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = NotificationService;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2024 rentsoft. All rights reserved.";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 rentsoft. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1946,6 +2317,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 89B72FCA422C12B8EC8470A1 /* Pods-OpenIMSDKUIKit_Example.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				APPLICATION_EXTENSION_API_ONLY = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -1989,6 +2361,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 00ACE97CD11157EF0EBB4361 /* Pods-OpenIMSDKUIKit_Example.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				APPLICATION_EXTENSION_API_ONLY = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -2030,11 +2403,29 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0439CCD42D06F3C900379537 /* Build configuration list for PBXNativeTarget "NotificationService" */ = {
+		042AD9E02D295B9E00CB5041 /* Build configuration list for PBXNativeTarget "ScreenShareBroadcastExtensionSetupUI" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0439CCD22D06F3C900379537 /* Debug */,
-				0439CCD32D06F3C900379537 /* Release */,
+				042AD9E12D295B9E00CB5041 /* Debug */,
+				042AD9E22D295B9E00CB5041 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		042AD9E32D295B9E00CB5041 /* Build configuration list for PBXNativeTarget "ScreenShareBroadcastExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				042AD9E42D295B9E00CB5041 /* Debug */,
+				042AD9E52D295B9E00CB5041 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		048593CC2D2BA8AA0095FE0A /* Build configuration list for PBXNativeTarget "NotificationService" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				048593CD2D2BA8AA0095FE0A /* Debug */,
+				048593CE2D2BA8AA0095FE0A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

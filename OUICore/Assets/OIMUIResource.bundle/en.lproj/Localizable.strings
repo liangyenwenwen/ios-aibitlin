@@ -133,6 +133,7 @@
 "群公告" = "Group Announcement";
 "该公告会通知全部群成员，是否发布？" = "The announcement will inform all group members. Do you want to publish it?";
 "群成员" = "members";
+"填写群名称" = "Fill in the group name";
 "解散群聊" = "Dissolve Group Chat";
 "退出群聊" = "Quit the Chat";
 "二维码" = "QR code";

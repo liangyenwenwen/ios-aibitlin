@@ -94,9 +94,9 @@ class SingleChatSettingTableViewController: UITableViewController {
         let vc = SelectContactsViewController()
         vc.selectedContact(hasSelected: _viewModel.membesRelay.value.compactMap({ $0.userID })) { [weak self] _, r in
             guard let self else { return }
-            let users = r.map {UserInfo(userID: $0.ID!, nickname: $0.name, faceURL: $0.faceURL)}
-            let vc = NewGroupViewController(users: users, groupType: .working)
-            self.navigationController?.pushViewController(vc, animated: true)
+//            let users = r.map {UserInfo(userID: $0.ID!, nickname: $0.name, faceURL: $0.faceURL)}
+//            let vc = NewGroupViewController(users: users, groupType: .working)
+//            self.navigationController?.pushViewController(vc, animated: true)
         }
         vc.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(vc, animated: true)

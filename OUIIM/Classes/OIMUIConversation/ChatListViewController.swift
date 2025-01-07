@@ -291,16 +291,18 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
         }
         
         let createGroupItem = PopoverTableViewController.MenuItem(title: "创建群聊".localized(), icon: UIImage(named: "chat_menu_create_group_icon")) { [weak self] in
-            let vc = SelectContactsViewController()
-            vc.title = "创建群聊".localized()
-            vc.selectedContact(hasSelected: []) { [weak vc, weak self] (_, r: [ContactInfo]) in
-                guard let sself = self else { return }
-                let users = r.map {UserInfo(userID: $0.ID!, nickname: $0.name, faceURL: $0.faceURL)}
-                let vc = NewGroupViewController(users: users, groupType: .normal)
-                self?.navigationController?.pushViewController(vc, animated: true)
-            }
-            vc.hidesBottomBarWhenPushed = true
+            let vc = NewGroupViewController()
             self?.navigationController?.pushViewController(vc, animated: true)
+//            let vc = SelectContactsViewController()
+//            vc.title = "创建群聊".localized()
+//            vc.selectedContact(hasSelected: []) { [weak vc, weak self] (_, r: [ContactInfo]) in
+//                guard let sself = self else { return }
+//                let users = r.map {UserInfo(userID: $0.ID!, nickname: $0.name, faceURL: $0.faceURL)}
+//                let vc = NewGroupViewController(users: users, groupType: .normal)
+//                self?.navigationController?.pushViewController(vc, animated: true)
+//            }
+//            vc.hidesBottomBarWhenPushed = true
+//            self?.navigationController?.pushViewController(vc, animated: true)
         }
         
         let createWorkGroupItem = PopoverTableViewController.MenuItem(title: "创建大群".innerLocalized(), icon: UIImage(named: "chat_menu_create_work_group_icon")) { [weak self] in
@@ -316,8 +318,8 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
                 let users = r.map {UserInfo(userID: $0.ID!, nickname: $0.name, faceURL: $0.faceURL)}
                 
                 if users.count > 1 {
-                    let vc = NewGroupViewController(users: users, groupType: .working)
-                    self?.navigationController?.pushViewController(vc, animated: true)
+//                    let vc = NewGroupViewController(users: users, groupType: .working)
+//                    self?.navigationController?.pushViewController(vc, animated: true)
                 } else {
                     guard let userID = users.first?.userID else { return }
                     ProgressHUD.animate()
