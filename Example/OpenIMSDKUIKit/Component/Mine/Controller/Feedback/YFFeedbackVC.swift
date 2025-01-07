@@ -334,12 +334,11 @@ extension YFFeedbackVC {
         switch reportType {
         case .chatHistory:
             paramters = [ "beReportedUserId": conversationItem.userID!,
-                          "beReportedUserImg": conversationItem.faceURL ?? "",
-                          "beReportedUserName": SuperStringUtil.getUserShowname(showname: conversationItem.showName!),
                           "reportReason":topTitleView.inputText!,
                          "reportDescription":contentView.textView.text!,
                          "reportImgs": reportImgs,
-                         "reportUserId": IMController.shared.uid]
+                         "reportUserId": IMController.shared.uid,
+                          "complaintType":(conversationItem.groupID ?? "").isEmpty ? "1" : "2"]
         case .user:
             paramters = [ "beReportedUserId": userItem.userID!,
                           "beReportedUserName": SuperStringUtil.getUserShowname(showname: userItem.nickname!),

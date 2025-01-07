@@ -17,15 +17,7 @@ import OpenIMSDK
 
 class YFMineNetViewModel: AccountViewModel {
     
-//    static let API_BLOG_URL = "http://192.168.7.107:18898"
-//    public static let API_BLOG_URL = "http://blog.aibitlin.com:18898"
-    public static let API_BLOG_URL = "https://imblogs.aibitlin.com"
-    
     private static let checkAppVersionAPI = "/version/query"
-    
-    private static let updateUserLanguageAPI = "/audit/userLanguageToken/adduserLanguageToken"
-    private static let addUserLanguageAPI = "/audit/userLanguageToken/adduserLanguageToken"
-        
     
     // MARK: -   IM AIP
     private static let pictureFindAPI = "/picture/find"
@@ -33,7 +25,7 @@ class YFMineNetViewModel: AccountViewModel {
     
     // MARK: -   举报 AIP
     private static let reportUserAddAPI = "/report/reportUser/reportUserAdd"
-    private static let reportChatHistoryAddAPI = "/report/reportChatHistory/reportChatHistoryAdd"
+    private static let reportChatHistoryAddAPI = "/wallet/wallet/complaintAdd"
     private static let feedBackAddAPI = "/report/problemFeedback/problemFeedbackAdd"
     private static let reportComentsAddAPI = "/report/reportCircleOfFriendsAdd"
    func getHttpHeader() -> HTTPHeaders{
@@ -47,31 +39,6 @@ class YFMineNetViewModel: AccountViewModel {
        return httpHeaders
     }
         
-    static func addUserLanguage(uid: String) {
-        
-        let param = ["userLanguage":String.getCurrentLanguageFirst(), "userId": uid, "userToken":IMController.shared.chatToken]
-        let url = SuperStringUtil.netUrl(API_BLOG_URL + addUserLanguageAPI,param)
-        
-            Alamofire.request(url, method: .post,parameters: param, encoding: JSONEncoding.default, headers: getHttpHeader() ).responseJSON { dataRequest in
-                
-                if let data = dataRequest.data {
-                    let strData = String.init(data: data, encoding: String.Encoding.utf8)
-                    if let res = JsonTool.fromJson(strData!, toClass:  YFMineResponse.self) {
-                        
-                        if res.code == 20000  {
-                            let defaults = UserDefaults.standard
-                            defaults.set(String.getCurrentLanguageFirst(), forKey: "blogLanguage\(uid)")
-                        }
-//                        UserDefaults.standard.set("0", forKey: "blogVersion\(Open_im_sdkGetLoginUserID())")
-                    } else {
-                       
-                    }
-                }
-            }
-
-        
-    }
-    
     static func checkAppVersion(uid:String,valueHandler: @escaping ([String:Any]) -> Void){
         let paramters = ["deviceType":"ios", "userID": uid, "ip":IMController.shared.publicIP,"systemVersion":UIDevice.current.systemVersion]
         let url = SuperStringUtil.netUrl(API_BASE_URL + checkAppVersionAPI, paramters)
@@ -84,28 +51,6 @@ class YFMineNetViewModel: AccountViewModel {
                 let errCode = result["errCode"] as! Int
                 if errCode == 0  {
                     valueHandler(data!)
-                }
-            }
-        }
-    }
-    
-    static func updateLanguage(uid: String) {
-        let param = ["userLanguage":String.getCurrentLanguageFirst(), "userId": uid, "userToken":IMController.shared.chatToken]
-        let url = SuperStringUtil.netUrl(API_BLOG_URL + updateUserLanguageAPI, param)
-        
-        Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
-            if let data = dataRequest.data {
-                let strData = String.init(data: data, encoding: String.Encoding.utf8)
-                if let res = JsonTool.fromJson(strData!, toClass:  YFMineResponse.self) {
-                    
-                    if res.code == 20000  {
-                        let defaults = UserDefaults.standard
-                        defaults.set(String.getCurrentLanguageFirst(), forKey: "blogLanguage\(uid)")
-                    }
-                    
-//                    UserDefaults.standard.set("0", forKey: "blogVersion\(Open_im_sdkGetLoginUserID())")
-                } else {
-                   
                 }
             }
         }
@@ -158,13 +103,13 @@ extension YFMineNetViewModel {
         var url = ""
         switch reportType {
             case .user:
-                url = API_BLOG_URL + reportUserAddAPI
+                url = API_BOB_URL + reportUserAddAPI
             case.chatHistory:
-                url = API_BLOG_URL + reportChatHistoryAddAPI
+                url = API_BOB_URL + reportChatHistoryAddAPI
             case .feedback:
-                url = API_BLOG_URL + feedBackAddAPI
+                url = API_BOB_URL + feedBackAddAPI
         case .moments:
-            url = API_BLOG_URL + reportComentsAddAPI
+            url = API_BOB_URL + reportComentsAddAPI
         }
         
         
