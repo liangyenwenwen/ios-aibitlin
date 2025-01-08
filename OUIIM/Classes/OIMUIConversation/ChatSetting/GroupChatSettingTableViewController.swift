@@ -106,6 +106,7 @@ class GroupChatSettingTableViewController: UITableViewController {
             [.groupAnnounce],
             [.myNameInGroup],
             [.setTopOn, .setDisturbOn],
+            [.report],
             [.regularlyDelete],
             [.clearRecord, .quitGroup],
         ]
@@ -117,6 +118,7 @@ class GroupChatSettingTableViewController: UITableViewController {
             [.groupAnnounce],
             [.myNameInGroup],
             [.setTopOn, .setDisturbOn],
+            [.report],
             [.regularlyDelete],
             [.clearRecord, .quitGroup],
         ]
@@ -176,7 +178,7 @@ class GroupChatSettingTableViewController: UITableViewController {
         _viewModel.regularlyDeleteRelay.subscribe(onNext: { [weak self] on in
             guard let self else { return }
             
-            let index = self._viewModel.isInGroupRelay.value ? 6 : 4
+            let index = self._viewModel.isInGroupRelay.value ? 7 : 5
             
             if on {
                 self.sectionItems[index] = [.regularlyDelete, .regularlyDuration]
@@ -463,7 +465,7 @@ class GroupChatSettingTableViewController: UITableViewController {
                 self?.navigationController?.pushViewController(vc, animated: true)
             }).disposed(by: cell.disposeBag)
             return cell
-        case .groupAnnounce, .manage, .clearRecord:
+        case .groupAnnounce, .manage, .clearRecord,.report:
             let cell = tableView.dequeueReusableCell(withIdentifier: OptionTableViewCell.className, for: indexPath) as! OptionTableViewCell
             cell.titleLabel.text = rowType.title
             return cell
@@ -580,6 +582,13 @@ class GroupChatSettingTableViewController: UITableViewController {
                     }
                 })
             }
+        case .report:
+            if let handler = OIMApi.reportChatGroupHandle {
+                
+                handler(self, _viewModel.conversation, { res in
+                    
+                })
+            }
         case .quitGroup:
             if !_viewModel.isInGroupRelay.value {
                 ProgressHUD.animate()
@@ -632,6 +641,7 @@ class GroupChatSettingTableViewController: UITableViewController {
         case quitGroup
         case regularlyDelete
         case regularlyDuration
+        case report
         
         var title: String {
             switch self {
@@ -659,6 +669,8 @@ class GroupChatSettingTableViewController: UITableViewController {
                 return "定期删除".innerLocalized()
             case .regularlyDuration:
                 return "定期删除时长设置".innerLocalized()
+            case .report:
+                return "举报".innerLocalized()
             }
         }
     }

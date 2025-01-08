@@ -28,6 +28,9 @@ public typealias getUserMessageHandle = ((_  userID: String, _ completion: @esca
 
 public typealias reportMomentsHandle = ((_ currentVC: UIViewController,_  reportUserID: String,_ commentID:String, _ completion: @escaping ((String) -> Void)) -> Void)
 
+public typealias reportChatGroupHandle = ((_ currentVC: UIViewController,_  conversationInfo: ConversationInfo, _ completion: @escaping ((String) -> Void)) -> Void)
+
+
 //转账
 public typealias gotoBoBTransferAccountsHandle = ((_ currentVC: UIViewController, _ address: String ,_ completion: @escaping ((String) -> Void)) -> Void)
 
@@ -198,6 +201,7 @@ public class OIMApi {
     public static var addFriendhandle: addFriendhandle?
     public static var updateConversationEx: updateConversationEx?
     public static var reportMomentsHandle: reportMomentsHandle?
+    public static var reportChatGroupHandle:reportChatGroupHandle?
     
     public static var getUserMessageHandle: getUserMessageHandle?
     

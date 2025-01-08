@@ -96,6 +96,13 @@ extension AccountViewModel {
             feedbackVC.commentID = commentID
             vc.gotoController(feedbackVC)
         }
+        OIMApi.reportChatGroupHandle = {(vc, conversationInfo, completion: @escaping (String) -> Void) in
+            let feedbackVC = YFFeedbackVC()
+            feedbackVC.reportType = .chatHistory
+            feedbackVC.conversationItem = conversationInfo
+            feedbackVC.hidesBottomBarWhenPushed = true
+            vc.gotoController(feedbackVC)
+        }
         //扫码去外部转账
         OIMApi.gotoBoBTransferAccountsHandle = {(vc, address, completion: @escaping (String) -> Void) in
             let boBTransferAccountsVC = BoBTransferAccountsViewController()
