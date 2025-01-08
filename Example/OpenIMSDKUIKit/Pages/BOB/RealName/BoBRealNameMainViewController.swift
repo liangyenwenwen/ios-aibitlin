@@ -102,8 +102,12 @@ class BoBRealNameMainViewController:UIViewController{
         r.titleLabel?.font = UIFont(name: "PingFangSC-Medium", size: 16)
         r.hide()
         r.rx.tap.subscribe(onNext: { [self] in
-            let vc = BoBPrimaryRealNameViewController()
+//            let vc = BoBPrimaryRealNameViewController()
+//            self.navigationController?.pushViewController(vc, animated: true)
+            
+            let vc = BoBAdvancedRealNameViewController()
             self.navigationController?.pushViewController(vc, animated: true)
+            
         }).disposed(by: rx.disposeBag)
         return r
     }()

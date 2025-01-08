@@ -131,6 +131,7 @@
 		04484EDC2CF847B700893E4C /* BoBTransferAccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04484EDB2CF847B700893E4C /* BoBTransferAccountsViewController.swift */; };
 		045B8BF72BF4496D0094E080 /* MineChooseBottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045B8BF62BF4496C0094E080 /* MineChooseBottomSheetView.swift */; };
 		045B8BF92BF481AF0094E080 /* UserMessageBottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045B8BF82BF481AF0094E080 /* UserMessageBottomSheetView.swift */; };
+		046A61072D2E4E2C00A1561D /* BoBAdvancedRealNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046A61062D2E4E2C00A1561D /* BoBAdvancedRealNameViewController.swift */; };
 		047753C62BFDCD27006DBFD3 /* YFTranslateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047753C52BFDCD27006DBFD3 /* YFTranslateVC.swift */; };
 		047BF6B62CA2B6DF00706117 /* YFFileDataUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047BF6B52CA2B6DF00706117 /* YFFileDataUtil.swift */; };
 		0481726D2CF89790007A2920 /* BoBChooseCionTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0481726C2CF89790007A2920 /* BoBChooseCionTypeView.swift */; };
@@ -408,6 +409,7 @@
 		04585F912CCFB4D900BFA8E8 /* customSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = customSound.mp3; sourceTree = "<group>"; };
 		045B8BF62BF4496C0094E080 /* MineChooseBottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineChooseBottomSheetView.swift; sourceTree = "<group>"; };
 		045B8BF82BF481AF0094E080 /* UserMessageBottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMessageBottomSheetView.swift; sourceTree = "<group>"; };
+		046A61062D2E4E2C00A1561D /* BoBAdvancedRealNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBAdvancedRealNameViewController.swift; sourceTree = "<group>"; };
 		046D26942BFF255F00FEA10F /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/Main.strings; sourceTree = "<group>"; };
 		046D26952BFF255F00FEA10F /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		047753C52BFDCD27006DBFD3 /* YFTranslateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFTranslateVC.swift; sourceTree = "<group>"; };
@@ -1338,6 +1340,7 @@
 				04EFEA722CED8401004441CB /* View */,
 				04EFEA702CED7F1C004441CB /* BoBRealNameMainViewController.swift */,
 				04EFEA6E2CED7C69004441CB /* BoBPrimaryRealNameViewController.swift */,
+				046A61062D2E4E2C00A1561D /* BoBAdvancedRealNameViewController.swift */,
 			);
 			path = RealName;
 			sourceTree = "<group>";
@@ -1905,7 +1908,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$SRCROOT/R.generated.swift",
+				$SRCROOT/R.generated.swift,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2217,6 +2220,7 @@
 				0445C9082CFDA79900D1FD34 /* JXPagingView.swift in Sources */,
 				0411DD272C05CCB800EDD135 /* SuperDialogController.swift in Sources */,
 				047753C62BFDCD27006DBFD3 /* YFTranslateVC.swift in Sources */,
+				046A61072D2E4E2C00A1561D /* BoBAdvancedRealNameViewController.swift in Sources */,
 				040D85F32BEB8C0B00DCAAB3 /* DetailResponse.swift in Sources */,
 				04D2E2082CBE4E5500582B13 /* UIScrollView+Empty.swift in Sources */,
 				040D86042BEB8C4200DCAAB3 /* ObserveableMoyaExtension.swift in Sources */,
@@ -2696,7 +2700,7 @@
 				CODE_SIGN_ENTITLEMENTS = OpenIMSDKUIKit_Example.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = MJ53XF6GM4;
 				ENABLE_BITCODE = NO;
 				EXCLUDED_ARCHS = "";
@@ -2740,7 +2744,7 @@
 				CODE_SIGN_ENTITLEMENTS = OpenIMSDKUIKit_Example.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = MJ53XF6GM4;
 				ENABLE_BITCODE = NO;
 				EXCLUDED_ARCHS = "";

@@ -180,11 +180,11 @@ class YFAibitlinHome: BaseLogicController {
             
             let language = String.getCurrentLanguage()
             if language.starts(with: "zh")  {
-                SuperWebController.start((self?.navigationController!)!, uri: "http://134.122.184.87/#/pages/privacy/index?lang=zh")
+                SuperWebController.start((self?.navigationController!)!, uri: "http://dt-im.com/#/pages/privacy/index?lang=zh")
             } else if language.starts(with: "th"){
-                SuperWebController.start((self?.navigationController!)!, uri: "http://134.122.184.87/#/pages/privacy/index?lang=Thai")
+                SuperWebController.start((self?.navigationController!)!, uri: "http://dt-im.com/#/pages/privacy/index?lang=Thai")
             } else {
-                SuperWebController.start((self?.navigationController!)!, uri: "http://134.122.184.87/#/pages/privacy/index?lang=en")
+                SuperWebController.start((self?.navigationController!)!, uri: "http://dt-im.com/#/pages/privacy/index?lang=en")
             }
             
 
@@ -195,11 +195,11 @@ class YFAibitlinHome: BaseLogicController {
 
             let language = String.getCurrentLanguage()
             if language.starts(with: "zh")  {
-                SuperWebController.start((self?.navigationController!)!, uri: "http://134.122.184.87/#/pages/registration/index?lang=zh")
+                SuperWebController.start((self?.navigationController!)!, uri: "http://dt-im.com/#/pages/registration/index?lang=zh")
             } else if language.starts(with: "th"){
-                SuperWebController.start((self?.navigationController!)!, uri: "http://134.122.184.87/#/pages/registration/index?lang=Thai")
+                SuperWebController.start((self?.navigationController!)!, uri: "http://dt-im.com/#/pages/registration/index?lang=Thai")
             } else {
-                SuperWebController.start((self?.navigationController!)!, uri: "http://134.122.184.87/#/pages/registration/index?lang=en")
+                SuperWebController.start((self?.navigationController!)!, uri: "http://dt-im.com/#/pages/registration/index?lang=en")
             }
         }
        

@@ -114,11 +114,11 @@ class MineSettingVC: BaseTitleController {
         let r = SuperSettingView.create(icon: R.image.mine_delegate_icon()!, title: "PoliciesAndTerms".localized(), click: { [weak self] data in
             let language = String.getCurrentLanguage()
             if language.starts(with: "zh")  {
-                SuperWebController.start((self?.navigationController!)!, uri: "http://134.122.184.87/#/pages/privacy/index?lang=zh")
+                SuperWebController.start((self?.navigationController!)!, uri: "http://dt-im.com/#/pages/privacy/index?lang=zh")
             } else if language.starts(with: "th"){
-                SuperWebController.start((self?.navigationController!)!, uri: "http://134.122.184.87/#/pages/privacy/index?lang=Thai")
+                SuperWebController.start((self?.navigationController!)!, uri: "http://dt-im.com/#/pages/privacy/index?lang=Thai")
             } else {
-                SuperWebController.start((self?.navigationController!)!, uri: "http://134.122.184.87/#/pages/privacy/index?lang=en")
+                SuperWebController.start((self?.navigationController!)!, uri: "http://dt-im.com/#/pages/privacy/index?lang=en")
             }
         })
         r.isMediumFont()

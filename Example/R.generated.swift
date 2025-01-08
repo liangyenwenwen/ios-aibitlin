@@ -3794,7 +3794,7 @@ struct _R: Sendable {
     var colorBackground: RswiftResources.ColorResource { .init(name: "ColorBackground", path: [], bundle: bundle) }
   }
 
-  /// This `_R.image` struct is generated, and contains static references to 314 images.
+  /// This `_R.image` struct is generated, and contains static references to 319 images.
   struct image {
     let bundle: Foundation.Bundle
 
@@ -4619,6 +4619,21 @@ struct _R: Sendable {
 
     /// Image `real_name_front_IdCard`.
     var real_name_front_IdCard: RswiftResources.ImageResource { .init(name: "real_name_front_IdCard", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `real_name_record_video_bg_icon`.
+    var real_name_record_video_bg_icon: RswiftResources.ImageResource { .init(name: "real_name_record_video_bg_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `real_name_record_video_bottom_bg_icon`.
+    var real_name_record_video_bottom_bg_icon: RswiftResources.ImageResource { .init(name: "real_name_record_video_bottom_bg_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `real_name_record_video_flip_icon`.
+    var real_name_record_video_flip_icon: RswiftResources.ImageResource { .init(name: "real_name_record_video_flip_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `real_name_record_video_start_icon`.
+    var real_name_record_video_start_icon: RswiftResources.ImageResource { .init(name: "real_name_record_video_start_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `real_name_record_video_stop_icon`.
+    var real_name_record_video_stop_icon: RswiftResources.ImageResource { .init(name: "real_name_record_video_stop_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
     /// Image `real_name_top_icon`.
     var real_name_top_icon: RswiftResources.ImageResource { .init(name: "real_name_top_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }

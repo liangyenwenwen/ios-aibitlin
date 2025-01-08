@@ -296,27 +296,36 @@ class UserMessageVC: BaseTitleController {
     
     
     func getOtherSetting() {
-        IMController.shared.getUserInfo(uids: [userID], groupID: nil) { [self] users in
-            guard let sdkUser = users.first else { return }
-//            userInfoRelay.accept(sdkUser)
-            
-            if let handler = OIMApi.queryUsersInfoWithCompletionHandler, userID != IMController.shared.uid {
-                handler([userID], { [weak self] users in
-                    guard let self else { return }
-                    
-                    if let chatUser = users.first {
-                        isFriend = !(chatUser.allowAddFriend == 1 && sdkUser != nil)
-                        
-                        if isFriend == false {
-                            self.footerBtnView.setStyle(.sendMessageAndAttention)
-                        } else {
-                            self.footerBtnView.setStyle(.sendMessage)
-                        }
-
-                    }
-                })
+        IMController.shared.checkFriend(userID: userID) {[weak self] friend in
+            self?.isFriend = friend
+            if self?.isFriend == false {
+                self?.footerBtnView.setStyle(.sendMessageAndAttention)
+            } else {
+                self?.footerBtnView.setStyle(.sendMessage)
             }
         }
+        
+//        IMController.shared.getUserInfo(uids: [userID], groupID: nil) { [self] users in
+//            guard let sdkUser = users.first else { return }
+////            userInfoRelay.accept(sdkUser)
+//            
+//            if let handler = OIMApi.queryUsersInfoWithCompletionHandler, userID != IMController.shared.uid {
+//                handler([userID], { [weak self] users in
+//                    guard let self else { return }
+//                    
+//                    if let chatUser = users.first {
+//                        isFriend = !(chatUser.allowAddFriend == 1 && sdkUser != nil)
+//                        
+//                        if isFriend == false {
+//                            self.footerBtnView.setStyle(.sendMessageAndAttention)
+//                        } else {
+//                            self.footerBtnView.setStyle(.sendMessage)
+//                        }
+//
+//                    }
+//                })
+//            }
+//        }
     }
     deinit {
         NotificationCenter.default.removeObserver(self)
