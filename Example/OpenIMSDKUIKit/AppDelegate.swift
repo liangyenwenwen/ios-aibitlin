@@ -52,13 +52,13 @@ let sdkWSRoute = ""
 //let defaultIMAddress = "192.168.7.126"
 //let defaultAdminAddress = "192.168.7.126"
 
-let defaultAppAddress = "192.168.7.16"
-let defaultIMAddress = "192.168.7.16"
-let defaultAdminAddress = "192.168.7.16"
+//let defaultAppAddress = "192.168.7.16"
+//let defaultIMAddress = "192.168.7.16"
+//let defaultAdminAddress = "192.168.7.16"
 
-//let defaultAppAddress = "134.122.184.87"
-//let defaultIMAddress = "134.122.184.87"
-//let defaultAdminAddress = "134.122.184.87"
+let defaultAppAddress = "134.122.184.87"
+let defaultIMAddress = "134.122.184.87"
+let defaultAdminAddress = "134.122.184.87"
 
 //let defaultAppAddress = "192.168.7.109"
 //let defaultIMAddress = "192.168.7.109"
@@ -300,7 +300,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     // MARK: - MessagingDelegate
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-            print("接收到新的FCM注册令牌: \(fcmToken)")
+        print("接收到新的FCM注册令牌: \(fcmToken ?? "")")
         if IMController.shared.uid != ""{
             updateFcmToken(token:fcmToken ?? "")
         }
