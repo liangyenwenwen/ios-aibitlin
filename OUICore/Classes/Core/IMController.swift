@@ -1432,7 +1432,7 @@ extension IMController {
     }
     
     public func setRegularlyDelete(conversationID: String, isMsgDestruct: Bool, onSuccess: @escaping CallBack.StringOptionalReturnVoid) {
-#if ENABLE_MOMENTS || ENABLE_CALL
+#if ENABLE_CALL
         Self.shared.imManager.setConversationIsMsgDestruct(conversationID, isMsgDestruct: isMsgDestruct, onSuccess: onSuccess) { code, msg in
             print("设置定时删除失败:\(code), .msg:\(msg)")
             onSuccess(nil)
@@ -1441,7 +1441,7 @@ extension IMController {
     }
     
     public func setRegularlyDuration(conversationID: String, duration: Int, onSuccess: @escaping CallBack.StringOptionalReturnVoid) {
-#if ENABLE_MOMENTS || ENABLE_CALL
+#if ENABLE_CALL
         Self.shared.imManager.setConversationMsgDestructTime(conversationID, msgDestructTime: duration, onSuccess: onSuccess) { code, msg in
             print("设置定时删除时长失败:\(code), .msg:\(msg)")
             onSuccess(nil)
@@ -2875,7 +2875,7 @@ extension OIMConversationInfo {
         item.burnDuration = burnDuration
         item.isNotInGroup = isNotInGroup
         item.groupAtType = GroupAtType(rawValue: groupAtType.rawValue)!
-#if ENABLE_MOMENTS || ENABLE_CALL
+#if ENABLE_CALL
         item.isMsgDestruct = isMsgDestruct
         item.msgDestructTime = msgDestructTime
 #endif

@@ -7,9 +7,6 @@ import Localize_Swift
 import OUIOrganization
 #endif
 
-#if ENABLE_MOMENTS
-import OUIMoments
-#endif
 
 // MARK: -   原通讯录
 
@@ -181,40 +178,6 @@ public class ContactsViewController: UITableViewController {
             var v = UIStackView(arrangedSubviews: arrangedViews)
             v.axis = .vertical
             v.bounds = CGRect(x: 0, y: 0, width: kScreenWidth, height: rowHeight * 4.0 + 16)
-            
-#if ENABLE_MOMENTS
-            let momentsCell: ContactsEntranceTableViewCell = {
-                let v = getEntranceCell()
-                let value = EntranceCellType.moments
-                v.avatarImageView.image = value.iconImage
-                v.titleLabel.text = value.title
-                v.badgeLabel.isHidden = true
-                let tap = UITapGestureRecognizer()
-                tap.rx.event.subscribe(onNext: { [weak self] _ in
-                    let vc = MomentsViewController()
-                    vc.hidesBottomBarWhenPushed = true
-                    self?.navigationController?.pushViewController(vc, animated: true)
-                }).disposed(by: _disposeBag)
-                v.addGestureRecognizer(tap)
-                return v
-            }()
-            
-            let spacer2 = UIView()
-            spacer2.backgroundColor = .clear
-            
-            arrangedViews = [newFriendCell, groupNotiCell, spacer, myFriendCell, myGroupCell, spacer2, momentsCell]
-            v = UIStackView(arrangedSubviews: arrangedViews)
-            v.axis = .vertical
-            v.bounds = CGRect(x: 0, y: 0, width: kScreenWidth, height: rowHeight * 5.0 + 2 * 16)
-            
-            momentsCell.snp.makeConstraints { make in
-                make.height.equalTo(rowHeight)
-            }
-            spacer2.snp.makeConstraints { make in
-                make.height.equalTo(16)
-            }
-#endif
-            
             return v
         }()
 

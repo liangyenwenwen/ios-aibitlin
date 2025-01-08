@@ -1,6 +1,0 @@
-framework module OUIMoments {
-  umbrella header "OUIMoments-umbrella.h"
-
-  export *
-  module * { export * }
-}

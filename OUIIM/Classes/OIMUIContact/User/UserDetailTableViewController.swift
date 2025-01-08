@@ -7,9 +7,7 @@ import RxSwift
 import OUICalling
 #endif
 
-#if ENABLE_MOMENTS
-import OUIMoments
-#endif
+
 
 enum UserDetailFor {
     case groupMemberInfo
@@ -296,9 +294,6 @@ class UserDetailTableViewController: UIViewController {
             if !sself.rowItems.contains(.profile) {
                 sself.rowItems.append(.spacer)
                 sself.rowItems.append(.profile)
-#if ENABLE_MOMENTS
-                sself.rowItems.append(.moments)
-#endif
                 if (!sself._viewModel.isMine) {
                     sself.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis"), style: .plain, target: self, action: #selector(sself.rightButtonAction))
                 }
@@ -338,9 +333,6 @@ class UserDetailTableViewController: UIViewController {
             
             sself.rowItems.append(.spacer)
             sself.rowItems.append(.profile)
-#if ENABLE_MOMENTS
-            sself.rowItems.append(.moments)
-#endif
             
             sself._tableView.reloadData()
         }).disposed(by: _disposeBag)
@@ -399,7 +391,7 @@ extension UserDetailTableViewController: UITableViewDataSource, UITableViewDeleg
         cell.accessoryType = .none
         cell.subtitleLabel.textAlignment = .left
 
-        if rowType == .profile || rowType == .moments {
+        if rowType == .profile {
             cell.titleLabel.text = rowType.title
             cell.accessoryType = .disclosureIndicator
         } else if rowType == .organization {
@@ -452,12 +444,6 @@ extension UserDetailTableViewController: UITableViewDataSource, UITableViewDeleg
         case .profile:
             let vc = ProfileTableViewController(userID: _viewModel.userId)
             navigationController?.pushViewController(vc, animated: true)
-        case .moments:
-#if ENABLE_MOMENTS
-            guard let user = try? _viewModel.userInfoRelay.value() else { return }
-            let vc = OthersViewController(userID: user.userID!, nickname: user.showName ?? "", faceURL: user.faceURL)
-            navigationController?.pushViewController(vc, animated: true)
-#endif
         case .nickName, .joinTime, .joinSource, .setAdmin: break
         case .mute:
             guard let groupID = _viewModel.groupId else { return }
@@ -495,7 +481,6 @@ extension UserDetailTableViewController: UITableViewDataSource, UITableViewDeleg
         case organization
         case profile
         case spacer
-        case moments
         
         var title: String {
             switch self {
@@ -513,8 +498,6 @@ extension UserDetailTableViewController: UITableViewDataSource, UITableViewDeleg
                 return "组织信息".innerLocalized()
             case .profile:
                 return "个人资料".innerLocalized()
-            case .moments:
-                return "查看动态".innerLocalized()
             case .spacer:
                 return ""
             }

@@ -1969,9 +1969,6 @@
 				"${BUILT_PRODUCTS_DIR}/DifferenceKit/DifferenceKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
 				"${BUILT_PRODUCTS_DIR}/DynamicColor/DynamicColor.framework",
-				"${BUILT_PRODUCTS_DIR}/FDFullscreenPopGesture/FDFullscreenPopGesture.framework",
-				"${BUILT_PRODUCTS_DIR}/IGListDiffKit/IGListDiffKit.framework",
-				"${BUILT_PRODUCTS_DIR}/IGListKit/IGListKit.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardCore/IQKeyboardCore.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardNotification/IQKeyboardNotification.framework",
@@ -2022,9 +2019,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DifferenceKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DynamicColor.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FDFullscreenPopGesture.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IGListDiffKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IGListKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardNotification.framework",
@@ -2445,7 +2439,7 @@
 				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D ENABLE_MOMENTS -D ENABLE_CALL";
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D ENABLE_CALL";
 				PRODUCT_BUNDLE_IDENTIFIER = octim.com.ScreenShareBroadcastExtensionSetupUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -2488,7 +2482,7 @@
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
-				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D ENABLE_MOMENTS -D ENABLE_CALL";
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D ENABLE_CALL";
 				PRODUCT_BUNDLE_IDENTIFIER = octim.com.ScreenShareBroadcastExtensionSetupUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -2533,7 +2527,7 @@
 				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D ENABLE_MOMENTS -D ENABLE_CALL";
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D ENABLE_CALL";
 				PRODUCT_BUNDLE_IDENTIFIER = octim.com.ScreenShareBroadcastExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -2577,7 +2571,7 @@
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
-				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D ENABLE_MOMENTS -D ENABLE_CALL";
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D ENABLE_CALL";
 				PRODUCT_BUNDLE_IDENTIFIER = octim.com.ScreenShareBroadcastExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -2718,7 +2712,7 @@
 				);
 				MARKETING_VERSION = 1.0.0;
 				MODULE_NAME = ExampleApp;
-				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D ENABLE_MOMENTS -D ENABLE_CALL";
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D ENABLE_CALL";
 				PRODUCT_BUNDLE_IDENTIFIER = octim.com;
 				PRODUCT_NAME = "IM-NCER";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2762,7 +2756,7 @@
 				);
 				MARKETING_VERSION = 1.0.0;
 				MODULE_NAME = ExampleApp;
-				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D ENABLE_MOMENTS -D ENABLE_CALL";
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D ENABLE_CALL";
 				PRODUCT_BUNDLE_IDENTIFIER = octim.com;
 				PRODUCT_NAME = "IM-NCER";
 				PROVISIONING_PROFILE_SPECIFIER = "";

@@ -10,9 +10,7 @@ import MJExtension
 import IQKeyboardManagerSwift
 import GTSDK
 import Alamofire
-#if ENABLE_MOMENTS
-import OUIMoments
-#endif
+
 
 #if ENABLE_CALL
 import OUICalling

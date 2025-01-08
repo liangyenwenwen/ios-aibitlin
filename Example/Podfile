@@ -10,7 +10,7 @@ target 'OpenIMSDKUIKit_Example' do
   pod 'OUICalling', :path => '../'
   pod 'OUILive', :path => '../'
 #  pod 'OUIOrganization', :path => '../'
-  pod 'OUIMoments', :path => '../'
+#  pod 'OUIMoments', :path => '../'
   pod 'OpenIMSDK', :path => '../OpenIMSDK'
   pod 'ISEmojiView', :path => '../3rd'
   pod 'InputBarAccessoryView', :path => '../3rd'
@@ -66,7 +66,7 @@ post_install do |installer|
     app_project.native_targets.each do |target|
         target.build_configurations.each do |config|
           config.build_settings['OTHER_SWIFT_FLAGS'] = ['$(inherited)', '-D', 'COCOAPODS',
-          '-D', 'ENABLE_MOMENTS', #开启朋友圈
+#          '-D', 'ENABLE_MOMENTS', #开启朋友圈
           '-D', 'ENABLE_CALL'
           ]
         end
@@ -87,7 +87,7 @@ post_install do |installer|
           if target.name == 'OUIIM'
             config.build_settings['OTHER_SWIFT_FLAGS'] = ['$(inherited)',
             '-D', 'COCOAPODS',
-            '-D', 'ENABLE_MOMENTS',
+#            '-D', 'ENABLE_MOMENTS',
             '-D', 'ENABLE_CALL', # 开启音视频
             '-D', 'ENABLE_LIVE_ROOM' # 开启会议
 #            '-D', 'ENABLE_ORGANIZATION', # 开启组织架构

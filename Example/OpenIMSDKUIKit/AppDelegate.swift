@@ -75,7 +75,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     private let _disposeBag = DisposeBag();
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-
         IQKeyboardManager.shared.enable = true
         
         NothingToSeeHere.harmlessFunction()
@@ -142,7 +141,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         NetworkActivityLogger.shared.level = .debug
         NetworkActivityLogger.shared.startLogging()
 
-        let language = Localize.currentLanguage()
+//        let language = Localize.currentLanguage()
+        let language = "zh-Hans"
         Localize.setCurrentLanguage(language)
         
         // 主要配置这里，注意http 与 https、 ws 与 wss之分，IP 用端口， 域名用路由

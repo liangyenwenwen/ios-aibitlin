@@ -37,7 +37,7 @@ class MineSettingVC: BaseTitleController {
         container.addSubview(topContentView)
         topContentView.addSubview(userMessageView)
         topContentView.addSubview(accountAndSafeView)
-        topContentView.addSubview(changeLanguageView)
+//        topContentView.addSubview(changeLanguageView)
         topContentView.addSubview(privateView)
         topContentView.addSubview(privateDeletegeView)
         
@@ -52,7 +52,7 @@ class MineSettingVC: BaseTitleController {
         
         userMessageView.titleView.text = "MyProfile".localized()
         accountAndSafeView.titleView.text = "AccountAndSecurity".localized()
-        changeLanguageView.titleView.text = "语言和地区".localized()
+//        changeLanguageView.titleView.text = "语言和地区".localized()
         privateView.titleView.text = "PersonalPrivacy".localized()
         privateDeletegeView.titleView.text = "PoliciesAndTerms".localized()
         

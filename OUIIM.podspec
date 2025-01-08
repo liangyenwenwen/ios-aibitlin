@@ -44,7 +44,7 @@ Pod::Spec.new do |s|
 
   s.dependency 'ISEmojiView'
   
-  s.dependency 'OUIMoments'
+#  s.dependency 'OUIMoments'
   s.dependency 'OUICalling'
   s.dependency 'OUILive'
   # s.dependency 'OUIOrganization'

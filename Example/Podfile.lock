@@ -21,12 +21,8 @@ PODS:
     - DifferenceKit/Core
   - Differentiator (5.0.0)
   - DynamicColor (5.0.1)
-  - FDFullscreenPopGesture (1.1)
   - GTSDK (2.7.1.0-noidfa):
     - ZXSDK-Noidfa
-  - IGListDiffKit (4.0.0)
-  - IGListKit (4.0.0):
-    - IGListDiffKit (= 4.0.0)
   - InputBarAccessoryView (6.3.0):
     - InputBarAccessoryView/Core (= 6.3.0)
   - InputBarAccessoryView/Core (6.3.0)
@@ -170,7 +166,6 @@ PODS:
     - OUICore
     - OUICoreView
     - OUILive
-    - OUIMoments
     - ProgressHUD
     - RxRelay
     - RxSwift
@@ -181,13 +176,6 @@ PODS:
     - OUICore
     - OUICoreView
     - SwiftProtobuf
-  - OUIMoments (0.0.1):
-    - FDFullscreenPopGesture (= 1.1)
-    - IGListKit (= 4.0.0)
-    - MJRefresh
-    - OUICore
-    - OUICoreView
-    - ZLPhotoBrowser
   - ProgressHUD (14.1.3)
   - QMUIKit (4.5.1):
     - QMUIKit/QMUIComponents (= 4.5.1)
@@ -583,7 +571,6 @@ DEPENDENCIES:
   - OUICoreView (from `../`)
   - OUIIM (from `../`)
   - OUILive (from `../`)
-  - OUIMoments (from `../`)
   - ProgressHUD (from `https://github.com/std-s/ProgressHUD.git`)
   - QMUIKit (= 4.5.1)
   - R.swift
@@ -607,10 +594,7 @@ SPEC REPOS:
     - DifferenceKit
     - Differentiator
     - DynamicColor
-    - FDFullscreenPopGesture
     - GTSDK
-    - IGListDiffKit
-    - IGListKit
     - IQKeyboardCore
     - IQKeyboardManagerSwift
     - IQKeyboardNotification
@@ -666,8 +650,6 @@ EXTERNAL SOURCES:
     :path: "../"
   OUILive:
     :path: "../"
-  OUIMoments:
-    :path: "../"
   ProgressHUD:
     :git: https://github.com/std-s/ProgressHUD.git
   ZFPlayer:
@@ -689,10 +671,7 @@ SPEC CHECKSUMS:
   DifferenceKit: ab185c4d7f9cef8af3fcf593e5b387fb81e999ca
   Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
   DynamicColor: d049834ef86d8ecf150b0ca1ebe54ee733a0ec22
-  FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
   GTSDK: 4ad19708180f6ff6aa7650d07f5b57698bb4445f
-  IGListDiffKit: 665d6cf43ce726e676013db9c7d6c4294259b6b2
-  IGListKit: fd5a5d21935298f5849fa49d426843cff97b77c7
   InputBarAccessoryView: 55a728753108bdba75a036ffe8db291abae5910e
   IQKeyboardCore: 28c8bf3bcd8ba5aa1570b318cbc4da94b861711e
   IQKeyboardManagerSwift: 12d6ae3632ef744ccd033c048b566af13cc10d49
@@ -717,9 +696,8 @@ SPEC CHECKSUMS:
   OUICalling: bd237be3bf620c82b8d20c80dea9c5543982391e
   OUICore: 1b287e9a7ab2ee02c869689e7a8771abbae4a82b
   OUICoreView: 138ee547a1285df05966960bf0043b72111fd921
-  OUIIM: 646a1e30fb209d2ff4f4c5442575ab69b1399d4c
+  OUIIM: 1c24e3ca2da0a3e569b738f9b428dabc42462f68
   OUILive: 87ba2f5d337f3b7eb33a7fde0076294f1d0e1d39
-  OUIMoments: a6a2a9c584dc0bdd0f98ac1e9fc20c2841c43308
   ProgressHUD: b736f0c6de97f37f64e847f80689c23a14026adf
   QMUIKit: 3e717c45730ecdf5011ca76751990ad1a23ba7e1
   R.swift: 33e7082885d0c0bac7ae20ef7d2845a6a920ca11
@@ -743,6 +721,6 @@ SPEC CHECKSUMS:
   ZLPhotoBrowser: cd023607d05a72d27a3ae57f50dbf86910713a2c
   ZXSDK-Noidfa: f3cc8e4b6b4775df301489ae0792b727e193e7d3
 
-PODFILE CHECKSUM: 6fe2d55a46f446bd4fc2d740a83eecdfcfd0ae2c
+PODFILE CHECKSUM: bbd3496c83559c551250de9f3dc3565380bca165
 
 COCOAPODS: 1.15.2

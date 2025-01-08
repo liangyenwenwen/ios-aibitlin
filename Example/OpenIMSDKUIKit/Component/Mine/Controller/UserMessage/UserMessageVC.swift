@@ -15,9 +15,7 @@ import OpenIMSDK
 import NSObject_Rx
 import ProgressHUD
 
-#if ENABLE_MOMENTS
-import OUIMoments
-#endif
+
 
 class UserMessageVC: BaseTitleController {
 

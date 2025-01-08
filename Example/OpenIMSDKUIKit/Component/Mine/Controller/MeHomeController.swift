@@ -12,9 +12,6 @@ import UIKit
 import RxCocoa
 import NSObject_Rx
 
-#if ENABLE_MOMENTS
-import OUIMoments
-#endif
 
 class MeHomeController: BaseLogicController {
     private let _viewModel = MineViewModel()

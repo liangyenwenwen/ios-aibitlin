@@ -158,36 +158,6 @@
             endingLineNumber = "304"
             landmarkName = "pushLocalNotification(_:_:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "0F87020F-AB98-4BEC-B652-842AD09A81FC - e6065e82a4a0aacf"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "IM_NCER.AppDelegate.pushLocalNotification(Swift.String, Swift.Dictionary&lt;Swift.AnyHashable, Any&gt;) -&gt; ()"
-                  moduleName = "IM-NCER"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/%E9%A1%B9%E7%9B%AE/Example/OpenIMSDKUIKit/AppDelegate.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "304"
-                  endingLineNumber = "304">
-               </Location>
-               <Location
-                  uuid = "0F87020F-AB98-4BEC-B652-842AD09A81FC - 5d7c9407ceb93ff3"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;Swift.Error&gt;) -&gt; () in IM_NCER.AppDelegate.pushLocalNotification(Swift.String, Swift.Dictionary&lt;Swift.AnyHashable, Any&gt;) -&gt; ()"
-                  moduleName = "IM-NCER"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/%E9%A1%B9%E7%9B%AE/Example/OpenIMSDKUIKit/AppDelegate.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "305"
-                  endingLineNumber = "305">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -218,36 +188,6 @@
             endingLineNumber = "303"
             landmarkName = "pushLocalNotification(_:_:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "366C8156-0180-471A-82DF-CB9992E055A6 - e6065e82a4a0aacf"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "IM_NCER.AppDelegate.pushLocalNotification(Swift.String, Swift.Dictionary&lt;Swift.AnyHashable, Any&gt;) -&gt; ()"
-                  moduleName = "IM-NCER"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/%E9%A1%B9%E7%9B%AE/Example/OpenIMSDKUIKit/AppDelegate.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "304"
-                  endingLineNumber = "304">
-               </Location>
-               <Location
-                  uuid = "366C8156-0180-471A-82DF-CB9992E055A6 - 5d7c9407ceb93ff3"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;Swift.Error&gt;) -&gt; () in IM_NCER.AppDelegate.pushLocalNotification(Swift.String, Swift.Dictionary&lt;Swift.AnyHashable, Any&gt;) -&gt; ()"
-                  moduleName = "IM-NCER"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/%E9%A1%B9%E7%9B%AE/Example/OpenIMSDKUIKit/AppDelegate.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "305"
-                  endingLineNumber = "305">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -392,36 +332,6 @@
             endingLineNumber = "362"
             landmarkName = "toReportNet()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "A8964544-BC2E-4EB2-8135-6176035F7121 - f95d485789cb74bc"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "IM_NCER.YFFeedbackVC.toReportNet() -&gt; ()"
-                  moduleName = "IM-NCER"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/%E9%A1%B9%E7%9B%AE/Example/OpenIMSDKUIKit/Component/Mine/Controller/Feedback/YFFeedbackVC.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "362"
-                  endingLineNumber = "362">
-               </Location>
-               <Location
-                  uuid = "A8964544-BC2E-4EB2-8135-6176035F7121 - bb3748d9891ff476"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.String) -&gt; () in IM_NCER.YFFeedbackVC.toReportNet() -&gt; ()"
-                  moduleName = "IM-NCER"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/%E9%A1%B9%E7%9B%AE/Example/OpenIMSDKUIKit/Component/Mine/Controller/Feedback/YFFeedbackVC.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "362"
-                  endingLineNumber = "362">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
