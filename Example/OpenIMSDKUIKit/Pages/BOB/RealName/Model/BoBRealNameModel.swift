@@ -88,7 +88,11 @@ open class BoBRealNameModel {
                     completionHandler(res.code, res.message)
                     
                 } else {
-                    completionHandler(-1, "Fail")
+                    if let res = JsonTool.fromJson(result, toClass: RealNameNODataResponse.self){
+                        completionHandler(res.code, res.message)
+                    }else{
+                        completionHandler(-1, "网络错误")
+                    }
                 }
             case .failure(let err):
                 completionHandler(-1, err.localizedDescription)
@@ -126,10 +130,14 @@ open class BoBRealNameModel {
                         completionHandler(res.code, res.message)
                     }
                 } else {
-                    completionHandler(-1, "failure")
+                    if let res = JsonTool.fromJson(strData!, toClass: RealNameNODataResponse.self){
+                        completionHandler(res.code, res.message)
+                    }else{
+                        completionHandler(-1, "网络错误")
+                    }
                 }
             } else {
-                completionHandler(-1, "failure")
+                completionHandler(-1, "网络错误")
             }
         }
         
@@ -160,10 +168,14 @@ open class BoBRealNameModel {
                         completionHandler(res.code, res.message)
                     }
                 } else {
-                    completionHandler(-1, "failure")
+                    if let res = JsonTool.fromJson(strData!, toClass: RealNameNODataResponse.self){
+                        completionHandler(res.code, res.message)
+                    }else{
+                        completionHandler(-1, "网络错误")
+                    }
                 }
             } else {
-                completionHandler(-1, "failure")
+                completionHandler(-1, "网络错误")
             }
         }
         
@@ -189,10 +201,14 @@ open class BoBRealNameModel {
                 if let res = JsonTool.fromJson(strData!, toClass: BoBResponse.self) {
                     completionHandler(res.code, res.message)
                 } else {
-                    completionHandler(-1, "failure")
+                    if let res = JsonTool.fromJson(strData!, toClass: RealNameNODataResponse.self){
+                        completionHandler(res.code, res.message)
+                    }else{
+                        completionHandler(-1, "网络错误")
+                    }
                 }
             } else {
-                completionHandler(-1, "failure")
+                completionHandler(-1, "网络错误")
             }
         }
         
@@ -222,10 +238,14 @@ open class BoBRealNameModel {
                         completionHandler(res.code, res.message)
                     }
                 } else {
-                    completionHandler(-1, "failure")
+                    if let res = JsonTool.fromJson(strData!, toClass: RealNameNODataResponse.self){
+                        completionHandler(res.code, res.message)
+                    }else{
+                        completionHandler(-1, "网络错误")
+                    }
                 }
             } else {
-                completionHandler(-1, "failure")
+                completionHandler(-1, "网络错误")
             }
         }
         
@@ -239,6 +259,13 @@ class UserIDRequest: Encodable {
     }
 }
 //
+class RealNameNODataResponse: Decodable {
+//    var data: T
+    var flag: Bool = false
+    var code: Int = 20000
+    var message: String? = nil
+    var count: Int? = 0
+}
 class BoBResponse: Decodable {
     var data: String? = nil
     var flag: Bool = false

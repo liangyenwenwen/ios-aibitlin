@@ -65,10 +65,14 @@ class BoBRedPacketModel {
                         completionHandler(res.code, res.message)
                     }
                 } else {
-                    completionHandler(-1, "failure")
+                    if let res = JsonTool.fromJson(strData!, toClass: BoBRedPacketNODataResponse.self){
+                        completionHandler(res.code, res.message)
+                    }else{
+                        completionHandler(-1, "网络错误")
+                    }
                 }
             } else {
-                completionHandler(-1, "failure")
+                completionHandler(-1, "网络错误")
             }
         }
         
@@ -107,10 +111,14 @@ class BoBRedPacketModel {
                         completionHandler(res.code, res.message)
                     }
                 } else {
-                    completionHandler(-1, "failure")
+                    if let res = JsonTool.fromJson(strData!, toClass: BoBRedPacketNODataResponse.self){
+                        completionHandler(res.code, res.message)
+                    }else{
+                        completionHandler(-1, "网络错误")
+                    }
                 }
             } else {
-                completionHandler(-1, "failure")
+                completionHandler(-1, "网络错误")
             }
         }
         
@@ -154,10 +162,14 @@ class BoBRedPacketModel {
                         completionHandler(res.code, res.message)
                     }
                 } else {
-                    completionHandler(-1, "failure")
+                    if let res = JsonTool.fromJson(strData!, toClass: BoBRedPacketNODataResponse.self){
+                        completionHandler(res.code, res.message)
+                    }else{
+                        completionHandler(-1, "网络错误")
+                    }
                 }
             } else {
-                completionHandler(-1, "failure")
+                completionHandler(-1, "网络错误")
             }
             
             
@@ -196,10 +208,14 @@ class BoBRedPacketModel {
                 if let res = JsonTool.fromJson(strData!, toClass: BoBRedPacketNODataResponse.self) {
                     completionHandler(res.code, res.message)
                 } else {
-                    completionHandler(-1, "failure")
+                    if let res = JsonTool.fromJson(strData!, toClass: BoBRedPacketNODataResponse.self){
+                        completionHandler(res.code, res.message)
+                    }else{
+                        completionHandler(-1, "网络错误")
+                    }
                 }
             } else {
-                completionHandler(-1, "failure")
+                completionHandler(-1, "网络错误")
             }
         }
         
@@ -227,10 +243,14 @@ class BoBRedPacketModel {
                         completionHandler(res.code, res.message)
                     }
                 } else {
-                    completionHandler(-1, "failure")
+                    if let res = JsonTool.fromJson(strData!, toClass: BoBRedPacketNODataResponse.self){
+                        completionHandler(res.code, res.message)
+                    }else{
+                        completionHandler(-1, "网络错误")
+                    }
                 }
             } else {
-                completionHandler(-1, "failure")
+                completionHandler(-1, "网络错误")
             }
         }
         
@@ -258,10 +278,14 @@ class BoBRedPacketModel {
                         completionHandler(res.code, res.message)
                     }
                 } else {
-                    completionHandler(-1, "failure")
+                    if let res = JsonTool.fromJson(strData!, toClass: BoBRedPacketNODataResponse.self){
+                        completionHandler(res.code, res.message)
+                    }else{
+                        completionHandler(-1, "网络错误")
+                    }
                 }
             } else {
-                completionHandler(-1, "failure")
+                completionHandler(-1, "网络错误")
             }
         }
         
@@ -289,10 +313,14 @@ class BoBRedPacketModel {
                         completionHandler(res.code, res.message)
                     }
                 } else {
-                    completionHandler(-1, "failure")
+                    if let res = JsonTool.fromJson(strData!, toClass: BoBRedPacketNODataResponse.self){
+                        completionHandler(res.code, res.message)
+                    }else{
+                        completionHandler(-1, "网络错误")
+                    }
                 }
             } else {
-                completionHandler(-1, "failure")
+                completionHandler(-1, "网络错误")
             }
         }
         
@@ -321,10 +349,14 @@ class BoBRedPacketModel {
                         completionHandler(res.code, res.message)
                     }
                 } else {
-                    completionHandler(-1, "failure")
+                    if let res = JsonTool.fromJson(strData!, toClass: BoBRedPacketNODataResponse.self){
+                        completionHandler(res.code, res.message)
+                    }else{
+                        completionHandler(-1, "网络错误")
+                    }
                 }
             } else {
-                completionHandler(-1, "failure")
+                completionHandler(-1, "网络错误")
             }
         }
         

@@ -167,7 +167,7 @@ struct _R: Sendable {
       var ieXW0yeText: RswiftResources.StringResource { .init(key: "8ie-xW-0ye.text", tableName: "LaunchScreen", source: source, developmentValue: nil, comment: nil) }
     }
 
-    /// This `_R.string.localizable` struct is generated, and contains static references to 515 localization keys.
+    /// This `_R.string.localizable` struct is generated, and contains static references to 523 localization keys.
     struct localizable {
       let source: RswiftResources.StringResource.Source
 
@@ -233,6 +233,20 @@ struct _R: Sendable {
       ///
       /// Locales: en, zh-Hans, th
       var basicInformation: RswiftResources.StringResource { .init(key: "BasicInformation", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Bind Email
+      ///
+      /// Key: BindEmail
+      ///
+      /// Locales: en, zh-Hans, th
+      var bindEmail: RswiftResources.StringResource { .init(key: "BindEmail", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Bind Phone
+      ///
+      /// Key: BindPhone
+      ///
+      /// Locales: en, zh-Hans, th
+      var bindPhone: RswiftResources.StringResource { .init(key: "BindPhone", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Binding third-party accounts
       ///
@@ -1641,6 +1655,13 @@ struct _R: Sendable {
       /// Locales: en, th
       var 修改密码: RswiftResources.StringResource { .init(key: "修改密码", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// en translation: Change success
+      ///
+      /// Key: 修改成功
+      ///
+      /// Locales: en, th
+      var 修改成功: RswiftResources.StringResource { .init(key: "修改成功", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: Notify me when the duration of stay exceeds seconds
       ///
       /// Key: 停留时长超过多少秒通知我
@@ -3041,6 +3062,13 @@ struct _R: Sendable {
       /// Locales: en, th
       var 红包: RswiftResources.StringResource { .init(key: "红包", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// en translation: Binding success
+      ///
+      /// Key: 绑定成功
+      ///
+      /// Locales: en, th
+      var 绑定成功: RswiftResources.StringResource { .init(key: "绑定成功", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: Edit
       ///
       /// Key: 编辑
@@ -3498,6 +3526,20 @@ struct _R: Sendable {
 
       /// en translation: Enter your phone number
       ///
+      /// Key: 输入您的手机号
+      ///
+      /// Locales: en, th
+      var 输入您的手机号: RswiftResources.StringResource { .init(key: "输入您的手机号", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Enter your email address
+      ///
+      /// Key: 输入您的邮箱
+      ///
+      /// Locales: en, th
+      var 输入您的邮箱: RswiftResources.StringResource { .init(key: "输入您的邮箱", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Enter your phone number
+      ///
       /// Key: 输入手机号
       ///
       /// Locales: en, th
@@ -3509,6 +3551,20 @@ struct _R: Sendable {
       ///
       /// Locales: en, th
       var 输入手机验证码: RswiftResources.StringResource { .init(key: "输入手机验证码", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Enter a new phone number
+      ///
+      /// Key: 输入新的手机号
+      ///
+      /// Locales: en, th
+      var 输入新的手机号: RswiftResources.StringResource { .init(key: "输入新的手机号", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Enter a new email address
+      ///
+      /// Key: 输入新的邮箱
+      ///
+      /// Locales: en, th
+      var 输入新的邮箱: RswiftResources.StringResource { .init(key: "输入新的邮箱", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Enter the correct password
       ///

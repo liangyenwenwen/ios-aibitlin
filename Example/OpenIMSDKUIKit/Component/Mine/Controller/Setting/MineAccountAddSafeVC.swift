@@ -10,7 +10,8 @@ import TangramKit
 import OUICore
 
 class MineAccountAddSafeVC: BaseTitleController {
-
+    var user:QueryUserInfo?
+    var changeAccountSuccessBlock:((_ user:QueryUserInfo?)->())!
     override func initViews() {
         super.initViews()
         setBackGroundColor(.colorBackgroundAPP)
@@ -28,8 +29,8 @@ class MineAccountAddSafeVC: BaseTitleController {
 //        container.addSubview(bindMessageView)
         container.addSubview(payPassWordView)
         
-        container.addSubview(titleView(type: 2))
-        container.addSubview(deleteView)
+//        container.addSubview(titleView(type: 2))
+//        container.addSubview(deleteView)
         
     }
     
@@ -45,12 +46,8 @@ class MineAccountAddSafeVC: BaseTitleController {
         r.addSubview(changePwdView)
         r.addSubview(ViewFactoryUtil.smallDivider())
         
-        /// APP分离国内外
-        if AppDelegate.shared.isChine {
-            r.addSubview(changePhoneView)
-        } else {
-            r.addSubview(changeEmailView)
-        }
+        r.addSubview(changePhoneView)
+        r.addSubview(changeEmailView)
 //        r.addSubview(changeEmailView)
 //        r.addSubview(ViewFactoryUtil.smallDivider())
 //        r.addSubview(changePhoneView)
@@ -68,9 +65,17 @@ class MineAccountAddSafeVC: BaseTitleController {
     }()
     
     lazy var changeEmailView: SuperSettingView = {
-        let r = SuperSettingView.createSetTitleAddContentView("ChangeEmail".localized(), "") { [weak self] data in
-//            self?.toDeleteAcountAuthenticationVC(.changeEmail)
-            SuperToast.show(title: "开发中".localized())
+        let r = SuperSettingView.createSetTitleAddContentView(user?.email?.length ?? 0 > 0 ? "ChangeEmail".localized():"BindEmail".localized(), "") { [weak self] data in
+            let vc = YFChangeAccountViewController()
+            vc.useType = self?.user?.email?.length ?? 0 > 0 ?.changeEmail:.useEmail
+            vc.changeSuccessBlock = {[weak self] areaCode,phone,email in
+                self?.changeEmailView.titleView.text = "ChangeEmail".localized()
+                self?.user?.email = email
+                if self?.changeAccountSuccessBlock != nil{
+                    self?.changeAccountSuccessBlock(self?.user)
+                }
+            }
+            self?.navigationController?.pushViewController(vc, animated: true)
         }
         r.isMediumFont()
         return r
@@ -78,9 +83,18 @@ class MineAccountAddSafeVC: BaseTitleController {
     
     
     lazy var changePhoneView: SuperSettingView = {
-        let r = SuperSettingView.createSetTitleAddContentView("ChangePhone".localized(), " ") { [weak self] data in
-//            self?.toDeleteAcountAuthenticationVC(.changePhone)
-            SuperToast.show(title: "开发中".localized())
+        let r = SuperSettingView.createSetTitleAddContentView(user?.phoneNumber?.length ?? 0 > 0 ?"ChangePhone".localized():"BindPhone".localized(), " ") { [weak self] data in
+            let vc = YFChangeAccountViewController()
+            vc.useType = self?.user?.phoneNumber?.length ?? 0 > 0 ?.changePhone:.usePhone
+            vc.changeSuccessBlock = {[weak self] areaCode,phone,email in
+                self?.changePhoneView.titleView.text = "ChangePhone".localized()
+                self?.user?.areaCode = areaCode
+                self?.user?.phoneNumber = phone
+                if self?.changeAccountSuccessBlock != nil{
+                    self?.changeAccountSuccessBlock(self?.user)
+                }
+            }
+            self?.navigationController?.pushViewController(vc, animated: true)
         }
         r.isMediumFont()
         return r

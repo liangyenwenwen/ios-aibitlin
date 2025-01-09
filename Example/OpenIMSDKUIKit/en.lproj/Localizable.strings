@@ -15,9 +15,25 @@
 "20012" = "Login/Register forbidden";
 "20013" = "Refused to add friends";
 "20014" = "Email has been registered";
-"1001" = "Args Error";
-"1002" = "Current password is wrong";
 "10102" = "User re-login";
+"500" = "Server internal error";
+"1001" = "Args Error";
+"1002" = "Insufficient permissions";
+"1003" = "Key duplication error";
+"1004" = "Record does not exist";
+"1005" = "Invalid account";
+"1006" = "Parameter is not a number";
+"1007" = "Account is not a combination of letters and numbers";
+"1008" = "Email format incorrect";
+"1501" = "User login has expired";
+"1502" = "User login has expired";
+"1503" = "User login has expired";
+"1504" = "User login has expired";
+"1505" = "User login has expired";
+"1506" = "User kicked out";
+"1507" = "User login has expired";
+
+
 
 "通讯录" = "Contact";
 "通话记录" = "Recents";
@@ -276,6 +292,8 @@ DeleteAccount = "Delete Account";
 ChangePassword = "Change Password";
 ChangeEmail = "Change Email";
 ChangePhone = "Change Phone";
+BindPhone = "Bind Phone";
+BindEmail = "Bind Email";
 
 EnterTheOriginalPassword = "Enter the original password";
 OriginalPassword = "Original Password";
@@ -418,6 +436,12 @@ Toolbox = "Toolbox";
 "使用邮箱找回" = "Use E-mail";
 "使用手机号找回" = "Use Phone";
 
+"输入您的手机号" = "Enter your phone number";
+"输入新的手机号" = "Enter a new phone number";
+"输入您的邮箱" = "Enter your email address";
+"输入新的邮箱" = "Enter a new email address";
+"绑定成功" = "Binding success";
+"修改成功" = "Change success";
 
 //注册页面
 "注册OTC+IM" = "Join OTC+IM";

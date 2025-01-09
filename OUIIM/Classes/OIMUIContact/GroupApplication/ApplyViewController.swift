@@ -101,5 +101,10 @@ class ApplyViewController: UIViewController {
             guard let self else { return }
             countLabel.text = "\(text.count)/\(self.maxCount)"
         }).disposed(by: disposeBag)
+        let tap = UITapGestureRecognizer()
+        tap.rx.event.subscribe {  _ in
+            self.view.endEditing(true)
+        }.disposed(by: disposeBag)
+        view.addGestureRecognizer(tap)
     }
 }

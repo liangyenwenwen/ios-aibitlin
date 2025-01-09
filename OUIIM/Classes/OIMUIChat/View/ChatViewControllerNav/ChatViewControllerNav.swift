@@ -361,8 +361,13 @@ extension ChatViewControllerNav {
 
             setGroupImg(item: conversationInfo)
         } else {
-
-            chatIconImg.kf.setImage(with: URL(string: conversationInfo.faceURL ?? ""), placeholder: UIImage(named: "DefaultAvatar"))
+            if (conversationInfo.faceURL ?? "").length > 0{
+                var temp = (conversationInfo.faceURL ?? "").removingPercentEncoding
+                temp = temp?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+                chatIconImg.setImage(with: temp, placeholderImage: UIImage(named: "DefaultAvatar"), original: false)
+            }else{
+                chatIconImg.kf.setImage(with: URL(string: conversationInfo.faceURL ?? ""), placeholder: UIImage(named: "DefaultAvatar"))
+            }
         }
     }
     

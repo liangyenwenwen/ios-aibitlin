@@ -105,7 +105,7 @@ class MineHomeWalletView: UIView{
                 }.disposed(by: rx.disposeBag)
                 v.addGestureRecognizer(tap)
                 listView.addSubview(v)
-                v.bindData(quantityOfMoneyPOS: walletMoneyData.quantityOfMoneyPOS![i])
+                v.bindData(quantityOfMoneyPOS: walletMoneyData.quantityOfMoneyPOS![i],isPrivate: !privateBtn.isSelected)
                 v.snp_makeConstraints { make in
                     make.left.right.equalTo(0)
                     make.height.equalTo(68)
@@ -137,14 +137,13 @@ class MineHomeWalletView: UIView{
         }else{
             for i in 0..<itemArray.count {
                 let v = itemArray[i]
-                v.bindData(quantityOfMoneyPOS: walletMoneyData.quantityOfMoneyPOS![i])
+                v.bindData(quantityOfMoneyPOS: walletMoneyData.quantityOfMoneyPOS![i],isPrivate: !privateBtn.isSelected)
             }
         }
         if privateBtn.isSelected{
             let attributedString = NSMutableAttributedString(string: String(format: "￥%.2f",walletMoneyData.totalAssets!))
             attributedString.addAttribute(.font, value:UIFont(name: "PingFangSC-Regular", size: 16) as Any , range: NSRange(location: 0, length: 1))
             totalLabel.attributedText = attributedString
-//            totalLabel.text = String(format: "￥%.2f",walletMoneyData.totalAssets!)
         }else{
             totalLabel.text = "******"
         }
@@ -161,15 +160,18 @@ class MineHomeWalletView: UIView{
         let r = UIButton()
         r.setImage(UIImage(named: "mine_home_close_eye_icon"), for: .normal)
         r.setImage(UIImage(named: "mine_home_open_eye_icon"), for: .selected)
-        r.rx.tap.subscribe(onNext: { [self] in
+        r.rx.tap.subscribe(onNext: { [weak self] in
             r.isSelected = !r.isSelected
             if r.isSelected{
-                let attributedString = NSMutableAttributedString(string: String(format: "￥%.2f",walletData?.totalAssets ?? 0))
+                let attributedString = NSMutableAttributedString(string: String(format: "￥%.2f",self?.walletData?.totalAssets ?? 0))
                 attributedString.addAttribute(.font, value:UIFont(name: "PingFangSC-Regular", size: 16) as Any , range: NSRange(location: 0, length: 1))
-                totalLabel.attributedText = attributedString
-//                totalLabel.text = String(format: "%.2f",walletData?.totalAssets ?? 0)
+                self?.totalLabel.attributedText = attributedString
             }else{
-                totalLabel.text = "******"
+                self?.totalLabel.text = "******"
+            }
+            for i in 0..<(self?.itemArray.count ?? 0) {
+                let v = self?.itemArray[i]
+                v?.privateBtnClick(isPrivate: !r.isSelected)
             }
         }).disposed(by: rx.disposeBag)
         return r
@@ -249,6 +251,7 @@ class MineHomeWalletView: UIView{
     }()
 }
 class itemView:UIView {
+    var data:QuantityOfMoneyPOS?
     override init(frame: CGRect) {
         super.init(frame: frame)
         initViews()
@@ -342,11 +345,26 @@ class itemView:UIView {
         r.textAlignment = .right
         return r
     }()
-    func bindData(quantityOfMoneyPOS:QuantityOfMoneyPOS){
+    func bindData(quantityOfMoneyPOS:QuantityOfMoneyPOS,isPrivate:Bool){
+        data = quantityOfMoneyPOS
         iconImageView.sd_setImage(with: URL(string: quantityOfMoneyPOS.logoAddr))
         currencyLabel.text = quantityOfMoneyPOS.currency
         officialExchangeRateLabel.text = String(format: "%.2f",quantityOfMoneyPOS.officialExchangeRate!)
-        totalLabel.text = String(format: "%.2f",quantityOfMoneyPOS.quantityOfMoney!)
-        equivalentToRMBLabel.text = String(format: "≈￥%.2f",quantityOfMoneyPOS.equivalentToRMB!)
+        if isPrivate{
+            totalLabel.text = "******"
+            equivalentToRMBLabel.text = "≈￥******"
+        }else{
+            totalLabel.text = String(format: "%.2f",quantityOfMoneyPOS.quantityOfMoney!)
+            equivalentToRMBLabel.text = String(format: "≈￥%.2f",quantityOfMoneyPOS.equivalentToRMB!)
+        }
+    }
+    func privateBtnClick(isPrivate:Bool){
+        if isPrivate{
+            totalLabel.text = "******"
+            equivalentToRMBLabel.text = "≈￥******"
+        }else{
+            totalLabel.text = String(format: "%.2f",data?.quantityOfMoney ?? 0.00)
+            equivalentToRMBLabel.text = String(format: "≈￥%.2f",data?.equivalentToRMB ?? 0.00)
+        }
     }
 }

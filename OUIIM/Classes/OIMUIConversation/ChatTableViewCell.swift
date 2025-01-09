@@ -272,11 +272,13 @@ extension ChatTableViewCell {
         // MARK: -   群头像 头像区分
        
         if item.conversationType == .superGroup {
-            
+            avatarImageView.avatarImageView.image = nil
+            avatarImageView.groupAvatarImageView.image = nil
             avatarImageView.isGroup = true
             avatarImageView.setGroupImg(item: item)
-           
         }  else {
+            avatarImageView.avatarImageView.image = nil
+            avatarImageView.groupAvatarImageView.image = nil
             avatarImageView.isGroup = false
             avatarImageView.setAvatar(url: item.faceURL, text: item.showName, placeHolder: placeholderName, isLocal: true)
 //            avatarImageView.setAboutGroupImg(linkurl: item.faceURL ?? "", userId: item.conversationID)

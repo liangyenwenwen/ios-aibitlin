@@ -350,7 +350,11 @@ class MeHomeController: BaseLogicController {
     
     lazy var settingCenterView: SuperSettingView = {
         let r = SuperSettingView.create(icon: UIImage(named: "mine_home_setting_icon")!, title: "设置中心",isChangeIconColor:false, click: { [weak self] data in
-            self?.gotoControllerFromRoot(MineSettingVC.self)
+//            self?.gotoControllerFromRoot(MineSettingVC.self)
+            let vc = MineSettingVC()
+            vc.user = self?._viewModel.currentUserRelay.value
+            vc.hidesBottomBarWhenPushed = true
+            self?.navigationController?.pushViewController(vc, animated: true)
         })
         r.isMediumFont()
         return r

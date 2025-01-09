@@ -7,64 +7,64 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "C2B3860E-DFBE-4216-96E9-5970330F87C9"
+            uuid = "546EC88B-0A83-4B5E-AB9B-FC5D42D523DE"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "OpenIMSDKUIKit/Pages/BOB/RealName/BoBAdvancedRealNameViewController.swift"
+            filePath = "OpenIMSDKUIKit/Pages/Mine/MineViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "221"
-            endingLineNumber = "221"
-            landmarkName = "stopRecording()"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
+            landmarkName = "queryUserInfo()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "52CD0825-64A2-4832-871F-2179AF3328BB"
+            uuid = "27BC53EF-D661-43E9-813B-59FEC2ED1A01"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../OUIIM/Classes/OIMUIContact/GroupApplication/ApplyViewController.swift"
+            filePath = "OpenIMSDKUIKit/Component/Mine/Controller/Setting/MineAccountAddSafeVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "22"
-            endingLineNumber = "22"
-            landmarkName = "viewWillAppear(_:)"
+            startingLineNumber = "20"
+            endingLineNumber = "20"
+            landmarkName = "initViews()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "F5EDF3A0-1F65-4DE4-93BB-947512EA226B"
+            uuid = "4BE4FC43-D6FD-4BCE-B79B-0AD7463CB416"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../OUIIM/Classes/OIMUIContact/GroupApplication/ApplyViewController.swift"
+            filePath = "OpenIMSDKUIKit/Component/Mine/Controller/MeHomeController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "29"
-            endingLineNumber = "29"
-            landmarkName = "init(groupID:userID:)"
-            landmarkType = "7">
+            startingLineNumber = "353"
+            endingLineNumber = "353"
+            landmarkName = "settingCenterView"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "76935B0E-DF10-440D-883C-B0D413B8EBDF"
+            uuid = "94FD3EF7-5D2A-44EA-803E-6F960EB27DC3"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../OUIIM/Classes/OIMUIContact/GroupApplication/ApplyViewController.swift"
+            filePath = "OpenIMSDKUIKit/Component/Mine/Controller/Setting/MineSettingVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "38"
-            endingLineNumber = "38"
-            landmarkName = "viewDidLoad()"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "initViews()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

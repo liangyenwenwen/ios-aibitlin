@@ -31,6 +31,7 @@ open class AccountViewModel {
     private static let LoginAPI = "/account/login"
     private static let RegisterAPI = "/account/register"
     private static let CodeAPI = "/account/code/send"
+    private static let ChangeAccountAPI = "/user/phone_mail/change"
     private static let VerifyCodeAPI = "/account/code/verify"
     private static let ResetPasswordAPI = "/account/password/reset"
     private static let ChangePasswordAPI = "/account/password/change"
@@ -455,6 +456,37 @@ open class AccountViewModel {
             }
         }
     }
+    //更改账号
+    static func changeAccountRequest(userID: String? = nil,phoneNumber: String? = nil, areaCode: String? = nil, email: String? = nil, verifyCode: String? = nil, completionHandler: @escaping CompletionHandler) {
+        let body = JsonTool.toJson(fromObject:
+                                    ChangePhoneOrEmailRequest(
+                                        userID: userID,
+                                        phoneNumber: phoneNumber,
+                                        areaCode: areaCode,
+                                        email: email,
+                                        verifyCode: verifyCode)).data(using: .utf8)
+        
+        var req = try! URLRequest(url: API_BASE_URL + ChangeAccountAPI, method: .post)
+        req.httpBody = body
+        req.addValue(IMController.shared.chatToken, forHTTPHeaderField: "token")
+        req.addValue(String(Int(Date().timeIntervalSince1970)), forHTTPHeaderField: "operationID")
+        Alamofire.request(req).responseString { (response: DataResponse<String>) in
+            switch response.result {
+            case .success(let result):
+                if let res = JsonTool.fromJson(result, toClass: Response<UserEntity>.self) {
+                    if res.errCode == 0 {
+                        completionHandler(res.errCode, nil)
+                    } else {
+                        completionHandler(res.errCode, res.errMsg)
+                    }
+                } else {
+                    print("JSON解析错误")
+                }
+            case .failure(let err):
+                completionHandler(-1, err.localizedDescription)
+            }
+        }
+    }
     
     // 更新个人信息
     static func updateUserInfo(userID: String,
@@ -816,8 +848,8 @@ class UpdateUserInfoRequest: Codable {
     let level: Int?
     var faceURL: String?
     var nickname: String?
-    let areaCode: String?
-    let phoneNumber: String?
+    var areaCode: String?
+    var phoneNumber: String?
     let telephone: String?
     let hireDate: String?
     private var platform: Int? = 1
@@ -885,6 +917,21 @@ class ChangePasswordRequest: Encodable {
         self.userID = userID
         self.currentPassword = currentPassword.md5
         self.newPassword = newPassword.md5
+    }
+}
+class ChangePhoneOrEmailRequest: Encodable {
+    private let userID: String?
+    private let phoneNumber: String?
+    private let areaCode: String?
+    private let email: String?
+    private let verifyCode: String?
+
+    init(userID: String? = nil, phoneNumber: String? = nil, areaCode: String? = nil, email: String? = nil, verifyCode: String? = nil) {
+        self.userID = userID
+        self.phoneNumber = phoneNumber
+        self.areaCode = areaCode
+        self.email = email
+        self.verifyCode = verifyCode
     }
 }
 

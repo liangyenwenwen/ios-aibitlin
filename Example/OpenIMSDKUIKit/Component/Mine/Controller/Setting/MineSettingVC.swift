@@ -9,8 +9,8 @@ import UIKit
 import TangramKit
 
 class MineSettingVC: BaseTitleController {
-
     private let _viewModel = MineViewModel()
+    var user:QueryUserInfo?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -82,7 +82,12 @@ class MineSettingVC: BaseTitleController {
     lazy var accountAndSafeView: SuperSettingView = {
         let r = SuperSettingView.create(icon: R.image.mine_safe_icon()!, title: "AccountAndSecurity".localized(), click: { [weak self] data in
             print("账号与安全")
-            self?.navigationController?.pushViewController(MineAccountAddSafeVC(), animated: true)
+            let vc = MineAccountAddSafeVC()
+            vc.user = self?.user
+            vc.changeAccountSuccessBlock = {[weak self] user in
+                self?.user = user
+            }
+            self?.navigationController?.pushViewController(vc, animated: true)
         })
         r.isMediumFont()
         return r
@@ -114,11 +119,11 @@ class MineSettingVC: BaseTitleController {
         let r = SuperSettingView.create(icon: R.image.mine_delegate_icon()!, title: "PoliciesAndTerms".localized(), click: { [weak self] data in
             let language = String.getCurrentLanguage()
             if language.starts(with: "zh")  {
-                SuperWebController.start((self?.navigationController!)!, uri: "http://dt-im.com/#/pages/privacy/index?lang=zh")
+                SuperWebController.start((self?.navigationController!)!, uri: "https://protocol.dt-im.com/#/pages/privacy/index?lang=zh")
             } else if language.starts(with: "th"){
-                SuperWebController.start((self?.navigationController!)!, uri: "http://dt-im.com/#/pages/privacy/index?lang=Thai")
+                SuperWebController.start((self?.navigationController!)!, uri: "https://protocol.dt-im.com/#/pages/privacy/index?lang=Thai")
             } else {
-                SuperWebController.start((self?.navigationController!)!, uri: "http://dt-im.com/#/pages/privacy/index?lang=en")
+                SuperWebController.start((self?.navigationController!)!, uri: "https://protocol.dt-im.com/#/pages/privacy/index?lang=en")
             }
         })
         r.isMediumFont()

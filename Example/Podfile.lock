@@ -21,8 +21,12 @@ PODS:
     - DifferenceKit/Core
   - Differentiator (5.0.0)
   - DynamicColor (5.0.1)
+  - FDFullscreenPopGesture (1.1)
   - GTSDK (2.7.1.0-noidfa):
     - ZXSDK-Noidfa
+  - IGListDiffKit (4.0.0)
+  - IGListKit (4.0.0):
+    - IGListDiffKit (= 4.0.0)
   - InputBarAccessoryView (6.3.0):
     - InputBarAccessoryView/Core (= 6.3.0)
   - InputBarAccessoryView/Core (6.3.0)
@@ -553,7 +557,9 @@ DEPENDENCIES:
   - BSText
   - Bugly
   - DynamicColor
+  - FDFullscreenPopGesture (= 1.1)
   - GTSDK (= 2.7.1.0-noidfa)
+  - IGListKit (= 4.0.0)
   - InputBarAccessoryView (from `../3rd`)
   - IQKeyboardManagerSwift
   - ISEmojiView (from `../3rd`)
@@ -594,7 +600,10 @@ SPEC REPOS:
     - DifferenceKit
     - Differentiator
     - DynamicColor
+    - FDFullscreenPopGesture
     - GTSDK
+    - IGListDiffKit
+    - IGListKit
     - IQKeyboardCore
     - IQKeyboardManagerSwift
     - IQKeyboardNotification
@@ -671,7 +680,10 @@ SPEC CHECKSUMS:
   DifferenceKit: ab185c4d7f9cef8af3fcf593e5b387fb81e999ca
   Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
   DynamicColor: d049834ef86d8ecf150b0ca1ebe54ee733a0ec22
+  FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
   GTSDK: 4ad19708180f6ff6aa7650d07f5b57698bb4445f
+  IGListDiffKit: 665d6cf43ce726e676013db9c7d6c4294259b6b2
+  IGListKit: fd5a5d21935298f5849fa49d426843cff97b77c7
   InputBarAccessoryView: 55a728753108bdba75a036ffe8db291abae5910e
   IQKeyboardCore: 28c8bf3bcd8ba5aa1570b318cbc4da94b861711e
   IQKeyboardManagerSwift: 12d6ae3632ef744ccd033c048b566af13cc10d49
@@ -721,6 +733,6 @@ SPEC CHECKSUMS:
   ZLPhotoBrowser: cd023607d05a72d27a3ae57f50dbf86910713a2c
   ZXSDK-Noidfa: f3cc8e4b6b4775df301489ae0792b727e193e7d3
 
-PODFILE CHECKSUM: bbd3496c83559c551250de9f3dc3565380bca165
+PODFILE CHECKSUM: f233d6336d5091a48d5ca581e323ec1f42962bb8
 
 COCOAPODS: 1.15.2

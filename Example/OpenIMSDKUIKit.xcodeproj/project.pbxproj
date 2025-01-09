@@ -132,6 +132,7 @@
 		045B8BF72BF4496D0094E080 /* MineChooseBottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045B8BF62BF4496C0094E080 /* MineChooseBottomSheetView.swift */; };
 		045B8BF92BF481AF0094E080 /* UserMessageBottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045B8BF82BF481AF0094E080 /* UserMessageBottomSheetView.swift */; };
 		046A61072D2E4E2C00A1561D /* BoBAdvancedRealNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046A61062D2E4E2C00A1561D /* BoBAdvancedRealNameViewController.swift */; };
+		046A610A2D2F9B6E00A1561D /* YFChangeAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046A61092D2F9B6E00A1561D /* YFChangeAccountViewController.swift */; };
 		047753C62BFDCD27006DBFD3 /* YFTranslateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047753C52BFDCD27006DBFD3 /* YFTranslateVC.swift */; };
 		047BF6B62CA2B6DF00706117 /* YFFileDataUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047BF6B52CA2B6DF00706117 /* YFFileDataUtil.swift */; };
 		0481726D2CF89790007A2920 /* BoBChooseCionTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0481726C2CF89790007A2920 /* BoBChooseCionTypeView.swift */; };
@@ -410,6 +411,7 @@
 		045B8BF62BF4496C0094E080 /* MineChooseBottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineChooseBottomSheetView.swift; sourceTree = "<group>"; };
 		045B8BF82BF481AF0094E080 /* UserMessageBottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMessageBottomSheetView.swift; sourceTree = "<group>"; };
 		046A61062D2E4E2C00A1561D /* BoBAdvancedRealNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBAdvancedRealNameViewController.swift; sourceTree = "<group>"; };
+		046A61092D2F9B6E00A1561D /* YFChangeAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFChangeAccountViewController.swift; sourceTree = "<group>"; };
 		046D26942BFF255F00FEA10F /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/Main.strings; sourceTree = "<group>"; };
 		046D26952BFF255F00FEA10F /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		047753C52BFDCD27006DBFD3 /* YFTranslateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFTranslateVC.swift; sourceTree = "<group>"; };
@@ -1069,6 +1071,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		046A61082D2F9B3B00A1561D /* ChangeAccount */ = {
+			isa = PBXGroup;
+			children = (
+				046A61092D2F9B6E00A1561D /* YFChangeAccountViewController.swift */,
+			);
+			path = ChangeAccount;
+			sourceTree = "<group>";
+		};
 		047753C42BFDCD00006DBFD3 /* Translate */ = {
 			isa = PBXGroup;
 			children = (
@@ -1392,6 +1402,7 @@
 		04F2D0642BEE21CA00D5271B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				046A61082D2F9B3B00A1561D /* ChangeAccount */,
 				04F2D0672BEE21CA00D5271B /* MeHomeController.swift */,
 				04F1FCED2CB67E3600080742 /* QRCode */,
 				047753C42BFDCD00006DBFD3 /* Translate */,
@@ -1972,6 +1983,9 @@
 				"${BUILT_PRODUCTS_DIR}/DifferenceKit/DifferenceKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
 				"${BUILT_PRODUCTS_DIR}/DynamicColor/DynamicColor.framework",
+				"${BUILT_PRODUCTS_DIR}/FDFullscreenPopGesture/FDFullscreenPopGesture.framework",
+				"${BUILT_PRODUCTS_DIR}/IGListDiffKit/IGListDiffKit.framework",
+				"${BUILT_PRODUCTS_DIR}/IGListKit/IGListKit.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardCore/IQKeyboardCore.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardNotification/IQKeyboardNotification.framework",
@@ -2022,6 +2036,9 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DifferenceKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DynamicColor.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FDFullscreenPopGesture.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IGListDiffKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IGListKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardNotification.framework",
@@ -2311,6 +2328,7 @@
 				0445C9902D0339D700D1FD34 /* BoBReceiveTransferAccountsDetailViewController.swift in Sources */,
 				04484EDC2CF847B700893E4C /* BoBTransferAccountsViewController.swift in Sources */,
 				0439CCFD2D12FFE800379537 /* BoBMineAdvertisementCell.swift in Sources */,
+				046A610A2D2F9B6E00A1561D /* YFChangeAccountViewController.swift in Sources */,
 				0481726F2CF95D9A007A2920 /* BoBChooseCionTypeCell.swift in Sources */,
 				04052E272CF4268300A7A554 /* BoBPaymentMethodBankListCell.swift in Sources */,
 				049D30252CC2032800649DC4 /* YFNotNetTopTipView.swift in Sources */,

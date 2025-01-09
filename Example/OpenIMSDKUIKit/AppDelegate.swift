@@ -47,12 +47,12 @@ let sdkWSRoute = ""
 //let defaultIMAddress = "192.168.7.16"
 //let defaultAdminAddress = "192.168.7.16"
 
-let defaultAppAddress = "134.122.184.87"
-let defaultIMAddress = "134.122.184.87"
-let defaultAdminAddress = "134.122.184.87"
+let defaultAppAddress = "web.pk-im.com"
+let defaultIMAddress = "web.pk-im.com"
+let defaultAdminAddress = "web.pk-im.com"
 
 //let API_BOB_URL = "http://192.168.7.128:18729"
-let API_BOB_URL = "http://134.122.184.87:18729"
+let API_BOB_URL = "http://web.pk-im.com:18729"
 
 
 @UIApplicationMain
