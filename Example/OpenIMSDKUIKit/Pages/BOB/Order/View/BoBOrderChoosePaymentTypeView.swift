@@ -159,6 +159,13 @@ class BoBOrderChoosePaymentTypeView: UIView {
             weixinBtn.alpha = 0.5
             weixinBtn.isUserInteractionEnabled = false
         }
+        if  choosePaymentMethod?.type == "zhiFuBao"{
+            paymentType = 1
+        }else if choosePaymentMethod?.type == "weiXin"{
+            paymentType = 2
+        }else{
+            paymentType = 0
+        }
         if paymentType == 0{
             if bankList.count > 0 && self.isSupportBank{
                 listArray = bankList

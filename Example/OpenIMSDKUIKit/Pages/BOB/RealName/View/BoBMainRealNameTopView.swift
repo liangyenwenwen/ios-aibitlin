@@ -112,7 +112,7 @@ class BoBMainRealNameTopView: UIView{
     func bindData(model:RealNameInfoDataModel){
         if realNameType == 0{
             titleLabel.text = "初级认证"
-            if model.certificationLevel  != 0{
+            if model.certificationLevel  > 0{
                //已认证
                 statusView.backgroundColor = .init(hexString: "#3ACC9B")
                 statusIcon.image = UIImage(named: "real_name_authentication_icon")
@@ -197,7 +197,11 @@ class BoBMainRealNameTopView: UIView{
                //未认证
                 statusView.backgroundColor = .init(hexString: "#FFA756")
                 statusIcon.image = UIImage(named: "real_name_unAuthentication_icon")
-                statusLabel.text = "未认证"
+                if model.certificationAudit == 0{
+                    statusLabel.text = "审核中"
+                }else{
+                    statusLabel.text = "未认证"
+                }
             }
             buyContentView.snp_makeConstraints { make in
                 make.left.equalTo(16)

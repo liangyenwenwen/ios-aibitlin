@@ -169,7 +169,7 @@ class BoBBuyAndSellCionSubDetailViewController: BaseTitleController {
         chooseTypeView.tg_width.equal(.fill)
         chooseTypeView.tg_height.equal(447)
         chooseTypeView.currentVC = self
-        chooseTypeView.bindData(paymentData: homeData?.userBankAndWeiXinAndZFBPO,choosePayment: choosePaymentMethod,isSupportBank: isSupportBank,isSupportAli: isSupportAli,isSupportWeixin: isSupportWeixin)
+        chooseTypeView.bindData(type:type,paymentData: homeData?.userBankAndWeiXinAndZFBPO,choosePayment: choosePaymentMethod,isSupportBank: isSupportBank,isSupportAli: isSupportAli,isSupportWeixin: isSupportWeixin)
         chooseTypeView.choosePaymentMethodTypeBlock = {[weak self] choosePayment,newPaymentMethodData in
             self?.choosePaymentMethod = choosePayment
             self?.homeData?.userBankAndWeiXinAndZFBPO = newPaymentMethodData
@@ -695,7 +695,6 @@ class BoBBuyAndSellCionSubDetailViewController: BaseTitleController {
                         let vc = BoBOrderDetailViewController()
                         vc.code = code
                         self?.navigationController?.pushViewController(vc, animated: true)
-//                        self?.navigationController?.popViewController(animated: true)
                     }
                     maskView.showMask(view:self!.view.window!)
                 }else{

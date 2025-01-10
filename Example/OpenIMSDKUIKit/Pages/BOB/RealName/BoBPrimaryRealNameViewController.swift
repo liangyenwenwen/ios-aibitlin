@@ -15,6 +15,9 @@ import ProgressHUD
 class BoBPrimaryRealNameViewController:UIViewController{
     var scrollView: UIScrollView!
     var chooseType:Int = 0 //0是正面，1是反面
+    var isPrimaryRealName:Bool = true // 是否是初级认证
+    var frontUrl:String = ""
+    var backUrl:String = ""
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -23,7 +26,7 @@ class BoBPrimaryRealNameViewController:UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        title = IMController.shared.certificationLevel == 0 ? "初级实名认证" : "高级实名认证"
+        title = isPrimaryRealName == true ? "初级实名认证" : "高级实名认证"
         scrollView = UIScrollView()
         view.addSubview(scrollView)
         scrollView.addSubview(idTitleLabel)
@@ -61,35 +64,36 @@ class BoBPrimaryRealNameViewController:UIViewController{
             v.setConfigToMultipleSelected()
             v.didPhotoSelected = { [weak self] (images: [UIImage], assets: [PHAsset]) in
                 guard var photo = images.first else { return }
-                self?.upLoadIdCardImage(idCardImage: photo)
+                self?.upLoadIdCardImage(type: self?.chooseType ?? 0,idCardImage: photo)
             }
             
             v.didCameraFinished = { [weak self] (photo: UIImage?, videoPath: URL?) in
                 guard let sself = self else { return }
                 if var photo {
-                    self?.upLoadIdCardImage(idCardImage: photo)
+                    self?.upLoadIdCardImage(type: self?.chooseType ?? 0,idCardImage: photo)
                 }
             }
         return v
         }()
-    func upLoadIdCardImage(idCardImage:UIImage){
-        if chooseType == 0{
-            let result = FileHelper.shared.saveImage(image: idCardImage)
-            ProgressHUD.animate()
-            IMController.shared.uploadFile(fullPath: result.fullPath) { [weak self] progress in
-                
-            } onSuccess: { [weak self] url in
-                ProgressHUD.dismiss()
-                if let url = url {
+    func upLoadIdCardImage(type:Int,idCardImage:UIImage){
+        let result = FileHelper.shared.saveImage(image: idCardImage)
+        ProgressHUD.animate()
+        IMController.shared.uploadFile(fullPath: result.fullPath) { [weak self] progress in
+            
+        } onSuccess: { [weak self] url in
+            ProgressHUD.dismiss()
+            if let url = url {
+                if type == 0{
+                    self?.frontUrl = url
                     self?.frontIdCardView.idCardImageView.image = idCardImage
                     self?.getIdCardInfo(url: url)
                 }else{
-                    SuperToast.show(title: "上传失败")
+                    self?.backUrl = url
+                    self?.backIdCardView.idCardImageView.image = idCardImage
                 }
+            }else{
+                SuperToast.show(title: "上传失败")
             }
-            
-        }else{
-            backIdCardView.idCardImageView.image = idCardImage
         }
     }
     func getIdCardInfo(url:String){
@@ -114,9 +118,9 @@ class BoBPrimaryRealNameViewController:UIViewController{
         let r = cardItemView()
         r.bindData(title: "头像面", subTitle: "上传您身份证头像面", idCardImage: UIImage(named: "real_name_front_IdCard"))
         let tap = UITapGestureRecognizer()
-        tap.rx.event.subscribe {  _ in
-            self.chooseType = 0
-            self.chooseIdCardImage()
+        tap.rx.event.subscribe {[weak self]  _ in
+            self?.chooseType = 0
+            self?.chooseIdCardImage()
         }
         r.addGestureRecognizer(tap)
         return r
@@ -125,9 +129,9 @@ class BoBPrimaryRealNameViewController:UIViewController{
         let r = cardItemView()
         r.bindData(title: "国徽面", subTitle: "上传您身份证国徽面", idCardImage: UIImage(named: "real_name_back_IdCard"))
         let tap = UITapGestureRecognizer()
-        tap.rx.event.subscribe {  _ in
-            self.chooseType = 1
-            self.chooseIdCardImage()
+        tap.rx.event.subscribe {[weak self]  _ in
+            self?.chooseType = 1
+            self?.chooseIdCardImage()
         }
         r.addGestureRecognizer(tap)
         return r
@@ -223,51 +227,46 @@ class BoBPrimaryRealNameViewController:UIViewController{
         return r
     }()
     lazy var sumbitBtn: QMUIButton = {
-        let r = ViewFactoryUtil.linkButton(IMController.shared.certificationLevel == 0 ? "提交" : "下一步")
+        let r = ViewFactoryUtil.linkButton(isPrimaryRealName == true ? "提交" : "下一步")
         r.setTitleColor(.white, for: .normal)
         r.corner(24)
         r.titleLabel?.font = UIFont(name: "PingFangSC-Medium", size: 16)
         r.backgroundColor = .primaryColor
-        r.rx.tap.subscribe(onNext: { [self] in
+        r.rx.tap.subscribe(onNext: { [weak self] in
            
-            if self.addressLabel.text?.isEmpty == true || self.nameLabel.text?.isEmpty == true || self.idCardLabel.text?.isEmpty == true{
+            if self?.addressLabel.text?.isEmpty == true || self?.nameLabel.text?.isEmpty == true || self?.idCardLabel.text?.isEmpty == true{
                 SuperToast.show(title: "请上传身份证头像面")
                 return
             }
-            if self.backIdCardView.idCardImageView.image == UIImage(named: "real_name_back_IdCard"){
+            if self?.backUrl.length == 0{
                 SuperToast.show(title: "请上传身份证国徽面")
                 return
             }
-            if IMController.shared.certificationLevel == 0 {
+            if self?.isPrimaryRealName == true{
                 //提交
-                BoBRealNameModel.primaryRealNameAuthenticationRequest(name: self.nameLabel.text!, cardId: self.idCardLabel.text!){errCode, errMsg in
+                BoBRealNameModel.primaryRealNameAuthenticationRequest(name: self?.nameLabel.text ?? "", cardId: self?.idCardLabel.text ?? "",idCardZM:self?.frontUrl ?? "",idCardBM:self?.backUrl ?? ""){[weak self]errCode, errMsg in
                     if errCode == 20000{
                         SuperToast.show(title: "认证成功")
                         IMController.shared.certificationLevel = 1
                         NotificationCenter.default.post(name: Notification.Name("addPaymentSuccess"), object: nil)
-                        if (self.navigationController?.viewControllers.count)! > 2{
-                            let vc = self.navigationController?.viewControllers[(self.navigationController?.viewControllers.count)!-3]
-                            self.navigationController?.popToViewController(vc!, animated: true)
+                        if (self?.navigationController?.viewControllers.count)! > 2{
+                            let vc = self?.navigationController?.viewControllers[(self?.navigationController?.viewControllers.count)!-3]
+                            self?.navigationController?.popToViewController(vc!, animated: true)
                         }else{
-                            self.navigationController?.popToRootViewController(animated: true)
-                        }                        
+                            self?.navigationController?.popToRootViewController(animated: true)
+                        }
                     }else{
                         SuperToast.show(title: errMsg)
                     }
-                    
                 }
-//                BoBRealNameModel.getIdCardInfo11(userId:IMController.shared.uid, image: ""){ [weak self] data in
-//                    self?.idTitleLabel.show()
-//                    self?.idContentView.show()
-//                    self?.addressLabel.text = data.nation
-//                    self?.nameLabel.text = data.name
-//                    self?.idCardLabel.text = data.cardId
-//                }completionHandler: {errCode, errMsg in
-//                    SuperToast.show(title: String(errCode).localized())
-//                }
-                
             }else{
                 //人脸认证
+                let vc = BoBAdvancedRealNameViewController()
+                vc.name = self?.nameLabel.text ?? ""
+                vc.cardId =  self?.idCardLabel.text ?? ""
+                vc.idCardZM = self?.frontUrl ?? ""
+                vc.idCardBM = self?.backUrl ?? ""
+                self?.navigationController?.pushViewController(vc, animated: true)
             }
         }).disposed(by: rx.disposeBag)
         return r

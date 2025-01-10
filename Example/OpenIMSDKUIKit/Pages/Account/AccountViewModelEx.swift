@@ -67,8 +67,7 @@ extension AccountViewModel {
             let orderDetailVC = BoBOrderDetailViewController()
             orderDetailVC.code = code
             if isPresent{
-//                orderDetailVC.modalPresentationStyle = .overCurrentContext
-//                UIViewController.currentViewController().present(orderDetailVC, animated: true)
+                NotificationCenter.default.post(name: Notification.Name("closeOrderDetailVC"), object: nil)
                 orderDetailVC.modalPresentationStyle = .fullScreen
                 let nav = UINavigationController.init(rootViewController:  orderDetailVC)
                 nav.modalPresentationStyle = .fullScreen

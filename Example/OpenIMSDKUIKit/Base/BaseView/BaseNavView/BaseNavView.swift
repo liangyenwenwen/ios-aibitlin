@@ -41,7 +41,7 @@ class BaseNavView: TGRelativeLayout {
         return r
     }()
     
-    private lazy var rightContainer: TGLinearLayout = {
+     lazy var rightContainer: TGLinearLayout = {
         let r=TGLinearLayout(.horz)
         r.tg_gravity = [TGGravity.vert.center,TGGravity.horz.right]
         r.tg_space = PADDING_SMALL

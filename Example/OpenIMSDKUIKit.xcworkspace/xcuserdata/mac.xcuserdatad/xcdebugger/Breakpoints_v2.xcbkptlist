@@ -7,22 +7,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "546EC88B-0A83-4B5E-AB9B-FC5D42D523DE"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "OpenIMSDKUIKit/Pages/Mine/MineViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "30"
-            endingLineNumber = "30"
-            landmarkName = "queryUserInfo()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "27BC53EF-D661-43E9-813B-59FEC2ED1A01"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -120,14 +104,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "E1BA383C-A6F6-4A4A-94A9-797B274656F9"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "OpenIMSDKUIKit/Pages/BOB/RealName/BoBAdvancedRealNameViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "318"
-            endingLineNumber = "318"
+            startingLineNumber = "363"
+            endingLineNumber = "363"
             landmarkName = "startRecording()"
             landmarkType = "7">
          </BreakpointContent>
@@ -136,14 +120,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "567EC303-9E98-49B5-B8F8-F701397C28CC"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "OpenIMSDKUIKit/Pages/BOB/RealName/BoBAdvancedRealNameViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "376"
-            endingLineNumber = "376"
+            startingLineNumber = "421"
+            endingLineNumber = "421"
             landmarkName = "toggleCamera()"
             landmarkType = "7">
          </BreakpointContent>
@@ -152,14 +136,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "1CB35112-2B56-449E-9C20-32EE72C7EEF1"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "OpenIMSDKUIKit/Pages/BOB/RealName/BoBAdvancedRealNameViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "375"
-            endingLineNumber = "375"
+            startingLineNumber = "420"
+            endingLineNumber = "420"
             landmarkName = "toggleCamera()"
             landmarkType = "7">
          </BreakpointContent>
@@ -174,8 +158,8 @@
             filePath = "OpenIMSDKUIKit/Pages/BOB/RealName/BoBAdvancedRealNameViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "393"
-            endingLineNumber = "393"
+            startingLineNumber = "438"
+            endingLineNumber = "438"
             landmarkName = "toggleCamera()"
             landmarkType = "7">
          </BreakpointContent>
@@ -184,14 +168,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "92791D30-1277-48FB-921C-D6BE4A971297"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "OpenIMSDKUIKit/Pages/BOB/RealName/BoBAdvancedRealNameViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "388"
-            endingLineNumber = "388"
+            startingLineNumber = "433"
+            endingLineNumber = "433"
             landmarkName = "toggleCamera()"
             landmarkType = "7">
          </BreakpointContent>
@@ -199,17 +183,33 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "045623C1-A3C7-4FB3-AF76-F1EE55FB2975"
+            uuid = "8A5881EF-EEAA-4165-91DB-0098DDAF0218"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "OpenIMSDKUIKit/AppDelegate.swift"
+            filePath = "OpenIMSDKUIKit/Pages/BOB/BuyAndSellCion/View/BoBChoosePaymentMethodTypeView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "185"
-            endingLineNumber = "185"
-            landmarkName = "application(_:didFinishLaunchingWithOptions:)"
+            startingLineNumber = "103"
+            endingLineNumber = "103"
+            landmarkName = "bindData(type:paymentData:choosePayment:isSupportBank:isSupportAli:isSupportWeixin:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "546970F9-146C-472D-A3A0-EEF9D270F4FE"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "OpenIMSDKUIKit/Pages/BOB/Order/BoBOrderDetailViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
+            landmarkName = "BoBOrderDetailViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

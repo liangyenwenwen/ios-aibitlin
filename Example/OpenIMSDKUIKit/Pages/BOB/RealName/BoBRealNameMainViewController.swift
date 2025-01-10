@@ -47,7 +47,6 @@ class BoBRealNameMainViewController:UIViewController{
             make.height.equalTo(48)
             make.bottom.equalTo(view.snp_bottomMargin)
         }
-        showBottomView()
         getRealNameData()
     }
     lazy var topImageView: UIImageView = {
@@ -91,6 +90,7 @@ class BoBRealNameMainViewController:UIViewController{
         r.hide()
         r.rx.tap.subscribe(onNext: { [self] in
             let vc = BoBPrimaryRealNameViewController()
+            vc.isPrimaryRealName = true
             self.navigationController?.pushViewController(vc, animated: true)
         }).disposed(by: rx.disposeBag)
         return r
@@ -102,12 +102,14 @@ class BoBRealNameMainViewController:UIViewController{
         r.titleLabel?.font = UIFont(name: "PingFangSC-Medium", size: 16)
         r.hide()
         r.rx.tap.subscribe(onNext: { [self] in
-//            let vc = BoBPrimaryRealNameViewController()
-//            self.navigationController?.pushViewController(vc, animated: true)
-            
-            let vc = BoBAdvancedRealNameViewController()
-            self.navigationController?.pushViewController(vc, animated: true)
-            
+            if IMController.shared.certificationLevel == 0{
+                let vc = BoBPrimaryRealNameViewController()
+                vc.isPrimaryRealName = false
+                self.navigationController?.pushViewController(vc, animated: true)
+            }else{
+                let vc = BoBAdvancedRealNameViewController()
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
         }).disposed(by: rx.disposeBag)
         return r
     }()
@@ -138,39 +140,34 @@ extension BoBRealNameMainViewController{
             })
             self?.scrollView.contentSize = CGSize(width: kScreenWidth, height: height1+height2+16)
             IMController.shared.certificationLevel = data.certificationLevel
-            self?.showBottomView()
+            self?.updateUI(certificationAudit: data.certificationAudit)
         } completionHandler: {errCode, errMsg in
-            
+            SuperToast.show(title: errMsg)
         }
     }
-    func showBottomView(){
-        if IMController.shared.certificationLevel == 0{
-            //未认证
-            self.primaryBtn.show()
-            self.advancedBtn.show()
-            self.advancedBtn.backgroundColor = .white
-            self.advancedBtn.setTitleColor(.primaryColor, for: .normal)
-            self.advancedBtn.layer.borderWidth = 2
-//            scrollView.snp_updateConstraints { make in
-//                make.bottom.equalTo(primaryBtn.snp_top).offset(-20)
-//            }
-        }else if IMController.shared.certificationLevel == 1{
-            //初级认证
-            self.primaryBtn.hide()
-            self.advancedBtn.show()
-            self.advancedBtn.backgroundColor = .primaryColor
-            self.advancedBtn.setTitleColor(.white, for: .normal)
-            self.advancedBtn.layer.borderWidth = 0
-//            scrollView.snp_updateConstraints { make in
-//                make.bottom.equalTo(advancedBtn.snp_top).offset(-20)
-//            }
+    func updateUI(certificationAudit:Int){
+        if certificationAudit == 0 || IMController.shared.certificationLevel == 2{
+            primaryBtn.hide()
+            advancedBtn.hide()
+            scrollView.snp_updateConstraints { make in
+                make.bottom.equalTo(advancedBtn.snp_bottom)
+            }
         }else{
-           //高级认证
-            self.primaryBtn.hide()
-            self.advancedBtn.hide()
-//            scrollView.snp_updateConstraints { make in
-//                make.bottom.equalTo(advancedBtn.snp_bottom)
-//            }
+            if IMController.shared.certificationLevel == 0{
+               //未初级认证且高级认证不在审核中
+                primaryBtn.show()
+                advancedBtn.show()
+            }else{
+               //已初级认证且高级认证不在审核中
+                primaryBtn.hide()
+                advancedBtn.show()
+                scrollView.snp_remakeConstraints { make in
+                    make.left.equalTo(0)
+                    make.width.equalTo(kScreenWidth)
+                    make.top.equalTo(view.safeAreaLayoutGuide)
+                    make.bottom.equalTo(advancedBtn.snp_top).offset(-20)
+                }
+            }
         }
     }
 }

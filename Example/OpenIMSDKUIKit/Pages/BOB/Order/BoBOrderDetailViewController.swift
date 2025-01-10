@@ -38,6 +38,8 @@ class BoBOrderDetailViewController: BaseTitleController {
         initScrollSafeArea()
         title = "订单详情"
         addLeftImageButton(R.image.arrowLeft()!.withTintColor())
+        addRightTextButton("申诉", color: .primaryColor)
+        navView.rightContainer.hide()
         scrollViewContainer.tg_padding = UIEdgeInsets(top: 0, left: PADDING_OUTER, bottom: 0, right: PADDING_OUTER)
         superFooterContainerContainer.addSubview(bottomView)
         scrollViewContainer.addSubview(timeView)
@@ -60,10 +62,24 @@ class BoBOrderDetailViewController: BaseTitleController {
         scrollViewContainer.hide()
         bottomView.hide()
         loadData()
+        NotificationCenter.default.addObserver(self, selector: #selector(closeOrderDetailVC), name: Notification.Name("closeOrderDetailVC"), object: nil)
+    }
+    @objc func closeOrderDetailVC(){
+        self.navigationController?.popViewController(animated: false)
+        self.dismiss(animated: false)
     }
     deinit {
         self.stopTimer()
         self.stopRefreshTimer()
+        NotificationCenter.default.removeObserver(self)
+    }
+    override func rightBtnClick(_ sender: QMUIButton){
+        let vc = BoBSendAppealViewController()
+        vc.code = code
+        vc.uploadAppealSuccessBlock = {[weak self] in
+            self?.loadData()
+        }
+        self.navigationController?.pushViewController(vc)
     }
     func loadData(){
         BoBBuyAndSellCionModel.OrderDetailsRequest(code: code) {[weak self] data in
@@ -179,7 +195,7 @@ class BoBOrderDetailViewController: BaseTitleController {
                 paymentMethodNameView.hide()
                 payTitleLabel.text = "卖家收款方式"
                 payView.show()
-                payView.bindData(type: orderDetail?.payment ?? 1 ,data: orderDetail?.paymentMethodDetails ?? paymentDdetailData())
+                payView.bindData(buyOrSell:orderDetail?.buyOrSell ?? 1,type: orderDetail?.payment ?? 1 ,data: orderDetail?.paymentMethodDetails ?? paymentDdetailData())
                 buyVoucherImageView.hide()
             }else{
                 paymentMethodNameView.show()
@@ -192,7 +208,7 @@ class BoBOrderDetailViewController: BaseTitleController {
                 }else{
                     payTitleLabel.text = "我的收款方式"
                     payView.show()
-                    payView.bindData(type: orderDetail?.payment ?? 1 ,data: orderDetail?.paymentMethodDetails ?? paymentDdetailData())
+                    payView.bindData(buyOrSell:orderDetail?.buyOrSell ?? 1,type: orderDetail?.payment ?? 1 ,data: orderDetail?.paymentMethodDetails ?? paymentDdetailData())
                     buyVoucherImageView.hide()
                 }
             }
@@ -245,210 +261,143 @@ class BoBOrderDetailViewController: BaseTitleController {
                 cancleBtn.hide()
                 acceptOrderBtn.hide()
                 receivePaymentBtn.hide()
-                mineAppealBtn.hide()
                 uploadVoucherBtn.show()
-                if orderDetail?.representationType ?? 0 == 1{
-                    bottomView.tg_height.equal(66)
-                    checkOtherAppeal.hide()
-                    appealBtn.hide()
-                    if orderDetail?.representationTypeOther ?? 0 == 2{
-                        checkAppealResultBtn.show()
-                        checkAppealResultBtn.tg_width.equal(114)
-                    }else{
-                        checkAppealResultBtn.hide()
-                    }
-                }else if orderDetail?.representationType ?? 0 == 2{
-                    bottomView.tg_height.equal(66)
-                    checkOtherAppeal.hide()
-                    appealBtn.hide()
+                if orderDetail?.representationType ?? 0 == 0{
+                    navView.rightContainer.show()
+                }else{
+                    navView.rightContainer.hide()
+                }
+                if orderDetail?.representationType ?? 0 != 0 && orderDetail?.representationTypeOther ?? 0 != 0{
                     checkAppealResultBtn.show()
                     checkAppealResultBtn.tg_width.equal(114)
                 }else{
-                    appealBtn.tg_width.equal(114)
-                    appealBtn.show()
                     checkAppealResultBtn.hide()
-                    if orderDetail?.representationTypeOther ?? 0 == 2{
-                        bottomView.tg_height.equal(66+48)
-                        checkOtherAppeal.show()
-                    }else{
-                        bottomView.tg_height.equal(66)
-                        checkOtherAppeal.hide()
-                    }
                 }
             }else{
-                bottomView.tg_height.equal(66)
-                checkOtherAppeal.hide()
                 if orderDetail?.orderStatus == 1{
                     //等待用户付款
                     cancleBtn.tg_width.equal(114)
                     cancleBtn.show()
                     uploadVoucherBtn.show()
-                    appealBtn.hide()
                     acceptOrderBtn.hide()
                     receivePaymentBtn.hide()
                     checkAppealResultBtn.hide()
-                    mineAppealBtn.hide()
-                    
+                    navView.rightContainer.hide()
                 }else if orderDetail?.orderStatus == 2{
                     //等待商家确认
                     bottomView.hide()
+                    navView.rightContainer.hide()
                 }else if orderDetail?.orderStatus == 3{
                     //已完成
                     cancleBtn.hide()
                     uploadVoucherBtn.hide()
-                    appealBtn.hide()
                     acceptOrderBtn.hide()
                     receivePaymentBtn.hide()
-                    if orderDetail?.representationType ?? 0 == 2{
-                        checkAppealResultBtn.tg_width.equal(.fill)
-                        checkAppealResultBtn.show()
-                        mineAppealBtn.hide()
-                    }else if orderDetail?.representationType ?? 0 == 1{
-                        mineAppealBtn.hide()
-                        if orderDetail?.representationTypeOther ?? 0 == 2{
-                            checkAppealResultBtn.tg_width.equal(.fill)
-                            checkAppealResultBtn.show()
-                        }else{
-                            checkAppealResultBtn.hide()
-                        }
+                    if orderDetail?.representationType ?? 0 == 0{
+                        navView.rightContainer.show()
                     }else{
-                        mineAppealBtn.show()
-                        if orderDetail?.representationTypeOther ?? 0 == 2{
-                            checkAppealResultBtn.tg_width.equal(114)
-                            checkAppealResultBtn.show()
-                        }else{
-                            checkAppealResultBtn.hide()
-                        }
+                        navView.rightContainer.hide()
+                    }
+                    if orderDetail?.representationType ?? 0 != 0 && orderDetail?.representationTypeOther ?? 0 != 0{
+                        checkAppealResultBtn.show()
+                        checkAppealResultBtn.tg_width.equal(.fill)
+                    }else{
+                        checkAppealResultBtn.hide()
                     }
                 }else if orderDetail?.orderStatus == 4 || orderDetail?.orderStatus == 5{
                     if orderDetail?.paymentMethodDetails != nil{
                         cancleBtn.hide()
                         uploadVoucherBtn.hide()
-                        appealBtn.hide()
                         acceptOrderBtn.hide()
                         receivePaymentBtn.hide()
-                        if orderDetail?.representationType ?? 0 == 2{
-                            checkAppealResultBtn.tg_width.equal(.fill)
-                            checkAppealResultBtn.show()
-                            mineAppealBtn.hide()
-                        }else if orderDetail?.representationType ?? 0 == 1{
-                            mineAppealBtn.hide()
-                            if orderDetail?.representationTypeOther ?? 0 == 2{
-                                checkAppealResultBtn.tg_width.equal(.fill)
-                                checkAppealResultBtn.show()
-                            }else{
-                                checkAppealResultBtn.hide()
-                            }
+                        if orderDetail?.representationType ?? 0 == 0{
+                            navView.rightContainer.show()
                         }else{
-                            mineAppealBtn.show()
-                            if orderDetail?.representationTypeOther ?? 0 == 2{
-                                checkAppealResultBtn.tg_width.equal(114)
-                                checkAppealResultBtn.show()
-                            }else{
-                                checkAppealResultBtn.hide()
-                            }
+                            navView.rightContainer.hide()
+                        }
+                        if orderDetail?.representationType ?? 0 != 0 && orderDetail?.representationTypeOther ?? 0 != 0{
+                            checkAppealResultBtn.show()
+                            checkAppealResultBtn.tg_width.equal(.fill)
+                        }else{
+                            checkAppealResultBtn.hide()
                         }
                     }else{
+                        navView.rightContainer.hide()
                         bottomView.hide()
                     }
                 }else if orderDetail?.orderStatus == 8{
                     cancleBtn.tg_width.equal(.fill)
                     cancleBtn.show()
                     uploadVoucherBtn.hide()
-                    appealBtn.hide()
+                    navView.rightContainer.hide()
                     acceptOrderBtn.hide()
                     receivePaymentBtn.hide()
                     checkAppealResultBtn.hide()
-                    mineAppealBtn.hide()
                 }else if orderDetail?.orderStatus == 9{
                     cancleBtn.tg_width.equal(114)
                     cancleBtn.show()
                     acceptOrderBtn.show()
                     uploadVoucherBtn.hide()
-                    appealBtn.hide()
+                    navView.rightContainer.hide()
                     receivePaymentBtn.hide()
                     checkAppealResultBtn.hide()
-                    mineAppealBtn.hide()
                 }else if orderDetail?.orderStatus == 11 {
                     bottomView.hide()
+                    navView.rightContainer.hide()
                 }
             }
         }else{
             //卖家
-            bottomView.tg_height.equal(66)
             bottomView.show()
-            checkOtherAppeal.hide()
             if orderDetail?.orderStatus == 1{
                 //等待买家付款
                 bottomView.hide()
+                navView.rightContainer.hide()
             }else if orderDetail?.orderStatus == 2{
                 //请您确认收款
-                appealBtn.show()
+                navView.rightContainer.hide()
                 receivePaymentBtn.show()
                 cancleBtn.hide()
                 acceptOrderBtn.hide()
                 uploadVoucherBtn.hide()
                 checkAppealResultBtn.hide()
-                mineAppealBtn.hide()
-                
             }else if orderDetail?.orderStatus == 3{
                 //已完成
                 cancleBtn.hide()
                 uploadVoucherBtn.hide()
-                appealBtn.hide()
                 acceptOrderBtn.hide()
                 receivePaymentBtn.hide()
-                if orderDetail?.representationType ?? 0 == 2{
-                    checkAppealResultBtn.tg_width.equal(.fill)
-                    checkAppealResultBtn.show()
-                    mineAppealBtn.hide()
-                }else if orderDetail?.representationType ?? 0 == 1{
-                    mineAppealBtn.hide()
-                    if orderDetail?.representationTypeOther ?? 0 == 2{
-                        checkAppealResultBtn.tg_width.equal(.fill)
-                        checkAppealResultBtn.show()
-                    }else{
-                        checkAppealResultBtn.hide()
-                    }
+                if orderDetail?.representationType ?? 0 == 0{
+                    navView.rightContainer.show()
                 }else{
-                    mineAppealBtn.show()
-                    if orderDetail?.representationTypeOther ?? 0 == 2{
-                        checkAppealResultBtn.tg_width.equal(114)
-                        checkAppealResultBtn.show()
-                    }else{
-                        checkAppealResultBtn.hide()
-                    }
+                    navView.rightContainer.hide()
+                }
+                if orderDetail?.representationType ?? 0 != 0 && orderDetail?.representationTypeOther ?? 0 != 0{
+                    checkAppealResultBtn.show()
+                    checkAppealResultBtn.tg_width.equal(.fill)
+                }else{
+                    checkAppealResultBtn.hide()
                 }
             }else if orderDetail?.orderStatus == 4 || orderDetail?.orderStatus == 5{
                 if orderDetail?.paymentMethodDetails != nil{
                     cancleBtn.hide()
                     uploadVoucherBtn.hide()
-                    appealBtn.hide()
                     acceptOrderBtn.hide()
                     receivePaymentBtn.hide()
-                    if orderDetail?.representationType ?? 0 == 2{
-                        checkAppealResultBtn.tg_width.equal(.fill)
-                        checkAppealResultBtn.show()
-                        mineAppealBtn.hide()
-                    }else if orderDetail?.representationType ?? 0 == 1{
-                        mineAppealBtn.hide()
-                        if orderDetail?.representationTypeOther ?? 0 == 2{
-                            checkAppealResultBtn.tg_width.equal(.fill)
-                            checkAppealResultBtn.show()
-                        }else{
-                            checkAppealResultBtn.hide()
-                        }
+                    if orderDetail?.representationType ?? 0 == 0{
+                        navView.rightContainer.show()
                     }else{
-                        mineAppealBtn.show()
-                        if orderDetail?.representationTypeOther ?? 0 == 2{
-                            checkAppealResultBtn.tg_width.equal(114)
-                            checkAppealResultBtn.show()
-                        }else{
-                            checkAppealResultBtn.hide()
-                        }
+                        navView.rightContainer.hide()
+                    }
+                    if orderDetail?.representationType ?? 0 != 0 && orderDetail?.representationTypeOther ?? 0 != 0{
+                        checkAppealResultBtn.show()
+                        checkAppealResultBtn.tg_width.equal(.fill)
+                    }else{
+                        checkAppealResultBtn.hide()
                     }
                 }else{
                     bottomView.hide()
+                    navView.rightContainer.hide()
                 }
             }else if orderDetail?.orderStatus == 8{
                 //等待您接单
@@ -456,49 +405,37 @@ class BoBOrderDetailViewController: BaseTitleController {
                 cancleBtn.show()
                 acceptOrderBtn.show()
                 uploadVoucherBtn.hide()
-                appealBtn.hide()
                 receivePaymentBtn.hide()
                 checkAppealResultBtn.hide()
-                mineAppealBtn.hide()
+                navView.rightContainer.hide()
             }else if orderDetail?.orderStatus == 9{
                 cancleBtn.tg_width.equal(.fill)
                 cancleBtn.show()
                 acceptOrderBtn.hide()
                 uploadVoucherBtn.hide()
-                appealBtn.hide()
                 receivePaymentBtn.hide()
                 checkAppealResultBtn.hide()
-                mineAppealBtn.hide()
+                navView.rightContainer.hide()
             }else if orderDetail?.orderStatus == 10{
                 //已超时
                 cancleBtn.hide()
                 uploadVoucherBtn.hide()
-                appealBtn.hide()
                 acceptOrderBtn.hide()
                 receivePaymentBtn.hide()
-                if orderDetail?.representationType ?? 0 == 2{
-                    checkAppealResultBtn.tg_width.equal(.fill)
-                    checkAppealResultBtn.show()
-                    mineAppealBtn.hide()
-                }else if orderDetail?.representationType ?? 0 == 1{
-                    mineAppealBtn.hide()
-                    if orderDetail?.representationTypeOther ?? 0 == 2{
-                        checkAppealResultBtn.tg_width.equal(.fill)
-                        checkAppealResultBtn.show()
-                    }else{
-                        checkAppealResultBtn.hide()
-                    }
+                if orderDetail?.representationType ?? 0 == 0{
+                    navView.rightContainer.show()
                 }else{
-                    mineAppealBtn.show()
-                    if orderDetail?.representationTypeOther ?? 0 == 2{
-                        checkAppealResultBtn.tg_width.equal(114)
-                        checkAppealResultBtn.show()
-                    }else{
-                        checkAppealResultBtn.hide()
-                    }
+                    navView.rightContainer.hide()
+                }
+                if orderDetail?.representationType ?? 0 != 0 && orderDetail?.representationTypeOther ?? 0 != 0{
+                    checkAppealResultBtn.show()
+                    checkAppealResultBtn.tg_width.equal(.fill)
+                }else{
+                    checkAppealResultBtn.hide()
                 }
             }else if orderDetail?.orderStatus == 11 {
                 bottomView.hide()
+                navView.rightContainer.hide()
             }
         }
     }
@@ -883,23 +820,8 @@ class BoBOrderDetailViewController: BaseTitleController {
         r.tg_height.equal(66)
         r.tg_hspace = 0
         r.tg_padding = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        r.addSubview(checkOtherAppeal)
         r.addSubview(bottomBtnView)
         cancleBtn.tg_width.equal(114)
-        return r
-    }()
-    lazy var checkOtherAppeal: QMUIButton = {
-        let r = ViewFactoryUtil.linkButton("申诉结果")
-        r.tg_height.equal(48)
-        r.tg_width.equal(.fill)
-        r.hide()
-        r.setTitleColor(.init(hexString: "#FFA756"), for: .normal)
-        r.titleLabel?.font = .mediumFont(14)
-        r.rx.tap.subscribe(onNext: { [weak self] in
-            let vc = BoBAppealResultViewController()
-            vc.code = self?.code ?? ""
-            self?.navigationController?.pushViewController(vc)
-        }).disposed(by: rx.disposeBag)
         return r
     }()
     lazy var bottomBtnView: TGLinearLayout = {
@@ -909,12 +831,10 @@ class BoBOrderDetailViewController: BaseTitleController {
         r.tg_hspace = 10
         r.tg_padding = UIEdgeInsets(top: 10, left: PADDING_OUTER, bottom: 10, right: PADDING_OUTER)
         r.addSubview(cancleBtn)
-        r.addSubview(appealBtn)
         r.addSubview(checkAppealResultBtn)
         r.addSubview(acceptOrderBtn)
         r.addSubview(uploadVoucherBtn)
         r.addSubview(receivePaymentBtn)
-        r.addSubview(mineAppealBtn)
         return r
     }()
     lazy var cancleBtn: QMUIButton = {
@@ -995,23 +915,6 @@ class BoBOrderDetailViewController: BaseTitleController {
         }).disposed(by: rx.disposeBag)
         return r
     }()
-    lazy var appealBtn: QMUIButton = {
-        let r = ViewFactoryUtil.linkButton("申诉")
-        r.tg_height.equal(48)
-        r.tg_width.equal(114)
-        r.setTitleColor(.black666, for: .normal)
-        r.titleLabel?.font = .mediumFont(16)
-        r.border(.black999,borderWidth: 1,cornerRadius: 24)
-        r.rx.tap.subscribe(onNext: { [weak self] in
-            let vc = BoBSendAppealViewController()
-            vc.code = self?.code ?? ""
-            vc.uploadAppealSuccessBlock = {[weak self] in
-                self?.loadData()
-            }
-            self?.navigationController?.pushViewController(vc)
-        }).disposed(by: rx.disposeBag)
-        return r
-    }()
     lazy var receivePaymentBtn: QMUIButton = {
         let r = ViewFactoryUtil.linkButton("我已收款，通知平台")
         r.tg_height.equal(48)
@@ -1042,24 +945,6 @@ class BoBOrderDetailViewController: BaseTitleController {
         r.rx.tap.subscribe(onNext: { [weak self] in
             let vc = BoBAppealResultViewController()
             vc.code = self?.code ?? ""
-            self?.navigationController?.pushViewController(vc)
-        }).disposed(by: rx.disposeBag)
-        return r
-    }()
-    lazy var mineAppealBtn: QMUIButton = {
-        let r = ViewFactoryUtil.linkButton("申诉")
-        r.tg_height.equal(48)
-        r.tg_width.equal(.fill)
-        r.setTitleColor(.white, for: .normal)
-        r.titleLabel?.font = .mediumFont(16)
-        r.backgroundColor = .primaryColor
-        r.corner(24)
-        r.rx.tap.subscribe(onNext: { [weak self] in
-            let vc = BoBSendAppealViewController()
-            vc.code = self?.code ?? ""
-            vc.uploadAppealSuccessBlock = {[weak self] in
-                self?.loadData()
-            }
             self?.navigationController?.pushViewController(vc)
         }).disposed(by: rx.disposeBag)
         return r

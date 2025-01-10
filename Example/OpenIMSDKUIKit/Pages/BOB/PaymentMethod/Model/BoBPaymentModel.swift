@@ -505,7 +505,7 @@ struct stringAndDatePOS: Codable {
     var dateValue: String
     var icon:String?
     var stringValue:String?
-    var type: String //"bank",""
+    var type: String //"bank","zhiFuBao","weiXin"
 }
 class paymentDdetailData: Decodable {
     var userId: String?

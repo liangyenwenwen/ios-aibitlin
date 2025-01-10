@@ -26,6 +26,7 @@ class BoBChoosePaymentMethodTypeView: TGLinearLayout {
     var isSupportAli:Bool = true
     var isSupportWeixin:Bool = true
     var paymentType:Int = 0 //0银行卡、1支付宝、2微信
+    var type:Int = 1 //1购买，2出售
     init() {
         super.init(frame: .zero, orientation: .vert)
         innerInit()
@@ -53,7 +54,6 @@ class BoBChoosePaymentMethodTypeView: TGLinearLayout {
             make.right.equalTo(closeBtn.snp_left).offset(-15)
             make.top.equalTo(20)
         }
-        
         closeBtn.snp_makeConstraints { make in
             make.right.equalTo(-16)
             make.centerY.equalTo(titleLbl)
@@ -78,12 +78,15 @@ class BoBChoosePaymentMethodTypeView: TGLinearLayout {
         }
         
     }
-    func bindData(paymentData:PaymentMethodData?,choosePayment:stringAndDatePOS?,isSupportBank:Bool?,isSupportAli:Bool?,isSupportWeixin:Bool?){
+    func bindData(type:Int,paymentData:PaymentMethodData?,choosePayment:stringAndDatePOS?,isSupportBank:Bool?,isSupportAli:Bool?,isSupportWeixin:Bool?){
         paymentMethodData = paymentData
         choosePaymentMethod = choosePayment
+        self.type = type
         self.isSupportBank = isSupportBank ?? true
         self.isSupportAli = isSupportAli ?? true
         self.isSupportWeixin = isSupportWeixin ?? true
+        titleLbl.text = type == 1 ? "支付方式":"收款方式"
+        addBtn.setTitle(type == 1 ? "添加新的支付方式" : "添加新的收款方式", for: .normal)
         bankList.removeAll()
         aliList.removeAll()
         wxList.removeAll()
@@ -117,6 +120,13 @@ class BoBChoosePaymentMethodTypeView: TGLinearLayout {
         }else{
             weixinBtn.alpha = 0.5
             weixinBtn.isUserInteractionEnabled = false
+        }
+        if  choosePayment?.type == "zhiFuBao"{
+            paymentType = 1
+        }else if choosePayment?.type == "weiXin"{
+            paymentType = 2
+        }else{
+            paymentType = 0
         }
         if paymentType == 0{
             if bankList.count > 0 && self.isSupportBank{

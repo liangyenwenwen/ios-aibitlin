@@ -9,7 +9,14 @@
 import Foundation
 import AVFoundation
 import OUICore
+import ProgressHUD
+import ZLPhotoBrowser
+
 class BoBAdvancedRealNameViewController: UIViewController {
+    var name:String = ""
+    var cardId:String = ""
+    var idCardZM:String = ""
+    var idCardBM:String = ""
     var captureSession: AVCaptureSession!
     var movieOutput: AVCaptureMovieFileOutput!
     var previewLayer: AVCaptureVideoPreviewLayer!
@@ -17,6 +24,7 @@ class BoBAdvancedRealNameViewController: UIViewController {
     var player: AVPlayer?
     var playerLayer: AVPlayerLayer?
     var outputFileURL: URL?
+    var videoUrl:String = ""
     private var timer: DispatchSourceTimer?
     var timeCount:Int = 0
     private var videoInput: AVCaptureDeviceInput?
@@ -66,6 +74,42 @@ class BoBAdvancedRealNameViewController: UIViewController {
     }
     @objc func backAction() {
         self.navigationController?.popViewController(animated: true)
+    }
+    func uploadVideo(){
+        if videoUrl.length == 0{
+            ProgressHUD.animate()
+            PhotoHelper.getVideoAt(url: outputFileURL!) { main, thumb, duration in
+                IMController.shared.uploadFile(fullPath: main.fullPath) { progress in
+                    
+                } onSuccess: { [weak self] url in
+                    if let url = url {
+                        self?.videoUrl = url
+                        self?.commitInfo()
+                    }else{
+                        ProgressHUD.dismiss()
+                        SuperToast.show(title: "上传失败")
+                    }
+                }
+            }
+        }else{
+            commitInfo()
+        }
+        
+    }
+    func commitInfo(){
+        BoBRealNameModel.AdvancedRealNameAuthenticationRequest(url: videoUrl, name: name, cardId: cardId, idCardZM: idCardBM, idCardBM:idCardBM){errCode,errMsg in
+            if errCode == 20000{
+                SuperToast.show(title: "提交成功")
+                if (self.navigationController?.viewControllers.count)! > 3{
+                    let vc = self.navigationController?.viewControllers[(self.navigationController?.viewControllers.count)!-4]
+                    self.navigationController?.popToViewController(vc!, animated: true)
+                }else{
+                    self.navigationController?.popToRootViewController(animated: true)
+                }
+            }else{
+                SuperToast.show(title: errMsg)
+            }
+        }
     }
     func convertSecondsToMinuteSecondFormat(_ totalSeconds: Int) -> String {
         let minutes = totalSeconds / 60
@@ -180,6 +224,7 @@ class BoBAdvancedRealNameViewController: UIViewController {
                 self?.player = nil
                 self?.playerLayer = nil
             }
+            self?.videoUrl = ""
             self?.bottomRecordView.show()
             self?.bottomView.hide()
             self?.tipLabel.show()
@@ -194,7 +239,7 @@ class BoBAdvancedRealNameViewController: UIViewController {
         r.backgroundColor = .primaryColor
         r.corner(23)
         r.rx.tap.subscribe(onNext: { [weak self] in
-            
+            self?.uploadVideo()
         }).disposed(by: rx.disposeBag)
         return r
     }()
@@ -327,15 +372,12 @@ class BoBAdvancedRealNameViewController: UIViewController {
 //            }
 //        }
         let tempDir = NSTemporaryDirectory()
-        let outputPath = (tempDir as NSString).appendingPathComponent("output.mov")
+        let videoName = UUID().uuidString + ".mov"
+        let outputPath = (tempDir as NSString).appendingPathComponent(videoName)
         outputFileURL = URL(fileURLWithPath: outputPath)
         movieOutput.startRecording(to: outputFileURL!, recordingDelegate: self)
+        timeCount = 0
         startTimer()
-
-//        // 5秒后自动停止录制
-//        DispatchQueue.main.asyncAfter(deadline:.now() + 5) {
-//            self.stopRecording()
-//        }
     }
 
     @objc func stopRecording() {
@@ -344,7 +386,10 @@ class BoBAdvancedRealNameViewController: UIViewController {
         flipBtn.show()
         timeLabel.hide()
         if timeCount < 5{
-            
+            bottomRecordView.show()
+            bottomView.hide()
+            tipLabel.show()
+            startBtn.isSelected = false
         }else{
             bottomRecordView.hide()
             bottomView.show()
@@ -405,7 +450,7 @@ extension BoBAdvancedRealNameViewController: AVCaptureFileOutputRecordingDelegat
         } else {
             print("视频录制成功，文件位于: \(outputFileURL)")
             // 开始循环播放录制的视频
-            if timeCount > 5{
+            if timeCount >= 5{
                 playRecordedVideo(fileURL: outputFileURL)
             }else{
                 SuperToast.show(title: "录制时间不能少于5s")

@@ -265,7 +265,7 @@ class BoBQuickBuyAndSellView: UIView {
         chooseTypeView.tg_width.equal(.fill)
         chooseTypeView.tg_height.equal(447)
         chooseTypeView.currentVC = currentVC
-        chooseTypeView.bindData(paymentData: homeData?.userBankAndWeiXinAndZFBPO,choosePayment: choosePaymentMethod,isSupportBank: true,isSupportAli: true,isSupportWeixin: true)
+        chooseTypeView.bindData(type:type,paymentData: homeData?.userBankAndWeiXinAndZFBPO,choosePayment: choosePaymentMethod,isSupportBank: true,isSupportAli: true,isSupportWeixin: true)
         chooseTypeView.choosePaymentMethodTypeBlock = {[weak self] choosePayment,newPaymentMethodData in
             self?.choosePaymentMethod = choosePayment
             self?.homeData?.userBankAndWeiXinAndZFBPO = newPaymentMethodData

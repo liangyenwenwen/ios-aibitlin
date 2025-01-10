@@ -18,6 +18,7 @@ open class BoBRealNameModel {
     private static let QueryRealNameAuthentication = "/wallet/realNameAuthentication/queryRealNameAuthentication" //查看实名认证
     private static let ReceiveIdentityCardHeadshots = "/wallet/realNameAuthentication/receiveIdentityCardHeadshots" //接收身份证的头像面
     private static let PrimaryRealNameAuthentication = "/wallet/realNameAuthentication/primaryRealNameAuthentication"//初级实名认证
+    private static let AdvancedRealNameAuthentication = "/wallet/realNameAuthentication/advancedRealNameAuthentication"//高级实名认证
     private static let GetOpenScreenPage = "/wallet/wallet/openScreenPage"//开屏广告
 
 //    private static var httpHeaders : HTTPHeaders = [
@@ -183,6 +184,8 @@ open class BoBRealNameModel {
     //初级实名认证
     static func primaryRealNameAuthenticationRequest(name:String,
                                                      cardId:String,
+                                                     idCardZM:String,
+                                                     idCardBM:String,
                                   completionHandler: @escaping CompletionHandler) {
         
         
@@ -191,8 +194,38 @@ open class BoBRealNameModel {
             return
         }
         ProgressHUD.animate()
-        let param = ["name":name,"cardId":cardId]
+        let param = ["name":name,"cardId":cardId,"idCardZM":idCardZM,"idCardBM":idCardBM]
         let url = API_BOB_URL + PrimaryRealNameAuthentication
+        Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
+            ProgressHUD.dismiss()
+            if let data = dataRequest.data {
+                let strData = String.init(data: data, encoding: String.Encoding.utf8)
+                print(strData!)
+                if let res = JsonTool.fromJson(strData!, toClass: BoBResponse.self) {
+                    completionHandler(res.code, res.message)
+                } else {
+                    if let res = JsonTool.fromJson(strData!, toClass: RealNameNODataResponse.self){
+                        completionHandler(res.code, res.message)
+                    }else{
+                        completionHandler(-1, "网络错误")
+                    }
+                }
+            } else {
+                completionHandler(-1, "网络错误")
+            }
+        }
+        
+    }
+    //高级实名认证
+    static func AdvancedRealNameAuthenticationRequest(url:String,
+                                                      name:String?,
+                                                      cardId:String?,
+                                                      idCardZM:String?,
+                                                      idCardBM:String?,
+                                                      completionHandler: @escaping CompletionHandler) {
+        ProgressHUD.animate()
+        let param = [url:url,"name":name,"cardId":cardId,"idCardZM":idCardZM,"idCardBM":idCardBM]
+        let url = API_BOB_URL + AdvancedRealNameAuthentication
         Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
             ProgressHUD.dismiss()
             if let data = dataRequest.data {
@@ -282,7 +315,8 @@ class RealNameInfoResponse<T: Decodable>: Decodable {
     var count: Int? = 0
 }
 struct RealNameInfoDataModel: Codable {
-    var certificationLevel: Int
+    var certificationLevel: Int //0未认证，1初级认证，2高级认证
+    var certificationAudit:Int //高级认证:0申请过了等待审核 1没有申请
     var cjmmbRealNameAuthenticationPOS: [cjmmbRealNameAuthenticationPOS]
     var cjtbRealNameAuthenticationPOS: [cjtbRealNameAuthenticationPOS]
     var gjmmbRealNameAuthenticationPOS: [gjmmbRealNameAuthenticationPOS]

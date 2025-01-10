@@ -16,6 +16,7 @@ class BoBOrderDetailPaymentView: TGLinearLayout {
     var paymentDetail:paymentDdetailData?
     var currentVC:UIViewController?
     var type:Int = 1
+    var buyOrSell:Int = 1
     let disposeBag = DisposeBag()
     init() {
         super.init(frame: .zero, orientation: .vert)
@@ -43,26 +44,46 @@ class BoBOrderDetailPaymentView: TGLinearLayout {
         attributedString.insert(attachmentString, at: str1.length)
         return attributedString
     }
-    func bindData(type:Int,data:paymentDdetailData){
+    func bindData(buyOrSell:Int,type:Int,data:paymentDdetailData){
         paymentDetail = data
+        self.buyOrSell = buyOrSell
         self.type = type
         if type == 1{
             addSubview(bankView)
             bankIcon.sd_setImage(with: URL(string: data.icon ?? ""))
             bankName.text = data.bankDeposit ?? ""
-            bankNumber.attributedText = getAttribute(str: data.bankId ?? "")
-            bankUserName.attributedText = getAttribute(str: data.name ?? "")
+            if buyOrSell == 1{
+                bankNumber.attributedText = getAttribute(str: data.bankId ?? "")
+                bankUserName.attributedText = getAttribute(str: data.name ?? "")
+            }else{
+                bankNumber.text = data.bankId ?? ""
+                bankUserName.text = data.name ?? ""
+            }
+            
         }else if type == 2{
             addSubview(aliPayView)
             aliPayView.payIcon.sd_setImage(with: URL(string: data.img ?? ""))
-            aliPayView.userNameView.buyCounLabel.attributedText = getAttribute(str: data.name ?? "")
             aliPayView.userNickNameView.buyCounLabel.text = data.nickName
-            aliPayView.numberView.buyCounLabel.attributedText = getAttribute(str: data.zfbCode ?? "")
+            if buyOrSell == 1{
+                aliPayView.userNameView.buyCounLabel.attributedText = getAttribute(str: data.name ?? "")
+                aliPayView.numberView.buyCounLabel.attributedText = getAttribute(str: data.zfbCode ?? "")
+                aliPayView.saveBtn.show()
+            }else{
+                aliPayView.userNameView.buyCounLabel.text = data.name ?? ""
+                aliPayView.numberView.buyCounLabel.text = data.zfbCode ?? ""
+                aliPayView.saveBtn.hide()
+            }
         }else if type == 3{
             addSubview(weixinPayView)
             weixinPayView.payIcon.sd_setImage(with: URL(string: data.img ?? ""))
-            weixinPayView.userNameView.buyCounLabel.attributedText = getAttribute(str: data.name ?? "")
             weixinPayView.userNickNameView.buyCounLabel.text = data.nickName
+            if buyOrSell == 1{
+                weixinPayView.userNameView.buyCounLabel.attributedText = getAttribute(str: data.name ?? "")
+                weixinPayView.saveBtn.show()
+            }else{
+                weixinPayView.userNameView.buyCounLabel.text = data.name ?? ""
+                weixinPayView.saveBtn.hide()
+            }
         }
     }
 //    func showQrCode(){
@@ -127,8 +148,10 @@ class BoBOrderDetailPaymentView: TGLinearLayout {
         r.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer()
         tap.rx.event.subscribe {[weak self]  _ in
-            UIPasteboard.general.string = self?.paymentDetail?.bankId ?? ""
-            SuperToast.show(title: "复制成功".localized())
+            if self?.buyOrSell == 1{
+                UIPasteboard.general.string = self?.paymentDetail?.bankId ?? ""
+                SuperToast.show(title: "复制成功".localized())
+            }
         }.disposed(by: self.disposeBag)
         r.addGestureRecognizer(tap)
         return r
@@ -140,8 +163,10 @@ class BoBOrderDetailPaymentView: TGLinearLayout {
         r.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer()
         tap.rx.event.subscribe {[weak self]  _ in
-            UIPasteboard.general.string = self?.paymentDetail?.name ?? ""
-            SuperToast.show(title: "复制成功".localized())
+            if self?.buyOrSell == 1{
+                UIPasteboard.general.string = self?.paymentDetail?.name ?? ""
+                SuperToast.show(title: "复制成功".localized())
+            }
         }.disposed(by: self.disposeBag)
         r.addGestureRecognizer(tap)
         return r
@@ -166,14 +191,18 @@ class BoBOrderDetailPaymentView: TGLinearLayout {
         r.leftView.addGestureRecognizer(tap)
         let tap1 = UITapGestureRecognizer()
         tap1.rx.event.subscribe {[weak self]  _ in
-            UIPasteboard.general.string = self?.paymentDetail?.name ?? ""
-            SuperToast.show(title: "复制成功".localized())
+            if self?.buyOrSell == 1{
+                UIPasteboard.general.string = self?.paymentDetail?.name ?? ""
+                SuperToast.show(title: "复制成功".localized())
+            }
         }.disposed(by: self.disposeBag)
         r.userNameView.buyCounLabel.addGestureRecognizer(tap1)
         let tap2 = UITapGestureRecognizer()
         tap2.rx.event.subscribe {[weak self]  _ in
-            UIPasteboard.general.string = self?.paymentDetail?.zfbCode ?? ""
-            SuperToast.show(title: "复制成功".localized())
+            if self?.buyOrSell == 1{
+                UIPasteboard.general.string = self?.paymentDetail?.zfbCode ?? ""
+                SuperToast.show(title: "复制成功".localized())
+            }
         }.disposed(by: self.disposeBag)
         r.numberView.buyCounLabel.addGestureRecognizer(tap2)
         return r
@@ -197,8 +226,10 @@ class BoBOrderDetailPaymentView: TGLinearLayout {
         r.leftView.addGestureRecognizer(tap)
         let tap1 = UITapGestureRecognizer()
         tap1.rx.event.subscribe {[weak self]  _ in
-            UIPasteboard.general.string = self?.paymentDetail?.name ?? ""
-            SuperToast.show(title: "复制成功".localized())
+            if self?.buyOrSell == 1{
+                UIPasteboard.general.string = self?.paymentDetail?.name ?? ""
+                SuperToast.show(title: "复制成功".localized())
+            }
         }.disposed(by: self.disposeBag)
         r.userNameView.buyCounLabel.addGestureRecognizer(tap1)
         return r
