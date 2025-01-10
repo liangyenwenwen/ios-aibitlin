@@ -70,17 +70,26 @@ class BoBOrderDetailViewController: BaseTitleController {
             if self?.orderDetail == nil{
                 self?.scrollViewContainer.show()
                 self?.bottomView.show()
-                self?.startRefreshTimer()
             }
             self?.timeCount = 0
             self?.orderDetail = data
             self?.updateUI()
-        } completionHandler:{errCode,errMsg in
-            SuperToast.show(title: errMsg)
+        } completionHandler:{[weak self] errCode,errMsg in
+            if self?.orderDetail == nil{
+                SuperToast.show(title: errMsg)
+            }
         }
     }
     func updateUI(){
-        //1:等待用户付款 2:等待商家确认 3:已完成 4:用户取消 5:商家取消 6:等待商家付款 7:等待用户确认 8:等待卖家接单 9:等待买家接单 10:已超时
+        //进行中1、2、6、7、8、9、10、11才开启刷新
+        if orderDetail?.orderStatus != 3 &&  orderDetail?.orderStatus != 4 {
+            if refreshTimer == nil{
+                startRefreshTimer()
+            }
+        }else{
+            stopRefreshTimer()
+        }
+        //1:等待用户付款 2:等待商家确认 3:已完成 4:用户取消 5:商家取消 6:等待商家付款 7:等待用户确认 8:等待卖家接单 9:等待买家接单 10:已超时 11:申诉中
         if orderDetail?.orderStatus == 1 || orderDetail?.orderStatus == 6{
             title = orderDetail?.buyOrSell == 1 ? "等待您付款" : "等待买家付款"
             orderStatusLabel.text = orderDetail?.buyOrSell == 1 ? "订单交易资金已锁定，请放心转款" : "等待买家付款"

@@ -95,10 +95,14 @@ class BoBConfirmPurchaseAlertView: UIView {
        if type == 1 {
             //购买
             titleLbl.text = "确认购买"
+           payMoneyView.buyCountTitleLabel.text = "付款金额"
+           paymentTitleLabel.text = "支付方式"
            countView.buyCountTitleLabel.text = "购买数量" + String(format: "(%@)", walletType.currency ?? "C")
         }else{
             //出售
             titleLbl.text = "确认出售"
+            payMoneyView.buyCountTitleLabel.text = "收款金额"
+            paymentTitleLabel.text = "收款方式"
             countView.buyCountTitleLabel.text = "出售数量" + String(format: "(%@)", walletType.currency ?? "C")
         }
         paymentIcon.sd_setImage(with: URL(string: paymentType.icon))

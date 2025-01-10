@@ -54,12 +54,6 @@ class BoBAddPaymentMethodViewController:UIViewController{
                 make.height.equalTo(242)
 
             }
-            sumbitBtn.snp_makeConstraints { make in
-                make.left.equalTo(16)
-                make.right.equalTo(-16)
-                make.height.equalTo(48)
-                make.top.equalTo(bankView.snp_bottom).offset(20)
-            }
             if paymentType == 1{
                 aliBtn.border(.init(hexString: "#277FE6"),borderWidth: 1,cornerRadius: 8)
                 aliBtn.selectStatusImageView.show()
@@ -69,6 +63,12 @@ class BoBAddPaymentMethodViewController:UIViewController{
                 weixinBtn.selectStatusImageView.hide()
                 bankView.hide()
                 aliView.show()
+                sumbitBtn.snp_makeConstraints { make in
+                    make.left.equalTo(16)
+                    make.right.equalTo(-16)
+                    make.height.equalTo(48)
+                    make.top.equalTo(aliView.snp_bottom).offset(20)
+                }
             }else if paymentType == 2{
                 weixinBtn.border(.init(hexString: "#277FE6"),borderWidth: 1,cornerRadius: 8)
                 weixinBtn.selectStatusImageView.show()
@@ -78,6 +78,19 @@ class BoBAddPaymentMethodViewController:UIViewController{
                 aliBtn.selectStatusImageView.hide()
                 bankView.hide()
                 wxView.show()
+                sumbitBtn.snp_makeConstraints { make in
+                    make.left.equalTo(16)
+                    make.right.equalTo(-16)
+                    make.height.equalTo(48)
+                    make.top.equalTo(wxView.snp_bottom).offset(20)
+                }
+            }else{
+                sumbitBtn.snp_makeConstraints { make in
+                    make.left.equalTo(16)
+                    make.right.equalTo(-16)
+                    make.height.equalTo(48)
+                    make.top.equalTo(bankView.snp_bottom).offset(20)
+                }
             }
         }else{
             if let res = JsonTool.fromJson((paymentDetail?.stringValue)!, toClass: paymentDdetailData.self) {

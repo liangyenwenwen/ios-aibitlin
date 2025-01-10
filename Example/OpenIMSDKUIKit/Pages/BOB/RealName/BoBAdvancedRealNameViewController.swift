@@ -9,10 +9,7 @@
 import Foundation
 import AVFoundation
 import OUICore
-class BoBAdvancedRealNameViewController: UIViewController, AVCaptureFileOutputRecordingDelegate {
-    func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: (any Error)?) {
-        
-    }
+class BoBAdvancedRealNameViewController: UIViewController {
     var captureSession: AVCaptureSession!
     var movieOutput: AVCaptureMovieFileOutput!
     var previewLayer: AVCaptureVideoPreviewLayer!
@@ -20,7 +17,13 @@ class BoBAdvancedRealNameViewController: UIViewController, AVCaptureFileOutputRe
     var player: AVPlayer?
     var playerLayer: AVPlayerLayer?
     var outputFileURL: URL?
-
+    private var timer: DispatchSourceTimer?
+    var timeCount:Int = 0
+    private var videoInput: AVCaptureDeviceInput?
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = true
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -34,6 +37,9 @@ class BoBAdvancedRealNameViewController: UIViewController, AVCaptureFileOutputRe
         setupMovieOutput()
         view.addSubview(bottomRecordView)
         view.addSubview(bottomView)
+        view.addSubview(backImg)
+        view.addSubview(tipLabel)
+        view.addSubview(timeLabel)
         bottomRecordView.snp_makeConstraints { make in
             make.left.right.bottom.equalTo(0)
             make.height.equalTo(162)
@@ -42,13 +48,72 @@ class BoBAdvancedRealNameViewController: UIViewController, AVCaptureFileOutputRe
             make.left.right.bottom.equalTo(0)
             make.height.equalTo(110)
         }
-        
+        backImg.snp_makeConstraints { make in
+            make.top.equalTo(kStatusBarHeight+12)
+            make.left.equalTo(18)
+            make.width.height.equalTo(20)
+        }
+        tipLabel.snp_makeConstraints { make in
+            make.top.equalTo(kStatusBarHeight+44+6)
+            make.centerX.equalTo(view)
+            make.height.equalTo(30)
+            make.width.equalTo(166)
+        }
+        timeLabel.snp_makeConstraints { make in
+            make.top.centerX.bottom.equalTo(tipLabel)
+            make.width.equalTo(87)
+        }
     }
+    @objc func backAction() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    func convertSecondsToMinuteSecondFormat(_ totalSeconds: Int) -> String {
+        let minutes = totalSeconds / 60
+        let remainingSeconds = totalSeconds % 60
+        return String(format: "00:%02d:%02d", minutes, remainingSeconds)
+    }
+    func startTimer() {
+        // 创建一个基于全局并发队列的定时器源
+        timer = DispatchSource.makeTimerSource(queue: DispatchQueue.global())
+        // 设置定时器触发间隔为1秒
+        timer?.schedule(deadline:.now(), repeating:.seconds(1))
+        // 设置定时器触发时执行的闭包
+        timer?.setEventHandler {[weak self] in
+            if self?.timeCount == 10{
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    self?.stopRecording()
+                }
+            }else{
+                DispatchQueue.main.async {
+                    self?.timeCount = (self?.timeCount ?? 0)+1
+                    self?.timeLabel.text = self?.convertSecondsToMinuteSecondFormat(self?.timeCount ?? 0)
+                }
+            }
+        }
+        // 启动定时器
+        timer?.resume()
+    }
+    func stopTimer() {
+        if timer != nil{
+            timer?.cancel()
+            timer = nil
+        }
+    }
+    lazy var backImg: UIImageView = {
+        let r = UIImageView()
+        r.image = UIImage(named: "common_back_icon")!.changeImageColor(color: .white)
+        r.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(backAction))
+        r.addGestureRecognizer(tap)
+        r.layer.zPosition = 101
+        return r
+    }()
     lazy var bottomRecordView: UIImageView = {
         let r = UIImageView(image: UIImage(named: "real_name_record_video_bg_icon"))
         r.isUserInteractionEnabled = true
         r.addSubview(startBtn)
         r.addSubview(flipBtn)
+        
         startBtn.snp_makeConstraints { make in
             make.top.equalTo(40)
             make.width.height.equalTo(76)
@@ -59,6 +124,7 @@ class BoBAdvancedRealNameViewController: UIViewController, AVCaptureFileOutputRe
             make.right.equalTo(-20)
             make.width.height.equalTo(50)
         }
+       
         return r
     }()
     lazy var startBtn: QMUIButton = {
@@ -116,8 +182,8 @@ class BoBAdvancedRealNameViewController: UIViewController, AVCaptureFileOutputRe
             }
             self?.bottomRecordView.show()
             self?.bottomView.hide()
-            self?.startBtn.isSelected = true
-            self?.startRecording()
+            self?.tipLabel.show()
+            self?.startBtn.isSelected = false
         }).disposed(by: rx.disposeBag)
         return r
     }()
@@ -130,6 +196,27 @@ class BoBAdvancedRealNameViewController: UIViewController, AVCaptureFileOutputRe
         r.rx.tap.subscribe(onNext: { [weak self] in
             
         }).disposed(by: rx.disposeBag)
+        return r
+    }()
+    lazy var tipLabel: UILabel = {
+        let r = UILabel()
+        r.textColor = .init(hexString: "#FF0000")
+        r.backgroundColor = .white
+        r.corner(4)
+        r.textAlignment = .center
+        r.font = .regularFont(16)
+        r.text = "请录制5~10秒的视频"
+        return r
+    }()
+    lazy var timeLabel: UILabel = {
+        let r = UILabel()
+        r.textColor = .white
+        r.backgroundColor = .init(hexString: "#FF0000")
+        r.corner(4)
+        r.textAlignment = .center
+        r.font = .regularFont(16)
+        r.text = "00:00:00"
+        r.hide()
         return r
     }()
     func requestPermissions() {
@@ -161,9 +248,9 @@ class BoBAdvancedRealNameViewController: UIViewController, AVCaptureFileOutputRe
         }
 
         do {
-            let videoInput = try AVCaptureDeviceInput(device: videoDevice)
-            if captureSession.canAddInput(videoInput) {
-                captureSession.addInput(videoInput)
+            videoInput = try AVCaptureDeviceInput(device: videoDevice)
+            if captureSession.canAddInput(videoInput!) {
+                captureSession.addInput(videoInput!)
             }
         } catch {
             print("添加视频输入出错: \(error)")
@@ -205,11 +292,45 @@ class BoBAdvancedRealNameViewController: UIViewController, AVCaptureFileOutputRe
             player = nil
             playerLayer = nil
         }
+        flipBtn.hide()
+        tipLabel.hide()
+        timeLabel.show()
+//        let connection = movieOutput.connection(with: .video)
+//        connection?.videoScaleAndCropFactor = 1
+//        if connection?.isVideoOrientationSupported == true {
+//                let currentDeviceOrientation = UIDevice.current.orientation
+//                var videoOrientation: AVCaptureVideoOrientation
+//                switch currentDeviceOrientation {
+//                case.landscapeLeft:
+//                    videoOrientation = .landscapeRight
+//                case.landscapeRight:
+//                    videoOrientation = .landscapeLeft
+//                case.portrait:
+//                    videoOrientation = .portrait
+//                case.portraitUpsideDown:
+//                    videoOrientation = .portraitUpsideDown
+//                default:
+//                    videoOrientation = .portrait
+//                }
+//                connection?.videoOrientation = videoOrientation
+//            if let previewConnection = previewLayer.connection {
+//                if previewConnection.isVideoOrientationSupported {
+//                    previewConnection.videoOrientation = videoOrientation
+//                }
+//            }
+//            }
+//        // 解决前置摄像头录制视频时候左右颠倒的问题
+//        if videoInput?.device.position == .front {
+//            // 镜像设置
+//            if connection?.isVideoMirroringSupported == true {
+//                connection?.isVideoMirrored = true
+//            }
+//        }
         let tempDir = NSTemporaryDirectory()
         let outputPath = (tempDir as NSString).appendingPathComponent("output.mov")
         outputFileURL = URL(fileURLWithPath: outputPath)
-
         movieOutput.startRecording(to: outputFileURL!, recordingDelegate: self)
+        startTimer()
 
 //        // 5秒后自动停止录制
 //        DispatchQueue.main.asyncAfter(deadline:.now() + 5) {
@@ -219,12 +340,15 @@ class BoBAdvancedRealNameViewController: UIViewController, AVCaptureFileOutputRe
 
     @objc func stopRecording() {
         movieOutput.stopRecording()
-        if let fileURL = outputFileURL {
-            // 开始循环播放录制的视频
-            playRecordedVideo(fileURL: fileURL)
+        stopTimer()
+        flipBtn.show()
+        timeLabel.hide()
+        if timeCount < 5{
+            
+        }else{
+            bottomRecordView.hide()
+            bottomView.show()
         }
-        bottomRecordView.hide()
-        bottomView.show()
     }
 
     func playRecordedVideo(fileURL: URL) {
@@ -235,21 +359,13 @@ class BoBAdvancedRealNameViewController: UIViewController, AVCaptureFileOutputRe
         view.layer.addSublayer(playerLayer!)
 
         // 添加循环播放逻辑
-//        NotificationCenter.default.addObserver(self, selector: #selector(restartVideo), selector: NSNotification.Name.AVPlayerItemDidPlayToEndTime)
+        NotificationCenter.default.addObserver(self, selector: #selector(restartVideo), name: .AVPlayerItemDidPlayToEndTime, object: nil)
+
         player?.play()
     }
-
-//    @objc func restartVideo() {
-//        player?.seek(to: CMTime.zero)
-//        player?.play()
-//    }
-
-    func capture(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
-        if let error = error {
-            print("录制视频出错: \(error)")
-        } else {
-            print("视频录制成功，文件位于: \(outputFileURL)")
-        }
+    @objc func restartVideo() {
+        player?.seek(to: CMTime.zero)
+        player?.play()
     }
     // 翻转摄像头的方法
         func toggleCamera() {
@@ -257,10 +373,6 @@ class BoBAdvancedRealNameViewController: UIViewController, AVCaptureFileOutputRe
                 return
             }
             let newPosition: AVCaptureDevice.Position = currentDevice.position == .front ? .back : .front
-
-//            guard let newDevice = AVCaptureDevice.default(.video, for: AVMediaType.video, position: newPosition) else {
-//                return
-//            }
             guard let newDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: AVMediaType.video,position:newPosition) else {
                 return
             }
@@ -268,14 +380,36 @@ class BoBAdvancedRealNameViewController: UIViewController, AVCaptureFileOutputRe
             do {
                 let newVideoInput = try AVCaptureDeviceInput(device: newDevice)
                 captureSession.beginConfiguration()
-                captureSession.removeInput((captureSession.inputs.first as? AVCaptureDeviceInput)!)
+                if let currentInput = captureSession.inputs.first as? AVCaptureDeviceInput {
+                    captureSession.removeInput(currentInput)
+                }
                 if captureSession.canAddInput(newVideoInput) {
                     captureSession.addInput(newVideoInput)
                     currentVideoDevice = newDevice
                 }
+                
                 captureSession.commitConfiguration()
             } catch {
                 print("切换摄像头出错: \(error)")
             }
         }
+}
+extension BoBAdvancedRealNameViewController: AVCaptureFileOutputRecordingDelegate {
+    func fileOutput(_ output: AVCaptureFileOutput, didStartRecordingTo fileURL: URL, from connections: [AVCaptureConnection]) {
+        
+    }
+    
+    func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
+        if let error = error {
+            print("录制视频出错: \(error)")
+        } else {
+            print("视频录制成功，文件位于: \(outputFileURL)")
+            // 开始循环播放录制的视频
+            if timeCount > 5{
+                playRecordedVideo(fileURL: outputFileURL)
+            }else{
+                SuperToast.show(title: "录制时间不能少于5s")
+            }
+        }
+    }
 }

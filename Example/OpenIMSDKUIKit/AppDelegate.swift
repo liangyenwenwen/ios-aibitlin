@@ -18,7 +18,7 @@ let bussinessRoute = "/organization"
 #else
 let bussinessPort = ":10008"
 //let bussinessRoute = "/chat_enterprise"
-let bussinessRoute = ""
+let bussinessRoute = "/chat"
 #endif
 
 //let adminPort = ":10008"
@@ -28,12 +28,19 @@ let bussinessRoute = ""
 //let sdkWSPort = ":10001"
 //let sdkWSRoute = "/msg_gateway_enterprise"
 
+//let adminPort = ":10008"
+//let adminRoute = ""
+//let sdkAPIPort = ":10002"
+//let sdkAPIRoute = ""
+//let sdkWSPort = ":10001"
+//let sdkWSRoute = ""
+
 let adminPort = ":10008"
-let adminRoute = ""
+let adminRoute = "/chat"
 let sdkAPIPort = ":10002"
-let sdkAPIRoute = ""
+let sdkAPIRoute = "/api"
 let sdkWSPort = ":10001"
-let sdkWSRoute = ""
+let sdkWSRoute = "/msg_gateway"
 
 //let defaultAppAddress = "143.92.40.164"
 //let defaultIMAddress = "143.92.40.164"
@@ -52,7 +59,7 @@ let defaultIMAddress = "web.pk-im.com"
 let defaultAdminAddress = "web.pk-im.com"
 
 //let API_BOB_URL = "http://192.168.7.128:18729"
-let API_BOB_URL = "http://web.pk-im.com:18729"
+let API_BOB_URL = "https://web.pk-im.com"
 
 
 @UIApplicationMain
@@ -154,8 +161,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 //        ? true : UserDefaults.standard.bool(forKey: useDomainKey)
 //        UserDefaults.standard.setValue(enableDomain, forKey: useDomainKey)
         
-        let enableTLS = false
-        let enableDomain = false
+        let enableTLS = true
+        let enableDomain = true
         UserDefaults.standard.setValue(enableTLS, forKey: useTLSKey)
         UserDefaults.standard.setValue(enableDomain, forKey: useDomainKey)
         // -------设置各种base url-------

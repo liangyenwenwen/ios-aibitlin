@@ -15,6 +15,11 @@ import ProgressHUD
 class BoBPrimaryRealNameViewController:UIViewController{
     var scrollView: UIScrollView!
     var chooseType:Int = 0 //0是正面，1是反面
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.navigationBar.isHidden = false
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
