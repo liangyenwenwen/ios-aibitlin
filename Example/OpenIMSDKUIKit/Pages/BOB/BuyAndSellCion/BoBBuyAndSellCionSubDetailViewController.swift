@@ -445,7 +445,7 @@ class BoBBuyAndSellCionSubDetailViewController: BaseTitleController {
         r.backgroundColor = .init(hexString: "#EAF5FF")
         r.border(.init(hexString: "#BEDFFF"),borderWidth: 1,cornerRadius: 8)
         let label1 = UILabel()
-        label1.text = "添加支付方式"
+        label1.text = type == 1 ？"添加支付方式":"添加收款方式"
         label1.textColor = .white
         label1.font = .regularFont(14)
         label1.backgroundColor = .init(hexString: "#388CEF")
@@ -453,7 +453,7 @@ class BoBBuyAndSellCionSubDetailViewController: BaseTitleController {
         label1.corner(16)
         r.addSubview(label1)
         let label2 = UILabel()
-        label2.text = "请点击按钮添加支付方式"
+        label2.text = type == 1 ？"请点击按钮添加支付方式":"请点击按钮添加收款方式"
         label2.textColor = .black666
         label2.font = .regularFont(16)
         r.addSubview(label2)
@@ -598,7 +598,7 @@ class BoBBuyAndSellCionSubDetailViewController: BaseTitleController {
         let label = UILabel()
         label.textColor = .black666
         label.font = .regularFont(16)
-        label.text = "选择支付方式"
+        label.text = type == 1 ？"选择支付方式":"选择收款方式"
         r.addSubview(label)
         label.snp_makeConstraints { make in
             make.left.equalTo(16)
@@ -642,7 +642,7 @@ class BoBBuyAndSellCionSubDetailViewController: BaseTitleController {
                 return
             }
             if self?.choosePaymentMethod == nil{
-                SuperToast.show(title: "请选择支付方式")
+                SuperToast.show(title: self?.type == 1 ？"请选择支付方式":"请选择收款方式")
                 return
             }
             
@@ -662,24 +662,6 @@ class BoBBuyAndSellCionSubDetailViewController: BaseTitleController {
                 self?.present(alert, animated: true, completion: nil)
             }else{
                 if IMController.shared.isSetPayPassWord {
-//                    let confirmPurchaseView = BoBConfirmPurchaseAlertView()
-//                    confirmPurchaseView.tg_width.equal(kScreenWidth)
-//        //            confirmPurchaseView.tg_height.equal(.wrap)
-//                    confirmPurchaseView.tg_height.equal(500)
-//                    confirmPurchaseView.currentVC = self
-//                    let buyType = self?.buyType ?? 1
-//                    let type = self?.type ?? 1
-//                    let money = (self?.buyMoneyView.buyCounLabel.text ?? "").replacingOccurrences(of: "¥", with: "")
-//                    let walletType = self?.chooseCionTypeModel ?? CionTypeModel()
-//                    let paymentType = self?.choosePaymentMethod ?? stringAndDatePOS(id: 0, dateValue: "", type: "")
-//                    let unitPrice = String(format: "%.2f", self?.detailData?.setExchangeRate ?? 1.00)
-//                    let count = self?.buyCountView.buyCounLabel.text ?? "0.00"
-//                    let code = self?.detailData?.code ?? ""
-//                    confirmPurchaseView.bindData(buyType: buyType, type: type, walletType: walletType, paymentType: paymentType, unitPrice: unitPrice, money: money, count: count, code: code)
-//                    confirmPurchaseView.commitSuccessBlock = {[weak self] in
-//                        self?.navigationController?.popViewController(animated: true)
-//                    }
-//                    GKCover.cover(from: self?.view.window, contentView: confirmPurchaseView, style: .translucent, showStyle: .bottom, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
                     let maskView = BoBConfirmPurchaseAlertView()
                     maskView.currentVC = self
                     let buyType = self?.buyType ?? 1
