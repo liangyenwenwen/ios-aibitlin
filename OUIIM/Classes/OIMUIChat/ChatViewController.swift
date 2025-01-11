@@ -924,15 +924,16 @@ final class ChatViewController: UIViewController {
             membersVC.selectedContact(hasSelected: []) { [weak self] _, r in
                 
                 self?.navigationController?.popViewController(animated: false)
-                
-                let ms = r.map {CallingUserInfo(userID: $0.ID, nickname: $0.name, faceURL: $0.faceURL)}
-                let me = self?.chatController.getSelfInfo()
-                let inviter = CallingUserInfo(userID: me?.userID, nickname: me?.nickname, faceURL: me?.faceURL)
-                
-                CallingManager.manager.startLiveChat(inviter: inviter,
-                                                     others: ms,
-                                                      isVideo: isVideo,
-                                                      groupID: conversation.groupID)
+                if r.count > 0{
+                    let ms = r.map {CallingUserInfo(userID: $0.ID, nickname: $0.name, faceURL: $0.faceURL)}
+                    let me = self?.chatController.getSelfInfo()
+                    let inviter = CallingUserInfo(userID: me?.userID, nickname: me?.nickname, faceURL: me?.faceURL)
+                    
+                    CallingManager.manager.startLiveChat(inviter: inviter,
+                                                         others: ms,
+                                                          isVideo: isVideo,
+                                                          groupID: conversation.groupID)
+                }
             }
             
             navigationController?.pushViewController(membersVC, animated: true)

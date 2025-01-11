@@ -56,9 +56,9 @@ let sdkWSRoute = ""
 //let defaultIMAddress = "192.168.7.16"
 //let defaultAdminAddress = "192.168.7.16"
 
-let defaultAppAddress = "134.122.184.87"
-let defaultIMAddress = "134.122.184.87"
-let defaultAdminAddress = "134.122.184.87"
+let defaultAppAddress = "web.pk-im.com/chat"
+let defaultIMAddress = "web.pk-im.com/api"
+let defaultAdminAddress = "web.pk-im.com/msg_gateway"
 
 //let defaultAppAddress = "192.168.7.109"
 //let defaultIMAddress = "192.168.7.109"
@@ -197,8 +197,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 //        ? true : UserDefaults.standard.bool(forKey: useDomainKey)
 //        UserDefaults.standard.setValue(enableDomain, forKey: useDomainKey)
         
-        let enableTLS = false
-        let enableDomain = false
+        let enableTLS = true
+        let enableDomain = true
         UserDefaults.standard.setValue(enableTLS, forKey: useTLSKey)
         UserDefaults.standard.setValue(enableDomain, forKey: useDomainKey)
         // -------设置各种base url-------
