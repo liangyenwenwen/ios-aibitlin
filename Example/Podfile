@@ -55,6 +55,8 @@ pod 'IGListKit', '4.0.0'
 
 pod 'FDFullscreenPopGesture', '1.1'
 
+pod 'Firebase/Messaging'
+
 end
 
 # 开启会议后有屏幕分享功能才会使用该target

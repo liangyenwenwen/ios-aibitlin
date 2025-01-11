@@ -10,6 +10,7 @@ import MJExtension
 import IQKeyboardManagerSwift
 import GTSDK
 import Alamofire
+import FirebaseMessaging
 
 
 #if ENABLE_CALL
@@ -306,6 +307,7 @@ class MainTabViewController: UITabBarController {
             }
             
             updateLanguage(uid: r.userID)
+            updateFcmToken()
             initWallet(uid: r.userID,nickName: r.nickname ?? "")
             loadUserCertificationLevel(uid:r.userID)
             //            checkAppVersion(uid:r.userID)
@@ -330,6 +332,19 @@ class MainTabViewController: UITabBarController {
 }
 
 extension MainTabViewController {
+    //绑定token
+    func updateFcmToken(){
+        Messaging.messaging().token { token, error in
+          if let error = error {
+            print("Error fetching FCM registration token: \(error)")
+          } else if let token = token {
+              IMController.shared.imManager.updateFcmToken(token, expireTime: 2592000) { str in
+              } onFailure: { code, errorMsg in
+                  print("=====",errorMsg as Any)
+              }
+          }
+        }
+    }
     //初始化钱包
     func initWallet(uid: String,nickName:String){
         BoBRealNameModel.InitWalletRequest(nickName: nickName){ errCode, errMsg in

@@ -316,8 +316,8 @@ class BoBQuickBuyAndSellView: UIView {
     private lazy var buyTypeBtn: UIButton = {
         let r = UIButton()
         r.setImage(UIImage(named: "mine_buy_and_sell_buy_type_icon"), for: .normal)
-        r.setTitle("按金额购买", for: .normal)
-        r.setTitle("按数量购买", for: .selected)
+        r.setTitle(type == 1 ? "按金额购买":"按金额出售", for: .normal)
+        r.setTitle(type == 1 ? "按数量购买" :"按数量出售", for: .selected)
         r.isSelected = false
         r.titleLabel?.font = .regularFont(16)
         r.setTitleColor(.primaryColor, for: .normal)

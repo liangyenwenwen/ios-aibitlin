@@ -7,10 +7,12 @@ import GTSDK
 import AlamofireNetworkActivityLogger
 import Bugly
 import IQKeyboardManagerSwift
+import Firebase
+import FirebaseMessaging
 
-let kGtAppId = "aaG9GXroFD6J5AdyPp59E7"
-let kGtAppKey = "z4bVbPVLys7OgGEvIQMDA5"
-let kGtAppSecret = "DK6becO4GU6d0YZ8EDQtw2"
+let kGtAppId = "YRKk69YyUR9KqcGzyngYx"
+let kGtAppKey = "9mT9mIitMU9Pv1prOMqpk7"
+let kGtAppSecret = "zhrppG6E0C8Df1Zvaf8jp1"
 
 #if ENABLE_ORGANIZATION
 let bussinessPort = ":50010"
@@ -63,7 +65,7 @@ let API_BOB_URL = "https://web.pk-im.com"
 
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate,GeTuiSdkDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate,GeTuiSdkDelegate,MessagingDelegate {
     
     var backgroundTaskIdentifier: UIBackgroundTaskIdentifier?
     var orientation = UIInterfaceOrientationMask.portrait
@@ -81,7 +83,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
    
     private let _disposeBag = DisposeBag();
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
+        FirebaseApp.configure()
+        Messaging.messaging().delegate = self
         IQKeyboardManager.shared.enable = true
         
         NothingToSeeHere.harmlessFunction()
@@ -266,7 +269,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         print("did Fail To Register For Remote Notifications With Error: %@", error)
     }
-    
+    // MARK: - MessagingDelegate
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+        print("接收到新的FCM注册令牌: \(fcmToken ?? "")")
+        if IMController.shared.uid != ""{
+            updateFcmToken(token:fcmToken ?? "")
+        }
+    }
+    func updateFcmToken(token:String){
+        IMController.shared.imManager.updateFcmToken(token, expireTime: 2592000) { str in
+        } onFailure: { code, errorMsg in
+            print("=====",errorMsg as Any)
+        }
+    }
     // MARK: - GeTuiSdkDelegate
     /// [ GTSDK回调 ] SDK启动成功返回cid
     func geTuiSdkDidRegisterClient(_ clientId: String) {

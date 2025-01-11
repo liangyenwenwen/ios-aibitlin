@@ -133,6 +133,7 @@
 		045B8BF92BF481AF0094E080 /* UserMessageBottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045B8BF82BF481AF0094E080 /* UserMessageBottomSheetView.swift */; };
 		046A61072D2E4E2C00A1561D /* BoBAdvancedRealNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046A61062D2E4E2C00A1561D /* BoBAdvancedRealNameViewController.swift */; };
 		046A610A2D2F9B6E00A1561D /* YFChangeAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046A61092D2F9B6E00A1561D /* YFChangeAccountViewController.swift */; };
+		046A611B2D32715100A1561D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 046A611A2D32715100A1561D /* GoogleService-Info.plist */; };
 		047753C62BFDCD27006DBFD3 /* YFTranslateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047753C52BFDCD27006DBFD3 /* YFTranslateVC.swift */; };
 		047BF6B62CA2B6DF00706117 /* YFFileDataUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047BF6B52CA2B6DF00706117 /* YFFileDataUtil.swift */; };
 		0481726D2CF89790007A2920 /* BoBChooseCionTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0481726C2CF89790007A2920 /* BoBChooseCionTypeView.swift */; };
@@ -412,6 +413,7 @@
 		045B8BF82BF481AF0094E080 /* UserMessageBottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMessageBottomSheetView.swift; sourceTree = "<group>"; };
 		046A61062D2E4E2C00A1561D /* BoBAdvancedRealNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBAdvancedRealNameViewController.swift; sourceTree = "<group>"; };
 		046A61092D2F9B6E00A1561D /* YFChangeAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFChangeAccountViewController.swift; sourceTree = "<group>"; };
+		046A611A2D32715100A1561D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		046D26942BFF255F00FEA10F /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/Main.strings; sourceTree = "<group>"; };
 		046D26952BFF255F00FEA10F /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		047753C52BFDCD27006DBFD3 /* YFTranslateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFTranslateVC.swift; sourceTree = "<group>"; };
@@ -1689,6 +1691,7 @@
 		607FACD31AFB9204008FA782 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				046A611A2D32715100A1561D /* GoogleService-Info.plist */,
 				607FACD41AFB9204008FA782 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -1900,6 +1903,7 @@
 				DCE04171283E5BD30095874E /* Localizable.strings in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
+				046A611B2D32715100A1561D /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1984,6 +1988,12 @@
 				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
 				"${BUILT_PRODUCTS_DIR}/DynamicColor/DynamicColor.framework",
 				"${BUILT_PRODUCTS_DIR}/FDFullscreenPopGesture/FDFullscreenPopGesture.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseCore/FirebaseCore.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseCoreInternal/FirebaseCoreInternal.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseInstallations/FirebaseInstallations.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseMessaging/FirebaseMessaging.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleDataTransport/GoogleDataTransport.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/IGListDiffKit/IGListDiffKit.framework",
 				"${BUILT_PRODUCTS_DIR}/IGListKit/IGListKit.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardCore/IQKeyboardCore.framework",
@@ -2005,6 +2015,7 @@
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/NSObject+Rx/NSObject_Rx.framework",
 				"${BUILT_PRODUCTS_DIR}/ProgressHUD/ProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
 				"${BUILT_PRODUCTS_DIR}/QMUIKit/QMUIKit.framework",
 				"${BUILT_PRODUCTS_DIR}/R.swift/RswiftResources.framework",
 				"${BUILT_PRODUCTS_DIR}/Reachability/Reachability.framework",
@@ -2025,6 +2036,7 @@
 				"${BUILT_PRODUCTS_DIR}/YYImage/YYImage.framework",
 				"${BUILT_PRODUCTS_DIR}/ZLPhotoBrowser/ZLPhotoBrowser.framework",
 				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 				"${PODS_XCFRAMEWORKS_BUILD_DIR}/LiveKitWebRTC/LiveKitWebRTC.framework/LiveKitWebRTC",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -2037,6 +2049,12 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DynamicColor.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FDFullscreenPopGesture.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCoreInternal.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseInstallations.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseMessaging.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleDataTransport.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IGListDiffKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IGListKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardCore.framework",
@@ -2058,6 +2076,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NSObject_Rx.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QMUIKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RswiftResources.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
@@ -2078,6 +2097,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZLPhotoBrowser.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LiveKitWebRTC.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2718,7 +2738,7 @@
 				CODE_SIGN_ENTITLEMENTS = OpenIMSDKUIKit_Example.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = MJ53XF6GM4;
 				ENABLE_BITCODE = NO;
 				EXCLUDED_ARCHS = "";
@@ -2762,7 +2782,7 @@
 				CODE_SIGN_ENTITLEMENTS = OpenIMSDKUIKit_Example.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = MJ53XF6GM4;
 				ENABLE_BITCODE = NO;
 				EXCLUDED_ARCHS = "";
