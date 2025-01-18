@@ -85,8 +85,10 @@ class BoBChoosePaymentMethodTypeView: TGLinearLayout {
         self.isSupportBank = isSupportBank ?? true
         self.isSupportAli = isSupportAli ?? true
         self.isSupportWeixin = isSupportWeixin ?? true
-        titleLbl.text = type == 1 ? "支付方式":"收款方式"
-        addBtn.setTitle(type == 1 ? "添加新的支付方式" : "添加新的收款方式", for: .normal)
+//        titleLbl.text = type == 1 ? "支付方式":"收款方式"
+        titleLbl.text = "支付方式"
+//        addBtn.setTitle(type == 1 ? "添加新的支付方式" : "添加新的收款方式", for: .normal)
+        addBtn.setTitle("添加新的支付方式", for: .normal)
         bankList.removeAll()
         aliList.removeAll()
         wxList.removeAll()

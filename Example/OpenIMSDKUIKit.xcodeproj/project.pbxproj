@@ -202,7 +202,6 @@
 		1760BE5C2BD9FFAD0096CD1C /* SimpleInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1760BE5B2BD9FFAD0096CD1C /* SimpleInputViewController.swift */; };
 		17620CE42A4D1E5200B74C96 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17620CE32A4D1E5200B74C96 /* String+Extension.swift */; };
 		17620CE62A4D232200B74C96 /* ModifyPswViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17620CE52A4D232200B74C96 /* ModifyPswViewController.swift */; };
-		1780764A29260BF50024399B /* InputPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1780764929260BF50024399B /* InputPasswordViewController.swift */; };
 		1790EE6C2921EAFC00C4024A /* BlockedListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1790EE5B2921EAFC00C4024A /* BlockedListViewController.swift */; };
 		1790EE6D2921EAFC00C4024A /* SettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1790EE5C2921EAFC00C4024A /* SettingTableViewController.swift */; };
 		1790EE6E2921EAFC00C4024A /* CheckBoxTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1790EE5D2921EAFC00C4024A /* CheckBoxTextTableViewCell.swift */; };
@@ -211,17 +210,12 @@
 		1790EE712921EAFC00C4024A /* MineOptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1790EE602921EAFC00C4024A /* MineOptionTableViewCell.swift */; };
 		1790EE722921EAFC00C4024A /* MineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1790EE612921EAFC00C4024A /* MineViewModel.swift */; };
 		1790EE742921EAFC00C4024A /* MineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1790EE632921EAFC00C4024A /* MineViewController.swift */; };
-		1790EE762921EAFC00C4024A /* ConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1790EE662921EAFC00C4024A /* ConfigViewController.swift */; };
-		1790EE792921EAFC00C4024A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1790EE692921EAFC00C4024A /* LoginViewController.swift */; };
 		1790EE7A2921EAFC00C4024A /* MainTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1790EE6A2921EAFC00C4024A /* MainTabViewController.swift */; };
 		1790EE812922294600C4024A /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1790EE802922294600C4024A /* AccountViewModel.swift */; };
 		17943358292DB9ED0088B768 /* ScreenLockSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17943357292DB9ED0088B768 /* ScreenLockSettingViewController.swift */; };
 		17B11A422ABD28C600DB8980 /* InterruptNavigationControllerPopGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B11A3F2ABD28C600DB8980 /* InterruptNavigationControllerPopGesture.swift */; };
 		17B11A432ABD28C600DB8980 /* NavigationInteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B11A402ABD28C600DB8980 /* NavigationInteractiveTransition.swift */; };
 		17B11A442ABD28C600DB8980 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B11A412ABD28C600DB8980 /* NavigationController.swift */; };
-		17BBFAC02925C6330025B686 /* InputAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17BBFABF2925C6330025B686 /* InputAccountViewController.swift */; };
-		17BBFAC22925CDBB0025B686 /* InputCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17BBFAC12925CDBB0025B686 /* InputCodeViewController.swift */; };
-		17BBFAC42925D4C10025B686 /* CountDownTimerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17BBFAC32925D4C10025B686 /* CountDownTimerButton.swift */; };
 		17BCADFC2A8DBA0A0022767D /* AboutUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17BCADFB2A8DBA0A0022767D /* AboutUsViewController.swift */; };
 		17C370972A4D78A400CCB044 /* UnderlineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C370962A4D78A400CCB044 /* UnderlineTextField.swift */; };
 		17C4BBAA28CA1220003782EF /* Array+deduplicate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C4BBA928CA1220003782EF /* Array+deduplicate.swift */; };
@@ -518,7 +512,6 @@
 		1760BE5B2BD9FFAD0096CD1C /* SimpleInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleInputViewController.swift; sourceTree = "<group>"; };
 		17620CE32A4D1E5200B74C96 /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		17620CE52A4D232200B74C96 /* ModifyPswViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModifyPswViewController.swift; sourceTree = "<group>"; };
-		1780764929260BF50024399B /* InputPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputPasswordViewController.swift; sourceTree = "<group>"; };
 		1790EE5B2921EAFC00C4024A /* BlockedListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockedListViewController.swift; sourceTree = "<group>"; };
 		1790EE5C2921EAFC00C4024A /* SettingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingTableViewController.swift; sourceTree = "<group>"; };
 		1790EE5D2921EAFC00C4024A /* CheckBoxTextTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckBoxTextTableViewCell.swift; sourceTree = "<group>"; };
@@ -527,8 +520,6 @@
 		1790EE602921EAFC00C4024A /* MineOptionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineOptionTableViewCell.swift; sourceTree = "<group>"; };
 		1790EE612921EAFC00C4024A /* MineViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineViewModel.swift; sourceTree = "<group>"; };
 		1790EE632921EAFC00C4024A /* MineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineViewController.swift; sourceTree = "<group>"; };
-		1790EE662921EAFC00C4024A /* ConfigViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigViewController.swift; sourceTree = "<group>"; };
-		1790EE692921EAFC00C4024A /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		1790EE6A2921EAFC00C4024A /* MainTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabViewController.swift; sourceTree = "<group>"; };
 		1790EE802922294600C4024A /* AccountViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewModel.swift; sourceTree = "<group>"; };
 		17943357292DB9ED0088B768 /* ScreenLockSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenLockSettingViewController.swift; sourceTree = "<group>"; };
@@ -536,9 +527,6 @@
 		17B11A402ABD28C600DB8980 /* NavigationInteractiveTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationInteractiveTransition.swift; sourceTree = "<group>"; };
 		17B11A412ABD28C600DB8980 /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		17B485F529C082CA002571B8 /* ReplayKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReplayKit.framework; path = System/Library/Frameworks/ReplayKit.framework; sourceTree = SDKROOT; };
-		17BBFABF2925C6330025B686 /* InputAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputAccountViewController.swift; sourceTree = "<group>"; };
-		17BBFAC12925CDBB0025B686 /* InputCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputCodeViewController.swift; sourceTree = "<group>"; };
-		17BBFAC32925D4C10025B686 /* CountDownTimerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDownTimerButton.swift; sourceTree = "<group>"; };
 		17BCADFB2A8DBA0A0022767D /* AboutUsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsViewController.swift; sourceTree = "<group>"; };
 		17C370962A4D78A400CCB044 /* UnderlineTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnderlineTextField.swift; sourceTree = "<group>"; };
 		17C4BBA928CA1220003782EF /* Array+deduplicate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+deduplicate.swift"; sourceTree = "<group>"; };
@@ -1576,12 +1564,6 @@
 			children = (
 				1790EE802922294600C4024A /* AccountViewModel.swift */,
 				04D45E822CA250390052F05A /* AccountViewModelEx.swift */,
-				1790EE662921EAFC00C4024A /* ConfigViewController.swift */,
-				1790EE692921EAFC00C4024A /* LoginViewController.swift */,
-				17BBFABF2925C6330025B686 /* InputAccountViewController.swift */,
-				1780764929260BF50024399B /* InputPasswordViewController.swift */,
-				17BBFAC12925CDBB0025B686 /* InputCodeViewController.swift */,
-				17BBFAC32925D4C10025B686 /* CountDownTimerButton.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -2247,9 +2229,7 @@
 				040D85C32BEB8B0400DCAAB3 /* ParamUtil.swift in Sources */,
 				040D85F72BEB8C0B00DCAAB3 /* BaseModel.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
-				1790EE792921EAFC00C4024A /* LoginViewController.swift in Sources */,
 				040D85E92BEB8C0B00DCAAB3 /* BottomBtnView.swift in Sources */,
-				1790EE762921EAFC00C4024A /* ConfigViewController.swift in Sources */,
 				0445C9782D02996C00D1FD34 /* BoBReceiveRedPacketAlertView.swift in Sources */,
 				040D85F42BEB8C0B00DCAAB3 /* Meta.swift in Sources */,
 				04DA67942CCF2B2100FCA60C /* YFAibitlinHomeView.swift in Sources */,
@@ -2261,7 +2241,6 @@
 				040D85F32BEB8C0B00DCAAB3 /* DetailResponse.swift in Sources */,
 				04D2E2082CBE4E5500582B13 /* UIScrollView+Empty.swift in Sources */,
 				040D86042BEB8C4200DCAAB3 /* ObserveableMoyaExtension.swift in Sources */,
-				17BBFAC02925C6330025B686 /* InputAccountViewController.swift in Sources */,
 				04052E1E2CF0674800A7A554 /* MineHomeWalletView.swift in Sources */,
 				04F2D05F2BEE129A00D5271B /* SuperWebController.swift in Sources */,
 				0439CCE22D08876A00379537 /* BoBQuickBuyAndSellView.swift in Sources */,
@@ -2294,7 +2273,6 @@
 				04ECEC5F2CBD1DC10005495F /* RunTimeAbout.swift in Sources */,
 				0439CD032D16A26300379537 /* BoBSetExchangeRateTypeView.swift in Sources */,
 				17B11A432ABD28C600DB8980 /* NavigationInteractiveTransition.swift in Sources */,
-				17BBFAC42925D4C10025B686 /* CountDownTimerButton.swift in Sources */,
 				04F2D09E2BEE221400D5271B /* GKCover.m in Sources */,
 				0445C9622D00454D00D1FD34 /* BoBRedPacketTypeView.swift in Sources */,
 				040D85BF2BEB8B0400DCAAB3 /* Constant.swift in Sources */,
@@ -2368,7 +2346,6 @@
 				04052E292CF4269300A7A554 /* BoBPaymentMethodListCell.swift in Sources */,
 				04F87EF52C8E8D3D00C82A37 /* SuperUIFontExtension.swift in Sources */,
 				0439CCE82D09AE7700379537 /* BoBFreeBuyAndSellView.swift in Sources */,
-				17BBFAC22925CDBB0025B686 /* InputCodeViewController.swift in Sources */,
 				0434ABA42CBBC2F7000F9B07 /* QRCodeSaveCardView.swift in Sources */,
 				1790EE712921EAFC00C4024A /* MineOptionTableViewCell.swift in Sources */,
 				04EFEA692CECBDE3004441CB /* BoBOrderListSubViewController.swift in Sources */,
@@ -2380,7 +2357,6 @@
 				04A4BD002BF32F17008FA224 /* YFMineChangePasswordVC.swift in Sources */,
 				0439CCEE2D0B10A500379537 /* BoBFreeFilterPaymentMethodView.swift in Sources */,
 				0439CCDF2D087E0300379537 /* BoBFreeCionTypeMainViewController.swift in Sources */,
-				1780764A29260BF50024399B /* InputPasswordViewController.swift in Sources */,
 				0439CCD92D087C5000379537 /* BoBQuickCionMainViewController.swift in Sources */,
 				DC0B7DF2282DFA09003896C1 /* UnderlineButton.swift in Sources */,
 			);

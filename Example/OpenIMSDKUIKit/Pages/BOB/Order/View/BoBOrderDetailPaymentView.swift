@@ -59,7 +59,6 @@ class BoBOrderDetailPaymentView: TGLinearLayout {
                 bankNumber.text = data.bankId ?? ""
                 bankUserName.text = data.name ?? ""
             }
-            
         }else if type == 2{
             addSubview(aliPayView)
             aliPayView.payIcon.sd_setImage(with: URL(string: data.img ?? ""))
@@ -108,9 +107,9 @@ class BoBOrderDetailPaymentView: TGLinearLayout {
         r.addSubview(bankNumber)
         r.addSubview(bankUserName)
         bankIcon.snp_makeConstraints { make in
-            make.top.equalTo(19)
+            make.centerY.equalTo(r)
             make.left.equalTo(22)
-            make.width.height.equalTo(30)
+            make.width.height.equalTo(48)
         }
         bankName.snp_makeConstraints { make in
             make.top.equalTo(14)

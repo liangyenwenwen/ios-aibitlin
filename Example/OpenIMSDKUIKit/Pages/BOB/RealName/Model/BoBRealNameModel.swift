@@ -217,14 +217,14 @@ open class BoBRealNameModel {
         
     }
     //高级实名认证
-    static func AdvancedRealNameAuthenticationRequest(url:String,
+    static func AdvancedRealNameAuthenticationRequest(videoUrl:String,
                                                       name:String?,
                                                       cardId:String?,
                                                       idCardZM:String?,
                                                       idCardBM:String?,
                                                       completionHandler: @escaping CompletionHandler) {
         ProgressHUD.animate()
-        let param = [url:url,"name":name,"cardId":cardId,"idCardZM":idCardZM,"idCardBM":idCardBM]
+        let param = ["url":videoUrl,"name":name ?? "","cardId":cardId ?? "","idCardZM":idCardZM ?? "","idCardBM":idCardBM ?? ""] as [String: Any]
         let url = API_BOB_URL + AdvancedRealNameAuthentication
         Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
             ProgressHUD.dismiss()

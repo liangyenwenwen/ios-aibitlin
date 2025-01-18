@@ -458,7 +458,7 @@ extension YFChooseUserAvatarCardView {
     }
     
     func uploadImgToAvatar() {
-        let image = userIconImg!.compress(expectSize: 20 * 1024)
+        let image = userIconImg!.compress(expectSize: 3000 * 1024)
         let result = FileHelper.shared.saveImage(image: image)
         if result.isSuccess {
             ProgressHUD.animate()

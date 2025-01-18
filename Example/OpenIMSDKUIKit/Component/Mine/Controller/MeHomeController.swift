@@ -11,6 +11,7 @@ import TangramKit
 import UIKit
 import RxCocoa
 import NSObject_Rx
+import RxSwift
 
 
 class MeHomeController: BaseLogicController {
@@ -18,13 +19,14 @@ class MeHomeController: BaseLogicController {
     var mineWalletData:MineWalletMoneyData?
     var vipTitle = UILabel()
     var userShowId: String = ""
+    var code:String = ""
+    private let _disposeBag = DisposeBag()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
         _viewModel.queryUserInfo()
         loadUserWallet()
-        updatelanguage()
         
     }
     
@@ -36,6 +38,7 @@ class MeHomeController: BaseLogicController {
         addTopUserMessage()
         bindData()
         updateMineWalletView()
+        getMineProgressOrder()
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,6 +59,13 @@ class MeHomeController: BaseLogicController {
             self.walletView.stopRote()
         })
     }
+    func getMineProgressOrder(){
+        AccountViewModel.getMineProgressOrderRequest(valueHandler: { [weak self] (data :MineWalletMoneyData) in
+           
+        }, completionHandler: {(errCode, errMsg) in
+           
+        })
+    }
     override func bindData() {
         
         _viewModel.currentUserRelay.subscribe(onNext: { [weak self] (user: QueryUserInfo?) in
@@ -64,22 +74,6 @@ class MeHomeController: BaseLogicController {
             updateHeaderView()
             
         }).disposed(by: rx.disposeBag)
-    }
-
-    func updatelanguage() {
-//
-//        let  codeTitle = sectionCodeView.viewWithTag(20001) as! UILabel
-//        codeTitle.text = "我的二维码".localized()
-//
-//        let  monentsTitle = sectionMomentsView.viewWithTag(20001) as! UILabel
-//        monentsTitle.text = "我的动态".localized()
-//
-//        let  myBlogTitle = sectionMyBlogView.viewWithTag(20001) as! UILabel
-//        myBlogTitle.text = "我的博客".localized()
-//
-//        let  starBlogTitle = sectionStarBlogView.viewWithTag(20001) as! UILabel
-//        starBlogTitle.text = "我收藏的博客".localized()
-        
     }
     
     func updateHeaderView() {
@@ -140,6 +134,7 @@ class MeHomeController: BaseLogicController {
         container.addSubview(billView)
         container.addSubview(walletView)
         container.addSubview(settingView)
+        container.addSubview(bottomView)
         buyCoinView.snp_makeConstraints { make in
             make.top.equalTo(userView.snp_bottom).offset(0)
             make.left.equalTo(0)
@@ -169,6 +164,12 @@ class MeHomeController: BaseLogicController {
             make.top.equalTo(walletView.snp_bottom).offset(13)
             make.height.equalTo(105)
         }
+        bottomView.snp_makeConstraints { make in
+            make.centerX.equalTo(container)
+            make.top.equalTo(settingView.snp_bottom).offset(36)
+            make.height.equalTo(40)
+            make.width.equalTo(182)
+        }
 
     }
 
@@ -184,7 +185,7 @@ class MeHomeController: BaseLogicController {
         let tap = UITapGestureRecognizer()
         tap.rx.event.subscribe {  _ in
             self.gotoControllerFromRoot(MineMessageVC.self)
-        }.disposed(by: rx.disposeBag)
+        }.disposed(by: _disposeBag)
         r.addGestureRecognizer(tap)
         return r
     }()
@@ -207,7 +208,7 @@ class MeHomeController: BaseLogicController {
         let tap = UITapGestureRecognizer()
         tap.rx.event.subscribe {  _ in
             self.gotoControllerFromRoot(MineMessageVC.self)
-        }.disposed(by: rx.disposeBag)
+        }.disposed(by: _disposeBag)
         r.addGestureRecognizer(tap)
         return r
     }()
@@ -271,9 +272,9 @@ class MeHomeController: BaseLogicController {
         r.bindData(title: "买卖币", icon: UIImage(named: "mine_home_buy_coin_icon")!)
         r.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer()
-        tap.rx.event.subscribe {  _ in
-            self.gotoControllerFromRoot(BoBBuyAndSellCionMainViewController.self)
-        }.disposed(by: rx.disposeBag)
+        tap.rx.event.subscribe {[weak self]  _ in
+            self?.gotoControllerFromRoot(BoBBuyAndSellCionMainViewController.self)
+        }.disposed(by: _disposeBag)
         r.addGestureRecognizer(tap)
         return r
     }()
@@ -282,9 +283,9 @@ class MeHomeController: BaseLogicController {
         r.bindData(title: "收款", icon: UIImage(named: "mine_home_payment_icon")!)
         r.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer()
-        tap.rx.event.subscribe {  _ in
-            self.gotoControllerFromRoot(BoBReceivePaymentViewController.self)
-        }.disposed(by: rx.disposeBag)
+        tap.rx.event.subscribe {[weak self]  _ in
+            self?.gotoControllerFromRoot(BoBReceivePaymentViewController.self)
+        }.disposed(by: _disposeBag)
         r.addGestureRecognizer(tap)
         return r
     }()
@@ -293,9 +294,9 @@ class MeHomeController: BaseLogicController {
         r.bindData(title: "转账", icon: UIImage(named: "mine_home_transfer_accounts_icon")!)
         r.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer()
-        tap.rx.event.subscribe {  _ in
-            self.gotoControllerFromRoot(BoBTransferAccountsViewController.self)
-        }.disposed(by: rx.disposeBag)
+        tap.rx.event.subscribe {[weak self]  _ in
+            self?.gotoControllerFromRoot(BoBTransferAccountsViewController.self)
+        }.disposed(by: _disposeBag)
         r.addGestureRecognizer(tap)
         return r
     }()
@@ -319,7 +320,7 @@ class MeHomeController: BaseLogicController {
         let tap = UITapGestureRecognizer()
         tap.rx.event.subscribe {  _ in
             self.gotoControllerFromRoot(BoBBillListViewController.self)
-        }.disposed(by: rx.disposeBag)
+        }.disposed(by: _disposeBag)
         r.addGestureRecognizer(tap)
         return r
     }()
@@ -359,7 +360,46 @@ class MeHomeController: BaseLogicController {
         r.isMediumFont()
         return r
     }()
-
+    lazy var bottomView:UIView = {
+       let r = UIView()
+        r.backgroundColor = .init(hexString: "#FFDFDF")
+        r.corner(20)
+        r.addSubview(leftImg)
+        r.addSubview(bottomTitleLabel)
+        leftImg.snp_makeConstraints { make in
+            make.left.equalTo(12)
+            make.centerY.equalTo(r)
+            make.width.height.equalTo(20)
+        }
+        bottomTitleLabel.snp_makeConstraints { make in
+            make.left.equalTo(leftImg.snp_right).offset(8)
+            make.centerY.equalTo(leftImg)
+            make.right.equalTo(-2)
+        }
+        let tap = UITapGestureRecognizer()
+        tap.rx.event.subscribe { [self]  _ in
+            //进入订单详情
+             let vc = BoBOrderDetailViewController()
+             vc.code = code
+             vc.hidesBottomBarWhenPushed = true
+             self.navigationController?.pushViewController(vc)
+        }.disposed(by: _disposeBag)
+        r.addGestureRecognizer(tap)
+        return r
+    }()
+    lazy var leftImg: UIImageView = {
+        let r = UIImageView()
+        r.image = UIImage(named: "warnings_icon")
+        return r
+    }()
+    
+    lazy var bottomTitleLabel: UILabel = {
+        let r = UILabel()
+        r.font =  UIFont(name: "PingFangSC-Regular", size: 14)
+        r.textColor = .init(hexString: "#FD5344")
+        r.text = "您有一笔订单待处理"
+        return r
+    }()
     
     
     

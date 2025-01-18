@@ -75,7 +75,7 @@ class CoustomInputBarAccessoryView: InputBarAccessoryView {
                                                                           r.fullPath)])
                             }
                         } else {
-                            var item = images[index].compress(expectSize: 300 * 1024)
+                            var item = images[index].compress(expectSize: 3000 * 1024)
                             let r = FileHelper.shared.saveImage(image: item)
 
                             self.sendAttachments(attachments: [.image(r.relativeFilePath,
@@ -93,7 +93,7 @@ class CoustomInputBarAccessoryView: InputBarAccessoryView {
             sendButton.startAnimating()
             
             if let photo {
-                var item = photo.compress(expectSize: 300 * 1024)
+                var item = photo.compress(expectSize: 3000 * 1024)
                 let r = FileHelper.shared.saveImage(image: item)
                 
                 self.sendAttachments(attachments: [.image(r.relativeFilePath,

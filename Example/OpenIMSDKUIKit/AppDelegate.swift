@@ -14,6 +14,10 @@ let kGtAppId = "YRKk69YyUR9KqcGzyngYx"
 let kGtAppKey = "9mT9mIitMU9Pv1prOMqpk7"
 let kGtAppSecret = "zhrppG6E0C8Df1Zvaf8jp1"
 
+
+//let adminSeverAddrKey = "io.openim.admin.adr"
+//let bussinessSeverAddrKey = "io.openim.bussiness.api.adr"
+
 #if ENABLE_ORGANIZATION
 let bussinessPort = ":50010"
 let bussinessRoute = "/organization"
@@ -44,21 +48,13 @@ let sdkAPIRoute = "/api"
 let sdkWSPort = ":10001"
 let sdkWSRoute = "/msg_gateway"
 
-//let defaultAppAddress = "143.92.40.164"
-//let defaultIMAddress = "143.92.40.164"
-//let defaultAdminAddress = "143.92.40.164"
+//let defaultAppAddress = "http://192.168.7.16:10008"
+//let defaultIMAddress = "http://192.168.7.16:10002"
+//let defaultAdminAddress = "ws://192.168.7.16:10001"
 
-//let defaultAppAddress = "192.168.7.126"
-//let defaultIMAddress = "192.168.7.126"
-//let defaultAdminAddress = "192.168.7.126"
-
-//let defaultAppAddress = "192.168.7.16"
-//let defaultIMAddress = "192.168.7.16"
-//let defaultAdminAddress = "192.168.7.16"
-
-let defaultAppAddress = "web.pk-im.com"
-let defaultIMAddress = "web.pk-im.com"
-let defaultAdminAddress = "web.pk-im.com"
+let defaultAppAddress = "https://web.pk-im.com/chat"
+let defaultIMAddress = "https://web.pk-im.com/api"
+let defaultAdminAddress = "wss://web.pk-im.com/msg_gateway"
 
 //let API_BOB_URL = "http://192.168.7.128:18729"
 let API_BOB_URL = "https://web.pk-im.com"
@@ -154,52 +150,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 //        let language = Localize.currentLanguage()
         let language = "zh-Hans"
         Localize.setCurrentLanguage(language)
-        
-        // 主要配置这里，注意http 与 https、 ws 与 wss之分，IP 用端口， 域名用路由
-//        let enableTLS = UserDefaults.standard.object(forKey: useTLSKey) == nil
-//        ? true : UserDefaults.standard.bool(forKey: useTLSKey)
-//        UserDefaults.standard.setValue(enableTLS, forKey: useTLSKey)
-//        
-//        let enableDomain = UserDefaults.standard.object(forKey: useDomainKey) == nil
-//        ? true : UserDefaults.standard.bool(forKey: useDomainKey)
-//        UserDefaults.standard.setValue(enableDomain, forKey: useDomainKey)
-        
-        let enableTLS = true
-        let enableDomain = true
-        UserDefaults.standard.setValue(enableTLS, forKey: useTLSKey)
-        UserDefaults.standard.setValue(enableDomain, forKey: useDomainKey)
         // -------设置各种base url-------
         
-        let httpScheme = enableTLS ? "https://" : "http://"
-        let wsScheme = enableTLS  ? "wss://" : "ws://"
-        
-//        let appSeverAddress = UserDefaults.standard.string(forKey: bussinessSeverAddrKey) ?? httpScheme + defaultAppAddress + (!enableDomain ? bussinessPort: bussinessRoute)
-//        let sdkAPIAddr = UserDefaults.standard.string(forKey: sdkAPIAddrKey) ?? httpScheme + defaultIMAddress + (!enableDomain ? sdkAPIPort : sdkAPIRoute)
-//        let sdkWSAddr = UserDefaults.standard.string(forKey: sdkWSAddrKey) ?? wsScheme + defaultAdminAddress + (!enableDomain ? sdkWSPort : sdkWSRoute)
-        
-        let appSeverAddress = httpScheme + defaultAppAddress + (!enableDomain ? bussinessPort: bussinessRoute)
-        let sdkAPIAddr = httpScheme + defaultIMAddress + (!enableDomain ? sdkAPIPort : sdkAPIRoute)
-        let sdkWSAddr = wsScheme + defaultAdminAddress + (!enableDomain ? sdkWSPort : sdkWSRoute)
-        
-        // 设取全局配置
-        UserDefaults.standard.setValue(httpScheme + defaultAdminAddress + (!enableDomain ? adminPort : adminRoute), forKey: adminSeverAddrKey)
-        
-        // 设置登录注册等 - AccountViewModel
-        UserDefaults.standard.setValue(appSeverAddress, forKey: bussinessSeverAddrKey)
-        
-        // 设置sdk接口地址
-        UserDefaults.standard.setValue(sdkAPIAddr, forKey: sdkAPIAddrKey)
-            
-        // 设置ws地址
-        UserDefaults.standard.setValue(sdkWSAddr, forKey: sdkWSAddrKey)
-        UserDefaults.standard.synchronize()
+//        let appSeverAddress = defaultAppAddress + (!enableDomain ? bussinessPort: bussinessRoute)
+//        let sdkAPIAddr = defaultIMAddress + (!enableDomain ? sdkAPIPort : sdkAPIRoute)
+//        let sdkWSAddr = defaultAdminAddress + (!enableDomain ? sdkWSPort : sdkWSRoute)
+//        
+//        // 设取全局配置
+//        UserDefaults.standard.setValue(httpScheme + defaultAdminAddress + (!enableDomain ? adminPort : adminRoute), forKey: adminSeverAddrKey)
+//        
+//        // 设置登录注册等 - AccountViewModel
+//        UserDefaults.standard.setValue(appSeverAddress, forKey: bussinessSeverAddrKey)
         
         // 初始化SDK
-        IMController.shared.setup(sdkAPIAdrr: sdkAPIAddr,
-                                  sdkWSAddr: sdkWSAddr) {
+        IMController.shared.setup(sdkAPIAdrr: defaultIMAddress,
+                                  sdkWSAddr: defaultAdminAddress, onUserTokenInvalid:  {
             ProgressHUD.banner("accountWarn".localized(), "accountException".localized())
             NotificationCenter.default.post(name: .init("logout"), object: nil)
-        }
+        })
         
         GeTuiSdk.start(withAppId: kGtAppId, appKey: kGtAppKey, appSecret: kGtAppSecret, delegate: self)
         GeTuiSdk.registerRemoteNotification([.alert, .badge, .sound])

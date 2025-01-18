@@ -66,17 +66,20 @@ class NewFriendListViewController: UIViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: NewFriendTableViewCell.className) as! NewFriendTableViewCell
             
             guard let self else { return cell }
+            if _viewModel.isSendOut(userID: item.fromUserID){
+                cell.avatarView.setAvatar(url: item.toFaceURL, text: item.toNickname)
+                cell.titleLabel.text = SuperStringUtil.getUserState(showname: item.toNickname ?? "").n
+                cell.subtitleLabel.text = "请求添加对方为好友".innerLocalized()
+            }else{
+                cell.avatarView.setAvatar(url: item.fromFaceURL, text: item.fromNickname)
+                cell.titleLabel.text = SuperStringUtil.getUserState(showname: item.fromNickname ?? "").n
+                cell.subtitleLabel.text = item.reqMsg ?? ""
+            }
             
-            cell.titleLabel.text = SuperStringUtil.getUserState(showname: item.fromNickname ?? "").n
-            cell.subtitleLabel.text = item.reqMsg ?? ""
             if let state = NewFriendTableViewCell.ApplyState(rawValue: item.handleResult.rawValue) {
                 cell.setApplyState(state, isSendOut: _viewModel.isSendOut(userID: item.fromUserID))
             }
-
-            cell.avatarView.setAvatar(url: item.fromFaceURL, text: item.fromNickname)
-
             cell.agreeBtn.rx.tap.subscribe { [weak self] _ in
-
                 let vc = ApplicationViewController(friendApplication: item)
                 self?.navigationController?.pushViewController(vc, animated: true)
             }.disposed(by: cell.disposeBag)
@@ -91,7 +94,8 @@ class NewFriendListViewController: UIViewController {
 //                print("背电极 \(application.fromUserID) +++++++  \(application.toUserID))")
                 
                 // MARK: -    获取会话信息
-                IMController.shared.getConversation(sessionType: .c2c, sourceId: application.fromUserID) { [weak self] (conversation: ConversationInfo?) in
+                let userID = self?._viewModel.isSendOut(userID: application.fromUserID) == true ? application.toUserID :application.fromUserID
+                IMController.shared.getConversation(sessionType: .c2c, sourceId:userID) { [weak self] (conversation: ConversationInfo?) in
                     guard let conversation else { return }
 
                     let vc = ChatViewControllerBuilder().build(conversation, hiddenInputBar: false)

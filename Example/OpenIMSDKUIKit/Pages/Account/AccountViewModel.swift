@@ -19,8 +19,10 @@ typealias CompletionHandler = (_ errCode: Int, _ errMsg: String?) -> Void
 
 open class AccountViewModel {
     // 业务服务器地址
-    static let API_BASE_URL = UserDefaults.standard.string(forKey: bussinessSeverAddrKey)!
-    static let ADMIN_BASE_URL = UserDefaults.standard.string(forKey: adminSeverAddrKey)!
+//    static let API_BASE_URL = UserDefaults.standard.string(forKey: bussinessSeverAddrKey)!
+//    static let ADMIN_BASE_URL = UserDefaults.standard.string(forKey: adminSeverAddrKey)!
+    static let API_BASE_URL = defaultAppAddress
+    static let ADMIN_BASE_URL = defaultAdminAddress
    
     // 实际开发，抽离网络部分
     static let IMPreLoginAccountKey = "IMPreLoginAccountKey"
@@ -56,16 +58,7 @@ open class AccountViewModel {
     private static let DeleteAccountWithEmailAPI = "/user/mail_cancel"
 
     private static let getMineHomeWalletAPI = "/wallet/myHomePage/queryMyAssets"
-//    private static var httpHeaders : HTTPHeaders = [
-//        "token":UserDefaults.standard.string(forKey: "bussinessTokenKey")!,
-//        "X-Forwarded-For":IMController.shared.publicIP,
-//        "Authorization":"eyJ1c2VySW5mbyI6InVzZXJCbG9nWWFuWmhlbmdUb2tlbiJ9",
-//        "Content-Type":"application/json",
-//        "operationID":String(Int(Date().timeIntervalSince1970)),
-//    ]
-
-
-    
+    private static let getMineProgressOrderAPI = "/wallet/myHomePage/areYouOK"
     
     private let _disposeBag = DisposeBag()
     static func getHttpHeader() -> HTTPHeaders{
@@ -647,8 +640,7 @@ open class AccountViewModel {
         UserDefaults.standard.set(imToken, forKey: IMTokenKey)
         UserDefaults.standard.set(chatToken, forKey: bussinessTokenKey)
         UserDefaults.standard.synchronize()
-        
-        IMController.shared.setup(businessServer: UserDefaults.standard.string(forKey: bussinessSeverAddrKey)!, businessToken: chatToken)
+//        IMController.shared.setup(businessServer: UserDefaults.standard.string(forKey: bussinessSeverAddrKey)!, businessToken: chatToken)
     }
     
     static func savePreLoginAccount(_ account: String?) {
@@ -713,6 +705,33 @@ open class AccountViewModel {
             return
         }
         Alamofire.request(API_BOB_URL + getMineHomeWalletAPI, method: .post, parameters: nil,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
+            if let data = dataRequest.data {
+                let strData = String.init(data: data, encoding: String.Encoding.utf8)
+                print(strData!)
+                if let res = JsonTool.fromJson(strData!, toClass: RealNameInfoResponse<MineWalletMoneyData>.self) {
+                    if res.code == 20000  {
+                        valueHandler(res.data)
+                    } else {
+                        completionHandler(res.code, res.message)
+                    }
+                } else {
+                    completionHandler(-1, "failure")
+                }
+            } else {
+                completionHandler(-1, "failure")
+            }
+        }
+    }
+    //获取用户进行中的订单
+    static func getMineProgressOrderRequest(
+                              valueHandler: @escaping (MineWalletMoneyData) -> Void,
+                              completionHandler: @escaping CompletionHandler)
+    {
+        if !NetworkStatus.isReacheable {
+            //            SuperToast.show(title: "")
+            return
+        }
+        Alamofire.request(API_BOB_URL + getMineProgressOrderAPI, method: .post, parameters: nil,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
             if let data = dataRequest.data {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 print(strData!)

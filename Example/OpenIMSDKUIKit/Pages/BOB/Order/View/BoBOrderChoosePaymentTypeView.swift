@@ -216,7 +216,7 @@ class BoBOrderChoosePaymentTypeView: UIView {
         return r
     }()
     lazy var titleLbl: UILabel = {
-        let r = ViewFactoryUtil.customTilteLabelFill("选择收款方式", font: 18, textColor: .black333)
+        let r = ViewFactoryUtil.customTilteLabelFill("选择支付方式", font: 18, textColor: .black333)
         r.font = .mediumFont(18)
         r.textColor = .black333
         return r
@@ -350,7 +350,7 @@ class BoBOrderChoosePaymentTypeView: UIView {
         r.titleLabel?.font = .mediumFont(16)
         r.rx.tap.subscribe(onNext: { [weak self] in
             if self?.choosePaymentMethod == nil{
-                SuperToast.show(title: "请选择收款方式")
+                SuperToast.show(title: "请选择支付方式")
                 return
             }
             BoBBuyAndSellCionModel.SellerReceiveOrdersRequest(code: self?.code ?? "",paymentId: String(self?.choosePaymentMethod?.id ?? 0)){[weak self] errCode,errMsg in

@@ -86,7 +86,8 @@ extension ABLNetWorkToos{
     ///   - success: 成功的回调
     ///   - failture: 失败的回调
     class func BussinessGET(url : String, params : [String : Any]?,isLoading: Bool = false, isAletError: Bool = true,headers: HTTPHeaders? = nil,success : @escaping (_ data : String)->(), failure : ((Int?, String) ->Void)?) {
-        let newUrl = UserDefaults.standard.string(forKey: bussinessSeverAddrKey)! + url
+//        let newUrl = UserDefaults.standard.string(forKey: bussinessSeverAddrKey)! + url
+        let newUrl = defaultAppAddress + url
         ABLNetWorkToos.request(.get, url: newUrl, params: params,isLoading:isLoading,isAletError:isAletError,headers: headers,success: success, failure: failure)
 
     }
@@ -101,6 +102,7 @@ extension ABLNetWorkToos{
     ///   - failture: 失败的回调
     class func BussinessPOST(url : String, params : [String : Any]? ,isLoading: Bool = false, isAletError: Bool = true,headers: HTTPHeaders? = nil,success : @escaping (_ data : String) ->(), failure : ((Int?, String) ->Void)?) {
 //        let newUrl = UserDefaults.standard.string(forKey: bussinessSeverAddrKey)! + url
+          let newUrl = defaultAppAddress + url
         ABLNetWorkToos.request(.post, url: url, params: params,isLoading:isLoading,isAletError:isAletError,headers: headers,success: success, failure: failure)
     }
     

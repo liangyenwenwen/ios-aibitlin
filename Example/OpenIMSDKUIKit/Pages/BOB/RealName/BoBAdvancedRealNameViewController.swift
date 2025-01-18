@@ -97,7 +97,7 @@ class BoBAdvancedRealNameViewController: UIViewController {
         
     }
     func commitInfo(){
-        BoBRealNameModel.AdvancedRealNameAuthenticationRequest(url: videoUrl, name: name, cardId: cardId, idCardZM: idCardBM, idCardBM:idCardBM){errCode,errMsg in
+        BoBRealNameModel.AdvancedRealNameAuthenticationRequest(videoUrl: videoUrl, name: name, cardId: cardId, idCardZM: idCardBM, idCardBM:idCardBM){errCode,errMsg in
             if errCode == 20000{
                 SuperToast.show(title: "提交成功")
                 if (self.navigationController?.viewControllers.count)! > 3{

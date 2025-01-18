@@ -354,8 +354,6 @@ extension YFNewRegisterVC {
                     if let userID = AccountViewModel.userID {
                         GeTuiSdk.bindAlias(userID, andSequenceNum: "im")
                     }
-                    UserDefaults.standard.setValue(self?.useType.rawValue, forKey: loginTypeKey)
-                    UserDefaults.standard.synchronize()
                     AccountViewModel.savePreLoginAccount(self?.useType == .usePhone ? self?.phone : self?.email)
                     AccountViewModel.updateUserInfo(userID: AccountViewModel.userID!) { _, _ in
                         tabController?.loginSuccess(dismiss: true)

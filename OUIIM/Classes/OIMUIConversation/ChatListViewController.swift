@@ -19,7 +19,6 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
     
     private var scrolledIndex = 0
     
-    var timer: Timer? = nil
     
     public func scrollToUnreadItem() {
         let conversations = _viewModel.conversationsRelay.value
@@ -164,7 +163,6 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
     open override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.getUnReadTotalCount()
-        self.timeCountDown()
     }
     
     
@@ -500,28 +498,9 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
                 }
             }
         }
-    
-    /// 原本为了解决个人头像和群头像问题
-    func timeCountDown() {
-//        var count = 0
-//        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
-//            
-//                if count % 10 == 0 {
-//                    self._tableView.reloadData()
-//                    if count > 20 {
-//                        timer.invalidate()
-//                    }
-//                }
-//            
-//            count += 1
-//        }
-    }
-    
+        
     deinit {
         NotificationCenter.default.removeObserver(self)
-        if timer != nil {
-            timer?.invalidate()
-        }
     }
     
 }

@@ -718,7 +718,8 @@ class BoBQuickBuyAndSellView: UIView {
     private lazy var addView: UIView = {
         let r = UIView()
         let label1 = UILabel()
-        label1.text = type == 1 ?"添加支付方式":"添加收款方式"
+//        label1.text = type == 1 ?"添加支付方式":"添加收款方式"
+        label1.text = "添加支付方式"
         label1.textColor = .white
         label1.font = .regularFont(14)
         label1.backgroundColor = .init(hexString: "#388CEF")
@@ -726,7 +727,8 @@ class BoBQuickBuyAndSellView: UIView {
         label1.corner(16)
         r.addSubview(label1)
         let label2 = UILabel()
-        label2.text = type == 1 ?"请点击按钮添加支付方式":"请点击按钮添加收款方式"
+//        label2.text = type == 1 ?"请点击按钮添加支付方式":"请点击按钮添加收款方式"
+        label2.text = "请点击按钮添加支付方式"
         label2.textColor = .black666
         label2.font = .regularFont(16)
         r.addSubview(label2)
@@ -848,7 +850,8 @@ class BoBQuickBuyAndSellView: UIView {
         let label = UILabel()
         label.textColor = .black666
         label.font = .regularFont(16)
-        label.text = type == 1 ?"选择支付方式":"选择收款方式"
+//        label.text = type == 1 ?"选择支付方式":"选择收款方式"
+        label.text = "选择支付方式"
         r.addSubview(label)
         label.snp_makeConstraints { make in
             make.left.equalTo(16)
@@ -888,7 +891,8 @@ class BoBQuickBuyAndSellView: UIView {
                 return
             }
             if self?.choosePaymentMethod == nil{
-                SuperToast.show(title: self?.type == 1 ?"请选择支付方式":"请选择收款方式")
+//                SuperToast.show(title: self?.type == 1 ?"请选择支付方式":"请选择收款方式")
+                SuperToast.show(title: "请选择支付方式")
                 return
             }
             
