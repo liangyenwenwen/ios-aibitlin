@@ -243,21 +243,17 @@ extension YFNewRegisterVC {
             }
         }
         let invaitationCode = ""
-        startCountDown()
-        
+        ProgressHUD.animate()
         AccountViewModel.requestCode(phone: useType == .usePhone ? phone : nil, areaCode: _areaCode, email: useType == .useEmail ? email : nil, invaitationCode: invaitationCode, useFor: .register) { [weak self] errCode, _ in
-
+            ProgressHUD.dismiss()
             guard let sself = self else { return }
             if errCode != 0 {
-//                ProgressHUD.error(String(errCode).localized())
-                SuperToast.show(title: String(errCode).localized())
-                CountDownUtil.cancel()
+                SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
                 self?.codeView.codeBtn.setTitle("Resend".localized(), for: .normal)
                 self?.codeView.codeBtn.isEnabled = true
             } else {
-                ProgressHUD.dismiss()
+                self?.startCountDown()
             }
-            ProgressHUD.dismiss()
         }
     }
     
@@ -316,7 +312,7 @@ extension YFNewRegisterVC {
     func toVerifyCode() {
         AccountViewModel.verifyCode(phone: useType == .usePhone ? phone : nil, areaCode: _areaCode, email: useType == .useEmail ? phone : nil, useFor: .register, verificationCode: "") { [weak self] errCode, _ in
             if errCode != 0 {
-                SuperToast.show(title: String(errCode).localized())
+                SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
             }
         }
     }
@@ -344,7 +340,7 @@ extension YFNewRegisterVC {
             
             if errMsg != nil {
                 ProgressHUD.dismiss()
-                SuperToast.show(title: String(errCode).localized())
+                SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
             } else {
                 AccountViewModel.loginIM(uid: AccountViewModel.baseUser.userID,
                                          imToken: AccountViewModel.baseUser.imToken,

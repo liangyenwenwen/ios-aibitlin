@@ -81,6 +81,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
         Messaging.messaging().delegate = self
+        //        // 请求通知权限
+//        UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.sound,.badge]) { (granted, error) in
+//            if let error = error {
+//                print("请求通知权限出错: \(error)")
+//            } else if granted {
+//                DispatchQueue.main.async {
+//                    UNUserNotificationCenter.current().delegate = self
+//                    let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+//                    UNUserNotificationCenter.current().requestAuthorization(
+//                        options: authOptions,
+//                        completionHandler: {_, _ in })
+//                    application.registerForRemoteNotifications()
+//                }
+////                application.registerForRemoteNotifications()
+//            }
+//        }
+        
+        
+        
         IQKeyboardManager.shared.enable = true
         
         NothingToSeeHere.harmlessFunction()

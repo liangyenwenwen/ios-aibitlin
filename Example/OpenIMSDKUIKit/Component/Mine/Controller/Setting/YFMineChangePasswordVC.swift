@@ -198,9 +198,7 @@ extension YFMineChangePasswordVC{
                     SuperToast.show(title: "changed".localized() + "success".localized())
                     self.navigationController?.popToRootViewController(animated: true)
                 } else {
-//                        ProgressHUD.error(String(errCode).localized())
-                    SuperToast.show(title: String(errCode).localized())
-                    
+                    SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
                 }
             }
         } else  {
@@ -219,7 +217,7 @@ extension YFMineChangePasswordVC{
                         SuperToast.show(title: "ChangePwdSuccess".localized())
                         self.navigationController?.popViewController(animated: true)
                     }else{
-                        SuperToast.show(title: String(errCode).localized())
+                        SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
                     }
                 }
             }

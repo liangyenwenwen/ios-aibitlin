@@ -104,7 +104,7 @@ class BoBPrimaryRealNameViewController:UIViewController{
             self?.nameLabel.text = data.name
             self?.idCardLabel.text = data.cardId
         }completionHandler: {errCode, errMsg in
-            SuperToast.show(title: errMsg)
+            SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
         }
     }
     lazy var idTitleLabel:UILabel = {
@@ -245,7 +245,7 @@ class BoBPrimaryRealNameViewController:UIViewController{
             if self?.isPrimaryRealName == true{
                 //提交
                 BoBRealNameModel.primaryRealNameAuthenticationRequest(name: self?.nameLabel.text ?? "", cardId: self?.idCardLabel.text ?? "",idCardZM:self?.frontUrl ?? "",idCardBM:self?.backUrl ?? ""){[weak self]errCode, errMsg in
-                    if errCode == 20000{
+                    if errCode == 620000{
                         SuperToast.show(title: "认证成功")
                         IMController.shared.certificationLevel = 1
                         NotificationCenter.default.post(name: Notification.Name("addPaymentSuccess"), object: nil)
@@ -256,7 +256,7 @@ class BoBPrimaryRealNameViewController:UIViewController{
                             self?.navigationController?.popToRootViewController(animated: true)
                         }
                     }else{
-                        SuperToast.show(title: errMsg)
+                        SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
                     }
                 }
             }else{

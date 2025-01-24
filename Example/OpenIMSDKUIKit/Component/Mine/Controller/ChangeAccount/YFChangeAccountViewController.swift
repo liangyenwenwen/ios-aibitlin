@@ -135,7 +135,7 @@ class YFChangeAccountViewController: BaseTitleController {
                 }
                 self?.navigationController?.popViewController(animated: true)
             }else{
-                SuperToast.show(title: String(errCode).localized())
+                SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
             }
         }
     }
@@ -176,14 +176,16 @@ extension YFChangeAccountViewController {
         }
         
         let invaitationCode = ""
-        startCountDown()
+        ProgressHUD.animate()
         AccountViewModel.requestCode(phone: (useType == .usePhone || useType == .changePhone) ? useTypeView.inputText : nil, areaCode: _areaCode, email: (useType == .useEmail || useType == .changeEmail) ? useTypeView.inputText : nil, invaitationCode: invaitationCode, useFor: .changeAccount) { [weak self] errCode, _ in
             ProgressHUD.dismiss()
             guard let sself = self else { return }
             if errCode != 0 {
-                SuperToast.show(title: String(errCode).localized())
+                SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
                 self?.getCodeView.codeBtn.setTitle("Resend".localized(), for: .normal)
                 self?.getCodeView.codeBtn.isEnabled = true
+            }else{
+                self?.startCountDown()
             }
         }
     }

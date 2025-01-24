@@ -7,188 +7,112 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "94AC14BC-457C-4176-9F7A-E6B34B48B832"
+            uuid = "71CD25DA-3634-46E2-ADC8-21D9FB0F326B"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "NotificationService/NotificationService.swift"
+            filePath = "OpenIMSDKUIKit/Component/Mine/Controller/MineMessage/MineMessageVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "36"
-            endingLineNumber = "36">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "84ECE1A0-D221-4340-8DF2-AC6DADB08225"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "NotificationService/NotificationService.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "AB722824-4E2A-4831-91A7-25CC8121C36A"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "OpenIMSDKUIKit/AppDelegate.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "302"
-            endingLineNumber = "302"
-            landmarkName = "geTuiSdkDidReceiveSlience(_:fromGetui:offLine:appId:taskId:msgId:fetchCompletionHandler:)"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
+            landmarkName = "updateUI()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "87A97FE5-5F27-4361-AC5E-CB13CE8B4F94"
+            uuid = "92BDBB89-91A2-4694-AB79-F639F43EE583"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "OpenIMSDKUIKit/Pages/BOB/RealName/Model/BoBRealNameModel.swift"
+            filePath = "../3rd/ZLPhotoBrowser/Sources/Camera/ZLCustomCamera.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "229"
-            endingLineNumber = "229"
-            landmarkName = "AdvancedRealNameAuthenticationRequest(videoUrl:name:cardId:idCardZM:idCardBM:completionHandler:)"
+            startingLineNumber = "835"
+            endingLineNumber = "835"
+            landmarkName = "canEditImage()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "9B187833-7B22-42BA-A0C8-2F40B9A2262F"
+            uuid = "D2D30069-A75D-435B-8217-656114942582"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "OpenIMSDKUIKit/Pages/BOB/RealName/Model/BoBRealNameModel.swift"
+            filePath = "../3rd/ZLPhotoBrowser/Sources/General/ZLPhotoPreviewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "235"
-            endingLineNumber = "235"
-            landmarkName = "AdvancedRealNameAuthenticationRequest(videoUrl:name:cardId:idCardZM:idCardBM:completionHandler:)"
+            startingLineNumber = "517"
+            endingLineNumber = "517"
+            landmarkName = "resetSubviewStatus()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "0CABB0A7-92C1-4F74-8F67-7D1C23CCA3E0"
+            uuid = "A423E2CD-6BF5-4A95-AD2A-9E27CDC0AD65"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../OUIIM/Classes/OIMUIChat/ChatViewController.swift"
+            filePath = "../3rd/ZLPhotoBrowser/Sources/Camera/ZLCustomCamera.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1441"
-            endingLineNumber = "1441"
-            landmarkName = "didTapContent(with:data:)"
+            startingLineNumber = "849"
+            endingLineNumber = "849"
+            landmarkName = "editImage()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "6CB9AF74-547D-468C-BC1A-EB637FBC0975"
+            uuid = "F3DB5B48-FE10-48BF-9558-57FF6A971D80"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../OUIIM/Classes/OIMUIChat/ChatViewController.swift"
+            filePath = "../3rd/ZLPhotoBrowser/Sources/General/ZLPhotoPreviewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1491"
-            endingLineNumber = "1491"
-            landmarkName = "previewMedias(source:msgId:currentIndexHandler:)"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "BD18D07A-499A-4A38-AFB1-29C4A2BC045E"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../OUIIM/Classes/OIMUIContact/NewFriend/NewFriendListViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "19"
-            endingLineNumber = "19"
-            landmarkName = "getNewFriendApplications()"
+            startingLineNumber = "767"
+            endingLineNumber = "767"
+            landmarkName = "showEditImageVC(image:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "4A52E1C2-7D12-47D2-BE67-A35BEDC78780"
+            uuid = "40845C5E-15FD-4E2A-BAC5-6215272395E2"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../OUICore/Classes/Core/IMController.swift"
+            filePath = "../3rd/ZLPhotoBrowser/Sources/General/ZLPhotoPreviewSheet.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "385"
-            endingLineNumber = "385"
-            landmarkName = "getFriendApplicationListAsApplicant(completion:)"
+            startingLineNumber = "709"
+            endingLineNumber = "709"
+            landmarkName = "showEditImageVC(model:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "E8A3C024-3162-40FA-8571-7E76B7FFA4F3"
+            uuid = "B7B5368D-DD31-424C-A150-36ED51938A65"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "OpenIMSDKUIKit/Pages/Account/AccountViewModel.swift"
+            filePath = "../3rd/ZLPhotoBrowser/Sources/General/ZLThumbnailViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "738"
-            endingLineNumber = "738"
-            landmarkName = "getMineProgressOrderRequest(valueHandler:completionHandler:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "0CE8FE5F-49EA-46F4-B6EC-50C89F88D0C3"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../OUIIM/Classes/OIMUIChat/Model/DefaultDataProvider.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "188"
-            endingLineNumber = "188"
-            landmarkName = "getHistoryMessageList(reverse:count:completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "E23A1C79-4BB4-495F-A591-54AA1256C7B8"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../OUIIM/Classes/OIMUIChat/Model/DefaultDataProvider.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "203"
-            endingLineNumber = "203"
-            landmarkName = "getHistoryMessageList(reverse:count:completion:)"
+            startingLineNumber = "1032"
+            endingLineNumber = "1032"
+            landmarkName = "showEditImageVC(model:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

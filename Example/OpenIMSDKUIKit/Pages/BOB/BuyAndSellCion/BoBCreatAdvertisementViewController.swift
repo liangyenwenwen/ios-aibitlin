@@ -149,7 +149,7 @@ class BoBCreatAdvertisementViewController: BaseTitleController {
             }
             self?.refreshUI()
         } completionHandler: {errCode,errMsg in
-            SuperToast.show(title: errMsg)
+            SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
         }
     }
     func refreshUI(){
@@ -1257,7 +1257,7 @@ class BoBCreatAdvertisementViewController: BaseTitleController {
     }()
     func CreatAdvertisement(type:Int?,param:[String:Any]){
         BoBBuyAndSellCionModel.CreatAdvertisementRequest(type: type, param: param){[weak self] errCode, errMsg in
-            if errCode == 20000{
+            if errCode == 620000{
                 if self?.code ?? "000" == "000"{
                     SuperToast.show(title:"创建成功")
                     if self?.updateAdData != nil{
@@ -1285,7 +1285,7 @@ class BoBCreatAdvertisementViewController: BaseTitleController {
                 }
                 self?.navigationController?.popViewController(animated: true)
             }else{
-                SuperToast.show(title: errMsg)
+                SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
             }
         }
     }

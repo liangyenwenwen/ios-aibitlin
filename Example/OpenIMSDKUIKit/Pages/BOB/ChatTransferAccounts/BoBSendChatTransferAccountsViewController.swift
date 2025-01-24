@@ -112,7 +112,7 @@ class BoBSendChatTransferAccountsViewController: BaseTitleController {
                 self.refreshUI()
             }
         } completionHandler: {errCode,errMsg in
-            SuperToast.show(title: errMsg)
+            SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
         }
     }
     func refreshUI(){
@@ -535,7 +535,7 @@ class BoBSendChatTransferAccountsViewController: BaseTitleController {
                             }
                             self?.navigationController?.popViewController(animated: true)
                             }completionHandler:{errCode,errMsg in
-                                SuperToast.show(title: errMsg)
+                                SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
                         }
                     }
 

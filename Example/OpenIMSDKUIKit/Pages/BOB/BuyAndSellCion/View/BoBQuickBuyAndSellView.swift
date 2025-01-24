@@ -21,7 +21,7 @@ class BoBQuickBuyAndSellView: UIView {
     var currencyIcon:String? //图标
     var type:Int = 1 //1是购买，2是出售
     var choosePaymentMethod:stringAndDatePOS?//选中的支付方式
-    var selectBtn = QMUIButton()
+    var selectBtn: QMUIButton? = nil
     var chooseCionTypeModel:CionTypeModel?
     var cionTypeArray:[CionTypeModel] = []
     var btnArray = [QMUIButton]()
@@ -200,7 +200,7 @@ class BoBQuickBuyAndSellView: UIView {
                 self?.refreshUI()
             }
         } completionHandler: {errCode,errMsg in
-            SuperToast.show(title: errMsg)
+            SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
         }
     }
     func loadDailyLimit(){
@@ -208,7 +208,7 @@ class BoBQuickBuyAndSellView: UIView {
             self?.dailyLimitModel = data
             self?.refreshDailyLimitUI()
         } completionHandler: {errCode,errMsg in
-            SuperToast.show(title: errMsg)
+            SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
         }
     }
     func refreshDailyLimitUI(){
@@ -330,9 +330,10 @@ class BoBQuickBuyAndSellView: UIView {
             self?.endEditing(true)
             r.isSelected = !r.isSelected
             if self?.selectBtn != nil{
-                self?.selectBtn.border(.init(hexString: "#EAEAEA"),borderWidth: 1,cornerRadius: 6)
-                self?.selectBtn.setTitleColor(.black666, for: .normal)
-                self?.selectBtn.backgroundColor = .white
+                self?.selectBtn?.border(.init(hexString: "#EAEAEA"),borderWidth: 1,cornerRadius: 6)
+                self?.selectBtn?.setTitleColor(.black666, for: .normal)
+                self?.selectBtn?.backgroundColor = .white
+                self?.selectBtn = nil
             }
             self?.chooseMoney = ""
             self?.countTF.text = ""
@@ -340,6 +341,7 @@ class BoBQuickBuyAndSellView: UIView {
                 self?.titleLabel.text = "金额"
 //                self?.countTF.placeholder = "限额￥100~30,000"
                 self?.cionImageView.image = UIImage(named: "mine_buy_and_sell_buy_money_icon")
+                self?.expectedIncomeTitleLabel.text = self?.type == 1 ?"预计获得：":"预计出售："
                 self?.expectedIncomeLabel.text = "0.00 C"
             }else{
                 self?.titleLabel.text = "数量"
@@ -349,6 +351,7 @@ class BoBQuickBuyAndSellView: UIView {
                 }else{
                     self?.cionImageView.sd_setImage(with: URL(string:self?.currencyIcon))
                 }
+                self?.expectedIncomeTitleLabel.text = self?.type == 1 ?"预计支付：":"预计获得："
                 self?.expectedIncomeLabel.text = "¥0.00"
             }
             self?.refreshDailyLimitUI()
@@ -457,9 +460,9 @@ class BoBQuickBuyAndSellView: UIView {
             }
             if self?.chooseMoney.isEmpty == false && Int(r.text ?? "0") != Int(self?.chooseMoney ?? "0"){
                 if self?.selectBtn != nil{
-                    self?.selectBtn.border(.init(hexString: "#EAEAEA"),borderWidth: 1,cornerRadius: 6)
-                    self?.selectBtn.setTitleColor(.black666, for: .normal)
-                    self?.selectBtn.backgroundColor = .white
+                    self?.selectBtn?.border(.init(hexString: "#EAEAEA"),borderWidth: 1,cornerRadius: 6)
+                    self?.selectBtn?.setTitleColor(.black666, for: .normal)
+                    self?.selectBtn?.backgroundColor = .white
                 }
                 self?.chooseMoney = ""
             }
@@ -544,9 +547,9 @@ class BoBQuickBuyAndSellView: UIView {
                 self?.endEditing(true)
                 if self?.selectBtn != btn{
                     if self?.selectBtn != nil{
-                        self?.selectBtn.border(.init(hexString: "#EAEAEA"),borderWidth: 1,cornerRadius: 6)
-                        self?.selectBtn.setTitleColor(.black666, for: .normal)
-                        self?.selectBtn.backgroundColor = .white
+                        self?.selectBtn?.border(.init(hexString: "#EAEAEA"),borderWidth: 1,cornerRadius: 6)
+                        self?.selectBtn?.setTitleColor(.black666, for: .normal)
+                        self?.selectBtn?.backgroundColor = .white
                     }
                     btn.border(.primaryColor,borderWidth: 1,cornerRadius: 6)
                     btn.setTitleColor(.primaryColor, for: .normal)
@@ -702,7 +705,7 @@ class BoBQuickBuyAndSellView: UIView {
         let r = UILabel()
         r.textColor = .black333
         r.font = .mediumFont(14)
-        r.text = "预计获得："
+        r.text = type == 1 ?"预计支付：":"预计获得："
         r.textAlignment = .right
         return r
     }()
@@ -926,10 +929,10 @@ class BoBQuickBuyAndSellView: UIView {
                         vc.code = code
                         self?.currentVC?.navigationController?.pushViewController(vc, animated: true)
                     } completionHandler:{errCode,errMsg in
-                        if errCode == 20082{
+                        if errCode == 620082{
                             self?.errorAlertViewShow()
                         }else{
-                            SuperToast.show(title: errMsg)
+                            SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
                         }
                     }
                 }else{
@@ -944,12 +947,12 @@ class BoBQuickBuyAndSellView: UIView {
                                 vc.code = code
                                 self?.currentVC?.navigationController?.pushViewController(vc, animated: true)
                             } completionHandler:{errCode,errMsg in
-                                if errCode == 20082{
+                                if errCode == 620082{
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                                         self?.errorAlertViewShow()
                                     }
                                 }else{
-                                    SuperToast.show(title: errMsg)
+                                    SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
                                 }
                             }
 

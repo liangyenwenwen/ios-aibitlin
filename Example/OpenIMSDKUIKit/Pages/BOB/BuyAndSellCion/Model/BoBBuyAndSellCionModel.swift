@@ -57,9 +57,9 @@ class BoBBuyAndSellCionModel {
     static func BuyingAndSellingCoinsHomeRequest(
                                   valueHandler: @escaping (BoBBuyAndSellHomeData) -> Void,
                                   completionHandler: @escaping CompletionHandler) {
-        if !NetworkStatus.isReacheable {
-            return
-        }
+//        if !NetworkStatus.isReacheable {
+//            return
+//        }
         ProgressHUD.animate()
 
         Alamofire.request(API_BOB_URL + BuyingAndSellingCoinsHome, method: .post, parameters: nil,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
@@ -70,14 +70,14 @@ class BoBBuyAndSellCionModel {
                 print(strData!)
                 if let res = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellResponse<BoBBuyAndSellHomeData>.self) {
 
-                    if res.code == 20000  {
+                    if res.code == 620000  {
                         valueHandler(res.data)
                     } else {
                         completionHandler(res.code, res.message)
                     }
                 } else {
-                    if let res = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellNODataResponse.self){
-                        completionHandler(res.code, res.message)
+                    if let res1 = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellNODataResponse.self){
+                        completionHandler(res1.code, res1.message)
                     }else{
                         completionHandler(-1, "网络错误")
                     }
@@ -91,9 +91,9 @@ class BoBBuyAndSellCionModel {
     static func RefreshTheExchangeRateRequest(
                                   valueHandler: @escaping (Double) -> Void,
                                   completionHandler: @escaping CompletionHandler) {
-        if !NetworkStatus.isReacheable {
-            return
-        }
+//        if !NetworkStatus.isReacheable {
+//            return
+//        }
         ProgressHUD.animate()
 
         
@@ -105,13 +105,13 @@ class BoBBuyAndSellCionModel {
                 print(strData!)
                 if let res = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellResponse<Double>.self) {
 
-                    if res.code == 20000  {
+                    if res.code == 620000  {
                         valueHandler(res.data)
                     } else {
                         completionHandler(res.code, res.message)
                     }
                 } else {
-                    if let res = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellNODataResponse.self){
+                    if let res = JsonTool.fromJson(strData!, toClass: YFNODataResponse.self){
                         completionHandler(res.code, res.message)
                     }else{
                         completionHandler(-1, "网络错误")
@@ -132,9 +132,9 @@ class BoBBuyAndSellCionModel {
                                     pageSize:Int,
                                     valueHandler: @escaping ([BoBBuyAndSellFreeAreaList]) -> Void,
                                     completionHandler: @escaping CompletionHandler) {
-        if !NetworkStatus.isReacheable {
-            return
-        }
+//        if !NetworkStatus.isReacheable {
+//            return
+//        }
         let param = ["type": type, "currency": currency,"amount": amount,"payment": payment,"pageNum": pageNum,"pageSize": pageSize] as [String : Any]
         let url = SuperStringUtil.netUrl(API_BOB_URL + FreeAreaList, param)
         Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
@@ -144,7 +144,7 @@ class BoBBuyAndSellCionModel {
                 print(strData!)
                 if let res = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellFreeAreaData.self) {
 
-                    if res.code == 20000  {
+                    if res.code == 620000  {
                         valueHandler(res.data)
                     } else {
                         completionHandler(res.code, res.message)
@@ -165,9 +165,9 @@ class BoBBuyAndSellCionModel {
     static func QueryDailyLimitRequest(currency:String,
                                        valueHandler: @escaping (DailyLimitModel) -> Void,
                                        completionHandler: @escaping CompletionHandler) {
-        if !NetworkStatus.isReacheable {
-            return
-        }
+//        if !NetworkStatus.isReacheable {
+//            return
+//        }
         let param = ["currency": currency] as [String : Any]
         let url = SuperStringUtil.netUrl(API_BOB_URL + QueryDailyLimit, param)
         Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
@@ -176,7 +176,7 @@ class BoBBuyAndSellCionModel {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 print(strData!)
                 if let res = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellResponse<DailyLimitModel>.self) {
-                    if res.code == 20000  {
+                    if res.code == 620000  {
                         valueHandler(res.data)
                     } else {
                         completionHandler(res.code, res.message)
@@ -197,9 +197,9 @@ class BoBBuyAndSellCionModel {
     static func QueryBalanceByCurrencyRequest(currency:String,
                                               valueHandler: @escaping (CionDetailTypeModel) -> Void,
                                               completionHandler: @escaping CompletionHandler) {
-        if !NetworkStatus.isReacheable {
-            return
-        }
+//        if !NetworkStatus.isReacheable {
+//            return
+//        }
         ProgressHUD.animate()
         let param = ["currency": currency] as [String : Any]
         let url = SuperStringUtil.netUrl(API_BOB_URL + QueryBalanceByCurrency, param)
@@ -211,7 +211,7 @@ class BoBBuyAndSellCionModel {
                 print(strData!)
                 if let res = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellResponse<CionDetailTypeModel>.self) {
 
-                    if res.code == 20000  {
+                    if res.code == 620000  {
                         valueHandler(res.data)
                     } else {
                         completionHandler(res.code, res.message)
@@ -232,9 +232,9 @@ class BoBBuyAndSellCionModel {
     static func CreatAdvertisementRequest(type:Int?,
                                           param:[String:Any],
                                           completionHandler: @escaping CompletionHandler) {
-        if !NetworkStatus.isReacheable {
-            return
-        }
+//        if !NetworkStatus.isReacheable {
+//            return
+//        }
         ProgressHUD.animate()
         var url = ""
         if type == 1{
@@ -266,9 +266,9 @@ class BoBBuyAndSellCionModel {
     }
     static func UpdateNameOfAdvertiserRequest(advertiserName:String?,
                                           completionHandler: @escaping CompletionHandler) {
-        if !NetworkStatus.isReacheable {
-            return
-        }
+//        if !NetworkStatus.isReacheable {
+//            return
+//        }
         ProgressHUD.animate()
         let param = ["advertiserName":advertiserName ?? ""] as [String:Any]
 //        let url =  SuperStringUtil.netUrl(API_BOB_URL + UpdateNameOfAdvertiser, param)
@@ -300,9 +300,9 @@ class BoBBuyAndSellCionModel {
                                            pageSize:Int,
                                            valueHandler: @escaping ([BoBMineAdList]) -> Void,
                                            completionHandler: @escaping CompletionHandler) {
-        if !NetworkStatus.isReacheable {
-            return
-        }
+//        if !NetworkStatus.isReacheable {
+//            return
+//        }
         ProgressHUD.animate()
         let param = ["currency": currency, "type": type,"state": state,"pageNum": pageNum,"pageSize": pageSize] as [String : Any]
         let url = SuperStringUtil.netUrl(API_BOB_URL + MyAdvertisementList, param)
@@ -314,7 +314,7 @@ class BoBBuyAndSellCionModel {
                 print(strData!)
                 if let res = JsonTool.fromJson(strData!, toClass: BoBMineAdData.self) {
 
-                    if res.code == 20000  {
+                    if res.code == 620000  {
                         valueHandler(res.data)
                     } else {
                         completionHandler(res.code, res.message)
@@ -335,9 +335,9 @@ class BoBBuyAndSellCionModel {
     static func MyAdvertisementChangeRequest(type:Int,
                                              code:String,
                                              completionHandler: @escaping CompletionHandler) {
-        if !NetworkStatus.isReacheable {
-            return
-        }
+//        if !NetworkStatus.isReacheable {
+//            return
+//        }
         ProgressHUD.animate()
         let param = ["code": code] as [String : Any]
         var url = ""
@@ -374,9 +374,9 @@ class BoBBuyAndSellCionModel {
     static func RefreshUnitPriceRequest(code:String,
                                         valueHandler: @escaping (Double) -> Void,
                                         completionHandler: @escaping CompletionHandler) {
-        if !NetworkStatus.isReacheable {
-            return
-        }
+//        if !NetworkStatus.isReacheable {
+//            return
+//        }
         ProgressHUD.animate()
         let param = ["code": code] as [String : Any]
         let url = SuperStringUtil.netUrl(API_BOB_URL + RefreshUnitPrice, param)
@@ -388,7 +388,7 @@ class BoBBuyAndSellCionModel {
                 print(strData!)
                 if let res = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellResponse<Double>.self) {
 
-                    if res.code == 20000  {
+                    if res.code == 620000  {
                         valueHandler(res.data)
                     } else {
                         completionHandler(res.code, res.message)
@@ -409,9 +409,9 @@ class BoBBuyAndSellCionModel {
     static func IntendedOrderHomePageRequest(code:String,
                                         valueHandler: @escaping (IntendedOrderHome) -> Void,
                                         completionHandler: @escaping CompletionHandler) {
-        if !NetworkStatus.isReacheable {
-            return
-        }
+//        if !NetworkStatus.isReacheable {
+//            return
+//        }
         ProgressHUD.animate()
         let param = ["code": code] as [String : Any]
         let url = SuperStringUtil.netUrl(API_BOB_URL + IntendedOrderHomePage, param)
@@ -423,7 +423,7 @@ class BoBBuyAndSellCionModel {
                 print(strData!)
                 if let res = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellResponse<IntendedOrderHome>.self) {
 
-                    if res.code == 20000  {
+                    if res.code == 620000  {
                         valueHandler(res.data)
                     } else {
                         completionHandler(res.code, res.message)
@@ -449,9 +449,9 @@ class BoBBuyAndSellCionModel {
                                    type:Int,
                                    valueHandler: @escaping (String) -> Void,
                                    completionHandler: @escaping CompletionHandler) {
-        if !NetworkStatus.isReacheable {
-            return
-        }
+//        if !NetworkStatus.isReacheable {
+//            return
+//        }
         ProgressHUD.animate()
         let param = ["code": code,"amount":amount,"payment":payment,"quantity":quantity,"exchangeRate":exchangeRate,"type":type] as [String : Any]
         let url = SuperStringUtil.netUrl(API_BOB_URL + IntendedBuy, param)
@@ -461,7 +461,7 @@ class BoBBuyAndSellCionModel {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 print(strData!)
                 if let res = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellResponse<String>.self) {
-                    if res.code == 20000  {
+                    if res.code == 620000  {
                         valueHandler(res.data)
                     } else {
                         completionHandler(res.code, res.message)
@@ -490,9 +490,9 @@ class BoBBuyAndSellCionModel {
                                    pwd:String,
                                    valueHandler: @escaping (String) -> Void,
                                    completionHandler: @escaping CompletionHandler) {
-        if !NetworkStatus.isReacheable {
-            return
-        }
+//        if !NetworkStatus.isReacheable {
+//            return
+//        }
         ProgressHUD.animate()
         let timestamp = String(Int(Date().timeIntervalSince1970 * 1000))
         let passWord = (IMController.shared.payPassWordSonKey + pwd).md5
@@ -506,7 +506,7 @@ class BoBBuyAndSellCionModel {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 print(strData!)
                 if let res = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellResponse<String>.self) {
-                    if res.code == 20000  {
+                    if res.code == 620000  {
                         valueHandler(res.data)
                     } else {
                         completionHandler(res.code, res.message)
@@ -530,9 +530,9 @@ class BoBBuyAndSellCionModel {
                                    pageSize:Int,
                                    valueHandler: @escaping ([BoBMineOrderList]) -> Void,
                                    completionHandler: @escaping CompletionHandler) {
-        if !NetworkStatus.isReacheable {
-            return
-        }
+//        if !NetworkStatus.isReacheable {
+//            return
+//        }
         ProgressHUD.animate()
         let param = ["type": type, "sign": sign,"pageNum": pageNum,"pageSize": pageSize] as [String : Any]
         let url = SuperStringUtil.netUrl(API_BOB_URL + MyOrderList, param)
@@ -544,7 +544,7 @@ class BoBBuyAndSellCionModel {
                 print(strData!)
                 if let res = JsonTool.fromJson(strData!, toClass: BoBMineOrderListData.self) {
 
-                    if res.code == 20000  {
+                    if res.code == 620000  {
                         valueHandler(res.data)
 
                     } else {
@@ -565,9 +565,9 @@ class BoBBuyAndSellCionModel {
     static func OrderDetailsRequest(code:String,
                                    valueHandler: @escaping (BoBMineOrderList) -> Void,
                                    completionHandler: @escaping CompletionHandler) {
-        if !NetworkStatus.isReacheable {
-            return
-        }
+//        if !NetworkStatus.isReacheable {
+//            return
+//        }
         let param = ["code": code] as [String : Any]
         let url = SuperStringUtil.netUrl(API_BOB_URL + OrderDetails, param)
         Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
@@ -577,7 +577,7 @@ class BoBBuyAndSellCionModel {
                 print(strData!)
                 if let res = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellResponse<BoBMineOrderList>.self) {
 
-                    if res.code == 20000  {
+                    if res.code == 620000  {
                         if let res1 = JsonTool.fromJson(res.data.payDetails ?? "", toClass: paymentDdetailData.self) {
                             res.data.paymentMethodDetails = res1
                         }
@@ -599,9 +599,9 @@ class BoBBuyAndSellCionModel {
     }
     static func BuyerReceiveOrdersRequest(code:String,
                                       completionHandler: @escaping CompletionHandler) {
-        if !NetworkStatus.isReacheable {
-            return
-        }
+//        if !NetworkStatus.isReacheable {
+//            return
+//        }
         ProgressHUD.animate()
         let param = ["code": code] as [String : Any]
         let url = SuperStringUtil.netUrl(API_BOB_URL + BuyTakesOrders, param)
@@ -627,9 +627,9 @@ class BoBBuyAndSellCionModel {
     static func SellerReceiveOrdersRequest(code:String,
                                            paymentId:String,
                                            completionHandler: @escaping CompletionHandler) {
-        if !NetworkStatus.isReacheable {
-            return
-        }
+//        if !NetworkStatus.isReacheable {
+//            return
+//        }
         ProgressHUD.animate()
         let param = ["code": code,"paymentId":paymentId] as [String : Any]
         let url = SuperStringUtil.netUrl(API_BOB_URL + SellTakesOrders, param)
@@ -655,9 +655,9 @@ class BoBBuyAndSellCionModel {
     static func UploadCredentialsRequest(code:String,
                                          credentials:String,
                                          completionHandler: @escaping CompletionHandler) {
-        if !NetworkStatus.isReacheable {
-            return
-        }
+//        if !NetworkStatus.isReacheable {
+//            return
+//        }
         ProgressHUD.animate()
         let param = ["code": code,"credentials":credentials] as [String : Any]
         let url = SuperStringUtil.netUrl(API_BOB_URL + UploadCredentials, param)
@@ -682,9 +682,9 @@ class BoBBuyAndSellCionModel {
     }
     static func SellerDepositCoinRequest(code:String,
                                          completionHandler: @escaping CompletionHandler) {
-        if !NetworkStatus.isReacheable {
-            return
-        }
+//        if !NetworkStatus.isReacheable {
+//            return
+//        }
         ProgressHUD.animate()
         let param = ["code": code] as [String : Any]
         let url = SuperStringUtil.netUrl(API_BOB_URL + SellerDepositCoin, param)
@@ -709,9 +709,9 @@ class BoBBuyAndSellCionModel {
     }
     static func CancelOrderRequest(code:String,
                                          completionHandler: @escaping CompletionHandler) {
-        if !NetworkStatus.isReacheable {
-            return
-        }
+//        if !NetworkStatus.isReacheable {
+//            return
+//        }
         ProgressHUD.animate()
         let param = ["code": code] as [String : Any]
         let url = SuperStringUtil.netUrl(API_BOB_URL + CancelOrder, param)
@@ -738,9 +738,9 @@ class BoBBuyAndSellCionModel {
                                     representationDetails:String,
                                     screenshot:String,
                                     completionHandler: @escaping CompletionHandler) {
-        if !NetworkStatus.isReacheable {
-            return
-        }
+//        if !NetworkStatus.isReacheable {
+//            return
+//        }
         ProgressHUD.animate()
         let param = ["code": code,"representationDetails":representationDetails,"screenshot":screenshot] as [String : Any]
         Alamofire.request(API_BOB_URL + UpLoadAppeal, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
@@ -765,9 +765,9 @@ class BoBBuyAndSellCionModel {
     static func QueryStatementDetailsRequest(code:String,
                                              valueHandler: @escaping (BoBMineOrderAppealData) -> Void,
                                              completionHandler: @escaping CompletionHandler) {
-        if !NetworkStatus.isReacheable {
-            return
-        }
+//        if !NetworkStatus.isReacheable {
+//            return
+//        }
         ProgressHUD.animate()
         let param = ["code": code] as [String : Any]
         let url = SuperStringUtil.netUrl(API_BOB_URL + QueryStatementDetails, param)
@@ -777,7 +777,7 @@ class BoBBuyAndSellCionModel {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 print(strData!)
                 if let res = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellResponse<BoBMineOrderAppealData>.self) {
-                    if res.code == 20000  {
+                    if res.code == 620000  {
                         valueHandler(res.data)
                     } else {
                         completionHandler(res.code, res.message)
@@ -801,9 +801,9 @@ class BoBBuyAndSellCionModel {
                                     currency:String,
                                     valueHandler: @escaping (String) -> Void,
                                     completionHandler: @escaping CompletionHandler) {
-        if !NetworkStatus.isReacheable {
-            return
-        }
+//        if !NetworkStatus.isReacheable {
+//            return
+//        }
         ProgressHUD.animate()
         let param = ["paymentId": paymentId,"payment":payment,"amountOrNumber":amountOrNumber,"input":input,"currency":currency] as [String : Any]
         let url = SuperStringUtil.netUrl(API_BOB_URL + QuickBuyCoin, param)
@@ -813,7 +813,7 @@ class BoBBuyAndSellCionModel {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 print(strData!)
                 if let res = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellResponse<String>.self) {
-                    if res.code == 20000  {
+                    if res.code == 620000  {
                         valueHandler(res.data)
                     } else {
                         completionHandler(res.code, res.message)
@@ -839,9 +839,9 @@ class BoBBuyAndSellCionModel {
                                      passWord:String,
                                      valueHandler: @escaping (String) -> Void,
                                      completionHandler: @escaping CompletionHandler) {
-        if !NetworkStatus.isReacheable {
-            return
-        }
+//        if !NetworkStatus.isReacheable {
+//            return
+//        }
         ProgressHUD.animate()
         let timestamp = String(Int(Date().timeIntervalSince1970 * 1000))
         let pwd = (IMController.shared.payPassWordSonKey + passWord).md5
@@ -854,7 +854,7 @@ class BoBBuyAndSellCionModel {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 print(strData!)
                 if let res = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellResponse<String>.self) {
-                    if res.code == 20000  {
+                    if res.code == 620000  {
                         valueHandler(res.data)
                     } else {
                         completionHandler(res.code, res.message)
@@ -875,14 +875,14 @@ class BoBBuyAndSellCionModel {
 class BoBBuyAndSellResponse<T: Decodable>: Decodable {
     var data: T
     var flag: Bool = false
-    var code: Int = 20000
+    var code: Int = 620000
     var message: String? = nil
     var count: Int? = 0
 }
 class BoBBuyAndSellNODataResponse: Decodable {
 //    var data: T
     var flag: Bool = false
-    var code: Int = 20000
+    var code: Int = 620000
     var message: String? = nil
     var count: Int? = 0
 }
@@ -912,7 +912,7 @@ class DailyLimitModel:Decodable {
 class BoBBuyAndSellFreeAreaData: Decodable {
     var data: [BoBBuyAndSellFreeAreaList]
     var flag: Bool = false
-    var code: Int = 20000
+    var code: Int = 620000
     var message: String? = nil
     var count: Int? = 0
 }
@@ -940,7 +940,7 @@ class CionDetailTypeModel:Decodable {
 class BoBMineAdData: Decodable {
     var data: [BoBMineAdList]
     var flag: Bool = false
-    var code: Int = 20000
+    var code: Int = 620000
     var message: String? = nil
     var count: Int? = 0
 }
@@ -985,7 +985,7 @@ class IntendedOrderHome: Decodable {
 class BoBMineOrderListData: Decodable {
     var data: [BoBMineOrderList]
     var flag: Bool = false
-    var code: Int = 20000
+    var code: Int = 620000
     var message: String? = nil
     var count: Int? = 0
 }

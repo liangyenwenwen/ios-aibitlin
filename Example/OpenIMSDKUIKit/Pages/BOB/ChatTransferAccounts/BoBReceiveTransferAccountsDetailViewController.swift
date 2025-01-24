@@ -97,7 +97,7 @@ class BoBReceiveTransferAccountsDetailViewController: BaseTitleController {
                 self!.updateTransferAccountsStatus(status)
             }
         } completionHandler:{errCode,errMsg in
-            SuperToast.show(title: errMsg)
+            SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
         }
     }
     lazy var topLineView: UIView = {
@@ -271,6 +271,7 @@ class BoBReceiveTransferAccountsDetailViewController: BaseTitleController {
                     }
                     status = "0"
                 }else if data.sign == 2{
+                    self?.tipLabel.hide()
                     self?.receiveTimeView.show()
                     self?.receiveTimeTitleLabel.text = "到账时间"
                     self?.receiveTimeLabel.text = data.receiveTime
@@ -285,6 +286,7 @@ class BoBReceiveTransferAccountsDetailViewController: BaseTitleController {
                     status = "1"
                 }else if data.sign == 3{
                     //已过期
+                    self?.tipLabel.hide()
                     self?.receiveTimeView.show()
                     self?.receiveTimeTitleLabel.text = "退款时间"
                     self?.receiveTimeLabel.text = data.returnTime
@@ -302,7 +304,7 @@ class BoBReceiveTransferAccountsDetailViewController: BaseTitleController {
                 }
                 
             }completionHandler: {errCode,errMsg in
-                SuperToast.show(title: errMsg)
+                SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
             }
             
         }).disposed(by: rx.disposeBag)

@@ -344,7 +344,8 @@ class YFChooseUserAvatarCardView: UIView, UIImagePickerControllerDelegate, UINav
     
     private lazy var _photoHelper: PhotoHelper = {
             let v = PhotoHelper()
-            v.setConfigToMultipleSelected()
+//            v.setConfigToMultipleSelected()
+            v.setConfigToPickAvatar()
             v.didPhotoSelected = { [weak self] (images: [UIImage], assets: [PHAsset]) in
                 guard var first = images.first else { return }
                 
@@ -443,7 +444,7 @@ extension YFChooseUserAvatarCardView {
                 AccountViewModel.updateUserInfo(userID: IMController.shared.uid, faceURL:data[self.currentIndex]) { errCode, errMsg in
                     ProgressHUD.dismiss()
                     if errCode != 0 {
-                        SuperToast.show(title: errMsg)
+                        SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
                     } else {
                         print("保存成功")
                         self.bottomShow(show: false)
@@ -470,7 +471,7 @@ extension YFChooseUserAvatarCardView {
                     self?.bottomShow(show: false)
                    
                 } else {
-                    SuperToast.show(title: msg)
+                    SuperToast.show(title: String(code) + "：" + String(code).localized())
                 }
             })
         }
@@ -516,7 +517,7 @@ extension YFChooseUserAvatarCardView {
 ////                _photoHelper.presentCamera(byController: currentController)
 //                presentCamera()
 //            }
-            _photoHelper.setConfigToMultipleSelected(forVideo: false, maxSelectCount: 1)
+//            _photoHelper.setConfigToMultipleSelected(forVideo: false, maxSelectCount: 1)
             _photoHelper.showSelectMetaSheet(byController: currentController)
         }
         

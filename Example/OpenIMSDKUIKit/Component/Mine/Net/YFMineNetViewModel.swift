@@ -74,12 +74,15 @@ extension YFMineNetViewModel {
                      if res.errCode == 0  {
                          valueHandler(res.data?.urls ?? [])
                      } else {
-//                         ProgressHUD.error(res.errMsg)
-                         SuperToast.show(title: res.errMsg!)
+                         SuperToast.show(title: String(res.errCode) + "：" + String(res.errCode).localized())
                      }
                      
                  } else {
-                     SuperToast.show(title: "failure".localized())
+                     if let res1 = JsonTool.fromJson(strData!, toClass: YFIMNODataResponse.self) {
+                         SuperToast.show(title: String(res1.errCode) + "：" + String(res1.errCode).localized())
+                     }else{
+                         SuperToast.show(title: "-1".localized())
+                     }
                  }
              }else{
                  SuperToast.show(title: "-1".localized())
@@ -119,15 +122,19 @@ extension YFMineNetViewModel {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 if let res = JsonTool.fromJson(strData!, toClass:  YFMineResponse.self) {
                     
-                    if res.code == 20000  {
+                    if res.code == 620000 || res.code == 20000  {
                         SuperToast.show(title: "提交成功".localized())
                         valueHandler("提交成功")
                     }else{
-                        SuperToast.show(title: "failure".localized())
+                        SuperToast.show(title: String(res.code) + "：" + String(res.code).localized())
                     }
                     
                 } else {
-                    SuperToast.show(title: "failure".localized())
+                    if let res1 = JsonTool.fromJson(strData!, toClass: YFNODataResponse.self) {
+                        SuperToast.show(title: String(res1.code) + "：" + String(res1.code).localized())
+                    }else{
+                        SuperToast.show(title: "-1".localized())
+                    }
                 }
    
             }else{
@@ -151,7 +158,19 @@ struct PictureFindResponse: Codable {
 class  YFMineResponse: Decodable {
     var data: String? = nil
     var flag: Bool = false
-    var code: Int = 20000
+    var code: Int = 620000
+    var message: String? = nil
+    var count: Int? = 0
+}
+class  YFIMNODataResponse: Decodable {
+    var flag: Bool = false
+    var errCode: Int = 0
+    var message: String? = nil
+    var count: Int? = 0
+}
+class  YFNODataResponse: Decodable {
+    var flag: Bool = false
+    var code: Int = 620000
     var message: String? = nil
     var count: Int? = 0
 }

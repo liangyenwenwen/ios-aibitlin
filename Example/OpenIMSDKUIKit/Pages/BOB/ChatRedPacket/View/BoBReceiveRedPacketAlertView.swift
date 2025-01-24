@@ -104,7 +104,7 @@ class BoBReceiveRedPacketAlertView: TGLinearLayout {
             receieBtn.isUserInteractionEnabled = false
             BoBRedPacketModel.ReceiveChatRedPacketsRequest(type: redPacketMessageStatus?.data?.redPacketType, param:param){errCode,errMsg in
                 // 0是未领取，1是已领取，2，已过期，3是已领完
-                if errCode == 20000{
+                if errCode == 620000{
                     self.isReceiveing = false
                     if self.receiveRedPacketSuccess != nil{
                         self.receiveRedPacketSuccess("1")
@@ -112,24 +112,23 @@ class BoBReceiveRedPacketAlertView: TGLinearLayout {
                 }else{
                     self.isReceiveing = false
                     self.receieBtn.isUserInteractionEnabled = true
-                    if errCode == 20027{
+                    if errCode == 620027{
                         //已过期
                         if self.receiveRedPacketSuccess != nil{
                             self.receiveRedPacketSuccess("2")
                         }
-                    }else if errCode == 20028{
+                    }else if errCode == 620028{
                         //已领取
                         if self.receiveRedPacketSuccess != nil{
                             self.receiveRedPacketSuccess("1")
                         }
-                    }else if errCode == 20029{
+                    }else if errCode == 620029{
                         //已领完
                         if self.receiveRedPacketSuccess != nil{
                             self.receiveRedPacketSuccess("3")
                         }
                     }
-                    SuperToast.show(title: errMsg)
-
+                    SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
                 }
                 
                 

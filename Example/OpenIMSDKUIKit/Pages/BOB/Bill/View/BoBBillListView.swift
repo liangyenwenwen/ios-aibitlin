@@ -77,7 +77,7 @@ class BoBBillListView: UIView {
                 self.tableView.mj_footer?.endRefreshing()
             }
         }completionHandler: {errCode,errMsg in
-            SuperToast.show(title: errMsg)
+            SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
             self.tableView.mj_header?.endRefreshing()
             self.tableView.mj_footer?.endRefreshing()
 

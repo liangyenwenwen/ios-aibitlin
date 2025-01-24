@@ -73,15 +73,15 @@ class BoBSendAppealViewController: BaseTitleController {
         }
     }
     func toAppealNet(){
-        BoBBuyAndSellCionModel.UpLoadAppealRequest(code: code ?? "", representationDetails: textView.text ?? "", screenshot: appealImgs ?? "") {[weak self] errCode,errMsg in
-            if errCode == 20000{
+        BoBBuyAndSellCionModel.UpLoadAppealRequest(code: code, representationDetails: textView.text ?? "", screenshot: appealImgs) {[weak self] errCode,errMsg in
+            if errCode == 620000{
                 SuperToast.show(title: "提交成功")
                 if self?.uploadAppealSuccessBlock != nil{
                     self?.uploadAppealSuccessBlock()
                 }
                 self?.navigationController?.popViewController(animated: true)
             }else{
-                SuperToast.show(title: errMsg)
+                SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
             }
         }
     }

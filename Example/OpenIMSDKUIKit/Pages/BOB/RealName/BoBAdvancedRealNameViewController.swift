@@ -98,7 +98,7 @@ class BoBAdvancedRealNameViewController: UIViewController {
     }
     func commitInfo(){
         BoBRealNameModel.AdvancedRealNameAuthenticationRequest(videoUrl: videoUrl, name: name, cardId: cardId, idCardZM: idCardBM, idCardBM:idCardBM){errCode,errMsg in
-            if errCode == 20000{
+            if errCode == 620000{
                 SuperToast.show(title: "提交成功")
                 if (self.navigationController?.viewControllers.count)! > 3{
                     let vc = self.navigationController?.viewControllers[(self.navigationController?.viewControllers.count)!-4]
@@ -107,7 +107,7 @@ class BoBAdvancedRealNameViewController: UIViewController {
                     self.navigationController?.popToRootViewController(animated: true)
                 }
             }else{
-                SuperToast.show(title: errMsg)
+                SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
             }
         }
     }

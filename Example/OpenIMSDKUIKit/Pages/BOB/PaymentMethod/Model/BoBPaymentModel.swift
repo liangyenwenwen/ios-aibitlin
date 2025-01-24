@@ -62,10 +62,10 @@ class BoBPaymentModel {
                                   completionHandler: @escaping CompletionHandler) {
         
         
-        if !NetworkStatus.isReacheable {
-//            SuperToast.show(title: "")
-            return
-        }
+//        if !NetworkStatus.isReacheable {
+////            SuperToast.show(title: "")
+//            return
+//        }
         ProgressHUD.animate()
 //        let param = ["userId": userId ?? ""]
 //        let url = SuperStringUtil.netUrl(API_BOB_URL + UserPaymentMedothList, param)
@@ -78,7 +78,7 @@ class BoBPaymentModel {
                 print(strData!)
                 if let res = JsonTool.fromJson(strData!, toClass: PaymentResponse<PaymentMethodData>.self) {
 
-                    if res.code == 20000  {
+                    if res.code == 620000  {
                         valueHandler(res.data)
                     } else {
                         completionHandler(res.code, res.message)
@@ -101,10 +101,10 @@ class BoBPaymentModel {
                                      completionHandler: @escaping CompletionHandler) {
            
            
-           if !NetworkStatus.isReacheable {
-   //            SuperToast.show(title: "")
-               return
-           }
+//           if !NetworkStatus.isReacheable {
+//   //            SuperToast.show(title: "")
+//               return
+//           }
            ProgressHUD.animate()
         let param = ["id":id] as [String : Any]
            let url = SuperStringUtil.netUrl(API_BOB_URL + DeletePayment, param)
@@ -137,10 +137,10 @@ class BoBPaymentModel {
                                   completionHandler: @escaping CompletionHandler) {
         
         
-        if !NetworkStatus.isReacheable {
-//            SuperToast.show(title: "")
-            return
-        }
+//        if !NetworkStatus.isReacheable {
+////            SuperToast.show(title: "")
+//            return
+//        }
         ProgressHUD.animate()
         var addPaymentAPI = ""
         if type == 1{
@@ -194,10 +194,10 @@ class BoBPaymentModel {
                                   completionHandler: @escaping CompletionHandler) {
         
         
-        if !NetworkStatus.isReacheable {
-//            SuperToast.show(title: "")
-            return
-        }
+//        if !NetworkStatus.isReacheable {
+////            SuperToast.show(title: "")
+//            return
+//        }
         ProgressHUD.animate()
         let param = ["language":String.getCurrentLanguageFirst()]
         let url = SuperStringUtil.netUrl(API_BOB_URL + BankList, param)
@@ -210,7 +210,7 @@ class BoBPaymentModel {
                 print(strData!)
                 if let res = JsonTool.fromJson(strData!, toClass: BoBBankResponse.self) {
 
-                    if res.code == 20000  {
+                    if res.code == 620000  {
                         valueHandler(res.data)
                     } else {
                         completionHandler(res.code, res.message)
@@ -234,10 +234,10 @@ class BoBPaymentModel {
                                   completionHandler: @escaping CompletionHandler) {
         
         
-        if !NetworkStatus.isReacheable {
-//            SuperToast.show(title: "")
-            return
-        }
+//        if !NetworkStatus.isReacheable {
+////            SuperToast.show(title: "")
+//            return
+//        }
         ProgressHUD.animate()
 //        let param = ["currency":currency ?? ""]
 //        let url = SuperStringUtil.netUrl(API_BOB_URL + ReceivePayment, param)
@@ -250,7 +250,7 @@ class BoBPaymentModel {
                 print(strData!)
                 if let res = JsonTool.fromJson(strData!, toClass: ReceivePayResponse.self) {
 
-                    if res.code == 20000  {
+                    if res.code == 620000  {
                         valueHandler(res.data)
                     } else {
                         completionHandler(res.code, res.message)
@@ -273,9 +273,9 @@ class BoBPaymentModel {
                                   completionHandler: @escaping CompletionHandler) {
         
         
-        if !NetworkStatus.isReacheable {
-            return
-        }
+//        if !NetworkStatus.isReacheable {
+//            return
+//        }
         ProgressHUD.animate()
 //        let param = ["userId": userId ?? ""]
 //        let url = SuperStringUtil.netUrl(API_BOB_URL + TransferAccountsHome, param)
@@ -288,7 +288,7 @@ class BoBPaymentModel {
                 print(strData!)
                 if let res = JsonTool.fromJson(strData!, toClass: PaymentResponse<TransferAccountsHomeData>.self) {
 
-                    if res.code == 20000  {
+                    if res.code == 620000  {
                         valueHandler(res.data)
                     } else {
                         completionHandler(res.code, res.message)
@@ -315,9 +315,9 @@ class BoBPaymentModel {
                                   completionHandler: @escaping CompletionHandler) {
         
         
-        if !NetworkStatus.isReacheable {
-            return
-        }
+//        if !NetworkStatus.isReacheable {
+//            return
+//        }
         ProgressHUD.animate()
         let timestamp = String(Int(Date().timeIntervalSince1970 * 1000))
         let signStr = (addr! + currency! + issuingPartyWallet! + transferAmount! + timestamp + (IMController.shared.payPassWordSonKey + (sign ?? "")).md5).md5
@@ -354,9 +354,9 @@ class BoBPaymentModel {
                                   completionHandler: @escaping CompletionHandler) {
         
         
-        if !NetworkStatus.isReacheable {
-            return
-        }
+//        if !NetworkStatus.isReacheable {
+//            return
+//        }
         ProgressHUD.animate()
         
         var param:[String: Any]
@@ -404,10 +404,10 @@ class BoBPaymentModel {
                                   completionHandler: @escaping CompletionHandler) {
         
         
-        if !NetworkStatus.isReacheable {
-//            SuperToast.show(title: "")
-            return
-        }
+//        if !NetworkStatus.isReacheable {
+////            SuperToast.show(title: "")
+//            return
+//        }
         ProgressHUD.animate()
         let param = ["tpye": tpye ?? 0, "timeStart": timeStart ?? "","timeEnd": timeEnd ?? "","currency": currency ?? "","pageSize": pageSize ?? 0,"pageNum": pageNum ?? 0] as [String : Any]
         let url = SuperStringUtil.netUrl(API_BOB_URL + QueryMyBillList, param)
@@ -420,7 +420,7 @@ class BoBPaymentModel {
                 print(strData!)
                 if let res = JsonTool.fromJson(strData!, toClass: BoBBillResponse.self) {
 
-                    if res.code == 20000  {
+                    if res.code == 620000  {
                         valueHandler(res.data)
                     } else {
                         completionHandler(res.code, res.message)
@@ -444,10 +444,10 @@ class BoBPaymentModel {
                                completionHandler: @escaping CompletionHandler) {
      
      
-     if !NetworkStatus.isReacheable {
-//            SuperToast.show(title: "")
-         return
-     }
+//     if !NetworkStatus.isReacheable {
+////            SuperToast.show(title: "")
+//         return
+//     }
      ProgressHUD.animate()
      let param = ["code": code ?? 0] as [String : Any]
      let url = SuperStringUtil.netUrl(API_BOB_URL + QueryBillDeatil, param)
@@ -460,7 +460,7 @@ class BoBPaymentModel {
              print(strData!)
              if let res = JsonTool.fromJson(strData!, toClass: BoBBillDetailResponse.self) {
 
-                 if res.code == 20000  {
+                 if res.code == 620000  {
                      valueHandler(res.data.externalTransferMessageVO)
                  } else {
                      completionHandler(res.code, res.message)
@@ -483,14 +483,14 @@ class BoBPaymentModel {
 class PaymentNODataResponse: Decodable {
 //    var data: T
     var flag: Bool = false
-    var code: Int = 20000
+    var code: Int = 620000
     var message: String? = nil
     var count: Int? = 0
 }
 class PaymentResponse<T: Decodable>: Decodable {
     var data: T
     var flag: Bool = false
-    var code: Int = 20000
+    var code: Int = 620000
     var message: String? = nil
     var count: Int? = 0
 }
@@ -521,7 +521,7 @@ class paymentDdetailData: Decodable {
 class BoBBankResponse: Decodable {
     var data: [paymentBankData]
     var flag: Bool = false
-    var code: Int = 20000
+    var code: Int = 620000
     var message: String? = nil
     var count: Int? = 0
 }
@@ -532,7 +532,7 @@ class paymentBankData: Decodable {
 class ReceivePayResponse: Decodable {
     var data: [ReceivePaymentData]
     var flag: Bool = false
-    var code: Int = 20000
+    var code: Int = 620000
     var message: String? = nil
     var count: Int? = 0
 }
@@ -587,7 +587,7 @@ class CionTypeModel: Decodable {
 class BoBBillResponse: Decodable {
     var data: [BillListData]
     var flag: Bool = false
-    var code: Int = 20000
+    var code: Int = 620000
     var message: String? = nil
     var count: Int? = 0
 }
@@ -606,7 +606,7 @@ class BillListData: Decodable {
 class BoBBillDetailResponse: Decodable {
     var data: BoBBillDetailData
     var flag: Bool = false
-    var code: Int = 20000
+    var code: Int = 620000
     var message: String? = nil
     var count: Int? = 0
 }

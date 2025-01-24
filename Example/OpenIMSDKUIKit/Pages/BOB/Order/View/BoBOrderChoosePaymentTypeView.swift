@@ -121,7 +121,7 @@ class BoBOrderChoosePaymentTypeView: UIView {
             self?.paymentMethodData = data
             self?.upDataUI()
         } completionHandler: {errCode,errMsg in
-            SuperToast.show(title: errMsg)
+            SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
         }
     }
     func upDataUI(){
@@ -354,14 +354,14 @@ class BoBOrderChoosePaymentTypeView: UIView {
                 return
             }
             BoBBuyAndSellCionModel.SellerReceiveOrdersRequest(code: self?.code ?? "",paymentId: String(self?.choosePaymentMethod?.id ?? 0)){[weak self] errCode,errMsg in
-                if errCode == 20000{
+                if errCode == 620000{
                     SuperToast.show(title: "接单成功")
                     if self?.receiveOrderSuccessBlock != nil{
                         self?.receiveOrderSuccessBlock()
                     }
                     self?.hideMask()
                 }else{
-                    SuperToast.show(title: errMsg)
+                    SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
                 }
             }
         })

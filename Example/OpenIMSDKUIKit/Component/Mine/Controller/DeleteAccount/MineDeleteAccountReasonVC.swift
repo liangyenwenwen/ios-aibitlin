@@ -153,7 +153,7 @@ class MineDeleteAccountReasonVC: BaseTitleController {
                     NotificationCenter.default.post(name: .init("deleteAccount"), object: nil)
                     
                 }else{
-                    SuperToast.show(title: String(errCode).localized())
+                    SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
                 }
             }
         }
@@ -192,15 +192,16 @@ extension MineDeleteAccountReasonVC{
         }
         
         let invaitationCode = ""
-        startCountDown()
-        
+        ProgressHUD.animate()
         AccountViewModel.requestCode(phone: vcType == .usePhone ? useTypeView.inputText : nil, areaCode: _areaCode, email: vcType == .useEmail ? useTypeView.inputText : nil, invaitationCode: invaitationCode, useFor: .deleteAccount) { [weak self] errCode, _ in
             ProgressHUD.dismiss()
             guard let sself = self else { return }
             if errCode != 0 {
-                SuperToast.show(title: String(errCode).localized())
+                SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
                 self?.getCodeView.codeBtn.setTitle("Resend".localized(), for: .normal)
                 self?.getCodeView.codeBtn.isEnabled = true
+            }else{
+                self?.startCountDown()
             }
         }
     }

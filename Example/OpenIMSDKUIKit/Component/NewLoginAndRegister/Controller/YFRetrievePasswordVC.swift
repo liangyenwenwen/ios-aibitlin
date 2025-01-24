@@ -231,9 +231,7 @@ class YFRetrievePasswordVC: BaseLogicController {
                 SuperToast.show(title: "changed".localized() + "success".localized())
                 self.navigationController?.popToRootViewController(animated: true)
             } else {
-//                        ProgressHUD.error(String(errCode).localized())
-                SuperToast.show(title: String(errCode).localized())
-                
+                SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
             }
             ProgressHUD.dismiss()
         }
@@ -278,20 +276,17 @@ extension YFRetrievePasswordVC {
         }
         
         let invaitationCode = ""
-        startCountDown()
-        
+        ProgressHUD.animate()
         AccountViewModel.requestCode(phone: isUsePhone ? phoneView.inputText : nil, areaCode: _areaCode, email: !isUsePhone ? emailView.inputText : nil, invaitationCode: invaitationCode, useFor: .forgotPassword) { [weak self] errCode, _ in
-
+            ProgressHUD.dismiss()
             guard let sself = self else { return }
             if errCode != 0 {
-                SuperToast.show(title: String(errCode).localized())
-                CountDownUtil.cancel()
+                SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
                 self?.getCodeView.codeBtn.setTitle("Resend".localized(), for: .normal)
                 self?.getCodeView.codeBtn.isEnabled = true
             } else {
-                ProgressHUD.dismiss()
+                self?.startCountDown()
             }
-            ProgressHUD.dismiss()
         }
     }
     

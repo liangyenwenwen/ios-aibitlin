@@ -20,7 +20,7 @@ class MineMessageVC: BaseTitleController, UIImagePickerControllerDelegate, UINav
     private let _viewModel = MineViewModel()
     var changeType: ChangeMessageType?
 //    private let _imViewModoel = UserProfileViewModel(userId: AccountViewModel.userID, groupId: nil)
-    
+    var userLoaclImage = UIImage(named: "DefaultAvatar")
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -59,10 +59,13 @@ class MineMessageVC: BaseTitleController, UIImagePickerControllerDelegate, UINav
         let user = _viewModel.currentUserRelay.value
         
         userNicknameView.contentLbl.text = SuperStringUtil.getUserShowname(showname: user?.nickname ?? "")
-        userIconView.changeIcon.show(user?.faceURL)
+//        userIconView.changeIcon.show(user?.faceURL)
+        userIconView.changeIcon.show()
+        userIconView.changeIcon.sd_setImage(with: URL(string: user?.faceURL), placeholderImage: userLoaclImage)
 //        userIconView.changeIcon.hide()
-        userIconView.avatarImageView.setAvatar(url: user?.faceURL, text: SuperStringUtil.getUserState(showname: user?.nickname ?? "").n)
-        userIconView.avatarImageView.corner(20)
+        userIconView.avatarImageView.hide()
+//        userIconView.avatarImageView.setAvatar(url: user?.faceURL, text: SuperStringUtil.getUserState(showname: user?.nickname ?? "").n)
+//        userIconView.avatarImageView.corner(20)
         userIDView.contentLbl.text = user?.chatID ?? user?.userID
         introView.contentLbl.text  = user?.personalProfile
     }
@@ -176,15 +179,13 @@ class MineMessageVC: BaseTitleController, UIImagePickerControllerDelegate, UINav
     
     func changeNickName(_ data: String?) {
  
-//        ProgressHUD.animate()
         self._viewModel.updateNickname(data!) { [weak self] code, msg in
-//            ProgressHUD.dismiss()
             if code == 0 {
                 self?.userNicknameView.contentLbl.text = data
                 
             } else {
-//                ProgressHUD.error(msg)
-                SuperToast.show(title: msg)
+                SuperToast.show(title: String(code) + "：" + String(code).localized())
+
             }
   
         }
@@ -197,10 +198,8 @@ class MineMessageVC: BaseTitleController, UIImagePickerControllerDelegate, UINav
             ProgressHUD.dismiss()
             if code == 0 {
                 self?.userIDView.contentLbl.text = data
-                
             } else {
-//                ProgressHUD.error(msg)
-                SuperToast.show(title: msg)
+                SuperToast.show(title: String(code) + "：" + String(code).localized())
             }
   
         }
@@ -235,7 +234,7 @@ class MineMessageVC: BaseTitleController, UIImagePickerControllerDelegate, UINav
 //            presentCamera()
 //        }
         ProgressHUD.dismiss()
-        _photoHelper.setConfigToMultipleSelected(forVideo: false, maxSelectCount: 1)
+//        _photoHelper.setConfigToMultipleSelected(forVideo: false, maxSelectCount: 1)
         _photoHelper.showSelectMetaSheet(byController: self)
     }
     
@@ -297,7 +296,8 @@ class MineMessageVC: BaseTitleController, UIImagePickerControllerDelegate, UINav
    
     private lazy var _photoHelper: PhotoHelper = {
             let v = PhotoHelper()
-            v.setConfigToMultipleSelected()
+//            v.setConfigToMultipleSelected()
+            v.setConfigToPickAvatar()
             v.didPhotoSelected = { [weak self] (images: [UIImage], assets: [PHAsset]) in
                 guard var first = images.first else { return }
                 ProgressHUD.animate()
@@ -310,11 +310,10 @@ class MineMessageVC: BaseTitleController, UIImagePickerControllerDelegate, UINav
                     }, onComplete: { [weak self] code, msg in
                         if code == 0 {
                             self?.user?.faceURL = "file://" + result.fullPath
-                            self?.userIconView.iconView.image = first
-                            
+                            self?.userIconView.changeIcon.image = first
+                            self?.userLoaclImage = first
                         } else {
-    //                        ProgressHUD.error(msg)
-                            SuperToast.show(title: msg)
+                            SuperToast.show(title: String(code) + "：" + String(code).localized())
                         }
                         ProgressHUD.dismiss()
                     })
@@ -336,11 +335,11 @@ class MineMessageVC: BaseTitleController, UIImagePickerControllerDelegate, UINav
                         }, onComplete: { [weak self] code, msg in
                             if code == 0 {
                                 self?.user?.faceURL = "file://" + result.fullPath
-                                self?.userIconView.iconView.image = photo
+                                self?.userIconView.changeIcon.image = photo
+                                self?.userLoaclImage = photo
                                
                             } else {
-    //                            ProgressHUD.error(msg)
-                                SuperToast.show(title: msg)
+                                SuperToast.show(title: String(code) + "：" + String(code).localized())
                             }
                             ProgressHUD.dismiss()
                         })
@@ -409,10 +408,8 @@ class MineMessageVC: BaseTitleController, UIImagePickerControllerDelegate, UINav
                           if code == 0 {
                               self?.user?.faceURL = "file://" + result.fullPath
                               self?.userIconView.iconView.image = image
-                             
                           } else {
-//                              ProgressHUD.error(msg)
-                              SuperToast.show(title: msg)
+                              SuperToast.show(title: String(code) + "：" + String(code).localized())
                           }
                           ProgressHUD.dismiss()
                       })

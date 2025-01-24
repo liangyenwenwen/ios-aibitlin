@@ -200,16 +200,16 @@ extension YFPhoneLoginVC {
         }
         
         let invaitationCode = ""
-        startCountDown()
-        
+        ProgressHUD.animate()
         AccountViewModel.requestCode(phone:phone, areaCode: _areaCode, email: nil, invaitationCode: invaitationCode, useFor: .login) { [weak self] errCode, _ in
             ProgressHUD.dismiss()
-
             guard let sself = self else { return }
             if errCode != 0 {
-                SuperToast.show(title: String(errCode).localized())
+                SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
                 self?.codeView.codeBtn.setTitle("Resend".localized(), for: .normal)
                 self?.codeView.codeBtn.isEnabled = true
+            }else{
+                self?.startCountDown()
             }
         }
     }
@@ -252,7 +252,7 @@ extension YFPhoneLoginVC {
             
             if errMsg != nil {
                 ProgressHUD.dismiss()
-                SuperToast.show(title: String(errCode).localized())
+                SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
             } else {
                 AccountViewModel.savePreLoginAccount(self?.phone)
                 tabController?.loginSuccess(dismiss: true)

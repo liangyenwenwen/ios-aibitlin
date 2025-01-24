@@ -122,7 +122,7 @@ class BoBTransferAccountsViewController:BaseTitleController{
             }
             
         }completionHandler: {errCode,errMsg in
-            SuperToast.show(title: errMsg)
+            SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
         }
     }
     func refreshUI(){
@@ -536,11 +536,11 @@ class BoBTransferAccountsViewController:BaseTitleController{
                     passWordView.tg_height.equal(210)
                     passWordView.payBtnClickBlock = { [weak self] passWord in
                         BoBPaymentModel.SendExternalTransferRequest(addr: self?.addressTF.text, currency: self?.chooseCionTypeModel?.currency, issuingPartyWallet: self?.chooseCionTypeModel?.cionType, transferAmount:self?.countTF.text ?? "0.00" , sign: passWord){errCode,errMsg in
-                            if errCode == 20000{
+                            if errCode == 620000{
                                 SuperToast.show(title:"转账成功")
                                 self?.navigationController?.popViewController(animated: true)
                             }else{
-                                SuperToast.show(title: errMsg)
+                                SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
                             }
                         }
                     }

@@ -43,7 +43,7 @@ extension AccountViewModel {
             contentView.userID  = userid
             contentView.currentController = vc
             contentView.tg_width.equal(.fill)
-            contentView.tg_height.equal(410)
+            contentView.tg_height.equal(360)
             contentView.addChatVCUI()
             contentView.chooseTitle = { title in
                 print(title)
@@ -269,7 +269,7 @@ extension AccountViewModel {
                 }
                 
             } completionHandler:{errCode,errMsg in
-                SuperToast.show(title: errMsg)
+                SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
             }
         }else{
             let receiveRedPacketAlertView = BoBReceiveRedPacketAlertView()

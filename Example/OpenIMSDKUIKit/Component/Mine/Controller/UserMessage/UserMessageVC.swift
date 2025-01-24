@@ -89,7 +89,7 @@ class UserMessageVC: BaseTitleController {
             self?.userInfo = user
             self?.updataUI()
         }, completionHandler: {(errCode, errMsg) in
-            SuperToast.show(title: String(errCode).localized())
+            SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
             ProgressHUD.dismiss()
         })
         

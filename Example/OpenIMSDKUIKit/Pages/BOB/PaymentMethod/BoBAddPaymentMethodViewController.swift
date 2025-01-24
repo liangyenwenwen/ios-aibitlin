@@ -358,12 +358,12 @@ class BoBAddPaymentMethodViewController:UIViewController{
                 type = 2
             }
             BoBPaymentModel.AddPaymentMethod(type:type,paymentType: paymentType, param: param){errCode, errMsg in
-                if errCode == 20000{
+                if errCode == 620000{
                     SuperToast.show(title:type == 1 ? "添加成功" : "修改成功")
                     NotificationCenter.default.post(name: Notification.Name("addPaymentSuccess"), object: nil)
                     self.navigationController?.popViewController(animated: true)
                 }else{
-                    SuperToast.show(title: errMsg)
+                    SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
                 }
             }
             

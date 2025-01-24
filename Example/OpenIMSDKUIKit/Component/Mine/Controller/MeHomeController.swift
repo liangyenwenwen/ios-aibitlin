@@ -20,6 +20,7 @@ class MeHomeController: BaseLogicController {
     var vipTitle = UILabel()
     var userShowId: String = ""
     var code:String = ""
+    var progressOrderInfo:ProgressOrderData?
     private let _disposeBag = DisposeBag()
     
     override func viewWillAppear(_ animated: Bool) {
@@ -27,6 +28,7 @@ class MeHomeController: BaseLogicController {
         navigationController?.navigationBar.isHidden = true
         _viewModel.queryUserInfo()
         loadUserWallet()
+        getMineProgressOrder()
         
     }
     
@@ -38,7 +40,6 @@ class MeHomeController: BaseLogicController {
         addTopUserMessage()
         bindData()
         updateMineWalletView()
-        getMineProgressOrder()
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,8 +61,15 @@ class MeHomeController: BaseLogicController {
         })
     }
     func getMineProgressOrder(){
-        AccountViewModel.getMineProgressOrderRequest(valueHandler: { [weak self] (data :MineWalletMoneyData) in
-           
+        AccountViewModel.getMineProgressOrderRequest(valueHandler: { [weak self] (data :ProgressOrderData) in
+            self?.progressOrderInfo = data
+            if self?.progressOrderInfo?.haveIng == true{
+                self?.bottomView.show()
+                self?.code = self?.progressOrderInfo?.code ?? ""
+            }else{
+                self?.bottomView.hide()
+                self?.code = ""
+            }
         }, completionHandler: {(errCode, errMsg) in
            
         })
@@ -362,6 +370,7 @@ class MeHomeController: BaseLogicController {
     }()
     lazy var bottomView:UIView = {
        let r = UIView()
+        r.hide()
         r.backgroundColor = .init(hexString: "#FFDFDF")
         r.corner(20)
         r.addSubview(leftImg)
@@ -400,9 +409,6 @@ class MeHomeController: BaseLogicController {
         r.text = "您有一笔订单待处理"
         return r
     }()
-    
-    
-    
 }
 
 class ButtonItem: UIView{

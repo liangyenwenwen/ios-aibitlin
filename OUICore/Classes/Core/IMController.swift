@@ -796,6 +796,9 @@ extension IMController {
         Self.shared.imManager.getAdvancedHistoryMessageList(opts) { msgListInfo in
             let arr = msgListInfo?.messageList.compactMap({ $0.toMessageInfo() }) ?? []
             completion(msgListInfo?.lastMinSeq ?? 0, arr)
+        } onFailure: { code, msg in
+            print("getHistoryMessageListReverse error: \(code), \(msg)")
+            completion(lastMinSeq,[])
         }
     }
     

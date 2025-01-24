@@ -45,6 +45,7 @@ open class PhotoHelper {
             .allowSelectVideo(false)
             .allowSelectLivePhoto(false)
             .allowSelectOriginal(false)
+            .allowEditImage(true)
             .editImageConfiguration(editConfig)
             .showClipDirectlyIfOnlyHasClipTool(true)
             .canSelectAsset { _ in true }
@@ -116,9 +117,9 @@ open class PhotoHelper {
         config.cropVideoAfterSelectThumbnail = true
         config.allowEditVideo = true
         config.allowMixSelect = false
+        config.allowEditImage = false
         config.maxSelectCount = maxSelectCount
         config.maxEditVideoTime = 15
-        
         
         let cameraConfig = ZLCameraConfiguration()
         cameraConfig.sessionPreset = .vga640x480

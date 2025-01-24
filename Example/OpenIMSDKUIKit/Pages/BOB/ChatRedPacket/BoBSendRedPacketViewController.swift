@@ -103,7 +103,7 @@ class BoBSendRedPacketViewController: BaseTitleController {
                 self.refreshUI()
             }
         } completionHandler: {errCode,errMsg in
-            SuperToast.show(title: errMsg)
+            SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
         }
     }
     func refreshUI(){
@@ -878,7 +878,7 @@ class BoBSendRedPacketViewController: BaseTitleController {
 
             self?.navigationController?.popViewController(animated: true)
         }completionHandler:{errCode,errMsg in
-            SuperToast.show(title: errMsg)
+            SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
         }
     }
     

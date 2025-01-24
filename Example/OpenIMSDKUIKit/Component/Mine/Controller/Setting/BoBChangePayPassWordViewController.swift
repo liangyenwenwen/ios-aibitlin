@@ -134,7 +134,7 @@ class BoBChangePayPassWordViewController: BaseTitleController {
         }
         ProgressHUD.animate()
         BoBPaymentModel.SetSecurityCodeRequest(userId: IMController.shared.uid, oldSign: oldPwdContentView.inputText ?? "", newSign: newPwdView.inputText ?? "", sign: newPwdView.inputText ?? "", type: passWordType){errCode,errMsg in
-            if errCode == 20000{
+            if errCode == 620000{
                 if self.passWordType == 0{
                     SuperToast.show(title:"设置成功")
                 }else{
@@ -146,7 +146,7 @@ class BoBChangePayPassWordViewController: BaseTitleController {
                 }
                 self.navigationController?.popViewController(animated: true)
             }else{
-                SuperToast.show(title: errMsg)
+                SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
             }
         }
         

@@ -116,7 +116,7 @@ class BoBReceiveRedPacketDetailViewController: BaseTitleController {
                 
             }
         } completionHandler:{errCode,errMsg in
-            SuperToast.show(title: errMsg)
+            SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
         }
     }
     lazy var topImageView: UIImageView = {

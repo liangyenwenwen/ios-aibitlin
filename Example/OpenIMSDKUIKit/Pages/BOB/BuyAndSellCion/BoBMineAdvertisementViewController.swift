@@ -178,7 +178,7 @@ class BoBMineAdvertisementViewController:BaseTitleController {
                 self.tableView.mj_footer?.endRefreshing()
             }
         }completionHandler: {errCode,errMsg in
-            SuperToast.show(title: errMsg)
+            SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
             self.tableView.mj_header?.endRefreshing()
             self.tableView.mj_footer?.endRefreshing()
 
@@ -439,7 +439,7 @@ extension BoBMineAdvertisementViewController{
     func mineAdvertisementChange(type:Int,indexPath: IndexPath){
         let item = listArray[indexPath.row]
         BoBBuyAndSellCionModel.MyAdvertisementChangeRequest(type: type, code: item.code ?? ""){[weak self] errCode, errMsg in
-            if errCode == 20000{
+            if errCode == 620000{
                 if type == 0{
                     SuperToast.show(title:"下架成功")
                     item.advertisingState = 2
@@ -457,7 +457,7 @@ extension BoBMineAdvertisementViewController{
                 }
                 
             }else{
-                SuperToast.show(title: errMsg)
+                SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
             }
         }
     }

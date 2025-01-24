@@ -194,7 +194,7 @@ class BoBCreatAdNameAlertView: TGLinearLayout {
         r.corner(23)
         r.rx.tap.subscribe(onNext: { [weak self] in
             BoBBuyAndSellCionModel.UpdateNameOfAdvertiserRequest(advertiserName:self?.nameTF.text){[weak self] errCode, errMsg in
-                if errCode == 20000{
+                if errCode == 620000{
                     if self?.advertisingName.isEmpty == true{
                         SuperToast.show(title:"创建成功")
                     }else{
@@ -205,7 +205,7 @@ class BoBCreatAdNameAlertView: TGLinearLayout {
                     }
                     GKCover.hideWithoutAnimation()
                 }else{
-                    SuperToast.show(title: errMsg)
+                    SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
                 }
             }
         }).disposed(by: rx.disposeBag)

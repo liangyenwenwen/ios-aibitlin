@@ -188,7 +188,7 @@ class BoBBillDetailViewController: BaseTitleController {
             self.billDetail = data
             self.updateUI()
         } completionHandler:{errCode,errMsg in
-            SuperToast.show(title: errMsg)
+            SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
         }
     }
     

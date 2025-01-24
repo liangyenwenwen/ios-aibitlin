@@ -38,7 +38,7 @@ class BoBOrderDetailViewController: BaseTitleController {
         initScrollSafeArea()
         title = "订单详情"
         addLeftImageButton(R.image.arrowLeft()!.withTintColor())
-        addRightTextButton("申诉", color: .primaryColor)
+        navView.addRighttItem(appealBtn)
         navView.rightContainer.hide()
         scrollViewContainer.tg_padding = UIEdgeInsets(top: 0, left: PADDING_OUTER, bottom: 0, right: PADDING_OUTER)
         superFooterContainerContainer.addSubview(bottomView)
@@ -73,14 +73,6 @@ class BoBOrderDetailViewController: BaseTitleController {
         self.stopRefreshTimer()
         NotificationCenter.default.removeObserver(self)
     }
-    override func rightBtnClick(_ sender: QMUIButton){
-        let vc = BoBSendAppealViewController()
-        vc.code = code
-        vc.uploadAppealSuccessBlock = {[weak self] in
-            self?.loadData()
-        }
-        self.navigationController?.pushViewController(vc)
-    }
     func loadData(){
         BoBBuyAndSellCionModel.OrderDetailsRequest(code: code) {[weak self] data in
             if self?.orderDetail == nil{
@@ -92,7 +84,7 @@ class BoBOrderDetailViewController: BaseTitleController {
             self?.updateUI()
         } completionHandler:{[weak self] errCode,errMsg in
             if self?.orderDetail == nil{
-                SuperToast.show(title: errMsg)
+                SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
             }
         }
     }
@@ -139,7 +131,7 @@ class BoBOrderDetailViewController: BaseTitleController {
             orderStatusLabel.textColor = .black666
         }else if orderDetail?.orderStatus == 10{
             title = "订单已超时"
-            orderStatusLabel.text = "订单已超时，请勿付款"
+            orderStatusLabel.text = orderDetail?.buyOrSell == 1 ? "订单已超时，请勿付款" : "订单已超时"
             orderStatusLabel.textColor = .init(hexString: "#F32525")
         }else if orderDetail?.orderStatus == 11{
             title = "申诉中"
@@ -846,11 +838,11 @@ class BoBOrderDetailViewController: BaseTitleController {
         r.border(.black999,borderWidth: 1,cornerRadius: 24)
         r.rx.tap.subscribe(onNext: { [weak self] in
             BoBBuyAndSellCionModel.CancelOrderRequest(code: self?.code ?? ""){[weak self] errCode,errMsg in
-                if errCode == 20000{
+                if errCode == 620000{
                     SuperToast.show(title: "取消成功")
                     self?.loadData()
                 }else{
-                    SuperToast.show(title: errMsg)
+                    SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
                 }
             }
         }).disposed(by: rx.disposeBag)
@@ -886,11 +878,11 @@ class BoBOrderDetailViewController: BaseTitleController {
         r.rx.tap.subscribe(onNext: { [weak self] in
             if self?.orderDetail?.buyOrSell == 1{
                 BoBBuyAndSellCionModel.BuyerReceiveOrdersRequest(code: self?.code ?? ""){[weak self] errCode,errMsg in
-                    if errCode == 20000{
+                    if errCode == 620000{
                         SuperToast.show(title: "接单成功")
                         self?.loadData()
                     }else{
-                        SuperToast.show(title: errMsg)
+                        SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
                     }
                 }
             }else{
@@ -925,10 +917,10 @@ class BoBOrderDetailViewController: BaseTitleController {
         r.corner(24)
         r.rx.tap.subscribe(onNext: { [weak self] in
             BoBBuyAndSellCionModel.SellerDepositCoinRequest(code:self?.code ?? ""){errCode,errMsg in
-                if errCode == 20000{
+                if errCode == 620000{
                     self?.loadData()
                 }else{
-                    SuperToast.show(title: errMsg)
+                    SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
                 }
             }
         }).disposed(by: rx.disposeBag)
@@ -945,6 +937,22 @@ class BoBOrderDetailViewController: BaseTitleController {
         r.rx.tap.subscribe(onNext: { [weak self] in
             let vc = BoBAppealResultViewController()
             vc.code = self?.code ?? ""
+            self?.navigationController?.pushViewController(vc)
+        }).disposed(by: rx.disposeBag)
+        return r
+    }()
+    lazy var appealBtn: QMUIButton = {
+        let r = ViewFactoryUtil.linkButton("申诉")
+        r.tg_height.equal(30)
+        r.tg_width.equal(40)
+        r.setTitleColor(.primaryColor, for: .normal)
+        r.titleLabel?.font = .mediumFont(16)
+        r.rx.tap.subscribe(onNext: { [weak self] in
+            let vc = BoBSendAppealViewController()
+            vc.code = self?.code ?? ""
+            vc.uploadAppealSuccessBlock = {[weak self] in
+                self?.loadData()
+            }
             self?.navigationController?.pushViewController(vc)
         }).disposed(by: rx.disposeBag)
         return r

@@ -1591,25 +1591,25 @@ extension DefaultChatController: DataProviderDelegate {
         if isCurGroupChat || isCurSingleChat {
             recvMessageIsCurrentChat = true
             
-            // MARK: -   conversation的扩展给message
-            print(conversation.ex)
-            message.ex = conversation.ex
-
-            
-            
-            if conversation.ex != nil && message.textElem != nil {
-                if conversation.ex!.length > 2 {
-                    let exArr = conversation.ex?.components(separatedBy: "##")
-                    translateReceivedMessage(message.textElem!.content, from: exArr![1], to: exArr![2], messageID: message.clientMsgID, message: message)
-//                    updateMessageLocalEx(messageID: message.clientMsgID, ex: MessageEx(translate: conversation.ex!))
-                } else {
-                    message.ex = "translate##"
-                    appendConvertingToMessages([message])
-                }
-            } else {
-                appendConvertingToMessages([message])
-            }
-            
+//            // MARK: -   conversation的扩展给message
+//            print(conversation.ex)
+//            message.ex = conversation.ex
+//
+//            
+//            
+//            if conversation.ex != nil && message.textElem != nil {
+//                if conversation.ex!.length > 2 {
+//                    let exArr = conversation.ex?.components(separatedBy: "##")
+//                    translateReceivedMessage(message.textElem!.content, from: exArr![1], to: exArr![2], messageID: message.clientMsgID, message: message)
+////                    updateMessageLocalEx(messageID: message.clientMsgID, ex: MessageEx(translate: conversation.ex!))
+//                } else {
+//                    message.ex = "translate##"
+//                    appendConvertingToMessages([message])
+//                }
+//            } else {
+//                appendConvertingToMessages([message])
+//            }
+            appendConvertingToMessages([message])
             markAllMessagesAsReceived { [weak self] in
                 self?.markAllMessagesAsRead { [weak self] in
                     self?.repopulateMessages()

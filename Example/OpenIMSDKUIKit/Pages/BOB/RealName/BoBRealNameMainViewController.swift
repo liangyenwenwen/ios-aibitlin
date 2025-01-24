@@ -142,14 +142,17 @@ extension BoBRealNameMainViewController{
             IMController.shared.certificationLevel = data.certificationLevel
             self?.updateUI(certificationAudit: data.certificationAudit)
         } completionHandler: {errCode, errMsg in
-            SuperToast.show(title: errMsg)
+            SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
         }
     }
     func updateUI(certificationAudit:Int){
         if certificationAudit == 0 || IMController.shared.certificationLevel == 2{
             primaryBtn.hide()
             advancedBtn.hide()
-            scrollView.snp_updateConstraints { make in
+            scrollView.snp_remakeConstraints { make in
+                make.left.equalTo(0)
+                make.width.equalTo(kScreenWidth)
+                make.top.equalTo(view.safeAreaLayoutGuide)
                 make.bottom.equalTo(advancedBtn.snp_bottom)
             }
         }else{

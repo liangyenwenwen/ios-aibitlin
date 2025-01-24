@@ -709,7 +709,7 @@ open class AccountViewModel {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 print(strData!)
                 if let res = JsonTool.fromJson(strData!, toClass: RealNameInfoResponse<MineWalletMoneyData>.self) {
-                    if res.code == 20000  {
+                    if res.code == 620000  {
                         valueHandler(res.data)
                     } else {
                         completionHandler(res.code, res.message)
@@ -724,7 +724,7 @@ open class AccountViewModel {
     }
     //获取用户进行中的订单
     static func getMineProgressOrderRequest(
-                              valueHandler: @escaping (MineWalletMoneyData) -> Void,
+                              valueHandler: @escaping (ProgressOrderData) -> Void,
                               completionHandler: @escaping CompletionHandler)
     {
         if !NetworkStatus.isReacheable {
@@ -735,8 +735,8 @@ open class AccountViewModel {
             if let data = dataRequest.data {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 print(strData!)
-                if let res = JsonTool.fromJson(strData!, toClass: RealNameInfoResponse<MineWalletMoneyData>.self) {
-                    if res.code == 20000  {
+                if let res = JsonTool.fromJson(strData!, toClass: RealNameInfoResponse<ProgressOrderData>.self) {
+                    if res.code == 620000  {
                         valueHandler(res.data)
                     } else {
                         completionHandler(res.code, res.message)
@@ -1022,4 +1022,8 @@ class QuantityOfMoneyPOS: Codable {
 //    func toMap() -> [String: Any] {
 //        return JsonTool.toMap(fromObject: self)
 //    }
+}
+class ProgressOrderData: Codable {
+    let haveIng: Bool? //是否有进行中的订单
+    let code:String?//订单号
 }

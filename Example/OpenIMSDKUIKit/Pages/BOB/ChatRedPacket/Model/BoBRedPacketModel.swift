@@ -44,9 +44,9 @@ class BoBRedPacketModel {
     static func TransferMoneyInnerSHomeRequest(
                                   valueHandler: @escaping (BoBTransferAccountsHomeData) -> Void,
                                   completionHandler: @escaping CompletionHandler) {
-        if !NetworkStatus.isReacheable {
-            return
-        }
+//        if !NetworkStatus.isReacheable {
+//            return
+//        }
         ProgressHUD.animate()
 //        let param = ["userId": userId ?? ""]
 //        let url = SuperStringUtil.netUrl(API_BOB_URL + TransferMoneyInnerSHome, param)
@@ -59,7 +59,7 @@ class BoBRedPacketModel {
                 print(strData!)
                 if let res = JsonTool.fromJson(strData!, toClass: BoBRedPacketResponse<BoBTransferAccountsHomeData>.self) {
 
-                    if res.code == 20000  {
+                    if res.code == 620000  {
                         valueHandler(res.data)
                     } else {
                         completionHandler(res.code, res.message)
@@ -89,9 +89,9 @@ class BoBRedPacketModel {
                                   completionHandler: @escaping CompletionHandler) {
         
         
-        if !NetworkStatus.isReacheable {
-            return
-        }
+//        if !NetworkStatus.isReacheable {
+//            return
+//        }
         ProgressHUD.animate()
         let timestamp = String(Int(Date().timeIntervalSince1970 * 1000))
         let sign = (receiverUserId! + currency! + issuingPartyWallet! + transferAmount! + instructions! + groupId! + timestamp + (IMController.shared.payPassWordSonKey + (passWord ?? "")).md5).md5
@@ -104,7 +104,7 @@ class BoBRedPacketModel {
                 print(strData!)
                 
                 if let res = JsonTool.fromJson(strData!, toClass: BoBSendTransferAccountsResponse.self) {
-                    if res.code == 20000  {
+                    if res.code == 620000  {
                         res.data.transferAccountsType = transferAccountsType
                         valueHandler(res.data)
                     } else {
@@ -129,9 +129,9 @@ class BoBRedPacketModel {
                                      valueHandler: @escaping (BoBSendRedPacketData) -> Void,
                                   completionHandler: @escaping CompletionHandler) {
         //type：0私聊红包，1群拼手气红包，2群普通红包，3群专属红包
-        if !NetworkStatus.isReacheable {
-            return
-        }
+//        if !NetworkStatus.isReacheable {
+//            return
+//        }
         ProgressHUD.animate()
         var url = ""
         if type == 0{
@@ -155,7 +155,7 @@ class BoBRedPacketModel {
                 print(strData!)
                 if let res = JsonTool.fromJson(strData!, toClass: BoBSendRedPacketResponse.self) {
 
-                    if res.code == 20000  {
+                    if res.code == 620000  {
                         res.data.redPacketType = type
                         valueHandler(res.data)
                     } else {
@@ -182,9 +182,9 @@ class BoBRedPacketModel {
                                      param:[String: Any],
                                   completionHandler: @escaping CompletionHandler) {
         //type：0私聊红包，1群拼手气红包，2群普通红包，3群专属红包
-        if !NetworkStatus.isReacheable {
-            return
-        }
+//        if !NetworkStatus.isReacheable {
+//            return
+//        }
         var url = ""
         if type == 0 || type == 3{
             //私聊普通红包、群专属红包
@@ -224,9 +224,9 @@ class BoBRedPacketModel {
     static func RedPacketsDetailsRequest(code: String?,
                                              valueHandler: @escaping (BoBRedPacketDetailData) -> Void,
                                              completionHandler: @escaping CompletionHandler) {
-        if !NetworkStatus.isReacheable {
-            return
-        }
+//        if !NetworkStatus.isReacheable {
+//            return
+//        }
         ProgressHUD.animate()
         let param = ["code":code ?? ""]
         let url = SuperStringUtil.netUrl(API_BOB_URL + RedPacketsDetails, param)
@@ -237,7 +237,7 @@ class BoBRedPacketModel {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 print(strData!)
                 if let res = JsonTool.fromJson(strData!, toClass: BoBRedPacketDetailResponse.self) {
-                    if res.code == 20000  {
+                    if res.code == 620000  {
                         valueHandler(res.data)
                     } else {
                         completionHandler(res.code, res.message)
@@ -259,9 +259,9 @@ class BoBRedPacketModel {
     static func TransferAccountsDetailsRequest(code: String?,
                                              valueHandler: @escaping (BoBSendTransferAccountsData) -> Void,
                                              completionHandler: @escaping CompletionHandler) {
-        if !NetworkStatus.isReacheable {
-            return
-        }
+//        if !NetworkStatus.isReacheable {
+//            return
+//        }
         ProgressHUD.animate()
         let param = ["code":code ?? ""]
         let url = SuperStringUtil.netUrl(API_BOB_URL + TransferAccountsDetails, param)
@@ -272,7 +272,7 @@ class BoBRedPacketModel {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 print(strData!)
                 if let res = JsonTool.fromJson(strData!, toClass: BoBSendTransferAccountsResponse.self) {
-                    if res.code == 20000  {
+                    if res.code == 620000  {
                         valueHandler(res.data)
                     } else {
                         completionHandler(res.code, res.message)
@@ -294,9 +294,9 @@ class BoBRedPacketModel {
     static func ReceiveTransferAccountRequest(code: String?,
                                              valueHandler: @escaping (BoBSendTransferAccountsData) -> Void,
                                              completionHandler: @escaping CompletionHandler) {
-        if !NetworkStatus.isReacheable {
-            return
-        }
+//        if !NetworkStatus.isReacheable {
+//            return
+//        }
         ProgressHUD.animate()
         let param = ["code":code ?? ""]
         let url = SuperStringUtil.netUrl(API_BOB_URL + ReceiveTransferAccount, param)
@@ -307,7 +307,7 @@ class BoBRedPacketModel {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 print(strData!)
                 if let res = JsonTool.fromJson(strData!, toClass: BoBSendTransferAccountsResponse.self) {
-                    if res.code == 20000  {
+                    if res.code == 620000  {
                         valueHandler(res.data)
                     } else {
                         completionHandler(res.code, res.message)
@@ -330,9 +330,9 @@ class BoBRedPacketModel {
                                           groupId:String?,
                                           valueHandler: @escaping (Int) -> Void,
                                           completionHandler: @escaping CompletionHandler) {
-        if !NetworkStatus.isReacheable {
-            return
-        }
+//        if !NetworkStatus.isReacheable {
+//            return
+//        }
         ProgressHUD.animate()
         let param = ["code":code ?? "","groupId":groupId ?? ""]
         let url = SuperStringUtil.netUrl(API_BOB_URL + GetRedPacketStatus, param)
@@ -343,7 +343,7 @@ class BoBRedPacketModel {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 print(strData!)
                 if let res = JsonTool.fromJson(strData!, toClass: BoBRedPacketResponse<Int>.self) {
-                    if res.code == 20000  {
+                    if res.code == 620000  {
                         valueHandler(res.data)
                     } else {
                         completionHandler(res.code, res.message)
@@ -365,14 +365,14 @@ class BoBRedPacketModel {
 class BoBRedPacketResponse<T: Decodable>: Decodable {
     var data: T
     var flag: Bool = false
-    var code: Int = 20000
+    var code: Int = 620000
     var message: String? = nil
     var count: Int? = 0
 }
 class BoBRedPacketNODataResponse: Decodable {
 //    var data: T
     var flag: Bool = false
-    var code: Int = 20000
+    var code: Int = 620000
     var message: String? = nil
     var count: Int? = 0
 }
@@ -392,7 +392,7 @@ class expenditureHomePagePOS: Decodable {
 class BoBSendRedPacketResponse: Decodable {
     var data: BoBSendRedPacketData
     var flag: Bool = false
-    var code: Int = 20000
+    var code: Int = 620000
     var message: String? = nil
     var count: Int? = 0
 }
@@ -430,7 +430,7 @@ class userSendOrdinaryRedPacketsPOS: Decodable {
 class BoBSendTransferAccountsResponse: Decodable {
     var data: BoBSendTransferAccountsData
     var flag: Bool = false
-    var code: Int = 20000
+    var code: Int = 620000
     var message: String? = nil
     var count: Int? = 0
 }
@@ -501,7 +501,7 @@ struct TransferAccountsMessageStatusInfo: Decodable {
 class BoBRedPacketDetailResponse: Decodable {
     var data: BoBRedPacketDetailData
     var flag: Bool = false
-    var code: Int = 20000
+    var code: Int = 620000
     var message: String? = nil
     var count: Int? = 0
 }

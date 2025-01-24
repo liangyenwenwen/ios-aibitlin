@@ -89,7 +89,7 @@ class OrderNoticeMessageView: UIView {
                 print(strData!)
                 if let res = JsonTool.fromJson(strData!, toClass: OrderDetailResponse.self) {
 
-                    if res.code == 20000  {
+                    if res.code == 620000  {
                         self.refreshUI(data: res.data)
                     } else {
                        print("请求失败")
@@ -258,7 +258,7 @@ class orderMessageNoticContentDetail: Decodable {
 class OrderDetailResponse: Decodable {
     var data: OrderDetailModel
     var flag: Bool = false
-    var code: Int = 20000
+    var code: Int = 620000
     var message: String? = nil
     var count: Int? = 0
 }

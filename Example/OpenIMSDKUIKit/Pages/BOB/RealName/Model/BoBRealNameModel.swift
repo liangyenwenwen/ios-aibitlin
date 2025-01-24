@@ -48,7 +48,7 @@ open class BoBRealNameModel {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 if let res = JsonTool.fromJson(strData!, toClass: BoBResponse.self) {
                     
-                    if res.code == 20000  {
+                    if res.code == 620000  {
                         let defaults = UserDefaults.standard
                         defaults.set(String.getCurrentLanguageFirst(), forKey: "blogLanguage\(uid)")
                     }
@@ -68,10 +68,10 @@ open class BoBRealNameModel {
                           completionHandler: @escaping CompletionHandler) {
         
         
-        if !NetworkStatus.isReacheable {
-//            SuperToast.show(title: "")
-            return
-        }
+//        if !NetworkStatus.isReacheable {
+////            SuperToast.show(title: "")
+//            return
+//        }
         let param = ["nickName":nickName ?? ""]
 //        let url = SuperStringUtil.netUrl(API_BOB_URL + InitWallet, param)
         
@@ -80,7 +80,7 @@ open class BoBRealNameModel {
             case .success(let result):
                 if let res = JsonTool.fromJson(result, toClass: BoBResponse.self) {
 
-                    if res.code == 20000  {
+                    if res.code == 620000  {
                         print("请求成功")
                     } else {
                         print("请求失败")
@@ -108,10 +108,10 @@ open class BoBRealNameModel {
                                   completionHandler: @escaping CompletionHandler) {
         
         
-        if !NetworkStatus.isReacheable {
-//            SuperToast.show(title: "")
-            return
-        }
+//        if !NetworkStatus.isReacheable {
+////            SuperToast.show(title: "")
+//            return
+//        }
         ProgressHUD.animate()
 //        let param = ["userId": userId ?? ""]
 //        let url = SuperStringUtil.netUrl(API_BOB_URL + QueryRealNameAuthentication, param)
@@ -125,7 +125,7 @@ open class BoBRealNameModel {
                 
                 if let res = JsonTool.fromJson(strData!, toClass: RealNameInfoResponse<RealNameInfoDataModel>.self) {
 
-                    if res.code == 20000  {
+                    if res.code == 620000  {
                         valueHandler(res.data)
                     } else {
                         completionHandler(res.code, res.message)
@@ -149,10 +149,10 @@ open class BoBRealNameModel {
                                   completionHandler: @escaping CompletionHandler) {
         
         
-        if !NetworkStatus.isReacheable {
-//            SuperToast.show(title: "")
-            return
-        }
+//        if !NetworkStatus.isReacheable {
+////            SuperToast.show(title: "")
+//            return
+//        }
         ProgressHUD.animate()
         let param = ["image":image ?? ""]
 //        let url = SuperStringUtil.netUrl(API_BOB_URL + ReceiveIdentityCardHeadshots, param)
@@ -163,7 +163,7 @@ open class BoBRealNameModel {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 print(strData!)
                 if let res = JsonTool.fromJson(strData!, toClass: RealNameInfoResponse<RealNameIdCardInfo>.self) {
-                    if res.code == 20000  {
+                    if res.code == 620000  {
                         valueHandler(res.data)
                     } else {
                         completionHandler(res.code, res.message)
@@ -189,10 +189,10 @@ open class BoBRealNameModel {
                                   completionHandler: @escaping CompletionHandler) {
         
         
-        if !NetworkStatus.isReacheable {
-//            SuperToast.show(title: "")
-            return
-        }
+//        if !NetworkStatus.isReacheable {
+////            SuperToast.show(title: "")
+//            return
+//        }
         ProgressHUD.animate()
         let param = ["name":name,"cardId":cardId,"idCardZM":idCardZM,"idCardBM":idCardBM]
         let url = API_BOB_URL + PrimaryRealNameAuthentication
@@ -251,22 +251,18 @@ open class BoBRealNameModel {
                                          completionHandler: @escaping CompletionHandler) {
         
         
-        if !NetworkStatus.isReacheable {
-//            SuperToast.show(title: "")
-            return
-        }
+//        if !NetworkStatus.isReacheable {
+////            SuperToast.show(title: "")
+//            return
+//        }
         let url = API_BOB_URL + GetOpenScreenPage
         Alamofire.request(url, method: .post, parameters: nil,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
             if let data = dataRequest.data {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 print(strData!)
                 if let res = JsonTool.fromJson(strData!, toClass: RealNameInfoResponse<OpenScreenAdInfo>.self) {
-                    if res.code == 20000  {
+                    if res.code == 620000  {
                         valueHandler(res.data)
-//                        var data1 = res.data
-//                        data1.img = "https://img2.baidu.com/it/u=3931248722,2037178766&fm=253&fmt=auto&app=138&f=JPEG?w=281&h=500"
-//                        data1.showType = 2
-//                        valueHandler(data1)
                     } else {
                         completionHandler(res.code, res.message)
                     }
@@ -295,14 +291,14 @@ class UserIDRequest: Encodable {
 class RealNameNODataResponse: Decodable {
 //    var data: T
     var flag: Bool = false
-    var code: Int = 20000
+    var code: Int = 620000
     var message: String? = nil
     var count: Int? = 0
 }
 class BoBResponse: Decodable {
     var data: String? = nil
     var flag: Bool = false
-    var code: Int = 20000
+    var code: Int = 620000
     var message: String? = nil
     var count: Int? = 0
 }
@@ -310,7 +306,7 @@ class BoBResponse: Decodable {
 class RealNameInfoResponse<T: Decodable>: Decodable {
     var data: T
     var flag: Bool = false
-    var code: Int = 20000
+    var code: Int = 620000
     var message: String? = nil
     var count: Int? = 0
 }

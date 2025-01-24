@@ -311,7 +311,7 @@ class BoBConfirmPurchaseAlertView: UIView {
                     self?.hideMask()
                    
                 } completionHandler: {errCode,errMsg in
-                    SuperToast.show(title: errMsg)
+                    SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
                 }
             }else{
                 //出售
@@ -328,7 +328,7 @@ class BoBConfirmPurchaseAlertView: UIView {
                             self?.hideMask()
                            
                         } completionHandler: {errCode,errMsg in
-                            SuperToast.show(title: errMsg)
+                            SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
                         }
                     }
                     GKCover.cover(from: self?.currentVC?.view.window, contentView: passWordView, style: .translucent, showStyle: .center, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)

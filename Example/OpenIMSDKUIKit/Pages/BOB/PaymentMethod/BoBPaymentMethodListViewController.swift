@@ -94,7 +94,7 @@ class BoBPaymentMethodListViewController:UIViewController{
                 self.unRealNameTipView.hide()
             }
         } completionHandler: {errCode,errMsg in
-            SuperToast.show(title: errMsg)
+            SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
         }
     }
     @objc func addPayMentMethodBtn() {
@@ -173,13 +173,13 @@ extension BoBPaymentMethodListViewController: UITableViewDataSource, UITableView
     }
     func deletePayment(item:stringAndDatePOS,index:Int){
         BoBPaymentModel.DeletePayMentRequest(id: item.id){errCode,errMsg in 
-            if errCode == 20000{
+            if errCode == 620000{
                 SuperToast.show(title: "删除成功")
                 self.listArray.remove(at: index)
                 self.tableView.reloadData()
                 self.emptyView.isHidden = self.listArray.count > 0
             }else{
-                SuperToast.show(title: errMsg)
+                SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
             }
         }
     }
