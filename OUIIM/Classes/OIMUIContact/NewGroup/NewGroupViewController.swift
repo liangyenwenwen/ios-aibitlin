@@ -17,7 +17,7 @@ class NewGroupViewController: UITableViewController {
         v.didPhotoSelected = { [weak self] (images: [UIImage], _: [PHAsset]) in
             guard var first = images.first else { return }
             ProgressHUD.animate()
-            first = first.compress(expectSize: 3000 * 1024)
+            first = first.compress(expectSize: 1500 * 1024)
             let result = FileHelper.shared.saveImage(image: first)
             
             if result.isSuccess {
@@ -35,7 +35,7 @@ class NewGroupViewController: UITableViewController {
             guard let sself = self else { return }
             if var photo {
                 ProgressHUD.animate()
-                photo = photo.compress(expectSize: 3000 * 1024)
+                photo = photo.compress(expectSize: 1500 * 1024)
                 let result = FileHelper.shared.saveImage(image: photo)
                 if result.isSuccess {
                     self?._viewModel.uploadFile(fullPath: result.fullPath, onComplete: { [weak self] url in

@@ -68,10 +68,12 @@ extension AccountViewModel {
             orderDetailVC.code = code
             if isPresent{
                 NotificationCenter.default.post(name: Notification.Name("closeOrderDetailVC"), object: nil)
-                orderDetailVC.modalPresentationStyle = .fullScreen
-                let nav = UINavigationController.init(rootViewController:  orderDetailVC)
-                nav.modalPresentationStyle = .fullScreen
-                UIViewController.currentViewController().present(nav, animated: true)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    orderDetailVC.modalPresentationStyle = .fullScreen
+                    let nav = UINavigationController.init(rootViewController:  orderDetailVC)
+                    nav.modalPresentationStyle = .fullScreen
+                    UIViewController.currentViewController().present(nav, animated: true)
+                }
             }else{
                 vc.gotoController(orderDetailVC)
             }

@@ -47,10 +47,8 @@ class MineAccountAddSafeVC: BaseTitleController {
         r.addSubview(ViewFactoryUtil.smallDivider())
         
         r.addSubview(changePhoneView)
+        r.addSubview(ViewFactoryUtil.smallDivider())
         r.addSubview(changeEmailView)
-//        r.addSubview(changeEmailView)
-//        r.addSubview(ViewFactoryUtil.smallDivider())
-//        r.addSubview(changePhoneView)
         
         return r
     }()

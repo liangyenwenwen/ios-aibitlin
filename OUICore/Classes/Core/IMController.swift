@@ -2275,7 +2275,7 @@ public class OfflinePushInfo: Codable {
     public var title: String?
     public var desc: String?
     public var iOSPushSound: String?
-    public var iOSBadgeCount: Bool = false
+    public var iOSBadgeCount: Bool = true
     public var operatorUserID: String?
     public var ex: String?
 }

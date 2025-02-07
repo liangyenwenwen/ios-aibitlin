@@ -112,6 +112,7 @@ class MemberListViewController: UIViewController {
                            
                         })
                     }
+//                    vc?.navigationController?.popToViewController(self?, animated: true)
                     vc?.navigationController?.popViewController(animated: true)
                 }
             }

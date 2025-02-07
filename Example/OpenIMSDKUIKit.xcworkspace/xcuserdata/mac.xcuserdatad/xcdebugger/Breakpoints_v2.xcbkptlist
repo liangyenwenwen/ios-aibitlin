@@ -50,6 +50,36 @@
             endingLineNumber = "517"
             landmarkName = "resetSubviewStatus()"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "D2D30069-A75D-435B-8217-656114942582 - 7a31ff94d2e0b97f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ZLPhotoBrowser.ZLPhotoPreviewController.resetSubviewStatus() -&gt; ()"
+                  moduleName = "ZLPhotoBrowser"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/%E9%A1%B9%E7%9B%AE/3rd/ZLPhotoBrowser/Sources/General/ZLPhotoPreviewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "517"
+                  endingLineNumber = "517">
+               </Location>
+               <Location
+                  uuid = "D2D30069-A75D-435B-8217-656114942582 - 138c5fc1daf931d2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (ZLPhotoBrowser.ZLPhotoModel) -&gt; Swift.Bool in implicit closure #5 () throws -&gt; Swift.Bool in ZLPhotoBrowser.ZLPhotoPreviewController.resetSubviewStatus() -&gt; ()"
+                  moduleName = "ZLPhotoBrowser"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/%E9%A1%B9%E7%9B%AE/3rd/ZLPhotoBrowser/Sources/General/ZLPhotoPreviewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "517"
+                  endingLineNumber = "517">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -66,6 +96,36 @@
             endingLineNumber = "849"
             landmarkName = "editImage()"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "A423E2CD-6BF5-4A95-AD2A-9E27CDC0AD65 - ae33969545f99acb"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ZLPhotoBrowser.ZLCustomCamera.editImage() -&gt; ()"
+                  moduleName = "ZLPhotoBrowser"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/%E9%A1%B9%E7%9B%AE/3rd/ZLPhotoBrowser/Sources/Camera/ZLCustomCamera.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "849"
+                  endingLineNumber = "849">
+               </Location>
+               <Location
+                  uuid = "A423E2CD-6BF5-4A95-AD2A-9E27CDC0AD65 - 58cc2500b3648fbf"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in ZLPhotoBrowser.ZLCustomCamera.editImage() -&gt; ()"
+                  moduleName = "ZLPhotoBrowser"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/%E9%A1%B9%E7%9B%AE/3rd/ZLPhotoBrowser/Sources/Camera/ZLCustomCamera.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "849"
+                  endingLineNumber = "849">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -82,6 +142,36 @@
             endingLineNumber = "767"
             landmarkName = "showEditImageVC(image:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "F3DB5B48-FE10-48BF-9558-57FF6A971D80 - 1515d283ff49dfe4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ZLPhotoBrowser.ZLPhotoPreviewController.showEditImageVC(image: __C.UIImage) -&gt; ()"
+                  moduleName = "ZLPhotoBrowser"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/%E9%A1%B9%E7%9B%AE/3rd/ZLPhotoBrowser/Sources/General/ZLPhotoPreviewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "767"
+                  endingLineNumber = "767">
+               </Location>
+               <Location
+                  uuid = "F3DB5B48-FE10-48BF-9558-57FF6A971D80 - 3c6b401dcf9c589d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.UIImage, Swift.Optional&lt;ZLPhotoBrowser.ZLEditImageModel&gt;) -&gt; () in ZLPhotoBrowser.ZLPhotoPreviewController.showEditImageVC(image: __C.UIImage) -&gt; ()"
+                  moduleName = "ZLPhotoBrowser"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/%E9%A1%B9%E7%9B%AE/3rd/ZLPhotoBrowser/Sources/General/ZLPhotoPreviewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "767"
+                  endingLineNumber = "767">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -98,6 +188,36 @@
             endingLineNumber = "709"
             landmarkName = "showEditImageVC(model:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "40845C5E-15FD-4E2A-BAC5-6215272395E2 - 1453aee74f60119e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Optional&lt;__C.UIImage&gt;, Swift.Bool) -&gt; () in ZLPhotoBrowser.ZLPhotoPreviewSheet.showEditImageVC(model: ZLPhotoBrowser.ZLPhotoModel) -&gt; ()"
+                  moduleName = "ZLPhotoBrowser"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/%E9%A1%B9%E7%9B%AE/3rd/ZLPhotoBrowser/Sources/General/ZLPhotoPreviewSheet.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "709"
+                  endingLineNumber = "709">
+               </Location>
+               <Location
+                  uuid = "40845C5E-15FD-4E2A-BAC5-6215272395E2 - e712737b2034a97a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.UIImage, Swift.Optional&lt;ZLPhotoBrowser.ZLEditImageModel&gt;) -&gt; () in closure #2 (Swift.Optional&lt;__C.UIImage&gt;, Swift.Bool) -&gt; () in ZLPhotoBrowser.ZLPhotoPreviewSheet.showEditImageVC(model: ZLPhotoBrowser.ZLPhotoModel) -&gt; ()"
+                  moduleName = "ZLPhotoBrowser"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/%E9%A1%B9%E7%9B%AE/3rd/ZLPhotoBrowser/Sources/General/ZLPhotoPreviewSheet.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "709"
+                  endingLineNumber = "709">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -113,6 +233,132 @@
             startingLineNumber = "1032"
             endingLineNumber = "1032"
             landmarkName = "showEditImageVC(model:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "B7B5368D-DD31-424C-A150-36ED51938A65 - 1bcbc9c1686aa2e5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Optional&lt;__C.UIImage&gt;, Swift.Bool) -&gt; () in ZLPhotoBrowser.ZLThumbnailViewController.showEditImageVC(model: ZLPhotoBrowser.ZLPhotoModel) -&gt; ()"
+                  moduleName = "ZLPhotoBrowser"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/%E9%A1%B9%E7%9B%AE/3rd/ZLPhotoBrowser/Sources/General/ZLThumbnailViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1032"
+                  endingLineNumber = "1032">
+               </Location>
+               <Location
+                  uuid = "B7B5368D-DD31-424C-A150-36ED51938A65 - fb86bcf96096ffb0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.UIImage, Swift.Optional&lt;ZLPhotoBrowser.ZLEditImageModel&gt;) -&gt; () in closure #2 (Swift.Optional&lt;__C.UIImage&gt;, Swift.Bool) -&gt; () in ZLPhotoBrowser.ZLThumbnailViewController.showEditImageVC(model: ZLPhotoBrowser.ZLPhotoModel) -&gt; ()"
+                  moduleName = "ZLPhotoBrowser"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/%E9%A1%B9%E7%9B%AE/3rd/ZLPhotoBrowser/Sources/General/ZLThumbnailViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1032"
+                  endingLineNumber = "1032">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1D682A39-8DAD-4F24-9E2A-CB7A0605B748"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "OpenIMSDKUIKit/Pages/Account/AccountViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "467"
+            endingLineNumber = "467"
+            landmarkName = "changeAccountRequest(userID:phoneNumber:areaCode:email:verifyCode:completionHandler:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6DADD944-D14A-47A6-B17D-D1170D4D989A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "OpenIMSDKUIKit/Pages/BOB/TransferAccounts/BoBTransferAccountsViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "539"
+            endingLineNumber = "539"
+            landmarkName = "sureBtn"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "ACEA0380-1A0F-443C-9BAB-6D31C43A8639"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../OUIIM/Classes/OIMUIChat/View/Cell/VipView/YFVipNormalView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "101"
+            endingLineNumber = "101"
+            landmarkName = "reloadData()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "EBD394B3-1829-4276-BAE5-76ADD98EF098"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../OUICoreView/Classes/ViewController/SelectContacts/SelectContactsViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
+            landmarkName = "init(types:sourceID:allowsMultipleSelection:enableChangeSelectedModel:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2193F842-8136-43DE-BFBB-B39F59238DEE"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../OUICoreView/Classes/ViewController/SelectContacts/MyContactsViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
+            landmarkName = "init(types:multipleSelected:selectMaxCount:enableChangeSelectedModel:selectedHandler:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "54EFFB38-8E0B-4326-AF87-9F35278E5DE9"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../OUICoreView/Classes/ViewController/SelectContacts/MyContactsViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "37"
+            endingLineNumber = "37"
+            landmarkName = "selectedContact(hasSelected:blocked:handler:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

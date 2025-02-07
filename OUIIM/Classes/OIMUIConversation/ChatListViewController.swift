@@ -362,18 +362,18 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
                 if status == .syncStart {
                     self?.reInstall = install ?? false
                     
-                    if self?.reInstall == true {
-                        ProgressHUD.animate(ConnectionStatus.syncStart.title, interaction: false)
-                    }
+//                    if self?.reInstall == true {
+//                        ProgressHUD.animate(ConnectionStatus.syncStart.title, interaction: false)
+//                    }
                 } else if status == .syncProgress {
                     
-                    if self?.reInstall == true {
-                        let p = CGFloat(result.progress!) / 100.0
-
-                        ProgressHUD.progress(ConnectionStatus.syncStart.title, p, interaction: false)
-                    }
+//                    if self?.reInstall == true {
+//                        let p = CGFloat(result.progress!) / 100.0
+//
+//                        ProgressHUD.progress(ConnectionStatus.syncStart.title, p, interaction: false)
+//                    }
                 } else if status == .syncComplete {
-                    ProgressHUD.dismiss()
+//                    ProgressHUD.dismiss()
                     self?._viewModel.getAllConversations()
                 }
                 

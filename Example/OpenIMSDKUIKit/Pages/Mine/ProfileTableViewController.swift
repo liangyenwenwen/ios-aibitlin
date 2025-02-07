@@ -30,7 +30,7 @@ class ProfileTableViewController: OUIIM.ProfileTableViewController {
         v.didPhotoSelected = { [weak self] (images: [UIImage], _: [PHAsset]) in
             guard var first = images.first else { return }
             ProgressHUD.animate()
-            first = first.compress(expectSize: 3000 * 1024)
+            first = first.compress(expectSize: 1500 * 1024)
             let result = FileHelper.shared.saveImage(image: first)
             
             if result.isSuccess {
@@ -55,7 +55,7 @@ class ProfileTableViewController: OUIIM.ProfileTableViewController {
             if var photo {
                 ProgressHUD.animate()
                 
-                photo = photo.compress(expectSize: 3000 * 1024)
+                photo = photo.compress(expectSize: 1500 * 1024)
                 let result = FileHelper.shared.saveImage(image: photo)
                 if result.isSuccess {
                     self?._viewModel.uploadFile(fullPath: result.fullPath, onProgress: { [weak self] progress in
