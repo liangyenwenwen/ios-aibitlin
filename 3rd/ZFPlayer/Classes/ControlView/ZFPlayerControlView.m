@@ -458,6 +458,12 @@
     } else if (state == ZFPlayerPlayStatePlayFailed) {
         self.failBtn.hidden = NO;
         [self.activity stopAnimating];
+    } else if (state == ZFPlayerPlayStatePlayStopped){
+        [self.landScapeControlView playBtnSelectedState:NO];
+        [self.portraitControlView playBtnSelectedState:NO];
+        self.failBtn.hidden = YES;
+        [self.activity stopAnimating];
+        [self.portraitControlView showControlView];
     }
 }
 
