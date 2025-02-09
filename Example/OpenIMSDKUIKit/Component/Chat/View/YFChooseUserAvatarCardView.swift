@@ -320,7 +320,8 @@ class YFChooseUserAvatarCardView: UIView, UIImagePickerControllerDelegate, UINav
         
     private lazy var _photoHelper: PhotoHelper = {
             let v = PhotoHelper()
-            v.setConfigToMultipleSelected()
+//            v.setConfigToMultipleSelected()
+            v.setConfigToPickAvatar()
             v.didPhotoSelected = { [weak self] (images: [UIImage], assets: [PHAsset]) in
                 guard var first = images.first else { return }
                 
@@ -421,7 +422,7 @@ extension YFChooseUserAvatarCardView {
     }
     
     func uploadImgToAvatar() {
-        let image = userIconImg!.compress(expectSize: 20 * 1024)
+        let image = userIconImg!.compress(expectSize: 1500 * 1024)
         let result = FileHelper.shared.saveImage(image: image)
         if result.isSuccess {
             ProgressHUD.animate()
@@ -482,7 +483,7 @@ extension YFChooseUserAvatarCardView {
 ////                _photoHelper.presentCamera(byController: currentController)
 //                presentCamera()
 //            }
-            _photoHelper.setConfigToMultipleSelected(forVideo: false, maxSelectCount: 1)
+//            _photoHelper.setConfigToMultipleSelected(forVideo: false, maxSelectCount: 1)
             _photoHelper.showSelectMetaSheet(byController: currentController)
         }
         

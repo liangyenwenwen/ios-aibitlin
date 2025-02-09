@@ -419,6 +419,11 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
 //            }
             
 //            self?._headerView.updateConnectionStatus(status: status)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [self] in
+                if status == .syncComplete{
+                    self?._viewModel.getAllConversations()
+                }
+            }
         })
         
         /// 显示弹窗

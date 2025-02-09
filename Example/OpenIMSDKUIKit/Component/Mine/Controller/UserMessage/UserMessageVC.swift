@@ -25,6 +25,7 @@ class UserMessageVC: BaseTitleController {
 //    var ConversationInfo: ConversationInfo?
     var userInfo: QueryUserInfo?
     var isFriend:Bool = false//是否是好友关系
+    var friendRemarkName:String = ""
     lazy var netWorkTipView: YFNotNetTopTipView = {
         let  r = YFNotNetTopTipView()
         return r
@@ -120,25 +121,25 @@ class UserMessageVC: BaseTitleController {
             SuperToast.show(title: String(errCode).localized())
             ProgressHUD.dismiss()
         })
+        IMController.shared.getUserInfo(uids: [userID]) { [weak self] users in
+            guard let self, let sdkUser = users.first else { return }
+            if sdkUser.friendInfo?.remark != nil{
+                self.friendRemarkName = sdkUser.friendInfo?.remark ?? ""
+                self.userHeaderView.username.text = self.friendRemarkName
+            }
+        }
         
     }
     
     func updataUI() {
         
         userHeaderView.bindData(userInfo: userInfo)
-        
-        
-        let user = SuperStringUtil.getUserState(showname: userInfo?.nickname ?? "")
-        
-        let userShowname = user.n
+        if friendRemarkName.length > 0{
+            userHeaderView.username.text = friendRemarkName
+        }
 
         sectionBlogTitleLbl.text = "网站".localized()
         sectionMomentsTitleLbl.text =  "动态".localized()
-//        sectionBlogTitleLbl.text = "UserWebsite".localizedFormat(userShowname)
-//        sectionMomentsTitleLbl.text =  "UserMoments".localizedFormat(userShowname)
-        
-        
-        
         tableView.tableHeaderView = tableHeaderView
         view.layoutIfNeeded()
         
@@ -328,6 +329,7 @@ class UserMessageVC: BaseTitleController {
     func changeFriendAPI(remark: String?) {
         self.saveRemark(remark: remark!, onSuccess: {[weak self] res in
             print(res)
+            self?.friendRemarkName = remark ?? ""
             self?.userHeaderView.username.text = remark
             self?.navigationController?.popViewController()
         })
@@ -342,37 +344,45 @@ class UserMessageVC: BaseTitleController {
     
     
     func getOtherSetting() {
-        IMController.shared.getUserInfo(uids: [userID], groupID: nil) { [self] users in
-            guard let sdkUser = users.first else { return }
-//            userInfoRelay.accept(sdkUser)
-            
-            if let handler = OIMApi.queryUsersInfoWithCompletionHandler, userID != IMController.shared.uid {
-                handler([userID], { [weak self] users in
-                    guard let self else { return }
-                    
-                    if let chatUser = users.first {
-                        isFriend = !(chatUser.allowAddFriend == 1 && sdkUser.friendInfo == nil)
-                        
-                        if isFriend == false {
-                            self.footerBtnView.setStyle(.sendMessageAndAttention)
-                        } else {
-                            self.footerBtnView.setStyle(.sendMessage)
-                        }
-
-                    }
-                })
+        IMController.shared.checkFriend(userID: userID) {[weak self] friend in
+            self?.isFriend = friend
+            if self?.isFriend == false {
+                self?.footerBtnView.setStyle(.sendMessageAndAttention)
+            } else {
+                self?.footerBtnView.setStyle(.sendMessage)
             }
-            
-//            let isFriend = sdkUser.friendInfo != nil
-            
-//            guard !isFriend else {
-////                allowSendMsg.accept(true)
-//                self.footerBtnView.setStyle(.sendMessageAndAttention)
-//                return
-//            }
-            
-            
         }
+//        IMController.shared.getUserInfo(uids: [userID], groupID: nil) { [self] users in
+//            guard let sdkUser = users.first else { return }
+////            userInfoRelay.accept(sdkUser)
+//            
+//            if let handler = OIMApi.queryUsersInfoWithCompletionHandler, userID != IMController.shared.uid {
+//                handler([userID], { [weak self] users in
+//                    guard let self else { return }
+//                    
+//                    if let chatUser = users.first {
+//                        isFriend = !(chatUser.allowAddFriend == 1 && sdkUser.friendInfo == nil)
+//                        
+//                        if isFriend == false {
+//                            self.footerBtnView.setStyle(.sendMessageAndAttention)
+//                        } else {
+//                            self.footerBtnView.setStyle(.sendMessage)
+//                        }
+//
+//                    }
+//                })
+//            }
+//            
+////            let isFriend = sdkUser.friendInfo != nil
+//            
+////            guard !isFriend else {
+//////                allowSendMsg.accept(true)
+////                self.footerBtnView.setStyle(.sendMessageAndAttention)
+////                return
+////            }
+//            
+//            
+//        }
     }
     
     lazy var tableSectionHeader: UIView = {
@@ -471,7 +481,7 @@ extension UserMessageVC {
 //        
 //        return r
         
-        let userShowname = SuperStringUtil.getUserShowname(showname: userInfo?.nickname ?? "")
+//        let userShowname = SuperStringUtil.getUserShowname(showname: userInfo?.nickname ?? "")
         
         let r = tableViewSectionHeader()
         let sectionLbl = r.sectionView.viewWithTag(20001) as! UILabel
@@ -507,13 +517,11 @@ extension UserMessageVC {
     
     
     @objc func gotoBokeList() {
-        
-        let userShowname = SuperStringUtil.getUserShowname(showname: userInfo?.nickname ?? "")
-        
+                
         let vc = MineBokeListViewController()
         vc.vcType = .othersBlog
         vc.othersID = userInfo?.userID
-        vc.othersName = userShowname
+        vc.othersName = friendRemarkName.length > 0 ? friendRemarkName : SuperStringUtil.getUserShowname(showname: userInfo?.nickname ?? "")
         gotoController(vc)
         
     }
@@ -527,7 +535,7 @@ extension UserMessageVC {
 //        self.navigationController?.pushViewController(vc)
         
         if let user = userInfo {
-            let vc = OthersViewController(userID: user.userID!, nickname: SuperStringUtil.getUserShowname(showname: user.nickname ?? ""), faceURL: user.faceURL)
+            let vc = OthersViewController(userID: user.userID!, nickname: friendRemarkName.length > 0 ? friendRemarkName : SuperStringUtil.getUserShowname(showname: userInfo?.nickname ?? ""), faceURL: user.faceURL)
             navigationController?.pushViewController(vc, animated: true)
         }
         

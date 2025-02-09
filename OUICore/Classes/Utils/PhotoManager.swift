@@ -45,6 +45,7 @@ open class PhotoHelper {
             .allowSelectVideo(false)
             .allowSelectLivePhoto(false)
             .allowSelectOriginal(false)
+            .allowEditImage(true)
             .editImageConfiguration(editConfig)
             .showClipDirectlyIfOnlyHasClipTool(true)
             .canSelectAsset { _ in true }
@@ -116,9 +117,9 @@ open class PhotoHelper {
         config.cropVideoAfterSelectThumbnail = true
         config.allowEditVideo = true
         config.allowMixSelect = false
+        config.allowEditImage = false
         config.maxSelectCount = maxSelectCount
         config.maxEditVideoTime = 15
-        
         
         let cameraConfig = ZLCameraConfiguration()
         cameraConfig.sessionPreset = .vga640x480
@@ -232,7 +233,7 @@ open class PhotoHelper {
     
     public func showSelectMetaSheet(byController: UIViewController) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let photoAction = UIAlertAction(title: "相册".innerLocalized(), style: .default, handler: { [weak self] (alert) -> Void in
+        let photoAction = UIAlertAction(title: "照片".innerLocalized(), style: .default, handler: { [weak self] (alert) -> Void in
             guard let sself = self else {
                 return
             }
@@ -411,12 +412,12 @@ open class PhotoHelper {
                 request.addResource(with: .photo, data: imageData, options: nil)
             }
         }) { (success, error) in
+            ProgressHUD.dismiss()
             if success {
                 print("图片保存成功！")
                 if showToast {
                     DispatchQueue.main.async {
 //                        ProgressHUD.success("图片保存成功".innerLocalized())
-                        
                         if let handler = OIMApi.showTipHandle {
                                         
                             handler("图片保存成功".innerLocalized(), { res in

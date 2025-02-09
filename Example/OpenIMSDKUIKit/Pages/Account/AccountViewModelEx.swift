@@ -145,9 +145,9 @@ extension AccountViewModel {
                     
             do {
                 
-                let boke = try JSONDecoder().decode(myBlogShowBlogPOModel.self, from: jsonData)
-                YFFileDataUtil.saveOneDataToFile(blogItem: boke)
-                
+                let boke = try JSONDecoder().decode(blogDetailItem.self, from: jsonData)
+                YFFileDataUtil.saveOneDataToFile(blogItem: myBlogShowBlogPOModel.init(myBlogShowBlogPO: boke))
+                SuperToast.show(title: "收藏成功".localized())
             } catch {
                 
                 return

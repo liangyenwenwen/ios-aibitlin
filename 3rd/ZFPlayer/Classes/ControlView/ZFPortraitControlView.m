@@ -169,8 +169,15 @@
 
 /// 根据当前播放状态取反
 - (void)playOrPause {
-    self.playOrPauseBtn.selected = !self.playOrPauseBtn.isSelected;
-    self.playOrPauseBtn.isSelected? [self.player.currentPlayerManager play]: [self.player.currentPlayerManager pause];
+    if (self.slider.value == 1 &&  self.playOrPauseBtn.selected == false){
+        self.playOrPauseBtn.selected = true;
+        [self sliderTouchEnded:0];
+//        [self.player.currentPlayerManager replay];
+    }else{
+        self.playOrPauseBtn.selected = !self.playOrPauseBtn.isSelected;
+        self.playOrPauseBtn.isSelected? [self.player.currentPlayerManager play]: [self.player.currentPlayerManager pause];
+    }
+    
 }
 
 - (void)playBtnSelectedState:(BOOL)selected {

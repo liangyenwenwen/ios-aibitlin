@@ -26,7 +26,7 @@ class GroupChatSettingTableViewController: UITableViewController {
         v.didPhotoSelected = { [weak self] (images: [UIImage], _: [PHAsset]) in
             guard var first = images.first else { return }
             ProgressHUD.animate()
-            first = first.compress(expectSize: 20 * 1024)
+            first = first.compress(expectSize: 1500 * 1024)
             let result = FileHelper.shared.saveImage(image: first)
             
             if result.isSuccess {
@@ -50,7 +50,7 @@ class GroupChatSettingTableViewController: UITableViewController {
         v.didCameraFinished = { [weak self] (photo: UIImage?, _: URL?) in
             guard let sself = self else { return }
             if var photo {
-                photo = photo.compress(expectSize: 20 * 1024)
+                photo = photo.compress(expectSize: 1500 * 1024)
                 let result = FileHelper.shared.saveImage(image: photo)
                 if result.isSuccess {
                     self?._viewModel.uploadFile(fullPath: result.fullPath, onProgress: { [weak self] progress in

@@ -201,11 +201,12 @@ class MineBokeEditVC: BaseTitleController, UIImagePickerControllerDelegate, UINa
 //    }()
     private lazy var _photoHelper: PhotoHelper = {
             let v = PhotoHelper()
-            v.setConfigToMultipleSelected()
+//            v.setConfigToMultipleSelected()
+            v.setConfigToPickAvatar()
             v.didPhotoSelected = { [weak self] (images: [UIImage], assets: [PHAsset]) in
                 guard var first = images.first else { return }
                 ProgressHUD.animate()
-                first = first.compress(expectSize: 20 * 1024)
+                first = first.compress(expectSize: 1500 * 1024)
                 let result = FileHelper.shared.saveImage(image: first)
                 
                 if result.isSuccess {
@@ -233,7 +234,7 @@ class MineBokeEditVC: BaseTitleController, UIImagePickerControllerDelegate, UINa
                 if var photo {
                     ProgressHUD.animate()
                     
-                    photo = photo.compress(expectSize: 20 * 1024)
+                    photo = photo.compress(expectSize: 1500 * 1024)
                     let result = FileHelper.shared.saveImage(image: photo)
                     if result.isSuccess {
                         IMController.shared.uploadFile(fullPath: result.fullPath) { [weak self] progress in
@@ -343,7 +344,7 @@ extension MineBokeEditVC {
 //        }
         
         
-        _photoHelper.setConfigToMultipleSelected(forVideo: false, maxSelectCount: 1)
+//        _photoHelper.setConfigToMultipleSelected(forVideo: false, maxSelectCount: 1)
         _photoHelper.showSelectMetaSheet(byController: self)
         
         
@@ -400,7 +401,7 @@ extension MineBokeEditVC {
                   
                   ProgressHUD.animate()
                   
-                  image = image.compress(expectSize: 20 * 1024)
+                  image = image.compress(expectSize: 1500 * 1024)
                   let result = FileHelper.shared.saveImage(image: image)
                   if result.isSuccess {
                       IMController.shared.uploadFile(fullPath: result.fullPath) { [weak self] progress in
