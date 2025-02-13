@@ -1595,6 +1595,8 @@ extension ChatViewController: ChatControllerDelegate {
                 }
             }
         case .image(let source, let isLocallyStored):
+            self.resetOffset(newBottomInset: 0, duration: 0)
+            self.view.endEditing(true)
             if source.ex?.isFace == true {
                 var media = MediaResource(thumbUrl: source.thumb?.url,
                                           url: source.source.url,
@@ -1617,6 +1619,8 @@ extension ChatViewController: ChatControllerDelegate {
                 }
             }
         case .video(let source, let isLocallyStored):
+            self.resetOffset(newBottomInset: 0, duration: 0)
+            self.view.endEditing(true)
             previewMedias(source:source,msgId: id) { items in
                 let index = items.firstIndex(where: { $0.url == source.source.url }) ?? -1
                 

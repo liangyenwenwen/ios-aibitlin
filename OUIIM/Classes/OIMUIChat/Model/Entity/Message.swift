@@ -415,11 +415,17 @@ func getTime(time:String) -> (String){
 
      
     // 设置日期格式化器的日期格式
-    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-     
+    if time.contains("T"){
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+    }else if time.contains("C"){
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+    }else{
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+    }
+//    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
     // 将ISO 8601字符串转换为Date对象
     guard let date = dateFormatter.date(from: time) else {
-        return ""
+        return time
 //        fatalError("Date conversion failed")
     }
      
