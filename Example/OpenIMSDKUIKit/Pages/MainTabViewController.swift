@@ -58,6 +58,7 @@ class MainTabViewController: UITabBarController {
         IMController.shared.totalUnreadSubject.map({ (unread: Int) -> String? in
             IMController.shared.unChatMessageCount = unread
             UIApplication.shared.applicationIconBadgeNumber = IMController.shared.unChatMessageCount + IMController.shared.unCallPhoneMessageCount + IMController.shared.unContactMessageCount
+            IMController.shared.updateFcmBadge(count: UIApplication.shared.applicationIconBadgeNumber)
             var badge: String?
             if unread == 0 {
                 badge = nil
@@ -92,6 +93,7 @@ class MainTabViewController: UITabBarController {
         IMController.shared.contactUnreadSubject.map({ (unread: Int) -> String? in
             IMController.shared.unContactMessageCount = unread
             UIApplication.shared.applicationIconBadgeNumber = IMController.shared.unChatMessageCount + IMController.shared.unCallPhoneMessageCount + IMController.shared.unContactMessageCount
+            IMController.shared.updateFcmBadge(count: UIApplication.shared.applicationIconBadgeNumber)
             var badge: String?
             if unread == 0 {
                 badge = nil
@@ -170,6 +172,7 @@ class MainTabViewController: UITabBarController {
                 tabBarItem.badgeValue = count > 99 ? "99+" : "\(count)"
                 IMController.shared.unCallPhoneMessageCount = count
                 UIApplication.shared.applicationIconBadgeNumber = IMController.shared.unChatMessageCount + IMController.shared.unCallPhoneMessageCount + IMController.shared.unContactMessageCount
+                IMController.shared.updateFcmBadge(count: UIApplication.shared.applicationIconBadgeNumber)
             } else {
                 tabBarItem.badgeValue = nil
             }

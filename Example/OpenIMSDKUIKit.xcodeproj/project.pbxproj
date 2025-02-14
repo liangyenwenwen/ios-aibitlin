@@ -17,6 +17,7 @@
 		04052E2F2CF4709800A7A554 /* BoBAddBankPaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04052E2E2CF4709800A7A554 /* BoBAddBankPaymentView.swift */; };
 		04052E312CF48A0600A7A554 /* BoBAddAliPaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04052E302CF48A0600A7A554 /* BoBAddAliPaymentView.swift */; };
 		040874B82D3D081700B49915 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 040874B72D3D081700B49915 /* GoogleService-Info.plist */; };
+		040874BD2D5DD2BE00B49915 /* call.caf in Resources */ = {isa = PBXBuildFile; fileRef = 040874BB2D5DD2BE00B49915 /* call.caf */; };
 		040D44252C882AE8007DB6FB /* YFSystemMessageSettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040D44242C882AE8007DB6FB /* YFSystemMessageSettingVC.swift */; };
 		040D85AB2BEB87B800DCAAB3 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040D85AA2BEB87B800DCAAB3 /* R.generated.swift */; };
 		040D85AE2BEB899900DCAAB3 /* DefalutRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040D85AD2BEB899900DCAAB3 /* DefalutRepository.swift */; };
@@ -275,6 +276,7 @@
 		04052E2E2CF4709800A7A554 /* BoBAddBankPaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBAddBankPaymentView.swift; sourceTree = "<group>"; };
 		04052E302CF48A0600A7A554 /* BoBAddAliPaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBAddAliPaymentView.swift; sourceTree = "<group>"; };
 		040874B72D3D081700B49915 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		040874BB2D5DD2BE00B49915 /* call.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = call.caf; sourceTree = "<group>"; };
 		040D44242C882AE8007DB6FB /* YFSystemMessageSettingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFSystemMessageSettingVC.swift; sourceTree = "<group>"; };
 		040D85AA2BEB87B800DCAAB3 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
 		040D85AD2BEB899900DCAAB3 /* DefalutRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefalutRepository.swift; sourceTree = "<group>"; };
@@ -617,6 +619,14 @@
 				04484ED22CF71EC200893E4C /* BoBChooseBankListCell.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		040874BC2D5DD2BE00B49915 /* Sound */ = {
+			isa = PBXGroup;
+			children = (
+				040874BB2D5DD2BE00B49915 /* call.caf */,
+			);
+			path = Sound;
 			sourceTree = "<group>";
 		};
 		040D44232C882ABA007DB6FB /* Chat */ = {
@@ -1644,6 +1654,7 @@
 		607FACD21AFB9204008FA782 /* OpenIMSDKUIKit */ = {
 			isa = PBXGroup;
 			children = (
+				040874BC2D5DD2BE00B49915 /* Sound */,
 				0445BEE02CD1DF8B00A46558 /* NetWork */,
 				04585F902CCFB4B700BFA8E8 /* Resources */,
 				04F2D0952BEE21EC00D5271B /* Vender */,
@@ -1884,6 +1895,7 @@
 				0411DD282C05CE3C00EDD135 /* InfoPlist.strings in Resources */,
 				DCE04171283E5BD30095874E /* Localizable.strings in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
+				040874BD2D5DD2BE00B49915 /* call.caf in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
 				040874B82D3D081700B49915 /* GoogleService-Info.plist in Resources */,
 			);
@@ -1905,7 +1917,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$SRCROOT/R.generated.swift",
+				$SRCROOT/R.generated.swift,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

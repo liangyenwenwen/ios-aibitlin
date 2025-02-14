@@ -892,13 +892,29 @@ extension IMController {
         
         if let desc = model.offlinePushInfo.desc, desc.isEmpty {
             let push = OfflinePushInfo()
-            push.title = "你收到了一条消息"
-            push.desc = "你收到了一条消息"
+//            push.title = "你收到了一条消息"
+//            push.desc = "你收到了一条消息"
+            push.title = message.senderNickname
+            push.desc = message.content ?? "你收到了一条消息"
+            if message.contentType.rawValue == 101{
+                //文本消息
+                push.desc = message.textElem?.content
+            }else if message.contentType.rawValue == 102{
+                //图片消息
+                push.desc = "【图片】"
+            }
             message.offlinePush = push.toOIMOfflinePushInfo()
         }
         
         model.isRead = false
         sendHelper(message: message, to: recvID, conversationType: conversationType, onComplete: onComplete)
+    }
+    public func updateFcmBadge(count:Int){
+        Self.shared.imManager.setAppBadge(count){_ in 
+            print("更新角标成功")
+        }onFailure: { code, msg in
+            print("\(#function) throw error: \(code), \(msg)")
+        }
     }
     
     public func typingStatusUpdate(conversationID: String, focus: Bool) {
@@ -2274,7 +2290,7 @@ public class NotificationElem: Codable {
 public class OfflinePushInfo: Codable {
     public var title: String?
     public var desc: String?
-    public var iOSPushSound: String?
+    public var iOSPushSound: String = "default"
     public var iOSBadgeCount: Bool = true
     public var operatorUserID: String?
     public var ex: String?
@@ -3013,7 +3029,7 @@ extension OIMOfflinePushInfo {
         let item = OfflinePushInfo()
         item.title = title
         item.desc = desc
-        item.iOSPushSound = iOSPushSound
+        item.iOSPushSound = iOSPushSound ?? "default"
         item.iOSBadgeCount = iOSBadgeCount
         item.operatorUserID = operatorUserID
         item.ex = ex
