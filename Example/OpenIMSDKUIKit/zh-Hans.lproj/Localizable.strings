@@ -163,8 +163,13 @@ MyProfile="我的资料";
 AccountAndSecurity = "账号与安全";
 PersonalPrivacy = "个人隐私";
 PoliciesAndTerms = "政策与条款";
+ClearChatHistory = "清空聊天记录";
 Logout="退出登录";
 ChangePwdSuccess = "修改成功";
+ConfirmClearChatHistory = "确认清空所有聊天记录吗？";
+ClearChatHistorySuccess = "清空成功";
+ClearChatHistoryFail = "清空失败";
+
 
 
 //个人资料

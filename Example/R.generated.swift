@@ -171,7 +171,7 @@ struct _R: Sendable {
       var ieXW0yeText: RswiftResources.StringResource { .init(key: "8ie-xW-0ye.text", tableName: "LaunchScreen", source: source, developmentValue: nil, comment: nil) }
     }
 
-    /// This `_R.string.localizable` struct is generated, and contains static references to 522 localization keys.
+    /// This `_R.string.localizable` struct is generated, and contains static references to 526 localization keys.
     struct localizable {
       let source: RswiftResources.StringResource.Source
 
@@ -308,6 +308,27 @@ struct _R: Sendable {
       /// Locales: en, zh-Hans, th
       var changePwdSuccess: RswiftResources.StringResource { .init(key: "ChangePwdSuccess", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// en translation: Clear Record
+      ///
+      /// Key: ClearChatHistory
+      ///
+      /// Locales: en, zh-Hans, th
+      var clearChatHistory: RswiftResources.StringResource { .init(key: "ClearChatHistory", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Clear failure
+      ///
+      /// Key: ClearChatHistoryFail
+      ///
+      /// Locales: en, zh-Hans, th
+      var clearChatHistoryFail: RswiftResources.StringResource { .init(key: "ClearChatHistoryFail", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Clear success
+      ///
+      /// Key: ClearChatHistorySuccess
+      ///
+      /// Locales: en, zh-Hans, th
+      var clearChatHistorySuccess: RswiftResources.StringResource { .init(key: "ClearChatHistorySuccess", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: %@, click reload
       ///
       /// Key: ClickReload
@@ -328,6 +349,13 @@ struct _R: Sendable {
       ///
       /// Locales: en, zh-Hans, th
       var confirm: RswiftResources.StringResource { .init(key: "Confirm", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Are you sure to clear all chat records?
+      ///
+      /// Key: ConfirmClearChatHistory
+      ///
+      /// Locales: en, zh-Hans, th
+      var confirmClearChatHistory: RswiftResources.StringResource { .init(key: "ConfirmClearChatHistory", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Create new account
       ///

@@ -251,9 +251,12 @@ MyProfile="My Profile";
 AccountAndSecurity = "Account And Security";
 PersonalPrivacy = "Personal Privacy";
 PoliciesAndTerms = "Policies And Terms";
+ClearChatHistory = "Clear Record";
 Logout="Logout";
 ChangePwdSuccess = "Changed Successfully";
-
+ConfirmClearChatHistory = "Are you sure to clear all chat records?";
+ClearChatHistorySuccess = "Clear success";
+ClearChatHistoryFail = "Clear failure";
 
 
 //个人资料

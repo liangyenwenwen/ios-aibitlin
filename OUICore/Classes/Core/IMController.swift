@@ -797,15 +797,43 @@ extension IMController {
         
         if let desc = model.offlinePushInfo.desc, desc.isEmpty {
             let push = OfflinePushInfo()
-            push.title = "你收到了一条消息"
-            push.desc = "你收到了一条消息"
+//            push.title = "你收到了一条消息"
+//            push.desc = "你收到了一条消息"
+            push.title = message.senderNickname
+            push.desc = message.content ?? "你收到了一条消息"
+            if message.contentType.rawValue == 101{
+                //文本消息
+                push.desc = message.textElem?.content
+            }else if message.contentType.rawValue == 102{
+                //图片消息
+                push.desc = "[\("图片".innerLocalized())]"
+            }else if message.contentType.rawValue == 103{
+                //语音消息
+                push.desc = "[\("语音".innerLocalized())]"
+            }else if message.contentType.rawValue == 104{
+                //视频消息
+                push.desc = "[\("视频".innerLocalized())]"
+            }else if message.contentType.rawValue == 105{
+                //视频消息
+                push.desc = "[\("文件".innerLocalized())]"
+            }else if message.contentType.rawValue == 108{
+                //视频消息
+                push.desc = "[\("名片".innerLocalized())]"
+            }
+
             message.offlinePush = push.toOIMOfflinePushInfo()
         }
-        
         model.isRead = false
         sendHelper(message: message, to: recvID, conversationType: conversationType, onComplete: onComplete)
     }
-    
+    public func updateFcmBadge(count:Int){
+        Self.shared.imManager.setAppBadge(count){_ in
+            print("更新角标成功")
+        }onFailure: { code, msg in
+            print("\(#function) throw error: \(code), \(msg)")
+        }
+    }
+
     public func typingStatusUpdate(conversationID: String, focus: Bool) {
 //        Self.shared.imManager.typingStatusUpdate(recvID, msgTip: msgTips, onSuccess: nil)
         Self.shared.imManager.changeInputStates(conversationID, focus: focus) { r in
@@ -2081,8 +2109,8 @@ public class NotificationElem: Codable {
 public class OfflinePushInfo: Codable {
     public var title: String?
     public var desc: String?
-    public var iOSPushSound: String?
-    public var iOSBadgeCount: Bool = false
+    public var iOSPushSound: String = "default"
+    public var iOSBadgeCount: Bool = true
     public var operatorUserID: String?
     public var ex: String?
 }
@@ -2809,7 +2837,7 @@ extension OIMOfflinePushInfo {
         let item = OfflinePushInfo()
         item.title = title
         item.desc = desc
-        item.iOSPushSound = iOSPushSound
+        item.iOSPushSound = iOSPushSound ?? "default"
         item.iOSBadgeCount = iOSBadgeCount
         item.operatorUserID = operatorUserID
         item.ex = ex

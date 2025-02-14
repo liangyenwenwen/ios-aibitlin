@@ -1750,16 +1750,31 @@ extension ChatViewController: ChatControllerDelegate {
             }
         }
         
-        func previewMedias(currentIndexHandler: @escaping ([MediaResource]) -> (Int)) {
+        func previewMedias(source:MediaMessageSource,msgId:String,currentIndexHandler: @escaping ([MediaResource]) -> (Int)){
             filterMediaSource { [weak self] items in
                 guard let self else { return }
                 
-                var index = currentIndexHandler(items)
-                let vc = MediaPreviewViewController(resources: items, index: index)
-                            
+                var array = items
+                var index = currentIndexHandler(array)
+                if index == -1{
+                    if source.duration == nil{
+                        array.append(MediaResource(thumbUrl: source.thumb?.url,
+                                                   url: source.source.url,
+                                                   type: .image,
+                                                   ID: msgId))
+                    }else{
+                        array.append(MediaResource(thumbUrl: source.thumb?.url,
+                                                   url: source.source.url,
+                                                   type: .video,
+                                                   ID: msgId))
+                    }
+                    index = array.count - 1
+                }
+                let vc = MediaPreviewViewController(resources: array, index: index)
+
                 vc.showIn(controller: self) { idx in
                     guard idx < items.count else { return nil }
-                    let item = items[idx]
+                    let item = array[idx]
                     if let ID = item.ID, let tag = self.dataSource.mediaImageViews[ID] {
                         return self.collectionView.viewWithTag(tag)
                     }
@@ -1848,6 +1863,8 @@ extension ChatViewController: ChatControllerDelegate {
                 }
             }
         case .image(let source, let isLocallyStored):
+            self.resetOffset(newBottomInset: 0, duration: 0)
+            self.view.endEditing(true)
             if source.ex?.isFace == true {
                 var media = MediaResource(thumbUrl: source.thumb?.url,
                                           url: source.source.url,
@@ -1863,16 +1880,16 @@ extension ChatViewController: ChatControllerDelegate {
                     return nil
                 }
             } else {
-                previewMedias { items in
-                    let index = items.firstIndex(where: { $0.url == source.source.url }) ?? 0
-                    
+                previewMedias(source:source,msgId: id) { items in
+                    let index = items.firstIndex(where: { $0.url == source.source.url }) ?? -1
                     return index
                 }
             }
         case .video(let source, let isLocallyStored):
-            previewMedias { items in
-                let index = items.firstIndex(where: { $0.url == source.source.url }) ?? 0
-                
+            self.resetOffset(newBottomInset: 0, duration: 0)
+            self.view.endEditing(true)
+            previewMedias(source:source,msgId: id) { items in
+                let index = items.firstIndex(where: { $0.url == source.source.url }) ?? -1
                 return index
             }
             

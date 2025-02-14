@@ -253,9 +253,12 @@ MyProfile="ประวัติของฉัน";
 AccountAndSecurity = "บัญชีและความปลอดภัย";
 PersonalPrivacy = "ความเป็นส่วนตัว";
 PoliciesAndTerms = "นโยบายและข้อกำหนด";
+ClearChatHistory = "ล้างประวัติการแชท";
 Logout="ออกจากระบบ";
 ChangePwdSuccess = "แก้ไขเรียบร้อยแล้ว";
-
+ConfirmClearChatHistory = "ยืนยันจะเคลียร์แชตทั้งหมด?";
+ClearChatHistorySuccess = "ล้างความสำเร็จ";
+ClearChatHistoryFail = "การล้างล้มเหลว";
 
 
 //个人资料
