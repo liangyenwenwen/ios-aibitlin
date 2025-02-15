@@ -418,7 +418,6 @@ extension YFChooseUserAvatarCardView {
             
             uploadImgToAvatar()
         }
-
     }
     
     func uploadImgToAvatar() {
@@ -426,17 +425,25 @@ extension YFChooseUserAvatarCardView {
         let result = FileHelper.shared.saveImage(image: image)
         if result.isSuccess {
             ProgressHUD.animate()
-            self._viewModel.uploadFile(fullPath: result.fullPath, onProgress: { [weak self] progress in
-
-            }, onComplete: { [weak self] code, msg in
-                ProgressHUD.dismiss()
-                if code == 0 {
-                    self?.bottomShow(show: false)
-                   
-                } else {
-                    SuperToast.show(title: msg)
+            
+            IMController.shared.uploadFile(fullPath: result.fullPath) { progress in
+                
+            } onSuccess: { [weak self] url in
+                if let url = url {
+                    AccountViewModel.updateUserInfo(userID: IMController.shared.uid,nickname:self?.userNickNameTF.text, faceURL:url) { errCode, errMsg in
+                        ProgressHUD.dismiss()
+                        if errCode != 0 {
+                            SuperToast.show(title: errMsg)
+                        } else {
+                            print("保存成功")
+                            self?.bottomShow(show: false)
+                        }
+                    }
+                }else{
+                    ProgressHUD.dismiss()
+                    SuperToast.show(title: "-1".localized())
                 }
-            })
+            }
         }
     }
     

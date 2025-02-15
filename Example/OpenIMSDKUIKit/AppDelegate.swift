@@ -48,9 +48,9 @@ let sdkWSRoute = ""
 //let defaultIMAddress = "imserver.aibitlin.com/api"
 //let defaultAdminAddress = "imserver.aibitlin.com/msg_gateway"
 
-let defaultAppAddress = "192.168.7.125"
-let defaultIMAddress = "192.168.7.125"
-let defaultAdminAddress = "192.168.7.125"
+let defaultAppAddress = "192.168.7.126"
+let defaultIMAddress = "192.168.7.126"
+let defaultAdminAddress = "192.168.7.126"
 
 //let defaultAppAddress = "192.168.7.16"
 //let defaultIMAddress = "192.168.7.16"
