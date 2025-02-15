@@ -26,8 +26,8 @@ class UpdateView: TGRelativeLayout {
     func initViews()  {
         
         corner(MEDDLE_RADIUS)
-        tg_left.equal(40)
-        tg_right.equal(40)
+        tg_left.equal(67)
+        tg_right.equal(67)
         tg_height.equal(.wrap)
         tg_space = PADDING_MEDDLE
         tg_gravity = .horz.center
