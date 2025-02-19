@@ -158,8 +158,10 @@ class ApplicationViewController: UIViewController {
         ProgressHUD.animate()
         viewModel.accept { [weak self] r in
             if r == nil {
-                ProgressHUD.dismiss()
-                self?.navigationController?.popViewController(animated: true)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                    ProgressHUD.dismiss()
+                    self?.navigationController?.popViewController(animated: true)
+                }
             } else {
 //                ProgressHUD.error(r)
                 ProgressHUD.dismiss()
@@ -177,8 +179,10 @@ class ApplicationViewController: UIViewController {
         ProgressHUD.animate()
         viewModel.refuse { [weak self] r in
             if r == nil {
-                ProgressHUD.dismiss()
-                self?.navigationController?.popViewController(animated: true)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                    ProgressHUD.dismiss()
+                    self?.navigationController?.popViewController(animated: true)
+                }
             } else {
 //                ProgressHUD.error(r)
                 ProgressHUD.dismiss()

@@ -171,7 +171,7 @@ struct _R: Sendable {
       var ieXW0yeText: RswiftResources.StringResource { .init(key: "8ie-xW-0ye.text", tableName: "LaunchScreen", source: source, developmentValue: nil, comment: nil) }
     }
 
-    /// This `_R.string.localizable` struct is generated, and contains static references to 523 localization keys.
+    /// This `_R.string.localizable` struct is generated, and contains static references to 528 localization keys.
     struct localizable {
       let source: RswiftResources.StringResource.Source
 
@@ -1400,6 +1400,13 @@ struct _R: Sendable {
       /// Locales: en, zh-Hans, th
       var through: RswiftResources.StringResource1<String> { .init(key: "through", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// en translation: Invalid token, please log in again.
+      ///
+      /// Key: tokenInvalid
+      ///
+      /// Locales: en, zh-Hans, th
+      var tokenInvalid: RswiftResources.StringResource { .init(key: "tokenInvalid", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: Passwords do not match
       ///
       /// Key: twicePwdNoSame
@@ -1483,6 +1490,13 @@ struct _R: Sendable {
       ///
       /// Locales: en, th
       var 下一步: RswiftResources.StringResource { .init(key: "下一步", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Not updating anymore
+      ///
+      /// Key: 不在更新
+      ///
+      /// Locales: en, th
+      var 不在更新: RswiftResources.StringResource { .init(key: "不在更新", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Report
       ///
@@ -2723,6 +2737,13 @@ struct _R: Sendable {
       /// Locales: en, th
       var 更多: RswiftResources.StringResource { .init(key: "更多", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// en translation: Update reminder
+      ///
+      /// Key: 更新提醒
+      ///
+      /// Locales: en, th
+      var 更新提醒: RswiftResources.StringResource { .init(key: "更新提醒", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: Moments
       ///
       /// Key: 朋友圈
@@ -2919,6 +2940,13 @@ struct _R: Sendable {
       /// Locales: en, th
       var 照片: RswiftResources.StringResource { .init(key: "照片", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// en translation: Version update
+      ///
+      /// Key: 版本更新
+      ///
+      /// Locales: en, th
+      var 版本更新: RswiftResources.StringResource { .init(key: "版本更新", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: In effect
       ///
       /// Key: 生效中
@@ -3030,6 +3058,13 @@ struct _R: Sendable {
       ///
       /// Locales: en, th
       var 空空如也: RswiftResources.StringResource { .init(key: "空空如也", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Immediate Updating
+      ///
+      /// Key: 立即更新
+      ///
+      /// Locales: en, th
+      var 立即更新: RswiftResources.StringResource { .init(key: "立即更新", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Sign up now
       ///
@@ -4831,8 +4866,8 @@ struct _R: Sendable {
     /// Resource file `GoogleService-Info.plist`.
     var googleServiceInfoPlist: RswiftResources.FileResource { .init(name: "GoogleService-Info", pathExtension: "plist", bundle: bundle, locale: LocaleReference.none) }
 
-    /// Resource file `call.caf`.
-    var callCaf: RswiftResources.FileResource { .init(name: "call", pathExtension: "caf", bundle: bundle, locale: LocaleReference.none) }
+    /// Resource file `call.mp3`.
+    var callMp3: RswiftResources.FileResource { .init(name: "call", pathExtension: "mp3", bundle: bundle, locale: LocaleReference.none) }
   }
 
   /// This `_R.nib` struct is generated, and contains static references to 1 nibs.

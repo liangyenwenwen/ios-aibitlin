@@ -483,8 +483,10 @@ extension CallingManager {
     private func update(state: CallingState, duration: Int = 0) {
         print("\(#function): state:\(state)")
         
-        
-      
+        var offlinePushInfo = OIMOfflinePushInfo()
+        offlinePushInfo.iOSBadgeCount = false
+        offlinePushInfo.desc = "关闭视频语音通话"
+        signalingInfo?.offlinePushInfo = offlinePushInfo
         
         if state == .beAccepted || state == .disConnect {
             if state == .beAccepted {

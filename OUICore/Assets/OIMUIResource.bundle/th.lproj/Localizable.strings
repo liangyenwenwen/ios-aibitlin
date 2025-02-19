@@ -408,7 +408,8 @@
 "deletedByFriendHint" = "อีกฝ่ายได้เปิดใช้งานการยืนยันเพื่อน แต่คุณยังไม่ได้เป็นเพื่อนของเขา %@";
 "sendFriendVerification" = "ตรวจสอบการเพิ่ม";
 "removedFromGroupHint" = "คุณถูกลบออกจากการแชทเป็นกลุ่ม";
-"groupDisbanded" = "กลุ่มได้ถูกยุบ";
+"groupDisbanded" = "ไม่พบการแชทเป็นกลุ่ม";
+"groupbeBaned" = "กลุ่มถูกแบนแล้ว";
 "search" = "ค้นหา";
 "synchronizing" = "กำลังซิงโครไนซ์";
 "syncFailed" = "การซิงค์ล้มเหลว";

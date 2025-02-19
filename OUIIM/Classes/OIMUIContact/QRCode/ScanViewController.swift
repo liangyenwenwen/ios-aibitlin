@@ -186,8 +186,33 @@ public class ScanViewController: UIViewController {
     private func scanResult(result: String?) {
         DispatchQueue.main.async {
             if let result {
-                ProgressHUD.dismiss()
-                self.scanDidComplete?(result)
+                if result.contains(IMController.joinGroupPrefix){
+                    let groupId = result.replacingOccurrences(of: IMController.joinGroupPrefix, with: "")
+                    IMController.shared.getGroupInfo(groupIds: [groupId]) { [weak self] (groupInfos: [GroupInfo]) in
+                        ProgressHUD.dismiss()
+                        guard let sself = self else { return }
+                        guard let groupInfo = groupInfos.first else { return }
+                        if groupInfo.status == .dismissed || groupInfo.status == .dismissed{
+                            DispatchQueue.main.async {
+                                self?._scanView.startScanning().subscribe { [weak self] (result1: ScanResult?) in
+                                    self?.scanResult(result: result1?.strScanned)
+                                }
+                            }
+                            if let handler = OIMApi.showTipHandle {
+                                
+                                handler(groupInfo.status == .dismissed ? "groupDisbanded".innerLocalized() : "groupbeBaned".innerLocalized(), { res in
+                                    
+                                })
+                            }
+                        }else{
+                            ProgressHUD.dismiss()
+                            self?.scanDidComplete?(result)
+                        }
+                    }
+                }else{
+                    ProgressHUD.dismiss()
+                    self.scanDidComplete?(result)
+                }
             } else {
 //                ProgressHUD.error("unrecognized".innerLocalized())
                 ProgressHUD.dismiss()

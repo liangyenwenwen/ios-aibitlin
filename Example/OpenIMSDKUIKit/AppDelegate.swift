@@ -48,16 +48,16 @@ let sdkAPIRoute = "/api"
 let sdkWSPort = ":10001"
 let sdkWSRoute = "/msg_gateway"
 
-let defaultAppAddress = "http://192.168.7.126:10008"
-let defaultIMAddress = "http://192.168.7.126:10002"
-let defaultAdminAddress = "ws://192.168.7.126:10001"
+//let defaultAppAddress = "http://192.168.7.126:10008"
+//let defaultIMAddress = "http://192.168.7.126:10002"
+//let defaultAdminAddress = "ws://192.168.7.126:10001"
 
-//let defaultAppAddress = "https://web.pk-im.com/chat"
-//let defaultIMAddress = "https://web.pk-im.com/api"
-//let defaultAdminAddress = "wss://web.pk-im.com/msg_gateway"
+let defaultAppAddress = "https://web.pk-im.com/chat"
+let defaultIMAddress = "https://web.pk-im.com/api"
+let defaultAdminAddress = "wss://web.pk-im.com/msg_gateway"
 
-let API_BOB_URL = "http://192.168.7.126:18729"
-//let API_BOB_URL = "https://web.pk-im.com"
+//let API_BOB_URL = "http://192.168.7.128:18729"
+let API_BOB_URL = "https://web.pk-im.com"
 
 
 @UIApplicationMain
@@ -183,10 +183,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         // 初始化SDK
         IMController.shared.setup(sdkAPIAdrr: defaultIMAddress,
-                                  sdkWSAddr: defaultAdminAddress, onUserTokenInvalid:  {
+                                  sdkWSAddr: defaultAdminAddress){
             ProgressHUD.banner("accountWarn".localized(), "accountException".localized())
             NotificationCenter.default.post(name: .init("logout"), object: nil)
-        })
+        } onUserTokenInvalid: {
+            ProgressHUD.banner("accountWarn".localized(), "tokenInvalid".localized())
+            NotificationCenter.default.post(name: .init("logout"), object: nil)
+        }
+        
+        
         
         GeTuiSdk.start(withAppId: kGtAppId, appKey: kGtAppKey, appSecret: kGtAppSecret, delegate: self)
         GeTuiSdk.registerRemoteNotification([.alert, .badge, .sound])

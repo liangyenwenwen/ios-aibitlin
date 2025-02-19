@@ -1,5 +1,6 @@
 
 import OUICore
+import Photos
 
 
 public class QRCodeViewController: UIViewController {
@@ -247,7 +248,8 @@ public class QRCodeViewController: UIViewController {
         let lbl = UILabel()
         lbl.textColor = .init(hexString: "#666666")
         lbl.font = UIFont(name: "PingFangSC-Regular", size: 13)
-        lbl.text = "ID: ".localized() + groupID ?? ""
+//        lbl.text = "ID: ".localized() + groupID ?? ""
+        lbl.text = "群ID：" + (groupID ?? "")
         return lbl
     }()
     
@@ -334,7 +336,12 @@ public class QRCodeViewController: UIViewController {
         
         return r
     }()
-    
+    lazy var saveCard: QRCodeSaveGroupCardView = {
+        let r = QRCodeSaveGroupCardView()
+        r.frame = CGRect(x: 0, y: 0, width: kScreenWidth, height: 470)
+//        r.isHidden = true
+        return r
+    }()
     
 
     private let codeContentImageView: UIImageView = .init()
@@ -458,10 +465,40 @@ public class QRCodeViewController: UIViewController {
     
     
     @objc func saveQRCode() {
-        guard let image = getShareCardImg(view: groupCardView) else {return}
+        let status = PHPhotoLibrary.authorizationStatus()
+        if (status == .authorized) {
+            saveCard.bindData(showname: groupName, codeImg: codeImgView.image, avater: groupImgView.groupAvatarImageView.image, idString: groupID)
+            saveViewToPhotoAlbum(view: saveCard)
+        } else if (status == .restricted || status == .denied) {
+            let alert = UIAlertController(title: "提示".innerLocalized(), message: "请去-> [设置 - 隐私 - 相册] 打开访问开关".innerLocalized(), preferredStyle: .alert)
+            // 创建UIAlertAction，用于处理用户的选择
+            let cancleAction = UIAlertAction(title: "确定".innerLocalized(), style: .default) { _ in
+            }
+            // 将action添加到alertController上
+            alert.addAction(cancleAction)
+            // 弹出alert
+            self.present(alert, animated: true, completion: nil)
+            
+            
+        } else if (status == .notDetermined) { // 首次使用
+            PHPhotoLibrary.requestAuthorization({ (firstStatus) in
+                let isTrue = (firstStatus == .authorized)
+                if isTrue {
+                    // 用户首次允许
+                    self.saveCard.bindData(showname: self.groupName, codeImg: self.codeImgView.image, avater: self.groupImgView.groupAvatarImageView.image, idString: self.groupID)
+                    self.saveViewToPhotoAlbum(view: self.saveCard)
+                } else {
+                    // 用户首次拒绝
+                }
+            })
+        }
+      
+    }
+    func saveViewToPhotoAlbum(view:UIView) {
+
+        guard let image = getShareCardImg(view: view) else {return}
             // 保存图片到相册
         UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.image(image:didFinishSavingWithError:contextInfo:)), nil)
-      
     }
     @objc func image(image: UIImage, didFinishSavingWithError: NSError?,contextInfo: AnyObject)
 
@@ -482,7 +519,8 @@ public class QRCodeViewController: UIViewController {
     }
     
     @objc func shareCode() {
-        guard let image = getShareCardImg(view: groupCardView) else {return}
+        saveCard.bindData(showname: groupName, codeImg: codeImgView.image, avater: groupImgView.groupAvatarImageView.image, idString: groupID)
+        guard let image = getShareCardImg(view: saveCard) else {return}
         let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
         self.present(activityViewController, animated: true)
     }
@@ -490,8 +528,8 @@ public class QRCodeViewController: UIViewController {
         groupImgView.setGroupInfoImg(item: groupDetailInfo!)
         groupNicknameLbl.text = groupName
         groupNicknameTF.text = groupName
-        groupIDLbl.text = groupID
-        
+        groupIDLbl.text = "groupID".innerLocalized() + "：" + (groupID ?? "")
+
        
         
         

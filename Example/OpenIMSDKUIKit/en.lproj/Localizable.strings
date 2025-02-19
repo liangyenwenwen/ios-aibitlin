@@ -48,8 +48,10 @@
 "1506" = "User kicked out";
 "1507" = "User login has expired";
 
-
-
+"版本更新" = "Version update";
+"不在更新" = "Not updating anymore";
+"立即更新" = "Immediate Updating";
+"更新提醒" = "Update reminder";
 
 "通讯录" = "Contact";
 "通话记录" = "Recents";
@@ -224,6 +226,7 @@
 "pincodeNotMatchTitle" = "Pincode Not Match";
 "accountWarn" = "Warn!";
 "accountException" = "Your account has been logged in to another device; please change your password in time.";
+"tokenInvalid" = "Invalid token, please log in again.";
 
 
 "deletBookTip" = "Are you sure you want to delete the blog?";
@@ -801,5 +804,6 @@ SupportShortNumber = "Support setting a minimum %@-digit account ID";
 "620081" = "对方有超时订单";
 "620082" = "没有匹配到对象";
 "620083" = "广告数量为零";
-
+"620084" = "身份证识别错误";
+"620085" = "卡号与姓名不匹配";
 

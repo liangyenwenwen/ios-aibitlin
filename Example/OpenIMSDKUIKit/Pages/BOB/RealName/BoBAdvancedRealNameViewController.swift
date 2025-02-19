@@ -26,7 +26,7 @@ class BoBAdvancedRealNameViewController: UIViewController {
     var outputFileURL: URL?
     var videoUrl:String = ""
     private var timer: DispatchSourceTimer?
-    var timeCount:Int = 0
+    var timeCount:Int = -1
     private var videoInput: AVCaptureDeviceInput?
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -97,7 +97,7 @@ class BoBAdvancedRealNameViewController: UIViewController {
         
     }
     func commitInfo(){
-        BoBRealNameModel.AdvancedRealNameAuthenticationRequest(videoUrl: videoUrl, name: name, cardId: cardId, idCardZM: idCardBM, idCardBM:idCardBM){errCode,errMsg in
+        BoBRealNameModel.AdvancedRealNameAuthenticationRequest(videoUrl: videoUrl, name: name, cardId: cardId, idCardZM: idCardZM, idCardBM:idCardBM){errCode,errMsg in
             if errCode == 620000{
                 SuperToast.show(title: "提交成功")
                 if (self.navigationController?.viewControllers.count)! > 3{
@@ -129,7 +129,7 @@ class BoBAdvancedRealNameViewController: UIViewController {
                 }
             }else{
                 DispatchQueue.main.async {
-                    self?.timeCount = (self?.timeCount ?? 0)+1
+                    self?.timeCount = (self?.timeCount ?? -1)+1
                     self?.timeLabel.text = self?.convertSecondsToMinuteSecondFormat(self?.timeCount ?? 0)
                 }
             }
@@ -376,7 +376,7 @@ class BoBAdvancedRealNameViewController: UIViewController {
         let outputPath = (tempDir as NSString).appendingPathComponent(videoName)
         outputFileURL = URL(fileURLWithPath: outputPath)
         movieOutput.startRecording(to: outputFileURL!, recordingDelegate: self)
-        timeCount = 0
+        timeCount = -1
         startTimer()
     }
 

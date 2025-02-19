@@ -138,8 +138,9 @@ class BoBCreatAdvertisementViewController: BaseTitleController {
     }
     func loadData(){
         BoBBuyAndSellCionModel.QueryBalanceByCurrencyRequest(currency:currency){[weak self] data in
-            let model1 = CionTypeModel(icon: data.icon, currency: self?.currency, quota: 0.00, handlingCharge: 0.00, minimumCommission: 0.00, cionType: "0", money: data.t0, type: 0, isSelect: true,exchangeRate:0.00)
-            let model2 = CionTypeModel(icon: data.icon, currency: self?.currency, quota: 0.00, handlingCharge: 0.00, minimumCommission: 0.00, cionType: "1", money: data.t1, type: 1, isSelect: false,exchangeRate:0.00)
+            
+            let model1 = CionTypeModel(icon: data.icon, currency: self?.currency, quota: 0.00, handlingCharge: 0.00, minimumCommission: 0.00, cionType: "0", money: data.t0, type: 0, isSelect: self?.chooseCionTypeModel?.type == 0 ? true : false,exchangeRate:0.00)
+            let model2 = CionTypeModel(icon: data.icon, currency: self?.currency, quota: 0.00, handlingCharge: 0.00, minimumCommission: 0.00, cionType: "1", money: data.t1, type: 1, isSelect: self?.chooseCionTypeModel?.type == 1 ? true : false,exchangeRate:0.00)
             self?.cionTypeArray.append(model1)
             self?.cionTypeArray.append(model2)
             if self?.chooseCionTypeModel?.type == model1.type{
@@ -1265,6 +1266,7 @@ class BoBCreatAdvertisementViewController: BaseTitleController {
                     }
                 }else{
                     SuperToast.show(title:"修改成功")
+                    self?.adDetailData?.currencyWallet = Int((param["currencyWallet"] as? String) ?? "0")
                     self?.adDetailData?.transactionMode = param["transactionMode"] as? String
                     self?.adDetailData?.exchangeRateType = self?.exchangeRateType ?? 2
                     self?.adDetailData?.floatingIndex = Double(self?.exchangeRateTF.text ?? "0.01")

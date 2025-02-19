@@ -17,7 +17,8 @@
 		04052E2F2CF4709800A7A554 /* BoBAddBankPaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04052E2E2CF4709800A7A554 /* BoBAddBankPaymentView.swift */; };
 		04052E312CF48A0600A7A554 /* BoBAddAliPaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04052E302CF48A0600A7A554 /* BoBAddAliPaymentView.swift */; };
 		040874B82D3D081700B49915 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 040874B72D3D081700B49915 /* GoogleService-Info.plist */; };
-		040874BD2D5DD2BE00B49915 /* call.caf in Resources */ = {isa = PBXBuildFile; fileRef = 040874BB2D5DD2BE00B49915 /* call.caf */; };
+		040874C02D646FF100B49915 /* UpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040874BF2D646FF100B49915 /* UpdateView.swift */; };
+		040874C22D64A5EC00B49915 /* call.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 040874C12D64A5EC00B49915 /* call.mp3 */; };
 		040D44252C882AE8007DB6FB /* YFSystemMessageSettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040D44242C882AE8007DB6FB /* YFSystemMessageSettingVC.swift */; };
 		040D85AB2BEB87B800DCAAB3 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040D85AA2BEB87B800DCAAB3 /* R.generated.swift */; };
 		040D85AE2BEB899900DCAAB3 /* DefalutRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040D85AD2BEB899900DCAAB3 /* DefalutRepository.swift */; };
@@ -276,7 +277,8 @@
 		04052E2E2CF4709800A7A554 /* BoBAddBankPaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBAddBankPaymentView.swift; sourceTree = "<group>"; };
 		04052E302CF48A0600A7A554 /* BoBAddAliPaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoBAddAliPaymentView.swift; sourceTree = "<group>"; };
 		040874B72D3D081700B49915 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		040874BB2D5DD2BE00B49915 /* call.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = call.caf; sourceTree = "<group>"; };
+		040874BF2D646FF100B49915 /* UpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateView.swift; sourceTree = "<group>"; };
+		040874C12D64A5EC00B49915 /* call.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = call.mp3; sourceTree = "<group>"; };
 		040D44242C882AE8007DB6FB /* YFSystemMessageSettingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFSystemMessageSettingVC.swift; sourceTree = "<group>"; };
 		040D85AA2BEB87B800DCAAB3 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
 		040D85AD2BEB899900DCAAB3 /* DefalutRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefalutRepository.swift; sourceTree = "<group>"; };
@@ -624,9 +626,17 @@
 		040874BC2D5DD2BE00B49915 /* Sound */ = {
 			isa = PBXGroup;
 			children = (
-				040874BB2D5DD2BE00B49915 /* call.caf */,
+				040874C12D64A5EC00B49915 /* call.mp3 */,
 			);
 			path = Sound;
+			sourceTree = "<group>";
+		};
+		040874BE2D646FDD00B49915 /* AppUpdate */ = {
+			isa = PBXGroup;
+			children = (
+				040874BF2D646FF100B49915 /* UpdateView.swift */,
+			);
+			path = AppUpdate;
 			sourceTree = "<group>";
 		};
 		040D44232C882ABA007DB6FB /* Chat */ = {
@@ -1382,6 +1392,7 @@
 		04F2D0622BEE215100D5271B /* Component */ = {
 			isa = PBXGroup;
 			children = (
+				040874BE2D646FDD00B49915 /* AppUpdate */,
 				045B8BFA2BF4B6D60094E080 /* Chat */,
 				04F2D0632BEE21CA00D5271B /* Mine */,
 				04DA678E2CCF2A4F00FCA60C /* NewLoginAndRegister */,
@@ -1895,8 +1906,8 @@
 				0411DD282C05CE3C00EDD135 /* InfoPlist.strings in Resources */,
 				DCE04171283E5BD30095874E /* Localizable.strings in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
-				040874BD2D5DD2BE00B49915 /* call.caf in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
+				040874C22D64A5EC00B49915 /* call.mp3 in Resources */,
 				040874B82D3D081700B49915 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2269,6 +2280,7 @@
 				04F2D0912BEE21CA00D5271B /* UserMessageContactView.swift in Sources */,
 				040D86082BEB8C4200DCAAB3 /* SuperNSObjectExtension.swift in Sources */,
 				04F2D0922BEE21CA00D5271B /* MineDeleteAccountReasonBottomSheetView.swift in Sources */,
+				040874C02D646FF100B49915 /* UpdateView.swift in Sources */,
 				040D85E72BEB8C0B00DCAAB3 /* BaseTableViewCell.swift in Sources */,
 				04F2D0822BEE21CA00D5271B /* MineMessageVC.swift in Sources */,
 				04F2D0832BEE21CA00D5271B /* MeHomeController.swift in Sources */,
