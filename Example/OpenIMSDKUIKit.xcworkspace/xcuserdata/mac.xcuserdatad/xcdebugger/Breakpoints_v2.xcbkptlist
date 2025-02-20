@@ -82,36 +82,6 @@
             endingLineNumber = "38"
             landmarkName = "getGroupInfo()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "78A77F3B-2EDB-45F1-83C4-53D46057086F - 5ee4f751e68ce18a"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Array&lt;OUICore.GroupMemberInfo&gt;) -&gt; () in closure #2 (Swift.Array&lt;OUICore.GroupInfo&gt;) -&gt; () in OUIIM.GroupDetailViewModel.getGroupInfo() -&gt; ()"
-                  moduleName = "IM-NCER"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/%E9%A1%B9%E7%9B%AE/OUIIM/Classes/OIMUIContact/GroupList/GroupDetailViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "38"
-                  endingLineNumber = "38">
-               </Location>
-               <Location
-                  uuid = "78A77F3B-2EDB-45F1-83C4-53D46057086F - fe92ed43bdc19024"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (OUICore.GroupMemberInfo) -&gt; Swift.Optional&lt;Swift.String&gt; in closure #1 (Swift.Array&lt;OUICore.GroupMemberInfo&gt;) -&gt; () in closure #2 (Swift.Array&lt;OUICore.GroupInfo&gt;) -&gt; () in OUIIM.GroupDetailViewModel.getGroupInfo() -&gt; ()"
-                  moduleName = "IM-NCER"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/%E9%A1%B9%E7%9B%AE/OUIIM/Classes/OIMUIContact/GroupList/GroupDetailViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "38"
-                  endingLineNumber = "38">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -160,36 +130,6 @@
             endingLineNumber = "122"
             landmarkName = "applyJoinGroup()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "4E21E437-18DB-47B0-8356-DF478975260D - 937d3cc758f3676c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "OUIIM.GroupDetailViewController.applyJoinGroup() -&gt; ()"
-                  moduleName = "IM-NCER"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/%E9%A1%B9%E7%9B%AE/OUIIM/Classes/OIMUIContact/GroupList/GroupDetailViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "122"
-                  endingLineNumber = "122">
-               </Location>
-               <Location
-                  uuid = "4E21E437-18DB-47B0-8356-DF478975260D - bc8a768df3a66afc"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;Swift.String&gt;) -&gt; () in OUIIM.GroupDetailViewController.applyJoinGroup() -&gt; ()"
-                  moduleName = "IM-NCER"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/%E9%A1%B9%E7%9B%AE/OUIIM/Classes/OIMUIContact/GroupList/GroupDetailViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "122"
-                  endingLineNumber = "122">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -253,6 +193,22 @@
             startingLineNumber = "33"
             endingLineNumber = "33"
             landmarkName = "getGroupApplications()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "79F420C7-D003-4E94-B155-07677203AC07"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../OUICore/Classes/Utils/PhotoManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "118"
+            endingLineNumber = "118"
+            landmarkName = "setConfigToMultipleSelected(forVideo:maxSelectCount:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
