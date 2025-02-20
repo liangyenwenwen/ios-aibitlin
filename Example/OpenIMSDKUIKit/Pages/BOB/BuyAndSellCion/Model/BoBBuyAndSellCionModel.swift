@@ -135,7 +135,7 @@ class BoBBuyAndSellCionModel {
 //        if !NetworkStatus.isReacheable {
 //            return
 //        }
-        let param = ["type": type, "currency": currency,"amount": amount,"payment": payment,"pageNum": pageNum,"pageSize": pageSize] as [String : Any]
+        let param = ["type": String(type), "currency": currency,"amount": amount,"payment": payment,"pageNum":String(pageNum),"pageSize": String(pageSize)] as [String : Any]
         let url = SuperStringUtil.netUrl(API_BOB_URL + FreeAreaList, param)
         Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
             
@@ -304,7 +304,7 @@ class BoBBuyAndSellCionModel {
 //            return
 //        }
         ProgressHUD.animate()
-        let param = ["currency": currency, "type": type,"state": state,"pageNum": pageNum,"pageSize": pageSize] as [String : Any]
+        let param = ["currency": currency, "type": String(type),"state": String(state),"pageNum": String(pageNum),"pageSize": String(pageSize)] as [String : Any]
         let url = SuperStringUtil.netUrl(API_BOB_URL + MyAdvertisementList, param)
         Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
             ProgressHUD.dismiss()
@@ -453,7 +453,7 @@ class BoBBuyAndSellCionModel {
 //            return
 //        }
         ProgressHUD.animate()
-        let param = ["code": code,"amount":amount,"payment":payment,"quantity":quantity,"exchangeRate":exchangeRate,"type":type] as [String : Any]
+        let param = ["code": code,"amount":amount,"payment":payment,"quantity":quantity,"exchangeRate":exchangeRate,"type":String(type)] as [String : Any]
         let url = SuperStringUtil.netUrl(API_BOB_URL + IntendedBuy, param)
         Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
             ProgressHUD.dismiss()
@@ -498,7 +498,7 @@ class BoBBuyAndSellCionModel {
         let passWord = (IMController.shared.payPassWordSonKey + pwd).md5
         let sign = (code + amount + currencyWallet + payment + quantity + exchangeRate + paymentId + timestamp + String(type) + passWord).md5
 
-        let param = ["code": code,"amount":amount,"currencyWallet":currencyWallet,"payment":payment,"quantity":quantity,"exchangeRate":exchangeRate,"paymentId":paymentId,"timestamp":timestamp,"type":type,"sign":sign] as [String : Any]
+        let param = ["code": code,"amount":amount,"currencyWallet":currencyWallet,"payment":payment,"quantity":quantity,"exchangeRate":exchangeRate,"paymentId":paymentId,"timestamp":timestamp,"type":String(type),"sign":sign] as [String : Any]
         let url = SuperStringUtil.netUrl(API_BOB_URL + IntendedSell, param)
         Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
             ProgressHUD.dismiss()
@@ -534,7 +534,7 @@ class BoBBuyAndSellCionModel {
 //            return
 //        }
         ProgressHUD.animate()
-        let param = ["type": type, "sign": sign,"pageNum": pageNum,"pageSize": pageSize] as [String : Any]
+        let param = ["type": String(type), "sign": String(sign),"pageNum": String(pageNum),"pageSize": String(pageSize)] as [String : Any]
         let url = SuperStringUtil.netUrl(API_BOB_URL + MyOrderList, param)
         Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
             ProgressHUD.dismiss()

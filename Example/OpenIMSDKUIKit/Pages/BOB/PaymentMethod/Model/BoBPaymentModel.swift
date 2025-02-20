@@ -106,7 +106,7 @@ class BoBPaymentModel {
 //               return
 //           }
            ProgressHUD.animate()
-        let param = ["id":id] as [String : Any]
+        let param = ["id":String(id)] as [String : Any]
            let url = SuperStringUtil.netUrl(API_BOB_URL + DeletePayment, param)
            
            Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
@@ -409,7 +409,7 @@ class BoBPaymentModel {
 //            return
 //        }
         ProgressHUD.animate()
-        let param = ["tpye": tpye ?? 0, "timeStart": timeStart ?? "","timeEnd": timeEnd ?? "","currency": currency ?? "","pageSize": pageSize ?? 0,"pageNum": pageNum ?? 0] as [String : Any]
+        let param = ["tpye": String(tpye ?? 0), "timeStart": timeStart ?? "","timeEnd": timeEnd ?? "","currency": currency ?? "","pageSize": String(pageSize ?? 0),"pageNum": String(pageNum ?? 0)] as [String : Any]
         let url = SuperStringUtil.netUrl(API_BOB_URL + QueryMyBillList, param)
         
         Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
@@ -449,7 +449,7 @@ class BoBPaymentModel {
 //         return
 //     }
      ProgressHUD.animate()
-     let param = ["code": code ?? 0] as [String : Any]
+     let param = ["code": String(code ?? 0)] as [String : Any]
      let url = SuperStringUtil.netUrl(API_BOB_URL + QueryBillDeatil, param)
      
      Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
