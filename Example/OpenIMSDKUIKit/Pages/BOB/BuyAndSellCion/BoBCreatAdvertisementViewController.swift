@@ -52,7 +52,7 @@ class BoBCreatAdvertisementViewController: BaseTitleController {
             title = "创建广告"
         }
         advertisingName = homeData?.advertisingName
-        chooseCionTypeModel = CionTypeModel(icon: "", currency: currency, quota: 0.00, handlingCharge: 0.00, minimumCommission: 0.00, cionType:"0", money:0.00, type: 0, isSelect: true,exchangeRate:1.00)
+        chooseCionTypeModel = CionTypeModel(icon: "", currency: currency, quota: 0.00, handlingCharge: 0.00, minimumCommission: 0.00, cionType:"-1", money:0.00, type: -1, isSelect: false,exchangeRate:1.00)
         scrollViewContainer.tg_padding = UIEdgeInsets(top: 0, left: PADDING_OUTER, bottom: PADDING_OUTER, right: PADDING_OUTER)
         superFooterContainerContainer.tg_bottom.equal(0)
         scrollViewContainer.addSubview(currencyView)
@@ -85,6 +85,8 @@ class BoBCreatAdvertisementViewController: BaseTitleController {
                 chooseCionTypeModel = CionTypeModel(icon: adDetailData?.icon, currency: currency, quota: 0.00, handlingCharge: 0.00, minimumCommission: 0.00, cionType:String(format: "%d", adDetailData?.currencyWallet ?? 0), money:0.00, type: adDetailData?.currencyWallet ?? 0, isSelect: true,exchangeRate:1.00)
                 cionTypeImageView.sd_setImage(with: URL(string: chooseCionTypeModel?.icon))
                 cionNameLabel.text = chooseCionTypeModel?.currency
+                walletType.show()
+                chooseWalletLabel.hide()
                 if chooseCionTypeModel?.type == 0{
                     walletType.text = "T+0钱包"
                     walletType.textColor = .init(hexString: "#00AA3C")
@@ -139,16 +141,19 @@ class BoBCreatAdvertisementViewController: BaseTitleController {
     func loadData(){
         BoBBuyAndSellCionModel.QueryBalanceByCurrencyRequest(currency:currency){[weak self] data in
             
-            let model1 = CionTypeModel(icon: data.icon, currency: self?.currency, quota: 0.00, handlingCharge: 0.00, minimumCommission: 0.00, cionType: "0", money: data.t0, type: 0, isSelect: self?.chooseCionTypeModel?.type == 0 ? true : false,exchangeRate:0.00)
-            let model2 = CionTypeModel(icon: data.icon, currency: self?.currency, quota: 0.00, handlingCharge: 0.00, minimumCommission: 0.00, cionType: "1", money: data.t1, type: 1, isSelect: self?.chooseCionTypeModel?.type == 1 ? true : false,exchangeRate:0.00)
+            let model1 = CionTypeModel(icon: data.icon, currency: self?.currency, quota: 0.00, handlingCharge: 0.00, minimumCommission: 0.00, cionType: "0", money: data.t0, type: 0, isSelect: false,exchangeRate:0.00)
+            let model2 = CionTypeModel(icon: data.icon, currency: self?.currency, quota: 0.00, handlingCharge: 0.00, minimumCommission: 0.00, cionType: "1", money: data.t1, type: 1, isSelect: false,exchangeRate:0.00)
             self?.cionTypeArray.append(model1)
             self?.cionTypeArray.append(model2)
             if self?.chooseCionTypeModel?.type == model1.type{
+                model1.isSelect = true
                 self?.chooseCionTypeModel = model1
-            }else{
+                self?.refreshUI()
+            }else if self?.chooseCionTypeModel?.type == model2.type{
+                model2.isSelect = true
                 self?.chooseCionTypeModel = model2
+                self?.refreshUI()
             }
-            self?.refreshUI()
         } completionHandler: {errCode,errMsg in
             if errCode == -1{
                 SuperToast.show(title: errMsg)
@@ -158,8 +163,8 @@ class BoBCreatAdvertisementViewController: BaseTitleController {
         }
     }
     func refreshUI(){
-        cionTypeImageView.sd_setImage(with: URL(string: chooseCionTypeModel?.icon))
-        cionNameLabel.text = chooseCionTypeModel?.currency
+        walletType.show()
+        chooseWalletLabel.hide()
         if chooseCionTypeModel?.type == 0{
             walletType.text = "T+0钱包"
             walletType.textColor = .init(hexString: "#00AA3C")
@@ -169,9 +174,9 @@ class BoBCreatAdvertisementViewController: BaseTitleController {
             walletType.textColor = .init(hexString: "#FFA756")
             walletType.backgroundColor = .init(hexString: "#FFF7E5")
         }
-        let str = "可用余额：" + String(format: "%.2f",(chooseCionTypeModel?.money)!) + (chooseCionTypeModel?.currency)!
+        let str = (chooseCionTypeModel?.type == 0 ? "T+0" : "T+1") + "可用余额：" + String(format: "%.2f",(chooseCionTypeModel?.money)!) + (chooseCionTypeModel?.currency)!
         let attributedString = NSMutableAttributedString(string: str)
-        attributedString.addAttribute(.foregroundColor, value: UIColor.primaryColor, range: NSRange(location: 5, length: str.length-5))
+        attributedString.addAttribute(.foregroundColor, value: UIColor.primaryColor, range: NSRange(location: 8, length: str.length-8))
         totalMoneyLabel.attributedText = attributedString
         cionTypeImageView.sd_setImage(with: URL(string: chooseCionTypeModel?.icon))
         cionNameLabel.text = chooseCionTypeModel?.currency
@@ -608,6 +613,7 @@ class BoBCreatAdvertisementViewController: BaseTitleController {
         v.addSubview(cionTypeImageView)
         v.addSubview(cionNameLabel)
         v.addSubview(walletType)
+        v.addSubview(chooseWalletLabel)
         let rightIcon = UIImageView(image: UIImage(named: "SuperChevronRight"))
         rightIcon.tintColor = .black80
         rightIcon.contentMode = .scaleAspectFit
@@ -663,6 +669,7 @@ class BoBCreatAdvertisementViewController: BaseTitleController {
     }()
     lazy var walletType: UILabel = {
         let r = UILabel()
+        r.hide()
         r.tg_width.equal(62)
         r.tg_height.equal(26)
         r.tg_centerY.equal(0)
@@ -675,15 +682,23 @@ class BoBCreatAdvertisementViewController: BaseTitleController {
         r.textAlignment = .center
         return r
     }()
+    lazy var chooseWalletLabel: UILabel = {
+        let r = UILabel()
+        r.tg_width.equal(kScreenWidth-160)
+        r.tg_height.equal(26)
+        r.tg_centerY.equal(0)
+        r.tg_left.equal(7)
+        r.textColor = .black999
+        r.font = .regularFont(15)
+        r.text = "请选择T+0或T+1钱包"
+        return r
+    }()
     lazy var totalMoneyLabel: UILabel = {
         let r = UILabel()
         r.font = .regularFont(14)
         r.textColor = .black666
         r.textAlignment = .right
-        let str = "可用余额：0.00" + currency
-        let attributedString = NSMutableAttributedString(string: str)
-        attributedString.addAttribute(.foregroundColor, value: UIColor.primaryColor, range: NSRange(location: 5, length: str.length-5))
-        r.attributedText = attributedString
+        r.text = ""
         return r
     }()
     lazy var advertisementCountView: TGLinearLayout = {
@@ -1159,6 +1174,10 @@ class BoBCreatAdvertisementViewController: BaseTitleController {
         r.rx.tap.subscribe(onNext: { [weak self] in
             if self?.isChooseBank == false && self?.isChooseAli == false && self?.isChooseWx == false{
                 SuperToast.show(title: "请选择支付方式")
+                return
+            }
+            if self?.advertisementType == 1 && self?.chooseCionTypeModel?.type == -1{
+                SuperToast.show(title:"请选择钱包")
                 return
             }
             if let doubleValue = Double(self?.advertisementCountTF.text ?? "0") {

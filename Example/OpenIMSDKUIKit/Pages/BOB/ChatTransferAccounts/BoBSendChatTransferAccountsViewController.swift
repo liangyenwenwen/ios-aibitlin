@@ -37,7 +37,7 @@ class BoBSendChatTransferAccountsViewController: BaseTitleController {
         setBackGroundColor(.colorBackgroundAPP)
         initLinearLayoutSafeArea()
         title = "转账"
-        chooseCionTypeModel = CionTypeModel(icon: "", currency: cionType, quota: 0.00, handlingCharge: 0.00, minimumCommission: 0.00, cionType: "0", money:0.00, type: 0, isSelect: true,exchangeRate:1.00)
+        chooseCionTypeModel = CionTypeModel(icon: "", currency: cionType, quota: 0.00, handlingCharge: 0.00, minimumCommission: 0.00, cionType: "-1", money:0.00, type: -1, isSelect: false,exchangeRate:1.00)
         container.tg_padding = UIEdgeInsets(top: PADDING_OUTER, left: PADDING_OUTER, bottom: PADDING_OUTER, right: PADDING_OUTER)
         transferAccountsType = groupId.isEmpty ? 0 : 1
         container.addSubview(transferCountView)
@@ -102,14 +102,16 @@ class BoBSendChatTransferAccountsViewController: BaseTitleController {
             IMController.shared.isSetPayPassWord = data.secure ?? false
             IMController.shared.certificationLevel = data.certificationLevel ?? 0
             for item in data.expenditureHomePagePOS{
-                let model1 = CionTypeModel(icon: item.icon, currency: item.currency, quota: item.quota, handlingCharge: 0.00, minimumCommission: 0.00, cionType: "0", money: item.t0, type: 0, isSelect: true,exchangeRate:item.exchangeRate)
+                let model1 = CionTypeModel(icon: item.icon, currency: item.currency, quota: item.quota, handlingCharge: 0.00, minimumCommission: 0.00, cionType: "0", money: item.t0, type: 0, isSelect: false,exchangeRate:item.exchangeRate)
                 let model2 = CionTypeModel(icon: item.icon, currency: item.currency, quota: item.quota, handlingCharge: 0.00, minimumCommission: 0.00, cionType: "1", money: item.t1, type: 1, isSelect: false,exchangeRate:item.exchangeRate)
                 self.cionTypeArray.append(model1)
                 self.cionTypeArray.append(model2)
             }
             if self.cionTypeArray.count > 0{
-                self.chooseCionTypeModel = self.cionTypeArray[0]
-                self.refreshUI()
+                let model = self.cionTypeArray[0]
+                self.exchangeRateLabel.text = "汇率: " + String(format: "%.2f",model.exchangeRate!)
+                self.cionImageView.sd_setImage(with: URL(string: model.icon))
+                self.cionLabel.text = model.currency
             }
         } completionHandler: {errCode,errMsg in
             if errCode == -1{
@@ -121,6 +123,8 @@ class BoBSendChatTransferAccountsViewController: BaseTitleController {
     }
     func refreshUI(){
         cionNameLabel.text = chooseCionTypeModel?.currency
+        self.walletType.font = .regularFont(12)
+        self.totalMoneyLabel.show()
         if chooseCionTypeModel?.type == 0{
             self.walletType.text = "T+0钱包"
             self.walletType.textColor = .init(hexString: "#00AA3C")
@@ -132,9 +136,9 @@ class BoBSendChatTransferAccountsViewController: BaseTitleController {
         }
         self.exchangeRateLabel.text = "汇率: " + String(format: "%.2f",(chooseCionTypeModel?.exchangeRate)!)
         
-        let str = "可用余额 " + String(format: "%.2f ",(chooseCionTypeModel?.money)!) + (chooseCionTypeModel?.currency)!
+        let str = (chooseCionTypeModel?.type == 0 ? "T+0" : "T+1") + "可用余额 " + String(format: "%.2f ",(chooseCionTypeModel?.money)!) + (chooseCionTypeModel?.currency)!
         let attributedString = NSMutableAttributedString(string: str)
-        attributedString.addAttribute(.foregroundColor, value: UIColor.primaryColor, range: NSRange(location: 5, length: str.length-6))
+        attributedString.addAttribute(.foregroundColor, value: UIColor.primaryColor, range: NSRange(location: 8, length: str.length-9))
         self.totalMoneyLabel.attributedText = attributedString
         self.cionImageView.sd_setImage(with: URL(string: chooseCionTypeModel?.icon))
         self.cionLabel.text = chooseCionTypeModel?.currency
@@ -239,11 +243,10 @@ class BoBSendChatTransferAccountsViewController: BaseTitleController {
     }()
     lazy var walletType: UILabel = {
         let r = UILabel()
-        r.textColor = .init(hexString: "#00AA3C")
-        r.backgroundColor = .init(hexString: "#E5F6EB")
+        r.textColor = .black999
         r.corner(13)
-        r.font = .regularFont(12)
-        r.text = "T+0钱包"
+        r.font = .regularFont(15)
+        r.text = "请选择"
         r.textAlignment = .center
         return r
     }()
@@ -251,12 +254,13 @@ class BoBSendChatTransferAccountsViewController: BaseTitleController {
         let r = UILabel()
         r.font = .regularFont(14)
         r.textColor = .black666
-        r.text = "汇率: 0.00"
+        r.text = "汇率: 1.00"
 
         return r
     }()
     lazy var totalMoneyLabel: UILabel = {
         let r = UILabel()
+        r.hide()
         r.font = .regularFont(14)
         r.textColor = .black666
         r.textAlignment = .right
@@ -485,7 +489,10 @@ class BoBSendChatTransferAccountsViewController: BaseTitleController {
         r.titleLabel?.font = .semiboldFont(14)
         r.backgroundColor = .primaryColor
         r.rx.tap.subscribe(onNext: { [self] in
-            
+            if self.chooseCionTypeModel?.type == -1{
+                SuperToast.show(title:"请选择钱包")
+                return
+            }
             if IMController.shared.certificationLevel == 0 {
                 let alert = UIAlertController(title: "提示", message: "请先进行实名认证".innerLocalized(), preferredStyle: .alert)
                 // 创建UIAlertAction，用于处理用户的选择

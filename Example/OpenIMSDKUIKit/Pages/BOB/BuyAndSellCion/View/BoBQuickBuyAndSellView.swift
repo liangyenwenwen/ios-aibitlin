@@ -32,7 +32,7 @@ class BoBQuickBuyAndSellView: UIView {
         type = viewType
         currency = currentCurrency
         currencyIcon = currentCurrencyIcon
-        chooseCionTypeModel = CionTypeModel(icon: "", currency: currency, quota: 0.00, handlingCharge: 0.00, minimumCommission: 0.00, cionType:"0", money:0.00, type: 0, isSelect: true,exchangeRate:1.00)
+        chooseCionTypeModel = CionTypeModel(icon: "", currency: currency, quota: 0.00, handlingCharge: 0.00, minimumCommission: 0.00, cionType:"-1", money:0.00, type: -1, isSelect: false,exchangeRate:1.00)
         self.backgroundColor = .clear
         addSubview(bgView)
         addSubview(titleLabel)
@@ -191,14 +191,14 @@ class BoBQuickBuyAndSellView: UIView {
         }
     func loadData(){
         BoBBuyAndSellCionModel.QueryBalanceByCurrencyRequest(currency:currency ?? "C"){[weak self] data in
-            let model1 = CionTypeModel(icon: data.icon, currency: self?.currency, quota: 0.00, handlingCharge: 0.00, minimumCommission: 0.00, cionType: "0", money: data.t0, type: 0, isSelect: true,exchangeRate:0.00)
+            let model1 = CionTypeModel(icon: data.icon, currency: self?.currency, quota: 0.00, handlingCharge: 0.00, minimumCommission: 0.00, cionType: "0", money: data.t0, type: 0, isSelect: false,exchangeRate:0.00)
             let model2 = CionTypeModel(icon: data.icon, currency: self?.currency, quota: 0.00, handlingCharge: 0.00, minimumCommission: 0.00, cionType: "1", money: data.t1, type: 1, isSelect: false,exchangeRate:0.00)
             self?.cionTypeArray.append(model1)
             self?.cionTypeArray.append(model2)
-            if self?.cionTypeArray.count ?? 0 > 0{
-                self?.chooseCionTypeModel = self?.cionTypeArray[0]
-                self?.refreshUI()
-            }
+//            if self?.cionTypeArray.count ?? 0 > 0{
+//                self?.chooseCionTypeModel = self?.cionTypeArray[0]
+//                self?.refreshUI()
+//            }
         } completionHandler: {errCode,errMsg in
             if errCode == -1{
                 SuperToast.show(title: errMsg)
@@ -257,15 +257,20 @@ class BoBQuickBuyAndSellView: UIView {
          }
     }
     func refreshUI(){
+        self.walletLabel.font = .regularFont(12)
         if chooseCionTypeModel?.type == 0{
             self.walletLabel.text = "T+0钱包"
             self.walletLabel.textColor = .init(hexString: "#00AA3C")
             self.walletLabel.backgroundColor = .init(hexString: "#E5F6EB")
+            self.moneyTitleLabel.text = "T+0可用余额："
         }else{
             self.walletLabel.text = "T+1钱包"
             self.walletLabel.textColor = .init(hexString: "#FFA756")
             self.walletLabel.backgroundColor = .init(hexString: "#FFF7E5")
+            self.moneyTitleLabel.text = "T+1可用余额："
         }
+        moneyTitleLabel.show()
+        moneyLabel.show()
         moneyLabel.text = String(format: "%.2f",(chooseCionTypeModel?.money)!) + (chooseCionTypeModel?.currency)!
     }
     func choosePaymentMedthodType(){
@@ -513,11 +518,10 @@ class BoBQuickBuyAndSellView: UIView {
     lazy var walletLabel: UILabel = {
         let r = UILabel()
         r.textAlignment = .center
-        r.backgroundColor = .init(hexString: "#E5F6EB")
-        r.font = .regularFont(12)
-        r.text = "T+0钱包"
-        r.textColor = .init(hexString: "#00AA3C")
+        r.textColor = .black999
         r.corner(13)
+        r.font = .regularFont(15)
+        r.text = "请选择"
         return r
     }()
     lazy var lineView: UIView = {
@@ -527,6 +531,7 @@ class BoBQuickBuyAndSellView: UIView {
     }()
     lazy var moneyTitleLabel: UILabel = {
         let r = UILabel()
+        r.hide()
         r.textColor = .black666
         r.font = .regularFont(14)
         r.textAlignment = .right
@@ -535,6 +540,7 @@ class BoBQuickBuyAndSellView: UIView {
     }()
     lazy var moneyLabel: UILabel = {
         let r = UILabel()
+        r.hide()
         r.textColor = .primaryColor
         r.font = .mediumFont(14)
         r.textAlignment = .right
@@ -899,6 +905,10 @@ class BoBQuickBuyAndSellView: UIView {
                 }
             }else{
                 SuperToast.show(title: "请输入" + (self?.type == 1 ? "购买":"出售") + ((self?.buyTypeBtn.isSelected)! ? "金额":"数量"))
+                return
+            }
+            if self?.type == 2 && self?.chooseCionTypeModel?.type == -1{
+                SuperToast.show(title:"请选择钱包")
                 return
             }
             if self?.choosePaymentMethod == nil{

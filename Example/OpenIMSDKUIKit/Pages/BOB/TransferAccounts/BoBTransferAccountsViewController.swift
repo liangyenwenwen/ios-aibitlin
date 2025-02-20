@@ -51,7 +51,7 @@ class BoBTransferAccountsViewController:BaseTitleController{
         view.backgroundColor = .colorBackgroundAPP
         initLinearLayoutSafeArea()
         title = "转账"
-        chooseCionTypeModel = CionTypeModel(icon: "", currency: cionType, quota: 0.00, aggregateLimit: 800000.00,handlingCharge: 0.00, minimumCommission: 0.00, cionType: "0", money:0.00, type: 0, isSelect: true,exchangeRate:1.00)
+        chooseCionTypeModel = CionTypeModel(icon: "", currency: cionType, quota: 0.00, aggregateLimit: 800000.00,handlingCharge: 0.00, minimumCommission: 0.00, cionType: "-1", money:0.00, type: -1, isSelect: false,exchangeRate:1.00)
         container.tg_padding = UIEdgeInsets(top: 0, left: PADDING_OUTER, bottom: 0, right: PADDING_OUTER)
         container.addSubview(unRealNameTipView)
         container.addSubview(addressContentView)
@@ -111,14 +111,21 @@ class BoBTransferAccountsViewController:BaseTitleController{
             IMController.shared.isSetPayPassWord = data.secure ?? false
             IMController.shared.certificationLevel = data.certificationLevel ?? 0
             for item in self.transferAccountsHomeData!.externalTransferOutPOS{
-                let model1 = CionTypeModel(icon: item.icon, currency: item.currency, quota: item.quota,aggregateLimit:item.aggregateLimit, handlingCharge: item.handlingCharge, minimumCommission: item.minimumCommission, cionType: "0", money: item.t0, type: 0, isSelect: true,exchangeRate:0.00)
+                let model1 = CionTypeModel(icon: item.icon, currency: item.currency, quota: item.quota,aggregateLimit:item.aggregateLimit, handlingCharge: item.handlingCharge, minimumCommission: item.minimumCommission, cionType: "0", money: item.t0, type: 0, isSelect: false,exchangeRate:0.00)
                 let model2 = CionTypeModel(icon: item.icon, currency: item.currency, quota: item.quota,aggregateLimit:item.aggregateLimit, handlingCharge: item.handlingCharge, minimumCommission: item.minimumCommission, cionType: "1", money: item.t1, type: 1, isSelect: false,exchangeRate:0.00)
                 self.cionTypeArray.append(model1)
                 self.cionTypeArray.append(model2)
             }
             if self.cionTypeArray.count > 0{
-                self.chooseCionTypeModel = self.cionTypeArray[0]
-                self.refreshUI()
+                let model = self.cionTypeArray[0]
+                if (model.quota)! > 0{
+                    self.countTF.placeholder = "限额" + String(format: "%.2f",model.quota!) + model.currency!
+                }else{
+                    self.countTF.placeholder = "限额0.00" + model.currency!
+                }
+                self.countTitleLabel.text = "到账数量" + String(format: "（%@)",model.currency!)
+                self.calculationMoney()
+                self.tipLabel1.text = "24h转账额度：" + String(format: "%.2f/%.2f ", (model.aggregateLimit ?? 0.00)-(model.quota ?? 0.00),model.aggregateLimit ?? 0.00) + (model.currency ?? "C")
             }
             
         }completionHandler: {errCode,errMsg in
@@ -132,6 +139,7 @@ class BoBTransferAccountsViewController:BaseTitleController{
     func refreshUI(){
         cionTypeImageView.sd_setImage(with: URL(string: chooseCionTypeModel?.icon))
         cionNameLabel.text = chooseCionTypeModel?.currency
+        self.walletType.font = .regularFont(12)
         if chooseCionTypeModel?.type == 0{
             self.walletType.text = "T+0钱包"
             self.walletType.textColor = .init(hexString: "#00AA3C")
@@ -141,9 +149,10 @@ class BoBTransferAccountsViewController:BaseTitleController{
             self.walletType.textColor = .init(hexString: "#FFA756")
             self.walletType.backgroundColor = .init(hexString: "#FFF7E5")
         }
-        let str = "可用余额：" + String(format: "%.2f",(chooseCionTypeModel?.money)!) + (chooseCionTypeModel?.currency)!
+        self.totalLabel.show()
+        let str = (chooseCionTypeModel?.type == 0 ? "T+0" : "T+1") + "可用余额：" + String(format: "%.2f",(chooseCionTypeModel?.money)!) + (chooseCionTypeModel?.currency)!
         let attributedString = NSMutableAttributedString(string: str)
-        attributedString.addAttribute(.foregroundColor, value: UIColor.black666, range: NSRange(location: 0, length: 5))
+        attributedString.addAttribute(.foregroundColor, value: UIColor.black666, range: NSRange(location: 0, length: 8))
         self.totalLabel.attributedText = attributedString
         if (chooseCionTypeModel?.quota)! > 0{
             self.countTF.placeholder = "限额" + String(format: "%.2f",(chooseCionTypeModel?.quota)!) + (chooseCionTypeModel?.currency)!
@@ -344,6 +353,7 @@ class BoBTransferAccountsViewController:BaseTitleController{
     }()
     lazy var totalLabel: UILabel = {
         let r = UILabel()
+        r.hide()
         r.textColor = .primaryColor
         r.font = .regularFont(14)
         r.textAlignment = .right
@@ -456,11 +466,14 @@ class BoBTransferAccountsViewController:BaseTitleController{
     }()
     lazy var walletType: UILabel = {
         let r = UILabel()
-        r.textColor = .init(hexString: "#00AA3C")
-        r.backgroundColor = .init(hexString: "#E5F6EB")
+        r.textColor = .black999
+//        r.textColor = .init(hexString: "#00AA3C")
+//        r.backgroundColor = .init(hexString: "#E5F6EB")
         r.corner(13)
-        r.font = .regularFont(12)
-        r.text = "T+0钱包"
+//        r.font = .regularFont(12)
+        r.font = .regularFont(15)
+//        r.text = "T+0钱包"
+        r.text = "请选择"
         r.textAlignment = .center
         return r
     }()
@@ -518,7 +531,10 @@ class BoBTransferAccountsViewController:BaseTitleController{
         r.titleLabel?.font = .semiboldFont(14)
         r.backgroundColor = .primaryColor
         r.rx.tap.subscribe(onNext: { [self] in
-            
+            if self.chooseCionTypeModel?.type == -1{
+                SuperToast.show(title:"请选择钱包")
+                return
+            }
             if IMController.shared.certificationLevel == 0 {
                 let alert = UIAlertController(title: "提示", message: "请先进行实名认证".innerLocalized(), preferredStyle: .alert)
                 // 创建UIAlertAction，用于处理用户的选择

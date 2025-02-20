@@ -64,7 +64,7 @@ class BoBBuyAndSellCionSubDetailViewController: BaseTitleController {
             isSupportAli = true
             isSupportWeixin = true
         }
-        chooseCionTypeModel = CionTypeModel(icon: "", currency: currency, quota: 0.00, handlingCharge: 0.00, minimumCommission: 0.00, cionType:"0", money:0.00, type: 0, isSelect: true,exchangeRate:1.00)
+        chooseCionTypeModel = CionTypeModel(icon: "", currency: currency, quota: 0.00, handlingCharge: 0.00, minimumCommission: 0.00, cionType:"-1", money:0.00, type: -1, isSelect: false,exchangeRate:1.00)
         scrollViewContainer.tg_padding = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         superFooterContainerContainer.tg_bottom.equal(0)
         if type == 2{
@@ -128,16 +128,16 @@ class BoBBuyAndSellCionSubDetailViewController: BaseTitleController {
     }
     func loadWalletData(){
         BoBBuyAndSellCionModel.QueryBalanceByCurrencyRequest(currency:currency){[weak self] data in
-            let model1 = CionTypeModel(icon: data.icon, currency: self?.currency, quota: 0.00, handlingCharge: 0.00, minimumCommission: 0.00, cionType: "0", money: data.t0, type: 0, isSelect: true,exchangeRate:0.00)
+            let model1 = CionTypeModel(icon: data.icon, currency: self?.currency, quota: 0.00, handlingCharge: 0.00, minimumCommission: 0.00, cionType: "0", money: data.t0, type: 0, isSelect: false,exchangeRate:0.00)
             let model2 = CionTypeModel(icon: data.icon, currency: self?.currency, quota: 0.00, handlingCharge: 0.00, minimumCommission: 0.00, cionType: "1", money: data.t1, type: 1, isSelect: false,exchangeRate:0.00)
             self?.cionTypeArray.append(model1)
             self?.cionTypeArray.append(model2)
-            if self?.chooseCionTypeModel?.type == model1.type{
-                self?.chooseCionTypeModel = model1
-            }else{
-                self?.chooseCionTypeModel = model2
-            }
-            self?.refreshUI()
+//            if self?.chooseCionTypeModel?.type == model1.type{
+//                self?.chooseCionTypeModel = model1
+//            }else{
+//                self?.chooseCionTypeModel = model2
+//            }
+//            self?.refreshUI()
         } completionHandler: {errCode,errMsg in
             if errCode == -1{
                 SuperToast.show(title: errMsg)
@@ -149,6 +149,8 @@ class BoBBuyAndSellCionSubDetailViewController: BaseTitleController {
     func refreshUI(){
         cionTypeImageView.sd_setImage(with: URL(string: chooseCionTypeModel?.icon))
         cionNameLabel.text = chooseCionTypeModel?.currency
+        chooseWalletLabel.hide()
+        walletType.show()
         if chooseCionTypeModel?.type == 0{
             walletType.text = "T+0钱包"
             walletType.textColor = .init(hexString: "#00AA3C")
@@ -158,9 +160,9 @@ class BoBBuyAndSellCionSubDetailViewController: BaseTitleController {
             walletType.textColor = .init(hexString: "#FFA756")
             walletType.backgroundColor = .init(hexString: "#FFF7E5")
         }
-        let str = "可用余额：" + String(format: "%.2f",(chooseCionTypeModel?.money)!) + (chooseCionTypeModel?.currency)!
+        let str = (chooseCionTypeModel?.type == 0 ? "T+0" : "T+1") + "可用余额：" + String(format: "%.2f",(chooseCionTypeModel?.money)!) + (chooseCionTypeModel?.currency)!
         let attributedString = NSMutableAttributedString(string: str)
-        attributedString.addAttribute(.foregroundColor, value: UIColor.primaryColor, range: NSRange(location: 5, length: str.length-5))
+        attributedString.addAttribute(.foregroundColor, value: UIColor.primaryColor, range: NSRange(location: 8, length: str.length-8))
         totalMoneyLabel.attributedText = attributedString
         cionTypeImageView.sd_setImage(with: URL(string: chooseCionTypeModel?.icon))
         cionNameLabel.text = chooseCionTypeModel?.currency
@@ -350,6 +352,7 @@ class BoBBuyAndSellCionSubDetailViewController: BaseTitleController {
         r.addSubview(cionTypeImageView)
         r.addSubview(cionNameLabel)
         r.addSubview(walletType)
+        r.addSubview(chooseWalletLabel)
         let rightIcon = UIImageView(image: UIImage(named: "SuperChevronRight"))
         rightIcon.tintColor = .black80
         rightIcon.contentMode = .scaleAspectFit
@@ -397,6 +400,7 @@ class BoBBuyAndSellCionSubDetailViewController: BaseTitleController {
     }()
     lazy var walletType: UILabel = {
         let r = UILabel()
+        r.hide()
         r.tg_width.equal(62)
         r.tg_height.equal(26)
         r.tg_centerY.equal(0)
@@ -409,6 +413,17 @@ class BoBBuyAndSellCionSubDetailViewController: BaseTitleController {
         r.textAlignment = .center
         return r
     }()
+    lazy var chooseWalletLabel: UILabel = {
+        let r = UILabel()
+        r.tg_width.equal(kScreenWidth-160)
+        r.tg_height.equal(26)
+        r.tg_centerY.equal(0)
+        r.tg_left.equal(7)
+        r.textColor = .black999
+        r.font = .regularFont(15)
+        r.text = "请选择T+0或T+1钱包"
+        return r
+    }()
     lazy var totalMoneyLabel: UILabel = {
         let r = UILabel()
         r.tg_top.equal(12)
@@ -418,10 +433,7 @@ class BoBBuyAndSellCionSubDetailViewController: BaseTitleController {
         r.font = .regularFont(14)
         r.textColor = .black666
         r.textAlignment = .right
-        let str = "可用余额：0.00" + currency
-        let attributedString = NSMutableAttributedString(string: str)
-        attributedString.addAttribute(.foregroundColor, value: UIColor.primaryColor, range: NSRange(location: 5, length: str.length-5))
-        r.attributedText = attributedString
+        r.text = ""
         return r
     }()
     lazy var buyCountView: buyAndSellTitleView = {
@@ -643,6 +655,10 @@ class BoBBuyAndSellCionSubDetailViewController: BaseTitleController {
         r.backgroundColor = .primaryColor
         r.rx.tap.subscribe(onNext: { [weak self] in
             self?.view.endEditing(true)
+            if self?.type == 2 && self?.chooseCionTypeModel?.type == -1{
+                SuperToast.show(title:"请选择钱包")
+                return
+            }
             if let doubleValue = Double(self?.countTF.text ?? "0") {
                 if doubleValue == 0{
                     SuperToast.show(title: "请输入" + (self?.type == 1 ? "购买":"出售") + (self?.buyType == 1 ? "金额":"数量"))
