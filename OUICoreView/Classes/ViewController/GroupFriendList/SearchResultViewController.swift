@@ -188,7 +188,7 @@ public class SearchResultViewController: UIViewController, UISearchResultsUpdati
                 ProgressHUD.dismiss()
                 OIMApi.showTipHandle
                 if let handler = OIMApi.showTipHandle {
-                    handler("-1".innerLocalized(), { res in
+                    handler("500".innerLocalized(), { res in
                     })
                 }
             }
@@ -232,7 +232,7 @@ public class SearchResultViewController: UIViewController, UISearchResultsUpdati
                     ProgressHUD.dismiss()
                     OIMApi.showTipHandle
                     if let handler = OIMApi.showTipHandle {
-                        handler("-1".innerLocalized(), { res in
+                        handler("500".innerLocalized(), { res in
                         })
                     }
                 }

@@ -87,11 +87,11 @@ class BoBPaymentModel {
                     if let res = JsonTool.fromJson(strData!, toClass: PaymentNODataResponse.self){
                         completionHandler(res.code, res.message)
                     }else{
-                        completionHandler(-1, "网络错误")
+                        completionHandler(-1, strData)
                     }
                 }
             } else {
-                completionHandler(-1, "网络错误")
+//                completionHandler(-1, "网络错误")
             }
         }
         
@@ -121,11 +121,11 @@ class BoBPaymentModel {
                        if let res = JsonTool.fromJson(strData!, toClass: PaymentNODataResponse.self){
                            completionHandler(res.code, res.message)
                        }else{
-                           completionHandler(-1, "网络错误")
+                           completionHandler(-1, strData)
                        }
                    }
                } else {
-                   completionHandler(-1, "网络错误")
+//                   completionHandler(-1, "网络错误")
                }
            }
            
@@ -181,11 +181,11 @@ class BoBPaymentModel {
                     if let res = JsonTool.fromJson(strData!, toClass: PaymentNODataResponse.self){
                         completionHandler(res.code, res.message)
                     }else{
-                        completionHandler(-1, "网络错误")
+                        completionHandler(-1, strData)
                     }
                 }
             } else {
-                completionHandler(-1, "网络错误")
+//                completionHandler(-1, "网络错误")
             }
         }
         
@@ -219,11 +219,11 @@ class BoBPaymentModel {
                     if let res = JsonTool.fromJson(strData!, toClass: PaymentNODataResponse.self){
                         completionHandler(res.code, res.message)
                     }else{
-                        completionHandler(-1, "网络错误")
+                        completionHandler(-1, strData)
                     }
                 }
             } else {
-                completionHandler(-1, "网络错误")
+//                completionHandler(-1, "网络错误")
             }
         }
         
@@ -259,11 +259,11 @@ class BoBPaymentModel {
                     if let res = JsonTool.fromJson(strData!, toClass: PaymentNODataResponse.self){
                         completionHandler(res.code, res.message)
                     }else{
-                        completionHandler(-1, "网络错误")
+                        completionHandler(-1, strData)
                     }
                 }
             } else {
-                completionHandler(-1, "网络错误")
+//                completionHandler(-1, "网络错误")
             }
         }
         
@@ -297,11 +297,11 @@ class BoBPaymentModel {
                     if let res = JsonTool.fromJson(strData!, toClass: PaymentNODataResponse.self){
                         completionHandler(res.code, res.message)
                     }else{
-                        completionHandler(-1, "网络错误")
+                        completionHandler(-1, strData)
                     }
                 }
             } else {
-                completionHandler(-1, "网络错误")
+//                completionHandler(-1, "网络错误")
             }
         }
         
@@ -336,11 +336,11 @@ class BoBPaymentModel {
                     if let res = JsonTool.fromJson(strData!, toClass: PaymentNODataResponse.self){
                         completionHandler(res.code, res.message)
                     }else{
-                        completionHandler(-1, "网络错误")
+                        completionHandler(-1, strData)
                     }
                 }
             } else {
-                completionHandler(-1, "网络错误")
+//                completionHandler(-1, "网络错误")
             }
         }
         
@@ -384,11 +384,11 @@ class BoBPaymentModel {
                     if let res = JsonTool.fromJson(strData!, toClass: PaymentNODataResponse.self){
                         completionHandler(res.code, res.message)
                     }else{
-                        completionHandler(-1, "网络错误")
+                        completionHandler(-1, strData)
                     }
                 }
             } else {
-                completionHandler(-1, "网络错误")
+//                completionHandler(-1, "网络错误")
             }
         }
         
@@ -429,11 +429,11 @@ class BoBPaymentModel {
                     if let res = JsonTool.fromJson(strData!, toClass: PaymentNODataResponse.self){
                         completionHandler(res.code, res.message)
                     }else{
-                        completionHandler(-1, "网络错误")
+                        completionHandler(-1, strData)
                     }
                 }
             } else {
-                completionHandler(-1, "网络错误")
+//                completionHandler(-1, "网络错误")
             }
         }
         
@@ -469,11 +469,11 @@ class BoBPaymentModel {
                  if let res = JsonTool.fromJson(strData!, toClass: PaymentNODataResponse.self){
                      completionHandler(res.code, res.message)
                  }else{
-                     completionHandler(-1, "网络错误")
+                     completionHandler(-1, strData)
                  }
              }
          } else {
-             completionHandler(-1, "网络错误")
+//             completionHandler(-1, "网络错误")
          }
      }
      

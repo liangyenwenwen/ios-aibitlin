@@ -84,7 +84,11 @@ class BoBOrderDetailViewController: BaseTitleController {
             self?.updateUI()
         } completionHandler:{[weak self] errCode,errMsg in
             if self?.orderDetail == nil{
-                SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
+                if errCode == -1{
+                    SuperToast.show(title: errMsg)
+                }else{
+                    SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
+                }
             }
         }
     }
@@ -842,7 +846,11 @@ class BoBOrderDetailViewController: BaseTitleController {
                     SuperToast.show(title: "取消成功")
                     self?.loadData()
                 }else{
-                    SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
+                    if errCode == -1{
+                        SuperToast.show(title: errMsg)
+                    }else{
+                        SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
+                    }
                 }
             }
         }).disposed(by: rx.disposeBag)
@@ -882,7 +890,11 @@ class BoBOrderDetailViewController: BaseTitleController {
                         SuperToast.show(title: "接单成功")
                         self?.loadData()
                     }else{
-                        SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
+                        if errCode == -1{
+                            SuperToast.show(title: errMsg)
+                        }else{
+                            SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
+                        }
                     }
                 }
             }else{
@@ -920,7 +932,11 @@ class BoBOrderDetailViewController: BaseTitleController {
                 if errCode == 620000{
                     self?.loadData()
                 }else{
-                    SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
+                    if errCode == -1{
+                        SuperToast.show(title: errMsg)
+                    }else{
+                        SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
+                    }
                 }
             }
         }).disposed(by: rx.disposeBag)

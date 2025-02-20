@@ -110,7 +110,11 @@ class BoBBuyAndSellCionMainViewController: BaseTitleController {
             }
             NotificationCenter.default.post(name: Notification.Name("refreshPaymentList"), object: nil,userInfo: ["homeData":data])
         } completionHandler:{errCode,errMsg in
-            SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
+            if errCode == -1{
+                SuperToast.show(title: errMsg)
+            }else{
+                SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
+            }
         }
     }
     func loadData(){
@@ -123,7 +127,11 @@ class BoBBuyAndSellCionMainViewController: BaseTitleController {
                 self?.freeCionVC?.reloadVCData(data: data)
             }
         } completionHandler:{errCode,errMsg in
-            SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
+            if errCode == -1{
+                SuperToast.show(title: errMsg)
+            }else{
+                SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
+            }
         }
     }
     lazy var navBgView: UIView = {

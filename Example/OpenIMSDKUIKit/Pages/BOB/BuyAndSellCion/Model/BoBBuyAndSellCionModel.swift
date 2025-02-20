@@ -79,11 +79,11 @@ class BoBBuyAndSellCionModel {
                     if let res1 = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellNODataResponse.self){
                         completionHandler(res1.code, res1.message)
                     }else{
-                        completionHandler(-1, "网络错误")
+                        completionHandler(-1, strData)
                     }
                 }
             } else {
-                completionHandler(-1, "网络错误")
+//                completionHandler(-1, "网络错误")
             }
         }
         
@@ -114,11 +114,11 @@ class BoBBuyAndSellCionModel {
                     if let res = JsonTool.fromJson(strData!, toClass: YFNODataResponse.self){
                         completionHandler(res.code, res.message)
                     }else{
-                        completionHandler(-1, "网络错误")
+                        completionHandler(-1, strData)
                     }
                 }
             } else {
-                completionHandler(-1, "网络错误")
+//                completionHandler(-1, "网络错误")
             }
         }
         
@@ -153,11 +153,11 @@ class BoBBuyAndSellCionModel {
                     if let res = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellNODataResponse.self){
                         completionHandler(res.code, res.message)
                     }else{
-                        completionHandler(-1, "网络错误")
+                        completionHandler(-1, strData)
                     }
                 }
             } else {
-                completionHandler(-1, "网络错误")
+//                completionHandler(-1, "网络错误")
             }
         }
         
@@ -185,11 +185,11 @@ class BoBBuyAndSellCionModel {
                     if let res = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellNODataResponse.self){
                         completionHandler(res.code, res.message)
                     }else{
-                        completionHandler(-1, "网络错误")
+                        completionHandler(-1, strData)
                     }
                 }
             } else {
-                completionHandler(-1, "网络错误")
+//                completionHandler(-1, "网络错误")
             }
         }
         
@@ -220,11 +220,11 @@ class BoBBuyAndSellCionModel {
                     if let res = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellNODataResponse.self){
                         completionHandler(res.code, res.message)
                     }else{
-                        completionHandler(-1, "网络错误")
+                        completionHandler(-1, strData)
                     }
                 }
             } else {
-                completionHandler(-1, "网络错误")
+//                completionHandler(-1, "网络错误")
             }
         }
         
@@ -255,11 +255,11 @@ class BoBBuyAndSellCionModel {
                     if let res = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellNODataResponse.self){
                         completionHandler(res.code, res.message)
                     }else{
-                        completionHandler(-1, "网络错误")
+                        completionHandler(-1, strData)
                     }
                 }
             } else {
-                completionHandler(-1, "网络错误")
+//                completionHandler(-1, "网络错误")
             }
         }
         
@@ -283,11 +283,11 @@ class BoBBuyAndSellCionModel {
                     if let res = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellNODataResponse.self){
                         completionHandler(res.code, res.message)
                     }else{
-                        completionHandler(-1, "网络错误")
+                        completionHandler(-1, strData)
                     }
                 }
             } else {
-                completionHandler(-1, "网络错误")
+//                completionHandler(-1, "网络错误")
             }
         }
         
@@ -323,11 +323,11 @@ class BoBBuyAndSellCionModel {
                     if let res = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellNODataResponse.self){
                         completionHandler(res.code, res.message)
                     }else{
-                        completionHandler(-1, "网络错误")
+                        completionHandler(-1, strData)
                     }
                 }
             } else {
-                completionHandler(-1, "网络错误")
+//                completionHandler(-1, "网络错误")
             }
         }
         
@@ -362,11 +362,11 @@ class BoBBuyAndSellCionModel {
                     if let res = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellNODataResponse.self){
                         completionHandler(res.code, res.message)
                     }else{
-                        completionHandler(-1, "网络错误")
+                        completionHandler(-1, strData)
                     }
                 }
             } else {
-                completionHandler(-1, "网络错误")
+//                completionHandler(-1, "网络错误")
             }
         }
         
@@ -397,11 +397,11 @@ class BoBBuyAndSellCionModel {
                     if let res = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellNODataResponse.self){
                         completionHandler(res.code, res.message)
                     }else{
-                        completionHandler(-1, "网络错误")
+                        completionHandler(-1, strData)
                     }
                 }
             } else {
-                completionHandler(-1, "网络错误")
+//                completionHandler(-1, "网络错误")
             }
         }
         
@@ -432,11 +432,11 @@ class BoBBuyAndSellCionModel {
                     if let res = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellNODataResponse.self){
                         completionHandler(res.code, res.message)
                     }else{
-                        completionHandler(-1, "网络错误")
+                        completionHandler(-1, strData)
                     }
                 }
             } else {
-                completionHandler(-1, "网络错误")
+//                completionHandler(-1, "网络错误")
             }
         }
         
@@ -470,11 +470,11 @@ class BoBBuyAndSellCionModel {
                     if let res = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellNODataResponse.self){
                         completionHandler(res.code, res.message)
                     }else{
-                        completionHandler(-1, "网络错误")
+                        completionHandler(-1, strData)
                     }
                 }
             } else {
-                completionHandler(-1, "网络错误")
+//                completionHandler(-1, "网络错误")
             }
         }
         
@@ -515,11 +515,11 @@ class BoBBuyAndSellCionModel {
                     if let res = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellNODataResponse.self){
                         completionHandler(res.code, res.message)
                     }else{
-                        completionHandler(-1, "网络错误")
+                        completionHandler(-1, strData)
                     }
                 }
             } else {
-                completionHandler(-1, "网络错误")
+//                completionHandler(-1, "网络错误")
             }
         }
         
@@ -554,11 +554,11 @@ class BoBBuyAndSellCionModel {
                     if let res = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellNODataResponse.self){
                         completionHandler(res.code, res.message)
                     }else{
-                        completionHandler(-1, "网络错误")
+                        completionHandler(-1, strData)
                     }
                 }
             } else {
-                completionHandler(-1, "网络错误")
+//                completionHandler(-1, "网络错误")
             }
         }
     }
@@ -589,11 +589,11 @@ class BoBBuyAndSellCionModel {
                     if let res = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellNODataResponse.self){
                         completionHandler(res.code, res.message)
                     }else{
-                        completionHandler(-1, "网络错误")
+                        completionHandler(-1, strData)
                     }
                 }
             } else {
-                completionHandler(-1, "网络错误")
+//                completionHandler(-1, "网络错误")
             }
         }
     }
@@ -616,11 +616,11 @@ class BoBBuyAndSellCionModel {
                     if let res = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellNODataResponse.self){
                         completionHandler(res.code, res.message)
                     }else{
-                        completionHandler(-1, "网络错误")
+                        completionHandler(-1, strData)
                     }
                 }
             } else {
-                completionHandler(-1, "网络错误")
+//                completionHandler(-1, "网络错误")
             }
         }
     }
@@ -644,11 +644,11 @@ class BoBBuyAndSellCionModel {
                     if let res = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellNODataResponse.self){
                         completionHandler(res.code, res.message)
                     }else{
-                        completionHandler(-1, "网络错误")
+                        completionHandler(-1, strData)
                     }
                 }
             } else {
-                completionHandler(-1, "网络错误")
+//                completionHandler(-1, "网络错误")
             }
         }
     }
@@ -672,11 +672,11 @@ class BoBBuyAndSellCionModel {
                     if let res = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellNODataResponse.self){
                         completionHandler(res.code, res.message)
                     }else{
-                        completionHandler(-1, "网络错误")
+                        completionHandler(-1, strData)
                     }
                 }
             } else {
-                completionHandler(-1, "网络错误")
+//                completionHandler(-1, "网络错误")
             }
         }
     }
@@ -699,11 +699,11 @@ class BoBBuyAndSellCionModel {
                     if let res = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellNODataResponse.self){
                         completionHandler(res.code, res.message)
                     }else{
-                        completionHandler(-1, "网络错误")
+                        completionHandler(-1, strData)
                     }
                 }
             } else {
-                completionHandler(-1, "网络错误")
+//                completionHandler(-1, "网络错误")
             }
         }
     }
@@ -726,11 +726,11 @@ class BoBBuyAndSellCionModel {
                     if let res = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellNODataResponse.self){
                         completionHandler(res.code, res.message)
                     }else{
-                        completionHandler(-1, "网络错误")
+                        completionHandler(-1, strData)
                     }
                 }
             } else {
-                completionHandler(-1, "网络错误")
+//                completionHandler(-1, "网络错误")
             }
         }
     }
@@ -754,11 +754,11 @@ class BoBBuyAndSellCionModel {
                     if let res = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellNODataResponse.self){
                         completionHandler(res.code, res.message)
                     }else{
-                        completionHandler(-1, "网络错误")
+                        completionHandler(-1, strData)
                     }
                 }
             } else {
-                completionHandler(-1, "网络错误")
+//                completionHandler(-1, "网络错误")
             }
         }
     }
@@ -786,11 +786,11 @@ class BoBBuyAndSellCionModel {
                     if let res = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellNODataResponse.self){
                         completionHandler(res.code, res.message)
                     }else{
-                        completionHandler(-1, "网络错误")
+                        completionHandler(-1, strData)
                     }
                 }
             } else {
-                completionHandler(-1, "网络错误")
+//                completionHandler(-1, "网络错误")
             }
         }
     }
@@ -822,11 +822,11 @@ class BoBBuyAndSellCionModel {
                     if let res = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellNODataResponse.self){
                         completionHandler(res.code, res.message)
                     }else{
-                        completionHandler(-1, "网络错误")
+                        completionHandler(-1, strData)
                     }
                 }
             } else {
-                completionHandler(-1, "网络错误")
+//                completionHandler(-1, "网络错误")
             }
         }
     }
@@ -863,11 +863,11 @@ class BoBBuyAndSellCionModel {
                     if let res = JsonTool.fromJson(strData!, toClass: BoBBuyAndSellNODataResponse.self){
                         completionHandler(res.code, res.message)
                     }else{
-                        completionHandler(-1, "网络错误")
+                        completionHandler(-1, strData)
                     }
                 }
             } else {
-                completionHandler(-1, "网络错误")
+//                completionHandler(-1, "网络错误")
             }
         }
     }

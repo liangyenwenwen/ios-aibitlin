@@ -68,11 +68,11 @@ class BoBRedPacketModel {
                     if let res = JsonTool.fromJson(strData!, toClass: BoBRedPacketNODataResponse.self){
                         completionHandler(res.code, res.message)
                     }else{
-                        completionHandler(-1, "网络错误")
+                        completionHandler(-1, strData)
                     }
                 }
             } else {
-                completionHandler(-1, "网络错误")
+//                completionHandler(-1, "网络错误")
             }
         }
         
@@ -114,11 +114,11 @@ class BoBRedPacketModel {
                     if let res = JsonTool.fromJson(strData!, toClass: BoBRedPacketNODataResponse.self){
                         completionHandler(res.code, res.message)
                     }else{
-                        completionHandler(-1, "网络错误")
+                        completionHandler(-1, strData)
                     }
                 }
             } else {
-                completionHandler(-1, "网络错误")
+//                completionHandler(-1, "网络错误")
             }
         }
         
@@ -165,11 +165,11 @@ class BoBRedPacketModel {
                     if let res = JsonTool.fromJson(strData!, toClass: BoBRedPacketNODataResponse.self){
                         completionHandler(res.code, res.message)
                     }else{
-                        completionHandler(-1, "网络错误")
+                        completionHandler(-1, strData)
                     }
                 }
             } else {
-                completionHandler(-1, "网络错误")
+//                completionHandler(-1, "网络错误")
             }
             
             
@@ -211,11 +211,11 @@ class BoBRedPacketModel {
                     if let res = JsonTool.fromJson(strData!, toClass: BoBRedPacketNODataResponse.self){
                         completionHandler(res.code, res.message)
                     }else{
-                        completionHandler(-1, "网络错误")
+                        completionHandler(-1, strData)
                     }
                 }
             } else {
-                completionHandler(-1, "网络错误")
+//                completionHandler(-1, "网络错误")
             }
         }
         
@@ -246,11 +246,11 @@ class BoBRedPacketModel {
                     if let res = JsonTool.fromJson(strData!, toClass: BoBRedPacketNODataResponse.self){
                         completionHandler(res.code, res.message)
                     }else{
-                        completionHandler(-1, "网络错误")
+                        completionHandler(-1, strData)
                     }
                 }
             } else {
-                completionHandler(-1, "网络错误")
+//                completionHandler(-1, "网络错误")
             }
         }
         
@@ -281,11 +281,11 @@ class BoBRedPacketModel {
                     if let res = JsonTool.fromJson(strData!, toClass: BoBRedPacketNODataResponse.self){
                         completionHandler(res.code, res.message)
                     }else{
-                        completionHandler(-1, "网络错误")
+                        completionHandler(-1, strData)
                     }
                 }
             } else {
-                completionHandler(-1, "网络错误")
+//                completionHandler(-1, "网络错误")
             }
         }
         
@@ -316,11 +316,11 @@ class BoBRedPacketModel {
                     if let res = JsonTool.fromJson(strData!, toClass: BoBRedPacketNODataResponse.self){
                         completionHandler(res.code, res.message)
                     }else{
-                        completionHandler(-1, "网络错误")
+                        completionHandler(-1, strData)
                     }
                 }
             } else {
-                completionHandler(-1, "网络错误")
+//                completionHandler(-1, "网络错误")
             }
         }
         
@@ -352,11 +352,11 @@ class BoBRedPacketModel {
                     if let res = JsonTool.fromJson(strData!, toClass: BoBRedPacketNODataResponse.self){
                         completionHandler(res.code, res.message)
                     }else{
-                        completionHandler(-1, "网络错误")
+                        completionHandler(-1, strData)
                     }
                 }
             } else {
-                completionHandler(-1, "网络错误")
+//                completionHandler(-1, "网络错误")
             }
         }
         

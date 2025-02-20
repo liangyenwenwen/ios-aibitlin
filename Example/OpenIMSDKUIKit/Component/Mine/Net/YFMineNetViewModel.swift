@@ -81,11 +81,11 @@ extension YFMineNetViewModel {
                      if let res1 = JsonTool.fromJson(strData!, toClass: YFIMNODataResponse.self) {
                          SuperToast.show(title: String(res1.errCode) + "：" + String(res1.errCode).localized())
                      }else{
-                         SuperToast.show(title: "-1".localized())
+                         SuperToast.show(title: strData)
                      }
                  }
              }else{
-                 SuperToast.show(title: "-1".localized())
+//                 SuperToast.show(title: "-1".localized())
              }
          }
     }
@@ -133,12 +133,12 @@ extension YFMineNetViewModel {
                     if let res1 = JsonTool.fromJson(strData!, toClass: YFNODataResponse.self) {
                         SuperToast.show(title: String(res1.code) + "：" + String(res1.code).localized())
                     }else{
-                        SuperToast.show(title: "-1".localized())
+                        SuperToast.show(title: strData)
                     }
                 }
    
             }else{
-                SuperToast.show(title: "-1".localized())
+//                SuperToast.show(title: "-1".localized())
             }
         }
     }

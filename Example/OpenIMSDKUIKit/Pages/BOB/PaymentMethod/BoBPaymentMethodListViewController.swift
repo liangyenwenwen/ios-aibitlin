@@ -94,7 +94,11 @@ class BoBPaymentMethodListViewController:UIViewController{
                 self.unRealNameTipView.hide()
             }
         } completionHandler: {errCode,errMsg in
-            SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
+            if errCode == -1{
+                SuperToast.show(title: errMsg)
+            }else{
+                SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
+            }
         }
     }
     @objc func addPayMentMethodBtn() {
@@ -179,7 +183,11 @@ extension BoBPaymentMethodListViewController: UITableViewDataSource, UITableView
                 self.tableView.reloadData()
                 self.emptyView.isHidden = self.listArray.count > 0
             }else{
-                SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
+                if errCode == -1{
+                    SuperToast.show(title: errMsg)
+                }else{
+                    SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
+                }
             }
         }
     }

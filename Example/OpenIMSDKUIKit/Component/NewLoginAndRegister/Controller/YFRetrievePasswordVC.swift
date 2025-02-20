@@ -231,7 +231,11 @@ class YFRetrievePasswordVC: BaseLogicController {
                 SuperToast.show(title: "changed".localized() + "success".localized())
                 self.navigationController?.popToRootViewController(animated: true)
             } else {
-                SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
+                if errCode == -1{
+                    SuperToast.show(title: errMsg)
+                }else{
+                    SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
+                }
             }
             ProgressHUD.dismiss()
         }

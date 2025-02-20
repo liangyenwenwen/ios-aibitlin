@@ -142,7 +142,11 @@ class BoBFreeBuyAndSellView: UIView {
                 self?.tableView.mj_footer?.endRefreshing()
             }
         }completionHandler: {[weak self]errCode,errMsg in
-            SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
+            if errCode == -1{
+                SuperToast.show(title: errMsg)
+            }else{
+                SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
+            }
             self?.tableView.mj_header?.endRefreshing()
             self?.tableView.mj_footer?.endRefreshing()
         }

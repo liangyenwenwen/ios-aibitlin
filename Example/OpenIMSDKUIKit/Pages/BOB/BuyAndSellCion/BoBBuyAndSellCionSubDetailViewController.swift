@@ -119,7 +119,11 @@ class BoBBuyAndSellCionSubDetailViewController: BaseTitleController {
             self?.buyCountLabel.text = "买入" + String(format: "%d", data.buy ?? 0)
             self?.sellCountLabel.text = "卖出" + String(format: "%d", data.sell ?? 0)
         } completionHandler: {errCode,errMsg in
-            SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
+            if errCode == -1{
+                SuperToast.show(title: errMsg)
+            }else{
+                SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
+            }
         }
     }
     func loadWalletData(){
@@ -135,7 +139,11 @@ class BoBBuyAndSellCionSubDetailViewController: BaseTitleController {
             }
             self?.refreshUI()
         } completionHandler: {errCode,errMsg in
-            SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
+            if errCode == -1{
+                SuperToast.show(title: errMsg)
+            }else{
+                SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
+            }
         }
     }
     func refreshUI(){

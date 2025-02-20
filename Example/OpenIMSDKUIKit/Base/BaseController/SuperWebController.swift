@@ -34,7 +34,7 @@ class SuperWebController: BaseTitleController, WKNavigationDelegate {
         }
         
         if !NetworkStatus.isReacheable {
-            SuperToast.show(title: "-1".localized())
+            SuperToast.show(title: "500".localized())
         }
       
     }

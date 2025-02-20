@@ -200,7 +200,11 @@ class BoBQuickBuyAndSellView: UIView {
                 self?.refreshUI()
             }
         } completionHandler: {errCode,errMsg in
-            SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
+            if errCode == -1{
+                SuperToast.show(title: errMsg)
+            }else{
+                SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
+            }
         }
     }
     func loadDailyLimit(){
@@ -208,7 +212,11 @@ class BoBQuickBuyAndSellView: UIView {
             self?.dailyLimitModel = data
             self?.refreshDailyLimitUI()
         } completionHandler: {errCode,errMsg in
-            SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
+            if errCode == -1{
+                SuperToast.show(title: errMsg)
+            }else{
+                SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
+            }
         }
     }
     func refreshDailyLimitUI(){
@@ -932,7 +940,11 @@ class BoBQuickBuyAndSellView: UIView {
                         if errCode == 620082{
                             self?.errorAlertViewShow()
                         }else{
-                            SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
+                            if errCode == -1{
+                                SuperToast.show(title: errMsg)
+                            }else{
+                                SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
+                            }
                         }
                     }
                 }else{
@@ -952,7 +964,11 @@ class BoBQuickBuyAndSellView: UIView {
                                         self?.errorAlertViewShow()
                                     }
                                 }else{
-                                    SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
+                                    if errCode == -1{
+                                        SuperToast.show(title: errMsg)
+                                    }else{
+                                        SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
+                                    }
                                 }
                             }
 

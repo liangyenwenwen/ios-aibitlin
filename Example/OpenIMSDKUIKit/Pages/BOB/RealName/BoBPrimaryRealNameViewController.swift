@@ -104,7 +104,11 @@ class BoBPrimaryRealNameViewController:UIViewController{
             self?.nameLabel.text = data.name
             self?.idCardLabel.text = data.cardId
         }completionHandler: {errCode, errMsg in
-            SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
+            if errCode == -1{
+                SuperToast.show(title: errMsg)
+            }else{
+                SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
+            }
         }
     }
     lazy var idTitleLabel:UILabel = {
@@ -256,7 +260,11 @@ class BoBPrimaryRealNameViewController:UIViewController{
                             self?.navigationController?.popToRootViewController(animated: true)
                         }
                     }else{
-                        SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
+                        if errCode == -1{
+                            SuperToast.show(title: errMsg)
+                        }else{
+                            SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
+                        }
                     }
                 }
             }else{

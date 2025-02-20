@@ -97,7 +97,11 @@ class BoBReceiveTransferAccountsDetailViewController: BaseTitleController {
                 self!.updateTransferAccountsStatus(status)
             }
         } completionHandler:{errCode,errMsg in
-            SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
+            if errCode == -1{
+                SuperToast.show(title: errMsg)
+            }else{
+                SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
+            }
         }
     }
     lazy var topLineView: UIView = {
@@ -304,7 +308,11 @@ class BoBReceiveTransferAccountsDetailViewController: BaseTitleController {
                 }
                 
             }completionHandler: {errCode,errMsg in
-                SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
+                if errCode == -1{
+                    SuperToast.show(title: errMsg)
+                }else{
+                    SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
+                }
             }
             
         }).disposed(by: rx.disposeBag)

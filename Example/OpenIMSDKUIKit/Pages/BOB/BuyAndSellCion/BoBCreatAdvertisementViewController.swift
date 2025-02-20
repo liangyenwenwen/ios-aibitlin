@@ -150,7 +150,11 @@ class BoBCreatAdvertisementViewController: BaseTitleController {
             }
             self?.refreshUI()
         } completionHandler: {errCode,errMsg in
-            SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
+            if errCode == -1{
+                SuperToast.show(title: errMsg)
+            }else{
+                SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
+            }
         }
     }
     func refreshUI(){
@@ -1287,7 +1291,11 @@ class BoBCreatAdvertisementViewController: BaseTitleController {
                 }
                 self?.navigationController?.popViewController(animated: true)
             }else{
-                SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
+                if errCode == -1{
+                    SuperToast.show(title: errMsg)
+                }else{
+                    SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
+                }
             }
         }
     }

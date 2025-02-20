@@ -742,7 +742,7 @@ open class AccountViewModel {
                         completionHandler(res.code, res.message)
                     }
                 } else {
-                    completionHandler(-1, "failure")
+                    completionHandler(-1, strData)
                 }
             } else {
                 completionHandler(-1, "failure")

@@ -363,7 +363,11 @@ class BoBAddPaymentMethodViewController:UIViewController{
                     NotificationCenter.default.post(name: Notification.Name("addPaymentSuccess"), object: nil)
                     self.navigationController?.popViewController(animated: true)
                 }else{
-                    SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
+                    if errCode == -1{
+                        SuperToast.show(title: errMsg)
+                    }else{
+                        SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
+                    }
                 }
             }
             

@@ -444,7 +444,11 @@ extension YFChooseUserAvatarCardView {
                 AccountViewModel.updateUserInfo(userID: IMController.shared.uid, faceURL:data[self.currentIndex]) { errCode, errMsg in
                     ProgressHUD.dismiss()
                     if errCode != 0 {
-                        SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
+                        if errCode == -1{
+                            SuperToast.show(title: errMsg)
+                        }else{
+                            SuperToast.show(title: String(errCode) + "：" + String(errCode).localized())
+                        }
                     } else {
                         print("保存成功")
                         self.bottomShow(show: false)
