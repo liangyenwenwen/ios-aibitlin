@@ -174,7 +174,7 @@ public class MyContactsViewController: UIViewController {
             let result = await IMController.shared.getAllConversations()
             
             await MainActor.run {
-                self.frequent = result.map({ ContactInfo(ID: $0.userID ?? $0.groupID, name: $0.showName, faceURL: $0.faceURL) })
+                self.frequent = result.map({ ContactInfo(ID:($0.userID?.length != 0) ? $0.userID : $0.groupID, name: $0.showName, faceURL: $0.faceURL,type: ($0.userID?.length != 0) ? .user : .group) })
                 
                 self.tableView.reloadData()
             }

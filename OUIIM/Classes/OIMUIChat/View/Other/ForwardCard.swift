@@ -117,7 +117,7 @@ class ForwardCard: UIView, UITextFieldDelegate {
         
         v.rx.tap.subscribe { [weak self] _ in
             self?.cancelHandler?()
-        }.disposed(by: disposeBag)
+        }
         return v
     }()
     
@@ -128,7 +128,7 @@ class ForwardCard: UIView, UITextFieldDelegate {
         
         v.rx.tap.subscribe { [weak self] _ in
             self?.confirmHandler?(self?.textFiled.text?.trimmingCharacters(in: .whitespacesAndNewlines))
-        }.disposed(by: disposeBag)
+        }
         return v
     }()
     

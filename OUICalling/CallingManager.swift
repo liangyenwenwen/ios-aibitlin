@@ -366,6 +366,7 @@ public class CallingManager: NSObject {
         offlinePushInfo.iOSPushSound = "call.mp3"
 //        offlinePushInfo.title = "iPhone1333"
         offlinePushInfo.desc = isVideo ? "邀请你视频通话" : "邀请你语音通话"
+        offlinePushInfo.ex = info.mediaType
         if let groupID, !groupID.isEmpty {
             offlinePushInfo.title = "Someone invited you to a group chat."
         }
