@@ -261,10 +261,12 @@ extension AccountViewModel {
                         GKCover.hide()
                         completion(redPacketStaus)
                         if scour.data?.sendUserId == IMController.shared.uid || redPacketStaus == "1"{
-                            let redPacketDetailVC = BoBReceiveRedPacketDetailViewController()
-                            redPacketDetailVC.redPacketMessage = scour
-                            redPacketDetailVC.hidesBottomBarWhenPushed = true
-                            vc.gotoController(redPacketDetailVC)
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                let redPacketDetailVC = BoBReceiveRedPacketDetailViewController()
+                                redPacketDetailVC.redPacketMessage = scour
+                                redPacketDetailVC.hidesBottomBarWhenPushed = true
+                                vc.gotoController(redPacketDetailVC)
+                            }
                         }
                     }
                     GKCover.cover(from: vc.view, contentView: receiveRedPacketAlertView, style: .translucent, showStyle: .center, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
@@ -286,10 +288,12 @@ extension AccountViewModel {
                 GKCover.hide()
                 completion(redPacketStaus)
                 if scour.data?.sendUserId == IMController.shared.uid || redPacketStaus == "1"{
-                    let redPacketDetailVC = BoBReceiveRedPacketDetailViewController()
-                    redPacketDetailVC.redPacketMessage = scour
-                    redPacketDetailVC.hidesBottomBarWhenPushed = true
-                    vc.gotoController(redPacketDetailVC)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        let redPacketDetailVC = BoBReceiveRedPacketDetailViewController()
+                        redPacketDetailVC.redPacketMessage = scour
+                        redPacketDetailVC.hidesBottomBarWhenPushed = true
+                        vc.gotoController(redPacketDetailVC)
+                    }
                 }
             }
             GKCover.cover(from: vc.view, contentView: receiveRedPacketAlertView, style: .translucent, showStyle: .center, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)

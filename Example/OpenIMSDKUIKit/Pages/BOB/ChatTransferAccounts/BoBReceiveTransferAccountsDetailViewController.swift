@@ -13,6 +13,13 @@ class BoBReceiveTransferAccountsDetailViewController: BaseTitleController {
     var transferAccountsMessage:TransferAccountsMessageStatus?
     var transferAccountsDetail:BoBSendTransferAccountsData?
     var updateTransferAccountsStatus:((_ status:String)->())!
+    var transferAccountsStatus:String = "-1"
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        if self.updateTransferAccountsStatus != nil && self.transferAccountsStatus != "-1"{
+            self.updateTransferAccountsStatus(self.transferAccountsStatus)
+        }
+    }
     override func initViews() {
         super.initViews()
         view.backgroundColor = .colorBackgroundAPP
@@ -93,9 +100,10 @@ class BoBReceiveTransferAccountsDetailViewController: BaseTitleController {
                 }
                 status = "2"
             }
-            if self!.updateTransferAccountsStatus != nil{
-                self!.updateTransferAccountsStatus(status)
-            }
+                self?.transferAccountsStatus = status
+//            if self!.updateTransferAccountsStatus != nil{
+//                self!.updateTransferAccountsStatus(status)
+//            }
         } completionHandler:{errCode,errMsg in
             if errCode == -1{
                 SuperToast.show(title: errMsg)
@@ -303,9 +311,10 @@ class BoBReceiveTransferAccountsDetailViewController: BaseTitleController {
                     }
                     status = "2"
                 }
-                if self!.updateTransferAccountsStatus != nil{
-                    self!.updateTransferAccountsStatus(status)
-                }
+                self?.transferAccountsStatus = status
+//                if self!.updateTransferAccountsStatus != nil{
+//                    self!.updateTransferAccountsStatus(status)
+//                }
                 
             }completionHandler: {errCode,errMsg in
                 if errCode == -1{

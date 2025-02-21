@@ -48,8 +48,8 @@ class BoBRedPacketTipView: TGLinearLayout {
         contentLabel.text =  (redPacketInfo.data?.sendUserName ?? "") + "发的专属红包仅限" + (redPacketInfo.data?.receiverName ?? "") + "领取"
     }
     func bindTransferAccountData(transferInfo:TransferAccountsMessageStatus){
-        titleLabel.text =  (transferInfo.data?.sendUserName ?? "") + "发的转账"
-        contentLabel.text =  (transferInfo.data?.sendUserName ?? "") + "发的转账仅限" + (transferInfo.data?.receiverName ?? "") + "领取"
+        titleLabel.text =  (transferInfo.data?.sendUserName ?? "") + "的转账"
+        contentLabel.text =  (transferInfo.data?.sendUserName ?? "") + "的转账仅限" + (transferInfo.data?.receiverName ?? "") + "领取"
     }
     lazy var titleLabel: UILabel = {
         let r = UILabel()

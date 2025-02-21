@@ -363,7 +363,7 @@ public class CallingManager: NSObject {
         
         var offlinePushInfo = OIMOfflinePushInfo()
         offlinePushInfo.iOSBadgeCount = true
-        offlinePushInfo.iOSPushSound = "call.caf"
+        offlinePushInfo.iOSPushSound = "call.mp3"
 //        offlinePushInfo.title = "iPhone1333"
         offlinePushInfo.desc = isVideo ? "邀请你视频通话" : "邀请你语音通话"
         if let groupID, !groupID.isEmpty {

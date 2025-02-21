@@ -67,8 +67,8 @@ class OrderNoticeMessageView: UIView {
         }
     }
     func loadData(){
-//        let API_BOB_URL = "https://web.pk-im.com"
-        let API_BOB_URL = "http://192.168.7.128:18729"
+        let API_BOB_URL = "https://web.pk-im.com"
+//        let API_BOB_URL = "http://192.168.7.128:18729"
         let OrderDetails = "/wallet/userOrderDetails/orderDetails"//订单详情
         let code = currentShowMessage?.detail?.code as! String
         let param = ["code": code] as [String : Any]
