@@ -418,6 +418,7 @@ final class DefaultChatController: ChatController {
     
     private func getMeetingRoom() {
 #if ENABLE_LIVE_ROOM
+        CallingManager.manager.currentGroupID = receiverId
         IMController.shared.getRoomSignalingInfoByGroupID(groupID: receiverId) { [self] isVideo, members in
             self.delegate?.roomParticipantChanged(isVideo: isVideo, members: members)
         }

@@ -43,7 +43,7 @@ public class CallingManager: NSObject {
     // in the livekit room
     private var participantsID: [String] = []
     private var currentIsGroup = false
-    private var currentGroupID: String?
+    public var currentGroupID: String?
     
     private var isPresented: Bool = false // 是否弹出界面
     private var liveURL: String?
@@ -76,6 +76,7 @@ public class CallingManager: NSObject {
         
         if let signalingInfo {
             if inviteeUsersID.contains(OIMManager.manager.getLoginUserID()) {
+                signalingInfo.offlinePushInfo.desc = "关闭视频语音通话"
                 OIMManager.manager.signalingHungUp(signalingInfo, onSuccess: nil)
             }
         }
@@ -151,6 +152,7 @@ public class CallingManager: NSObject {
         
         reciverViewController!.onAccepted = { [weak self] in
             if let signalingInfo = self?.signalingInfo {
+                signalingInfo.offlinePushInfo.desc = "关闭视频语音通话"
                 OIMManager.manager.signalingAccept(signalingInfo) { info in
                     self?.reciverViewController?.connectRoom(liveURL: info!.liveURL, token: info!.token)
                 }
@@ -360,16 +362,17 @@ public class CallingManager: NSObject {
         info.groupID = groupID ?? ""
         info.mediaType = isVideo ? "video" : "audio"
         info.timeout = 20
+        info.roomID = groupID ?? ""
         
         var offlinePushInfo = OIMOfflinePushInfo()
-        offlinePushInfo.iOSBadgeCount = true
-        offlinePushInfo.iOSPushSound = "call.mp3"
-//        offlinePushInfo.title = "iPhone1333"
-        offlinePushInfo.desc = isVideo ? "邀请你视频通话" : "邀请你语音通话"
         offlinePushInfo.ex = info.mediaType
-        if let groupID, !groupID.isEmpty {
-            offlinePushInfo.title = "Someone invited you to a group chat."
-        }
+//        offlinePushInfo.iOSBadgeCount = true
+//        offlinePushInfo.iOSPushSound = "call.mp3"
+////        offlinePushInfo.title = "iPhone1333"
+//        offlinePushInfo.desc = isVideo ? "邀请你视频通话" : "邀请你语音通话"
+//        if let groupID, !groupID.isEmpty {
+//            offlinePushInfo.title = "Someone invited you to a group chat."
+//        }
         
         signalingInfo = OIMManager.manager.signalingInvite(info, offlinePushInfo: offlinePushInfo) { [weak self] r in
             if (r?.busyLineUserIDList.isEmpty == true || groupID != nil), let url = r?.liveURL, let token = r?.token {
@@ -412,7 +415,10 @@ public class CallingManager: NSObject {
     
     // 中途进入房间
     public func joinRoom(isVideo: Bool = true, roomID: String, liveURL: String, token: String) {
-        
+        if SuspendTool.keySuspendWindow()?.isShow == true && roomID == currentGroupID{
+            SuspendTool.keySuspendWindow()?.showCallVC()
+            return
+        }
         currentIsGroup = false
         currentGroupID = roomID
         
@@ -484,11 +490,9 @@ extension CallingManager {
     private func update(state: CallingState, duration: Int = 0) {
         print("\(#function): state:\(state)")
         
-        var offlinePushInfo = OIMOfflinePushInfo()
-        offlinePushInfo.iOSBadgeCount = false
-        offlinePushInfo.desc = "关闭视频语音通话"
-        signalingInfo?.offlinePushInfo = offlinePushInfo
-        
+//        var offlinePushInfo = OIMOfflinePushInfo()
+        signalingInfo?.offlinePushInfo.desc = "关闭视频语音通话"
+
         if state == .beAccepted || state == .disConnect {
             if state == .beAccepted {
                 if let liveURL, let token,currentIsGroup == false {
@@ -896,6 +900,7 @@ extension CallingManager: OIMSignalingListener {
         if canClose {
             if isTimeout {
                 if let signalingInfo {
+                    signalingInfo.offlinePushInfo.desc = "关闭视频语音通话"
                     OIMManager.manager.signalingCancel(signalingInfo, onSuccess: nil)
                 }
             }
@@ -928,7 +933,10 @@ extension CallingManager: OIMSignalingListener {
     }
     
     public func onRoomParticipantConnected(_ connectedInfo: OIMParticipantConnectedInfo) {
-        if !currentIsGroup || connectedInfo.groupID != currentGroupID {
+//        if !currentIsGroup || connectedInfo.groupID != currentGroupID {
+//            return
+//        }
+        if connectedInfo.groupID != currentGroupID {
             return
         }
         
@@ -940,7 +948,10 @@ extension CallingManager: OIMSignalingListener {
     }
     
     public func onRoomParticipantDisconnected(_ disconnectedInfo: OIMParticipantConnectedInfo) {
-        if !currentIsGroup || disconnectedInfo.groupID != currentGroupID {
+//        if !currentIsGroup || disconnectedInfo.groupID != currentGroupID {
+//            return
+//        }
+        if disconnectedInfo.groupID != currentGroupID {
             return
         }
         

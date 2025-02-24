@@ -35,7 +35,6 @@
     } else {
         Open_im_sdkSignalingInvite(callback, [self operationId], info.mj_JSONString);
     }
-    
     return info;
 }
 

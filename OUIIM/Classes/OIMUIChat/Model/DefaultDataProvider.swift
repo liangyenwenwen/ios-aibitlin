@@ -319,6 +319,7 @@ final class DefaultDataProvider: DataProvider {
 #if ENABLE_CALL
         CallingManager.manager.roomParticipantChangedHandler = { [weak self] info in
             if info.groupID == self?.receiverId {
+                
                 let members = info.participant.map { $0.groupMemberInfo.toGroupMemberInfo() }
                 self?.delegate?.roomParticipantChanged(isVideo: info.invitation.isVideo(), members: members)
             }

@@ -9,12 +9,14 @@ class SuspendWindow: UIWindow {
     fileprivate let space: CGFloat = 8
     private var containsRootViewController: UIViewController?
     private var tipsText: String?
+    var isShow:Bool = true
     
     init(rootViewController: UIViewController, coverImageName: String, tips: String?, frame: CGRect) {
         self.coverImageName = coverImageName
         super.init(frame: frame)
         self.containsRootViewController = rootViewController
         self.tipsText = tips
+        self.isShow = true
     }
     
     @available(*, unavailable)
@@ -48,6 +50,7 @@ class SuspendWindow: UIWindow {
     }
     
     @objc fileprivate func didTap(_ tapGesture: UITapGestureRecognizer) {
+        self.isShow = false
         SuspendTool.sharedInstance.origin = self.frame.origin
         SuspendTool.remove(suspendWindow: self)
         self.containsRootViewController?.spread(from: self.frame.origin)
@@ -88,7 +91,12 @@ class SuspendWindow: UIWindow {
             SuspendTool.setLatestOrigin(origin: self.frame.origin)
         }
     }
-
+    func showCallVC() {
+        self.isShow = false
+        SuspendTool.sharedInstance.origin = self.frame.origin
+        SuspendTool.remove(suspendWindow: self)
+        self.containsRootViewController?.spread(from: self.frame.origin)
+    }
     lazy var tipsLabel: UILabel = {
         let tipsLabel = UILabel()
         tipsLabel.frame = CGRect(x: 0, y: iconImageView.frame.maxY + 4, width: minSize, height: 20)
