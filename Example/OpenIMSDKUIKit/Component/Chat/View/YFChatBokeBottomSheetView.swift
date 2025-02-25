@@ -20,8 +20,8 @@ class YFChatBokeBottomSheetView: TGLinearLayout {
     var data : [myBlogShowBlogPOModel] =  []
     
     var showAll: Bool  = false
-    var isRemoveRecommendData: Bool  = false //是否剔除已推荐博客的数据
-    var isRemoveTableMoreData: Bool  = false //是否剔除已添加的快捷博客数据
+    var isRemoveRecommendData: Bool  = false //是否剔除已推荐网站的数据
+    var isRemoveTableMoreData: Bool  = false //是否剔除已添加的快捷网站数据
     init() {
         super.init(frame: .zero, orientation: .vert)
         innerInit()
@@ -76,7 +76,7 @@ class YFChatBokeBottomSheetView: TGLinearLayout {
     }()
     
     lazy var titleLbl: UILabel = {
-        let r = ViewFactoryUtil.customBoldTilteLable("选择博客".localized(), font: 16)
+        let r = ViewFactoryUtil.customBoldTilteLable("选择网站".localized(), font: 16)
         r.textAlignment = .center
         return r
     }()

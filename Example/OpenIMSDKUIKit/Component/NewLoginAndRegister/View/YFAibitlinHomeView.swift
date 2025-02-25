@@ -19,6 +19,7 @@ enum HomeLoginType {
     case wechat
     case qq
     case ali
+    case register
     
     var imagename: String {
         switch self{
@@ -41,6 +42,8 @@ enum HomeLoginType {
             return "login_type_qq"
         case .ali:
             return "login_type_ali"
+        case .register:
+            return "login_type_register"
         }
     }
     
@@ -65,7 +68,10 @@ enum HomeLoginType {
             return "使用qq登录"
         case .ali:
             return "使用阿里登录"
+        case .register:
+            return "创建一个新账号".localized()
         }
+        
     }
 }
 

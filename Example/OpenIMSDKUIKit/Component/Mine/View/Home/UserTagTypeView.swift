@@ -65,7 +65,7 @@ import TangramKit
 //    }()
 //    
 ////    let imageArr = ["tag_vip", "tag_blog", "tag_company", "youtube"]
-////    let dataArr = ["VIP2", "博客".innerLocalized(), "企业".innerLocalized(), "YouTube"]
+////    let dataArr = ["VIP2", "网站".innerLocalized(), "企业".innerLocalized(), "YouTube"]
 //
 //    func updateUI() {
 //        switch tagType {
@@ -76,7 +76,7 @@ import TangramKit
 //        case .blog:
 //            leftImg.image = R.image.tag_blog()!
 //            backgroundColor = .init(hexString: "#EA896A")
-//            contactLbl.text = "博客".localized()
+//            contactLbl.text = "网站".localized()
 //        case .company:
 //            leftImg.image = R.image.tag_company()!
 //            backgroundColor = .init(hexString: "#388CEF")

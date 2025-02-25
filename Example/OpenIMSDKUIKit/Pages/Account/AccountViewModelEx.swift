@@ -90,10 +90,10 @@ extension AccountViewModel {
     
     
     
-    // MARK: - 张亚飞打的标记  博客相关
+    // MARK: - 张亚飞打的标记  网站相关
     static func showBoke() {
         
-        // MARK: - 张亚飞打的标记 展示博客
+        // MARK: - 张亚飞打的标记 展示网站
         OIMApi.showBokeHandle = { (keywords, completion: @escaping (String) -> Void) in
             print(keywords)
             completion("测试完成")
@@ -127,7 +127,7 @@ extension AccountViewModel {
             GKCover.cover(from: vc.view.window, contentView: contentView, style: .translucent, showStyle: .bottom, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
         }
         
-        // MARK: - 张亚飞打的标记   博客跳转
+        // MARK: - 张亚飞打的标记   网站跳转
         OIMApi.showBokeLinkHandle = { (vc, link, _: @escaping (String) -> Void) in
             print("link ----- \(link)")
             let target = SuperWebController()
@@ -135,7 +135,7 @@ extension AccountViewModel {
             vc.navigationController?.pushViewController(target, animated: true)
         }
         
-        // MARK: - 张亚飞打的标记   收藏博客
+        // MARK: - 张亚飞打的标记   收藏网站
         OIMApi.starBokeLinkHandle = { (jsonString, completion: @escaping (String) -> Void)  in
             
             
@@ -145,9 +145,9 @@ extension AccountViewModel {
                     
             do {
                 
-                let boke = try JSONDecoder().decode(myBlogShowBlogPOModel.self, from: jsonData)
-                YFFileDataUtil.saveOneDataToFile(blogItem: boke)
-                
+                let boke = try JSONDecoder().decode(blogDetailItem.self, from: jsonData)
+                YFFileDataUtil.saveOneDataToFile(blogItem: myBlogShowBlogPOModel.init(myBlogShowBlogPO: boke))
+                SuperToast.show(title: "收藏成功".localized())
             } catch {
                 
                 return

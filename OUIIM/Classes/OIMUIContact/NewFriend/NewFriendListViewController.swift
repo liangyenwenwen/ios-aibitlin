@@ -5,9 +5,10 @@ import RxSwift
 import ProgressHUD
 
 class NewFriendListViewController: UIViewController {
+    private let disposeBag = DisposeBag()
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "新的好友请求".innerLocalized()
+        navigationItem.title = "好友申请".innerLocalized()
         view.backgroundColor = .systemGroupedBackground
         
         initView()
@@ -42,7 +43,6 @@ class NewFriendListViewController: UIViewController {
     }()
 
     private func initView() {
-        
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(8)
@@ -50,6 +50,24 @@ class NewFriendListViewController: UIViewController {
         }
         
         tableViewAddEmptyView()
+        
+        let addButton = UIBarButtonItem()
+        addButton.title = "添加".innerLocalized()
+        addButton.tintColor = .init(hexString: "#388CEF")
+        addButton.rx.tap.subscribe(onNext: { [weak self] _ in
+            let vc = SearchFriendViewController()
+            vc.hidesBottomBarWhenPushed = true
+            self?.navigationController?.pushViewController(vc, animated: true)
+            vc.didSelectedItem = { [weak self] id in
+                if let handler = OIMApi.gotoUserMessageHandle {
+                    handler(self!, id, "", "",{res in
+
+                    })
+                }
+            }
+        }).disposed(by: disposeBag)
+        
+        navigationItem.rightBarButtonItem = addButton
         
     }
 

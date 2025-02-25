@@ -9,7 +9,7 @@ class GroupApplicationTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "新的群聊申请".localized()
+        navigationItem.title = "群聊申请".localized()
         tableView.register(GroupApplicationTableViewCell.self, forCellReuseIdentifier: GroupApplicationTableViewCell.className)
         tableView.dataSource = nil
         tableView.backgroundColor = .viewBackgroundColor

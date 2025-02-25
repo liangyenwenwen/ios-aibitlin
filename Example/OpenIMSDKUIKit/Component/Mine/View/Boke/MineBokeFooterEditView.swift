@@ -28,7 +28,7 @@ class MineBokeFooterEditView: TGLinearLayout {
     
     var onHomeSwitch: UISwitch?
     
-    init(type : blogListVCType = .meBlog) {
+    init(type : blogListVCType = .meWebsite) {
         super.init(frame: .zero, orientation: .vert)
         self.type = type
         innerInit()
@@ -63,7 +63,7 @@ class MineBokeFooterEditView: TGLinearLayout {
             addSubview(deleteBtn)
         } else {
             
-            var deleteView = SuperSettingView.smallWithIcon(title: "删除博客".localized()) {[weak self] data in
+            var deleteView = SuperSettingView.smallWithIcon(title: "删除网站".localized()) {[weak self] data in
                 self?.deleteBoke(self!.blogItem)
                 
             }
@@ -163,7 +163,7 @@ class MineBokeFooterEditView: TGLinearLayout {
         
         
         
-        if type == .meBlog {
+        if type == .meWebsite {
             //我的好友
             var editView = SuperSettingView.smallWithIcon(title: "编辑".localized()) {[weak self] data in
                 self?.editBoke(self!.blogItem)
@@ -171,7 +171,7 @@ class MineBokeFooterEditView: TGLinearLayout {
             r.addSubview(editView)
             r.addSubview(ViewFactoryUtil.smallDivider())
         } else {
-            var addBoke = SuperSettingView.smallWithIcon(title: "添加到我的快捷博客".localized()) {[weak self] data in
+            var addBoke = SuperSettingView.smallWithIcon(title: "添加到我的快捷网站".localized()) {[weak self] data in
                 print("ADD")
             }
             r.addSubview(addBoke)
@@ -192,10 +192,10 @@ class MineBokeFooterEditView: TGLinearLayout {
         r.addSubview(ViewFactoryUtil.smallDivider())
         
         
-        if type == .meBlog {
+        if type == .meWebsite {
             
-            var shareView = SuperSettingView.onlylTitle("博客置顶".localized(), click: { [weak self] data in
-                print("博客置顶")
+            var shareView = SuperSettingView.onlylTitle("网站置顶".localized(), click: { [weak self] data in
+                print("网站置顶")
                 self?.topBlog(self!.blogItem)
             })
             r.addSubview(shareView)
@@ -215,7 +215,7 @@ class MineBokeFooterEditView: TGLinearLayout {
     
     lazy var deleteBtn: QMUIButton = {
         let r = ViewFactoryUtil.linkButton()
-        r.setTitle( type != .othersBlog ? "删除博客".localized() : "举报".localized(), for: .normal)
+        r.setTitle( type != .othersBlog ? "删除网站".localized() : "举报".localized(), for: .normal)
         r.setTitleColor(.black80, for: .normal)
 //        r.addTarget(self, action: #selector(disagreeClick(_:)), for: .touchUpInside)
         r.rx.tap.subscribe(onNext: { [weak self] in

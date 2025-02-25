@@ -208,24 +208,24 @@ final class DefaultDataProvider: DataProvider {
                 self.lastMinSeq = seq
                 self.startClientMsgID = ms.first?.clientMsgID
                 
-                if ms.count < count {
-                    IMController.shared.getHistoryMessageList(conversationID: conversation.conversationID,
-                                                              conversationType: conversation.conversationType,
-                                                              startCliendMsgId: startClientMsgID,
-                                                              lastMinSeq: lastMinSeq,
-                                                              count: count) { [weak self] seq, ms2 in
-                        guard let self, !ms2.isEmpty else {
-                            completion(ms)
-                            return
-                        }
-                        
-                        self.lastMinSeq = seq
-                        self.startClientMsgID = ms2.first?.clientMsgID
-                        completion(ms + ms2)
-                    }
-                } else {
+//                if ms.count < count {
+//                    IMController.shared.getHistoryMessageList(conversationID: conversation.conversationID,
+//                                                              conversationType: conversation.conversationType,
+//                                                              startCliendMsgId: startClientMsgID,
+//                                                              lastMinSeq: lastMinSeq,
+//                                                              count: count) { [weak self] seq, ms2 in
+//                        guard let self, !ms2.isEmpty else {
+//                            completion(ms)
+//                            return
+//                        }
+//                        
+//                        self.lastMinSeq = seq
+//                        self.startClientMsgID = ms2.first?.clientMsgID
+//                        completion(ms + ms2)
+//                    }
+//                } else {
                     completion(ms)
-                }
+//                }
             }
         }
     }

@@ -6,7 +6,7 @@ public typealias CompletionHandler<T: Any> = (Int, T) -> Void
 public typealias QueryInfoHandler = ((_ keywords: [String], _ completion: @escaping (([UserInfo]) -> Void)) -> Void)
 public typealias QueryDataHandler<T: Any> = ((_ completion: @escaping CompletionHandler<T>) -> Void)
 
-// MARK: - 张亚飞打的标记  博客相关
+// MARK: - 张亚飞打的标记  网站相关
 public typealias showBoke = ((_ keywords: String , _ completion: @escaping ((String) -> Void)) -> Void)
 public typealias currentVCShowBokeHandle = ((_ currentVC: UIViewController , _ completion: @escaping ((String) -> Void)) -> Void)
 public typealias showBokeLinkHandle = ((_ currentVC: UIViewController, _  bokeLink: String ,_ completion: @escaping ((String) -> Void)) -> Void)

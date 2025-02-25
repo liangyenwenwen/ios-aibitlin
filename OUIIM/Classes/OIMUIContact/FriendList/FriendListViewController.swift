@@ -137,14 +137,13 @@ open class FriendListViewController: UIViewController {
         headerView.creatGroupChatView.bindData(item: listTableHeader.MenuItem(title: "创建群聊".innerLocalized(), icon: UIImage(named: "friend_list_creat_group_chat_icon")))
         headerView.videoMettingView.bindData(item: listTableHeader.MenuItem(title: "视频会议".innerLocalized(), icon: UIImage(named: "friend_list_video_metting_icon")))
         
-        let data:[listTableHeader.MenuItem] = [listTableHeader.MenuItem(title: "新的好友请求".innerLocalized(), icon: UIImage(named: "friend_list_group_icon")),
-                                               listTableHeader.MenuItem(title: "新的群聊申请".localized(), icon: UIImage(named: "friend_list_group_new_icon")),
+        let data:[listTableHeader.MenuItem] = [listTableHeader.MenuItem(title: "好友申请".innerLocalized(), icon: UIImage(named: "friend_list_group_icon")),
+                                               listTableHeader.MenuItem(title: "群聊申请".localized(), icon: UIImage(named: "friend_list_group_new_icon")),
                                                listTableHeader.MenuItem(title: "我的群聊".localized(), icon: UIImage(named: "friend_list_new_friend_icon"))]
         headerView.newFriendView.bindData(item: data[0])
         headerView.newGroupView.bindData(item: data[1])
         headerView.groupView.bindData(item: data[2])
         
-        headerView.chooseView.firstLbl.text = "MyFriend".localized()
     }
     
 //    override func viewDidAppear(_ animated: Bool) {
@@ -258,13 +257,13 @@ open class FriendListViewController: UIViewController {
     lazy var headerView: listTableHeader = {
         
 //        let r = listTableHeader(frame: CGRectMake(0, 0, UIScreen.main.bounds.width, 252+68))
-        let r = listTableHeader(frame: CGRectMake(0, 0, UIScreen.main.bounds.width, 221+68))
+        let r = listTableHeader(frame: CGRectMake(0, 0, UIScreen.main.bounds.width, 177+68+15))
         r.addFriendView.bindData(item: listTableHeader.MenuItem(title: "添加好友".innerLocalized(), icon: UIImage(named: "friend_list_add_friend_icon")))
         r.addGroupChatView.bindData(item: listTableHeader.MenuItem(title: "添加群聊".innerLocalized(), icon: UIImage(named: "friend_list_add_group_chat_icon")))
         r.creatGroupChatView.bindData(item: listTableHeader.MenuItem(title: "创建群聊".innerLocalized(), icon: UIImage(named: "friend_list_creat_group_chat_icon")))
         r.videoMettingView.bindData(item: listTableHeader.MenuItem(title: "视频会议".innerLocalized(), icon: UIImage(named: "friend_list_video_metting_icon")))
-        let data:[listTableHeader.MenuItem] = [listTableHeader.MenuItem(title: "新的好友请求".innerLocalized(), icon: UIImage(named: "friend_list_group_icon")),
-                                               listTableHeader.MenuItem(title: "新的群聊申请".localized(), icon: UIImage(named: "friend_list_group_new_icon")),
+        let data:[listTableHeader.MenuItem] = [listTableHeader.MenuItem(title: "好友申请".innerLocalized(), icon: UIImage(named: "friend_list_group_icon")),
+                                               listTableHeader.MenuItem(title: "群聊申请".localized(), icon: UIImage(named: "friend_list_group_new_icon")),
                                                listTableHeader.MenuItem(title: "我的群聊".localized(), icon: UIImage(named: "friend_list_new_friend_icon"))]
         r.newFriendView.bindData(item: data[0])
         r.newGroupView.bindData(item: data[1])
@@ -302,8 +301,10 @@ open class FriendListViewController: UIViewController {
         r.creatGroupChatClick = { [weak self] in
             
             print("-----" , "creatGroupChatClick")
-            self?.creatGroupChat(groupType: .working)
-            
+//            self?.creatGroupChat(groupType: .working)
+            let vc = NewGroupViewController()
+            vc.hidesBottomBarWhenPushed = true
+            self?.navigationController?.pushViewController(vc, animated: true)
         }
         r.videoMettingClick = { [weak self] in
             
@@ -368,8 +369,8 @@ open class FriendListViewController: UIViewController {
             let users = r.map {UserInfo(userID: $0.ID!, nickname: $0.name, faceURL: $0.faceURL)}
             
             if users.count > 1 {
-                let vc = NewGroupViewController(users: users, groupType: .working)
-                navigationController?.pushViewController(vc, animated: true)
+//                let vc = NewGroupViewController(users: users, groupType: .working)
+//                navigationController?.pushViewController(vc, animated: true)
             } else {
                 guard let userID = users.first?.userID else { return }
                 ProgressHUD.animate()
@@ -507,7 +508,7 @@ class listTableHeader: UIView {
         addSubview(groupView)
         addSubview(newGroupView)
 //        addSubview(searchView)
-        addSubview(chooseView)
+        
 //        searchView.snp.makeConstraints { make in
 //            make.leading.trailing.equalToSuperview().inset(16.w)
 //            make.top.equalTo(4)
@@ -532,6 +533,7 @@ class listTableHeader: UIView {
             make.left.equalTo(creatGroupChatView.snp_right).offset(8)
             make.width.height.top.equalTo(addFriendView)
         }
+        
         newFriendView.snp.makeConstraints { make in
             make.left.right.equalToSuperview()
             make.height.equalTo(59)
@@ -549,13 +551,6 @@ class listTableHeader: UIView {
             make.top.equalTo(newGroupView.snp_bottom)
             make.height.equalTo(59)
         }
-        
-        chooseView.snp.makeConstraints { make in
-            make.top.equalTo(groupView.snp_bottom)
-            make.left.right.equalToSuperview()
-            make.height.equalTo(44)
-        }
-        
         
     }
     
@@ -606,7 +601,8 @@ class listTableHeader: UIView {
         let r = ButtonItem()
         r.clipsToBounds = true
         r.layer.cornerRadius = 8
-        r.backgroundColor = .init(hexString: "#F3F5F9")
+        r.backgroundColor = .init(hexString: "#DBF8E1")
+        r.titleLabel.textColor = .init(hexString: "#149B0B")
         r.tag = 2096
         r.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer(target: self, action: #selector(chooseTopView(_:)))
@@ -618,7 +614,8 @@ class listTableHeader: UIView {
         let r = ButtonItem()
         r.clipsToBounds = true
         r.layer.cornerRadius = 8
-        r.backgroundColor = .init(hexString: "#F3F5F9")
+        r.backgroundColor = .init(hexString: "#FDE3FE")
+        r.titleLabel.textColor = .init(hexString: "#9D42F4")
         r.tag = 2097
         r.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer(target: self, action: #selector(chooseTopView(_:)))
@@ -630,7 +627,8 @@ class listTableHeader: UIView {
         let r = ButtonItem()
         r.clipsToBounds = true
         r.layer.cornerRadius = 8
-        r.backgroundColor = .init(hexString: "#F3F5F9")
+        r.backgroundColor = .init(hexString: "#FCECD3")
+        r.titleLabel.textColor = .init(hexString: "#C9790D")
         r.tag = 2098
         r.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer(target: self, action: #selector(chooseTopView(_:)))
@@ -675,14 +673,6 @@ class listTableHeader: UIView {
         r.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer(target: self, action: #selector(chooseTopView(_:)))
         r.addGestureRecognizer(tap)
-        return r
-    }()
-    
-    lazy var chooseView: ChooseView = {
-        let r = ChooseView()
-        r.lblClick = { [weak self] index in
-            self?.lblClick(index)
-        }
         return r
     }()
     
@@ -856,84 +846,6 @@ class listTableHeader: UIView {
             }
         }
         
-        
-    }
-    
-    class ChooseView: UIView {
-        
-        var index = 0
-        var lblClick: ((Int) -> Void)!
-        
-        var firstLbl: UILabel!
-        
-        override init(frame: CGRect) {
-            super.init(frame: frame)
-            
-//            let Arr = ["MyFriend".localized(), "MeFollow".localized(), "FollowMe".localized()]
-            let Arr = ["MyFriend".localized()]
-            let lblWidth = UIScreen.main.bounds.width / 4
-            var lastLbl : UILabel? = nil
-            for index  in  0..<Arr.count {
-                let r = UILabel()
-                if (index == 0) {
-                    firstLbl = r
-                }
-                r.text = Arr[index]
-                r.font = index == 0 ? UIFont(name: "PingFangSC-Medium", size: 18) : UIFont(name: "PingFangSC-Medium", size: 14)
-                r.textColor = index == 0 ?  UIColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1) : UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
-                r.textAlignment = .center
-                r.tag = 2000 + index
-                addSubview(r)
-                
-                if index != 0 {
-                    lastLbl = viewWithTag(1999 + index) as? UILabel
-                }
-                
-                if index == 0 {
-                    r.snp.makeConstraints { make in
-                        make.left.equalTo(16)
-                        make.top.bottom.equalTo(0)
-                    }
-                } else {
-                    r.snp.makeConstraints { make in
-                        make.left.equalTo(lastLbl!.snp_right).offset(35)
-                        make.top.bottom.equalTo(0)
-                    }
-                }
-                
-                
-//                r.snp.makeConstraints { make in
-//                    make.left.equalTo(lblWidth * CGFloat(index) + 16)
-//                    make.top.bottom.equalTo(0)
-//                    make.width.equalTo(lblWidth)
-//                }
-                
-                let tap = UITapGestureRecognizer(target: self, action: #selector(changeChooseLbl(sender:)))
-                r.addGestureRecognizer(tap)
-                r.isUserInteractionEnabled = true
-            }
-            
-        }
-        
-        @available(*, unavailable)
-        required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-        
-        
-        @objc func changeChooseLbl(sender: UITapGestureRecognizer) {
-//            let count = sender.view!.tag - 2000
-//            refreshUI(count)
-//            lblClick(count)
-        }
-        
-        func refreshUI(_ currentIndex: Int) {
-            for index  in  0...2 {
-                let r = viewWithTag(index + 2000) as! UILabel
-                r.font = index == currentIndex ? UIFont(name: "PingFangSC-Medium", size: 18) : UIFont(name: "PingFangSC-Medium", size: 14)
-                r.textColor = index == currentIndex ?  UIColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1) : UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
-            }
-        }
         
     }
 }

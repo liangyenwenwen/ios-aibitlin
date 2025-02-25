@@ -79,10 +79,10 @@ class MeHomeController: BaseLogicController {
         monentsTitle.text = "我的动态".localized()
         
         let  myBlogTitle = sectionMyBlogView.viewWithTag(20001) as! UILabel
-        myBlogTitle.text = "我的博客".localized()
+        myBlogTitle.text = "我的网站".localized()
         
         let  starBlogTitle = sectionStarBlogView.viewWithTag(20001) as! UILabel
-        starBlogTitle.text = "我收藏的博客".localized()
+        starBlogTitle.text = "我收藏的网站".localized()
         
     }
     
@@ -187,7 +187,7 @@ class MeHomeController: BaseLogicController {
             let v = UILabel()
             v.font = UIFont(name: "PingFangSC-Semibold", size: 11)
             v.textColor = .init(hexString: "#7238EF")
-//            v.text = "[V4、\("企业".localized())、\("博客".localized())]".localized()
+//            v.text = "[V4、\("企业".localized())、\("网站".localized())]".localized()
             v.text = nil
             v.tg_width.equal(.wrap)
             v.tg_height.equal(.wrap)
@@ -319,7 +319,7 @@ class MeHomeController: BaseLogicController {
     }
     
     lazy var sectionMyBlogView: UIView = {
-        let bokeHeader = ViewFactoryUtil.sectionHeaderView(title: "我的博客".localized(), isHaveMore: true)
+        let bokeHeader = ViewFactoryUtil.sectionHeaderView(title: "我的网站".localized(), isHaveMore: true)
         bokeHeader.tg_height.equal(44)
         let tap = UITapGestureRecognizer(target: self, action: #selector(gotoMyBokeList))
         bokeHeader.addGestureRecognizer(tap)
@@ -363,7 +363,7 @@ class MeHomeController: BaseLogicController {
     
     
     lazy var sectionStarBlogView: UIView = {
-        let bokeHeader = ViewFactoryUtil.sectionHeaderView(R.image.section_star()!,title: "我收藏的博客".localized(), isHaveMore: true)
+        let bokeHeader = ViewFactoryUtil.sectionHeaderView(R.image.section_star()!,title: "我收藏的网站".localized(), isHaveMore: true)
         bokeHeader.tg_height.equal(44)
         let tap = UITapGestureRecognizer(target: self, action: #selector(gotoMyStarBokeList))
         bokeHeader.addGestureRecognizer(tap)
@@ -416,7 +416,7 @@ extension MeHomeController {
   
     @objc func gotoMyBokeList() {
         let vc = MineBokeListViewController()
-        vc.vcType = .meBlog
+        vc.vcType = .meWebsite
         gotoControllerFromRoot(vc)
     }
     @objc func gotoMyStarBokeList() {

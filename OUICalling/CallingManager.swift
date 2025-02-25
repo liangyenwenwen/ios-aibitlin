@@ -362,7 +362,11 @@ public class CallingManager: NSObject {
         info.timeout = 20
         
         var offlinePushInfo = OIMOfflinePushInfo()
-        
+        offlinePushInfo.iOSBadgeCount = true
+        offlinePushInfo.iOSPushSound = "call.caf"
+//        offlinePushInfo.title = "iPhone1333"
+        offlinePushInfo.desc = isVideo ? "邀请你视频通话" : "邀请你语音通话"
+
         if let groupID, !groupID.isEmpty {
             offlinePushInfo.title = "Someone invited you to a group chat."
         }

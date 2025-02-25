@@ -1179,7 +1179,7 @@ extension DefaultChatCollectionDataSource: UICollectionViewDataSource {
                 
                 return cell
             case let .custom(source):
-                // MARK: - 张亚飞打的标记  博客消息Cell
+                // MARK: - 张亚飞打的标记  网站消息Cell
                 let cell = createCustomCell(collectionView: collectionView, messageId: message.id, isSelected: message.isSelected, indexPath: indexPath, source: source, anchor: message.isAnchor, date: message.date, alignment: cell.alignment, user: message.owner, bubbleType: bubbleType, status: message.status, messageType: message.type, sessionType: message.sessionType, isTop: indexPath.item == 0, lastID: lastID)
                 
                 return cell

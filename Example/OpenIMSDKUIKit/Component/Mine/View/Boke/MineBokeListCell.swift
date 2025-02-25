@@ -176,7 +176,7 @@ class MineBokeListCell: BaseTableViewCell {
     }()
     
     lazy var bokeContent: UILabel = {
-        let r = ViewFactoryUtil.customTilteLabelFill("博客内容博客内容博客内容博客内容博客内容博客内容博客内容博客内容博客内容博客内容", font: TEXT_SMALL, textColor: .black666)
+        let r = ViewFactoryUtil.customTilteLabelFill(" ", font: TEXT_SMALL, textColor: .black666)
         r.numberOfLines = 1
         r.tg_width.equal(.fill)
         r.tg_right.equal(80)

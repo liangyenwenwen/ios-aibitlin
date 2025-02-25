@@ -24,7 +24,7 @@ class MineBokeEditVC: BaseTitleController, UIImagePickerControllerDelegate, UINa
         setBackGroundColor(.colorBackgroundAPP)
         initLinearLayoutSafeArea()
 
-        title = "MeBlog".localized()
+        title = "MeWebsite".localized()
         
         container.tg_padding = UIEdgeInsets(top: PADDING_MEDDLE, left: PADDING_MEDDLE, bottom: PADDING_MEDDLE, right: PADDING_MEDDLE)
         container.addSubview(topContentView)
@@ -74,7 +74,7 @@ class MineBokeEditVC: BaseTitleController, UIImagePickerControllerDelegate, UINa
     lazy var addressView: SuperSettingView = {
         let r = SuperSettingView.createInput("地址".localized(), placeholder: " 请输入以https://开头的地址".localized())
         r.needLimitLength(length: 255)
-        r.textFieldView.keyboardType = .emailAddress
+        r.textFieldView.keyboardType = .URL
         r.textFieldView.rx.controlEvent(.editingDidEnd).subscribe(onNext: { [unowned self] in
             let str = r.textFieldView.text?.replacingOccurrences(of: " ", with: "").lowercased()
             r.textFieldView.text = str
@@ -201,11 +201,12 @@ class MineBokeEditVC: BaseTitleController, UIImagePickerControllerDelegate, UINa
 //    }()
     private lazy var _photoHelper: PhotoHelper = {
             let v = PhotoHelper()
-            v.setConfigToMultipleSelected()
+//            v.setConfigToMultipleSelected()
+            v.setConfigToPickAvatar()
             v.didPhotoSelected = { [weak self] (images: [UIImage], assets: [PHAsset]) in
                 guard var first = images.first else { return }
                 ProgressHUD.animate()
-                first = first.compress(expectSize: 20 * 1024)
+                first = first.compress(expectSize: 1500 * 1024)
                 let result = FileHelper.shared.saveImage(image: first)
                 
                 if result.isSuccess {
@@ -233,7 +234,7 @@ class MineBokeEditVC: BaseTitleController, UIImagePickerControllerDelegate, UINa
                 if var photo {
                     ProgressHUD.animate()
                     
-                    photo = photo.compress(expectSize: 20 * 1024)
+                    photo = photo.compress(expectSize: 1500 * 1024)
                     let result = FileHelper.shared.saveImage(image: photo)
                     if result.isSuccess {
                         IMController.shared.uploadFile(fullPath: result.fullPath) { [weak self] progress in
@@ -285,7 +286,7 @@ extension MineBokeEditVC {
     func addNewBlog() {
         
         if url.count < 2 {
-            SuperToast.show(title: "博客图标未设置".localized())
+            SuperToast.show(title: "网站图标未设置".localized())
             return
         }
         
@@ -343,7 +344,7 @@ extension MineBokeEditVC {
 //        }
         
         
-        _photoHelper.setConfigToMultipleSelected(forVideo: false, maxSelectCount: 1)
+//        _photoHelper.setConfigToMultipleSelected(forVideo: false, maxSelectCount: 1)
         _photoHelper.showSelectMetaSheet(byController: self)
         
         
@@ -400,7 +401,7 @@ extension MineBokeEditVC {
                   
                   ProgressHUD.animate()
                   
-                  image = image.compress(expectSize: 20 * 1024)
+                  image = image.compress(expectSize: 1500 * 1024)
                   let result = FileHelper.shared.saveImage(image: image)
                   if result.isSuccess {
                       IMController.shared.uploadFile(fullPath: result.fullPath) { [weak self] progress in

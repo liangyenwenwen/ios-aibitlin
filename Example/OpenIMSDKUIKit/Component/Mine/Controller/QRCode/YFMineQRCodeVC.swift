@@ -210,7 +210,7 @@ class YFMineQRCodeVC: BaseTitleController {
     
     lazy var tipLbl: UILabel = {
         let r = UILabel()
-        r.text = "1.未下载APP的用户，扫你的二维码可直接下载哎比邻。\n2.未注册用户在登录页面扫你的二维码，免注册即可试用哎比邻，并自动收藏您推荐的博客。".localized()
+        r.text = "1.未下载APP的用户，扫你的二维码可直接下载哎比邻。\n2.未注册用户在登录页面扫你的二维码，免注册即可试用哎比邻，并自动收藏您推荐的网站。".localized()
         r.tg_left.equal(16)
         r.tg_right.equal(16)
         r.tg_height.equal(.wrap)
@@ -298,7 +298,7 @@ class YFMineQRCodeVC: BaseTitleController {
     
     
     
-    // MARK: - 张亚飞打的标记 博客
+    // MARK: - 张亚飞打的标记 网站
     func addMyStarBoke() {
         let bokeView = TGLinearLayout(.vert)
         bokeView.backgroundColor = .white
@@ -307,7 +307,7 @@ class YFMineQRCodeVC: BaseTitleController {
         bokeView.tg_height.equal(.wrap)
         scrollViewContainer.addSubview(bokeView)
         
-        let bokeHeader = ViewFactoryUtil.sectionHeaderView(title: "我想要推荐的博客".localized(), isHaveMore: false)
+        let bokeHeader = ViewFactoryUtil.sectionHeaderView(title: "我想要推荐的网站".localized(), isHaveMore: false)
         bokeHeader.tg_height.equal(44)
 //        let tap = UITapGestureRecognizer(target: self, action: #selector(gotoMyStarBokeList))
 //        bokeHeader.addGestureRecognizer(tap)

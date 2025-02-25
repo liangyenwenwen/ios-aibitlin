@@ -82,7 +82,7 @@ class SectionItemsView: TGLinearLayout {
         }
     }
     
-    ///更新我的推荐博客
+    ///更新我的推荐网站
     func updateRecommendData() {
         let moreBoke = blogDetailItem(id: -1, userBlogSign: 0, userBlogUrl: "", userBlogIntro: "", userBlogName: "", userBlogCreatIp: "", userBlogCreatAffiliatingArea: "", userBlogOrder: 0, userId: "", isDelete: 0, creationTime: "", userBlogIcon: "", changeTime: "")
         

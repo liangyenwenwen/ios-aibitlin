@@ -166,7 +166,7 @@ class SearchContactsViewController: UIViewController {
     func getMyFriendList() {
         IMController.shared.getFriendList { [weak self] users in
             let userPrefix = ":user_"
-            let r = users.compactMap({ ContactInfo(ID: userPrefix + $0.userID!, name: $0.nickname,faceURL: $0.faceURL) })
+            let r = users.compactMap({ ContactInfo(ID: userPrefix + $0.userID!, name: $0.remark?.isEmpty == false ? $0.remark : $0.nickname,faceURL: $0.faceURL) })
             for user in r {
                 if let ret: [WPFPerson] = WPFPinYinDataManager.getInitializedDataSource() as? [WPFPerson] {
                     if !ret.contains(where: { (item: WPFPerson) in

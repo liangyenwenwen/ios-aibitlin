@@ -924,15 +924,16 @@ final class ChatViewController: UIViewController {
             membersVC.selectedContact(hasSelected: []) { [weak self] _, r in
                 
                 self?.navigationController?.popViewController(animated: false)
-                
-                let ms = r.map {CallingUserInfo(userID: $0.ID, nickname: $0.name, faceURL: $0.faceURL)}
-                let me = self?.chatController.getSelfInfo()
-                let inviter = CallingUserInfo(userID: me?.userID, nickname: me?.nickname, faceURL: me?.faceURL)
-                
-                CallingManager.manager.startLiveChat(inviter: inviter,
-                                                     others: ms,
-                                                      isVideo: isVideo,
-                                                      groupID: conversation.groupID)
+                if r.count > 0{
+                    let ms = r.map {CallingUserInfo(userID: $0.ID, nickname: $0.name, faceURL: $0.faceURL)}
+                    let me = self?.chatController.getSelfInfo()
+                    let inviter = CallingUserInfo(userID: me?.userID, nickname: me?.nickname, faceURL: me?.faceURL)
+                    
+                    CallingManager.manager.startLiveChat(inviter: inviter,
+                                                         others: ms,
+                                                          isVideo: isVideo,
+                                                          groupID: conversation.groupID)
+                }
             }
             
             navigationController?.pushViewController(membersVC, animated: true)
@@ -1749,16 +1750,31 @@ extension ChatViewController: ChatControllerDelegate {
             }
         }
         
-        func previewMedias(currentIndexHandler: @escaping ([MediaResource]) -> (Int)) {
+        func previewMedias(source:MediaMessageSource,msgId:String,currentIndexHandler: @escaping ([MediaResource]) -> (Int)){
             filterMediaSource { [weak self] items in
                 guard let self else { return }
                 
-                var index = currentIndexHandler(items)
-                let vc = MediaPreviewViewController(resources: items, index: index)
-                            
+                var array = items
+                var index = currentIndexHandler(array)
+                if index == -1{
+                    if source.duration == nil{
+                        array.append(MediaResource(thumbUrl: source.thumb?.url,
+                                                   url: source.source.url,
+                                                   type: .image,
+                                                   ID: msgId))
+                    }else{
+                        array.append(MediaResource(thumbUrl: source.thumb?.url,
+                                                   url: source.source.url,
+                                                   type: .video,
+                                                   ID: msgId))
+                    }
+                    index = array.count - 1
+                }
+                let vc = MediaPreviewViewController(resources: array, index: index)
+
                 vc.showIn(controller: self) { idx in
                     guard idx < items.count else { return nil }
-                    let item = items[idx]
+                    let item = array[idx]
                     if let ID = item.ID, let tag = self.dataSource.mediaImageViews[ID] {
                         return self.collectionView.viewWithTag(tag)
                     }
@@ -1847,6 +1863,8 @@ extension ChatViewController: ChatControllerDelegate {
                 }
             }
         case .image(let source, let isLocallyStored):
+            self.resetOffset(newBottomInset: 0, duration: 0)
+            self.view.endEditing(true)
             if source.ex?.isFace == true {
                 var media = MediaResource(thumbUrl: source.thumb?.url,
                                           url: source.source.url,
@@ -1862,16 +1880,16 @@ extension ChatViewController: ChatControllerDelegate {
                     return nil
                 }
             } else {
-                previewMedias { items in
-                    let index = items.firstIndex(where: { $0.url == source.source.url }) ?? 0
-                    
+                previewMedias(source:source,msgId: id) { items in
+                    let index = items.firstIndex(where: { $0.url == source.source.url }) ?? -1
                     return index
                 }
             }
         case .video(let source, let isLocallyStored):
-            previewMedias { items in
-                let index = items.firstIndex(where: { $0.url == source.source.url }) ?? 0
-                
+            self.resetOffset(newBottomInset: 0, duration: 0)
+            self.view.endEditing(true)
+            previewMedias(source:source,msgId: id) { items in
+                let index = items.firstIndex(where: { $0.url == source.source.url }) ?? -1
                 return index
             }
             
@@ -1985,7 +2003,7 @@ extension ChatViewController: ChatControllerDelegate {
                 }
 #endif
             case .boke:
-                // MARK: - 张亚飞打的标记  博客被点击
+                // MARK: - 张亚飞打的标记  网站被点击
                 print(source.bokeMessageSource.userBlogUrl)
                 print("boke 被点击")
                 if source.bokeMessageSource.userBlogUrl != nil {
@@ -2352,7 +2370,7 @@ extension ChatViewController: CoustomInputBarAccessoryViewDelegate {
                     
                     self.chatController.sendMessage(.face(source, isLocallyStored: false), completion: completion)
                 case .boke(let source):
-                    print(#file, #line, "发送博客")
+                    print(#file, #line, "发送网站")
                 default:
                     print("暂未开放")
                     
@@ -2437,7 +2455,7 @@ extension ChatViewController: CoustomInputBarAccessoryViewDelegate {
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    // MARK: - 张亚飞打的标记  第四步 展示博客列表 博客聊表被点击 返回参数  发送博客信息  
+    // MARK: - 张亚飞打的标记  第四步 展示网站列表 网站聊表被点击 返回参数  发送网站信息
     private func showBokeView()  {
         let completion = completionHandler()
         
@@ -2450,7 +2468,7 @@ extension ChatViewController: CoustomInputBarAccessoryViewDelegate {
 //                        return OIMMessageInfo.createCustomMessage(dataStr, extension: nil, description: nil).toMessageInfo()
                 
                
-//                let result = "博客标题####博客图片####博客链接"
+//                let result = "网站标题####网站图片####网站链接"
                 let source = CustomMessageSource(data: self?.getCustomBokeData(res))
                 self?.chatController.sendMessage(.custom(source), completion: completion)
             })

@@ -51,7 +51,7 @@ public enum CustomMessageType: Int {
     case blockedByFriend = 910 // 被拉黑
     case deletedByFriend = 911 // 被删除
     
-    case boke = 10500 //博客
+    case boke = 10500 //网站
 }
 
 // MARK: - 对外协议
@@ -421,10 +421,10 @@ extension IMController {
 
     }
     
-    public func getFriendList(offset: Int = 0, count: Int = 40, completion: @escaping ([PublicUserInfo]) -> Void) {
+    public func getFriendList(offset: Int = 0, count: Int = 40, completion: @escaping ([FriendInfo]) -> Void) {
         Self.shared.imManager.getFriendListPage(withOffset: offset, count: count, filterBlack: false) { friends in
             let arr = friends ?? []
-            let ret = arr.compactMap { $0.toPublicUserInfo() }
+            let ret = arr.compactMap { $0.toFriendInfo() }
             completion(ret)
         } onFailure: { code, msg in
             print("\(#function) throw error: code: \(code), msg: \(msg)")
@@ -828,15 +828,43 @@ extension IMController {
         
         if let desc = model.offlinePushInfo.desc, desc.isEmpty {
             let push = OfflinePushInfo()
-            push.title = "你收到了一条消息"
-            push.desc = "你收到了一条消息"
+//            push.title = "你收到了一条消息"
+//            push.desc = "你收到了一条消息"
+            push.title = message.senderNickname
+            push.desc = message.content ?? "你收到了一条消息"
+            if message.contentType.rawValue == 101{
+                //文本消息
+                push.desc = message.textElem?.content
+            }else if message.contentType.rawValue == 102{
+                //图片消息
+                push.desc = "[\("图片".innerLocalized())]"
+            }else if message.contentType.rawValue == 103{
+                //语音消息
+                push.desc = "[\("语音".innerLocalized())]"
+            }else if message.contentType.rawValue == 104{
+                //视频消息
+                push.desc = "[\("视频".innerLocalized())]"
+            }else if message.contentType.rawValue == 105{
+                //视频消息
+                push.desc = "[\("文件".innerLocalized())]"
+            }else if message.contentType.rawValue == 108{
+                //视频消息
+                push.desc = "[\("名片".innerLocalized())]"
+            }
+
             message.offlinePush = push.toOIMOfflinePushInfo()
         }
-        
         model.isRead = false
         sendHelper(message: message, to: recvID, conversationType: conversationType, onComplete: onComplete)
     }
-    
+    public func updateFcmBadge(count:Int){
+        Self.shared.imManager.setAppBadge(count){_ in
+            print("更新角标成功")
+        }onFailure: { code, msg in
+            print("\(#function) throw error: \(code), \(msg)")
+        }
+    }
+
     public func typingStatusUpdate(conversationID: String, focus: Bool) {
 //        Self.shared.imManager.typingStatusUpdate(recvID, msgTip: msgTips, onSuccess: nil)
         Self.shared.imManager.changeInputStates(conversationID, focus: focus) { r in
@@ -919,7 +947,7 @@ extension IMController {
         sendOIMMessage(message: message, to: recvID, conversationType: conversationType, onComplete: onComplete)
     }
     
-    // MARK: - 张亚飞打的标记  ------ 发送博客消息
+    // MARK: - 张亚飞打的标记  ------ 发送网站消息
     public func sendBokeMessage(boke: BokeElem,
                                 to recvID: String,
                                 conversationType: ConversationType,
@@ -956,7 +984,7 @@ extension IMController {
             sending(message.toMessageInfo())
             sendOIMMessage(message: message, to: recvID, conversationType: conversationType, onComplete: onComplete)
         } catch {
-            print("发送博客失败  ----- json 解析错误")
+            print("发送网站失败  ----- json 解析错误")
         }
         
     }
@@ -2123,8 +2151,8 @@ public class NotificationElem: Codable {
 public class OfflinePushInfo: Codable {
     public var title: String?
     public var desc: String?
-    public var iOSPushSound: String?
-    public var iOSBadgeCount: Bool = false
+    public var iOSPushSound: String = "default"
+    public var iOSBadgeCount: Bool = true
     public var operatorUserID: String?
     public var ex: String?
 }
@@ -2146,7 +2174,7 @@ public class CardElem: Codable {
     }
 }
 
-// MARK: - 张亚飞打的标记   博客消息元素
+// MARK: - 张亚飞打的标记   网站消息元素
 public class BokeElem: Codable {
     
 //    public var title: String?
@@ -2865,7 +2893,7 @@ extension OIMOfflinePushInfo {
         let item = OfflinePushInfo()
         item.title = title
         item.desc = desc
-        item.iOSPushSound = iOSPushSound
+        item.iOSPushSound = iOSPushSound ?? "default"
         item.iOSBadgeCount = iOSBadgeCount
         item.operatorUserID = operatorUserID
         item.ex = ex
@@ -3213,7 +3241,6 @@ extension OIMPublicUserInfo {
         item.userID = userID
         item.nickname = nickname
         item.faceURL = faceURL
-
         return item
     }
 }

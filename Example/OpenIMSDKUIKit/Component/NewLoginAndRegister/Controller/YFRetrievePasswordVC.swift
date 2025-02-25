@@ -267,14 +267,16 @@ extension YFRetrievePasswordVC {
     /// 请求验证码
     func requestCodeAboutPwd() {
         view.endEditing(true)
-        
-        if let phone = phoneView.textFieldView.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines), phone.isEmpty {
-            if isUsePhone {
+        if isUsePhone == true{
+            if let phone = phoneView.textFieldView.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines), phone.isEmpty {
                 SuperToast.show(title: "plsEnterRightX".localizedFormat("phoneNumber".localized()))
-            } else {
-                SuperToast.show(title: "plsEnterRightX".localizedFormat("email".localized()))
+                return
             }
-            return
+        }else{
+            if let email = emailView.textFieldView.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines), email.isEmpty {
+                SuperToast.show(title: "plsEnterRightX".localizedFormat("email".localized()))
+                return
+            }
         }
         
         let invaitationCode = ""

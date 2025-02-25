@@ -45,7 +45,7 @@ class SelectContactsViewModel {
         IMController.shared.getFriendList { [weak self] users in
             guard let self else { return }
 
-            contacts = users.map{ContactInfo(ID: $0.userID, name: $0.nickname, faceURL: $0.faceURL, type: .user)}
+            contacts = users.map{ContactInfo(ID: $0.userID, name: $0.remark?.isEmpty == false ? $0.remark : $0.nickname, faceURL: $0.faceURL, type: .user)}
             friends.append(contentsOf: contacts)
             divideContactsInSection(contacts)
             loadingSubject.onNext(false)

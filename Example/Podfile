@@ -26,7 +26,7 @@ target 'OpenIMSDKUIKit_Example' do
 #  pod 'JXPatternLock'
   pod 'AlamofireNetworkActivityLogger'
   pod 'GTSDK', '2.7.1.0-noidfa'
-
+ 
 
 pod "QMUIKit", '4.5.1'
 pod 'SnapKit'
@@ -49,6 +49,7 @@ pod 'IQKeyboardManagerSwift'
 
 pod 'Bugly'
 
+pod 'Firebase/Messaging'
 
 end
 

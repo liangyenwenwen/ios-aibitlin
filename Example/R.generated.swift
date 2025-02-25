@@ -16,6 +16,7 @@ struct _R: Sendable {
   var color: color { .init(bundle: bundle) }
   var image: image { .init(bundle: bundle) }
   var entitlements: entitlements { .init() }
+  var file: file { .init(bundle: bundle) }
   var nib: nib { .init(bundle: bundle) }
   var storyboard: storyboard { .init(bundle: bundle) }
 
@@ -32,6 +33,9 @@ struct _R: Sendable {
     .init(bundle: bundle)
   }
   func image(bundle: Foundation.Bundle) -> image {
+    .init(bundle: bundle)
+  }
+  func file(bundle: Foundation.Bundle) -> file {
     .init(bundle: bundle)
   }
   func nib(bundle: Foundation.Bundle) -> nib {
@@ -91,12 +95,12 @@ struct _R: Sendable {
       /// Locales: English, zh-Hans, en, th
       var nsAppleMusicUsageDescription: RswiftResources.StringResource { .init(key: "NSAppleMusicUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "The app requires your consent to access the media library.", comment: nil) }
 
-      /// English translation: If not permitted, you will not be able to use Aibitlin to take photos or videos, and will not be able to use video calls or the Scan QR Code functionality.
+      /// English translation: If not allowed, you will not be able to use video calls, take and send photos, capture profile pictures, capture website covers, friend updates, or the scan QR code feature in Aibitlin.
       ///
       /// Key: NSCameraUsageDescription
       ///
       /// Locales: English, zh-Hans, en, th
-      var nsCameraUsageDescription: RswiftResources.StringResource { .init(key: "NSCameraUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "If not permitted, you will not be able to use Aibitlin to take photos or videos, and will not be able to use video calls or the Scan QR Code functionality.", comment: nil) }
+      var nsCameraUsageDescription: RswiftResources.StringResource { .init(key: "NSCameraUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "If not allowed, you will not be able to use video calls, take and send photos, capture profile pictures, capture website covers, friend updates, or the scan QR code feature in Aibitlin.", comment: nil) }
 
       /// English translation: Please click' OK 'to allow access. If not allowed, you will not be able to notify more contacts and friends.
       ///
@@ -140,19 +144,19 @@ struct _R: Sendable {
       /// Locales: English, zh-Hans, en, th
       var nsMicrophoneUsageDescription: RswiftResources.StringResource { .init(key: "NSMicrophoneUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "If not permitted, you will not be able to use Aibitlin to send voice messages or make audio or video calls.", comment: nil) }
 
-      /// English translation: If not allowed, you will be unable to send photos from Camera Roll to friends on Aibitlin.
+      /// English translation: If not allowed, you will not be able to use the features of sending images in chat, selecting profile pictures from the album, selecting website covers from the album, or choosing images for friend updates in Aibitlin.
       ///
       /// Key: NSPhotoLibraryAddUsageDescription
       ///
       /// Locales: English, zh-Hans, en, th
-      var nsPhotoLibraryAddUsageDescription: RswiftResources.StringResource { .init(key: "NSPhotoLibraryAddUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "If not allowed, you will be unable to send photos from Camera Roll to friends on Aibitlin.", comment: nil) }
+      var nsPhotoLibraryAddUsageDescription: RswiftResources.StringResource { .init(key: "NSPhotoLibraryAddUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "If not allowed, you will not be able to use the features of sending images in chat, selecting profile pictures from the album, selecting website covers from the album, or choosing images for friend updates in Aibitlin.", comment: nil) }
 
-      /// English translation: If not allowed, you will be unable to send photos from Camera Roll to friends on Aibitlin.
+      /// English translation: If not allowed, you will not be able to use the features of sending images in chat, selecting profile pictures from the album, selecting website covers from the album, or choosing images for friend updates in Aibitlin.
       ///
       /// Key: NSPhotoLibraryUsageDescription
       ///
       /// Locales: English, zh-Hans, en, th
-      var nsPhotoLibraryUsageDescription: RswiftResources.StringResource { .init(key: "NSPhotoLibraryUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "If not allowed, you will be unable to send photos from Camera Roll to friends on Aibitlin.", comment: nil) }
+      var nsPhotoLibraryUsageDescription: RswiftResources.StringResource { .init(key: "NSPhotoLibraryUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "If not allowed, you will not be able to use the features of sending images in chat, selecting profile pictures from the album, selecting website covers from the album, or choosing images for friend updates in Aibitlin.", comment: nil) }
     }
 
     /// This `_R.string.launchScreen` struct is generated, and contains static references to 1 localization keys.
@@ -167,7 +171,7 @@ struct _R: Sendable {
       var ieXW0yeText: RswiftResources.StringResource { .init(key: "8ie-xW-0ye.text", tableName: "LaunchScreen", source: source, developmentValue: nil, comment: nil) }
     }
 
-    /// This `_R.string.localizable` struct is generated, and contains static references to 514 localization keys.
+    /// This `_R.string.localizable` struct is generated, and contains static references to 526 localization keys.
     struct localizable {
       let source: RswiftResources.StringResource.Source
 
@@ -185,12 +189,12 @@ struct _R: Sendable {
       /// Locales: en, th
       var 请输入以https开头的地址: RswiftResources.StringResource { .init(key: " 请输入以https://开头的地址", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: 1.Users who haven't downloaded the app can scan your QR code to download AIibitlin directly. 2.Unregistered users can scan your QR code on the login page to try AIibitlin without registering, and it will automatically save your recommended blog.
+      /// en translation: 1.Users who haven't downloaded the app can scan your QR code to download AIibitlin directly. 2.Unregistered users can scan your QR code on the login page to try Aibitlin without registering and automatically bookmark the websites you recommend.
       ///
-      /// Key: 1.未下载APP的用户，扫你的二维码可直接下载哎比邻。 2.未注册用户在登录页面扫你的二维码，免注册即可试用哎比邻，并自动收藏您推荐的博客。
+      /// Key: 1.未下载APP的用户，扫你的二维码可直接下载哎比邻。 2.未注册用户在登录页面扫你的二维码，免注册即可试用哎比邻，并自动收藏您推荐的网站。
       ///
       /// Locales: en, th
-      var 未下载APP的用户扫你的二维码可直接下载哎比邻2未注册用户在登录页面扫你的二维码免注册即可试用哎比邻并自动收藏您推荐的博客: RswiftResources.StringResource { .init(key: "1.未下载APP的用户，扫你的二维码可直接下载哎比邻。\n2.未注册用户在登录页面扫你的二维码，免注册即可试用哎比邻，并自动收藏您推荐的博客。", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+      var 未下载APP的用户扫你的二维码可直接下载哎比邻2未注册用户在登录页面扫你的二维码免注册即可试用哎比邻并自动收藏您推荐的网站: RswiftResources.StringResource { .init(key: "1.未下载APP的用户，扫你的二维码可直接下载哎比邻。\n2.未注册用户在登录页面扫你的二维码，免注册即可试用哎比邻，并自动收藏您推荐的网站。", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: 7-Day Visitor Data
       ///
@@ -304,6 +308,27 @@ struct _R: Sendable {
       /// Locales: en, zh-Hans, th
       var changePwdSuccess: RswiftResources.StringResource { .init(key: "ChangePwdSuccess", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// en translation: Clear Record
+      ///
+      /// Key: ClearChatHistory
+      ///
+      /// Locales: en, zh-Hans, th
+      var clearChatHistory: RswiftResources.StringResource { .init(key: "ClearChatHistory", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Clear failure
+      ///
+      /// Key: ClearChatHistoryFail
+      ///
+      /// Locales: en, zh-Hans, th
+      var clearChatHistoryFail: RswiftResources.StringResource { .init(key: "ClearChatHistoryFail", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Clear success
+      ///
+      /// Key: ClearChatHistorySuccess
+      ///
+      /// Locales: en, zh-Hans, th
+      var clearChatHistorySuccess: RswiftResources.StringResource { .init(key: "ClearChatHistorySuccess", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: %@, click reload
       ///
       /// Key: ClickReload
@@ -324,6 +349,13 @@ struct _R: Sendable {
       ///
       /// Locales: en, zh-Hans, th
       var confirm: RswiftResources.StringResource { .init(key: "Confirm", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Are you sure to clear all chat records?
+      ///
+      /// Key: ConfirmClearChatHistory
+      ///
+      /// Locales: en, zh-Hans, th
+      var confirmClearChatHistory: RswiftResources.StringResource { .init(key: "ConfirmClearChatHistory", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Create new account
       ///
@@ -528,19 +560,19 @@ struct _R: Sendable {
       /// Locales: en, zh-Hans, th
       var logout: RswiftResources.StringResource { .init(key: "Logout", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: My Blog
-      ///
-      /// Key: MeBlog
-      ///
-      /// Locales: en, zh-Hans, th
-      var meBlog: RswiftResources.StringResource { .init(key: "MeBlog", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
-
       /// en translation: I Follow
       ///
       /// Key: MeFollow
       ///
       /// Locales: en, zh-Hans, th
       var meFollow: RswiftResources.StringResource { .init(key: "MeFollow", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: My Website
+      ///
+      /// Key: MeWebsite
+      ///
+      /// Locales: en, zh-Hans, th
+      var meWebsite: RswiftResources.StringResource { .init(key: "MeWebsite", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Modify Remarks
       ///
@@ -773,13 +805,6 @@ struct _R: Sendable {
       /// Locales: en, zh-Hans, th
       var usePhone: RswiftResources.StringResource { .init(key: "UsePhone", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: %@'s Blog
-      ///
-      /// Key: UserBlog
-      ///
-      /// Locales: en, zh-Hans, th
-      var userBlog: RswiftResources.StringResource1<String> { .init(key: "UserBlog", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
-
       /// en translation: %@'s Moments
       ///
       /// Key: UserMoments
@@ -793,6 +818,13 @@ struct _R: Sendable {
       ///
       /// Locales: en, zh-Hans, th
       var userNotifiySetting: RswiftResources.StringResource1<String> { .init(key: "UserNotifiySetting", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: %@'s Website
+      ///
+      /// Key: UserWebsite
+      ///
+      /// Locales: en, zh-Hans, th
+      var userWebsite: RswiftResources.StringResource1<String> { .init(key: "UserWebsite", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// zh-Hans translation: 靓号ID: 
       ///
@@ -913,13 +945,6 @@ struct _R: Sendable {
       /// Locales: en, zh-Hans, th
       var defaultVerificationCode: RswiftResources.StringResource1<String> { .init(key: "defaultVerificationCode", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: Are you sure you want to delete the blog?
-      ///
-      /// Key: deletBookTip
-      ///
-      /// Locales: en, zh-Hans, th
-      var deletBookTip: RswiftResources.StringResource { .init(key: "deletBookTip", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
-
       /// en translation: Are you sure you want to terminate your friendship?
       ///
       /// Key: deletFriendTip
@@ -933,6 +958,13 @@ struct _R: Sendable {
       ///
       /// Locales: en, zh-Hans, th
       var deletMomentTip: RswiftResources.StringResource { .init(key: "deletMomentTip", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Are you sure you want to delete the website?
+      ///
+      /// Key: deletWebsiteTip
+      ///
+      /// Locales: en, zh-Hans, th
+      var deletWebsiteTip: RswiftResources.StringResource { .init(key: "deletWebsiteTip", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: E-mail
       ///
@@ -1466,6 +1498,13 @@ struct _R: Sendable {
       /// Locales: en, th
       var 下一步: RswiftResources.StringResource { .init(key: "下一步", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// en translation: Disagree
+      ///
+      /// Key: 不同意
+      ///
+      /// Locales: en, th
+      var 不同意: RswiftResources.StringResource { .init(key: "不同意", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: Report
       ///
       /// Key: 举报
@@ -1535,6 +1574,13 @@ struct _R: Sendable {
       ///
       /// Locales: en, th
       var 会员服务永久有效根据您的需要选择适合您的会员服务: RswiftResources.StringResource { .init(key: "会员服务永久有效，根据您的需要选择适合您的会员服务。", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Your Name
+      ///
+      /// Key: 你的名字
+      ///
+      /// Locales: en, th
+      var 你的名字: RswiftResources.StringResource { .init(key: "你的名字", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Use
       ///
@@ -1732,6 +1778,20 @@ struct _R: Sendable {
       /// Locales: en, th
       var 分享给好友: RswiftResources.StringResource { .init(key: "分享给好友", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// en translation: Creat
+      ///
+      /// Key: 创建
+      ///
+      /// Locales: en, th
+      var 创建: RswiftResources.StringResource { .init(key: "创建", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Create new account
+      ///
+      /// Key: 创建一个新账号
+      ///
+      /// Locales: en, th
+      var 创建一个新账号: RswiftResources.StringResource { .init(key: "创建一个新账号", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: Create Group
       ///
       /// Key: 创建群聊
@@ -1746,13 +1806,6 @@ struct _R: Sendable {
       /// Locales: en, th
       var 删除: RswiftResources.StringResource { .init(key: "删除", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: Delete Blog
-      ///
-      /// Key: 删除博客
-      ///
-      /// Locales: en, th
-      var 删除博客: RswiftResources.StringResource { .init(key: "删除博客", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
-
       /// en translation: Delete Friend
       ///
       /// Key: 删除好友
@@ -1760,12 +1813,12 @@ struct _R: Sendable {
       /// Locales: en, th
       var 删除好友: RswiftResources.StringResource { .init(key: "删除好友", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: If you delete your account, all services of AIbitlin will no longer be available, including chat, shortcut blogs, etc.
+      /// en translation: If you delete your account, all services of AIbitlin will no longer be available, including chat, website, etc.
       ///
-      /// Key: 删除您的账户，AIbitlin所有服务都将无法继续使用，包括聊天、博客等。
+      /// Key: 删除您的账户，AIbitlin所有服务都将无法继续使用，包括聊天、网站等。
       ///
       /// Locales: en, zh-Hans, th
-      var 删除您的账户AIbitlin所有服务都将无法继续使用包括聊天博客等: RswiftResources.StringResource { .init(key: "删除您的账户，AIbitlin所有服务都将无法继续使用，包括聊天、博客等。", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+      var 删除您的账户AIbitlin所有服务都将无法继续使用包括聊天网站等: RswiftResources.StringResource { .init(key: "删除您的账户，AIbitlin所有服务都将无法继续使用，包括聊天、网站等。", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Deleted successfully
       ///
@@ -1780,6 +1833,13 @@ struct _R: Sendable {
       ///
       /// Locales: en, th
       var 删除成员: RswiftResources.StringResource { .init(key: "删除成员", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Delete Website
+      ///
+      /// Key: 删除网站
+      ///
+      /// Locales: en, th
+      var 删除网站: RswiftResources.StringResource { .init(key: "删除网站", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Activity
       ///
@@ -1808,34 +1868,6 @@ struct _R: Sendable {
       ///
       /// Locales: en, th
       var 区域访问限制: RswiftResources.StringResource { .init(key: "区域访问限制", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
-
-      /// en translation: Blog
-      ///
-      /// Key: 博客
-      ///
-      /// Locales: en, th
-      var 博客: RswiftResources.StringResource { .init(key: "博客", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
-
-      /// en translation: Blog icon not set
-      ///
-      /// Key: 博客图标未设置
-      ///
-      /// Locales: en, th
-      var 博客图标未设置: RswiftResources.StringResource { .init(key: "博客图标未设置", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
-
-      /// en translation: URL
-      ///
-      /// Key: 博客地址
-      ///
-      /// Locales: en, zh-Hans, th
-      var 博客地址: RswiftResources.StringResource { .init(key: "博客地址", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
-
-      /// en translation: Blog top
-      ///
-      /// Key: 博客置顶
-      ///
-      /// Locales: en, th
-      var 博客置顶: RswiftResources.StringResource { .init(key: "博客置顶", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Text - Automatically detects the input language
       ///
@@ -1899,6 +1931,13 @@ struct _R: Sendable {
       ///
       /// Locales: en, th
       var 可访问: RswiftResources.StringResource { .init(key: "可访问", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Agree and continue
+      ///
+      /// Key: 同意并继续
+      ///
+      /// Locales: en, th
+      var 同意并继续: RswiftResources.StringResource { .init(key: "同意并继续", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Name
       ///
@@ -2313,13 +2352,6 @@ struct _R: Sendable {
       /// Locales: en, th
       var 我加入的: RswiftResources.StringResource { .init(key: "我加入的", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: My Blog
-      ///
-      /// Key: 我和我的博客
-      ///
-      /// Locales: en, th
-      var 我和我的博客: RswiftResources.StringResource { .init(key: "我和我的博客", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
-
       /// en translation: My Name in the Group
       ///
       /// Key: 我在群里的昵称
@@ -2362,19 +2394,19 @@ struct _R: Sendable {
       /// Locales: en, th
       var 我已阅读并同意Aibitlin隐私协议注册协议: RswiftResources.StringResource { .init(key: "我已阅读并同意Aibitlin《隐私协议》《注册协议》", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: I Want to Recommend Blogs
+      /// en translation: My Recommended Websites
       ///
-      /// Key: 我想要推荐的博客
+      /// Key: 我想要推荐的网站
       ///
       /// Locales: en, th
-      var 我想要推荐的博客: RswiftResources.StringResource { .init(key: "我想要推荐的博客", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+      var 我想要推荐的网站: RswiftResources.StringResource { .init(key: "我想要推荐的网站", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: My Blog Collection
+      /// en translation: My Collected Websites
       ///
-      /// Key: 我收藏的博客
+      /// Key: 我收藏的网站
       ///
       /// Locales: en, th
-      var 我收藏的博客: RswiftResources.StringResource { .init(key: "我收藏的博客", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+      var 我收藏的网站: RswiftResources.StringResource { .init(key: "我收藏的网站", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: I don't have an account, create a new account.
       ///
@@ -2411,12 +2443,12 @@ struct _R: Sendable {
       /// Locales: en, th
       var 我的动态: RswiftResources.StringResource { .init(key: "我的动态", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: My Blog
+      /// en translation: My Website
       ///
-      /// Key: 我的博客
+      /// Key: 我的网站
       ///
       /// Locales: en, th
-      var 我的博客: RswiftResources.StringResource { .init(key: "我的博客", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+      var 我的网站: RswiftResources.StringResource { .init(key: "我的网站", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: My Group
       ///
@@ -2600,19 +2632,19 @@ struct _R: Sendable {
       /// Locales: en, th
       var 支持个性化访客通知帮助获客: RswiftResources.StringResource { .init(key: "支持个性化访客通知，帮助获客", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: Supports displaying the number of blog visitors in the past 7 days and all visitor details
+      /// en translation: Supports displaying the 7-day visitor count and detailed visitor information
       ///
-      /// Key: 支持显示博客7日访客数以及全部访客明细
+      /// Key: 支持显示网站7日访客数以及全部访客明细
       ///
       /// Locales: en, th
-      var 支持显示博客7日访客数以及全部访客明细: RswiftResources.StringResource { .init(key: "支持显示博客7日访客数以及全部访客明细", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+      var 支持显示网站7日访客数以及全部访客明细: RswiftResources.StringResource { .init(key: "支持显示网站7日访客数以及全部访客明细", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: Supports displaying the number of blog visitors in the past 7 days and displaying friends' visit data
+      /// en translation: Supports displaying the 7-day visitor count and showing friend visit data
       ///
-      /// Key: 支持显示博客7日访客数量并显示好友访问数据
+      /// Key: 支持显示网站7日访客数量并显示好友访问数据
       ///
       /// Locales: en, th
-      var 支持显示博客7日访客数量并显示好友访问数据: RswiftResources.StringResource { .init(key: "支持显示博客7日访客数量并显示好友访问数据", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+      var 支持显示网站7日访客数量并显示好友访问数据: RswiftResources.StringResource { .init(key: "支持显示网站7日访客数量并显示好友访问数据", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Collect
       ///
@@ -2620,6 +2652,13 @@ struct _R: Sendable {
       ///
       /// Locales: en, th
       var 收藏: RswiftResources.StringResource { .init(key: "收藏", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Collection successful
+      ///
+      /// Key: 收藏成功
+      ///
+      /// Locales: en, th
+      var 收藏成功: RswiftResources.StringResource { .init(key: "收藏成功", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: File
       ///
@@ -2641,13 +2680,6 @@ struct _R: Sendable {
       ///
       /// Locales: en, th
       var 新用户注册: RswiftResources.StringResource { .init(key: "新用户注册", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
-
-      /// en translation: New Group Chat Request
-      ///
-      /// Key: 新的群聊申请
-      ///
-      /// Locales: en, th
-      var 新的群聊申请: RswiftResources.StringResource { .init(key: "新的群聊申请", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Japanese
       ///
@@ -2704,6 +2736,13 @@ struct _R: Sendable {
       ///
       /// Locales: en, th
       var 更多: RswiftResources.StringResource { .init(key: "更多", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Change the avatar
+      ///
+      /// Key: 更换头像
+      ///
+      /// Locales: en, th
+      var 更换头像: RswiftResources.StringResource { .init(key: "更换头像", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Moments
       ///
@@ -2859,19 +2898,12 @@ struct _R: Sendable {
       /// Locales: en, th
       var 添加: RswiftResources.StringResource { .init(key: "添加", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: Add to My Quick Blog
+      /// en translation: Add to My Quick Website
       ///
-      /// Key: 添加到我的快捷博客
-      ///
-      /// Locales: en, th
-      var 添加到我的快捷博客: RswiftResources.StringResource { .init(key: "添加到我的快捷博客", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
-
-      /// en translation: Add Blog
-      ///
-      /// Key: 添加博客
+      /// Key: 添加到我的快捷网站
       ///
       /// Locales: en, th
-      var 添加博客: RswiftResources.StringResource { .init(key: "添加博客", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+      var 添加到我的快捷网站: RswiftResources.StringResource { .init(key: "添加到我的快捷网站", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Add Friends
       ///
@@ -2886,6 +2918,13 @@ struct _R: Sendable {
       ///
       /// Locales: en, th
       var 添加成员: RswiftResources.StringResource { .init(key: "添加成员", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Add Website
+      ///
+      /// Key: 添加网站
+      ///
+      /// Locales: en, th
+      var 添加网站: RswiftResources.StringResource { .init(key: "添加网站", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Clear Chat History
       ///
@@ -3048,6 +3087,34 @@ struct _R: Sendable {
       /// Locales: en, th
       var 编辑: RswiftResources.StringResource { .init(key: "编辑", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// en translation: Website
+      ///
+      /// Key: 网站
+      ///
+      /// Locales: en, th
+      var 网站: RswiftResources.StringResource { .init(key: "网站", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Website icon not set
+      ///
+      /// Key: 网站图标未设置
+      ///
+      /// Locales: en, th
+      var 网站图标未设置: RswiftResources.StringResource { .init(key: "网站图标未设置", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: URL
+      ///
+      /// Key: 网站地址
+      ///
+      /// Locales: en, zh-Hans, th
+      var 网站地址: RswiftResources.StringResource { .init(key: "网站地址", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Website top
+      ///
+      /// Key: 网站置顶
+      ///
+      /// Locales: en, th
+      var 网站置顶: RswiftResources.StringResource { .init(key: "网站置顶", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: Sticky On Top
       ///
       /// Key: 置顶
@@ -3110,6 +3177,13 @@ struct _R: Sendable {
       ///
       /// Locales: en, th
       var 群聊: RswiftResources.StringResource { .init(key: "群聊", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Group Request
+      ///
+      /// Key: 群聊申请
+      ///
+      /// Locales: en, th
+      var 群聊申请: RswiftResources.StringResource { .init(key: "群聊申请", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Group Chat Settings
       ///
@@ -3580,19 +3654,26 @@ struct _R: Sendable {
       /// Locales: en, th
       var 选择举报该账号的原因: RswiftResources.StringResource { .init(key: "选择举报该账号的原因", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
-      /// en translation: Select Blog
-      ///
-      /// Key: 选择博客
-      ///
-      /// Locales: en, th
-      var 选择博客: RswiftResources.StringResource { .init(key: "选择博客", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
-
       /// en translation: Select target language
       ///
       /// Key: 选择目标语言
       ///
       /// Locales: en, th
       var 选择目标语言: RswiftResources.StringResource { .init(key: "选择目标语言", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Select system avatar
+      ///
+      /// Key: 选择系统头像
+      ///
+      /// Locales: en, th
+      var 选择系统头像: RswiftResources.StringResource { .init(key: "选择系统头像", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Selected Websites
+      ///
+      /// Key: 选择网站
+      ///
+      /// Locales: en, th
+      var 选择网站: RswiftResources.StringResource { .init(key: "选择网站", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Select language
       ///
@@ -3692,6 +3773,13 @@ struct _R: Sendable {
       /// Locales: en, th
       var 陌生人访客: RswiftResources.StringResource { .init(key: "陌生人访客", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// en translation: Privacy Agreement and Registration Agreement
+      ///
+      /// Key: 隐私协议和注册协议
+      ///
+      /// Locales: en, th
+      var 隐私协议和注册协议: RswiftResources.StringResource { .init(key: "隐私协议和注册协议", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: Need to send verification information
       ///
       /// Key: 需要发送验证信息
@@ -3787,7 +3875,7 @@ struct _R: Sendable {
     var colorBackground: RswiftResources.ColorResource { .init(name: "ColorBackground", path: [], bundle: bundle) }
   }
 
-  /// This `_R.image` struct is generated, and contains static references to 247 images.
+  /// This `_R.image` struct is generated, and contains static references to 248 images.
   struct image {
     let bundle: Foundation.Bundle
 
@@ -4355,6 +4443,9 @@ struct _R: Sendable {
     /// Image `login_type_qq`.
     var login_type_qq: RswiftResources.ImageResource { .init(name: "login_type_qq", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
+    /// Image `login_type_register`.
+    var login_type_register: RswiftResources.ImageResource { .init(name: "login_type_register", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
     /// Image `login_type_scan`.
     var login_type_scan: RswiftResources.ImageResource { .init(name: "login_type_scan", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
@@ -4539,6 +4630,14 @@ struct _R: Sendable {
     let comAppleSecurityApplicationGroups = comAppleSecurityApplicationGroups()
     struct comAppleSecurityApplicationGroups {
     }
+  }
+
+  /// This `_R.file` struct is generated, and contains static references to 1 resource files.
+  struct file {
+    let bundle: Foundation.Bundle
+
+    /// Resource file `GoogleService-Info.plist`.
+    var googleServiceInfoPlist: RswiftResources.FileResource { .init(name: "GoogleService-Info", pathExtension: "plist", bundle: bundle, locale: LocaleReference.none) }
   }
 
   /// This `_R.nib` struct is generated, and contains static references to 1 nibs.

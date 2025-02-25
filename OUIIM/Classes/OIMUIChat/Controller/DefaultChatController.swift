@@ -620,8 +620,8 @@ final class DefaultChatController: ChatController {
             
             if source.type == .boke {
                 print(#file, #line)
-                print("发送博客 \(source)")
-                print("发送博客 \(source.value)")
+                print("发送网站 \(source)")
+                print("发送网站 \(source.value)")
                 sendBoke(source: source.bokeMessageSource, completion: completion)
             }
         }
@@ -656,7 +656,7 @@ final class DefaultChatController: ChatController {
         }
     }
     
-    // MARK: - 张亚飞打的标记  ******** 重中之重  发送博客方法 ***********
+    // MARK: - 张亚飞打的标记  ******** 重中之重  发送网站方法 ***********
 
     private func sendBoke(source: bokeMessageSource, completion: @escaping ([Section]) -> Void) {
 //        let boke = BokeElem(title: source.title, iconUrl: source.iconUrl, linkUrl: source.linkUrl, intro: source.intro)

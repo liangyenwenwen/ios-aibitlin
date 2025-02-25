@@ -265,7 +265,7 @@ struct FaceMessageSource: Hashable {
     var index: Int
 }
 
-// MARK: - 张亚飞打的标记  博客消息
+// MARK: - 张亚飞打的标记  网站消息
 struct bokeMessageSource: Hashable, Codable {
 //    var title: String?
 //    var iconUrl: String?
@@ -377,7 +377,7 @@ struct CustomMessageSource: Hashable {
         case blockedByFriend = 910 // 被拉黑
         case deletedByFriend = 911 // 被删除
         
-        case boke = 10500 //博客
+        case boke = 10500 //网站
         case buyVip = 10600 //购买vip
         case vipVisitorWarn = 10601 //vip访客提醒
         case systemNotify = 10700 //系统通知
@@ -397,7 +397,7 @@ extension CustomMessageSource {
         
         return nil
     }
-    // MARK: - 张亚飞打的标记   获取博客信息
+    // MARK: - 张亚飞打的标记   获取网站信息
     public var bokeMessageSource: bokeMessageSource {
         if let value = value {
 //            let title = value["title"]
@@ -524,7 +524,7 @@ extension Message {
         case .mention(let value):
             abstruct = value.attributedString?.string
 //        case .boke(let source):
-//            abstruct = "[博客]".innerLocalized()
+//            abstruct = "[网站]".innerLocalized()
         case .custom(let source):
             print(source.type?.rawValue)
         default:

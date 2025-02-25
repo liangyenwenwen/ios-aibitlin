@@ -10,7 +10,7 @@ import Foundation
 import OUICore
 import ProgressHUD
 
-class YFChooseUserAvatarCardView: UIView, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class YFChooseUserAvatarCardView: UIView, UIImagePickerControllerDelegate, UINavigationControllerDelegate, QMUITextFieldDelegate {
     
     var currentIndex: Int = -1
     var bottomHeight = 672
@@ -24,6 +24,11 @@ class YFChooseUserAvatarCardView: UIView, UIImagePickerControllerDelegate, UINav
         let v = UIView()
         v.backgroundColor = .white
         v.clipsToBounds =  true
+        let tap = UITapGestureRecognizer()
+        tap.rx.event.subscribe {  _ in
+            self.userNickNameTF.endEditing(true)
+        }
+        v.addGestureRecognizer(tap)
         return v
     }()
     
@@ -42,7 +47,7 @@ class YFChooseUserAvatarCardView: UIView, UIImagePickerControllerDelegate, UINav
         let r = UILabel()
         r.font = .mediumFont(16)
         r.textColor = .init(hexString: "#388CEF")
-        r.text = "更换头像"
+        r.text = "更换头像".localized()
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(changeAvatar))
         r.isUserInteractionEnabled = true
@@ -50,12 +55,24 @@ class YFChooseUserAvatarCardView: UIView, UIImagePickerControllerDelegate, UINav
         
         return r
     }()
-    
+    lazy var userNickNameTF: QMUITextField = {
+        let r = QMUITextField()
+        r.textInsets = UIEdgeInsets(top: 0, left: PADDING_OUTER, bottom: 0, right: PADDING_OUTER)
+        r.font = .mediumFont(16)
+        r.corner(8)
+        r.delegate = self
+        r.returnKeyType = .done
+        r.clearButtonMode = .always
+        r.backgroundColor = .init(hexString: "#F5F5F5")
+        r.placeholder = "你的名字".localized()
+        r.textColor = .black333
+        return r
+    }()
     lazy var chooseIconTitleLbl: UILabel = {
         let r = UILabel()
         r.textColor = .init(hexString: "#333333")
         r.font = .mediumFont(16)
-        r.text = "选择系统头像"
+        r.text = "选择系统头像".localized()
         return r
     }()
     
@@ -107,6 +124,17 @@ class YFChooseUserAvatarCardView: UIView, UIImagePickerControllerDelegate, UINav
         
         return r
     }()
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        userNickNameTF.endEditing(true)
+        return true
+    }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if isHaveImg , userNickNameTF.text?.isEmpty == false{
+            trueLbl.backgroundColor = .init(hexString: "#388CEF")
+        }else{
+            trueLbl.backgroundColor = .init(hexString: "#eaeaea")
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -125,7 +153,7 @@ class YFChooseUserAvatarCardView: UIView, UIImagePickerControllerDelegate, UINav
         
         bottomView.addSubview(topCameraImg)
         topCameraImg.snp.makeConstraints { make in
-            make.top.equalTo(70)
+            make.top.equalTo(40)
             make.width.height.equalTo(120)
             make.centerX.equalToSuperview()
         }
@@ -136,12 +164,19 @@ class YFChooseUserAvatarCardView: UIView, UIImagePickerControllerDelegate, UINav
             make.height.equalTo(22)
             make.centerX.equalToSuperview()
         }
-        
+        bottomView.addSubview(userNickNameTF)
+        userNickNameTF.snp.makeConstraints { make in
+            make.left.equalTo(16)
+            make.right.equalTo(-16)
+            make.height.equalTo(52)
+            make.top.equalTo(changeIconLbl.snp_bottom).offset(15)
+        }
+
         bottomView.addSubview(chooseIconTitleLbl)
         chooseIconTitleLbl.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.height.equalTo(22)
-            make.top.equalTo(topCameraImg.snp_bottom).offset(92)
+            make.top.equalTo(topCameraImg.snp_bottom).offset(128)
         }
         
         
@@ -282,69 +317,11 @@ class YFChooseUserAvatarCardView: UIView, UIImagePickerControllerDelegate, UINav
         
         
     }
-    
-//    private lazy var _photoHelper: PhotoHelper = {
-//        let v = PhotoHelper()
-//        v.setConfigToPickAvatar()
-//        v.didPhotoSelected = { [weak self] (images: [UIImage], _: [PHAsset]) in
-//            guard var first = images.first else { return }
-//            
-//            self?.currentIndex = -1
-//            self?.isHaveImg = true
-//            self?.refrehUI()
-//            
-//            self?.userIconImg = first
-//            self?.topCameraImg.image = first
-//            
-////            ProgressHUD.animate()
-////            first = first.compress(expectSize: 20 * 1024)
-////            let result = FileHelper.shared.saveImage(image: first)
-////            
-////            if result.isSuccess {
-////                self?._viewModel.uploadFile(fullPath: result.fullPath, onProgress: { [weak self] progress in
-////
-////                }, onComplete: { [weak self] code, msg in
-////                    if code == 0 {
-////                        self?.bottomShow(show: false)
-////                        ProgressHUD.dismiss()
-////                    } else {
-//////                        ProgressHUD.error(msg)
-////                        SuperToast.show(title: msg)
-////                    }
-////                })
-////            } else {
-////                ProgressHUD.dismiss()
-////            }
-//        }
-//        
-//        v.didCameraFinished = { [weak self] (photo: UIImage?, _: URL?) in
-//            guard let sself = self else { return }
-//            if var photo {
-//                ProgressHUD.animate()
-//                
-//                photo = photo.compress(expectSize: 20 * 1024)
-//                let result = FileHelper.shared.saveImage(image: photo)
-//                if result.isSuccess {
-//                    self?._viewModel.uploadFile(fullPath: result.fullPath, onProgress: { [weak self] progress in
-//
-//                    }, onComplete: { [weak self] code, msg in
-//                        if code == 0 {
-//                           
-//                        } else {
-////                            ProgressHUD.error(msg)
-//                            SuperToast.show(title: msg)
-//                        }
-//                        ProgressHUD.dismiss()
-//                    })
-//                }
-//            }
-//        }
-//        return v
-//    }()
-    
+        
     private lazy var _photoHelper: PhotoHelper = {
             let v = PhotoHelper()
-            v.setConfigToMultipleSelected()
+//            v.setConfigToMultipleSelected()
+            v.setConfigToPickAvatar()
             v.didPhotoSelected = { [weak self] (images: [UIImage], assets: [PHAsset]) in
                 guard var first = images.first else { return }
                 
@@ -369,24 +346,6 @@ class YFChooseUserAvatarCardView: UIView, UIImagePickerControllerDelegate, UINav
                     
                     self?.userIconImg = photo
                     self?.topCameraImg.image = photo
-                    
-//                    ProgressHUD.animate()
-//                    photo = photo.compress(expectSize: 20 * 1024)
-//                    let result = FileHelper.shared.saveImage(image: photo)
-//                    if result.isSuccess {
-//                        self?._viewModel.uploadFile(fullPath: result.fullPath, onProgress: { [weak self] progress in
-//
-//                        }, onComplete: { [weak self] code, msg in
-//                            if code == 0 {
-//                               
-//                            } else {
-//                                
-//                                SuperToast.show(title: msg)
-//                            }
-//                            ProgressHUD.dismiss()
-//                        })
-//                    }
-                    
                 }
             }
         return v
@@ -419,8 +378,10 @@ extension YFChooseUserAvatarCardView {
     
     func refrehUI() {
         
-        if isHaveImg {
+        if isHaveImg , userNickNameTF.text?.isEmpty == false{
             trueLbl.backgroundColor = .init(hexString: "#388CEF")
+        }else{
+            trueLbl.backgroundColor = .init(hexString: "#eaeaea")
         }
         
         for index in 0...9 {
@@ -435,12 +396,15 @@ extension YFChooseUserAvatarCardView {
         if !isHaveImg {
             return
         }
+        if userNickNameTF.text?.isEmpty == true{
+            return
+        }
         print("保存")
   
         if currentIndex > -1 {
             if let data = picData {
                 ProgressHUD.animate()
-                AccountViewModel.updateUserInfo(userID: IMController.shared.uid, faceURL:data[self.currentIndex]) { errCode, errMsg in
+                AccountViewModel.updateUserInfo(userID: IMController.shared.uid,nickname:userNickNameTF.text, faceURL:data[self.currentIndex]) { errCode, errMsg in
                     ProgressHUD.dismiss()
                     if errCode != 0 {
                         SuperToast.show(title: errMsg)
@@ -454,25 +418,32 @@ extension YFChooseUserAvatarCardView {
             
             uploadImgToAvatar()
         }
-
     }
     
     func uploadImgToAvatar() {
-        let image = userIconImg!.compress(expectSize: 20 * 1024)
+        let image = userIconImg!.compress(expectSize: 1500 * 1024)
         let result = FileHelper.shared.saveImage(image: image)
         if result.isSuccess {
             ProgressHUD.animate()
-            self._viewModel.uploadFile(fullPath: result.fullPath, onProgress: { [weak self] progress in
-
-            }, onComplete: { [weak self] code, msg in
-                ProgressHUD.dismiss()
-                if code == 0 {
-                    self?.bottomShow(show: false)
-                   
-                } else {
-                    SuperToast.show(title: msg)
+            
+            IMController.shared.uploadFile(fullPath: result.fullPath) { progress in
+                
+            } onSuccess: { [weak self] url in
+                if let url = url {
+                    AccountViewModel.updateUserInfo(userID: IMController.shared.uid,nickname:self?.userNickNameTF.text, faceURL:url) { errCode, errMsg in
+                        ProgressHUD.dismiss()
+                        if errCode != 0 {
+                            SuperToast.show(title: errMsg)
+                        } else {
+                            print("保存成功")
+                            self?.bottomShow(show: false)
+                        }
+                    }
+                }else{
+                    ProgressHUD.dismiss()
+                    SuperToast.show(title: "-1".localized())
                 }
-            })
+            }
         }
     }
     
@@ -519,7 +490,7 @@ extension YFChooseUserAvatarCardView {
 ////                _photoHelper.presentCamera(byController: currentController)
 //                presentCamera()
 //            }
-            _photoHelper.setConfigToMultipleSelected(forVideo: false, maxSelectCount: 1)
+//            _photoHelper.setConfigToMultipleSelected(forVideo: false, maxSelectCount: 1)
             _photoHelper.showSelectMetaSheet(byController: currentController)
         }
         

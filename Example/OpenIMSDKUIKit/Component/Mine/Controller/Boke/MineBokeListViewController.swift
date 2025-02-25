@@ -16,7 +16,7 @@ import  ProgressHUD
 
 
 enum blogListVCType :Int {
-    case meBlog  = 0
+    case meWebsite  = 0
     case othersBlog 
     case star
 }
@@ -24,7 +24,7 @@ enum blogListVCType :Int {
 
 class MineBokeListViewController: BaseTitleController {
 
-    var vcType: blogListVCType = .meBlog
+    var vcType: blogListVCType = .meWebsite
     var isEidt = false
     var othersID: String?
     var othersName: String?
@@ -45,12 +45,12 @@ class MineBokeListViewController: BaseTitleController {
         isNeedEmptyView()
 
         switch vcType {
-        case .meBlog:
-            title = "MeBlog".localized()
+        case .meWebsite:
+            title = "MeWebsite".localized()
         case .othersBlog:
-            title = "UserBlog".localizedFormat(othersName ?? "")
+            title = "UserWebsite".localizedFormat(othersName ?? "")
         case .star:
-            title = "我收藏的博客".localized()
+            title = "我收藏的网站".localized()
         }
         
 
@@ -60,7 +60,7 @@ class MineBokeListViewController: BaseTitleController {
 //        tableView.isEditing = isMe
 //        tableView.dragInteractionEnabled = true
         
-        if vcType == .meBlog {
+        if vcType == .meWebsite {
             superFooterContainerContainer.tg_padding = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
             superFooterContainerContainer.addSubview(bottomBtn)
         }
@@ -73,7 +73,7 @@ class MineBokeListViewController: BaseTitleController {
         
         
         
-//        if vcType == .meBlog {
+//        if vcType == .meWebsite {
 //            navView.addRighttItem(sortBtn)
 //        }
 
@@ -95,7 +95,7 @@ class MineBokeListViewController: BaseTitleController {
     }()
     
     func changeSortState() {
-        self.vcType = .meBlog
+        self.vcType = .meWebsite
         self.isEidt.toggle()
         self.tableView.isEditing = self.isEidt 
         self.tableView.reloadData()
@@ -142,7 +142,7 @@ extension MineBokeListViewController {
         let item = datum[indexPath.row] as! myBlogShowBlogPOModel
         
        
-        if(vcType != .meBlog) {
+        if(vcType != .meWebsite) {
 //            SuperWebController.start((self.navigationController!), uri: item.userBlogUrl)
             
             SuperWebController.startAboubBlog(self.navigationController!, blogItem: item)
@@ -189,11 +189,11 @@ extension MineBokeListViewController {
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return (vcType == .meBlog && isEidt)
+        return (vcType == .meWebsite && isEidt)
     }
     
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        return vcType == .meBlog
+        return vcType == .meWebsite
     }
     
     
@@ -217,7 +217,7 @@ extension MineBokeListViewController {
     
     @objc func refreshData() {
         switch vcType {
-        case .meBlog:
+        case .meWebsite:
 //            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 self.getMyBlog()
 //            }
@@ -266,7 +266,7 @@ extension MineBokeListViewController {
             print("删除")
 //            GKCover.hideWithoutAnimation()
 //            self?.deleteBlog(item: item)
-            self?.presentAlert(title: "deletBookTip".localized()) { [weak self] in
+            self?.presentAlert(title: "deletWebsiteTip".localized()) { [weak self] in
                 GKCover.hideWithoutAnimation()
                 self?.deleteBlog(item: item)
             }

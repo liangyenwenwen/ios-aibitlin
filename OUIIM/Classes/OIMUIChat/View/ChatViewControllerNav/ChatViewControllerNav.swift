@@ -314,7 +314,7 @@ class ChatViewControllerNav: UIView {
         let v = UILabel()
         v.font = UIFont(name: "PingFangSC-Semibold", size: 11)
         v.textColor = .init(hexString: "#7238EF")
-        v.text = "[V4、\("企业".localized())、\("博客".localized())]".localized()
+        v.text = "[V4、\("企业".localized())、\("网站".localized())]".localized()
         v.text = nil
         return v
     }()

@@ -28,7 +28,7 @@ public enum PadItemType: CaseIterable {
         case .file:
             return "文件".localized()
         case .boke:
-            return "博客".localized()
+            return "网站".localized()
         case .voiceCall:
             return "语音通话".localized()
         case .videoCall:

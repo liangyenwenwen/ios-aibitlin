@@ -10,6 +10,7 @@ import MJExtension
 import IQKeyboardManagerSwift
 import GTSDK
 import Alamofire
+import FirebaseMessaging
 #if ENABLE_MOMENTS
 import OUIMoments
 #endif
@@ -62,6 +63,7 @@ class MainTabViewController: UITabBarController {
         IMController.shared.totalUnreadSubject.map({ (unread: Int) -> String? in
             IMController.shared.unChatMessageCount = unread
             UIApplication.shared.applicationIconBadgeNumber = IMController.shared.unChatMessageCount + IMController.shared.unCallPhoneMessageCount + IMController.shared.unContactMessageCount
+            IMController.shared.updateFcmBadge(count: UIApplication.shared.applicationIconBadgeNumber)
             var badge: String?
             if unread == 0 {
                 badge = nil
@@ -96,6 +98,7 @@ class MainTabViewController: UITabBarController {
         IMController.shared.contactUnreadSubject.map({ (unread: Int) -> String? in
             IMController.shared.unContactMessageCount = unread
             UIApplication.shared.applicationIconBadgeNumber = IMController.shared.unChatMessageCount + IMController.shared.unCallPhoneMessageCount + IMController.shared.unContactMessageCount
+            IMController.shared.updateFcmBadge(count: UIApplication.shared.applicationIconBadgeNumber)
             var badge: String?
             if unread == 0 {
                 badge = nil
@@ -195,6 +198,7 @@ class MainTabViewController: UITabBarController {
                 tabBarItem.badgeValue = count > 99 ? "99+" : "\(count)"
                 IMController.shared.unCallPhoneMessageCount = count
                 UIApplication.shared.applicationIconBadgeNumber = IMController.shared.unChatMessageCount + IMController.shared.unCallPhoneMessageCount + IMController.shared.unContactMessageCount
+                IMController.shared.updateFcmBadge(count: UIApplication.shared.applicationIconBadgeNumber)
             } else {
                 tabBarItem.badgeValue = nil
             }
@@ -406,13 +410,13 @@ class MainTabViewController: UITabBarController {
             UserDefaults.standard.synchronize()
             conversationViewController.refreshUserInfo(userInfo: r)
             
-            if r.faceURL == nil || r.faceURL == "" {
+            if r.faceURL == nil || r.faceURL == ""  {
                 userFirstChooseAvatar()
-             
             }
             
             updateLanguage(uid: r.userID)
-            //            checkAppVersion(uid:r.userID)
+//            checkAppVersion(uid:r.userID)
+            updateFcmToken()
             pushBindAlias(true)
             ProgressHUD.dismiss()
             UserDefaults.standard.set("0", forKey: "blogVersion\(Open_im_sdkGetLoginUserID())")
@@ -494,31 +498,28 @@ extension MainTabViewController {
             let appVersion =  UserDefaults.standard.string(forKey: "AppVersion") ?? Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
             let newVersion = data["iosVersion"] as? String
             if appVersion != newVersion{
-                if data["forceUpdate"] as! Int == 1{
-                    //强制升级
-                    UserDefaults.standard.removeObject(forKey: "AppVersion")
-//                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [self] in
-//                        guard let rootViewController = AppDelegate.shared.window?.rootViewController else { return }
-//                        rootViewController.presentNewAlert(title: data["versionDescribe"] as? String, confirmTitle: "立即更新") {
-//                            if let url = URL(string: data["apkUrl"] as! String) {
-//                                UIApplication.shared.open(url)
-//                            }
-//                        }
-//                    }
-                }else{
-                    //普通升级
-                    UserDefaults.standard.set(newVersion, forKey: "AppVersion")
-//                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [self] in
-//                        
-//                        guard let rootViewController = AppDelegate.shared.window?.rootViewController else { return }
-//                        rootViewController.presentNewAlert(title: data["versionDescribe"] as? String, confirmTitle: "立即更新", cancelTitle: "稍后更新") {
-//                            if let url = URL(string: data["apkUrl"] as! String) {
-//                                UIApplication.shared.open(url)
-//                            }
-//                        }
-//                    }
-                }
+                self.updateViewAlert(data: data)
             }
+        }
+    }
+    func updateViewAlert(data:[String: Any]){
+        let contentView = UpdateView(versionData: data)
+        contentView.tg_width.equal(.fill)
+        contentView.tg_height.equal(280)
+        
+        GKCover.cover(from: UIApplication.shared.keyWindow, contentView: contentView, style: .translucent, showStyle: .center, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: true)
+    }
+    //绑定token
+    func updateFcmToken(){
+        Messaging.messaging().token { token, error in
+          if let error = error {
+            print("Error fetching FCM registration token: \(error)")
+          } else if let token = token {
+              IMController.shared.imManager.updateFcmToken(token, expireTime: 2592000) { str in
+              } onFailure: { code, errorMsg in
+                  print("=====",errorMsg as Any)
+              }
+          }
         }
     }
     

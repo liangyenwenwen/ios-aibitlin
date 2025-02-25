@@ -135,15 +135,15 @@ class YFMineHomeBuyVipCardView: TGLinearLayout {
             case 1:
             self.vipRank.text = "VIP1"
             addSubview(vipContentView(vipDescriptionStr: "SupportShortNumber".localizedFormat("8")))
-                addSubview(vipContentView(vipDescriptionStr: "支持显示博客7日访客数量并显示好友访问数据".localized()))
+                addSubview(vipContentView(vipDescriptionStr: "支持显示网站7日访客数量并显示好友访问数据".localized()))
             case 2:
             self.vipRank.text = "VIP2"
                 addSubview(vipContentView(vipDescriptionStr: "SupportShortNumber".localizedFormat("7")))
-                addSubview(vipContentView(vipDescriptionStr: "支持显示博客7日访客数量并显示好友访问数据".localized()))
+                addSubview(vipContentView(vipDescriptionStr: "支持显示网站7日访客数量并显示好友访问数据".localized()))
             case 3:
             self.vipRank.text = "VIP3"
                 addSubview(vipContentView(vipDescriptionStr: "SupportShortNumber".localizedFormat("6")))
-                addSubview(vipContentView(vipDescriptionStr: "支持显示博客7日访客数以及全部访客明细".localized()))
+                addSubview(vipContentView(vipDescriptionStr: "支持显示网站7日访客数以及全部访客明细".localized()))
                 addSubview(vipContentView(vipDescriptionStr: "支持个性化访客通知，帮助获客".localized()))
             default:
                 break

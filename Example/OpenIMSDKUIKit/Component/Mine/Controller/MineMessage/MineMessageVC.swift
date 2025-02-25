@@ -291,7 +291,7 @@ class MineMessageVC: BaseTitleController, UIImagePickerControllerDelegate, UINav
 //            presentCamera()
 //        }
         ProgressHUD.dismiss()
-        _photoHelper.setConfigToMultipleSelected(forVideo: false, maxSelectCount: 1)
+//        _photoHelper.setConfigToMultipleSelected(forVideo: false, maxSelectCount: 1)
         _photoHelper.showSelectMetaSheet(byController: self)
     }
     
@@ -353,11 +353,12 @@ class MineMessageVC: BaseTitleController, UIImagePickerControllerDelegate, UINav
    
     private lazy var _photoHelper: PhotoHelper = {
             let v = PhotoHelper()
-            v.setConfigToMultipleSelected()
+//            v.setConfigToMultipleSelected()
+            v.setConfigToPickAvatar()
             v.didPhotoSelected = { [weak self] (images: [UIImage], assets: [PHAsset]) in
                 guard var first = images.first else { return }
                 ProgressHUD.animate()
-                first = first.compress(expectSize: 20 * 1024)
+                first = first.compress(expectSize: 1500 * 1024)
                 let result = FileHelper.shared.saveImage(image: first)
                 
                 if result.isSuccess {
@@ -384,7 +385,7 @@ class MineMessageVC: BaseTitleController, UIImagePickerControllerDelegate, UINav
                 if var photo {
                     ProgressHUD.animate()
                     
-                    photo = photo.compress(expectSize: 20 * 1024)
+                    photo = photo.compress(expectSize: 1500 * 1024)
                     let result = FileHelper.shared.saveImage(image: photo)
                     if result.isSuccess {
                         self?._viewModel.uploadFile(fullPath: result.fullPath, onProgress: { [weak self] progress in
@@ -456,7 +457,7 @@ class MineMessageVC: BaseTitleController, UIImagePickerControllerDelegate, UINav
                   
                   ProgressHUD.animate()
                   
-                  image = image.compress(expectSize: 20 * 1024)
+                  image = image.compress(expectSize: 1500 * 1024)
                   let result = FileHelper.shared.saveImage(image: image)
                   if result.isSuccess {
                       self._viewModel.uploadFile(fullPath: result.fullPath, onProgress: { [weak self] progress in

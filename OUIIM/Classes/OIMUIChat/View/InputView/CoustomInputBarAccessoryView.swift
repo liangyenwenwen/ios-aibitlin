@@ -15,7 +15,7 @@ enum CustomAttachment {
     case file(String)
     case face(URL, String?)
     
-    // MARK: - 张亚飞打的标记  添加博客
+    // MARK: - 张亚飞打的标记  添加网站
     case boke(String?)
 }
 
@@ -75,7 +75,7 @@ class CoustomInputBarAccessoryView: InputBarAccessoryView {
                                                                           r.fullPath)])
                             }
                         } else {
-                            var item = images[index].compress(expectSize: 300 * 1024)
+                            var item = images[index].compress(expectSize: 1500 * 1024)
                             let r = FileHelper.shared.saveImage(image: item)
 
                             self.sendAttachments(attachments: [.image(r.relativeFilePath,
@@ -93,7 +93,7 @@ class CoustomInputBarAccessoryView: InputBarAccessoryView {
             sendButton.startAnimating()
             
             if let photo {
-                var item = photo.compress(expectSize: 300 * 1024)
+                var item = photo.compress(expectSize: 1500 * 1024)
                 let r = FileHelper.shared.saveImage(image: item)
                 
                 self.sendAttachments(attachments: [.image(r.relativeFilePath,

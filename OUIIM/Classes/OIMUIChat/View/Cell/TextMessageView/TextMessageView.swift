@@ -284,6 +284,9 @@ class TextMessageView: UIView, ContainerCollectionViewCellDelegate {
     @objc private func handleLongPress(_ gesture: UILongPressGestureRecognizer) {
         if gesture.state == .began {
             controller?.longPress?(self, gesture.location(in: self))
+//            let fullRange = NSRange(location: 0, length: textView.text.utf16.count)
+//            textView.selectedRange = fullRange
+//            textView.becomeFirstResponder()
         }
     }
 
@@ -312,7 +315,13 @@ extension TextMessageView: UITextViewDelegate {
         
         return true
     }
-
+//    func textViewDidChangeSelection(_ textView: UITextView) {
+//        if textView.selectedRange == NSRange(location: 0, length: textView.text.utf16.count){
+//            print("++++++")
+//        }else{
+//            print("======")
+//        }
+//    }
 }
 
 /// UITextView with hacks to avoid selection

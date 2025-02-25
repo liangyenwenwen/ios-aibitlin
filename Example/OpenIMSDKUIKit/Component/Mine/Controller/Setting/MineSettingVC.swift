@@ -7,6 +7,8 @@
 
 import UIKit
 import TangramKit
+import ProgressHUD
+import OUICore
 
 class MineSettingVC: BaseTitleController {
 
@@ -41,6 +43,7 @@ class MineSettingVC: BaseTitleController {
         topContentView.addSubview(privateView)
         topContentView.addSubview(privateDeletegeView)
         
+        container.addSubview(clearChatHistoryView)
         container.addSubview(logoOutView)
         
         
@@ -55,6 +58,8 @@ class MineSettingVC: BaseTitleController {
         changeLanguageView.titleView.text = "语言和地区".localized()
         privateView.titleView.text = "PersonalPrivacy".localized()
         privateDeletegeView.titleView.text = "PoliciesAndTerms".localized()
+        
+        clearChatHistoryView.titleView.text = "ClearChatHistory".localized()
         
         logoOutView.titleView.text = "Logout".localized()
     }
@@ -90,10 +95,6 @@ class MineSettingVC: BaseTitleController {
     
     lazy var changeLanguageView: SuperSettingView = {
         let r = SuperSettingView.create(icon: R.image.mine_language_icon()!, title: "语言和地区".localized(), click: { [weak self] data in
-            
-            print("测试语言".localizedFormat("啊哈"))
-            print("测试语言".localizedFormat("123123"))
-//            self?.navigationController?.pushViewController(MineAccountAddSafeVC(), animated: true)
             let vc = LanguageTableViewController()
             self?.navigationController?.pushViewController(vc, animated: true)
         })
@@ -124,7 +125,23 @@ class MineSettingVC: BaseTitleController {
         r.isMediumFont()
         return r
     }()
-    
+    lazy var clearChatHistoryView: SuperSettingView = {
+        let r = SuperSettingView.create(icon: R.image.mine_logout_icon()!, title: "ClearChatHistory".localized(),  ishaveMore:  false, click: { [weak self] data in
+            self?.presentAlert(title: "ConfirmClearChatHistory".localized()) {
+                ProgressHUD.animate(interaction: false)
+                IMController.shared.deleteAllMsgFromLocalAndSvr(){res in
+                    if res != nil {
+                        ProgressHUD.success("ClearChatHistorySuccess".localized())
+                    } else {
+                        ProgressHUD.error("ClearChatHistoryFail".localized())
+                    }
+                }
+            }
+        })
+        r.corner()
+        r.isMediumFont()
+        return r
+    }()
     
     lazy var logoOutView: SuperSettingView = {
         let r = SuperSettingView.create(icon: R.image.mine_logout_icon()!, title: "Logout".localized(),  ishaveMore:  false, click: { [weak self] data in
