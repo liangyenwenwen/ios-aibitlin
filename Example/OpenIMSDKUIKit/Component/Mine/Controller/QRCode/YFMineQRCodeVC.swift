@@ -201,7 +201,7 @@ class YFMineQRCodeVC: BaseTitleController {
         lbl.textColor = .black666
         lbl.font = .regularFont(13)
         
-        userShowId = user.chatID ?? ""
+        userShowId = user.userID ?? ""
         lbl.text = "ID: ".localized() + userShowId
         
         return lbl
@@ -386,7 +386,8 @@ extension YFMineQRCodeVC {
         
         userNicknameLbl.text = username
         userNicknameTF.text = username
-        
+        userShowId = user.userID ?? ""
+        userIDLbl.text = "ID: ".localized() + userShowId
        
         
         
@@ -419,9 +420,31 @@ extension YFMineQRCodeVC {
     @objc func saveQRCode() {
         
 
-        saveCard.bindData(showname: username, codeImg: codeImgView.image, avater: userAvatarImgView.image, idString: userIDLbl.text)
-//        saveCard.isHidden = false
-        saveViewToPhotoAlbum(view: saveCard.userCardView)
+//        saveCard.bindData(showname: username, codeImg: codeImgView.image, avater: userAvatarImgView.image, idString: userIDLbl.text)
+////        saveCard.isHidden = false
+//        saveViewToPhotoAlbum(view: saveCard.userCardView)
+        let status = PHPhotoLibrary.authorizationStatus()
+        if (status == .authorized) {
+            saveCard.bindData(showname: username, codeImg: codeImgView.image, avater: userAvatarImgView.image, idString: userIDLbl.text)
+            saveViewToPhotoAlbum(view: saveCard.userCardView)
+        } else if (status == .restricted || status == .denied) {
+            let alert = UIAlertController(title: "提示".localized(), message: "请去-> [设置 - 隐私 - 相册] 打开访问开关".localized(), preferredStyle: .alert)
+            //cacel 取消也改变值  defalut 必须选择 alert才会消失
+            alert.addAction(title: "确定".localized(), style:.cancel)
+            alert.show()
+        } else if (status == .notDetermined) { // 首次使用
+            PHPhotoLibrary.requestAuthorization({ (firstStatus) in
+                let isTrue = (firstStatus == .authorized)
+                if isTrue {
+                    // 用户首次允许
+                    self.saveCard.bindData(showname: self.username, codeImg: self.codeImgView.image, avater: self.userAvatarImgView.image, idString: self.userIDLbl.text)
+                    self.saveViewToPhotoAlbum(view: self.saveCard.userCardView)
+                } else {
+                    // 用户首次拒绝
+                }
+            })
+        }
+
       
     }
     

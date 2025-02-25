@@ -74,7 +74,8 @@ class YFVipNormalView: UIView, StaticViewFactory, ContainerCollectionViewCellDel
         
         titleLbl.text = controller.source.title
         contentLbl.text = controller.source.text
-        timeLbl.text = Date.timeString(date: controller.message.date)
+//        timeLbl.text = Date.timeString(date: controller.message.date)
+        timeLbl.text = Date.timeStringTransform(date: controller.message.date)
         
 //        titleLbl.backgroundColor = .red
 //        contentLbl.backgroundColor = .blue

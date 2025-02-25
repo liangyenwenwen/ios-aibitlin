@@ -308,8 +308,8 @@
             filePath = "../OUIIM/Classes/OIMUIChat/View/Cell/VipView/YFVipNormalView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "101"
-            endingLineNumber = "101"
+            startingLineNumber = "102"
+            endingLineNumber = "102"
             landmarkName = "reloadData()"
             landmarkType = "7">
          </BreakpointContent>
@@ -342,7 +342,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "63"
             endingLineNumber = "63"
-            landmarkName = "init(types:multipleSelected:selectMaxCount:enableChangeSelectedModel:selectedHandler:)"
+            landmarkName = "init(types:multipleSelected:enableChangeSelectedModel:selectedHandler:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -658,8 +658,10 @@
             filePath = "../OUIIM/Classes/OIMUIChat/ChatViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2073"
-            endingLineNumber = "2073">
+            startingLineNumber = "2059"
+            endingLineNumber = "2059"
+            landmarkName = "processUpdates(with:animated:requiresIsolatedProcess:completion:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -672,8 +674,10 @@
             filePath = "../OUIIM/Classes/OIMUIChat/ChatViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2070"
-            endingLineNumber = "2070">
+            startingLineNumber = "2056"
+            endingLineNumber = "2056"
+            landmarkName = "processUpdates(with:animated:requiresIsolatedProcess:completion:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -686,8 +690,10 @@
             filePath = "../OUIIM/Classes/OIMUIChat/ChatViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2068"
-            endingLineNumber = "2068">
+            startingLineNumber = "2054"
+            endingLineNumber = "2054"
+            landmarkName = "processUpdates(with:animated:requiresIsolatedProcess:completion:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -700,8 +706,10 @@
             filePath = "../OUIIM/Classes/OIMUIChat/ChatViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1440"
-            endingLineNumber = "1440">
+            startingLineNumber = "1424"
+            endingLineNumber = "1424"
+            landmarkName = "ChatViewController"
+            landmarkType = "21">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -762,8 +770,10 @@
             filePath = "../OUIIM/Classes/OIMUIChat/ChatViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1489"
-            endingLineNumber = "1489">
+            startingLineNumber = "1473"
+            endingLineNumber = "1473"
+            landmarkName = "ChatViewController"
+            landmarkType = "21">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -886,8 +896,8 @@
             filePath = "../OUICalling/CallingManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "370"
-            endingLineNumber = "370"
+            startingLineNumber = "374"
+            endingLineNumber = "374"
             landmarkName = "invite(othersID:isVideo:groupID:completion:)"
             landmarkType = "7">
             <Locations>
@@ -948,8 +958,10 @@
             filePath = "../OUIIM/Classes/OIMUIChat/ChatViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2993"
-            endingLineNumber = "2993">
+            startingLineNumber = "2979"
+            endingLineNumber = "2979"
+            landmarkName = "longPress(with:sourceView:point:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -962,8 +974,10 @@
             filePath = "../OUIIM/Classes/OIMUIChat/ChatViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1664"
-            endingLineNumber = "1664">
+            startingLineNumber = "1650"
+            endingLineNumber = "1650"
+            landmarkName = "didTapRead(messageID:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -976,8 +990,10 @@
             filePath = "../OUIIM/Classes/OIMUIChat/ChatViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1708"
-            endingLineNumber = "1708">
+            startingLineNumber = "1694"
+            endingLineNumber = "1694"
+            landmarkName = "didTapContent(with:data:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -990,8 +1006,10 @@
             filePath = "../OUIIM/Classes/OIMUIChat/ChatViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2181"
-            endingLineNumber = "2181">
+            startingLineNumber = "2167"
+            endingLineNumber = "2167"
+            landmarkName = "handleTap(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1004,8 +1022,10 @@
             filePath = "../OUIIM/Classes/OIMUIChat/ChatViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3004"
-            endingLineNumber = "3004">
+            startingLineNumber = "2990"
+            endingLineNumber = "2990"
+            landmarkName = "didTapAvatar(with:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1018,8 +1038,10 @@
             filePath = "../OUIIM/Classes/OIMUIChat/ChatViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3078"
-            endingLineNumber = "3078">
+            startingLineNumber = "3064"
+            endingLineNumber = "3064"
+            landmarkName = "onTapEdgeAligningView()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1064,8 +1086,10 @@
             filePath = "../OUIIM/Classes/OIMUIChat/ChatViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "879"
-            endingLineNumber = "879">
+            startingLineNumber = "862"
+            endingLineNumber = "862"
+            landmarkName = "chooseVoiceORVideo(isVideo:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1110,8 +1134,10 @@
             filePath = "../OUIIM/Classes/OIMUIChat/ChatViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2898"
-            endingLineNumber = "2898">
+            startingLineNumber = "2884"
+            endingLineNumber = "2884"
+            landmarkName = "longPress(with:sourceView:point:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1124,8 +1150,10 @@
             filePath = "../OUIIM/Classes/OIMUIChat/ChatViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2990"
-            endingLineNumber = "2990">
+            startingLineNumber = "2976"
+            endingLineNumber = "2976"
+            landmarkName = "longPress(with:sourceView:point:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

@@ -15,9 +15,38 @@
 "20012" = "Login/Register forbidden";
 "20013" = "Refused to add friends";
 "20014" = "Email has been registered";
-"1001" = "Args Error";
-"1002" = "Current password is wrong";
+"20015" = "The invitation code is empty";
+"20016" = "The verification code is empty";
+"20017" = "User already registered";
+"20018" = "Password is empty";
+"20019" = "Email is empty";
+"20020" = "Invalid verification code";
 "10102" = "User re-login";
+"500" = "Server internal error";
+"1001" = "Args Error";
+"1002" = "Insufficient permissions";
+"1003" = "Key duplication error";
+"1004" = "Record does not exist";
+"1005" = "Invalid account";
+"1006" = "Parameter is not a number";
+"1007" = "Account is not a combination of letters and numbers";
+"1008" = "Email format incorrect";
+"1009" = "The area code and phone number were not transmitted simultaneously";
+"10010" = "Sending verification code for unknown parameter transmission purpose";
+"10011" = "Area code or phone number is empty";
+"10012" = "Password or verification code is empty";
+"10013" = "Password or email is empty";
+"10014" = "User cache does not exist";
+"10015" = "Platform ID is invalid";
+"10016" = "Invalid area code or phone number";
+"10017" = "User ID is empty";
+"1501" = "User login has expired";
+"1502" = "User login has expired";
+"1503" = "User login has expired";
+"1504" = "User login has expired";
+"1505" = "User login has expired";
+"1506" = "User kicked out";
+"1507" = "User login has expired";
 
 "通讯录" = "Contact";
 "通话记录" = "Recents";
@@ -192,6 +221,7 @@
 "pincodeNotMatchTitle" = "Pincode Not Match";
 "accountWarn" = "Warn!";
 "accountException" = "Your account has been logged in to another device; please change your password in time.";
+"tokenInvalid" = "Invalid token, please log in again.";
 
 
 "deletWebsiteTip" = "Are you sure you want to delete the website?";

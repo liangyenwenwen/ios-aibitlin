@@ -333,7 +333,10 @@ extension SearchResultViewController: UITableViewDelegate, UITableViewDataSource
             guard let self else { return }
             guard let groupInfo = groupInfos.first else { return }
   
-            groupsList = [groupInfo]
+            if groupInfo.status != .dismissed && groupInfo.status != .beBan{
+                groupsList = [groupInfo]
+            }
+
         }
     }
     

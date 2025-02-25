@@ -123,8 +123,24 @@ class GroupDetailViewController: UIViewController {
                 self?.enterChat()
             }
         } else {
-            let vc = ApplyViewController(groupID: _viewModel.groupInfoRelay.value!.groupID)
-            navigationController?.pushViewController(vc, animated: true)
+            if _viewModel.groupInfoRelay.value?.status == .beBan{
+                if let handler = OIMApi.showTipHandle {
+                                
+                    handler("groupbeBaned".innerLocalized(), { res in
+                       
+                    })
+                }
+            }else if _viewModel.groupInfoRelay.value?.status == .dismissed{
+                if let handler = OIMApi.showTipHandle {
+                                
+                    handler("groupDisbanded".innerLocalized(), { res in
+                       
+                    })
+                }
+            }else{
+                let vc = ApplyViewController(groupID: _viewModel.groupInfoRelay.value!.groupID)
+                navigationController?.pushViewController(vc, animated: true)
+            }
         }
     }
     
@@ -134,6 +150,7 @@ class GroupDetailViewController: UIViewController {
             guard let self, let conversation else { return }
             
             let vc = ChatViewControllerBuilder().build(conversation)
+            vc.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(vc, animated: true)
             if let root = navigationController?.viewControllers.first {
                 navigationController?.viewControllers.removeAll(where: { controller in

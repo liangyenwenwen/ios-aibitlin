@@ -139,7 +139,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 //        print(YFNetworkUtils.getIPAddress())
 //        print(YFNetworkUtils.getIPAddress2())
         IMController.shared.publicIP = UserDefaults.standard.string(forKey: "publicIP") ?? "60.177.29.150"
-        
         YFNetworkUtils.getPublicIP { ip in
             if let ip = ip{
                 IMController.shared.publicIP = ip
@@ -232,7 +231,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                                   sdkWSAddr: sdkWSAddr) {
             ProgressHUD.banner("accountWarn".localized(), "accountException".localized())
             NotificationCenter.default.post(name: .init("logout"), object: nil)
+        } onUserTokenInvalid: {
+            ProgressHUD.banner("accountWarn".localized(), "tokenInvalid".localized())
+            NotificationCenter.default.post(name: .init("logout"), object: nil)
         }
+
         
         GeTuiSdk.start(withAppId: kGtAppId, appKey: kGtAppKey, appSecret: kGtAppSecret, delegate: self)
         GeTuiSdk.registerRemoteNotification([.alert, .badge, .sound])

@@ -671,7 +671,7 @@ public class CallingBaseViewController: CallingBaseController {
     
     internal func stopSounds() {
         ringToneQueue.addOperation { [self] in
-            if ((audioPlayer.isPlaying) != nil) {
+            if audioPlayer?.isPlaying == true {
                 audioPlayer?.pause()
             }
         }

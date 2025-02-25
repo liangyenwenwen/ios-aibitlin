@@ -171,7 +171,7 @@ struct _R: Sendable {
       var ieXW0yeText: RswiftResources.StringResource { .init(key: "8ie-xW-0ye.text", tableName: "LaunchScreen", source: source, developmentValue: nil, comment: nil) }
     }
 
-    /// This `_R.string.localizable` struct is generated, and contains static references to 526 localization keys.
+    /// This `_R.string.localizable` struct is generated, and contains static references to 531 localization keys.
     struct localizable {
       let source: RswiftResources.StringResource.Source
 
@@ -1414,6 +1414,13 @@ struct _R: Sendable {
       /// Locales: en, zh-Hans, th
       var through: RswiftResources.StringResource1<String> { .init(key: "through", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// en translation: Invalid token, please log in again.
+      ///
+      /// Key: tokenInvalid
+      ///
+      /// Locales: en, zh-Hans, th
+      var tokenInvalid: RswiftResources.StringResource { .init(key: "tokenInvalid", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: Passwords do not match
       ///
       /// Key: twicePwdNoSame
@@ -1504,6 +1511,13 @@ struct _R: Sendable {
       ///
       /// Locales: en, th
       var 不同意: RswiftResources.StringResource { .init(key: "不同意", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// zh-Hans translation: Not updating anymore
+      ///
+      /// Key: 不在更新
+      ///
+      /// Locales: zh-Hans, th
+      var 不在更新: RswiftResources.StringResource { .init(key: "不在更新", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Report
       ///
@@ -2744,6 +2758,13 @@ struct _R: Sendable {
       /// Locales: en, th
       var 更换头像: RswiftResources.StringResource { .init(key: "更换头像", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// zh-Hans translation: Update reminder
+      ///
+      /// Key: 更新提醒
+      ///
+      /// Locales: zh-Hans, th
+      var 更新提醒: RswiftResources.StringResource { .init(key: "更新提醒", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: Moments
       ///
       /// Key: 朋友圈
@@ -2940,6 +2961,13 @@ struct _R: Sendable {
       /// Locales: en, th
       var 照片: RswiftResources.StringResource { .init(key: "照片", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// zh-Hans translation: Version update
+      ///
+      /// Key: 版本更新
+      ///
+      /// Locales: zh-Hans, th
+      var 版本更新: RswiftResources.StringResource { .init(key: "版本更新", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: In effect
       ///
       /// Key: 生效中
@@ -3051,6 +3079,13 @@ struct _R: Sendable {
       ///
       /// Locales: en, th
       var 空空如也: RswiftResources.StringResource { .init(key: "空空如也", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// zh-Hans translation: Immediate Updating
+      ///
+      /// Key: 立即更新
+      ///
+      /// Locales: zh-Hans, th
+      var 立即更新: RswiftResources.StringResource { .init(key: "立即更新", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Sign up now
       ///
@@ -4632,12 +4667,15 @@ struct _R: Sendable {
     }
   }
 
-  /// This `_R.file` struct is generated, and contains static references to 1 resource files.
+  /// This `_R.file` struct is generated, and contains static references to 2 resource files.
   struct file {
     let bundle: Foundation.Bundle
 
     /// Resource file `GoogleService-Info.plist`.
     var googleServiceInfoPlist: RswiftResources.FileResource { .init(name: "GoogleService-Info", pathExtension: "plist", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `call.mp3`.
+    var callMp3: RswiftResources.FileResource { .init(name: "call", pathExtension: "mp3", bundle: bundle, locale: LocaleReference.none) }
   }
 
   /// This `_R.nib` struct is generated, and contains static references to 1 nibs.

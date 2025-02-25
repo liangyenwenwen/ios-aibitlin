@@ -4,8 +4,8 @@ import OUICore
 import AVFoundation
 import ProgressHUD
 
-class ScanViewController: UIViewController {
-    var scanDidComplete: ((String) -> Void)?
+public class ScanViewController: UIViewController {
+    public var scanDidComplete: ((String) -> Void)?
     
     private let disposeBag = DisposeBag()
 
@@ -114,7 +114,7 @@ class ScanViewController: UIViewController {
         return v
     }()
     
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
         
@@ -147,14 +147,14 @@ class ScanViewController: UIViewController {
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
         
       
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    public override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
         
@@ -163,7 +163,7 @@ class ScanViewController: UIViewController {
 //                self?.scanResult(result: result?.strScanned)
 //            }.disposed(by: disposeBag)
 //        }
-        PermissionsHelper.getCameraEnable() { [weak self] isAuthorizeCamera in
+        PermissionsHelper.getCameraEnable() { [weak self]isAuthorizeCamera in
             if isAuthorizeCamera{
                 DispatchQueue.main.async {
                     self?._scanView.startScanning().subscribe { [weak self] (result: ScanResult?) in
@@ -176,7 +176,7 @@ class ScanViewController: UIViewController {
         
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
+    public override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: false)
         
@@ -186,8 +186,33 @@ class ScanViewController: UIViewController {
     private func scanResult(result: String?) {
         DispatchQueue.main.async {
             if let result {
-                ProgressHUD.dismiss()
-                self.scanDidComplete?(result)
+                if result.contains(IMController.joinGroupPrefix){
+                    let groupId = result.replacingOccurrences(of: IMController.joinGroupPrefix, with: "")
+                    IMController.shared.getGroupInfo(groupIds: [groupId]) { [weak self] (groupInfos: [GroupInfo]) in
+                        ProgressHUD.dismiss()
+                        guard let sself = self else { return }
+                        guard let groupInfo = groupInfos.first else { return }
+                        if groupInfo.status == .dismissed || groupInfo.status == .dismissed{
+                            DispatchQueue.main.async {
+                                self?._scanView.startScanning().subscribe { [weak self] (result1: ScanResult?) in
+                                    self?.scanResult(result: result1?.strScanned)
+                                }
+                            }
+                            if let handler = OIMApi.showTipHandle {
+                                
+                                handler(groupInfo.status == .dismissed ? "groupDisbanded".innerLocalized() : "groupbeBaned".innerLocalized(), { res in
+                                    
+                                })
+                            }
+                        }else{
+                            ProgressHUD.dismiss()
+                            self?.scanDidComplete?(result)
+                        }
+                    }
+                }else{
+                    ProgressHUD.dismiss()
+                    self.scanDidComplete?(result)
+                }
             } else {
 //                ProgressHUD.error("unrecognized".innerLocalized())
                 ProgressHUD.dismiss()

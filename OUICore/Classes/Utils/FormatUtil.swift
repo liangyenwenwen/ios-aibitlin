@@ -69,6 +69,23 @@ extension Date {
         let str = format.string(from: date)
         return str
     }
+    /// 时间戳转日期
+    ///
+    /// @param  timeInterval: 时间戳
+    public static func timeStringTransform(date: Date) -> String {
+        let timeInterval = date.timeIntervalSince1970 * 1000
+        var interval = timeInterval
+        
+        if String(timeInterval).count > 10 {
+            interval = ceil(timeInterval / 1000)
+        }
+        
+        let date1 = getNowDateFromatAnDate(Date(timeIntervalSince1970: interval))
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "YYYY-MM-dd HH:mm:ss"
+        return formatter.string(from: date1)
+    }
     
     public static func timeString(date: Date) -> String {
         let timeInterval = date.timeIntervalSince1970 * 1000

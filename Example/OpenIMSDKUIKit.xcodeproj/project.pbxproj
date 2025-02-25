@@ -73,6 +73,7 @@
 		043A558C2C8166490041836E /* UserTagTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043A55892C8166490041836E /* UserTagTypeView.swift */; };
 		043A558D2C8166490041836E /* UserTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043A558A2C8166490041836E /* UserTagView.swift */; };
 		0445BEE22CD1E04300A46558 /* ABLNetWorkToos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445BEE12CD1E04300A46558 /* ABLNetWorkToos.swift */; };
+		04504CD02D6D9FD700E08B90 /* call.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 04504CCE2D6D9FD300E08B90 /* call.mp3 */; };
 		045B8BF72BF4496D0094E080 /* MineChooseBottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045B8BF62BF4496C0094E080 /* MineChooseBottomSheetView.swift */; };
 		045B8BF92BF481AF0094E080 /* UserMessageBottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045B8BF82BF481AF0094E080 /* UserMessageBottomSheetView.swift */; };
 		045B8BFD2BF4B7070094E080 /* YFChatBokeBottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045B8BFC2BF4B7070094E080 /* YFChatBokeBottomSheetView.swift */; };
@@ -292,6 +293,7 @@
 		043A55892C8166490041836E /* UserTagTypeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTagTypeView.swift; sourceTree = "<group>"; };
 		043A558A2C8166490041836E /* UserTagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTagView.swift; sourceTree = "<group>"; };
 		0445BEE12CD1E04300A46558 /* ABLNetWorkToos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ABLNetWorkToos.swift; sourceTree = "<group>"; };
+		04504CCE2D6D9FD300E08B90 /* call.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = call.mp3; sourceTree = "<group>"; };
 		04585F912CCFB4D900BFA8E8 /* customSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = customSound.mp3; sourceTree = "<group>"; };
 		045B8BF62BF4496C0094E080 /* MineChooseBottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineChooseBottomSheetView.swift; sourceTree = "<group>"; };
 		045B8BF82BF481AF0094E080 /* UserMessageBottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMessageBottomSheetView.swift; sourceTree = "<group>"; };
@@ -723,6 +725,14 @@
 				0445BEE12CD1E04300A46558 /* ABLNetWorkToos.swift */,
 			);
 			path = NetWork;
+			sourceTree = "<group>";
+		};
+		04504CCF2D6D9FD300E08B90 /* Sound */ = {
+			isa = PBXGroup;
+			children = (
+				04504CCE2D6D9FD300E08B90 /* call.mp3 */,
+			);
+			path = Sound;
 			sourceTree = "<group>";
 		};
 		04585F902CCFB4B700BFA8E8 /* Resources */ = {
@@ -1204,6 +1214,7 @@
 		607FACD21AFB9204008FA782 /* OpenIMSDKUIKit */ = {
 			isa = PBXGroup;
 			children = (
+				04504CCF2D6D9FD300E08B90 /* Sound */,
 				0445BEE02CD1DF8B00A46558 /* NetWork */,
 				04585F902CCFB4B700BFA8E8 /* Resources */,
 				04F2D0952BEE21EC00D5271B /* Vender */,
@@ -1473,6 +1484,7 @@
 				DCE04171283E5BD30095874E /* Localizable.strings in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
+				04504CD02D6D9FD700E08B90 /* call.mp3 in Resources */,
 				042AD9E72D295E4600CB5041 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1493,7 +1505,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$SRCROOT/R.generated.swift",
+				$SRCROOT/R.generated.swift,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

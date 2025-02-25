@@ -384,7 +384,8 @@ class GroupChatSettingTableViewController: UITableViewController {
                                 }
                                 
                                 cell?.reloadData()
-                                vc?.navigationController?.popViewController(animated: true)
+//                                vc?.navigationController?.popViewController(animated: true)
+                                self.navigationController?.popToViewController(self, animated: true)
                             }
                         }
                         

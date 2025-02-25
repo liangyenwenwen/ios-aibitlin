@@ -20,7 +20,7 @@ class ApplyViewController: UIViewController {
         super.viewWillAppear(animated)
         
         navigationController?.navigationBar.isHidden = false
-        self.title = "添加好友".localized()
+        self.title = groupID != nil ? "申请加入群聊".localized() : "添加好友".localized()
     }
     
     init(groupID: String? = nil, userID: String? = nil) {
@@ -83,8 +83,16 @@ class ApplyViewController: UIViewController {
                        
                     })
                 }
-                
-                self?.navigationController?.popViewController(animated: true)
+                if self?.groupID != nil{
+                    let vcArray = self?.navigationController?.viewControllers
+                    if vcArray?.count ?? 0 > 2{
+                        self?.navigationController?.popToViewController(vcArray![vcArray!.count - 3], animated: true)
+                    }else{
+                        self?.navigationController?.popViewController(animated: true)
+                    }
+                }else{
+                    self?.navigationController?.popViewController(animated: true)
+                }
             })
         }
         
@@ -101,5 +109,10 @@ class ApplyViewController: UIViewController {
             guard let self else { return }
             countLabel.text = "\(text.count)/\(self.maxCount)"
         }).disposed(by: disposeBag)
+        let tap = UITapGestureRecognizer()
+        tap.rx.event.subscribe {  _ in
+            self.view.endEditing(true)
+        }.disposed(by: disposeBag)
+        view.addGestureRecognizer(tap)
     }
 }

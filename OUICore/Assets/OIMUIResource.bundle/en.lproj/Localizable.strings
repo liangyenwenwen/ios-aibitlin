@@ -407,8 +407,8 @@
 "deletedByFriendHint" = "The other party has enabled Friend Confirmation. %@ to chat";
 "sendFriendVerification" = "[Send a friend request]";
 "removedFromGroupHint" = "You have been removed from the group";
-"groupDisbanded" = "The group has been disbanded";
-"search" = "Search";
+"groupDisbanded" = "Group Chat Not Found";
+"groupbeBaned" = "The group has been banned";"search" = "Search";
 "synchronizing" = "Synchronizing";
 "syncFailed" = "Synchronization Failed";
 "connecting" = "Connecting";

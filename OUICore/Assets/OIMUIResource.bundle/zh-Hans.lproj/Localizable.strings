@@ -39,7 +39,8 @@
 "deletedByFriendHint" = "对方开启了好友验证，你还不是他的好友 %@";
 "sendFriendVerification" = "验证添加";
 "removedFromGroupHint" = "你已被移出群聊";
-"groupDisbanded" = "群已经解散";
+"groupDisbanded" = "未找到该群聊";
+"groupbeBaned" = "群已经被封禁";
 "search" = "搜索";
 "synchronizing" = "同步中";
 "syncFailed" = "同步失败";

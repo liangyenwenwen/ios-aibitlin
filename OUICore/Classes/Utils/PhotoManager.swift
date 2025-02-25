@@ -122,7 +122,8 @@ open class PhotoHelper {
         config.maxEditVideoTime = 15
         
         let cameraConfig = ZLCameraConfiguration()
-        cameraConfig.sessionPreset = .vga640x480
+//        cameraConfig.sessionPreset = .vga640x480
+        cameraConfig.sessionPreset = .hd1280x720
         config.cameraConfiguration = cameraConfig
     }
     

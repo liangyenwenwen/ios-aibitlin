@@ -498,7 +498,32 @@ extension MainTabViewController {
             let appVersion =  UserDefaults.standard.string(forKey: "AppVersion") ?? Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
             let newVersion = data["iosVersion"] as? String
             if appVersion != newVersion{
-                self.updateViewAlert(data: data)
+                if data["forceUpdate"] as! Int == 1{
+                    //强制升级
+                    UserDefaults.standard.removeObject(forKey: "AppVersion")
+                    let contentView = UpdateView(versionData: data)
+                    contentView.tg_width.equal(.fill)
+                    contentView.tg_height.equal(230)
+                    GKCover.cover(from: UIApplication.shared.keyWindow, contentView: contentView, style: .translucent, showStyle: .center, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: true)
+                }else{
+                    //普通升级
+                    UserDefaults.standard.set(newVersion, forKey: "AppVersion")
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [self] in
+                        guard let rootViewController = AppDelegate.shared.window?.rootViewController else { return }
+                        let alert = UIAlertController(title: "发现新版本".localized(), message: "我们为您带来了更新，更新后会有更好的体验，快来试试吧", preferredStyle: .alert)
+                        let cancleAction = UIAlertAction(title: "不在提醒".localized(), style: .cancel, handler:nil)
+                        // 设置按钮文本颜色
+                        cancleAction.setValue(UIColor.black999, forKey: "titleTextColor")
+                        alert.addAction(cancleAction)
+                        let okAction = UIAlertAction(title: "立即更新".localized(), style: .default) { (action) in
+                            // 处理确定按钮的点击事件
+                        }
+                        // 设置按钮文本颜色
+                        okAction.setValue(UIColor.primaryColor, forKey: "titleTextColor")
+                        alert.addAction(okAction)
+                        rootViewController.present(alert, animated: true, completion: nil)
+                    }
+                }
             }
         }
     }

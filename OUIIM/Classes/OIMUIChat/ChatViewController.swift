@@ -435,12 +435,11 @@ final class ChatViewController: UIViewController {
         inputBarView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(inputBarView)
         
-        let vStack = UIStackView(arrangedSubviews: [noticeView, inMeetingView, collectionView])
+        let vStack = UIStackView(arrangedSubviews: [netWorkTipView,noticeView, inMeetingView, collectionView])
         vStack.axis = .vertical
         vStack.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(chatViewControllerNav)
-        view.addSubview(netWorkTipView)
         view.addSubview(vStack)
         
         chatViewControllerNav.snp.makeConstraints { make in
@@ -475,18 +474,8 @@ final class ChatViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(refreshNetWorkStatus(_:)), name: Notification.Name("netWorkStatus"), object: nil)
         if IMController.shared.netWorkStatus == "hasNetWork"{
             netWorkTipView.isHidden = true
-            collectionView .snp_remakeConstraints{ make in
-//                make.left.right.bottom.equalTo(0)
-//                make.top.equalTo(0)
-                make.edges.equalTo(0)
-            }
-            
         }else{
             netWorkTipView.isHidden = false
-            collectionView .snp_remakeConstraints{ make in
-                make.left.right.bottom.equalTo(0)
-                make.top.equalTo(44)
-            }
         }
     }
     
@@ -583,14 +572,8 @@ final class ChatViewController: UIViewController {
             if  let userinfo = notidication.userInfo, let netWorkStatus = userinfo["value"] as? String {
                 if netWorkStatus == "hasNetWork"{
                     netWorkTipView.isHidden = true
-                    collectionView.snp_updateConstraints { make in
-                        make.top.equalTo(0)
-                    }
                 }else{
                     netWorkTipView.isHidden = false
-                    collectionView.snp_updateConstraints { make in
-                        make.top.equalTo(44)
-                    }
                 }
             }
         }
@@ -934,6 +917,7 @@ final class ChatViewController: UIViewController {
                                                           isVideo: isVideo,
                                                           groupID: conversation.groupID)
                 }
+
             }
             
             navigationController?.pushViewController(membersVC, animated: true)
@@ -1647,7 +1631,9 @@ extension ChatViewController: ChatControllerDelegate {
     }
     
     func roomParticipantChanged(isVideo: Bool, members: [GroupMemberInfo]) {
-        showInMeetingView(show: members.count != 0, isVideo: isVideo, members: members)
+        DispatchQueue.main.async { [self] in
+            showInMeetingView(show: members.count != 0, isVideo: isVideo, members: members)
+        }
     }
     
     func mute(info: MutedInfo) {
