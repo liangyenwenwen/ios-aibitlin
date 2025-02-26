@@ -180,29 +180,19 @@ class MainTabViewController: UITabBarController {
     @objc func refreshBadges(_ notidication: Notification) {
         
         print(notidication.userInfo)
-        
-        if  let userinfo = notidication.userInfo, let receivedValue = userinfo["value"] as? String {
-            
-            
-//            let root = self?.tabBarController
-//            let tabBarItem = root?.tabBar.items![0]
-//            if count > 0 {
-//                tabBarItem?.badgeValue = count > 99 ? "99+" : "\(count)"
-//            } else {
-//                tabBarItem?.badgeValue = nil
-//            }
-            
-            let tabBarItem = self.tabBar.items![1]
-            let count = Int(receivedValue) ?? 0
-            if  count > 0  {
-                tabBarItem.badgeValue = count > 99 ? "99+" : "\(count)"
-                IMController.shared.unCallPhoneMessageCount = count
-                UIApplication.shared.applicationIconBadgeNumber = IMController.shared.unChatMessageCount + IMController.shared.unCallPhoneMessageCount + IMController.shared.unContactMessageCount
-                IMController.shared.updateFcmBadge(count: UIApplication.shared.applicationIconBadgeNumber)
-            } else {
-                tabBarItem.badgeValue = nil
+        DispatchQueue.main.async {
+            if  let userinfo = notidication.userInfo, let receivedValue = userinfo["value"] as? String {
+                let tabBarItem = self.tabBar.items![1]
+                let count = Int(receivedValue) ?? 0
+                if  count > 0  {
+                    tabBarItem.badgeValue = count > 99 ? "99+" : "\(count)"
+                    IMController.shared.unCallPhoneMessageCount = count
+                    UIApplication.shared.applicationIconBadgeNumber = IMController.shared.unChatMessageCount + IMController.shared.unCallPhoneMessageCount + IMController.shared.unContactMessageCount
+                    IMController.shared.updateFcmBadge(count: UIApplication.shared.applicationIconBadgeNumber)
+                } else {
+                    tabBarItem.badgeValue = nil
+                }
             }
-            
         }
     }
     

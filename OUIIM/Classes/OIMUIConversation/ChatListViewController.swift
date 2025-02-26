@@ -151,6 +151,7 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
             let v = UIRefreshControl(frame: CGRect(x: 0, y: 0, width: 35, height: 35))
             v.rx.controlEvent(.valueChanged).subscribe(onNext: { [weak self, weak v] in
                 self?._viewModel.getSelfInfo()
+                self?._viewModel.getAllConversations()
                 v?.endRefreshing()
             }).disposed(by: _disposeBag)
             return v
