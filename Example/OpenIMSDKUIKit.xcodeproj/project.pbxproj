@@ -97,6 +97,8 @@
 		04C394452CCFADF500181F6B /* YFEmailLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C394442CCFADF500181F6B /* YFEmailLoginVC.swift */; };
 		04C394472CCFB3ED00181F6B /* YFNewRegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C394462CCFB3ED00181F6B /* YFNewRegisterVC.swift */; };
 		04C394492CCFBC1C00181F6B /* YFRetrievePasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C394482CCFBC1C00181F6B /* YFRetrievePasswordVC.swift */; };
+		04D0531B2D70708200B87ED8 /* YFCustomWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D0531A2D70708200B87ED8 /* YFCustomWebViewController.swift */; };
+		04D0531F2D70816000B87ED8 /* homeIndex.html in Resources */ = {isa = PBXBuildFile; fileRef = 04D0531E2D70816000B87ED8 /* homeIndex.html */; };
 		04D2E2052CBE4E5500582B13 /* HDEmptyBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D2E1FF2CBE4E5500582B13 /* HDEmptyBaseView.swift */; };
 		04D2E2062CBE4E5500582B13 /* HDEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D2E2002CBE4E5500582B13 /* HDEmptyView.swift */; };
 		04D2E2072CBE4E5500582B13 /* HDRunTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D2E2012CBE4E5500582B13 /* HDRunTime.swift */; };
@@ -294,7 +296,6 @@
 		043A558A2C8166490041836E /* UserTagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTagView.swift; sourceTree = "<group>"; };
 		0445BEE12CD1E04300A46558 /* ABLNetWorkToos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ABLNetWorkToos.swift; sourceTree = "<group>"; };
 		04504CCE2D6D9FD300E08B90 /* call.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = call.mp3; sourceTree = "<group>"; };
-		04585F912CCFB4D900BFA8E8 /* customSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = customSound.mp3; sourceTree = "<group>"; };
 		045B8BF62BF4496C0094E080 /* MineChooseBottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineChooseBottomSheetView.swift; sourceTree = "<group>"; };
 		045B8BF82BF481AF0094E080 /* UserMessageBottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMessageBottomSheetView.swift; sourceTree = "<group>"; };
 		045B8BFC2BF4B7070094E080 /* YFChatBokeBottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFChatBokeBottomSheetView.swift; sourceTree = "<group>"; };
@@ -321,6 +322,8 @@
 		04C394442CCFADF500181F6B /* YFEmailLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFEmailLoginVC.swift; sourceTree = "<group>"; };
 		04C394462CCFB3ED00181F6B /* YFNewRegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFNewRegisterVC.swift; sourceTree = "<group>"; };
 		04C394482CCFBC1C00181F6B /* YFRetrievePasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFRetrievePasswordVC.swift; sourceTree = "<group>"; };
+		04D0531A2D70708200B87ED8 /* YFCustomWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFCustomWebViewController.swift; sourceTree = "<group>"; };
+		04D0531E2D70816000B87ED8 /* homeIndex.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = homeIndex.html; sourceTree = "<group>"; };
 		04D2E1CB2CBE4A4900582B13 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		04D2E1FF2CBE4E5500582B13 /* HDEmptyBaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HDEmptyBaseView.swift; sourceTree = "<group>"; };
 		04D2E2002CBE4E5500582B13 /* HDEmptyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HDEmptyView.swift; sourceTree = "<group>"; };
@@ -622,6 +625,7 @@
 		040D85D62BEB8C0A00DCAAB3 /* BaseController */ = {
 			isa = PBXGroup;
 			children = (
+				04D0531E2D70816000B87ED8 /* homeIndex.html */,
 				0411DD262C05CCB800EDD135 /* SuperDialogController.swift */,
 				040D85D72BEB8C0A00DCAAB3 /* BaseWebController.swift */,
 				040D85D82BEB8C0A00DCAAB3 /* BaseController.swift */,
@@ -629,6 +633,7 @@
 				040D85DA2BEB8C0A00DCAAB3 /* BaseCommentController.swift */,
 				040D85DB2BEB8C0A00DCAAB3 /* BaseTitleController.swift */,
 				04F2D05E2BEE129A00D5271B /* SuperWebController.swift */,
+				04D0531A2D70708200B87ED8 /* YFCustomWebViewController.swift */,
 			);
 			path = BaseController;
 			sourceTree = "<group>";
@@ -733,14 +738,6 @@
 				04504CCE2D6D9FD300E08B90 /* call.mp3 */,
 			);
 			path = Sound;
-			sourceTree = "<group>";
-		};
-		04585F902CCFB4B700BFA8E8 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				04585F912CCFB4D900BFA8E8 /* customSound.mp3 */,
-			);
-			path = Resources;
 			sourceTree = "<group>";
 		};
 		045B8BF52BF448880094E080 /* Feedback */ = {
@@ -1216,7 +1213,6 @@
 			children = (
 				04504CCF2D6D9FD300E08B90 /* Sound */,
 				0445BEE02CD1DF8B00A46558 /* NetWork */,
-				04585F902CCFB4B700BFA8E8 /* Resources */,
 				04F2D0952BEE21EC00D5271B /* Vender */,
 				04F2D0622BEE215100D5271B /* Component */,
 				040D85F82BEB8C4200DCAAB3 /* Extension */,
@@ -1481,6 +1477,7 @@
 			files = (
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
 				0411DD282C05CE3C00EDD135 /* InfoPlist.strings in Resources */,
+				04D0531F2D70816000B87ED8 /* homeIndex.html in Resources */,
 				DCE04171283E5BD30095874E /* Localizable.strings in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
@@ -1505,7 +1502,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				$SRCROOT/R.generated.swift,
+				"$SRCROOT/R.generated.swift",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1615,6 +1612,7 @@
 				"${BUILT_PRODUCTS_DIR}/SwiftProtobuf/SwiftProtobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SwifterSwift/SwifterSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/TangramKit/TangramKit.framework",
+				"${BUILT_PRODUCTS_DIR}/WebViewJavascriptBridge/WebViewJavascriptBridge.framework",
 				"${BUILT_PRODUCTS_DIR}/YYImage/YYImage.framework",
 				"${BUILT_PRODUCTS_DIR}/ZLPhotoBrowser/ZLPhotoBrowser.framework",
 				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
@@ -1676,6 +1674,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftProtobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwifterSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TangramKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WebViewJavascriptBridge.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZLPhotoBrowser.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
@@ -1877,6 +1876,7 @@
 				040D86052BEB8C4200DCAAB3 /* SuperUILableExtension.swift in Sources */,
 				04F2D0852BEE21CA00D5271B /* MineDeleteAccountReasonVC.swift in Sources */,
 				040D44252C882AE8007DB6FB /* YFSystemMessageSettingVC.swift in Sources */,
+				04D0531B2D70708200B87ED8 /* YFCustomWebViewController.swift in Sources */,
 				040D85EC2BEB8C0B00DCAAB3 /* BaseWebController.swift in Sources */,
 				04C394472CCFB3ED00181F6B /* YFNewRegisterVC.swift in Sources */,
 				04D6A6782C9131ED008193E7 /* YFNetworkUtils.swift in Sources */,

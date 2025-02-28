@@ -4667,7 +4667,7 @@ struct _R: Sendable {
     }
   }
 
-  /// This `_R.file` struct is generated, and contains static references to 2 resource files.
+  /// This `_R.file` struct is generated, and contains static references to 3 resource files.
   struct file {
     let bundle: Foundation.Bundle
 
@@ -4676,6 +4676,9 @@ struct _R: Sendable {
 
     /// Resource file `call.mp3`.
     var callMp3: RswiftResources.FileResource { .init(name: "call", pathExtension: "mp3", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `homeIndex.html`.
+    var homeIndexHtml: RswiftResources.FileResource { .init(name: "homeIndex", pathExtension: "html", bundle: bundle, locale: LocaleReference.none) }
   }
 
   /// This `_R.nib` struct is generated, and contains static references to 1 nibs.

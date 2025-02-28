@@ -1,0 +1,53 @@
+//
+//  index.html
+//  OpenIMSDKUIKit_Example
+//
+//  Created by mac on 2025/2/27.
+//  Copyright © 2025 rentsoft. All rights reserved.
+//
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebView 与 H5 交互</title>
+    <script src="https://cdn.jsdelivr.net/npm/webviewjavascriptbridge@1.0.0/WebViewJavascriptBridge.js"></script>
+</head>
+<body>
+    <h1>WebView 与 H5 交互示例</h1>
+    <button>调用iOS方法</button>
+    <script>
+        function setupWebViewJavascriptBridge(callback) {
+            if (window.WebViewJavascriptBridge) {
+                return callback(WebViewJavascriptBridge);
+            }
+            if (window.WVJBCallbacks) {
+                return window.WVJBCallbacks.push(callback);
+            }
+            window.WVJBCallbacks = [callback];
+            var WVJBIframe = document.createElement('iframe');
+            WVJBIframe.style.display = 'none';
+            WVJBIframe.src = 'wvjbscheme://__BRIDGE_LOADED__';
+            document.documentElement.appendChild(WVJBIframe);
+            setTimeout(function() {
+                document.documentElement.removeChild(WVJBIframe);
+            }, 0);
+        }
+
+        setupWebViewJavascriptBridge(function(bridge) {
+            // 注册 H5 方法供 Swift 调用
+            bridge.registerHandler('callH5Method', function(data, responseCallback) {
+                console.log('收到来自 Swift 的消息: ' + data);
+                // 给 Swift 发送响应
+                responseCallback('H5 已成功接收消息！');
+            });
+
+            // 调用 Swift 方法
+            bridge.callHandler('callSwiftFunction', '来自 H5 的问候！', function(response) {
+                console.log('收到来自 Swift 的响应: ' + response);
+            });
+        });
+    </script>
+</body>
+</html>
