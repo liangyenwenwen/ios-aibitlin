@@ -125,6 +125,7 @@ PODS:
   - ISEmojiView (0.3.4):
     - Kingfisher (= 7.7.0)
   - JXSegmentedView (1.4.1)
+  - KeychainAccess (4.2.2)
   - Kingfisher (7.7.0)
   - Lantern (1.1.5)
   - LiveKitClient (2.0.14):
@@ -629,6 +630,7 @@ DEPENDENCIES:
   - InputBarAccessoryView (from `../3rd`)
   - IQKeyboardManagerSwift
   - ISEmojiView (from `../3rd`)
+  - KeychainAccess
   - Kingfisher
   - Localize-Swift (~> 3.2)
   - MBProgressHUD
@@ -683,6 +685,7 @@ SPEC REPOS:
     - IQKeyboardNotification
     - IQTextInputViewNotification
     - JXSegmentedView
+    - KeychainAccess
     - Kingfisher
     - Lantern
     - LiveKitClient
@@ -777,6 +780,7 @@ SPEC CHECKSUMS:
   IQTextInputViewNotification: 4381fb828881983205fbee38f17da8a9fe2e835c
   ISEmojiView: 55706bd486072bce5045aeffa4ca0273dead1f88
   JXSegmentedView: cd73555ce2134d1656db2cb383ba9c2f36fb5078
+  KeychainAccess: c0c4f7f38f6fc7bbe58f5702e25f7bd2f65abf51
   Kingfisher: f043ac666dfc96c1f37604f93effb45a7ee3a3e1
   Lantern: b192e7146c6d04e15e627f37281254a6a8593703
   LiveKitClient: 5257248932a54e8290a52fb9508394a7389486c6
@@ -823,6 +827,6 @@ SPEC CHECKSUMS:
   ZLPhotoBrowser: cd023607d05a72d27a3ae57f50dbf86910713a2c
   ZXSDK-Noidfa: f3cc8e4b6b4775df301489ae0792b727e193e7d3
 
-PODFILE CHECKSUM: 04a8ba6846fc6ff0fcca7da6adb77bb9a7183f22
+PODFILE CHECKSUM: 5d10e3c4fd2bd0630be08acf1ec6db948ee5bdac
 
 COCOAPODS: 1.15.2

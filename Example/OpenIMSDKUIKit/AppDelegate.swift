@@ -48,17 +48,17 @@ let sdkWSRoute = ""
 //let defaultIMAddress = "imserver.aibitlin.com/api"
 //let defaultAdminAddress = "imserver.aibitlin.com/msg_gateway"
 
-//let defaultAppAddress = "192.168.7.126"
-//let defaultIMAddress = "192.168.7.126"
-//let defaultAdminAddress = "192.168.7.126"
+let defaultAppAddress = "192.168.7.126"
+let defaultIMAddress = "192.168.7.126"
+let defaultAdminAddress = "192.168.7.126"
 
 //let defaultAppAddress = "192.168.7.16"
 //let defaultIMAddress = "192.168.7.16"
 //let defaultAdminAddress = "192.168.7.16"
 
-let defaultAppAddress = "web.pk-im.com/chat"
-let defaultIMAddress = "web.pk-im.com/api"
-let defaultAdminAddress = "web.pk-im.com/msg_gateway"
+//let defaultAppAddress = "web.pk-im.com/chat"
+//let defaultIMAddress = "web.pk-im.com/api"
+//let defaultAdminAddress = "web.pk-im.com/msg_gateway"
 
 //let defaultAppAddress = "192.168.7.109"
 //let defaultIMAddress = "192.168.7.109"
@@ -196,8 +196,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 //        ? true : UserDefaults.standard.bool(forKey: useDomainKey)
 //        UserDefaults.standard.setValue(enableDomain, forKey: useDomainKey)
         
-        let enableTLS = true
-        let enableDomain = true
+        let enableTLS = false
+        let enableDomain = false
         UserDefaults.standard.setValue(enableTLS, forKey: useTLSKey)
         UserDefaults.standard.setValue(enableDomain, forKey: useDomainKey)
         // -------设置各种base url-------
@@ -289,6 +289,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let token = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
         print("deviceToken: %@", token)
+        IMController.shared.deviceToken = token
+        if IMController.shared.uid != ""{
+            AccountViewModel.updateDeviceToken(userID: IMController.shared.uid, platformID: 1, pushToken: IMController.shared.deviceToken, deviceID: YFDeviceID.getUUID(), pushChannel: "IOS") { [weak self] errCode, _ in
+                
+                guard let self else { return }
+            }
+        }
 //        IMController.shared.imManager.updateFcmToken(token, expireTime: 2592000) { str in
 //            print("=====")
 //        } onFailure: { code, errorMsg in

@@ -175,6 +175,7 @@ public class IMController: NSObject {
     public var unCallPhoneMessageCount = 0 //通话记录未读消息数
     public var unContactMessageCount = 0 //通讯录未读消息数
     
+    public var deviceToken = ""
     public var publicIP = ""
     public var netWorkStatus = "hasNetWork"
     public var uid: String = ""

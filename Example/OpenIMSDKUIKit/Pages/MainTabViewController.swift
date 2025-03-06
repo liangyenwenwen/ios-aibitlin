@@ -407,6 +407,7 @@ class MainTabViewController: UITabBarController {
             updateLanguage(uid: r.userID)
 //            checkAppVersion(uid:r.userID)
             updateFcmToken()
+            updatePushDeviceToken(uid: r.userID)
             pushBindAlias(true)
             ProgressHUD.dismiss()
             UserDefaults.standard.set("0", forKey: "blogVersion\(Open_im_sdkGetLoginUserID())")
@@ -535,6 +536,14 @@ extension MainTabViewController {
                   print("=====",errorMsg as Any)
               }
           }
+        }
+    }
+    func updatePushDeviceToken(uid: String){
+        if IMController.shared.deviceToken != ""{
+            AccountViewModel.updateDeviceToken(userID: uid, platformID: 1, pushToken: IMController.shared.deviceToken, deviceID: YFDeviceID.getUUID(), pushChannel: "IOS") { [weak self] errCode, _ in
+                
+                guard let self else { return }
+            }
         }
     }
     

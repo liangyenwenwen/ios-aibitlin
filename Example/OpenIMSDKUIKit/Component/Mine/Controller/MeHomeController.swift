@@ -430,7 +430,7 @@ extension MeHomeController {
     
     @objc func gotoVip() {
         let vc = YFCustomWebViewController()
-        vc.loadUrl = "https://test.scoin.top/"
+        vc.loadUrl = "http://192.168.7.113:5173/"
         gotoControllerFromRoot(vc)
 //        gotoControllerFromRoot(YFMineHomeBuyVipVC.self)
     }

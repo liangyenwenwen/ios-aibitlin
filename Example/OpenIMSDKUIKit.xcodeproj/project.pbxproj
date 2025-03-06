@@ -72,6 +72,7 @@
 		0434ABA42CBBC2F7000F9B07 /* QRCodeSaveCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0434ABA32CBBC2F7000F9B07 /* QRCodeSaveCardView.swift */; };
 		043A558C2C8166490041836E /* UserTagTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043A55892C8166490041836E /* UserTagTypeView.swift */; };
 		043A558D2C8166490041836E /* UserTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043A558A2C8166490041836E /* UserTagView.swift */; };
+		043D239E2D77FE4F0003B360 /* YFDeviceID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043D239D2D77FE4F0003B360 /* YFDeviceID.swift */; };
 		0445BEE22CD1E04300A46558 /* ABLNetWorkToos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445BEE12CD1E04300A46558 /* ABLNetWorkToos.swift */; };
 		04504CD02D6D9FD700E08B90 /* call.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 04504CCE2D6D9FD300E08B90 /* call.mp3 */; };
 		045B8BF72BF4496D0094E080 /* MineChooseBottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045B8BF62BF4496C0094E080 /* MineChooseBottomSheetView.swift */; };
@@ -98,7 +99,6 @@
 		04C394472CCFB3ED00181F6B /* YFNewRegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C394462CCFB3ED00181F6B /* YFNewRegisterVC.swift */; };
 		04C394492CCFBC1C00181F6B /* YFRetrievePasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C394482CCFBC1C00181F6B /* YFRetrievePasswordVC.swift */; };
 		04D0531B2D70708200B87ED8 /* YFCustomWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D0531A2D70708200B87ED8 /* YFCustomWebViewController.swift */; };
-		04D0531F2D70816000B87ED8 /* homeIndex.html in Resources */ = {isa = PBXBuildFile; fileRef = 04D0531E2D70816000B87ED8 /* homeIndex.html */; };
 		04D2E2052CBE4E5500582B13 /* HDEmptyBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D2E1FF2CBE4E5500582B13 /* HDEmptyBaseView.swift */; };
 		04D2E2062CBE4E5500582B13 /* HDEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D2E2002CBE4E5500582B13 /* HDEmptyView.swift */; };
 		04D2E2072CBE4E5500582B13 /* HDRunTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D2E2012CBE4E5500582B13 /* HDRunTime.swift */; };
@@ -294,6 +294,7 @@
 		0434ABA32CBBC2F7000F9B07 /* QRCodeSaveCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeSaveCardView.swift; sourceTree = "<group>"; };
 		043A55892C8166490041836E /* UserTagTypeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTagTypeView.swift; sourceTree = "<group>"; };
 		043A558A2C8166490041836E /* UserTagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTagView.swift; sourceTree = "<group>"; };
+		043D239D2D77FE4F0003B360 /* YFDeviceID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFDeviceID.swift; sourceTree = "<group>"; };
 		0445BEE12CD1E04300A46558 /* ABLNetWorkToos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ABLNetWorkToos.swift; sourceTree = "<group>"; };
 		04504CCE2D6D9FD300E08B90 /* call.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = call.mp3; sourceTree = "<group>"; };
 		045B8BF62BF4496C0094E080 /* MineChooseBottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineChooseBottomSheetView.swift; sourceTree = "<group>"; };
@@ -323,7 +324,6 @@
 		04C394462CCFB3ED00181F6B /* YFNewRegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFNewRegisterVC.swift; sourceTree = "<group>"; };
 		04C394482CCFBC1C00181F6B /* YFRetrievePasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFRetrievePasswordVC.swift; sourceTree = "<group>"; };
 		04D0531A2D70708200B87ED8 /* YFCustomWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFCustomWebViewController.swift; sourceTree = "<group>"; };
-		04D0531E2D70816000B87ED8 /* homeIndex.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = homeIndex.html; sourceTree = "<group>"; };
 		04D2E1CB2CBE4A4900582B13 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		04D2E1FF2CBE4E5500582B13 /* HDEmptyBaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HDEmptyBaseView.swift; sourceTree = "<group>"; };
 		04D2E2002CBE4E5500582B13 /* HDEmptyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HDEmptyView.swift; sourceTree = "<group>"; };
@@ -625,7 +625,6 @@
 		040D85D62BEB8C0A00DCAAB3 /* BaseController */ = {
 			isa = PBXGroup;
 			children = (
-				04D0531E2D70816000B87ED8 /* homeIndex.html */,
 				0411DD262C05CCB800EDD135 /* SuperDialogController.swift */,
 				040D85D72BEB8C0A00DCAAB3 /* BaseWebController.swift */,
 				040D85D82BEB8C0A00DCAAB3 /* BaseController.swift */,
@@ -677,6 +676,7 @@
 				0419D4042C019350009CBE94 /* SuperUICollectionViewExtension.swift */,
 				04F87EF42C8E8D3D00C82A37 /* SuperUIFontExtension.swift */,
 				04ECEC5E2CBD1DC10005495F /* RunTimeAbout.swift */,
+				043D239D2D77FE4F0003B360 /* YFDeviceID.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1477,7 +1477,6 @@
 			files = (
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
 				0411DD282C05CE3C00EDD135 /* InfoPlist.strings in Resources */,
-				04D0531F2D70816000B87ED8 /* homeIndex.html in Resources */,
 				DCE04171283E5BD30095874E /* Localizable.strings in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
@@ -1502,7 +1501,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$SRCROOT/R.generated.swift",
+				$SRCROOT/R.generated.swift,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1582,6 +1581,7 @@
 				"${BUILT_PRODUCTS_DIR}/ISEmojiView/ISEmojiView.framework",
 				"${BUILT_PRODUCTS_DIR}/InputBarAccessoryView/InputBarAccessoryView.framework",
 				"${BUILT_PRODUCTS_DIR}/JXSegmentedView/JXSegmentedView.framework",
+				"${BUILT_PRODUCTS_DIR}/KeychainAccess/KeychainAccess.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/Lantern/Lantern.framework",
 				"${BUILT_PRODUCTS_DIR}/LiveKitClient/LiveKitClient.framework",
@@ -1644,6 +1644,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ISEmojiView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/InputBarAccessoryView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JXSegmentedView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainAccess.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lantern.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LiveKitClient.framework",
@@ -1839,6 +1840,7 @@
 				040D86042BEB8C4200DCAAB3 /* ObserveableMoyaExtension.swift in Sources */,
 				17BBFAC02925C6330025B686 /* InputAccountViewController.swift in Sources */,
 				04F2D05F2BEE129A00D5271B /* SuperWebController.swift in Sources */,
+				043D239E2D77FE4F0003B360 /* YFDeviceID.swift in Sources */,
 				04D2E2052CBE4E5500582B13 /* HDEmptyBaseView.swift in Sources */,
 				040D85EA2BEB8C0B00DCAAB3 /* BaseNavView.swift in Sources */,
 				1790EE6D2921EAFC00C4024A /* SettingTableViewController.swift in Sources */,

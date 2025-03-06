@@ -55,6 +55,7 @@ open class AccountViewModel {
     private static let DeleteAccountWithPhoneAPI = "/user/phone_cancel"
     private static let DeleteAccountWithEmailAPI = "/user/mail_cancel"
 
+    private static let UpdateDeviceTokenAPI = "/offlinePush/add_token"
 
 
 
@@ -651,6 +652,38 @@ open class AccountViewModel {
             }
         }
     }
+    //更新推送token
+    static func updateDeviceToken(userID: String, platformID: Int, pushToken: String,deviceID:String,pushChannel:String, completionHandler: @escaping CompletionHandler) {
+        //changePasswordType,1:手机号登录的修改密码，2:邮箱登录的修改密码
+        let body = JsonTool.toJson(fromObject:
+                                    updateDeviceTokenRequest(
+                                        userID: userID,
+                                        platformID: platformID,
+                                        pushToken: pushToken,
+                                        deviceID:deviceID,
+                                        pushChannel:pushChannel)).data(using: .utf8)
+        var req = try! URLRequest(url: API_BASE_URL + UpdateDeviceTokenAPI, method: .post)
+        req.httpBody = body
+        req.addValue(UserDefaults.standard.string(forKey: bussinessTokenKey)!, forHTTPHeaderField: "token")
+        //        req.addValue(UUID().uuidString, forHTTPHeaderField: "operationID")
+        req.addValue(String(Int(Date().timeIntervalSince1970)), forHTTPHeaderField: "operationID")
+        req.addValue(String.getCurrentLanguageHeader(), forHTTPHeaderField: "language")
+        
+        Alamofire.request(req).responseString { (response: DataResponse<String>) in
+            switch response.result {
+            case .success(let result):
+                if let res = JsonTool.fromJson(result, toClass: Response<UserEntity>.self) {
+                    if res.errCode == 0 {
+                        completionHandler(res.errCode, nil)
+                    } else {
+                        completionHandler(res.errCode, res.errMsg)
+                    }
+                } else {}
+            case .failure(let err):
+                completionHandler(-1, err.localizedDescription)
+            }
+        }
+    }
 
     // 配置
     static var clientConfig: ClientConfigData?
@@ -664,6 +697,7 @@ class Request: Encodable {
     private let platform: Int = 1
     private let account: String?
     private let email: String?
+    private let deviceID = YFDeviceID.getUUID()
 
     init(phoneNumber: String? = nil, account: String? = nil, email: String? = nil, psw: String? = nil, verificationCode: String? = nil, areaCode: String? = nil) {
         self.phoneNumber = phoneNumber
@@ -699,7 +733,7 @@ class RegisterRequest: Encodable {
     private let platform: Int = 1
     private let user: UpdateUserInfoRequest
     private let invitationCode: String?
-    private let deviceID = UUID().uuidString
+    private let deviceID = YFDeviceID.getUUID()
     private let autoLogin = true
     
     init(phone: String?, areaCode: String?, verificationCode: String?, password: String?, faceURL: String?, nickName: String?, birth: Int?, gender: Int?, email: String? = nil, invitationCode: String?) {
@@ -890,6 +924,21 @@ struct DemoError: Error, Decodable {
     var localizedDescription: String {
         let msg: String = errMsg ?? "no message"
         return "code: \(errCode), msg: \(msg)"
+    }
+}
+class updateDeviceTokenRequest: Encodable {
+    private let userID: String
+    private let platformID: Int
+    private let pushToken: String
+    private let deviceID: String
+    private let pushChannel: String
+
+    init(userID: String, platformID: Int, pushToken: String, deviceID: String, pushChannel: String) {
+        self.userID = userID
+        self.platformID = platformID
+        self.pushToken = pushToken
+        self.deviceID = deviceID
+        self.pushChannel = pushChannel
     }
 }
 
