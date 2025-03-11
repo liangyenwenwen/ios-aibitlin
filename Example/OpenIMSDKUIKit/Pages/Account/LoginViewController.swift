@@ -325,9 +325,9 @@ class LoginViewController: UIViewController {
             .tapGesture()
             .when(.recognized)
             .subscribe(onNext: { [weak self] _ in
-                let vc = ConfigViewController()
-                let nav = UINavigationController(rootViewController: vc)
-                self?.present(nav, animated: true)
+//                let vc = ConfigViewController()
+//                let nav = UINavigationController(rootViewController: vc)
+//                self?.present(nav, animated: true)
             }).disposed(by: _disposeBag)
         
         view.addSubview(titleLabel)

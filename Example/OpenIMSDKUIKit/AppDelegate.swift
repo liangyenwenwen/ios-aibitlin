@@ -37,56 +37,23 @@ let sdkAPIRoute = ""
 let sdkWSPort = ":10001"
 let sdkWSRoute = ""
 
-//let adminPort = ":10008"
-//let adminRoute = ":10008/chat_enterprise"
-//let sdkAPIPort = ":10002"
-//let sdkAPIRoute = ":10002/api_enterprise"
-//let sdkWSPort = ":10001"
-//let sdkWSRoute = ":10001/msg_gateway_enterprise"
 
-//let defaultAppAddress = "imserver.aibitlin.com/chat"
-//let defaultIMAddress = "imserver.aibitlin.com/api"
-//let defaultAdminAddress = "imserver.aibitlin.com/msg_gateway"
+//let defaultAppAddress = "https://imserver.aibitlin.com/chat"
+//let defaultIMAddress = "https://imserver.aibitlin.com/api"
+//let defaultAdminAddress = "wss://imserver.aibitlin.com/msg_gateway"
 
-let defaultAppAddress = "192.168.7.126"
-let defaultIMAddress = "192.168.7.126"
-let defaultAdminAddress = "192.168.7.126"
+let defaultAppAddress = "http://192.168.7.126:10008"
+let defaultIMAddress = "http://192.168.7.126:10002"
+let defaultAdminAddress = "ws://192.168.7.126:10001"
 
-//let defaultAppAddress = "192.168.7.16"
-//let defaultIMAddress = "192.168.7.16"
-//let defaultAdminAddress = "192.168.7.16"
+//let defaultAppAddress = "http://192.168.7.16:10008"
+//let defaultIMAddress = "http://192.168.7.16:10002"
+//let defaultAdminAddress = "ws://192.168.7.16:10001"
 
-//let defaultAppAddress = "web.pk-im.com/chat"
-//let defaultIMAddress = "web.pk-im.com/api"
-//let defaultAdminAddress = "web.pk-im.com/msg_gateway"
+//let defaultAppAddress = "https://web.pk-im.com/chat"
+//let defaultIMAddress = "https://web.pk-im.com/api"
+//let defaultAdminAddress = "wss://web.pk-im.com/msg_gateway"
 
-//let defaultAppAddress = "192.168.7.109"
-//let defaultIMAddress = "192.168.7.109"
-//let defaultAdminAddress = "192.168.7.109"
-
-//let defaultAppAddress = "web.rentsoft.cn"
-//let defaultIMAddress = "web.rentsoft.cn"
-//let defaultAdminAddress = "web.rentsoft.cn"
-
-/// 本地 102
-/// let defaultAppAddress = "192.168.7.16"
-/// let defaultAppAddress = "192.168.7.102"
-//let defaultAppAddress = "192.168.7.102"
-//let defaultIMAddress = "192.168.7.102"
-//let defaultAdminAddress = "192.168.7.102"
-
-//let defaultAppAddress = "192.168.7.16"
-//let defaultIMAddress = "192.168.7.16"
-//let defaultAdminAddress = "192.168.7.16"
-
-//let defaultAppAddress = "chat-api.test.bitswith.com"
-//let defaultIMAddress = "api.test.bitswith.com"
-//let defaultAdminAddress = "msg-gateway.test.bitswith.com"
-
-//BLOG_AUTH = "http://110.42.42.31:18898/";
-//APP_AUTH = "http://demo.aibitlin.com:10008/";
-//IM_API = "http://demo.aibitlin.com:10002";
-//IM_WS = "ws://demo.aibitlin.com:10001";
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate,GeTuiSdkDelegate,MessagingDelegate {
@@ -186,49 +153,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
         let language = Localize.currentLanguage()
         Localize.setCurrentLanguage(language)
-        
-        // 主要配置这里，注意http 与 https、 ws 与 wss之分，IP 用端口， 域名用路由
-//        let enableTLS = UserDefaults.standard.object(forKey: useTLSKey) == nil
-//        ? true : UserDefaults.standard.bool(forKey: useTLSKey)
-//        UserDefaults.standard.setValue(enableTLS, forKey: useTLSKey)
-//        
-//        let enableDomain = UserDefaults.standard.object(forKey: useDomainKey) == nil
-//        ? true : UserDefaults.standard.bool(forKey: useDomainKey)
-//        UserDefaults.standard.setValue(enableDomain, forKey: useDomainKey)
-        
-        let enableTLS = false
-        let enableDomain = false
-        UserDefaults.standard.setValue(enableTLS, forKey: useTLSKey)
-        UserDefaults.standard.setValue(enableDomain, forKey: useDomainKey)
-        // -------设置各种base url-------
-        
-        let httpScheme = enableTLS ? "https://" : "http://"
-        let wsScheme = enableTLS  ? "wss://" : "ws://"
-        
-//        let appSeverAddress = UserDefaults.standard.string(forKey: bussinessSeverAddrKey) ?? httpScheme + defaultAppAddress + (!enableDomain ? bussinessPort: bussinessRoute)
-//        let sdkAPIAddr = UserDefaults.standard.string(forKey: sdkAPIAddrKey) ?? httpScheme + defaultIMAddress + (!enableDomain ? sdkAPIPort : sdkAPIRoute)
-//        let sdkWSAddr = UserDefaults.standard.string(forKey: sdkWSAddrKey) ?? wsScheme + defaultAdminAddress + (!enableDomain ? sdkWSPort : sdkWSRoute)
-        
-        let appSeverAddress = httpScheme + defaultAppAddress + (!enableDomain ? bussinessPort: bussinessRoute)
-        let sdkAPIAddr = httpScheme + defaultIMAddress + (!enableDomain ? sdkAPIPort : sdkAPIRoute)
-        let sdkWSAddr = wsScheme + defaultAdminAddress + (!enableDomain ? sdkWSPort : sdkWSRoute)
-        
-        // 设取全局配置
-        UserDefaults.standard.setValue(httpScheme + defaultAdminAddress + (!enableDomain ? adminPort : adminRoute), forKey: adminSeverAddrKey)
-        
-        // 设置登录注册等 - AccountViewModel
-        UserDefaults.standard.setValue(appSeverAddress, forKey: bussinessSeverAddrKey)
-        
-        // 设置sdk接口地址
-        UserDefaults.standard.setValue(sdkAPIAddr, forKey: sdkAPIAddrKey)
-            
-        // 设置ws地址
-        UserDefaults.standard.setValue(sdkWSAddr, forKey: sdkWSAddrKey)
-        UserDefaults.standard.synchronize()
-        
+        IMController.shared.appAddress = defaultAppAddress
+        IMController.shared.appIMAddress = defaultIMAddress
+        IMController.shared.appAdminAddress = defaultAdminAddress
+
         // 初始化SDK
-        IMController.shared.setup(sdkAPIAdrr: sdkAPIAddr,
-                                  sdkWSAddr: sdkWSAddr) {
+        IMController.shared.setup(sdkAPIAdrr: IMController.shared.appIMAddress,
+                                  sdkWSAddr: IMController.shared.appAdminAddress) {
             ProgressHUD.banner("accountWarn".localized(), "accountException".localized())
             NotificationCenter.default.post(name: .init("logout"), object: nil)
         } onUserTokenInvalid: {

@@ -579,7 +579,7 @@ class YFMineNetViewModel: AccountViewModel {
     
     static func checkAppVersion(uid:String,valueHandler: @escaping ([String:Any]) -> Void){
         let paramters = ["deviceType":"ios", "userID": uid, "ip":IMController.shared.publicIP,"systemVersion":UIDevice.current.systemVersion]
-        let url = SuperStringUtil.netUrl(API_BASE_URL + checkAppVersionAPI, paramters)
+        let url = SuperStringUtil.netUrl(IMController.shared.appAddress + checkAppVersionAPI, paramters)
         Alamofire.request(url, method: .post,parameters: paramters, encoding: JSONEncoding.default, headers: httpHeaders).responseData { dataRequest in
             if let data = dataRequest.data {
                 guard let result = try? JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed) as? [String: Any] else {
@@ -628,7 +628,7 @@ extension YFMineNetViewModel {
     
      static func pictureFind(valueHandler: @escaping ([String]) -> Void,
                              completionHandler: @escaping CompletionHandler) {
-        let url = API_BASE_URL + pictureFindAPI
+        let url = IMController.shared.appAddress + pictureFindAPI
          ProgressHUD.animate()
          Alamofire.request(url, method: .post, parameters: [:],encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
              ProgressHUD.dismiss()

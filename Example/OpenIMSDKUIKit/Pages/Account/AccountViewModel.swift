@@ -18,11 +18,6 @@ public enum UsedFor: Int {
 typealias CompletionHandler = (_ errCode: Int, _ errMsg: String?) -> Void
 
 open class AccountViewModel {
-    // 业务服务器地址
-    static let API_BASE_URL = UserDefaults.standard.string(forKey: bussinessSeverAddrKey)!
-    static let ADMIN_BASE_URL = UserDefaults.standard.string(forKey: adminSeverAddrKey)!
-    
-   
     // 实际开发，抽离网络部分
     static let IMPreLoginAccountKey = "IMPreLoginAccountKey"
     static let IMUidKey = "DemoIMUidKey"
@@ -140,7 +135,7 @@ open class AccountViewModel {
             loginApi = LoginAPI
         }
         
-        var req = try! URLRequest(url: API_BASE_URL + loginApi, method: .post)
+        var req = try! URLRequest(url: IMController.shared.appAddress + loginApi, method: .post)
         req.httpBody = body
 //        req.addValue(UUID().uuidString, forHTTPHeaderField: "operationID")
         req.addValue(String(Int(Date().timeIntervalSince1970)), forHTTPHeaderField: "operationID")
@@ -200,7 +195,7 @@ open class AccountViewModel {
         default:
             deleteAccountApi = DeleteAccountAPI
         }
-        var req = try! URLRequest(url: API_BASE_URL + deleteAccountApi, method: .post)
+        var req = try! URLRequest(url: IMController.shared.appAddress + deleteAccountApi, method: .post)
         req.httpBody = body
         
         //        req.addValue(UUID().uuidString, forHTTPHeaderField: "operationID")
@@ -262,7 +257,7 @@ open class AccountViewModel {
             registerTypeApi = RegisterAPI
         }
         
-        var req = try! URLRequest(url: API_BASE_URL + registerTypeApi, method: .post)
+        var req = try! URLRequest(url: IMController.shared.appAddress + registerTypeApi, method: .post)
         req.httpBody = body
         //        req.addValue(UUID().uuidString, forHTTPHeaderField: "operationID")
         req.addValue(String(Int(Date().timeIntervalSince1970)), forHTTPHeaderField: "operationID")
@@ -297,7 +292,7 @@ open class AccountViewModel {
                 usedFor: useFor.rawValue,
                 invaitationCode: invaitationCode)).data(using: .utf8)
         
-        var req = try! URLRequest(url: API_BASE_URL + CodeAPI, method: .post)
+        var req = try! URLRequest(url: IMController.shared.appAddress + CodeAPI, method: .post)
         req.httpBody = body
         
         //        req.addValue(UUID().uuidString, forHTTPHeaderField: "operationID")
@@ -333,7 +328,7 @@ open class AccountViewModel {
                 usedFor: useFor.rawValue,
                 verificationCode: verificationCode)).data(using: .utf8)
         
-        var req = try! URLRequest(url: API_BASE_URL + VerifyCodeAPI, method: .post)
+        var req = try! URLRequest(url: IMController.shared.appAddress + VerifyCodeAPI, method: .post)
         req.httpBody = body
         //        req.addValue(UUID().uuidString, forHTTPHeaderField: "operationID")
         req.addValue(String(Int(Date().timeIntervalSince1970)), forHTTPHeaderField: "operationID")
@@ -380,7 +375,7 @@ open class AccountViewModel {
         default:
             resetTypeApi = ResetPasswordAPI
         }
-        var req = try! URLRequest(url: API_BASE_URL + resetTypeApi, method: .post)
+        var req = try! URLRequest(url: IMController.shared.appAddress + resetTypeApi, method: .post)
         req.httpBody = body
         //        req.addValue(UUID().uuidString, forHTTPHeaderField: "operationID")
         req.addValue(String(Int(Date().timeIntervalSince1970)), forHTTPHeaderField: "operationID")
@@ -418,7 +413,7 @@ open class AccountViewModel {
         default:
             changePasswordTypeAPI = ChangePasswordAPI
         }
-        var req = try! URLRequest(url: API_BASE_URL + changePasswordTypeAPI, method: .post)
+        var req = try! URLRequest(url: IMController.shared.appAddress + changePasswordTypeAPI, method: .post)
         req.httpBody = body
         req.addValue(UserDefaults.standard.string(forKey: bussinessTokenKey)!, forHTTPHeaderField: "token")
         //        req.addValue(UUID().uuidString, forHTTPHeaderField: "operationID")
@@ -476,7 +471,7 @@ open class AccountViewModel {
                                   personalProfile: personalProfile
                                   )).data(using: .utf8)
         
-        var req = try! URLRequest(url: API_BASE_URL + UpdateUserInfoAPI, method: .post)
+        var req = try! URLRequest(url: IMController.shared.appAddress + UpdateUserInfoAPI, method: .post)
         req.httpBody = body
         req.addValue(UserDefaults.standard.string(forKey: bussinessTokenKey)!, forHTTPHeaderField: "token")
         //        req.addValue(UUID().uuidString, forHTTPHeaderField: "operationID")
@@ -514,7 +509,7 @@ open class AccountViewModel {
         let body = JsonTool.toJson(fromObject:
             QueryUserInfoRequest(userIDList: userIDList)).data(using: .utf8)
         
-        var req = try! URLRequest(url: API_BASE_URL + QueryUserInfoAPI, method: .post)
+        var req = try! URLRequest(url: IMController.shared.appAddress + QueryUserInfoAPI, method: .post)
         req.httpBody = body
         req.addValue(UserDefaults.standard.string(forKey: bussinessTokenKey)!, forHTTPHeaderField: "token")
         //        req.addValue(UUID().uuidString, forHTTPHeaderField: "operationID")
@@ -550,7 +545,7 @@ open class AccountViewModel {
                                 pageNumber: pageNumber,
                                 showNumber: showNumber)).data(using: .utf8)
         
-        var req = try! URLRequest(url: API_BASE_URL + SearchUserFullInfoAPI, method: .post)
+        var req = try! URLRequest(url: IMController.shared.appAddress + SearchUserFullInfoAPI, method: .post)
         req.httpBody = body
         req.addValue(UserDefaults.standard.string(forKey: bussinessTokenKey)!, forHTTPHeaderField: "token")
         //        req.addValue(UUID().uuidString, forHTTPHeaderField: "operationID")
@@ -600,7 +595,7 @@ open class AccountViewModel {
         UserDefaults.standard.set(chatToken, forKey: bussinessTokenKey)
         UserDefaults.standard.synchronize()
         
-        IMController.shared.setup(businessServer: UserDefaults.standard.string(forKey: bussinessSeverAddrKey)!, businessToken: chatToken)
+        IMController.shared.setup(businessServer:IMController.shared.appAddress, businessToken: chatToken)
     }
     
     static func savePreLoginAccount(_ account: String?) {
@@ -628,7 +623,7 @@ open class AccountViewModel {
 //        let body = try! JSONSerialization.data(withJSONObject: ["operationID": UUID().uuidString], options: .prettyPrinted)
         let body = try! JSONSerialization.data(withJSONObject: ["operationID":String(Int(Date().timeIntervalSince1970))], options: .prettyPrinted)
         
-        var req = try! URLRequest(url: ADMIN_BASE_URL + GetClientConfigAPI, method: .post)
+        var req = try! URLRequest(url: IMController.shared.appAdminAddress + GetClientConfigAPI, method: .post)
         req.httpBody = body
 //        req.addValue(UUID().uuidString, forHTTPHeaderField: "operationID")
         req.addValue(String(Int(Date().timeIntervalSince1970)), forHTTPHeaderField: "operationID")
@@ -654,7 +649,6 @@ open class AccountViewModel {
     }
     //更新推送token
     static func updateDeviceToken(userID: String, platformID: Int, pushToken: String,deviceID:String,pushChannel:String, completionHandler: @escaping CompletionHandler) {
-        //changePasswordType,1:手机号登录的修改密码，2:邮箱登录的修改密码
         let body = JsonTool.toJson(fromObject:
                                     updateDeviceTokenRequest(
                                         userID: userID,
@@ -662,7 +656,7 @@ open class AccountViewModel {
                                         pushToken: pushToken,
                                         deviceID:deviceID,
                                         pushChannel:pushChannel)).data(using: .utf8)
-        var req = try! URLRequest(url: API_BASE_URL + UpdateDeviceTokenAPI, method: .post)
+        var req = try! URLRequest(url: IMController.shared.appAddress + UpdateDeviceTokenAPI, method: .post)
         req.httpBody = body
         req.addValue(UserDefaults.standard.string(forKey: bussinessTokenKey)!, forHTTPHeaderField: "token")
         //        req.addValue(UUID().uuidString, forHTTPHeaderField: "operationID")

@@ -191,6 +191,9 @@ class MainTabViewController: UITabBarController {
                     IMController.shared.updateFcmBadge(count: UIApplication.shared.applicationIconBadgeNumber)
                 } else {
                     tabBarItem.badgeValue = nil
+                    IMController.shared.unCallPhoneMessageCount = count
+                    UIApplication.shared.applicationIconBadgeNumber = IMController.shared.unChatMessageCount + IMController.shared.unCallPhoneMessageCount + IMController.shared.unContactMessageCount
+                    IMController.shared.updateFcmBadge(count: UIApplication.shared.applicationIconBadgeNumber)
                 }
             }
         }

@@ -171,7 +171,7 @@ struct _R: Sendable {
       var ieXW0yeText: RswiftResources.StringResource { .init(key: "8ie-xW-0ye.text", tableName: "LaunchScreen", source: source, developmentValue: nil, comment: nil) }
     }
 
-    /// This `_R.string.localizable` struct is generated, and contains static references to 531 localization keys.
+    /// This `_R.string.localizable` struct is generated, and contains static references to 532 localization keys.
     struct localizable {
       let source: RswiftResources.StringResource.Source
 
@@ -2156,6 +2156,13 @@ struct _R: Sendable {
       /// Locales: en, th
       var 图片保存成功: RswiftResources.StringResource { .init(key: "图片保存成功", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// en translation: Area
+      ///
+      /// Key: 地区
+      ///
+      /// Locales: en, zh-Hans, th
+      var 地区: RswiftResources.StringResource { .init(key: "地区", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: Address
       ///
       /// Key: 地址
@@ -3910,7 +3917,7 @@ struct _R: Sendable {
     var colorBackground: RswiftResources.ColorResource { .init(name: "ColorBackground", path: [], bundle: bundle) }
   }
 
-  /// This `_R.image` struct is generated, and contains static references to 248 images.
+  /// This `_R.image` struct is generated, and contains static references to 258 images.
   struct image {
     let bundle: Foundation.Bundle
 
@@ -4228,6 +4235,36 @@ struct _R: Sendable {
 
     /// Image `appicon_horz`.
     var appicon_horz: RswiftResources.ImageResource { .init(name: "appicon_horz", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `area_cn_icon`.
+    var area_cn_icon: RswiftResources.ImageResource { .init(name: "area_cn_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `area_hk_icon`.
+    var area_hk_icon: RswiftResources.ImageResource { .init(name: "area_hk_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `area_jp_icon`.
+    var area_jp_icon: RswiftResources.ImageResource { .init(name: "area_jp_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `area_mo_icon`.
+    var area_mo_icon: RswiftResources.ImageResource { .init(name: "area_mo_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `area_my_icon`.
+    var area_my_icon: RswiftResources.ImageResource { .init(name: "area_my_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `area_ph_icon`.
+    var area_ph_icon: RswiftResources.ImageResource { .init(name: "area_ph_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `area_sg_icon`.
+    var area_sg_icon: RswiftResources.ImageResource { .init(name: "area_sg_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `area_th_icon`.
+    var area_th_icon: RswiftResources.ImageResource { .init(name: "area_th_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `area_us_icon`.
+    var area_us_icon: RswiftResources.ImageResource { .init(name: "area_us_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `area_vn_icon`.
+    var area_vn_icon: RswiftResources.ImageResource { .init(name: "area_vn_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
     /// Image `black_list_icon`.
     var black_list_icon: RswiftResources.ImageResource { .init(name: "black_list_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }

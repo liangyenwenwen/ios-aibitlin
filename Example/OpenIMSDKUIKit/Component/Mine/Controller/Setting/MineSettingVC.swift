@@ -55,7 +55,8 @@ class MineSettingVC: BaseTitleController {
         
         userMessageView.titleView.text = "MyProfile".localized()
         accountAndSafeView.titleView.text = "AccountAndSecurity".localized()
-        changeLanguageView.titleView.text = "语言和地区".localized()
+//        changeLanguageView.titleView.text = "语言和地区".localized()
+        changeLanguageView.titleView.text = "地区".localized()
         privateView.titleView.text = "PersonalPrivacy".localized()
         privateDeletegeView.titleView.text = "PoliciesAndTerms".localized()
         
@@ -94,8 +95,11 @@ class MineSettingVC: BaseTitleController {
     }()
     
     lazy var changeLanguageView: SuperSettingView = {
-        let r = SuperSettingView.create(icon: R.image.mine_language_icon()!, title: "语言和地区".localized(), click: { [weak self] data in
-            let vc = LanguageTableViewController()
+//        let r = SuperSettingView.create(icon: R.image.mine_language_icon()!, title: "语言和地区".localized(), click:
+        let r = SuperSettingView.create(icon: R.image.mine_language_icon()!, title: "地区".localized(), click: { [weak self] data in
+//            let vc = LanguageTableViewController()
+//            self?.navigationController?.pushViewController(vc, animated: true)
+            let vc = MineChangeAreaVC()
             self?.navigationController?.pushViewController(vc, animated: true)
         })
         r.isMediumFont()
