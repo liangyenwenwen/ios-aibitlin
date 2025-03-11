@@ -41,9 +41,9 @@ class MineSettingVC: BaseTitleController {
         topContentView.addSubview(accountAndSafeView)
         topContentView.addSubview(changeLanguageView)
         topContentView.addSubview(privateView)
+        topContentView.addSubview(generalSettingView)
         topContentView.addSubview(privateDeletegeView)
         
-        container.addSubview(clearChatHistoryView)
         container.addSubview(logoOutView)
         
         
@@ -58,10 +58,9 @@ class MineSettingVC: BaseTitleController {
 //        changeLanguageView.titleView.text = "语言和地区".localized()
         changeLanguageView.titleView.text = "地区".localized()
         privateView.titleView.text = "PersonalPrivacy".localized()
+        generalSettingView.titleView.text = "通用设置".localized()
         privateDeletegeView.titleView.text = "PoliciesAndTerms".localized()
-        
-        clearChatHistoryView.titleView.text = "ClearChatHistory".localized()
-        
+                
         logoOutView.titleView.text = "Logout".localized()
     }
     
@@ -115,6 +114,14 @@ class MineSettingVC: BaseTitleController {
         return r
     }()
     
+    lazy var generalSettingView: SuperSettingView = {
+        let r = SuperSettingView.create(icon:R.image.mine_general_setting_icon()!, title: "通用设置".localized(), click: { [weak self] data in
+            self?.gotoController(MineGeneralSettingVC.self)
+        })
+        r.isMediumFont()
+        return r
+    }()
+    
     lazy var privateDeletegeView: SuperSettingView = {
         let r = SuperSettingView.create(icon: R.image.mine_delegate_icon()!, title: "PoliciesAndTerms".localized(), click: { [weak self] data in
             let language = String.getCurrentLanguage()
@@ -126,23 +133,6 @@ class MineSettingVC: BaseTitleController {
                 SuperWebController.start((self?.navigationController!)!, uri: "https://deal.aibitlin.com/#/pages/privacy/index?lang=en")
             }
         })
-        r.isMediumFont()
-        return r
-    }()
-    lazy var clearChatHistoryView: SuperSettingView = {
-        let r = SuperSettingView.create(icon: R.image.mine_logout_icon()!, title: "ClearChatHistory".localized(),  ishaveMore:  false, click: { [weak self] data in
-            self?.presentAlert(title: "ConfirmClearChatHistory".localized()) {
-                ProgressHUD.animate(interaction: false)
-                IMController.shared.deleteAllMsgFromLocalAndSvr(){res in
-                    if res != nil {
-                        ProgressHUD.success("ClearChatHistorySuccess".localized())
-                    } else {
-                        ProgressHUD.error("ClearChatHistoryFail".localized())
-                    }
-                }
-            }
-        })
-        r.corner()
         r.isMediumFont()
         return r
     }()

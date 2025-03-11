@@ -615,9 +615,9 @@ PODS:
   - ZFPlayer/ControlView (4.1.4):
     - ZFPlayer/Core
   - ZFPlayer/Core (4.1.4)
-  - ZLPhotoBrowser (4.4.8.2):
-    - ZLPhotoBrowser/Core (= 4.4.8.2)
-  - ZLPhotoBrowser/Core (4.4.8.2)
+  - ZLPhotoBrowser (4.5.8):
+    - ZLPhotoBrowser/Core (= 4.5.8)
+  - ZLPhotoBrowser/Core (4.5.8)
   - ZXSDK-Noidfa (3.3.1)
 
 DEPENDENCIES:
@@ -824,7 +824,7 @@ SPEC CHECKSUMS:
   WebViewJavascriptBridge: 7f5bc4d3581e672e8f32bd0f812d54bc69bb8e29
   YYImage: 1e1b62a9997399593e4b9c4ecfbbabbf1d3f3b54
   ZFPlayer: 5cf39e8d9f0c2394a014b0db4767b5b5a6bffe13
-  ZLPhotoBrowser: cd023607d05a72d27a3ae57f50dbf86910713a2c
+  ZLPhotoBrowser: 52c8b386e3f9a7885676027c529a015147df502c
   ZXSDK-Noidfa: f3cc8e4b6b4775df301489ae0792b727e193e7d3
 
 PODFILE CHECKSUM: 5d10e3c4fd2bd0630be08acf1ec6db948ee5bdac

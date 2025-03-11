@@ -34,7 +34,6 @@ class YFPhoneLoginVC: BaseLogicController {
         
 
         container.tg_padding = UIEdgeInsets(top: 0, left: PADDING_LARGE2, bottom: 0, right: PADDING_LARGE2)
-        
         container.addSubview(appTitleLbl)
         container.addSubview(tipLbl)
         
@@ -49,7 +48,6 @@ class YFPhoneLoginVC: BaseLogicController {
        
         
     }
-
     lazy var chooseHeader: YFAibitlinHomeChooseHeaderView = {
         let r = YFAibitlinHomeChooseHeaderView(headerType: .login)
         r.tg_width.equal(.fill)

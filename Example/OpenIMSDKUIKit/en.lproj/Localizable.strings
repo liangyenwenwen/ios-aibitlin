@@ -132,6 +132,8 @@
 "跟随系统" = "Follow the system";
 "语言和地区" = "Language Settings";
 "地区" = "Area";
+"关于我们" = "About Us";
+"通用设置" = "General Setup";
 "请填写新的邮箱地址" = "Please enter a new email address";
 "上传日志" = "Upload Bog";
 "选择网站" = "Selected Websites";
@@ -721,7 +723,16 @@ SupportShortNumber = "Support setting a minimum %@-digit account ID";
 
 "保存到手机" = "Save QR Code";
 
-
+"中国大陆" = "Chinese mainland";
+"中国香港" = "Hong Kong, China";
+"中国澳门" = "Macau, China";
+"泰国" = "Thailand";
+"菲律宾" = "The Philippines";
+"新加坡" = "Singapore";
+"马来西亚" = "Malaysia";
+"越南" = "Vietnam";
+"日本" = "Japanese";
+"美国" = "America";
 
 //"" = "";
 //"" = "";

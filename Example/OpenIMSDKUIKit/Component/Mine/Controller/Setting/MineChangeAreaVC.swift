@@ -34,7 +34,7 @@ class MineChangeAreaVC: UITableViewController {
         }
     override func viewDidLoad() {
         super.viewDidLoad()
-        chooseArea = UserDefaults.standard.string(forKey: "chooseArea") ?? "中国"
+        chooseArea = UserDefaults.standard.string(forKey: "chooseArea") ?? "中国大陆"
         configureTableView()
         title = "地区".localized()
     }

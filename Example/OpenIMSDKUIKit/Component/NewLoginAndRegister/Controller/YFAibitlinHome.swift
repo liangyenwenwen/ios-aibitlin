@@ -27,7 +27,7 @@ class YFAibitlinHome: BaseLogicController {
         initLinearLayoutSafeArea()
         container.tg_padding = UIEdgeInsets(top: 0, left: PADDING_LARGE_HOME, bottom: 0, right: PADDING_LARGE_HOME)
         container.tg_space = 14
-        
+        container.addSubview(areaAddressView)
         container.addSubview(appIcon)
         container.addSubview(tipLbl)
         
@@ -87,12 +87,46 @@ class YFAibitlinHome: BaseLogicController {
 //        refrehUI()
         
     }
-    
+    lazy var areaAddressView: TGLinearLayout = {
+        let r = TGLinearLayout(.horz)
+        r.tg_top.equal(20)
+        r.tg_right.equal(0)
+        r.tg_height.equal(22)
+        r.tg_width.equal(.wrap)
+        r.addSubview(areaAddressLabel)
+        r.addSubview(chooseImageView)
+        r.corner(11)
+        r.backgroundColor = .init(hexString: "#F5F5F5")
+        let tap = UITapGestureRecognizer(target: self, action: #selector(chooseAreaAddress))
+        r.addGestureRecognizer(tap)
+        return r
+    }()
+    private lazy var areaAddressLabel: UILabel = {
+        let r = UILabel()
+        r.tg_left.equal(10)
+        r.tg_width.equal(.wrap)
+        r.tg_height.equal(.fill)
+        r.font = .regularFont(14)
+        r.textColor = .primaryColor
+        let areaName = UserDefaults.standard.string(forKey: "chooseArea") ?? "中国大陆"
+        r.text = "地区".localized() + "：" + areaName.localized()
+        return r
+    }()
+    private lazy var chooseImageView: UIImageView = {
+        let r = UIImageView(image: UIImage(named: "login_choose_area_icon"))
+        r.tg_left.equal(4)
+        r.tg_right.equal(10)
+        r.tg_width.equal(10)
+        r.tg_height.equal(12)
+        r.tg_centerY.equal(0)
+        
+        return r
+    }()
     lazy var appIcon: UIImageView = {
         let r = UIImageView()
         r.tg_width.equal(100)
         r.tg_height.equal(44)
-        r.tg_top.equal(116)
+        r.tg_top.equal(74)
         r.tg_centerX.equal(0)
         r.image = .init(named: "app_icon_home")
         return r
@@ -234,6 +268,10 @@ class YFAibitlinHome: BaseLogicController {
 
 extension YFAibitlinHome {
     
+    @objc func chooseAreaAddress(){
+        let vc = MineChangeAreaVC()
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
     @objc func chooseDelegate(_ btn: QMUIButton)  {
         btn.isSelected = !btn.isSelected
         UserDefaults.standard.set(btn.isSelected, forKey: "AppAgreementSelectStatus")
