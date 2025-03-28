@@ -69,7 +69,7 @@ extension MineBokeVisitorListVC {
     }
     
     func friendNetWork() {
-        let paramters : [String: Any] = ["time": blogTime!, "userId": boke.myBlogShowBlogPO.userId, "userBlogId": boke.myBlogShowBlogPO.id]
+        let paramters : [String: Any] = ["time": blogTime!, "userId": boke.uid ?? "", "userBlogId": boke.id ?? 0]
         
         YFMineNetViewModel.queryShowBlogsSurveyFriends(paramters: paramters) { [self]data in
             datum = data
@@ -81,7 +81,7 @@ extension MineBokeVisitorListVC {
     }
     
     func strangersNetWork() {
-        let paramters : [String: Any] = ["time": blogTime!, "userId": boke.myBlogShowBlogPO.userId!, "userBlogId": boke.myBlogShowBlogPO.id!]
+        let paramters : [String: Any] = ["time": blogTime!, "userId": boke.uid!, "userBlogId": boke.id!]
         
         YFMineNetViewModel.queryShowBlogsSurveyStranger(paramters: paramters) { [self]data in
             datum = data

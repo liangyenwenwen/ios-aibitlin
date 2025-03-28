@@ -127,48 +127,44 @@ extension YFChatBokeBottomSheetView: UITableViewDataSource, UITableViewDelegate 
 extension YFChatBokeBottomSheetView {
     
     func getMyBlog() {
-        if let IMUser = IMController.shared.currentUserRelay.value {
-            
-            YFMineNetViewModel.mineBlog(userId: IMUser.userID) { [weak self] data in
-                
-//                self?.data = data.filter({ item -> Bool in
-//                    return item.state == .normal
+//        if let IMUser = IMController.shared.currentUserRelay.value {
+//            
+//            YFMineNetViewModel.mineBlog(limit: "20", page: "1", hash: "") { [weak self] data in
+//                var array = data.filter({ item -> Bool in
+//                    return item.myBlogShowBlogPO.state == .normal
 //                })
-                var array = data.filter({ item -> Bool in
-                    return item.myBlogShowBlogPO.state == .normal
-                })
-                if self?.isRemoveRecommendData == true{
-                    let recommedData = YFFileDataUtil.readDataToFile(.recommend)
-                    for item in recommedData {
-                        array.removeAll(where: { $0.myBlogShowBlogPO.id == item.myBlogShowBlogPO.id })
-                    }
-                    self?.data = array
-                }else{
-                    if self?.isRemoveTableMoreData == true {
-                        let tableMoreData = YFFileDataUtil.readDataToFile(.home)
-                        for item in tableMoreData {
-                            array.removeAll(where: { $0.myBlogShowBlogPO.id == item.myBlogShowBlogPO.id })
-                        }
-                        self?.data = array
-                    }else{
-                        self?.data = array
-                    }
-                }
-                
-                self?.tableView.reloadData()
-            } completionHandler: { errCode, errMsg in
-                
-            }
-        }
+//                if self?.isRemoveRecommendData == true{
+//                    let recommedData = YFFileDataUtil.readDataToFile(.recommend)
+//                    for item in recommedData {
+//                        array.removeAll(where: { $0.myBlogShowBlogPO.id == item.myBlogShowBlogPO.id })
+//                    }
+//                    self?.data = array
+//                }else{
+//                    if self?.isRemoveTableMoreData == true {
+//                        let tableMoreData = YFFileDataUtil.readDataToFile(.home)
+//                        for item in tableMoreData {
+//                            array.removeAll(where: { $0.myBlogShowBlogPO.id == item.myBlogShowBlogPO.id })
+//                        }
+//                        self?.data = array
+//                    }else{
+//                        self?.data = array
+//                    }
+//                }
+//                
+//                self?.tableView.reloadData()
+//            } completionHandler: { errCode, errMsg in
+//                
+//            }
+//        }
     }
     
     
     func getAllBlog() {
         if let IMUser = IMController.shared.currentUserRelay.value {
             
-            YFMineNetViewModel.mineBlog(userId: IMUser.userID) { [weak self] data in
+            YFMineNetViewModel.mineBlog(limit: "20",page: "1",hash: "") { [weak self] data in
                 
-                self?.data = data
+                self?.data = data ?? []
                 self?.tableView.reloadData()
             } completionHandler: { errCode, errMsg in
                 

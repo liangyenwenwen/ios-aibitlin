@@ -88,6 +88,7 @@
 		04A4BD002BF32F17008FA224 /* YFMineChangePasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A4BCFF2BF32F17008FA224 /* YFMineChangePasswordVC.swift */; };
 		04B09E332CF5A1F800ABF926 /* YFAibitlinAgreementAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B09E322CF5A1F800ABF926 /* YFAibitlinAgreementAlert.swift */; };
 		04B09E352CF5BE5C00ABF926 /* YFResetPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B09E342CF5BE5C00ABF926 /* YFResetPasswordVC.swift */; };
+		04B801372D92C3D10061641B /* AESEncyptUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B801362D92C3D10061641B /* AESEncyptUtil.swift */; };
 		04C394412CCF85A500181F6B /* YFPhoneLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C394402CCF85A500181F6B /* YFPhoneLoginVC.swift */; };
 		04C394432CCF874300181F6B /* YFAibitlinHomeChooseHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C394422CCF874300181F6B /* YFAibitlinHomeChooseHeaderView.swift */; };
 		04C394452CCFADF500181F6B /* YFEmailLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C394442CCFADF500181F6B /* YFEmailLoginVC.swift */; };
@@ -281,6 +282,7 @@
 		04A4BCFF2BF32F17008FA224 /* YFMineChangePasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFMineChangePasswordVC.swift; sourceTree = "<group>"; };
 		04B09E322CF5A1F800ABF926 /* YFAibitlinAgreementAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFAibitlinAgreementAlert.swift; sourceTree = "<group>"; };
 		04B09E342CF5BE5C00ABF926 /* YFResetPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFResetPasswordVC.swift; sourceTree = "<group>"; };
+		04B801362D92C3D10061641B /* AESEncyptUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AESEncyptUtil.swift; sourceTree = "<group>"; };
 		04C394402CCF85A500181F6B /* YFPhoneLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFPhoneLoginVC.swift; sourceTree = "<group>"; };
 		04C394422CCF874300181F6B /* YFAibitlinHomeChooseHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFAibitlinHomeChooseHeaderView.swift; sourceTree = "<group>"; };
 		04C394442CCFADF500181F6B /* YFEmailLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFEmailLoginVC.swift; sourceTree = "<group>"; };
@@ -476,6 +478,7 @@
 				047BF6B52CA2B6DF00706117 /* YFFileDataUtil.swift */,
 				04DB1E3D2CA6B0C000EE8B8C /* YFDateUtil.swift */,
 				049D30212CC1F5DB00649DC4 /* YFNetworkStatusUtil.swift */,
+				04B801362D92C3D10061641B /* AESEncyptUtil.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -1353,6 +1356,7 @@
 				"${BUILT_PRODUCTS_DIR}/AlamofireNetworkActivityLogger/AlamofireNetworkActivityLogger.framework",
 				"${BUILT_PRODUCTS_DIR}/BSText/BSText.framework",
 				"${BUILT_PRODUCTS_DIR}/ChatLayout/ChatLayout.framework",
+				"${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/DifferenceKit/DifferenceKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
 				"${BUILT_PRODUCTS_DIR}/DynamicColor/DynamicColor.framework",
@@ -1416,6 +1420,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireNetworkActivityLogger.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BSText.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ChatLayout.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CryptoSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DifferenceKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DynamicColor.framework",
@@ -1546,6 +1551,7 @@
 				1760BE5C2BD9FFAD0096CD1C /* SimpleInputViewController.swift in Sources */,
 				049C64432BEC689100B679C4 /* YFTitleAddUnderlineChooseView.swift in Sources */,
 				17620CE62A4D232200B74C96 /* ModifyPswViewController.swift in Sources */,
+				04B801372D92C3D10061641B /* AESEncyptUtil.swift in Sources */,
 				040D85E52BEB8C0B00DCAAB3 /* SuperSettingView.swift in Sources */,
 				040D85C22BEB8B0400DCAAB3 /* ExceptionHandleUtil.swift in Sources */,
 				040D86072BEB8C4200DCAAB3 /* SuperUITableViewExtension.swift in Sources */,

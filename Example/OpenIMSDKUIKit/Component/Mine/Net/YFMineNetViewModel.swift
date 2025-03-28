@@ -19,16 +19,22 @@ class YFMineNetViewModel: AccountViewModel {
     
 //    static let API_BLOG_URL = "http://192.168.7.107:18898"
 //    public static let API_BLOG_URL = "http://blog.aibitlin.com:18898"
-    public static let API_BLOG_URL = "https://imblogs.aibitlin.com"
+//    public static let API_BLOG_URL = "https://imblogs.aibitlin.com"
+    public static let API_BLOG_URL = "http://192.168.7.11"
     
     
     // MARK: - 张亚飞打的标记 blogAPI
-    private static let BlogAuditAddWaitAuditAutoAPI = "/audit/userBlogs/addUserBlogs" //
-    private static let ShowMyMyBlogsAPI = "/blog/myBlogShow/queryMyBlogShow" //
-    private static let otherSeeMyBlogAPI = "/blog/myBlogShow/queryOtherBlogShow" //
-    private static let blogTopAPI = "/blog/myBlogSettings/putOnTopUserBlogs"
-    private static let updateWaitAuditAutoAPI = "/audit/userBlogs/updateUserBlogs" //
-    private static let deleteBlogAPI = "/audit/userBlogs/delUserBlogs" //
+    private static let upLoadBlogIconAPI = "/blog/upload"
+    private static let BlogAuditAddWaitAuditAutoAPI = "/blog/add" //添加网站
+    private static let ShowMyMyBlogsAPI = "/blog/myList" //我的网站列表
+    private static let updateWaitAuditAutoAPI = "/blog/edit"//修改网站
+    private static let deleteBlogAPI = "/blog/del" //删除网站
+    private static let blogTopAPI = "/blog/setTop"//网站置顶
+    private static let otherSeeMyBlogAPI = "/blog/othersList" //他人网站列表
+
+    
+
+    
     private static let queryShowBlogsSurveyAPI = "/blog/myBlogBeBrowsed/queryMyBlogBeBrowsedOverview"//
     private static let queryShowBlogsSurveyOneDayAPI = "/blog/myBlogBeBrowsed/queryMyBlogBeBrowsedOverviewOne"
     private static let queryShowBlogsSurveyFriendsAPI = "/blog/myBlogBeBrowsed/queryMyBlogBeBrowsedOverviewFriend"
@@ -58,7 +64,8 @@ class YFMineNetViewModel: AccountViewModel {
     
     //"183.156.234.224"
     private static var httpHeaders : HTTPHeaders = [
-        "token":UserDefaults.standard.string(forKey: bussinessTokenKey)!,
+        "token":IMController.shared.tokenABC,
+//        "md5":IMController.shared.tokenC,
         "X-Forwarded-For":IMController.shared.publicIP,
         "Authorization":"eyJ1c2VySW5mbyI6InVzZXJCbG9nWWFuWmhlbmdUb2tlbiJ9",
         "Content-Type":"application/json",
@@ -68,11 +75,11 @@ class YFMineNetViewModel: AccountViewModel {
     
    // MARK: - 张亚飞打的标记   网站接口
    /// 新增网站信息到自动审核
-    static func blogAudit(userId: String?,
-                          userBlogUrl: String?,
-                          userBlogIcon:String?,
-                          userBlogName:String?,
-                          userBlogIntro: String?,
+    static func blogAudit(logo: String?,
+                          name: String?,
+                          url:String?,
+                          mark:String?,
+                          pwd: String?,
                           completionHandler: @escaping CompletionHandler) {
         
         
@@ -85,15 +92,11 @@ class YFMineNetViewModel: AccountViewModel {
 //        ProgressHUD.animate()
         
         
-        let body = JsonTool.toJson(fromObject: BlogAuditRequest(userId: userId, userBlogUrl: userBlogUrl, userBlogIcon: userBlogIcon, userBlogName: userBlogName, userBlogIntro: userBlogIntro)).data(using: .utf8)
+        let body = JsonTool.toJson(fromObject: BlogAuditRequest(logo: logo, name: name, url: url, mark: mark, pwd: pwd)).data(using: .utf8)
         
         
         var req = try! URLRequest(url: API_BLOG_URL + BlogAuditAddWaitAuditAutoAPI, method: .post, headers: httpHeaders)
         req.httpBody = body
-        
-//        Alamofire.request(API_BLOG_URL + BlogAuditAddWaitAuditAutoAPI, method: .post, parameters: ["userId": userId!])
-        
-        
         Alamofire.request(req).responseString { (response: DataResponse<String>) in
             
 //            ProgressHUD.dismiss()
@@ -101,15 +104,7 @@ class YFMineNetViewModel: AccountViewModel {
             switch response.result {
             case .success(let result):
                 if let res = JsonTool.fromJson(result, toClass: BlogResponse.self) {
-
-                    if res.code == 20000  {
-                        print("请求成功")
-                        UserDefaults.standard.set("0", forKey: "blogVersion\(Open_im_sdkGetLoginUserID())")
-                    } else {
-                        print("请求失败")
-                    }
-                    
-                    completionHandler(res.code, res.message)
+                    completionHandler(res.code, res.msg)
                     
                 } else {
                     completionHandler(-1, "Fail")
@@ -124,51 +119,27 @@ class YFMineNetViewModel: AccountViewModel {
     }
      
     /// 我的网站
-    static func mineBlog(userId: String?,
-                         valueHandler: @escaping ([myBlogShowBlogPOModel]) -> Void,
+    static func mineBlog(limit: String?,
+                         page: String?,
+                         hash:String?,
+                         valueHandler: @escaping ([myBlogShowBlogPOModel]?) -> Void,
                          completionHandler: @escaping CompletionHandler) {
-        
-        
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: <#T##DispatchWorkItem#>)
-        
-        
-        
         if let IMUser = IMController.shared.currentUserRelay.value {
-            let blogVersion = UserDefaults.standard.string(forKey: "blogVersion\(Open_im_sdkGetLoginUserID())") ?? "0"
-            
-            
-            let body = JsonTool.toJson(fromObject: MineBlogRequest(userId: userId, version: "\(blogVersion)")).data(using: .utf8)
-            var req = try! URLRequest(url: API_BLOG_URL + ShowMyMyBlogsAPI + "?userId=\(userId!)" + "&version=\(blogVersion)", method: .post, headers: httpHeaders)
+            let body = JsonTool.toJson(fromObject: MineBlogRequest(limit: limit, page: page, hash: hash)).data(using: .utf8)
+            var req = try! URLRequest(url: API_BLOG_URL + ShowMyMyBlogsAPI, method: .post, headers: httpHeaders)
             req.httpBody = body
 
             Alamofire.request(req).responseJSON { dataRequest in
-                
-
-                
                 if let data = dataRequest.data {
                     let strData = String.init(data: data, encoding: String.Encoding.utf8)
                     print(strData!)
                     
                     if let res = JsonTool.fromJson(strData!, toClass: BlogListResponse<myBlogListValue>.self) {
 
-                        if res.code == 20000  {
-                            
-//                            if res.data.showBlogs?.count ?? 0 > 0 {
-//                                valueHandler(res.data.showBlogs!)
-//                                YFFileDataUtil.saveDataToFile(.cache, blogsArr: res.data.showBlogs!)
-//                            } else {
-//                                valueHandler(YFFileDataUtil.readDataToFile(.cache))
-//                            }
-                            UserDefaults.standard.set(res.data.version, forKey: "blogVersion\(Open_im_sdkGetLoginUserID())")
-                            if Int(blogVersion) ==  0 {
-                                valueHandler(res.data.myBlogShowJsPOS!)
-                                YFFileDataUtil.saveDataToFile(.cache, blogsArr: res.data.myBlogShowJsPOS!)
-                            } else {
-                                valueHandler(YFFileDataUtil.readDataToFile(.cache))
-                            }
-                            
+                        if res.code == 200  {
+                            valueHandler(res.result.data)
                         } else {
-                            completionHandler(res.code, res.message)
+                            completionHandler(res.code, res.msg)
                         }
                     } else {
                         completionHandler(-1, "failure")
@@ -185,14 +156,18 @@ class YFMineNetViewModel: AccountViewModel {
     }
  
     /// 其他人看我的网站
-    static func otherSeeMyBlog(userId: String?,
-                         valueHandler: @escaping ([myBlogShowBlogPOModel]) -> Void,
+    static func otherSeeMyBlog(limit: String?,
+                               page: String?,
+                               uid: String?,
+                               hash:String?,
+                               pwd:String?,
+                         valueHandler: @escaping ([myBlogShowBlogPOModel]?) -> Void,
                          completionHandler: @escaping CompletionHandler) {
         
 //        ProgressHUD.animate()
         
-        let body = JsonTool.toJson(fromObject: othersBlogRequest(userId: Open_im_sdkGetLoginUserID(),beViewedUserId: userId)).data(using: .utf8)
-        var req = try! URLRequest(url: API_BLOG_URL + otherSeeMyBlogAPI + "?userId=\(Open_im_sdkGetLoginUserID())"+"&beViewedUserId=\(userId!)", method: .post, headers: httpHeaders)
+        let body = JsonTool.toJson(fromObject: othersBlogRequest(limit: limit,page: page,uid:uid,hash:hash,pwd:pwd)).data(using: .utf8)
+        var req = try! URLRequest(url: API_BLOG_URL + otherSeeMyBlogAPI, method: .post, headers: httpHeaders)
         req.httpBody = body
 
         Alamofire.request(req).responseJSON { dataRequest in
@@ -202,12 +177,12 @@ class YFMineNetViewModel: AccountViewModel {
             if let data = dataRequest.data {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 print(strData!)
-                if let res = JsonTool.fromJson(strData!, toClass: BlogListResponse<[myBlogShowBlogPOModel]>.self) {
+                if let res = JsonTool.fromJson(strData!, toClass: BlogListResponse<myBlogListValue>.self) {
 
-                    if res.code == 20000  {
-                        valueHandler(res.data)
+                    if res.code == 200  {
+                        valueHandler(res.result.data)
                     } else {
-                        completionHandler(-1, "failure")
+                        completionHandler(res.code, res.msg)
                     }
                 } else {
                     completionHandler(-1, "failure")
@@ -232,13 +207,7 @@ class YFMineNetViewModel: AccountViewModel {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 print(strData!)
                 if let res = JsonTool.fromJson(strData!, toClass: BlogResponse.self) {
-
-                    if res.code == 20000  {
-                        UserDefaults.standard.set("0", forKey: "blogVersion\(Open_im_sdkGetLoginUserID())")
-                        completionHandler(res.code, res.message)
-                    } else {
-                        completionHandler(-1, "failure")
-                    }
+                    completionHandler(res.code, res.msg)
                 } else {
                     completionHandler(-1, "failure")
                 }
@@ -251,52 +220,52 @@ class YFMineNetViewModel: AccountViewModel {
     // MARK: - 张亚飞打的标记
     static func scanBlog(blog: myBlogShowBlogPOModel, duration: Int) {
         
-        if let IMUser = IMController.shared.currentUserRelay.value  {
-            
-            if IMUser.userID == blog.myBlogShowBlogPO.userId {
-                return
-            }
-  
-            IMController.shared.checkFriend(userID: blog.myBlogShowBlogPO.userId!) { [self] r in
-                
-                let userStruct = SuperStringUtil.getUserState(showname: IMUser.nickname!)
-                
-                let paramters: [String: Any] = ["userId":blog.myBlogShowBlogPO.userId!,
-                                                "userBlogId":blog.myBlogShowBlogPO.id!,
-                                                "relation":r ? 1 : 2,
-                                                "lookUserId":IMUser.userID!,
-                                                "lookUserTouXiang":IMUser.faceURL ?? "",
-                                                "lookUserName":userStruct.n,
-                                                "lookUserVip":"\(userStruct.v)",
-                                                "lookTime":YFDateUtil.getCurrentTime(timeFormat: .YYYYMMDD),
-//                                                "longitudeAndLatitude":SuperStringUtil.getCurrentLocation(),
-                                                "longitudeAndLatitude":"",
-                                                "lookUserIP":IMController.shared.publicIP,
-                                                "isNotBlog":userStruct.b,
-                                                "isNotQiYe":userStruct.e,
-                                                "lengthOfStay":duration,
-                                                "isVip":"2",
-                                                "blogUrl":blog.myBlogShowBlogPO.userBlogUrl ?? "",
-                                                "blogIcon":blog.myBlogShowBlogPO.userBlogIcon ?? "",
-                                                "blogName":blog.myBlogShowBlogPO.userBlogName ?? "",
-                                                "blogIntor":blog.myBlogShowBlogPO.userBlogIntro ?? ""]
-
-                
-                let url = API_BLOG_URL + addShowBlogsSurveyAPI
-                ProgressHUD.animate()
-                Alamofire.request(url, method: .post, parameters: paramters, encoding: JSONEncoding.default, headers: httpHeaders).responseJSON(completionHandler: { dataRequest in
-                    ProgressHUD.dismiss()
-                    if let data = dataRequest.data {
-                        let strData = String.init(data: data, encoding: String.Encoding.utf8)
-                        print(strData!)
-                        
-                    }
-                })
-                
-                
-                
-            }
-        }
+//        if let IMUser = IMController.shared.currentUserRelay.value  {
+//            
+//            if IMUser.userID == blog.myBlogShowBlogPO.userId {
+//                return
+//            }
+//  
+//            IMController.shared.checkFriend(userID: blog.myBlogShowBlogPO.userId!) { [self] r in
+//                
+//                let userStruct = SuperStringUtil.getUserState(showname: IMUser.nickname!)
+//                
+//                let paramters: [String: Any] = ["userId":blog.myBlogShowBlogPO.userId!,
+//                                                "userBlogId":blog.myBlogShowBlogPO.id!,
+//                                                "relation":r ? 1 : 2,
+//                                                "lookUserId":IMUser.userID!,
+//                                                "lookUserTouXiang":IMUser.faceURL ?? "",
+//                                                "lookUserName":userStruct.n,
+//                                                "lookUserVip":"\(userStruct.v)",
+//                                                "lookTime":YFDateUtil.getCurrentTime(timeFormat: .YYYYMMDD),
+////                                                "longitudeAndLatitude":SuperStringUtil.getCurrentLocation(),
+//                                                "longitudeAndLatitude":"",
+//                                                "lookUserIP":IMController.shared.publicIP,
+//                                                "isNotBlog":userStruct.b,
+//                                                "isNotQiYe":userStruct.e,
+//                                                "lengthOfStay":duration,
+//                                                "isVip":"2",
+//                                                "blogUrl":blog.myBlogShowBlogPO.userBlogUrl ?? "",
+//                                                "blogIcon":blog.myBlogShowBlogPO.userBlogIcon ?? "",
+//                                                "blogName":blog.myBlogShowBlogPO.userBlogName ?? "",
+//                                                "blogIntor":blog.myBlogShowBlogPO.userBlogIntro ?? ""]
+//
+//                
+//                let url = API_BLOG_URL + addShowBlogsSurveyAPI
+//                ProgressHUD.animate()
+//                Alamofire.request(url, method: .post, parameters: paramters, encoding: JSONEncoding.default, headers: httpHeaders).responseJSON(completionHandler: { dataRequest in
+//                    ProgressHUD.dismiss()
+//                    if let data = dataRequest.data {
+//                        let strData = String.init(data: data, encoding: String.Encoding.utf8)
+//                        print(strData!)
+//                        
+//                    }
+//                })
+//                
+//                
+//                
+//            }
+//        }
         
         
     }
@@ -314,13 +283,7 @@ class YFMineNetViewModel: AccountViewModel {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 print(strData!)
                 if let res = JsonTool.fromJson(strData!, toClass: BlogResponse.self) {
-
-                    if res.code == 20000  {
-                        UserDefaults.standard.set("0", forKey: "blogVersion\(Open_im_sdkGetLoginUserID())")
-                        completionHandler(res.code, res.message)
-                    } else {
-                        completionHandler(-1, "failure")
-                    }
+                    completionHandler(res.code, res.msg)
                 } else {
                     completionHandler(-1, "failure")
                 }
@@ -342,13 +305,7 @@ class YFMineNetViewModel: AccountViewModel {
             if let data = dataRequest.data {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 if let res = JsonTool.fromJson(strData!, toClass: BlogResponse.self) {
-
-                    if res.code == 20000  {
-                        UserDefaults.standard.set("0", forKey: "blogVersion\(Open_im_sdkGetLoginUserID())")
-                        completionHandler(res.code, res.message)
-                    } else {
-                        completionHandler(-1, "failure")
-                    }
+                    completionHandler(res.code, res.msg)
                 } else {
                     completionHandler(-1, "failure")
                 }
@@ -393,93 +350,90 @@ class YFMineNetViewModel: AccountViewModel {
                                            valueHandler: @escaping (blogOneDayNumber?) -> Void,
                                            completionHandler: @escaping CompletionHandler) {
         
-//        ProgressHUD.animate()
         
-        let url = SuperStringUtil.netUrl(API_BLOG_URL + queryShowBlogsSurveyOneDayAPI, paramters)
-        Alamofire.request(url, method: .post, parameters: paramters, encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
-            
-//            ProgressHUD.dismiss()
-            
-            if let data = dataRequest.data {
-                let strData = String.init(data: data, encoding: String.Encoding.utf8)
-                print(strData!)
-                if let res = JsonTool.fromJson(strData!, toClass: BlogListResponse<blogOneDayNumber>.self) {
-                    
-                    if res.code == 20000  {
-                        valueHandler(res.data)
-                    } else {
-                        completionHandler(-1, "failure")
-                    }
-                    
-                } else {
-                    completionHandler(-1, "failure")
-                }
-            }else{
-                completionHandler(-1, "-1")
-            }
-        }
+//        let url = SuperStringUtil.netUrl(API_BLOG_URL + queryShowBlogsSurveyOneDayAPI, paramters)
+//        Alamofire.request(url, method: .post, parameters: paramters, encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
+//            
+////            ProgressHUD.dismiss()
+//            
+//            if let data = dataRequest.data {
+//                let strData = String.init(data: data, encoding: String.Encoding.utf8)
+//                print(strData!)
+//                if let res = JsonTool.fromJson(strData!, toClass: BlogListResponse<blogOneDayNumber>.self) {
+//                    
+//                    if res.code == 20000  {
+//                        valueHandler(res.data)
+//                    } else {
+//                        completionHandler(-1, "failure")
+//                    }
+//                    
+//                } else {
+//                    completionHandler(-1, "failure")
+//                }
+//            }else{
+//                completionHandler(-1, "-1")
+//            }
+//        }
     }
     
     static func queryShowBlogsSurveyFriends(paramters:Parameters,
                                            valueHandler: @escaping ([BlogVisitorListModel]) -> Void,
                                            completionHandler: @escaping CompletionHandler) {
         
-//        ProgressHUD.animate()
-        let url = SuperStringUtil.netUrl(API_BLOG_URL + queryShowBlogsSurveyFriendsAPI, paramters)
-        
-        Alamofire.request(url, method: .post, parameters: nil, encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
-            
-//            ProgressHUD.dismiss()
-            if let data = dataRequest.data {
-                
-                let strData = String.init(data: data, encoding: String.Encoding.utf8)
-                print(strData!)
-                if let res = JsonTool.fromJson(strData!, toClass: BlogListResponse<[BlogVisitorListModel]>.self) {
-                    
-                    if res.code == 20000  {
-                        valueHandler(res.data)
-                    } else {
-                        completionHandler(-1, "failure")
-                    }
-                    
-                } else {
-                    completionHandler(-1, "failure")
-                }
-            }else{
-                completionHandler(-1, "-1")
-            }
-        }
+//        let url = SuperStringUtil.netUrl(API_BLOG_URL + queryShowBlogsSurveyFriendsAPI, paramters)
+//        
+//        Alamofire.request(url, method: .post, parameters: nil, encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
+//            
+////            ProgressHUD.dismiss()
+//            if let data = dataRequest.data {
+//                
+//                let strData = String.init(data: data, encoding: String.Encoding.utf8)
+//                print(strData!)
+//                if let res = JsonTool.fromJson(strData!, toClass: BlogListResponse<[BlogVisitorListModel]>.self) {
+//                    
+//                    if res.code == 20000  {
+//                        valueHandler(res.data)
+//                    } else {
+//                        completionHandler(-1, "failure")
+//                    }
+//                    
+//                } else {
+//                    completionHandler(-1, "failure")
+//                }
+//            }else{
+//                completionHandler(-1, "-1")
+//            }
+//        }
     }
     
     static func queryShowBlogsSurveyStranger(paramters:Parameters,
                                            valueHandler: @escaping ([BlogVisitorListModel]) -> Void,
                                            completionHandler: @escaping CompletionHandler) {
-//        ProgressHUD.animate()
         
-        let url = SuperStringUtil.netUrl(API_BLOG_URL + queryShowBlogsSurveyStrangerAPI, paramters)
-        
-        Alamofire.request(url, method: .post, parameters: nil, encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
-            
-//            ProgressHUD.dismiss()
-            
-            if let data = dataRequest.data {
-                let strData = String.init(data: data, encoding: String.Encoding.utf8)
-                print(strData!)
-                if let res = JsonTool.fromJson(strData!, toClass: BlogListResponse<[BlogVisitorListModel]>.self) {
-                    
-                    if res.code == 20000  {
-                        valueHandler(res.data)
-                    } else {
-                        completionHandler(-1, "failure")
-                    }
-                    
-                } else {
-                    completionHandler(-1, "failure")
-                }
-            }else{
-                completionHandler(-1, "-1")
-            }
-        }
+//        let url = SuperStringUtil.netUrl(API_BLOG_URL + queryShowBlogsSurveyStrangerAPI, paramters)
+//        
+//        Alamofire.request(url, method: .post, parameters: nil, encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
+//            
+////            ProgressHUD.dismiss()
+//            
+//            if let data = dataRequest.data {
+//                let strData = String.init(data: data, encoding: String.Encoding.utf8)
+//                print(strData!)
+//                if let res = JsonTool.fromJson(strData!, toClass: BlogListResponse<[BlogVisitorListModel]>.self) {
+//                    
+//                    if res.code == 20000  {
+//                        valueHandler(res.data)
+//                    } else {
+//                        completionHandler(-1, "failure")
+//                    }
+//                    
+//                } else {
+//                    completionHandler(-1, "failure")
+//                }
+//            }else{
+//                completionHandler(-1, "-1")
+//            }
+//        }
     }
     
     
@@ -500,12 +454,12 @@ class YFMineNetViewModel: AccountViewModel {
                 print(strData!)
                 if let res = JsonTool.fromJson(strData!, toClass: BlogResponse.self) {
                     
-                    if res.code == 20000  {
-                        if res.data != nil {
-                            valueHandler(res.data!)
+                    if res.code == 200  {
+                        if res.result != nil {
+                            valueHandler(res.result!)
                         }
                     } else {
-                        completionHandler(res.code, res.message)
+                        completionHandler(res.code, res.msg)
                     }
                     
                 } else {
@@ -535,10 +489,10 @@ class YFMineNetViewModel: AccountViewModel {
                     let strData = String.init(data: data, encoding: String.Encoding.utf8)
                     if let res = JsonTool.fromJson(strData!, toClass: BlogResponse.self) {
                         
-                        if res.code == 20000  {
+                        if res.code == 200  {
                            valueHandler("scuccess")
                         } else {
-                            completionHandler(res.code, res.message)
+                            completionHandler(res.code, res.msg)
                         }
                         
                     } else {
@@ -563,7 +517,7 @@ class YFMineNetViewModel: AccountViewModel {
                     let strData = String.init(data: data, encoding: String.Encoding.utf8)
                     if let res = JsonTool.fromJson(strData!, toClass: BlogResponse.self) {
                         
-                        if res.code == 20000  {
+                        if res.code == 200  {
                             let defaults = UserDefaults.standard
                             defaults.set(String.getCurrentLanguageFirst(), forKey: "blogLanguage\(uid)")
                         }
@@ -603,7 +557,7 @@ class YFMineNetViewModel: AccountViewModel {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 if let res = JsonTool.fromJson(strData!, toClass: BlogResponse.self) {
                     
-                    if res.code == 20000  {
+                    if res.code == 200  {
                         let defaults = UserDefaults.standard
                         defaults.set(String.getCurrentLanguageFirst(), forKey: "blogLanguage\(uid)")
                     }
@@ -617,7 +571,42 @@ class YFMineNetViewModel: AccountViewModel {
     
         
     }
-    
+    static func uploadImageFromPath(fileURL: URL,
+                                    valueHandler: @escaping (upLoadImageModel) -> Void,
+                                    completionHandler: @escaping CompletionHandler) {
+        // 发送 Multipart 请求
+        Alamofire.upload(multipartFormData: { (multipartFormData) in
+            // 添加文件数据
+            multipartFormData.append(fileURL, withName: "file")
+        }, to: API_BLOG_URL + upLoadBlogIconAPI, method: .post,headers: httpHeaders) { (result) in
+            switch result {
+            case .success(let upload, _, _):
+                // 请求成功
+                upload.responseJSON { response in
+                    // 处理服务器返回的数据
+                    if let data = response.data {
+                        let strData = String.init(data: data, encoding: String.Encoding.utf8)
+                        print(strData!)
+                        if let res = JsonTool.fromJson(strData!, toClass: BlogListResponse<upLoadImageModel>.self) {
+                            if res.code == 200  {
+                                valueHandler(res.result)
+                            }else{
+                                completionHandler(-1, "failure")
+                            }
+        
+                        } else {
+                            completionHandler(-1, "failure")
+                        }
+                    }else{
+                        completionHandler(-1, "failure")
+                    }
+                }
+            case .failure(let error):
+                // 请求失败
+                completionHandler(-1, "failure")
+            }
+        }
+    }
   
     
     
@@ -634,7 +623,7 @@ extension YFMineNetViewModel {
              ProgressHUD.dismiss()
              if let data  = dataRequest.data {
                  let strData = String.init(data: data, encoding: String.Encoding.utf8)
-                 print(strData)
+                 print(strData!)
                  if let res = JsonTool.fromJson(strData!, toClass: Response<PictureFindResponse>.self) {
                      
                      if res.errCode == 0  {
@@ -688,7 +677,7 @@ extension YFMineNetViewModel {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 if let res = JsonTool.fromJson(strData!, toClass: BlogResponse.self) {
                     
-                    if res.code == 20000  {
+                    if res.code == 200  {
                         SuperToast.show(title: "提交成功".localized())
                         valueHandler("提交成功")
                     }else{
@@ -718,11 +707,11 @@ struct PictureFindResponse: Codable {
 
 // MARK: - 张亚飞打的标记   Response
 class BlogResponse: Decodable {
-    var data: String? = nil
-    var flag: Bool = false
-    var code: Int = 20000
-    var message: String? = nil
-    var count: Int? = 0
+    var result: String? = nil
+    var code: Int = 200
+    var msg: String? = nil
+    var time: Int? = nil
+    var date: String? = nil
 }
 
 class BlogSurveyResponse: Decodable {
@@ -747,19 +736,44 @@ struct BlogVisitorPerDay: Decodable {
 
 
 class BlogListResponse<T: Decodable>: Decodable {
-    var data: T
-    var flag: Bool = false
-    var code: Int = 20000
-    var message: String? = nil
-    var count: Int? = 0
+    var result: T
+    var code: Int = 200
+    var msg: String? = nil
+    var time: Int? = nil
+    var date: String? = nil
 }
 
 struct myBlogListValue: Codable {
-    var myBlogShowJsPOS : [myBlogShowBlogPOModel]?
-    var version: String?
+    var data : [myBlogShowBlogPOModel]?
+    var current_page:Int?
+    var last_page:Int?
+    var per_page:Int?
+    var total:Int?
 }
 struct myBlogShowBlogPOModel: Codable {
-    var myBlogShowBlogPO : blogDetailItem
+    var id:Int?
+    var uid:String?
+    var hash:String?
+    var auth:String?
+    var type:Int?
+    var top_time:String?
+    var my_show_time:String?
+    var createtime:String?
+    var updatetime:String?
+    var deletetime:String?
+    var base:BaseBlogModel?
+}
+struct BaseBlogModel: Codable {
+    var hash:String?
+    var info:blogDetailItem?
+    var createtime:String?
+    var extend:extendModel?
+}
+struct extendModel: Codable {
+    var before:[String]?
+    var after:[String]?
+    var ex:[String]?
+    var permission:[String]?
 }
 
 
@@ -790,94 +804,69 @@ struct blogOneDayNumber: Decodable {
 
 class BlogAuditRequest: Encodable {
     
-    let userId: String?
-    let userBlogUrl: String?
-    let userBlogIcon: String?
-    let userBlogName: String?
-    let userBlogIntro: String?
+    let logo: String?
+    let name: String?
+    let url: String?
+    let mark: String?
+    let pwd: String?
     
-    init(userId: String?, userBlogUrl: String?, userBlogIcon: String?, userBlogName: String?, userBlogIntro: String?) {
-        self.userId = userId
-        self.userBlogUrl = userBlogUrl
-        self.userBlogIcon = userBlogIcon
-        self.userBlogName = userBlogName
-        self.userBlogIntro = userBlogIntro
+    init(logo: String?, name: String?, url: String?, mark: String?, pwd: String?) {
+        self.logo = logo
+        self.name = name
+        self.url = url
+        self.mark = mark
+        self.pwd = pwd
     }
     
 }
 
 class MineBlogRequest: Encodable {
     
-    let userId: String?
-    let version: String?
+    let limit: String?
+    let page: String?
+    let hash: String?
     
-    init(userId: String?, version: String?) {
-        self.userId = userId
-        self.version = version
+    init(limit: String?, page: String?, hash: String?) {
+        self.limit = limit
+        self.page = page
+        self.hash = hash
     }
     
 }
 
 class othersBlogRequest: Encodable {
     
-    let userId: String?
-    let beViewedUserId: String?
-
+    let limit: String?
+    let page: String?
+    let uid: String?
+    let hash: String?
+    let pwd:String?
     
-    init(userId: String?,beViewedUserId:String?) {
-        self.userId = userId
-        self.beViewedUserId = beViewedUserId
+    init(limit: String?, page: String?,uid: String?, hash: String?,pwd:String?) {
+        self.limit = limit
+        self.page = page
+        self.uid = uid
+        self.hash = hash
+        self.pwd = pwd
     }
     
 }
 
 struct blogDetailItem: Codable {
     let id: Int?
-    let userBlogSign: Int?
-    let userBlogUrl: String?
-    let userBlogIntro: String?
-    let userBlogName: String?
-    let userBlogCreatIp: String?
-    let userBlogCreatAffiliatingArea: String?
-    let userBlogOrder: Int?
-    let userId: String?
-    let isDelete: Int?
-    let creationTime: String?
-    let userBlogIcon: String?
-    let changeTime: String?
-    
-    var state: BokeType {
-        switch userBlogSign {
-//        case 0:
-//            return .normal
-//        case 1, 4:
-//            return .wait
-//        case 2:
-//            return .refuse
-//        case 3:
-//            return .limit
-//
-//        default:
-//            return.normal
-//        }
-        case 1:
-            return .wait
-        case 2:
-            return .normal
-        case 3:
-            return .refuse
-        case 4:
-            return .limit
-            
-        default:
-            return.normal
-        }
-    }
-    
+    let pwd: String?
+    let url: String?
+    let logo: String?
+    let mark: String?
+    let name: String?
     func toBokeElem() -> BokeElem {
         let source = self
-        let blog =  BokeElem(id: source.id, userBlogSign: source.userBlogSign, userBlogUrl: source.userBlogUrl, userBlogIntro: source.userBlogIntro, userBlogName: source.userBlogName, userBlogCreatIp: source.userBlogCreatIp, userBlogCreatAffiliatingArea: source.userBlogCreatAffiliatingArea, userBlogOrder: source.userBlogOrder, userId: source.userId, isDelete: source.isDelete, creationTime: source.creationTime, userBlogIcon: source.userBlogIcon, changeTime: source.changeTime)
-        
+//        let blog =  BokeElem(id: source.id, userBlogSign: source.userBlogSign, userBlogUrl: source.userBlogUrl, userBlogIntro: source.userBlogIntro, userBlogName: source.userBlogName, userBlogCreatIp: source.userBlogCreatIp, userBlogCreatAffiliatingArea: source.userBlogCreatAffiliatingArea, userBlogOrder: source.userBlogOrder, userId: source.userId, isDelete: source.isDelete, creationTime: source.creationTime, userBlogIcon: source.userBlogIcon, changeTime: source.changeTime)
+        let blog =  BokeElem(id: 0, userBlogSign: 0, userBlogUrl:"", userBlogIntro: "", userBlogName: "", userBlogCreatIp: "", userBlogCreatAffiliatingArea: "", userBlogOrder: 0, userId: "", isDelete: 0, creationTime: "", userBlogIcon: "", changeTime: "")
         return blog
     }
 }
+struct upLoadImageModel: Codable {
+    let url: String?
+}
+

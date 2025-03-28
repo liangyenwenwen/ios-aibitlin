@@ -55,6 +55,8 @@ pod 'WebViewJavascriptBridge'
 
 pod 'KeychainAccess'
 
+pod 'CryptoSwift'
+
 
 
 end

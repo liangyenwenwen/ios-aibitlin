@@ -11,6 +11,7 @@ import OUICore
 import ProgressHUD
 import RxSwift
 import RxCocoa
+import IQKeyboardManagerSwift
 
 class MineBokeEditVC: BaseTitleController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -18,7 +19,16 @@ class MineBokeEditVC: BaseTitleController, UIImagePickerControllerDelegate, UINa
     var url: String = ""
     var isEdit: Bool = false
     var blogItem: myBlogShowBlogPOModel?
-    
+    var isSetPwd:Bool = false
+    var refreshMineBokeList : (()->Void)!
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        IQKeyboardManager.shared.enable = true
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        IQKeyboardManager.shared.enable = false
+    }
     override func initViews() {
         super.initViews()
         setBackGroundColor(.colorBackgroundAPP)
@@ -27,23 +37,13 @@ class MineBokeEditVC: BaseTitleController, UIImagePickerControllerDelegate, UINa
         title = "MeWebsite".localized()
         
         container.tg_padding = UIEdgeInsets(top: PADDING_MEDDLE, left: PADDING_MEDDLE, bottom: PADDING_MEDDLE, right: PADDING_MEDDLE)
+        container.tg_space = PADDING_OUTER
+        container.addSubview(ViewFactoryUtil.sectionTilteLbael("基础信息".localized()))
+        
         container.addSubview(topContentView)
         
-        topContentView.addSubview(iconView)
-        topContentView.addSubview(ViewFactoryUtil.smallDivider())
-        topContentView.addSubview(nameView)
-        topContentView.addSubview(ViewFactoryUtil.smallDivider())
-        topContentView.addSubview(addressView)
-        topContentView.addSubview(ViewFactoryUtil.smallDivider())
-        topContentView.addSubview(introView)
-        
-        
-//        let view = UIView()
-//        view.tg_height.equal(.fill)
-//        view.tg_width.equal(.fill)
-//        container.addSubview(view)
-        
-//        container.addSubview(trueBtn)
+        container.addSubview(ViewFactoryUtil.sectionTilteLbael("隐私访问".localized(),top: 14))
+        container.addSubview(privacyAccessContentView)
         
         superFooterContainerContainer.tg_padding = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         superFooterContainerContainer.addSubview(trueBtn)
@@ -52,11 +52,26 @@ class MineBokeEditVC: BaseTitleController, UIImagePickerControllerDelegate, UINa
         bindData()
         
         if isEdit {
-            addressView.textFieldView.text = blogItem?.myBlogShowBlogPO.userBlogUrl
-            iconView.changeIcon.show(blogItem?.myBlogShowBlogPO.userBlogIcon)
-            url = blogItem?.myBlogShowBlogPO.userBlogIcon ?? ""
-            nameView.textFieldView.text = blogItem?.myBlogShowBlogPO.userBlogName
-            introView.textView.text = blogItem?.myBlogShowBlogPO.userBlogIntro
+            if blogItem?.base?.info?.pwd?.length ?? 0 > 0 {
+                isSetPwd = true
+                privacyAccessSwitchView.superSwitch.isOn = true
+                lineView.isHidden = false
+                pwdView.isHidden = false
+                pwdView.textFieldView.text = blogItem?.base?.info?.pwd
+                let key = (blogItem?.base?.info?.pwd ?? "") + "0000000000"
+                let ivs = "0000000000000000"
+                if let de = try? AESEncyptUtil.decrypt_AES_CBC(decryptText: blogItem?.base?.info?.url ?? "", key: key, ivs: ivs){
+                    addressView.textFieldView.text = de
+                }
+                
+                
+            }else{
+                addressView.textFieldView.text = blogItem?.base?.info?.url
+            }
+            iconView.changeIcon.show(blogItem?.base?.info?.logo)
+            url = blogItem?.base?.info?.logo ?? ""
+            nameView.textFieldView.text = blogItem?.base?.info?.name
+            introView.textView.text = blogItem?.base?.info?.mark
         }
     }
 
@@ -67,7 +82,13 @@ class MineBokeEditVC: BaseTitleController, UIImagePickerControllerDelegate, UINa
         r.tg_space = 1
         r.corner(MEDDLE_RADIUS)
         r.backgroundColor = .white
-        
+        r.addSubview(iconView)
+        r.addSubview(ViewFactoryUtil.smallDivider())
+        r.addSubview(nameView)
+        r.addSubview(ViewFactoryUtil.smallDivider())
+        r.addSubview(addressView)
+        r.addSubview(ViewFactoryUtil.smallDivider())
+        r.addSubview(introView)
         return r
     }()
     
@@ -127,6 +148,42 @@ class MineBokeEditVC: BaseTitleController, UIImagePickerControllerDelegate, UINa
         r.needLimitLengthAboutTextView(length: 500)
         return r
     }()
+    lazy var privacyAccessContentView: TGLinearLayout = {
+        let r = TGLinearLayout(.vert)
+        r.tg_width.equal(.fill)
+        r.tg_height.equal(.wrap)
+        r.tg_space = 1
+        r.corner(MEDDLE_RADIUS)
+        r.backgroundColor = .white
+        r.addSubview(privacyAccessSwitchView)
+        r.addSubview(lineView)
+        r.addSubview(pwdView)
+        lineView.isHidden = !isSetPwd
+        pwdView.isHidden = !isSetPwd
+        return r
+    }()
+    lazy var privacyAccessSwitchView: SuperSettingView = {
+        let r = SuperSettingView.create(title: "开启隐私访问".localized()) { data in
+            
+        } switchChanged: { data in
+            self.isSetPwd = data.isOn
+            self.lineView.isHidden = !self.isSetPwd
+            self.pwdView.isHidden = !self.isSetPwd
+        }
+        r.isMediumFont()
+        return r
+    }()
+    lazy var lineView: UIView = {
+        let r = ViewFactoryUtil.smallDivider()
+        return r
+    }()
+    lazy var pwdView: SuperSettingView = {
+        let r = SuperSettingView.createInput("隐私密码".localized(),placeholder: "请输入隐私访问密码".localized())
+//        r.textFieldView.backgroundColor = .red
+        r.needLimitLength(length: 6)
+        r.textFieldView.keyboardType = .numberPad
+        return r
+    }()
     
     lazy var bottomBtn: QMUIButton = {
         let r = ViewFactoryUtil.primaryHalfFilletButton()
@@ -142,63 +199,6 @@ class MineBokeEditVC: BaseTitleController, UIImagePickerControllerDelegate, UINa
         r.tg_bottom.equal(50)
         return r
     }()
-    
-    
-    
-//    private lazy var _photoHelper: PhotoHelper = {
-//        let v = PhotoHelper()
-//        v.setConfigToPickAvatar()
-//        v.didPhotoSelected = { [weak self] (images: [UIImage], _: [PHAsset]) in
-//            guard var first = images.first else { return }
-//            ProgressHUD.animate()
-//            first = first.compress(expectSize: 20 * 1024)
-//            let result = FileHelper.shared.saveImage(image: first)
-//            
-//            if result.isSuccess {
-//                IMController.shared.uploadFile(fullPath: result.fullPath) { [weak self] progress in
-//                    
-//                } onSuccess: { [weak self] url in
-//                    if let url = url {
-//                        print(url)
-//                        self?.url = url
-//                        self?.iconView.changeIcon.image = first
-//                        
-//                    }
-//                    
-//                    ProgressHUD.dismiss()
-//                }
-//
-//            } else {
-//                
-//                ProgressHUD.dismiss()
-//            }
-//        }
-//        
-//        v.didCameraFinished = { [weak self] (photo: UIImage?, _: URL?) in
-//            guard let sself = self else { return }
-//            if var photo {
-//                ProgressHUD.animate()
-//                
-//                photo = photo.compress(expectSize: 20 * 1024)
-//                let result = FileHelper.shared.saveImage(image: photo)
-//                if result.isSuccess {
-//                    IMController.shared.uploadFile(fullPath: result.fullPath) { [weak self] progress in
-//                        
-//                    } onSuccess: { [weak self] url in
-//                        if let url = url {
-//                            print(url)
-//                            self?.url = url
-//                            self?.iconView.changeIcon.image = photo
-//                            
-//                        }
-//                        ProgressHUD.dismiss()
-//                    }
-//                }
-//                
-//            }
-//        }
-//        return v
-//    }()
     private lazy var _photoHelper: PhotoHelper = {
             let v = PhotoHelper()
 //            v.setConfigToMultipleSelected()
@@ -210,18 +210,26 @@ class MineBokeEditVC: BaseTitleController, UIImagePickerControllerDelegate, UINa
                 let result = FileHelper.shared.saveImage(image: first)
                 
                 if result.isSuccess {
-                    IMController.shared.uploadFile(fullPath: result.fullPath) { [weak self] progress in
-                        
-                    } onSuccess: { [weak self] url in
-                        if let url = url {
-                            print(url)
-                            self?.url = url
-                            self?.iconView.changeIcon.image = first
-                            
-                        }
-                        
+                    YFMineNetViewModel.uploadImageFromPath(fileURL:NSURL(fileURLWithPath: result.fullPath) as URL) { [weak self] data in
                         ProgressHUD.dismiss()
+                        self?.url = data.url ?? ""
+                        self?.iconView.changeIcon.image = first
+                    } completionHandler: { errCode, errMsg in
+                        ProgressHUD.dismiss()
+                        SuperToast.show(title: errMsg?.localized())
                     }
+//                    IMController.shared.uploadFile(fullPath: result.fullPath) { [weak self] progress in
+//                        
+//                    } onSuccess: { [weak self] url in
+//                        if let url = url {
+//                            print(url)
+//                            self?.url = url
+//                            self?.iconView.changeIcon.image = first
+//                            
+//                        }
+//                        
+//                        ProgressHUD.dismiss()
+//                    }
 
                 } else {
                     
@@ -237,17 +245,29 @@ class MineBokeEditVC: BaseTitleController, UIImagePickerControllerDelegate, UINa
                     photo = photo.compress(expectSize: 1500 * 1024)
                     let result = FileHelper.shared.saveImage(image: photo)
                     if result.isSuccess {
-                        IMController.shared.uploadFile(fullPath: result.fullPath) { [weak self] progress in
-                            
-                        } onSuccess: { [weak self] url in
-                            if let url = url {
-                                print(url)
-                                self?.url = url
-                                self?.iconView.changeIcon.image = photo
-                                
-                            }
+                        YFMineNetViewModel.uploadImageFromPath(fileURL:NSURL(fileURLWithPath: result.fullPath) as URL) { [weak self] data in
                             ProgressHUD.dismiss()
+                            self?.url = data.url ?? ""
+                            self?.iconView.changeIcon.image = photo
+                        } completionHandler: { errCode, errMsg in
+                            ProgressHUD.dismiss()
+                            SuperToast.show(title: errMsg?.localized())
                         }
+                        
+                        
+//                        IMController.shared.uploadFile(fullPath: result.fullPath) { [weak self] progress in
+//                            
+//                        } onSuccess: { [weak self] url in
+//                            if let url = url {
+//                                print(url)
+//                                self?.url = url
+//                                self?.iconView.changeIcon.image = photo
+//                                
+//                            }
+//                            ProgressHUD.dismiss()
+//                        }
+                    }else{
+                        ProgressHUD.dismiss()
                     }
                     
                 }
@@ -294,14 +314,52 @@ extension MineBokeEditVC {
             SuperToast.show(title: "请输入正确网址".localized())
             return
         }
+        var webSiteUrl = addressView.inputText
+        if isSetPwd{
+            if pwdView.inputText?.isEmpty ?? true {
+                SuperToast.show(title: "请输入隐私访问密码".localized())
+                return
+            }
+            if pwdView.inputText?.length != 6 {
+                SuperToast.show(title: "密码长度必须为6位数字".localized())
+                return
+            }
+            /// 加密
+            let key = pwdView.inputText! + "0000000000"
+            let ivs = "0000000000000000"
+            let en = try? AESEncyptUtil.encrypt_AES_CBC(encryptText: addressView.inputText!, key: key, ivs: ivs)
+            if let str = en {
+                webSiteUrl = str
+            }else{
+                SuperToast.show(title: "加密失败".localized())
+                return
+            }
+        }
         
+        
+//        let pwd = "123456"
+//        /// 加密
+//        let key = pwd + "0000000000"
+//        let ivs = "0000000000000000"
+//        let en = try? AESEncyptUtil.encrypt_AES_CBC(encryptText: addressView.inputText!, key: key, ivs: ivs)
+//        if let str = en {
+//           print(str)
+//        /// 加密
+//            let de = try? AESEncyptUtil.decrypt_AES_CBC(decryptText: str, key: key, ivs: ivs)
+//            print(de)
+//        }
+//        let de1 = try? AESEncyptUtil.decrypt_AES_CBC(decryptText: "N26AWY6mNu1crEHORakCwKPfquQnzJpEGHN386ydCRM=", key: key, ivs: ivs)
+
         
         
         if let IMUser = IMController.shared.currentUserRelay.value {
             ProgressHUD.animate()
-            YFMineNetViewModel.blogAudit(userId: IMUser.userID, userBlogUrl: addressView.inputText, userBlogIcon: url, userBlogName: nameView.inputText, userBlogIntro: introView.textView.text) { errCode, errMsg in
+            YFMineNetViewModel.blogAudit(logo: url,name:nameView.inputText, url: webSiteUrl, mark: introView.textView.text, pwd: pwdView.inputText) { errCode, errMsg in
                 ProgressHUD.dismiss()
-                if errCode == 20000 {
+                if errCode == 200 {
+                    if self.refreshMineBokeList != nil {
+                        self.refreshMineBokeList!()
+                    }
                     self.navigationController?.popViewController(animated: true)
                     SuperToast.show(title: "success".localized())
                 } else if errCode == -1{
@@ -314,15 +372,49 @@ extension MineBokeEditVC {
     }
     
     func editBlog() {
-        let paramters : [String: Any] = ["userId": blogItem!.myBlogShowBlogPO.userId!,
-                                         "userBlogUrl": addressView.inputText!,
-                                         "userBlogIcon": url,
-                                         "userBlogName": nameView.inputText!,
-                                         "userBlogIntro": introView.textView.text!,
-                                         "id": blogItem!.myBlogShowBlogPO.id!]
+        if url.count < 2 {
+            SuperToast.show(title: "网站图标未设置".localized())
+            return
+        }
+        
+        if !SuperStringUtil.isUrl(addressView.inputText, showTip: true) {
+            SuperToast.show(title: "请输入正确网址".localized())
+            return
+        }
+        var webSiteUrl = addressView.inputText
+        if isSetPwd{
+            if pwdView.inputText?.isEmpty ?? true {
+                SuperToast.show(title: "请输入隐私访问密码".localized())
+                return
+            }
+            if pwdView.inputText?.length != 6 {
+                SuperToast.show(title: "密码长度必须为6位数字".localized())
+                return
+            }
+            /// 加密
+            let key = pwdView.inputText! + "0000000000"
+            let ivs = "0000000000000000"
+            let en = try? AESEncyptUtil.encrypt_AES_CBC(encryptText: addressView.inputText!, key: key, ivs: ivs)
+            if let str = en {
+                webSiteUrl = str
+            }else{
+                SuperToast.show(title: "加密失败".localized())
+                return
+            }
+        }
+        
+        let paramters : [String: Any] = ["hash": blogItem!.base?.hash ?? "",
+                                         "logo": url,
+                                         "name": nameView.inputText ?? "",
+                                         "url": webSiteUrl ?? "",
+                                         "mark": introView.textView.text ?? "",
+                                         "pwd": pwdView.inputText ?? ""]
         
         YFMineNetViewModel.editBlog(paramters: paramters) { errCode, errMsg in
-            if errCode == 20000 {
+            if errCode == 200 {
+                if self.refreshMineBokeList != nil {
+                    self.refreshMineBokeList!()
+                }
                 self.navigationController?.popViewController(animated: true)
                 SuperToast.show(title: "success".localized())
             } else {

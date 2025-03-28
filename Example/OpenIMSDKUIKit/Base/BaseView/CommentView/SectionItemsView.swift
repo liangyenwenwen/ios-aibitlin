@@ -84,86 +84,36 @@ class SectionItemsView: TGLinearLayout {
     
     ///更新我的推荐网站
     func updateRecommendData() {
-        let moreBoke = blogDetailItem(id: -1, userBlogSign: 0, userBlogUrl: "", userBlogIntro: "", userBlogName: "", userBlogCreatIp: "", userBlogCreatAffiliatingArea: "", userBlogOrder: 0, userId: "", isDelete: 0, creationTime: "", userBlogIcon: "", changeTime: "")
-        
-        let data = YFFileDataUtil.readDataToFile(.recommend)
-        
-        topContainer.show()
-        bottomContainer.hide()
-        for index in topContainer.subviews.indices {
-            let item = topContainer.subviews[index] as! SectionItemView
-            item.index = index
-            if index < data.count {
-                item.show()
-                item.bindDataNet(data[index])
-            } else {
-                item.hide()
-            }
-        }
-        
-        if data.count < 3 {
-            
-            for index in data.count...2 {
-                let item = topContainer.subviews[index] as! SectionItemView
-                item.index = data.count
-                item.show()
-                var model = myBlogShowBlogPOModel(myBlogShowBlogPO: moreBoke)
-                item.bindDataNet(model, true, isRecommend: true)
-            }
-            
-        }
-        
-    }
-    
-    
-    
-    
-//    func update(data:Array<Any>)  {
-//        if data.count == 0 {
-//            topContainer.hide()
-//            bottomContainer.hide()
-//        } else if data.count < 6 {
-//            topContainer.show()
-//            bottomContainer.hide()
-//            for index in topContainer.subviews.indices {
-//                let item = topContainer.subviews[index] as! SectionItemView
-//                if index < data.count {
-//                    item.show()
-//                    item.bindData(data[index] as! BokeItemStruct)
-//                } else {
-//                    item.hide()
-//                }
-//            }
-//        } else {
-//            topContainer.show()
-//            bottomContainer.show()
-//            for index in topContainer.subviews.indices {
-//                let item = topContainer.subviews[index] as! SectionItemView
-//                item.bindData(data[index] as! BokeItemStruct)
+//        let moreBoke = blogDetailItem(id: -1, userBlogSign: 0, userBlogUrl: "", userBlogIntro: "", userBlogName: "", userBlogCreatIp: "", userBlogCreatAffiliatingArea: "", userBlogOrder: 0, userId: "", isDelete: 0, creationTime: "", userBlogIcon: "", changeTime: "")
+//        
+//        let data = YFFileDataUtil.readDataToFile(.recommend)
+//        
+//        topContainer.show()
+//        bottomContainer.hide()
+//        for index in topContainer.subviews.indices {
+//            let item = topContainer.subviews[index] as! SectionItemView
+//            item.index = index
+//            if index < data.count {
 //                item.show()
+//                item.bindDataNet(data[index])
+//            } else {
+//                item.hide()
+//            }
+//        }
+//        
+//        if data.count < 3 {
+//            
+//            for index in data.count...2 {
+//                let item = topContainer.subviews[index] as! SectionItemView
+//                item.index = data.count
+//                item.show()
+//                var model = myBlogShowBlogPOModel(myBlogShowBlogPO: moreBoke)
+//                item.bindDataNet(model, true, isRecommend: true)
 //            }
 //            
-//            for index in bottomContainer.subviews.indices {
-//                let item = bottomContainer.subviews[index] as! SectionItemView
-//                if index + 5 < data.count {
-//                    item.show()
-//                    
-//                    if data.count > 9 && index == 4 {
-//                        let item = bottomContainer.subviews[4] as! SectionItemView
-//                        item.bindData(TestDataUtil.moreBokeItemStruct)
-//                    } else {
-//                        item.bindData(data[index + 5] as! BokeItemStruct)
-//                    }
-//                    
-//                } else {
-//                    item.hide()
-//                }
-//            }
-//
 //        }
-//    }
-    
-    
+        
+    }
     lazy var topContainer: TGLinearLayout = {
         let r = TGLinearLayout(.horz)
         r.tg_space = PADDING_OUTER
@@ -316,39 +266,39 @@ class SectionItemView: TGLinearLayout {
     
     func bindDataNet(_ bokeItem: myBlogShowBlogPOModel, _ ismore: Bool = false, isRecommend: Bool = false) {
 
-        switch bokeItem.myBlogShowBlogPO.state {
-        case .normal:
-            blogStateLbl.hide()
-            break
-        case .wait:
-            blogStateLbl.show()
-            blogStateLbl.text = "处理中".localized()
-        case .refuse:
-            blogStateLbl.show()
-            blogStateLbl.text = "拒绝".localized()
-        case .limit:
-            blogStateLbl.show()
-            blogStateLbl.text = "受限制".localized()
-        }
-        
-        titleLbl.text = bokeItem.myBlogShowBlogPO.userBlogName
-        print(bokeItem.myBlogShowBlogPO.userBlogIcon)
-        if !isRecommend,!ismore{
-            topImg.show(bokeItem.myBlogShowBlogPO.userBlogIcon)
-        }
-        if ismore {
-            topImg.image = R.image.boke_more_icon()
-            titleLbl.text = "更多".localized()
-            blogStateLbl.hide()
-        }
-        if isRecommend {
-            topImg.image = R.image.add_recommend_blog_icon()!
-            titleLbl.text = ""
-        }
-        
-        isMore = ismore
-        
-        item = bokeItem
+//        switch bokeItem.myBlogShowBlogPO.state {
+//        case .normal:
+//            blogStateLbl.hide()
+//            break
+//        case .wait:
+//            blogStateLbl.show()
+//            blogStateLbl.text = "处理中".localized()
+//        case .refuse:
+//            blogStateLbl.show()
+//            blogStateLbl.text = "拒绝".localized()
+//        case .limit:
+//            blogStateLbl.show()
+//            blogStateLbl.text = "受限制".localized()
+//        }
+//        
+//        titleLbl.text = bokeItem.myBlogShowBlogPO.userBlogName
+//        print(bokeItem.myBlogShowBlogPO.userBlogIcon)
+//        if !isRecommend,!ismore{
+//            topImg.show(bokeItem.myBlogShowBlogPO.userBlogIcon)
+//        }
+//        if ismore {
+//            topImg.image = R.image.boke_more_icon()
+//            titleLbl.text = "更多".localized()
+//            blogStateLbl.hide()
+//        }
+//        if isRecommend {
+//            topImg.image = R.image.add_recommend_blog_icon()!
+//            titleLbl.text = ""
+//        }
+//        
+//        isMore = ismore
+//        
+//        item = bokeItem
     }
     
 }

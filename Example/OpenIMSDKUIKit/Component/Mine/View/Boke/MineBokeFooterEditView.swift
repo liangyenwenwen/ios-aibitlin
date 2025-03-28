@@ -40,8 +40,8 @@ class MineBokeFooterEditView: TGLinearLayout {
     }
     
     func update() {
-        bokeCoveImage.show(blogItem.myBlogShowBlogPO.userBlogIcon)
-        bokeTitle.text = blogItem.myBlogShowBlogPO.userBlogName
+        bokeCoveImage.show(blogItem.base?.info?.logo)
+        bokeTitle.text = blogItem.base?.info?.name
         
         onHomeSwitch?.isOn = YFFileDataUtil.isHaveThisBlog(.home, blogItem: blogItem)
     }

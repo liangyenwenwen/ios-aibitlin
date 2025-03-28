@@ -451,15 +451,15 @@ class UserMessageVC: BaseTitleController {
 extension UserMessageVC {
     
     func othersSeeMyBlog() {
-        ProgressHUD.animate()
-        YFMineNetViewModel.otherSeeMyBlog(userId: userID) { [weak self] data in
-            ProgressHUD.dismiss()
-            self?.datum = data
-            self?.tableView.reloadData()
-        } completionHandler: { errCode, errMsg in
-            ProgressHUD.dismiss()
-            SuperToast.show(title: errMsg?.localized())
-        }
+//        ProgressHUD.animate()
+//        YFMineNetViewModel.otherSeeMyBlog(userId: userID) { [weak self] data in
+//            ProgressHUD.dismiss()
+//            self?.datum = data
+//            self?.tableView.reloadData()
+//        } completionHandler: { errCode, errMsg in
+//            ProgressHUD.dismiss()
+//            SuperToast.show(title: errMsg?.localized())
+//        }
 
     }
 }

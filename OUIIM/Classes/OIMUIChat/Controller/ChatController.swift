@@ -26,6 +26,7 @@ protocol ChatController {
     func forwardMessage(merge: Bool, usersID: [String]?, groupsID: [String]?, title: String, attachMessage: String?)
     func markMessageAsReaded(messageID: String?, completion: (() -> Void)?)
     func updateMessageLocalEx(messageID: String, ex: MessageEx)
+    func updateNewMessageLocalEx(messageID: String, ex: String)
     func saveDraft(text: String?)
     func uploadFile(image: UIImage, progress: @escaping (CGFloat) -> Void, completion: @escaping (String?) -> Void)
     
@@ -61,6 +62,7 @@ extension ChatController {
     func forwardMessage(_: Bool, _: [String]?, _: [String]?, _: String, _: String?) {}
     func markMessageAsReaded(_: String?, _: (() -> Void)?) {}
     func updateMessageLocalEx(_: String, _: MessageEx) {}
+    func updateNewMessageLocalEx(_: String, _: String){}
 
     func revokeMessage(with _: String, _: @escaping () -> Void) {}
     func getMessageInfo( _: [String]) -> [MessageInfo] { [] }

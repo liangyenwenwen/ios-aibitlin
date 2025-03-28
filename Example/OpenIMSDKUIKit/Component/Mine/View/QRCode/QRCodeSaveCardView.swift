@@ -203,7 +203,7 @@ class QRCodeSaveCardView: TGLinearLayout {
     func refreshRecommend() {
         
         let data = YFFileDataUtil.readDataToFile(.recommend)
-        
+
         if data.count == 0 {
             recommendBlogView.hide()
             return

@@ -432,14 +432,15 @@ extension YFFeedbackVC {
         var paramters : [String : Any] = [:]
         switch reportType {
         case .blog:
-            paramters = ["beReportedUserId":blogItem.myBlogShowBlogPO.userId ?? "",
-                         "blogId": blogItem.myBlogShowBlogPO.id!,
-                         "userBlogUrl": blogItem.myBlogShowBlogPO.userBlogUrl!,
-                         "userBlogIcon": blogItem.myBlogShowBlogPO.userBlogIcon!,
-                         "userBlogName": SuperStringUtil.getUserShowname(showname: blogItem.myBlogShowBlogPO.userBlogName!),
-                         "userBlogIntro": blogItem.myBlogShowBlogPO.userBlogIntro!,
-                         "userBlogCreatIp": blogItem.myBlogShowBlogPO.userBlogCreatIp!,
-                         "userBlogCreatAffiliatingArea": blogItem.myBlogShowBlogPO.userBlogIntro!,
+            paramters = [
+//                "beReportedUserId":blogItem.uid ?? "",
+//                         "blogId": blogItem.id!,
+//                         "userBlogUrl": blogItem.base?.info!,
+//                         "userBlogIcon": blogItem.base?.info?.logo!,
+//                         "userBlogName": SuperStringUtil.getUserShowname(showname: blogItem.base?.info?.name!),
+//                         "userBlogIntro": blogItem.base?.info?.mark!,
+//                         "userBlogCreatIp": blogItem.myBlogShowBlogPO.userBlogCreatIp!,
+//                         "userBlogCreatAffiliatingArea": blogItem.myBlogShowBlogPO.userBlogIntro!,
 
                          "reportReason":topTitleView.inputText!,
                          "reportDescription":contentView.textView.text!,

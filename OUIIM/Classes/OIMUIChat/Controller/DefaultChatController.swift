@@ -510,7 +510,10 @@ final class DefaultChatController: ChatController {
         let json = JsonTool.toJson(fromObject: ex)
         IMController.shared.setMessageLocalEx(conversationID: conversation.conversationID, clientMsgID: messageID, ex: json)
     }
-    
+    func updateNewMessageLocalEx(messageID: String, ex: String){
+        messages.first(where: { $0.clientMsgID == messageID })?.localEx = ex
+        IMController.shared.setMessageLocalEx(conversationID: conversation.conversationID, clientMsgID: messageID, ex: ex)
+    }
     func clearUnreadCount() {
         guard conversation.unreadCount > 0 else { return }
         

@@ -53,7 +53,7 @@ class MineBokeStatisticsVC: BaseTitleController {
         scrollViewContainer.tg_padding = UIEdgeInsets(top: PADDING_OUTER, left: PADDING_OUTER, bottom: PADDING_OUTER, right: PADDING_OUTER)
         scrollViewContainer.tg_space = 10
         
-        title = "BlogSituation".localizedFormat(boke.myBlogShowBlogPO.userBlogName!)
+        title = "BlogSituation".localizedFormat(boke.base?.info?.name ?? "")
         
         
         scrollViewContainer.addSubview(bokeBaseView)
@@ -316,32 +316,9 @@ extension MineBokeStatisticsVC {
     
     func updateBokeBase() {
 
-        bokeIcon.show(boke.myBlogShowBlogPO.userBlogIcon)
-        bokeTitleView.text = boke.myBlogShowBlogPO.userBlogName
-        bokeDescription.text = boke.myBlogShowBlogPO.userBlogIntro
-        
-        switch boke.myBlogShowBlogPO.state {
-        case .normal:
-            bokeStateImage.image = R.image.blog_state_0()!
-            bokeStateLabel.text = "可访问".localized()
-            bokeStateLabel.textColor = .init(hexString: "#189405")
-            break
-        case .wait:
-            bokeStateImage.image = R.image.blog_state_1()!
-            bokeStateLabel.text = "您的请求正在处理中".localized()
-            bokeStateLabel.textColor = .init(hexString: "#666666")
-            break
-        case .refuse:
-            bokeStateImage.image = R.image.blog_state_3()!
-            bokeStateLabel.text = "被拒绝，禁止访问".localized()
-            bokeStateLabel.textColor = .init(hexString: "#EE3131")
-            break
-        case .limit:
-            bokeStateImage.image = R.image.blog_state_2()!
-            bokeStateLabel.text = "区域访问限制".localized()
-            bokeStateLabel.textColor = .init(hexString: "#FF7A00")
-            break
-        }
+        bokeIcon.show(boke.base?.info?.logo)
+        bokeTitleView.text = boke.base?.info?.name
+        bokeDescription.text = boke.base?.info?.mark
     }
     
     @objc func gotoSettingVC() {
@@ -372,7 +349,7 @@ extension MineBokeStatisticsVC {
 //            noNetView.hide()
 //        }
         
-        let paramters : [String: Any] = ["userId": boke.myBlogShowBlogPO.userId!, "userBlogId": boke.myBlogShowBlogPO.id!]
+       let paramters : [String: Any] = ["userId": boke.uid ?? "", "userBlogId": boke.id ?? ""]
 
         YFMineNetViewModel.queryShowBlogsSurvey(paramters: paramters) { [self] data in
             if let data = data {
@@ -397,7 +374,7 @@ extension MineBokeStatisticsVC {
 //            noNetView.hide()
 //        }
         
-        let paramters : [String: Any] = ["time": time, "userId": boke.myBlogShowBlogPO.userId!, "userBlogId": boke.myBlogShowBlogPO.id!]
+        let paramters : [String: Any] = ["time": time, "userId": boke.uid ?? "", "userBlogId": boke.id ?? 0]
         YFMineNetViewModel.queryShowBlogsSurveyOneDay(paramters: paramters) { [self] data in
             if let data = data {
                 chooseTime = time

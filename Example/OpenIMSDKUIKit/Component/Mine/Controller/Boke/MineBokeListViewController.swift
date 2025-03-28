@@ -28,11 +28,10 @@ class MineBokeListViewController: BaseTitleController {
     var isEidt = false
     var othersID: String?
     var othersName: String?
-    
+    var page:Int = 1
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        refreshData()
     }
     
     override func initViews() {
@@ -52,13 +51,7 @@ class MineBokeListViewController: BaseTitleController {
         case .star:
             title = "我收藏的网站".localized()
         }
-        
-
-        bindDataAboutEmpty()
-        
         tableView.register(MineBokeListCell.self, forCellReuseIdentifier: MineBokeListCell.className)
-//        tableView.isEditing = isMe
-//        tableView.dragInteractionEnabled = true
         
         if vcType == .meWebsite {
             superFooterContainerContainer.tg_padding = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
@@ -67,16 +60,12 @@ class MineBokeListViewController: BaseTitleController {
         
         
         let header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(refreshData))
+        let footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(loadMoreData))
         header.stateLabel?.isHidden = true
         header.lastUpdatedTimeLabel?.isHidden = true
         tableView.mj_header = header
-        
-        
-        
-//        if vcType == .meWebsite {
-//            navView.addRighttItem(sortBtn)
-//        }
-
+        tableView.mj_footer = footer
+        refreshData()
     }
     
     
@@ -110,7 +99,11 @@ class MineBokeListViewController: BaseTitleController {
         r.setImage(R.image.add_circle_icon()!, for: .normal)
         r.spacingBetweenImageAndTitle = 12
         r.rx.tap.subscribe(onNext: { [weak self] _ in
-            self?.navigationController?.pushViewController(MineBokeEditVC(), animated: true)
+            let vc = MineBokeEditVC()
+            vc.refreshMineBokeList = { [weak self] in
+                self?.refreshData()
+            }
+            self?.navigationController?.pushViewController(vc, animated: true)
         }).disposed(by: rx.disposeBag)
         return r
     }()
@@ -137,49 +130,9 @@ extension MineBokeListViewController {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-     
         let item = datum[indexPath.row] as! myBlogShowBlogPOModel
-        
-       
-        if(vcType != .meWebsite) {
-//            SuperWebController.start((self.navigationController!), uri: item.userBlogUrl)
-            
-            SuperWebController.startAboubBlog(self.navigationController!, blogItem: item)
-        } else {
-            let vc = MineBokeStatisticsVC()
-//            YFMineNetViewModel.scanBlog(blog: item)
-            vc.boke = item
-            navigationController?.pushViewController(vc)
-        }
-        
+        SuperWebController.startAboubBlog(self.navigationController!, blogItem: item)
     }
-    
-    func bindDataAboutEmpty() {
-        
-//        pwdView.textFieldView.rx.text.orEmpty
-//            .subscribe(onNext:{ [weak self] in
-//                print("ttt",$0)
-//                self?.refresUIAboutPwdTips($0)
-//            })
-//            .disposed(by: rx.disposeBag)
-        
-//        tableView.rx.items(dataSource: datum)
-//            .subscribe(onChanged: { [weak tableView] indexPath, element, view in
-//                // 更新cell的UI
-//            }).disposed(by: disposeBag)
-        
-//        let array = [1, 2, 3, 4, 5]
-//        let observable = Observable.from(datum)
-
-//        observable.subscribe(onNext: { element in
-//            print("+++++")
-//            print(element)
-//            print("+++++")
-//        }).disposed(by: rx.disposeBag)
-        
-    }
-    
 
     
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
@@ -216,21 +169,29 @@ extension MineBokeListViewController {
 extension MineBokeListViewController {
     
     @objc func refreshData() {
+        
         switch vcType {
         case .meWebsite:
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                self.getMyBlog()
-//            }
+            getMyBlog(page: 1)
         case .othersBlog:
-            othersSeeMyBlog()
+            othersSeeMyBlog(page: 1)
         case .star:
-            self.datum = YFFileDataUtil.readDataToFile()
-//            self.datum = Observable
+        self.datum = YFFileDataUtil.readDataToFile()
             tableView.reloadData()
             tableView.mj_header?.endRefreshing()
             break
         }
         
+    }
+    @objc func loadMoreData() {
+        switch vcType {
+        case .meWebsite:
+            getMyBlog(page: page+1)
+        case .othersBlog:
+            othersSeeMyBlog(page: page+1)
+        case .star:
+            tableView.reloadData()
+        }
     }
     
     
@@ -247,13 +208,15 @@ extension MineBokeListViewController {
             let vc = MineBokeEditVC()
             vc.isEdit = true
             vc.blogItem = item
+            vc.refreshMineBokeList = { [weak self] in
+                self?.refreshData()
+            }
             self?.navigationController?.pushViewController(vc, animated: true)
             GKCover.hideWithoutAnimation()
         }
         
         ///显示在主页
         contentView.showBokeOnHome = { [weak self] item,show in
-//            GKCover.hideWithoutAnimation()
             if show {
                 YFFileDataUtil.saveOneDataToFile(.home, blogItem: item)
             } else {
@@ -264,8 +227,6 @@ extension MineBokeListViewController {
         
         contentView.deleteBoke = { [weak self] item in
             print("删除")
-//            GKCover.hideWithoutAnimation()
-//            self?.deleteBlog(item: item)
             self?.presentAlert(title: "deletWebsiteTip".localized()) { [weak self] in
                 GKCover.hideWithoutAnimation()
                 self?.deleteBlog(item: item)
@@ -273,30 +234,30 @@ extension MineBokeListViewController {
             
         }
         
-        contentView.shareBlog = { [weak self] blogItem in
-            print(blogItem.myBlogShowBlogPO.userBlogName)
-            
-            let vc = MyContactsViewController(types: [.friends])
-            vc.allowsSelecteAll = false
-            
-            vc.selectedContact { [weak self, weak vc] info in
-                guard let self, let vc, let user = info.first else { return }
-
-                IMController.shared.sendBokeMessage(boke: blogItem.myBlogShowBlogPO.toBokeElem(), to: user.ID!, conversationType: .c2c) { _ in
-                    
-                } onComplete: { _ in
-                    vc.dismiss(animated: true)
-                    GKCover.hideWithoutAnimation()
-                    SuperToast.show(title: "sentSuccess".localized())
-                    
-                }
-
-                
-            }
-            
-            let nav = UINavigationController(rootViewController: vc)
-            self?.present(nav, animated: true)
-        }
+//        contentView.shareBlog = { [weak self] blogItem in
+//            print(blogItem.base?.info?.name)
+//            
+//            let vc = MyContactsViewController(types: [.friends])
+//            vc.allowsSelecteAll = false
+//            
+//            vc.selectedContact { [weak self, weak vc] info in
+//                guard let self, let vc, let user = info.first else { return }
+//
+//                IMController.shared.sendBokeMessage(boke: blogItem.base?.info?.toBokeElem()!, to: user.ID!, conversationType: .c2c) { _ in
+//                    
+//                } onComplete: { _ in
+//                    vc.dismiss(animated: true)
+//                    GKCover.hideWithoutAnimation()
+//                    SuperToast.show(title: "sentSuccess".localized())
+//                    
+//                }
+//
+//                
+//            }
+//            
+//            let nav = UINavigationController(rootViewController: vc)
+//            self?.present(nav, animated: true)
+//        }
         
         contentView.topBlog = { [weak self] item in
             GKCover.hide()
@@ -314,15 +275,26 @@ extension MineBokeListViewController {
     }
     
     
-    func getMyBlog() {
+    func getMyBlog(page:Int = 1) {
         
         if let IMUser = IMController.shared.currentUserRelay.value {
-            YFMineNetViewModel.mineBlog(userId: IMUser.userID) { [weak self] data in
+            YFMineNetViewModel.mineBlog(limit: "20", page: String(page), hash: "") { [weak self] data in
                 DispatchQueue.main.async {
-                    self?.datum = data
+                    self?.page = page
+                    if page == 1 {
+                        YFFileDataUtil.saveDataToFile(.cache, blogsArr: data ?? [])
+                        self?.datum = data ?? []
+                    }else{
+                        self?.datum.append(contentsOf: data ?? [])
+                    }
+                    if data?.count ?? 0 < 20{
+                        self?.tableView.mj_footer?.endRefreshingWithNoMoreData()
+                    }else{
+                        self?.tableView.mj_footer?.endRefreshing()
+                    }
+                    self?.tableView.mj_header?.endRefreshing()
                     self?.tableView.reloadData()
                 }
-                self?.tableView.mj_header?.endRefreshing()
             } completionHandler: { errCode, errMsg in
                 self.tableView.mj_header?.endRefreshing()
             }
@@ -330,13 +302,23 @@ extension MineBokeListViewController {
         }
     }
     
-    func othersSeeMyBlog() {
+    func othersSeeMyBlog(page:Int = 1) {
         if let userId = othersID {
             
-            YFMineNetViewModel.otherSeeMyBlog(userId: userId) { [weak self] data in
-                self?.datum = data
-                self?.tableView.reloadData()
+            YFMineNetViewModel.otherSeeMyBlog(limit: "20", page: String(page),uid:userId, hash: "",pwd:"") { [weak self] data in
+                self?.page = page
+                if page == 1 {
+                    self?.datum = data ?? []
+                }else{
+                    self?.datum.append(contentsOf: data ?? [])
+                }
+                if data?.count ?? 0 < 20{
+                    self?.tableView.mj_footer?.endRefreshingWithNoMoreData()
+                }else{
+                    self?.tableView.mj_footer?.endRefreshing()
+                }
                 self?.tableView.mj_header?.endRefreshing()
+                self?.tableView.reloadData()
             } completionHandler: { errCode, errMsg in
                 self.tableView.mj_header?.endRefreshing()
             }
@@ -344,9 +326,9 @@ extension MineBokeListViewController {
     }
     
     func topBlog(item: myBlogShowBlogPOModel) {
-        YFMineNetViewModel.blogTop(paramters: ["id":item.myBlogShowBlogPO.id!, "userId":item.myBlogShowBlogPO.userId!]) { errCode, errMsg in
-            if errCode == 20000 {
-                self.getMyBlog()
+        YFMineNetViewModel.blogTop(paramters: ["hash":item.base?.hash ?? ""]) { errCode, errMsg in
+            if errCode == 200 {
+                self.getMyBlog(page: 1)
             } else {
                 SuperToast.show(title: errMsg?.localized())
             }
@@ -359,15 +341,14 @@ extension MineBokeListViewController {
             datum = YFFileDataUtil.deleteOneDataFromFile(blogItem: item)
             self.tableView.reloadData()
         } else {
-            let parameters: [String:Any] = ["id":item.myBlogShowBlogPO.id!,"userId":item.myBlogShowBlogPO.userId!]
-            YFMineNetViewModel.deleteBlog(paramters: parameters) { errCode, errMsg in
-                if errCode == 20000 {
-                    self.getMyBlog()
-                } else {
-                    SuperToast.show(title: errMsg?.localized())
+            let parameters: [String:Any] = ["hash":item.base?.hash ?? ""]
+                YFMineNetViewModel.deleteBlog(paramters: parameters) { errCode, errMsg in
+                    if errCode == 200 {
+                        self.getMyBlog(page: 1)
+                    } else{
+                        SuperToast.show(title: errMsg?.localized())
+                    }
                 }
-            }
         }
-        
     }
 }

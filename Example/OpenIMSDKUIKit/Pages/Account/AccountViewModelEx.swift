@@ -113,7 +113,7 @@ extension AccountViewModel {
                 
                 let encoder = JSONEncoder()
                 do  {
-                    let jsondata = try encoder.encode(item.myBlogShowBlogPO)
+                    let jsondata = try encoder.encode(item.base)
                     if let jsonString = String(data: jsondata, encoding: .utf8) {
                         print(jsonString)
                         completion(jsonString)
@@ -146,7 +146,7 @@ extension AccountViewModel {
             do {
                 
                 let boke = try JSONDecoder().decode(blogDetailItem.self, from: jsonData)
-                YFFileDataUtil.saveOneDataToFile(blogItem: myBlogShowBlogPOModel.init(myBlogShowBlogPO: boke))
+//                YFFileDataUtil.saveOneDataToFile(blogItem: myBlogShowBlogPOModel.init(myBlogShowBlogPO: boke))
                 SuperToast.show(title: "收藏成功".localized())
             } catch {
                 

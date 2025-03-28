@@ -391,6 +391,12 @@ Toolbox = "Toolbox";
 //"名称" = "Name";
 //"简介" = "Snapshot";
 " 请输入以https://开头的地址" = "Address starting with https://";
+"基础信息" = "Basic information";
+"隐私访问" = "Privacy Access";
+"开启隐私访问" = "Enable privacy access";
+"隐私密码" = "Privacy password";
+"请输入隐私访问密码" = "Please enter your privacy access password";
+"密码长度必须为6位数字" = "The password length must be 6 digits";
 
 
 //翻译

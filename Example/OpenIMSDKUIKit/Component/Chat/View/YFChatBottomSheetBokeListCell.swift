@@ -34,8 +34,8 @@ class YFChatBottomSheetBokeListCell: BaseTableViewCell {
     
     func bindData(item: myBlogShowBlogPOModel)  {
 //        bokeIcon.show(item.icon)
-        bokeIcon.sd_setImage(with: URL(string: item.myBlogShowBlogPO.userBlogIcon), placeholderImage: R.image.defaultAvatar())
-        bokeTitle.text = item.myBlogShowBlogPO.userBlogName
+        bokeIcon.sd_setImage(with: URL(string: item.base?.info?.logo), placeholderImage: R.image.defaultAvatar())
+        bokeTitle.text = item.base?.info?.name
     }
 
     

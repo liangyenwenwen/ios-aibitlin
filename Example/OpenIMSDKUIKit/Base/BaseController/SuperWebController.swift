@@ -238,7 +238,7 @@ extension SuperWebController{
     
     static func startAboubBlog(_ controller:UINavigationController,blogItem: myBlogShowBlogPOModel, isRoot:Bool = false) {
         let target = SuperWebController()
-        target.uri = blogItem.myBlogShowBlogPO.userBlogUrl
+        target.uri = blogItem.base?.info?.url
         target.blogItem = blogItem
         if isRoot {
             target.hidesBottomBarWhenPushed = true

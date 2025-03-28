@@ -185,6 +185,13 @@ public class IMController: NSObject {
     public var netWorkStatus = "hasNetWork"
     public var uid: String = ""
     public var token: String = ""
+    public var tokenABC:String = ""
+    public var tokenAB:String = ""
+    public var tokenC:String = ""
+
+    
+    
+    
     // 查询在线状态等使用
     public var sdkAPIAdrr = ""
     // 业务层查询组织架构等使用

@@ -171,7 +171,7 @@ struct _R: Sendable {
       var ieXW0yeText: RswiftResources.StringResource { .init(key: "8ie-xW-0ye.text", tableName: "LaunchScreen", source: source, developmentValue: nil, comment: nil) }
     }
 
-    /// This `_R.string.localizable` struct is generated, and contains static references to 543 localization keys.
+    /// This `_R.string.localizable` struct is generated, and contains static references to 549 localization keys.
     struct localizable {
       let source: RswiftResources.StringResource.Source
 
@@ -2191,6 +2191,13 @@ struct _R: Sendable {
       /// Locales: en, th
       var 地址: RswiftResources.StringResource { .init(key: "地址", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// en translation: Basic information
+      ///
+      /// Key: 基础信息
+      ///
+      /// Locales: en, th
+      var 基础信息: RswiftResources.StringResource { .init(key: "基础信息", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: Fill in the correct mobile phone number
       ///
       /// Key: 填写正确的手机号码
@@ -2275,6 +2282,13 @@ struct _R: Sendable {
       /// Locales: en, th
       var 密码锁定: RswiftResources.StringResource { .init(key: "密码锁定", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// en translation: The password length must be 6 digits
+      ///
+      /// Key: 密码长度必须为6位数字
+      ///
+      /// Locales: en, th
+      var 密码长度必须为6位数字: RswiftResources.StringResource { .init(key: "密码长度必须为6位数字", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: Tool
       ///
       /// Key: 工具箱
@@ -2323,6 +2337,13 @@ struct _R: Sendable {
       ///
       /// Locales: en, th
       var 开启后可使用: RswiftResources.StringResource { .init(key: "开启后，可使用", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Enable privacy access
+      ///
+      /// Key: 开启隐私访问
+      ///
+      /// Locales: en, th
+      var 开启隐私访问: RswiftResources.StringResource { .init(key: "开启隐私访问", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: ecording time is too short
       ///
@@ -3577,6 +3598,13 @@ struct _R: Sendable {
       /// Locales: en, th
       var 请输入邮箱: RswiftResources.StringResource { .init(key: "请输入邮箱", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// en translation: Please enter your privacy access password
+      ///
+      /// Key: 请输入隐私访问密码
+      ///
+      /// Locales: en, th
+      var 请输入隐私访问密码: RswiftResources.StringResource { .init(key: "请输入隐私访问密码", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: Please enter the verification code (if not received, fill in 666666)
       ///
       /// Key: 请输入验证码(若收不到,填666666)
@@ -3891,6 +3919,20 @@ struct _R: Sendable {
       ///
       /// Locales: en, th
       var 隐私协议和注册协议: RswiftResources.StringResource { .init(key: "隐私协议和注册协议", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Privacy password
+      ///
+      /// Key: 隐私密码
+      ///
+      /// Locales: en, th
+      var 隐私密码: RswiftResources.StringResource { .init(key: "隐私密码", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Privacy Access
+      ///
+      /// Key: 隐私访问
+      ///
+      /// Locales: en, th
+      var 隐私访问: RswiftResources.StringResource { .init(key: "隐私访问", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Need to send verification information
       ///

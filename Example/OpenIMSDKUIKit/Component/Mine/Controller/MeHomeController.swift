@@ -379,7 +379,8 @@ class MeHomeController: BaseLogicController {
                 vc.vcType = .star
                 self?.gotoControllerFromRoot(vc)
             } else {
-                SuperWebController.start((self!.navigationController!), uri: item.myBlogShowBlogPO.userBlogUrl, isRoot: true)
+//                SuperWebController.start((self!.navigationController!), uri: item.myBlogShowBlogPO.userBlogUrl, isRoot: true)
+                SuperWebController.start((self!.navigationController!), uri: item.base?.info?.url, isRoot: true)
             }
         }
         
@@ -472,8 +473,8 @@ extension MeHomeController {
         
         if let IMUser = IMController.shared.currentUserRelay.value {
             
-            YFMineNetViewModel.mineBlog(userId: IMUser.userID) { [weak self] data in
-                self?.bokeItemsView.updateNet(data: data)
+            YFMineNetViewModel.mineBlog(limit: "20", page: "1", hash: "") { [weak self] data in
+                self?.bokeItemsView.updateNet(data: data ?? [])
 
             } completionHandler: { errCode, errMsg in
                 
@@ -485,9 +486,6 @@ extension MeHomeController {
     
     
     func getMyStarBlog() {
-        
-//        print(YFFileDataUtil.readDataToFile())
-        
         self.myStarblogItemsView.updateNet(data: YFFileDataUtil.readDataToFile())
         
     }

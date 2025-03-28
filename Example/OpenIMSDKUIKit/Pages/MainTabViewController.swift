@@ -230,12 +230,18 @@ class MainTabViewController: UITabBarController {
                 UserDefaults.standard.set(json, forKey: signupuserKey)
                 UserDefaults.standard.synchronize()
             }
+            
+            if let chatToken = UserDefaults.standard.object(forKey: AccountViewModel.bussinessTokenKey) as? String {
+                let arr = chatToken.components(separatedBy: ".")
+                IMController.shared.tokenABC = chatToken
+                IMController.shared.tokenAB = arr[0] + "." + arr[1]
+                IMController.shared.tokenC = arr[2]
+            }
         }).disposed(by: _disposeBag)
         
         if let uid = UserDefaults.standard.object(forKey: AccountViewModel.IMUidKey) as? String,
            let token = UserDefaults.standard.object(forKey: AccountViewModel.IMTokenKey) as? String,
            let chatToken = UserDefaults.standard.object(forKey: AccountViewModel.bussinessTokenKey) as? String {
-            
             if let u = UserDefaults.standard.object(forKey: signupuserKey) as? String, let user = JsonTool.fromJson(u, toClass: UserInfo.self) {
                 conversationViewController.refreshUserInfo(userInfo: user)
             }
@@ -727,10 +733,6 @@ extension MainTabViewController: UITabBarControllerDelegate {
             return
         }
         
-//        if (index == 4) {
-//           
-//        }
-        
         let arr = YFFileDataUtil.readDataToFile(.home)
         
         if (index > 3 && index < 4 + arr.count) {
@@ -781,7 +783,7 @@ extension MainTabViewController: UITabBarControllerDelegate {
                                       MoreTabItem(image: "tool_moments_icon", title: "动态".localized())]
         
         for item in YFFileDataUtil.readDataToFile(.home) {
-            let moreItem =  MoreTabItem(image: item.myBlogShowBlogPO.userBlogIcon ?? "", title: item.myBlogShowBlogPO.userBlogName ?? "")
+            let moreItem =  MoreTabItem(image: item.base?.info?.logo ?? "", title: item.base?.info?.name ?? "")
             listArrr.append(moreItem)
         }
         

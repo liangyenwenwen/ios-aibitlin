@@ -19,7 +19,7 @@ enum localBlogType {
 
 class YFFileDataUtil {
     
-    // 数据存储本地的路径
+//     数据存储本地的路径
     static var filePath:URL = {
         let manager = FileManager.default
         var filePath = manager.urls(for: .documentDirectory, in: .userDomainMask).first
@@ -102,20 +102,20 @@ class YFFileDataUtil {
         
     static func saveOneDataToFile(_ locaType: localBlogType = .star, blogItem:myBlogShowBlogPOModel) ->() {
         var datas = readDataToFile(locaType)
-        datas.removeFirst(where: {$0.myBlogShowBlogPO.id == blogItem.myBlogShowBlogPO.id})
+        datas.removeFirst(where: {$0.base?.hash == blogItem.base?.hash})
         datas.insert(blogItem, at: 0)
         saveDataToFile(locaType, blogsArr: datas)
     }
     
     static func isHaveThisBlog(_ locaType: localBlogType = .star, blogItem:myBlogShowBlogPOModel) -> Bool {
         var datas = readDataToFile(locaType)
-        return  datas.contains(where: {$0.myBlogShowBlogPO.id == blogItem.myBlogShowBlogPO.id})
+        return  datas.contains(where: {$0.base?.hash == blogItem.base?.hash})
     }
 
     @discardableResult
     static func deleteOneDataFromFile(_ locaType: localBlogType = .star, blogItem: myBlogShowBlogPOModel) -> [myBlogShowBlogPOModel] {
         var datas = readDataToFile(locaType)
-        datas.removeFirst(where: {$0.myBlogShowBlogPO.id == blogItem.myBlogShowBlogPO.id})
+        datas.removeFirst(where: {$0.base?.hash == blogItem.base?.hash})
         saveDataToFile(locaType, blogsArr: datas)
         return datas
     }
