@@ -28,7 +28,7 @@ class MeHomeController: BaseLogicController {
         _viewModel.queryUserInfo()
         
         getMyBlog()
-        getMyStarBlog()
+        showBlogData()
         updatelanguage()
         
     }
@@ -473,9 +473,8 @@ extension MeHomeController {
         
         if let IMUser = IMController.shared.currentUserRelay.value {
             
-            YFMineNetViewModel.mineBlog(limit: "20", page: "1", hash: "") { [weak self] data in
-                self?.bokeItemsView.updateNet(data: data ?? [])
-
+            YFMineNetViewModel.mineBlog(time: 0, hash: "") { [weak self] data in
+                self?.showBlogData()
             } completionHandler: { errCode, errMsg in
                 
             }
@@ -485,8 +484,9 @@ extension MeHomeController {
     }
     
     
-    func getMyStarBlog() {
-        self.myStarblogItemsView.updateNet(data: YFFileDataUtil.readDataToFile())
+    func showBlogData() {
+        self.bokeItemsView.updateNet(data: YFFileDataUtil.readDataToFile(.mine))
+        self.myStarblogItemsView.updateNet(data: YFFileDataUtil.readDataToFile(.star))
         
     }
     

@@ -267,54 +267,13 @@ struct FaceMessageSource: Hashable {
 
 // MARK: - 张亚飞打的标记  网站消息
 struct bokeMessageSource: Hashable, Codable {
-//    var title: String?
-//    var iconUrl: String?
-//    var linkUrl: String?
-//    var intro: String?
-    let id: Int?
-    let userBlogSign: Int?
-    let userBlogUrl: String?
-    let userBlogIntro: String?
-    let userBlogName: String?
-    let userBlogCreatIp: String?
-    let userBlogCreatAffiliatingArea: String?
-    let userBlogOrder: Int?
-    let userId: String?
-    let isDelete: Int?
-    let creationTime: String?
-    let userBlogIcon: String?
-    let changeTime: String?
-    
-    var state: BokeType {
-        switch userBlogSign {
-//        case 0:
-//            return .normal
-//        case 1, 4:
-//            return .wait
-//        case 2:
-//            return .refuse
-//        case 3:
-//            return .limit
-        case 1:
-            return .wait
-        case 2:
-            return .normal
-        case 3:
-            return .refuse
-        case 4:
-            return .limit
-            
-        default:
-            return.normal
-        }
-    }
-}
-
-enum BokeType {
-    case normal
-    case wait
-    case refuse
-    case limit
+    let uid: String?
+    let hash: String?
+    let pwd: String?
+    let url: String?
+    let logo: String?
+    let mark: String?
+    let name: String?
 }
 
 
@@ -405,21 +364,15 @@ extension CustomMessageSource {
 //            let linkUrl = value["linkUrl"]
 //            let intro = value["intro"] ?? "intro"
 //            print(intro)
-            return OUIIM.bokeMessageSource(id: value["id"] as? Int,
-                                           userBlogSign: value["userBlogSign"] as? Int,
-                                           userBlogUrl: value["userBlogUrl"] as? String,
-                                           userBlogIntro: value["userBlogIntro"] as? String,
-                                           userBlogName: value["userBlogName"] as? String,
-                                           userBlogCreatIp: value["userBlogCreatIp"] as? String,
-                                           userBlogCreatAffiliatingArea: value["userBlogCreatAffiliatingArea"] as? String,
-                                           userBlogOrder: value["userBlogOrder"] as? Int,
-                                           userId: value["userId"] as? String,
-                                           isDelete: value["isDelete"] as? Int,
-                                           creationTime: value["creationTime"] as? String,
-                                           userBlogIcon: value["userBlogIcon"] as? String,
-                                           changeTime: value["changeTime"] as? String)
+            return OUIIM.bokeMessageSource(uid: value["uid"] as? String,
+                                           hash: value["hash"] as? String,
+                                           pwd: value["pwd"] as? String,
+                                           url: value["url"] as? String,
+                                           logo: value["logo"] as? String,
+                                           mark: value["mark"] as? String,
+                                           name: value["name"] as? String)
         }
-        return OUIIM.bokeMessageSource(id: -1, userBlogSign: 0, userBlogUrl: "", userBlogIntro: "", userBlogName: "", userBlogCreatIp: "", userBlogCreatAffiliatingArea: "", userBlogOrder: 0, userId: "", isDelete: 0, creationTime: "", userBlogIcon: "", changeTime: "")
+        return OUIIM.bokeMessageSource(uid: "", hash: "", pwd: "", url: "", logo: "", mark: "", name: "")
     }
     
     // MARK: - 张亚飞打的标记   自定义消息加工

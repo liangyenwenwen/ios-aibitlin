@@ -1990,10 +1990,10 @@ extension ChatViewController: ChatControllerDelegate {
 #endif
             case .boke:
                 // MARK: - 张亚飞打的标记  网站被点击
-                print(source.bokeMessageSource.userBlogUrl)
+                print(source.bokeMessageSource.url)
                 print("boke 被点击")
-                if source.bokeMessageSource.userBlogUrl != nil {
-                    gotoBokeLink(source.bokeMessageSource.userBlogUrl!)
+                if source.bokeMessageSource.url != nil {
+                    gotoBokeLink(source.bokeMessageSource.url!)
                 } else {
                     gotoBokeLink("")
                 }
@@ -2471,20 +2471,23 @@ extension ChatViewController: CoustomInputBarAccessoryViewDelegate {
         
         do {
             let boke = try JSONDecoder().decode(bokeMessageSource.self, from: jsonData)
+            let uid: String?
+            let hash: String?
+            let pwd: String?
+            let url: String?
+            let logo: String?
+            let mark: String?
+            let name: String?
             
-            let param = ["customType": 10500, "data":["id": boke.id,
-                                                     "userBlogUrl":boke.userBlogUrl,
-                                                     "userBlogIntro":boke.userBlogIntro,
-                                                     "userBlogName": boke.userBlogName,
-                                                     "userBlogCreatIp":boke.userBlogCreatIp,
-                                                     "userBlogCreatAffiliatingArea": boke.userBlogCreatAffiliatingArea,
-                                                     "userBlogOrder":boke.userBlogOrder,
-                                                     "userId":boke.userId,
-                                                     "isDelete":boke.isDelete,
-                                                     "creationTime":boke.creationTime,
-                                                     "userBlogIcon":boke.userBlogIcon,
-                                                     "changeTime":boke.changeTime]]  as [String : Any]
             
+            let param = ["customType": 10500, "data":["uid": boke.uid,
+                                                     "hash":boke.hash,
+                                                     "pwd":boke.pwd,
+                                                     "url": boke.url,
+                                                     "logo":boke.logo,
+                                                     "mark": boke.mark,
+                                                     "name":boke.name,
+                                                     ]]  as [String : Any]
             do {
                 let datastr = String.init(data: try JSONSerialization.data(withJSONObject: param), encoding: .utf8)
                 return datastr!
@@ -2950,8 +2953,12 @@ extension ChatViewController: GestureDelegate {
                 ]
             case let .custom(source):
                 if source.type == .boke {
-                    actions = [forwardAction(id: message.id),
-                               starAction(id: message.id, source: source.bokeMessageSource)]
+                    if source.bokeMessageSource.uid == IMController.shared.uid {
+                        actions = [forwardAction(id: message.id)]
+                    }else{
+                        actions = [forwardAction(id: message.id),
+                                   starAction(id: message.id, source: source.bokeMessageSource)]
+                    }
                 }
                 break
             default:

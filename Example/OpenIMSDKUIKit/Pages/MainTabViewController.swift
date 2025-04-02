@@ -39,6 +39,9 @@ class MainTabViewController: UITabBarController {
 //    private let CallRecordsViewController = CallRecordsViewController()
     private lazy var _moreView: TabMoreView = {
         let v = TabMoreView()
+        v.clickBlock = { [weak self] index in
+            self?.moreTabItemDidSelect(index: index)
+        }
         return v
     }()
     
@@ -749,8 +752,8 @@ extension MainTabViewController: UITabBarControllerDelegate {
     
     func showBlogSheet() {
         let contentView = YFChatBokeBottomSheetView()
-        contentView.showAll = true
         contentView.isRemoveTableMoreData = true
+        contentView.refreshTableView()
         contentView.tg_width.equal(.fill)
         contentView.tg_height.equal(350)
         contentView.hideSheetView = {
@@ -772,36 +775,23 @@ extension MainTabViewController: UITabBarControllerDelegate {
             make.top.trailing.leading.equalToSuperview()
             make.bottom.equalToSuperview().offset(-getTabBarHeight())
         }
-            
-
         var items = [TabMoreView.MenuItem]()
-
-        
         var listArrr:[MoreTabItem] = [MoreTabItem(image: "tool_feedback_icon", title: "反馈".localized()),
                                       MoreTabItem(image: "tool_translate_icon", title: "翻译".localized()),
                                       MoreTabItem(image: "tool_black_list_icon", title: "黑名单".localized()),
                                       MoreTabItem(image: "tool_moments_icon", title: "动态".localized())]
-        
         for item in YFFileDataUtil.readDataToFile(.home) {
-            let moreItem =  MoreTabItem(image: item.base?.info?.logo ?? "", title: item.base?.info?.name ?? "")
+            let moreItem =  MoreTabItem(image: item.base?.info?.logo ?? "", title: item.base?.info?.name ?? "",blogitem:item)
             listArrr.append(moreItem)
         }
-        
         listArrr.append(MoreTabItem(image: "tool_more_icon", title: "添加".localized()))
-        
         for i in 0 ..< listArrr.count {
             let itemData = listArrr[i]
-            let item = TabMoreView.MenuItem(title: itemData.title, icon: itemData.image) { [weak self] in
-                self?.moreTabItemDidSelect(index: i)
-            }
+            let item = TabMoreView.MenuItem(title: itemData.title, icon: itemData.image,blogitem: itemData.blogitem)
             items.append(item)
         }
         _moreView.setItems(items)
-        
     }
-    
-    
-    
 }
 
 
@@ -812,6 +802,7 @@ extension MainTabViewController: UITabBarControllerDelegate {
 struct MoreTabItem {
     var image: String
     var title: String
+    var blogitem:myBlogShowBlogPOModel?
 }
 
 func getTabBarHeight() -> CGFloat {

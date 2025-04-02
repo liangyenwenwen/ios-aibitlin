@@ -403,7 +403,7 @@ extension MineBokeEditVC {
             }
         }
         
-        let paramters : [String: Any] = ["hash": blogItem!.base?.hash ?? "",
+        let paramters : [String: Any] = ["hash": blogItem!.hash ?? "",
                                          "logo": url,
                                          "name": nameView.inputText ?? "",
                                          "url": webSiteUrl ?? "",

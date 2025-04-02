@@ -17,9 +17,8 @@ class YFChatBokeBottomSheetView: TGLinearLayout {
 
     var chooseBoke:((myBlogShowBlogPOModel)->())!
     var hideSheetView:(()->())!
-    var data : [myBlogShowBlogPOModel] =  []
+    var dataArray : [myBlogShowBlogPOModel] =  []
     
-    var showAll: Bool  = false
     var isRemoveRecommendData: Bool  = false //是否剔除已推荐网站的数据
     var isRemoveTableMoreData: Bool  = false //是否剔除已添加的快捷网站数据
     init() {
@@ -45,11 +44,9 @@ class YFChatBokeBottomSheetView: TGLinearLayout {
         addSubview(topView)
         addSubview(tableView)
         
-        if showAll {
-            getAllBlog()
-        } else {
-            getMyBlog()
-        }
+        getMyBlog()
+        
+//        refreshTableView()
        
     }
     
@@ -108,18 +105,18 @@ class YFChatBokeBottomSheetView: TGLinearLayout {
 
 extension YFChatBokeBottomSheetView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        data.count
+        dataArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: YFChatBottomSheetBokeListCell.className, for: indexPath) as! YFChatBottomSheetBokeListCell
-        cell.bindData(item: data[indexPath.row])
+        cell.bindData(item: dataArray[indexPath.row])
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        chooseBoke(data[indexPath.row])
+        chooseBoke(dataArray[indexPath.row])
 
     }
 }
@@ -127,48 +124,36 @@ extension YFChatBokeBottomSheetView: UITableViewDataSource, UITableViewDelegate 
 extension YFChatBokeBottomSheetView {
     
     func getMyBlog() {
-//        if let IMUser = IMController.shared.currentUserRelay.value {
-//            
-//            YFMineNetViewModel.mineBlog(limit: "20", page: "1", hash: "") { [weak self] data in
-//                var array = data.filter({ item -> Bool in
-//                    return item.myBlogShowBlogPO.state == .normal
-//                })
-//                if self?.isRemoveRecommendData == true{
-//                    let recommedData = YFFileDataUtil.readDataToFile(.recommend)
-//                    for item in recommedData {
-//                        array.removeAll(where: { $0.myBlogShowBlogPO.id == item.myBlogShowBlogPO.id })
-//                    }
-//                    self?.data = array
-//                }else{
-//                    if self?.isRemoveTableMoreData == true {
-//                        let tableMoreData = YFFileDataUtil.readDataToFile(.home)
-//                        for item in tableMoreData {
-//                            array.removeAll(where: { $0.myBlogShowBlogPO.id == item.myBlogShowBlogPO.id })
-//                        }
-//                        self?.data = array
-//                    }else{
-//                        self?.data = array
-//                    }
-//                }
-//                
-//                self?.tableView.reloadData()
-//            } completionHandler: { errCode, errMsg in
-//                
-//            }
-//        }
-    }
-    
-    
-    func getAllBlog() {
         if let IMUser = IMController.shared.currentUserRelay.value {
             
-            YFMineNetViewModel.mineBlog(limit: "20",page: "1",hash: "") { [weak self] data in
-                
-                self?.data = data ?? []
-                self?.tableView.reloadData()
+            YFMineNetViewModel.mineBlog(time: 0,hash: "") { [weak self] data in
+                self?.refreshTableView()
             } completionHandler: { errCode, errMsg in
                 
             }
         }
+    }
+    func refreshTableView() {
+        var array = YFFileDataUtil.readDataToFile(.mine)
+        array.append(contentsOf: YFFileDataUtil.readDataToFile(.star))
+        if isRemoveRecommendData == true{
+            let recommedData = YFFileDataUtil.readDataToFile(.recommend)
+            for item in recommedData {
+                array.removeAll(where: { $0.hash == item.hash })
+            }
+            dataArray = array
+        }else{
+            if isRemoveTableMoreData == true {
+                let tableMoreData = YFFileDataUtil.readDataToFile(.home)
+                for item in tableMoreData {
+                    array.removeAll(where: { $0.hash == item.hash })
+                }
+                dataArray = array
+            }else{
+                dataArray = array
+            }
+        }
+        
+        tableView.reloadData()
     }
 }

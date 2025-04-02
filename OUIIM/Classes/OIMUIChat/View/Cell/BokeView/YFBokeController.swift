@@ -32,9 +32,9 @@ final class YFBokeController {
     }
     
     private func configData() {
-        self.name = source.userBlogName
-        self.faceURL = source.userBlogIcon
-        self.intro = source.userBlogIntro
+        self.name = source.name
+        self.faceURL = source.logo
+        self.intro = source.mark
     }
     
     func action() {
@@ -61,18 +61,13 @@ final class YFBokeController {
 //        let userBlogIcon: String?
 //        let changeTime: String?
         
-        let parm = ["customType": 10500, "data":["id": source.id,
-                                                 "userBlogUrl":source.userBlogUrl,
-                                                 "userBlogIntro":source.userBlogIntro,
-                                                 "userBlogName": source.userBlogName,
-                                                 "userBlogCreatIp":source.userBlogCreatIp,
-                                                 "userBlogCreatAffiliatingArea": source.userBlogCreatAffiliatingArea,
-                                                 "userBlogOrder":source.userBlogOrder, 
-                                                 "userId":source.userId,
-                                                 "isDelete":source.isDelete,
-                                                 "creationTime":source.creationTime,
-                                                 "userBlogIcon":source.userBlogIcon,
-                                                 "changeTime":source.changeTime]]  as [String : Any]
+        let parm = ["customType": 10500, "data":["uid": source.uid,
+                                                 "hash":source.hash,
+                                                 "pwd":source.pwd,
+                                                 "url": source.url,
+                                                 "logo":source.logo,
+                                                 "mark": source.mark,
+                                                 "name":source.name]]  as [String : Any]
         
         do {
             let datastr = String.init(data: try JSONSerialization.data(withJSONObject: parm), encoding: .utf8)

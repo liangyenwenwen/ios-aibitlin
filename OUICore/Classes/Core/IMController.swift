@@ -967,27 +967,14 @@ extension IMController {
                                 sending: CallBack.MessageReturnVoid,
                                 onComplete: @escaping CallBack.MessageReturnVoid) {
         let reslut = JsonTool.toJson(fromObject: boke)
-//        
-//        let param = ["customType": 10500,
-//                     "data": ["title": boke.title,
-//                              "iconUrl": boke.iconUrl,
-//                              "linkUrl": boke.linkUrl,
-//                              "intro": boke.intro,
-//                              "customType": 10500,]
-//        ] as [String : Any]
         
-        let param = ["customType": 10500, "data":["id": boke.id,
-                                                 "userBlogUrl":boke.userBlogUrl,
-                                                 "userBlogIntro":boke.userBlogIntro,
-                                                 "userBlogName": boke.userBlogName,
-                                                 "userBlogCreatIp":boke.userBlogCreatIp,
-                                                 "userBlogCreatAffiliatingArea": boke.userBlogCreatAffiliatingArea,
-                                                 "userBlogOrder":boke.userBlogOrder,
-                                                 "userId":boke.userId,
-                                                 "isDelete":boke.isDelete,
-                                                 "creationTime":boke.creationTime,
-                                                 "userBlogIcon":boke.userBlogIcon,
-                                                 "changeTime":boke.changeTime]]  as [String : Any]
+        let param = ["customType": 10500, "data":["uid": boke.uid,
+                                                  "hash":boke.hash,
+                                                  "pwd":boke.pwd,
+                                                  "url": boke.url,
+                                                  "logo":boke.logo,
+                                                  "mark": boke.mark,
+                                                  "name":boke.name]]  as [String : Any]
         
         do {
             let dataStr = String.init(data: try JSONSerialization.data(withJSONObject: param),
@@ -2188,51 +2175,56 @@ public class CardElem: Codable {
 }
 
 // MARK: - 张亚飞打的标记   网站消息元素
+public struct IMMyBlogShowBlogPOModel: Codable {
+    var id:Int?
+    var uid:String?
+    var hash:String?
+    var auth:String?
+    var type:Int?
+    var top_time:Int?
+    var show_time:Int?
+    var createtime:Int?
+    var updatetime:Int?
+    var base:IMBaseBlogModel?
+    var jsonString:String?
+}
+struct IMBaseBlogModel: Codable {
+    var hash:String?
+    var info:IMBlogDetailItem?
+    var createtime:String?
+    var extendModel:IMExtendModel?
+}
+struct IMExtendModel: Codable {
+    var before:[String]?
+    var after:[String]?
+    var ex:[String]?
+    var permission:[String]?
+}
+struct IMBlogDetailItem: Codable {
+    let pwd: String?
+    let url: String?
+    let logo: String?
+    let mark: String?
+    let name: String?
+}
 public class BokeElem: Codable {
+    let uid: String?
+    let hash: String?
+    let pwd: String?
+    let url: String?
+    let logo: String?
+    let mark: String?
+    let name: String?
     
-//    public var title: String?
-//    public var iconUrl: String?
-//    public var linkUrl: String?
-//    public var intro: String?
-//
-//    public init(title: String? = nil, iconUrl: String? = nil, linkUrl: String? = nil, intro: String? = nil) {
-//        self.title = title
-//        self.iconUrl = iconUrl
-//        self.linkUrl = linkUrl
-//        self.intro = intro
-//    }
-    
-    let id: Int?
-    let userBlogSign: Int?
-    let userBlogUrl: String?
-    let userBlogIntro: String?
-    let userBlogName: String?
-    let userBlogCreatIp: String?
-    let userBlogCreatAffiliatingArea: String?
-    let userBlogOrder: Int?
-    let userId: String?
-    let isDelete: Int?
-    let creationTime: String?
-    let userBlogIcon: String?
-    let changeTime: String?
-    
-    public init(id: Int?, userBlogSign: Int?, userBlogUrl: String?, userBlogIntro: String?, userBlogName: String?, userBlogCreatIp: String?, userBlogCreatAffiliatingArea: String?, userBlogOrder: Int?, userId: String?, isDelete: Int?, creationTime: String?, userBlogIcon: String?, changeTime: String?) {
-        self.id = id
-        self.userBlogSign = userBlogSign
-        self.userBlogUrl = userBlogUrl
-        self.userBlogIntro = userBlogIntro
-        self.userBlogName = userBlogName
-        self.userBlogCreatIp = userBlogCreatIp
-        self.userBlogCreatAffiliatingArea = userBlogCreatAffiliatingArea
-        self.userBlogOrder = userBlogOrder
-        self.userId = userId
-        self.isDelete = isDelete
-        self.creationTime = creationTime
-        self.userBlogIcon = userBlogIcon
-        self.changeTime = changeTime
+    public init(uid: String?, hash: String?, pwd: String?, url: String?, logo: String?, mark: String?, name: String?) {
+        self.uid = uid
+        self.hash = hash
+        self.pwd = pwd
+        self.url = url
+        self.logo = logo
+        self.mark = mark
+        self.name = name
     }
-
-    
 }
 
 public class TypingElem: Codable {

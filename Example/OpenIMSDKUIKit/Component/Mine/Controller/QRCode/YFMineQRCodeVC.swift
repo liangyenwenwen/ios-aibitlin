@@ -349,10 +349,10 @@ extension YFMineQRCodeVC {
     func addBlog(index: Int) {
         
         let contentView = YFChatBokeBottomSheetView()
-        contentView.showAll = true
         contentView.tg_width.equal(.fill)
         contentView.tg_height.equal(350)
         contentView.isRemoveRecommendData = true
+        contentView.refreshTableView()
         contentView.hideSheetView = {
             GKCover.hide()
         }

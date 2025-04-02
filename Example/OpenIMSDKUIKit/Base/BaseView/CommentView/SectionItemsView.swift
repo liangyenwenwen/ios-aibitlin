@@ -84,34 +84,32 @@ class SectionItemsView: TGLinearLayout {
     
     ///更新我的推荐网站
     func updateRecommendData() {
-//        let moreBoke = blogDetailItem(id: -1, userBlogSign: 0, userBlogUrl: "", userBlogIntro: "", userBlogName: "", userBlogCreatIp: "", userBlogCreatAffiliatingArea: "", userBlogOrder: 0, userId: "", isDelete: 0, creationTime: "", userBlogIcon: "", changeTime: "")
-//        
-//        let data = YFFileDataUtil.readDataToFile(.recommend)
-//        
-//        topContainer.show()
-//        bottomContainer.hide()
-//        for index in topContainer.subviews.indices {
-//            let item = topContainer.subviews[index] as! SectionItemView
-//            item.index = index
-//            if index < data.count {
-//                item.show()
-//                item.bindDataNet(data[index])
-//            } else {
-//                item.hide()
-//            }
-//        }
-//        
-//        if data.count < 3 {
-//            
-//            for index in data.count...2 {
-//                let item = topContainer.subviews[index] as! SectionItemView
-//                item.index = data.count
-//                item.show()
-//                var model = myBlogShowBlogPOModel(myBlogShowBlogPO: moreBoke)
-//                item.bindDataNet(model, true, isRecommend: true)
-//            }
-//            
-//        }
+        let data = YFFileDataUtil.readDataToFile(.recommend)
+        
+        topContainer.show()
+        bottomContainer.hide()
+        for index in topContainer.subviews.indices {
+            let item = topContainer.subviews[index] as! SectionItemView
+            item.index = index
+            if index < data.count {
+                item.show()
+                item.bindDataNet(data[index])
+            } else {
+                item.hide()
+            }
+        }
+        
+        if data.count < 3 {
+            
+            for index in data.count...2 {
+                let item = topContainer.subviews[index] as! SectionItemView
+                item.index = data.count
+                item.show()
+                let moreModel = myBlogShowBlogPOModel(id: -1, uid: "", hash: "", auth: "", type: -1, top_time: 0, show_time: 0, createtime: 0, updatetime: 0, base:BaseBlogModel(info:blogDetailItem(pwd: "", url: "", logo: "", mark: "", name: "")))
+                item.bindDataNet(moreModel, true, isRecommend: true)
+            }
+            
+        }
         
     }
     lazy var topContainer: TGLinearLayout = {
@@ -196,15 +194,9 @@ class SectionItemView: TGLinearLayout {
     lazy var topView: TGRelativeLayout = {
         let r = TGRelativeLayout()
         r.addSubview(topImg)
-        r.addSubview(blogStateLbl)
         r.tg_width.equal(itemWidth)
         r.tg_height.equal(itemWidth)
         r.tg_top.equal(8)
-        
-        blogStateLbl.tg_bottom.equal(0)
-        blogStateLbl.tg_left.equal(0)
-        blogStateLbl.tg_right.equal(0)
-        blogStateLbl.tg_height.equal(16)
         
         r.corner()
         return r
@@ -216,15 +208,6 @@ class SectionItemView: TGLinearLayout {
         r.tg_width.equal(itemWidth)
         r.tg_height.equal(itemWidth)
         r.contentMode = .scaleAspectFill
-        return r
-    }()
-    
-    lazy var blogStateLbl: UILabel = {
-        let r = ViewFactoryUtil.customTilteLabelFill("state", font: TEXT_SMALL)
-        r.textAlignment = .center
-        r.textColor = .white
-        r.backgroundColor = .black.withAlphaComponent(0.3)
-        r.hide()
         return r
     }()
     
@@ -245,60 +228,26 @@ class SectionItemView: TGLinearLayout {
         } else {
             topImg.show(bokeItem.icon)
         }
-        
-        switch bokeItem.state {
-        case .normal:
-            blogStateLbl.hide()
-            break
-        case .wait:
-            blogStateLbl.show()
-            blogStateLbl.text = "处理中".localized()
-        case .refuse:
-            blogStateLbl.show()
-            blogStateLbl.text = "拒绝".localized()
-        case .limit:
-            blogStateLbl.show()
-            blogStateLbl.text = "受限制".localized()
-        }
-        
         titleLbl.text = bokeItem.title
     }
     
     func bindDataNet(_ bokeItem: myBlogShowBlogPOModel, _ ismore: Bool = false, isRecommend: Bool = false) {
-
-//        switch bokeItem.myBlogShowBlogPO.state {
-//        case .normal:
-//            blogStateLbl.hide()
-//            break
-//        case .wait:
-//            blogStateLbl.show()
-//            blogStateLbl.text = "处理中".localized()
-//        case .refuse:
-//            blogStateLbl.show()
-//            blogStateLbl.text = "拒绝".localized()
-//        case .limit:
-//            blogStateLbl.show()
-//            blogStateLbl.text = "受限制".localized()
-//        }
-//        
-//        titleLbl.text = bokeItem.myBlogShowBlogPO.userBlogName
-//        print(bokeItem.myBlogShowBlogPO.userBlogIcon)
-//        if !isRecommend,!ismore{
-//            topImg.show(bokeItem.myBlogShowBlogPO.userBlogIcon)
-//        }
-//        if ismore {
-//            topImg.image = R.image.boke_more_icon()
-//            titleLbl.text = "更多".localized()
-//            blogStateLbl.hide()
-//        }
-//        if isRecommend {
-//            topImg.image = R.image.add_recommend_blog_icon()!
-//            titleLbl.text = ""
-//        }
-//        
-//        isMore = ismore
-//        
-//        item = bokeItem
+        titleLbl.text = bokeItem.base?.info?.name
+        if !isRecommend,!ismore{
+            topImg.show(bokeItem.base?.info?.logo)
+        }
+        if ismore {
+            topImg.image = R.image.boke_more_icon()
+            titleLbl.text = "更多".localized()
+        }
+        if isRecommend {
+            topImg.image = R.image.add_recommend_blog_icon()!
+            titleLbl.text = ""
+        }
+        
+        isMore = ismore
+        
+        item = bokeItem
     }
     
 }

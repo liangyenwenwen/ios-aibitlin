@@ -12,8 +12,9 @@ import OpenIMSDK
 enum localBlogType {
     case star
     case recommend
-    case cache
+    case mine
     case home
+    case history
 }
 
 
@@ -47,6 +48,13 @@ class YFFileDataUtil {
         filePath!.appendPathComponent("\(Open_im_sdkGetLoginUserID())blogHome.archive")
         return filePath!
     }()
+    static var historyfilePath:URL = {
+        let manager = FileManager.default
+        var filePath = manager.urls(for: .documentDirectory, in: .userDomainMask).first
+        filePath!.appendPathComponent("\(Open_im_sdkGetLoginUserID())blogHistory.archive")
+        return filePath!
+    }()
+
         
     static func getBlogPath(_ locaType: localBlogType = .star) -> URL {
         var path: URL? = nil
@@ -55,10 +63,12 @@ class YFFileDataUtil {
                 path = filePath
             case .recommend:
                 path = recommendfilePath
-            case .cache:
+            case .mine:
                 path = cachefilePath
             case .home:
                 path = homefilePath
+        case .history:
+                path = historyfilePath
         }
         return path!
     }
@@ -84,6 +94,35 @@ class YFFileDataUtil {
     }
 
     // 保存全部数据到本地
+    static func saveAllDataToFile(blogsArr: [myBlogShowBlogPOModel]) -> () {
+        var mineBlogs:[myBlogShowBlogPOModel] = []
+        var startBlogs:[myBlogShowBlogPOModel] = []
+        var recommendBlogs:[myBlogShowBlogPOModel] = readDataToFile(.recommend)
+        var homeBlogs:[myBlogShowBlogPOModel] = readDataToFile(.home)
+        for item in blogsArr {
+            if item.auth == "owner" || item.auth == "admin"{
+                mineBlogs.append(item)
+            }else if item.auth == "flag"{
+                startBlogs.append(item)
+            }
+            recommendBlogs = recommendBlogs.map { $0.hash == item.hash ? item : $0 }
+            homeBlogs = homeBlogs.map { $0.hash == item.hash ? item : $0 }
+        }
+        for (index,item) in recommendBlogs.enumerated() {
+            if !blogsArr.contains(where: {$0.hash == item.hash}){
+                recommendBlogs.remove(at: index)
+            }
+        }
+        for (index,item) in homeBlogs.enumerated() {
+            if !blogsArr.contains(where: {$0.hash == item.hash}){
+                homeBlogs.remove(at: index)
+            }
+        }
+        saveDataToFile(.mine, blogsArr: mineBlogs)
+        saveDataToFile(.star, blogsArr: startBlogs)
+        saveDataToFile(.recommend, blogsArr: recommendBlogs)
+        saveDataToFile(.home, blogsArr: homeBlogs)
+    }
     static func saveDataToFile(_ locaType: localBlogType = .star, blogsArr: [myBlogShowBlogPOModel]) -> () {
         let dataWrite = try? JSONEncoder().encode(blogsArr)
         
@@ -102,20 +141,20 @@ class YFFileDataUtil {
         
     static func saveOneDataToFile(_ locaType: localBlogType = .star, blogItem:myBlogShowBlogPOModel) ->() {
         var datas = readDataToFile(locaType)
-        datas.removeFirst(where: {$0.base?.hash == blogItem.base?.hash})
+        datas.removeFirst(where: {$0.hash == blogItem.hash})
         datas.insert(blogItem, at: 0)
         saveDataToFile(locaType, blogsArr: datas)
     }
     
     static func isHaveThisBlog(_ locaType: localBlogType = .star, blogItem:myBlogShowBlogPOModel) -> Bool {
-        var datas = readDataToFile(locaType)
-        return  datas.contains(where: {$0.base?.hash == blogItem.base?.hash})
+        let datas = readDataToFile(locaType)
+        return  datas.contains(where: {$0.hash == blogItem.hash})
     }
 
     @discardableResult
     static func deleteOneDataFromFile(_ locaType: localBlogType = .star, blogItem: myBlogShowBlogPOModel) -> [myBlogShowBlogPOModel] {
         var datas = readDataToFile(locaType)
-        datas.removeFirst(where: {$0.base?.hash == blogItem.base?.hash})
+        datas.removeFirst(where: {$0.hash == blogItem.hash})
         saveDataToFile(locaType, blogsArr: datas)
         return datas
     }

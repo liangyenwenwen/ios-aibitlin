@@ -58,7 +58,6 @@ pod 'KeychainAccess'
 pod 'CryptoSwift'
 
 
-
 end
 
 # 开启会议后有屏幕分享功能才会使用该target

@@ -28,10 +28,9 @@ class MineBokeListViewController: BaseTitleController {
     var isEidt = false
     var othersID: String?
     var othersName: String?
-    var page:Int = 1
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        refreshData()
     }
     
     override func initViews() {
@@ -60,12 +59,9 @@ class MineBokeListViewController: BaseTitleController {
         
         
         let header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(refreshData))
-        let footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(loadMoreData))
         header.stateLabel?.isHidden = true
         header.lastUpdatedTimeLabel?.isHidden = true
         tableView.mj_header = header
-        tableView.mj_footer = footer
-        refreshData()
     }
     
     
@@ -172,30 +168,19 @@ extension MineBokeListViewController {
         
         switch vcType {
         case .meWebsite:
-            getMyBlog(page: 1)
-        case .othersBlog:
-            othersSeeMyBlog(page: 1)
-        case .star:
-        self.datum = YFFileDataUtil.readDataToFile()
+            self.datum = YFFileDataUtil.readDataToFile(.mine)
+            getMyBlog()
             tableView.reloadData()
-            tableView.mj_header?.endRefreshing()
+        case .othersBlog:
+            othersSeeMyBlog()
+        case .star:
+            self.datum = YFFileDataUtil.readDataToFile(.star)
+            getMyBlog()
+            tableView.reloadData()
             break
         }
         
     }
-    @objc func loadMoreData() {
-        switch vcType {
-        case .meWebsite:
-            getMyBlog(page: page+1)
-        case .othersBlog:
-            othersSeeMyBlog(page: page+1)
-        case .star:
-            tableView.reloadData()
-        }
-    }
-    
-    
-    
     func showEdit(_ index: Int)  {
         let contentView = MineBokeFooterEditView(type: vcType)
         contentView.blogItem = datum[index] as! myBlogShowBlogPOModel
@@ -278,19 +263,12 @@ extension MineBokeListViewController {
     func getMyBlog(page:Int = 1) {
         
         if let IMUser = IMController.shared.currentUserRelay.value {
-            YFMineNetViewModel.mineBlog(limit: "20", page: String(page), hash: "") { [weak self] data in
+            YFMineNetViewModel.mineBlog(time: 0, hash: "") { [weak self] data in
                 DispatchQueue.main.async {
-                    self?.page = page
-                    if page == 1 {
-                        YFFileDataUtil.saveDataToFile(.cache, blogsArr: data ?? [])
-                        self?.datum = data ?? []
-                    }else{
-                        self?.datum.append(contentsOf: data ?? [])
-                    }
-                    if data?.count ?? 0 < 20{
-                        self?.tableView.mj_footer?.endRefreshingWithNoMoreData()
-                    }else{
-                        self?.tableView.mj_footer?.endRefreshing()
+                    if self?.vcType == .meWebsite{
+                        self?.datum = YFFileDataUtil.readDataToFile(.mine)
+                    }else if self?.vcType == .star{
+                        self?.datum = YFFileDataUtil.readDataToFile(.star)
                     }
                     self?.tableView.mj_header?.endRefreshing()
                     self?.tableView.reloadData()
@@ -302,21 +280,11 @@ extension MineBokeListViewController {
         }
     }
     
-    func othersSeeMyBlog(page:Int = 1) {
+    func othersSeeMyBlog() {
         if let userId = othersID {
             
-            YFMineNetViewModel.otherSeeMyBlog(limit: "20", page: String(page),uid:userId, hash: "",pwd:"") { [weak self] data in
-                self?.page = page
-                if page == 1 {
-                    self?.datum = data ?? []
-                }else{
-                    self?.datum.append(contentsOf: data ?? [])
-                }
-                if data?.count ?? 0 < 20{
-                    self?.tableView.mj_footer?.endRefreshingWithNoMoreData()
-                }else{
-                    self?.tableView.mj_footer?.endRefreshing()
-                }
+            YFMineNetViewModel.otherSeeMyBlog(uid:userId, hash: "",pwd:"") { [weak self] data in
+                self?.datum = data ?? []
                 self?.tableView.mj_header?.endRefreshing()
                 self?.tableView.reloadData()
             } completionHandler: { errCode, errMsg in
@@ -326,7 +294,7 @@ extension MineBokeListViewController {
     }
     
     func topBlog(item: myBlogShowBlogPOModel) {
-        YFMineNetViewModel.blogTop(paramters: ["hash":item.base?.hash ?? ""]) { errCode, errMsg in
+        YFMineNetViewModel.blogTop(paramters: ["hash":item.hash ?? ""]) { errCode, errMsg in
             if errCode == 200 {
                 self.getMyBlog(page: 1)
             } else {
@@ -336,12 +304,11 @@ extension MineBokeListViewController {
     }
     
     func deleteBlog(item: myBlogShowBlogPOModel) {
-        
         if vcType == .star {
             datum = YFFileDataUtil.deleteOneDataFromFile(blogItem: item)
             self.tableView.reloadData()
         } else {
-            let parameters: [String:Any] = ["hash":item.base?.hash ?? ""]
+            let parameters: [String:Any] = ["hash":item.hash ?? ""]
                 YFMineNetViewModel.deleteBlog(paramters: parameters) { errCode, errMsg in
                     if errCode == 200 {
                         self.getMyBlog(page: 1)

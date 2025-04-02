@@ -16,7 +16,7 @@ import ProgressHUD
 import OpenIMSDK
 
 class YFMineNetViewModel: AccountViewModel {
-    
+
 //    static let API_BLOG_URL = "http://192.168.7.107:18898"
 //    public static let API_BLOG_URL = "http://blog.aibitlin.com:18898"
 //    public static let API_BLOG_URL = "https://imblogs.aibitlin.com"
@@ -104,6 +104,7 @@ class YFMineNetViewModel: AccountViewModel {
             switch response.result {
             case .success(let result):
                 if let res = JsonTool.fromJson(result, toClass: BlogResponse.self) {
+                    UserDefaults.standard.set(0, forKey: "blogVersion\(Open_im_sdkGetLoginUserID())")
                     completionHandler(res.code, res.msg)
                     
                 } else {
@@ -119,13 +120,12 @@ class YFMineNetViewModel: AccountViewModel {
     }
      
     /// 我的网站
-    static func mineBlog(limit: String?,
-                         page: String?,
+    static func mineBlog(time: Int?,
                          hash:String?,
                          valueHandler: @escaping ([myBlogShowBlogPOModel]?) -> Void,
                          completionHandler: @escaping CompletionHandler) {
         if let IMUser = IMController.shared.currentUserRelay.value {
-            let body = JsonTool.toJson(fromObject: MineBlogRequest(limit: limit, page: page, hash: hash)).data(using: .utf8)
+            let body = JsonTool.toJson(fromObject: MineBlogRequest(time: time, hash: hash)).data(using: .utf8)
             var req = try! URLRequest(url: API_BLOG_URL + ShowMyMyBlogsAPI, method: .post, headers: httpHeaders)
             req.httpBody = body
 
@@ -137,6 +137,10 @@ class YFMineNetViewModel: AccountViewModel {
                     if let res = JsonTool.fromJson(strData!, toClass: BlogListResponse<myBlogListValue>.self) {
 
                         if res.code == 200  {
+                            if time != res.result.time{
+                                UserDefaults.standard.set(res.result.time, forKey: "blogVersion\(Open_im_sdkGetLoginUserID())")
+                                YFFileDataUtil.saveAllDataToFile(blogsArr: res.result.data ?? [])
+                            }
                             valueHandler(res.result.data)
                         } else {
                             completionHandler(res.code, res.msg)
@@ -156,9 +160,7 @@ class YFMineNetViewModel: AccountViewModel {
     }
  
     /// 其他人看我的网站
-    static func otherSeeMyBlog(limit: String?,
-                               page: String?,
-                               uid: String?,
+    static func otherSeeMyBlog(uid: String?,
                                hash:String?,
                                pwd:String?,
                          valueHandler: @escaping ([myBlogShowBlogPOModel]?) -> Void,
@@ -166,7 +168,7 @@ class YFMineNetViewModel: AccountViewModel {
         
 //        ProgressHUD.animate()
         
-        let body = JsonTool.toJson(fromObject: othersBlogRequest(limit: limit,page: page,uid:uid,hash:hash,pwd:pwd)).data(using: .utf8)
+        let body = JsonTool.toJson(fromObject: othersBlogRequest(uid:uid,hash:hash,pwd:pwd)).data(using: .utf8)
         var req = try! URLRequest(url: API_BLOG_URL + otherSeeMyBlogAPI, method: .post, headers: httpHeaders)
         req.httpBody = body
 
@@ -207,6 +209,7 @@ class YFMineNetViewModel: AccountViewModel {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 print(strData!)
                 if let res = JsonTool.fromJson(strData!, toClass: BlogResponse.self) {
+                    UserDefaults.standard.set(0, forKey: "blogVersion\(Open_im_sdkGetLoginUserID())")
                     completionHandler(res.code, res.msg)
                 } else {
                     completionHandler(-1, "failure")
@@ -283,6 +286,7 @@ class YFMineNetViewModel: AccountViewModel {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 print(strData!)
                 if let res = JsonTool.fromJson(strData!, toClass: BlogResponse.self) {
+                    UserDefaults.standard.set(0, forKey: "blogVersion\(Open_im_sdkGetLoginUserID())")
                     completionHandler(res.code, res.msg)
                 } else {
                     completionHandler(-1, "failure")
@@ -305,6 +309,7 @@ class YFMineNetViewModel: AccountViewModel {
             if let data = dataRequest.data {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 if let res = JsonTool.fromJson(strData!, toClass: BlogResponse.self) {
+                    UserDefaults.standard.set(0, forKey: "blogVersion\(Open_im_sdkGetLoginUserID())")
                     completionHandler(res.code, res.msg)
                 } else {
                     completionHandler(-1, "failure")
@@ -745,10 +750,9 @@ class BlogListResponse<T: Decodable>: Decodable {
 
 struct myBlogListValue: Codable {
     var data : [myBlogShowBlogPOModel]?
-    var current_page:Int?
-    var last_page:Int?
-    var per_page:Int?
-    var total:Int?
+    var time:Int? = nil
+    var date: String? = nil
+    var total: String? = nil
 }
 struct myBlogShowBlogPOModel: Codable {
     var id:Int?
@@ -756,17 +760,15 @@ struct myBlogShowBlogPOModel: Codable {
     var hash:String?
     var auth:String?
     var type:Int?
-    var top_time:String?
-    var my_show_time:String?
-    var createtime:String?
-    var updatetime:String?
-    var deletetime:String?
+    var top_time:Int?
+    var show_time:Int?
+    var createtime:Int?
+    var updatetime:Int?
     var base:BaseBlogModel?
 }
 struct BaseBlogModel: Codable {
     var hash:String?
     var info:blogDetailItem?
-    var createtime:String?
     var extend:extendModel?
 }
 struct extendModel: Codable {
@@ -775,7 +777,13 @@ struct extendModel: Codable {
     var ex:[String]?
     var permission:[String]?
 }
-
+struct blogDetailItem: Codable {
+    let pwd: String?
+    let url: String?
+    let logo: String?
+    let mark: String?
+    let name: String?
+}
 
 
 
@@ -822,13 +830,11 @@ class BlogAuditRequest: Encodable {
 
 class MineBlogRequest: Encodable {
     
-    let limit: String?
-    let page: String?
+    let time: Int?
     let hash: String?
     
-    init(limit: String?, page: String?, hash: String?) {
-        self.limit = limit
-        self.page = page
+    init(time: Int?, hash: String?) {
+        self.time = time
         self.hash = hash
     }
     
@@ -836,35 +842,16 @@ class MineBlogRequest: Encodable {
 
 class othersBlogRequest: Encodable {
     
-    let limit: String?
-    let page: String?
     let uid: String?
     let hash: String?
     let pwd:String?
     
-    init(limit: String?, page: String?,uid: String?, hash: String?,pwd:String?) {
-        self.limit = limit
-        self.page = page
+    init(uid: String?, hash: String?,pwd:String?) {
         self.uid = uid
         self.hash = hash
         self.pwd = pwd
     }
     
-}
-
-struct blogDetailItem: Codable {
-    let id: Int?
-    let pwd: String?
-    let url: String?
-    let logo: String?
-    let mark: String?
-    let name: String?
-    func toBokeElem() -> BokeElem {
-        let source = self
-//        let blog =  BokeElem(id: source.id, userBlogSign: source.userBlogSign, userBlogUrl: source.userBlogUrl, userBlogIntro: source.userBlogIntro, userBlogName: source.userBlogName, userBlogCreatIp: source.userBlogCreatIp, userBlogCreatAffiliatingArea: source.userBlogCreatAffiliatingArea, userBlogOrder: source.userBlogOrder, userId: source.userId, isDelete: source.isDelete, creationTime: source.creationTime, userBlogIcon: source.userBlogIcon, changeTime: source.changeTime)
-        let blog =  BokeElem(id: 0, userBlogSign: 0, userBlogUrl:"", userBlogIntro: "", userBlogName: "", userBlogCreatIp: "", userBlogCreatAffiliatingArea: "", userBlogOrder: 0, userId: "", isDelete: 0, creationTime: "", userBlogIcon: "", changeTime: "")
-        return blog
-    }
 }
 struct upLoadImageModel: Codable {
     let url: String?

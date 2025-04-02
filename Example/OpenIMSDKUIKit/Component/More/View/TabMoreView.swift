@@ -17,24 +17,29 @@ class TabMoreView: UIView {
     //数据源
     var actionItems:[MenuItem] = []
     var itemArr:[ItemView?]? = []
+    var deleteIndex:Int?
+    var clickBlock: ((_ index:Int)->())!
 
-
-    private var disposeBag = DisposeBag()
     let frame_width = UIScreen.main.bounds.width
     let itemwidth = (UIScreen.main.bounds.width - 32) / 4
     var bottomHeight = 0
     @objc func showMenu(_ sender: UILongPressGestureRecognizer) {
-            if sender.state == .began {//判断是手势状态，如果不写，你会发现松开手势之后还会再一次触发这个方法
-                self.becomeFirstResponder()//这个必须写，不写就不会显示
-                let menu = UIMenuController.shared
-                let item:UIMenuItem = UIMenuItem(title: "删除", action: #selector(deleteAction))//设置显示的item
-                menu.menuItems = [item]
-                menu.showMenu(from: (sender.view?.superview)!, rect: (sender.view?.frame)!)
-//                menu.setMenuVisible(true, animated: true)//显示UIMenuController
-            }
+        guard sender.state == .began else {
+            return
         }
-    @objc func deleteAction(){
-        SuperToast.show(title: "删除成功")
+        deleteIndex = sender.view!.tag - 10000
+        self.becomeFirstResponder()//这个必须写，不写就不会显示
+        let menuItem = UIMenuItem(title: "删除", action: #selector(deleteAction(_:)))
+        let menuController = UIMenuController.shared
+        menuController.menuItems = [menuItem]
+        menuController.setTargetRect(sender.view!.bounds, in: sender.view!)
+        menuController.setMenuVisible(true, animated: true)
+        }
+    @objc func deleteAction(_ sender: UIMenuController){
+//        SuperToast.show(title: "删除成功")
+        YFFileDataUtil.deleteOneDataFromFile(.home, blogItem: actionItems[deleteIndex ?? 0].blogitem!)
+        actionItems.remove(at: deleteIndex ?? 0)
+        setItems(actionItems)
     }
     override var canBecomeFirstResponder: Bool {
         return true
@@ -53,19 +58,8 @@ class TabMoreView: UIView {
         if scrollView == nil {
             addScrollView()
         }
-        
-//        let centerBgView = UIView()
-//        centerBgView.backgroundColor = .init(hexString: "#f5f5f5")
-//        centerBgView.corner(6)
-//        scrollView?.addSubview(centerBgView)
-//        scrollView?.backgroundColor = .red
-//        centerBgView.snp.makeConstraints { make in
-//            make.leading.equalTo(16)
-//            make.width.equalTo(frame_width - 32)
-//            make.top.equalTo(0)
-//            make.bottom.equalTo(-20)
-//        }
-        
+        itemArr?.map { $0?.removeFromSuperview() }
+        itemArr?.removeAll()
         for i in items.indices {
             let itemView: ItemView? = ItemView()
             itemView!.setData(item: items[i])
@@ -75,22 +69,19 @@ class TabMoreView: UIView {
             itemView!.snp.makeConstraints { make in
                 make.leading.equalTo(leading)
                 make.width.equalTo(itemwidth)
-//                make.height.equalTo(itemwidth + 28)
                 make.top.equalTo(top)
             }
-            
-            let tapItem = UITapGestureRecognizer()
-            tapItem.rx.event.subscribe {  _ in
-                print(i)
-                items[i].action()
-            }.disposed(by: disposeBag)
-            itemView!.addGestureRecognizer(tapItem)
-//            if i > 3 && i < items.count - 1{
-//                let tap:UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(showMenu(_:)))
-//                tap.view?.tag = 1000+i
-//                
-//                itemView!.addGestureRecognizer(tap)
-//            }
+            itemView?.tag = 10000 + i
+            itemView?.tapBtn.rx.tap.subscribe(onNext: { [weak self] in
+                if self?.clickBlock != nil{
+                    self?.clickBlock(i)
+                }
+            }).disposed(by: rx.disposeBag)
+            if i > 3 && i < items.count - 1{
+                let tap = UILongPressGestureRecognizer(target: self, action: #selector(showMenu(_:)))
+                itemView!.isUserInteractionEnabled = true
+                itemView!.addGestureRecognizer(tap)
+            }
             
             if itemArr == nil {
                 itemArr = [ItemView]()
@@ -127,13 +118,6 @@ class TabMoreView: UIView {
         return v
     }()
     
-//    lazy var centerBgView: UIView = {
-//        let r = UIView()
-//        r.backgroundColor = .init(hexString: "#F5F5F5")
-//        r.corner(8)
-//        return r
-//    }()
-    
     lazy var tipsLbl : UILabel = {
         let v = UILabel()
         v.text = R.string.localizable.toolbox()
@@ -141,12 +125,6 @@ class TabMoreView: UIView {
         v.font = UIFont.systemFont(ofSize: 14)
         return v
     }()
-    
-//    lazy var scrollView: UIScrollView = {
-//        let v = UIScrollView()
-//        v.showsVerticalScrollIndicator = false
-//        return v
-//    }()
     
     var scrollView: UIScrollView?
     
@@ -238,21 +216,18 @@ class TabMoreView: UIView {
     public struct MenuItem {
         let title: String
         let icon: String
-        let action: () -> Void
-        public init(title: String, icon: String, action: @escaping () -> Void) {
+        let blogitem:myBlogShowBlogPOModel?
+        public init(title: String, icon: String, blogitem : myBlogShowBlogPOModel?) {
             self.title = title
             self.icon = icon
-            self.action = action
+            self.blogitem = blogitem
         }
     }
     
     
     class ItemView: UIView {
         
-        private var itemData:MenuItem = MenuItem(title: "标题", icon: "") {
-            
-        }
-        
+        private var itemData:MenuItem = MenuItem(title: "标题", icon: "",blogitem: nil)
         deinit {
             print("释放 \(itemData.title)")
         }
@@ -268,6 +243,11 @@ class TabMoreView: UIView {
             v.textColor = .init(hexString: "#333333")
             return v
         }()
+        let tapBtn: UIButton = {
+            let v = UIButton()
+            v.backgroundColor = .clear
+            return v
+        }()
         
         @available(*, unavailable)
         required init?(coder _: NSCoder) {
@@ -279,6 +259,7 @@ class TabMoreView: UIView {
             super.init(frame: frame)
             addSubview(iconImageView)
             addSubview(titleLabel)
+            addSubview(tapBtn)
             
 //            backgroundColor = .green
 //            let itemwidth = (UIScreen.main.bounds.width - 100) / 4
@@ -293,18 +274,18 @@ class TabMoreView: UIView {
                 make.centerX.equalToSuperview()
                 make.bottom.equalToSuperview()
             }
-            
+            tapBtn.snp.makeConstraints { make in
+                make.edges.equalToSuperview()
+            }
         }
         
         func setData(item :MenuItem) {
             itemData = item
-            if item.icon.contains(".com") {
+            if SuperStringUtil.isUrl(item.icon, showTip: false) {
                 iconImageView.show(item.icon)
             } else {
                 iconImageView.image = .init(named: item.icon)
             }
-            
-            
             titleLabel.text = item.title
         }
         
@@ -323,9 +304,6 @@ class TabMoreView: UIView {
             self.layoutIfNeeded()
         } completion: { [self] _ in
             if !show  {
-
-                disposeBag = DisposeBag()
-                
                 
                 if(scrollView != nil) {
                     scrollView?.removeFromSuperview()
