@@ -968,7 +968,8 @@ extension IMController {
                                 onComplete: @escaping CallBack.MessageReturnVoid) {
         let reslut = JsonTool.toJson(fromObject: boke)
         
-        let param = ["customType": 10500, "data":["uid": boke.uid,
+        let param = ["customType": 10500, "data":["type":boke.type,
+                                                  "uid": boke.uid,
                                                   "hash":boke.hash,
                                                   "pwd":boke.pwd,
                                                   "url": boke.url,
@@ -2208,6 +2209,7 @@ struct IMBlogDetailItem: Codable {
     let name: String?
 }
 public class BokeElem: Codable {
+    let type:String?
     let uid: String?
     let hash: String?
     let pwd: String?
@@ -2216,7 +2218,8 @@ public class BokeElem: Codable {
     let mark: String?
     let name: String?
     
-    public init(uid: String?, hash: String?, pwd: String?, url: String?, logo: String?, mark: String?, name: String?) {
+    public init(type:String?,uid: String?, hash: String?, pwd: String?, url: String?, logo: String?, mark: String?, name: String?) {
+        self.type = type
         self.uid = uid
         self.hash = hash
         self.pwd = pwd

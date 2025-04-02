@@ -666,7 +666,7 @@ final class DefaultChatController: ChatController {
 //        let boke = BokeElem(title: source.title, iconUrl: source.iconUrl, linkUrl: source.linkUrl, intro: source.intro)
 //        let boke = BokeElem(from: )
         
-        let boke = BokeElem(uid: source.uid, hash: source.hash, pwd: source.pwd, url: source.url, logo: source.logo, mark: source.mark, name: source.name)
+        let boke = BokeElem(type:source.type,uid: source.uid, hash: source.hash, pwd: source.pwd, url: source.url, logo: source.logo, mark: source.mark, name: source.name)
         
 
         IMController.shared.sendBokeMessage(boke: boke, to: receiverId, conversationType: conversationType) { [weak self] msg in

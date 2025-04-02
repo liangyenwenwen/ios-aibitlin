@@ -111,7 +111,7 @@ extension AccountViewModel {
             }
             contentView.chooseBoke = { item in
 //                let result = "\(item.userBlogName)####\(item.userBlogIcon)####\(item.userBlogUrl)####\(item.userBlogIntro)"
-                let blogDic = ["uid":item.uid,"hash":item.hash,"pwd":item.base?.info?.pwd,"url":item.base?.info?.url,"logo":item.base?.info?.logo,"mark":item.base?.info?.mark,"name":item.base?.info?.name]
+                let blogDic = ["type":String(item.type!),"uid":item.uid,"hash":item.hash,"pwd":item.base?.info?.pwd,"url":item.base?.info?.url,"logo":item.base?.info?.logo,"mark":item.base?.info?.mark,"name":item.base?.info?.name]
                 do  {
                     let jsondata = try JSONSerialization.data(withJSONObject: blogDic, options: .prettyPrinted)
                     if let jsonString = String(data: jsondata, encoding: .utf8) {

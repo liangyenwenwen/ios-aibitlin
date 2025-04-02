@@ -267,6 +267,7 @@ struct FaceMessageSource: Hashable {
 
 // MARK: - 张亚飞打的标记  网站消息
 struct bokeMessageSource: Hashable, Codable {
+    let type:String?
     let uid: String?
     let hash: String?
     let pwd: String?
@@ -364,7 +365,8 @@ extension CustomMessageSource {
 //            let linkUrl = value["linkUrl"]
 //            let intro = value["intro"] ?? "intro"
 //            print(intro)
-            return OUIIM.bokeMessageSource(uid: value["uid"] as? String,
+            return OUIIM.bokeMessageSource(type:value["type"] as? String,
+                                           uid: value["uid"] as? String,
                                            hash: value["hash"] as? String,
                                            pwd: value["pwd"] as? String,
                                            url: value["url"] as? String,
@@ -372,7 +374,7 @@ extension CustomMessageSource {
                                            mark: value["mark"] as? String,
                                            name: value["name"] as? String)
         }
-        return OUIIM.bokeMessageSource(uid: "", hash: "", pwd: "", url: "", logo: "", mark: "", name: "")
+        return OUIIM.bokeMessageSource(type:"",uid: "", hash: "", pwd: "", url: "", logo: "", mark: "", name: "")
     }
     
     // MARK: - 张亚飞打的标记   自定义消息加工

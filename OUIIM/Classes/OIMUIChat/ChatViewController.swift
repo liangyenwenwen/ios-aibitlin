@@ -2366,10 +2366,10 @@ extension ChatViewController: CoustomInputBarAccessoryViewDelegate {
     }
     
     // MARK: - 张亚飞打的标记  第三步 遵循代理实现点击方法
-    func inputBar(_ inputBar: InputBarAccessoryView, didPressPadItemWith type: PadItemType) {
+    func inputBar(_ inputBar: InputBarAccessoryView, didPressPadItemWith padItemModel: PadItemModel) {
 //        resetOffset(newBottomInset: 0)
         
-        switch type {
+        switch padItemModel.padItemType {
         case .media:
             showMediaLinkSheet()
         case .card:
@@ -2383,6 +2383,8 @@ extension ChatViewController: CoustomInputBarAccessoryViewDelegate {
             chooseVoiceORVideo(isVideo: true)
         case .voiceCall:
             chooseVoiceORVideo(isVideo: false)
+        case .customer:
+            print("自定义被点击了")
         default:
             break
         }
@@ -2480,7 +2482,8 @@ extension ChatViewController: CoustomInputBarAccessoryViewDelegate {
             let name: String?
             
             
-            let param = ["customType": 10500, "data":["uid": boke.uid,
+            let param = ["customType": 10500, "data":["type":boke.type,
+                                                      "uid": boke.uid,
                                                      "hash":boke.hash,
                                                      "pwd":boke.pwd,
                                                      "url": boke.url,

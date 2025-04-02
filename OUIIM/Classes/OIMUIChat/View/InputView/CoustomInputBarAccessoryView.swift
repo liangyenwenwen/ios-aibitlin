@@ -22,7 +22,7 @@ enum CustomAttachment {
 // MARK: - CameraInputBarAccessoryViewDelegate
 protocol CoustomInputBarAccessoryViewDelegate: InputBarAccessoryViewDelegate {
     func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith attachments: [CustomAttachment])
-    func inputBar(_ inputBar: InputBarAccessoryView, didPressPadItemWith type: PadItemType)
+    func inputBar(_ inputBar: InputBarAccessoryView, didPressPadItemWith padItemModel: PadItemModel)
     func uploadFile(image: UIImage, completion: @escaping (URL) -> Void)
     func didPressRemoveReplyButton()
     func inputTextViewDidChange()
@@ -33,7 +33,7 @@ protocol CoustomInputBarAccessoryViewDelegate: InputBarAccessoryViewDelegate {
 
 extension CoustomInputBarAccessoryViewDelegate {
     func inputBar(_: InputBarAccessoryView, didPressSendButtonWith _: [CustomAttachment]) { }
-    func inputBar(_: InputBarAccessoryView, didPressPadItemWith _: PadItemType) {}
+    func inputBar(_: InputBarAccessoryView, didPressPadItemWith _: PadItemModel) {}
     func didPressRemoveReplyButton() {}
     func inputTextViewDidChange() {}
 }
@@ -735,10 +735,10 @@ extension CoustomInputBarAccessoryView: UIDocumentBrowserViewControllerDelegate 
 
 // MARK: - 张亚飞打的标记  第二步 聊天底部 被点击
 extension CoustomInputBarAccessoryView: InputPadViewDelegate {
-    func didSelect(type: PadItemType) {
+    func didSelect(padItemModel: PadItemModel) {
         (self.delegate as? CoustomInputBarAccessoryViewDelegate)?
-            .inputBar(self, didPressPadItemWith: type)
-        switch type {
+            .inputBar(self, didPressPadItemWith: padItemModel)
+        switch padItemModel.padItemType {
         case .album:
             showImagePickerController(sourceType: .photoLibrary)
         case .camera:
@@ -748,6 +748,8 @@ extension CoustomInputBarAccessoryView: InputPadViewDelegate {
         case .boke:
             print("boke被点击")
             bokeDidSelcet()
+//        case .customer:
+//            print("自定义被点击")
         default:
             break
         }
