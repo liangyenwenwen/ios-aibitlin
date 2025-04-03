@@ -2209,9 +2209,9 @@ struct IMBlogDetailItem: Codable {
     let name: String?
 }
 public class BokeElem: Codable {
-    let type:String?
+    var type:String?
     let uid: String?
-    let hash: String?
+    public let hash: String?
     let pwd: String?
     let url: String?
     let logo: String?

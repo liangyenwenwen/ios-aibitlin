@@ -31,8 +31,8 @@ class YFMineNetViewModel: AccountViewModel {
     private static let deleteBlogAPI = "/blog/del" //删除网站
     private static let blogTopAPI = "/blog/setTop"//网站置顶
     private static let otherSeeMyBlogAPI = "/blog/othersList" //他人网站列表
+    private static let flagBlogAPI = "/blog/flag" //收藏网站
 
-    
 
     
     private static let queryShowBlogsSurveyAPI = "/blog/myBlogBeBrowsed/queryMyBlogBeBrowsedOverview"//
@@ -209,6 +209,30 @@ class YFMineNetViewModel: AccountViewModel {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 print(strData!)
                 if let res = JsonTool.fromJson(strData!, toClass: BlogResponse.self) {
+                    UserDefaults.standard.set(0, forKey: "blogVersion\(Open_im_sdkGetLoginUserID())")
+                    completionHandler(res.code, res.msg)
+                } else {
+                    completionHandler(-1, "failure")
+                }
+            }else {
+                completionHandler(-1, "-1")
+            }
+        
+        }
+    }
+    static func flagBlog(paramters:Parameters, completionHandler: @escaping CompletionHandler) {
+        ProgressHUD.animate()
+        
+        let url = SuperStringUtil.netUrl(API_BLOG_URL + flagBlogAPI, paramters)
+        print(url)
+        Alamofire.request(url, method: .post, headers: httpHeaders).responseJSON { dataRequest in
+            
+            ProgressHUD.dismiss()
+            
+            if let data = dataRequest.data {
+                let strData = String.init(data: data, encoding: String.Encoding.utf8)
+                print(strData!)
+                if let res = JsonTool.fromJson(strData!, toClass: BlogResponseNOData.self) {
                     UserDefaults.standard.set(0, forKey: "blogVersion\(Open_im_sdkGetLoginUserID())")
                     completionHandler(res.code, res.msg)
                 } else {
@@ -713,6 +737,12 @@ struct PictureFindResponse: Codable {
 // MARK: - 张亚飞打的标记   Response
 class BlogResponse: Decodable {
     var result: String? = nil
+    var code: Int = 200
+    var msg: String? = nil
+    var time: Int? = nil
+    var date: String? = nil
+}
+class BlogResponseNOData: Decodable {
     var code: Int = 200
     var msg: String? = nil
     var time: Int? = nil

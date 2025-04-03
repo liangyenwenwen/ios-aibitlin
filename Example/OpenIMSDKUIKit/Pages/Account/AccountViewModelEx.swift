@@ -154,9 +154,16 @@ extension AccountViewModel {
                     
             do {
                 
-                let boke = try JSONDecoder().decode(blogDetailItem.self, from: jsonData)
+                let boke = try JSONDecoder().decode(BokeElem.self, from: jsonData)
+                YFMineNetViewModel.flagBlog(paramters: ["hash":boke.hash ?? "","val":"1"]) { errCode, errMsg in
+                    if errCode == 200{
+                        SuperToast.show(title: "收藏成功".localized())
+                    }else{
+                        SuperToast.show(title: errMsg?.localized())
+                    }
+                }
 //                YFFileDataUtil.saveOneDataToFile(blogItem: myBlogShowBlogPOModel.init(myBlogShowBlogPO: boke))
-                SuperToast.show(title: "收藏成功".localized())
+                
             } catch {
                 
                 return

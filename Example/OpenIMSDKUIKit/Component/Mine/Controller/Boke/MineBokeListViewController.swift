@@ -260,7 +260,7 @@ extension MineBokeListViewController {
     }
     
     
-    func getMyBlog(page:Int = 1) {
+    func getMyBlog() {
         
         if let IMUser = IMController.shared.currentUserRelay.value {
             YFMineNetViewModel.mineBlog(time: 0, hash: "") { [weak self] data in
@@ -294,9 +294,9 @@ extension MineBokeListViewController {
     }
     
     func topBlog(item: myBlogShowBlogPOModel) {
-        YFMineNetViewModel.blogTop(paramters: ["hash":item.hash ?? ""]) { errCode, errMsg in
+        YFMineNetViewModel.blogTop(paramters: ["hash":item.hash ?? "","val":"1"]) { errCode, errMsg in
             if errCode == 200 {
-                self.getMyBlog(page: 1)
+                self.getMyBlog()
             } else {
                 SuperToast.show(title: errMsg?.localized())
             }
@@ -305,13 +305,20 @@ extension MineBokeListViewController {
     
     func deleteBlog(item: myBlogShowBlogPOModel) {
         if vcType == .star {
-            datum = YFFileDataUtil.deleteOneDataFromFile(blogItem: item)
-            self.tableView.reloadData()
+            YFMineNetViewModel.flagBlog(paramters: ["hash":item.hash ?? "","val":"-1"]) { errCode, errMsg in
+                if errCode == 200 {
+                    self.getMyBlog()
+                    self.datum = YFFileDataUtil.deleteOneDataFromFile(blogItem: item)
+                    self.tableView.reloadData()
+                } else {
+                    SuperToast.show(title: errMsg?.localized())
+                }
+            }
         } else {
             let parameters: [String:Any] = ["hash":item.hash ?? ""]
                 YFMineNetViewModel.deleteBlog(paramters: parameters) { errCode, errMsg in
                     if errCode == 200 {
-                        self.getMyBlog(page: 1)
+                        self.getMyBlog()
                     } else{
                         SuperToast.show(title: errMsg?.localized())
                     }
