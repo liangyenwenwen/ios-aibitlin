@@ -77,12 +77,11 @@ class TabMoreView: UIView {
                     self?.clickBlock(i)
                 }
             }).disposed(by: rx.disposeBag)
-            if i > 3 && i < items.count - 1{
+            if items[i].isCanDelete == true{
                 let tap = UILongPressGestureRecognizer(target: self, action: #selector(showMenu(_:)))
                 itemView!.isUserInteractionEnabled = true
                 itemView!.addGestureRecognizer(tap)
             }
-            
             if itemArr == nil {
                 itemArr = [ItemView]()
                 itemArr!.append(itemView)
@@ -216,10 +215,12 @@ class TabMoreView: UIView {
     public struct MenuItem {
         let title: String
         let icon: String
+        var isCanDelete: Bool = false
         let blogitem:myBlogShowBlogPOModel?
-        public init(title: String, icon: String, blogitem : myBlogShowBlogPOModel?) {
+        public init(title: String, icon: String,isCanDelete:Bool = false, blogitem : myBlogShowBlogPOModel?) {
             self.title = title
             self.icon = icon
+            self.isCanDelete = isCanDelete
             self.blogitem = blogitem
         }
     }

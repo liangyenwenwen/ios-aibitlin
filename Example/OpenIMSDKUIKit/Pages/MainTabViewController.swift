@@ -223,7 +223,6 @@ class MainTabViewController: UITabBarController {
     }
     
     private func loginExsitAccount() {
-        
         IMController.shared.currentUserRelay.subscribe(onNext: { r in
             guard let r else { return }
             
@@ -736,12 +735,14 @@ extension MainTabViewController: UITabBarControllerDelegate {
             return
         }
         
-        let arr = YFFileDataUtil.readDataToFile(.home)
-        
-        if (index > 3 && index < 4 + arr.count) {
+                        
+        if (item.blogitem != nil) {
             
-            
-            SuperWebController.startAboubBlog(currentVC, blogItem: arr[index - 4], isRoot: true)
+            let vc = YFCustomWebViewController()
+            vc.appid = item.blogitem?.hash
+            vc.hidesBottomBarWhenPushed = true
+            currentVC.pushViewController(vc, animated: true)
+//            SuperWebController.startAboubBlog(currentVC, blogItem: item.blogitem!, isRoot: true)
         } else {
             showBlogSheet()
         }
@@ -780,14 +781,22 @@ extension MainTabViewController: UITabBarControllerDelegate {
                                       MoreTabItem(image: "tool_translate_icon", title: "翻译".localized()),
                                       MoreTabItem(image: "tool_black_list_icon", title: "黑名单".localized()),
                                       MoreTabItem(image: "tool_moments_icon", title: "动态".localized())]
+        for item in YFFileDataUtil.readDataToFile(.star) {
+            if item.type == 0{
+                //官方应用
+                let moreItem =  MoreTabItem(image: item.base?.info?.logo ?? "", title: item.base?.info?.name ?? "",blogitem:item)
+                listArrr.append(moreItem)
+            }
+        }
+        
         for item in YFFileDataUtil.readDataToFile(.home) {
-            let moreItem =  MoreTabItem(image: item.base?.info?.logo ?? "", title: item.base?.info?.name ?? "",blogitem:item)
+            let moreItem =  MoreTabItem(image: item.base?.info?.logo ?? "", title: item.base?.info?.name ?? "",isCanDelete:true,blogitem:item)
             listArrr.append(moreItem)
         }
         listArrr.append(MoreTabItem(image: "tool_more_icon", title: "添加".localized()))
         for i in 0 ..< listArrr.count {
             let itemData = listArrr[i]
-            let item = TabMoreView.MenuItem(title: itemData.title, icon: itemData.image,blogitem: itemData.blogitem)
+            let item = TabMoreView.MenuItem(title: itemData.title, icon: itemData.image,isCanDelete:itemData.isCanDelete,blogitem: itemData.blogitem)
             items.append(item)
         }
         _moreView.setItems(items)
@@ -802,6 +811,7 @@ extension MainTabViewController: UITabBarControllerDelegate {
 struct MoreTabItem {
     var image: String
     var title: String
+    var isCanDelete: Bool = false
     var blogitem:myBlogShowBlogPOModel?
 }
 

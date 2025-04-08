@@ -578,7 +578,10 @@ extension UserMessageVC {
 //        SuperWebController.start((self.navigationController!), uri: item.userBlogUrl)
 //        YFMineNetViewModel.scanBlog(blog: item)
 
-        SuperWebController.startAboubBlog(self.navigationController!, blogItem: item)
+        let vc = YFCustomWebViewController()
+        vc.appid = item.hash
+        self.navigationController!.pushViewController(vc, animated: true)
+//        SuperWebController.startAboubBlog(self.navigationController!, blogItem: item)
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {

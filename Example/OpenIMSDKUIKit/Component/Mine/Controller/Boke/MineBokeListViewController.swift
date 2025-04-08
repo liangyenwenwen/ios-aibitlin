@@ -127,7 +127,11 @@ extension MineBokeListViewController {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item = datum[indexPath.row] as! myBlogShowBlogPOModel
-        SuperWebController.startAboubBlog(self.navigationController!, blogItem: item)
+//        SuperWebController.startAboubBlog(self.navigationController!, blogItem: item)
+        let vc = YFCustomWebViewController()
+        vc.appid = item.hash
+//        vc.loadUrl = item.base?.info?.url
+        navigationController?.pushViewController(vc, animated: true)
     }
 
     

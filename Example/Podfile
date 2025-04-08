@@ -51,7 +51,7 @@ pod 'Bugly'
 
 pod 'Firebase/Messaging'
 
-pod 'WebViewJavascriptBridge'
+pod 'WKWebViewJavascriptBridge'
 
 pod 'KeychainAccess'
 

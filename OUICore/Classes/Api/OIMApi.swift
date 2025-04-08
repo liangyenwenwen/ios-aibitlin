@@ -9,9 +9,13 @@ public typealias QueryDataHandler<T: Any> = ((_ completion: @escaping Completion
 // MARK: - 张亚飞打的标记  网站相关
 public typealias showBoke = ((_ keywords: String , _ completion: @escaping ((String) -> Void)) -> Void)
 public typealias currentVCShowBokeHandle = ((_ currentVC: UIViewController , _ completion: @escaping ((String) -> Void)) -> Void)
-public typealias showBokeLinkHandle = ((_ currentVC: UIViewController, _  bokeLink: String ,_ completion: @escaping ((String) -> Void)) -> Void)
+public typealias showBokeLinkHandle = ((_ currentVC: UIViewController, _  bokeLink: String ,_ hash: String,_ completion: @escaping ((String) -> Void)) -> Void)
 //public typealias starBokeLinkHandle = ((_ blogTitle: String, _  blogIcon: String, _ _blogUrl: String, _ blogIntro: String, _ completion: @escaping ((String) -> Void)) -> Void)
 public typealias starBokeLinkHandle = ((_ blogJson: String,  _ completion: @escaping ((String) -> Void)) -> Void)
+
+public typealias getOfficialBokeHandle = (( _ completion: @escaping (([[String: String]]) -> Void)) -> Void)
+
+public typealias clickChatQuickToolHandle = ((_ currentVC: UIViewController,_  linkUrl: String ,_ hash: String,  _ completion: @escaping ((String) -> Void)) -> Void)
 
 
 // MARK: - 张亚飞打的标记  其他跳转  比如 个人资料
@@ -173,6 +177,9 @@ public class OIMApi {
     public static var showBokeSheetHandle: currentVCShowBokeHandle?
     public static var showBokeLinkHandle: showBokeLinkHandle?
     public static var starBokeLinkHandle: starBokeLinkHandle?
+    
+    public static var getOfficialBokeHandle: getOfficialBokeHandle?
+    public static var clickChatQuickToolHandle:clickChatQuickToolHandle?
     
     
     public static var gotoUserMessageHandle: gotoUserMessageHandle?

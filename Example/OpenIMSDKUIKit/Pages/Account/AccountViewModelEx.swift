@@ -92,7 +92,26 @@ extension AccountViewModel {
     
     // MARK: - 张亚飞打的标记  网站相关
     static func showBoke() {
-        
+        //获取官方应用聊天快捷工具
+        OIMApi.getOfficialBokeHandle = { (completion: @escaping ([[String: String]]) -> Void) in
+            var array: [[String: String]] = []
+            for item in YFFileDataUtil.readDataToFile(.star) {
+                if item.type == 0{
+                    //官方应用
+                    for item1 in item.base?.shortcut?.sub ?? [] {
+                        array.append(["name":item1.name ?? "","icon":"","iconUrl":item1.logo ?? "","h5Url":(item.base?.info?.url ?? "") + (item1.url ?? ""),"hash":item.hash ?? ""])
+                    }
+                }
+            }
+            completion(array)
+        }
+        //点击聊天底部工具栏自定义工具
+        OIMApi.clickChatQuickToolHandle = { (vc,url, hash, completion: @escaping (String) -> Void) in
+            let webVC = YFCustomWebViewController()
+            webVC.appid = hash
+            webVC.loadUrl = url
+            vc.navigationController?.pushViewController(webVC, animated: true)
+        }
         // MARK: - 张亚飞打的标记 展示网站
         OIMApi.showBokeHandle = { (keywords, completion: @escaping (String) -> Void) in
             print(keywords)
@@ -137,11 +156,12 @@ extension AccountViewModel {
         }
         
         // MARK: - 张亚飞打的标记   网站跳转
-        OIMApi.showBokeLinkHandle = { (vc, link, _: @escaping (String) -> Void) in
+        
+        OIMApi.showBokeLinkHandle = { (vc, link,hash, _: @escaping (String) -> Void) in
             print("link ----- \(link)")
-            let target = SuperWebController()
-            target.uri = link
-            vc.navigationController?.pushViewController(target, animated: true)
+            let webVC = YFCustomWebViewController()
+            webVC.appid = hash
+            vc.navigationController?.pushViewController(webVC, animated: true)
         }
         
         // MARK: - 张亚飞打的标记   收藏网站

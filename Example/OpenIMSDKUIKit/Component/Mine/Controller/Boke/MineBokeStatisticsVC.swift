@@ -310,7 +310,10 @@ extension MineBokeStatisticsVC {
     
     @objc func gotoBlogDetail() {
 //        SuperWebController.start((self.navigationController!), uri: boke.userBlogUrl)
-        SuperWebController.startAboubBlog(self.navigationController!, blogItem: boke)
+//        SuperWebController.startAboubBlog(self.navigationController!, blogItem: boke)
+        let vc = YFCustomWebViewController()
+        vc.appid = boke.hash
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     

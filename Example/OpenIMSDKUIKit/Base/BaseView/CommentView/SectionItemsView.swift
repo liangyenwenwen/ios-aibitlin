@@ -105,7 +105,7 @@ class SectionItemsView: TGLinearLayout {
                 let item = topContainer.subviews[index] as! SectionItemView
                 item.index = data.count
                 item.show()
-                let moreModel = myBlogShowBlogPOModel(id: -1, uid: "", hash: "", auth: "", type: -1, top_time: 0, show_time: 0, createtime: 0, updatetime: 0, base:BaseBlogModel(info:blogDetailItem(pwd: "", url: "", logo: "", mark: "", name: "")))
+                let moreModel = myBlogShowBlogPOModel(id: -1, uid: "", hash: "", auth: "", type: -1, top_time: 0, show_time: 0, createtime: 0, updatetime: 0, base:BaseBlogModel(info:blogDetailItem(pwd: "", url: "", logo: "", mark: "", name: "",auto: 0)))
                 item.bindDataNet(moreModel, true, isRecommend: true)
             }
             

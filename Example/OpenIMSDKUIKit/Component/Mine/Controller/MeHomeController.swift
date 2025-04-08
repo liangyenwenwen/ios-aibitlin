@@ -334,12 +334,14 @@ class MeHomeController: BaseLogicController {
             if isMore {
                 self?.gotoControllerFromRoot(MineBokeListViewController.self)
             } else {
-
-                
-                let vc = MineBokeStatisticsVC()
-                vc.boke = item
-                
+                let vc = YFCustomWebViewController()
+                vc.appid = item.hash
                 self?.gotoControllerFromRoot(vc)
+                
+//                let vc = MineBokeStatisticsVC()
+//                vc.boke = item
+//                
+//                self?.gotoControllerFromRoot(vc)
 
             }
         }
@@ -380,7 +382,10 @@ class MeHomeController: BaseLogicController {
                 self?.gotoControllerFromRoot(vc)
             } else {
 //                SuperWebController.start((self!.navigationController!), uri: item.myBlogShowBlogPO.userBlogUrl, isRoot: true)
-                SuperWebController.start((self!.navigationController!), uri: item.base?.info?.url, isRoot: true)
+                let vc = YFCustomWebViewController()
+                vc.appid = item.hash
+                self?.gotoControllerFromRoot(vc)
+//                SuperWebController.start((self!.navigationController!), uri: item.base?.info?.url, isRoot: true)
             }
         }
         
@@ -430,10 +435,7 @@ extension MeHomeController {
     
     
     @objc func gotoVip() {
-        let vc = YFCustomWebViewController()
-        vc.loadUrl = "http://192.168.7.113:5173/"
-        gotoControllerFromRoot(vc)
-//        gotoControllerFromRoot(YFMineHomeBuyVipVC.self)
+        gotoControllerFromRoot(YFMineHomeBuyVipVC.self)
     }
     
     @objc func gotoMoments() {

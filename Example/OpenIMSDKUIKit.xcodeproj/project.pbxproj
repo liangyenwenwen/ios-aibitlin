@@ -89,6 +89,10 @@
 		04B09E332CF5A1F800ABF926 /* YFAibitlinAgreementAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B09E322CF5A1F800ABF926 /* YFAibitlinAgreementAlert.swift */; };
 		04B09E352CF5BE5C00ABF926 /* YFResetPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B09E342CF5BE5C00ABF926 /* YFResetPasswordVC.swift */; };
 		04B801372D92C3D10061641B /* AESEncyptUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B801362D92C3D10061641B /* AESEncyptUtil.swift */; };
+		04B801902D9E3AFA0061641B /* error.html in Resources */ = {isa = PBXBuildFile; fileRef = 04B8018F2D9E3AFA0061641B /* error.html */; };
+		04B801942D9E7D940061641B /* webview_refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B801932D9E7D940061641B /* webview_refresh.png */; };
+		04B801962DA3B7470061641B /* WebViewPwdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B801952DA3B7470061641B /* WebViewPwdViewController.swift */; };
+		04B801982DA3D0290061641B /* AuthorizedLoginAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B801972DA3D0290061641B /* AuthorizedLoginAlertView.swift */; };
 		04C394412CCF85A500181F6B /* YFPhoneLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C394402CCF85A500181F6B /* YFPhoneLoginVC.swift */; };
 		04C394432CCF874300181F6B /* YFAibitlinHomeChooseHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C394422CCF874300181F6B /* YFAibitlinHomeChooseHeaderView.swift */; };
 		04C394452CCFADF500181F6B /* YFEmailLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C394442CCFADF500181F6B /* YFEmailLoginVC.swift */; };
@@ -283,6 +287,10 @@
 		04B09E322CF5A1F800ABF926 /* YFAibitlinAgreementAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFAibitlinAgreementAlert.swift; sourceTree = "<group>"; };
 		04B09E342CF5BE5C00ABF926 /* YFResetPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFResetPasswordVC.swift; sourceTree = "<group>"; };
 		04B801362D92C3D10061641B /* AESEncyptUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AESEncyptUtil.swift; sourceTree = "<group>"; };
+		04B8018F2D9E3AFA0061641B /* error.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = error.html; sourceTree = "<group>"; };
+		04B801932D9E7D940061641B /* webview_refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = webview_refresh.png; sourceTree = "<group>"; };
+		04B801952DA3B7470061641B /* WebViewPwdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewPwdViewController.swift; sourceTree = "<group>"; };
+		04B801972DA3D0290061641B /* AuthorizedLoginAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizedLoginAlertView.swift; sourceTree = "<group>"; };
 		04C394402CCF85A500181F6B /* YFPhoneLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFPhoneLoginVC.swift; sourceTree = "<group>"; };
 		04C394422CCF874300181F6B /* YFAibitlinHomeChooseHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFAibitlinHomeChooseHeaderView.swift; sourceTree = "<group>"; };
 		04C394442CCFADF500181F6B /* YFEmailLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFEmailLoginVC.swift; sourceTree = "<group>"; };
@@ -561,6 +569,8 @@
 		040D85D62BEB8C0A00DCAAB3 /* BaseController */ = {
 			isa = PBXGroup;
 			children = (
+				04B8018F2D9E3AFA0061641B /* error.html */,
+				04B801932D9E7D940061641B /* webview_refresh.png */,
 				0411DD262C05CCB800EDD135 /* SuperDialogController.swift */,
 				040D85D72BEB8C0A00DCAAB3 /* BaseWebController.swift */,
 				040D85D82BEB8C0A00DCAAB3 /* BaseController.swift */,
@@ -569,6 +579,8 @@
 				040D85DB2BEB8C0A00DCAAB3 /* BaseTitleController.swift */,
 				04F2D05E2BEE129A00D5271B /* SuperWebController.swift */,
 				04D0531A2D70708200B87ED8 /* YFCustomWebViewController.swift */,
+				04B801952DA3B7470061641B /* WebViewPwdViewController.swift */,
+				04B801972DA3D0290061641B /* AuthorizedLoginAlertView.swift */,
 			);
 			path = BaseController;
 			sourceTree = "<group>";
@@ -1296,8 +1308,10 @@
 				DCE04171283E5BD30095874E /* Localizable.strings in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
+				04B801902D9E3AFA0061641B /* error.html in Resources */,
 				04504CD02D6D9FD700E08B90 /* call.mp3 in Resources */,
 				042AD9E72D295E4600CB5041 /* GoogleService-Info.plist in Resources */,
+				04B801942D9E7D940061641B /* webview_refresh.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1407,7 +1421,7 @@
 				"${BUILT_PRODUCTS_DIR}/SwiftProtobuf/SwiftProtobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SwifterSwift/SwifterSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/TangramKit/TangramKit.framework",
-				"${BUILT_PRODUCTS_DIR}/WebViewJavascriptBridge/WebViewJavascriptBridge.framework",
+				"${BUILT_PRODUCTS_DIR}/WKWebViewJavascriptBridge/WKWebViewJavascriptBridge.framework",
 				"${BUILT_PRODUCTS_DIR}/YYImage/YYImage.framework",
 				"${BUILT_PRODUCTS_DIR}/ZLPhotoBrowser/ZLPhotoBrowser.framework",
 				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
@@ -1471,7 +1485,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftProtobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwifterSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TangramKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WebViewJavascriptBridge.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WKWebViewJavascriptBridge.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZLPhotoBrowser.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
@@ -1594,6 +1608,7 @@
 				17620CE42A4D1E5200B74C96 /* String+Extension.swift in Sources */,
 				04B09E332CF5A1F800ABF926 /* YFAibitlinAgreementAlert.swift in Sources */,
 				04D45E832CA250390052F05A /* AccountViewModelEx.swift in Sources */,
+				04B801962DA3B7470061641B /* WebViewPwdViewController.swift in Sources */,
 				04D8BF822C8AD0AA00C1244E /* MineBokeVisitorListCell.swift in Sources */,
 				040D85C32BEB8B0400DCAAB3 /* ParamUtil.swift in Sources */,
 				040D85F72BEB8C0B00DCAAB3 /* BaseModel.swift in Sources */,
@@ -1663,6 +1678,7 @@
 				0403477B2BEF054A00C7C4EF /* TabMoreView.swift in Sources */,
 				045B8BF72BF4496D0094E080 /* MineChooseBottomSheetView.swift in Sources */,
 				170E4B2329344C5D007A6535 /* DiscoveryViewController.swift in Sources */,
+				04B801982DA3D0290061641B /* AuthorizedLoginAlertView.swift in Sources */,
 				040D85C12BEB8B0400DCAAB3 /* DefaultPreferenceUtil.swift in Sources */,
 				040D85AE2BEB899900DCAAB3 /* DefalutRepository.swift in Sources */,
 				049C643E2BEC619300B679C4 /* YFLoginVC.swift in Sources */,

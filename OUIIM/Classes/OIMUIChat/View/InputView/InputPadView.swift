@@ -7,7 +7,8 @@ public struct PadItemModel: Hashable {
     var name: String?
     var icon: String?
     var iconUrl:String?
-//    var data:Any?
+    var h5Url:String?
+    var hash:String?
 }
 public enum PadItemType: CaseIterable {
     case album
@@ -40,18 +41,35 @@ class InputPadView: UIView {
     }
     
     public weak var delegate: InputPadViewDelegate?
-    
+    func reloadData() {
+        items.removeAll()
+        items = [PadItemModel(padItemType:.camera,name: "相机".localized(),icon:"inputbar_pad_camera_icon", iconUrl: ""),
+                                            PadItemModel(padItemType:.album,name: "照片".localized(),icon:"inputbar_pad_photo_icon", iconUrl: ""),
+                                            PadItemModel(padItemType:.videoCall,name: "视频通话".localized(),icon:"inputbar_pad_video_icon", iconUrl: ""),
+                                            PadItemModel(padItemType:.voiceCall,name: "语音通话".localized(),icon:"inputbar_pad_voice_icon", iconUrl: ""),
+                                            PadItemModel(padItemType:.card,name: "名片".localized(),icon:"inputbar_pad_card_icon", iconUrl: ""),
+                                            PadItemModel(padItemType:.boke,name: "网站".localized(),icon:"inputbar_pad_boke_icon", iconUrl: ""),
+                                            PadItemModel(padItemType:.file,name: "文件".localized(),icon:"inputbar_pad_file_icon", iconUrl: "")]
+        if let handler = OIMApi.getOfficialBokeHandle {
+            handler({ [weak self] arr in
+                for item in arr {
+                    self?.items.append(PadItemModel(padItemType:.customer,name: item["name"],icon:item["icon"], iconUrl: item["iconUrl"],h5Url:item["h5Url"],hash:item["hash"]))
+                }
+            })
+        }
+    }
     // 每行要展示的 item 数量
     private let itemsPerRow = 4
     // MARK: - 张亚飞打的标记  第一步修改下方按钮  聊天功能下面展示内容
 //    private let items: [PadItemType] = PadItemType.allCases
-    private let items:[PadItemModel] = [PadItemModel(padItemType:.camera,name: "相机".localized(),icon:"inputbar_pad_camera_icon", iconUrl: ""),
-                                        PadItemModel(padItemType:.album,name: "照片".localized(),icon:"inputbar_pad_photo_icon", iconUrl: ""),
-                                        PadItemModel(padItemType:.videoCall,name: "视频通话".localized(),icon:"inputbar_pad_video_icon", iconUrl: ""),
-                                        PadItemModel(padItemType:.voiceCall,name: "语音通话".localized(),icon:"inputbar_pad_voice_icon", iconUrl: ""),
-                                        PadItemModel(padItemType:.card,name: "名片".localized(),icon:"inputbar_pad_card_icon", iconUrl: ""),
-                                        PadItemModel(padItemType:.boke,name: "网站".localized(),icon:"inputbar_pad_boke_icon", iconUrl: ""),
-                                        PadItemModel(padItemType:.file,name: "文件".localized(),icon:"inputbar_pad_file_icon", iconUrl: "")]
+//    private let items:[PadItemModel] = [PadItemModel(padItemType:.camera,name: "相机".localized(),icon:"inputbar_pad_camera_icon", iconUrl: ""),
+//                                        PadItemModel(padItemType:.album,name: "照片".localized(),icon:"inputbar_pad_photo_icon", iconUrl: ""),
+//                                        PadItemModel(padItemType:.videoCall,name: "视频通话".localized(),icon:"inputbar_pad_video_icon", iconUrl: ""),
+//                                        PadItemModel(padItemType:.voiceCall,name: "语音通话".localized(),icon:"inputbar_pad_voice_icon", iconUrl: ""),
+//                                        PadItemModel(padItemType:.card,name: "名片".localized(),icon:"inputbar_pad_card_icon", iconUrl: ""),
+//                                        PadItemModel(padItemType:.boke,name: "网站".localized(),icon:"inputbar_pad_boke_icon", iconUrl: ""),
+//                                        PadItemModel(padItemType:.file,name: "文件".localized(),icon:"inputbar_pad_file_icon", iconUrl: "")]
+    private var items:[PadItemModel] = []
     
     private lazy var collectionView: UICollectionView = {
         let v = UICollectionView(frame: CGRect.zero, collectionViewLayout: ChatHorizontalLayout(column: 4, row: 2))
@@ -86,7 +104,7 @@ class InputPadView: UIView {
         backgroundColor = .init(hexString: "#EFF2F6")
         translatesAutoresizingMaskIntoConstraints = false
         layoutMargins = .zero
-        
+        self.reloadData()
         self.addSubview(collectionView)
         self.addSubview(pageControl)
         
@@ -131,6 +149,7 @@ private class ItemCell: UICollectionViewCell {
         contentView.addSubview(titleLabel)
         imageView.snp_makeConstraints { make in
             make.centerX.equalToSuperview()
+            make.width.height.equalTo(48)
             make.top.equalToSuperview().offset(16)
         }
         titleLabel.snp_makeConstraints { make in

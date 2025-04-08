@@ -489,7 +489,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>WebViewJavascriptBridge.xcscheme</key>
+		<key>WKWebViewJavascriptBridge.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>

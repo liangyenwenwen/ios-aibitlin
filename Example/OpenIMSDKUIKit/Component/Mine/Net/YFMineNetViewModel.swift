@@ -32,6 +32,9 @@ class YFMineNetViewModel: AccountViewModel {
     private static let blogTopAPI = "/blog/setTop"//网站置顶
     private static let otherSeeMyBlogAPI = "/blog/othersList" //他人网站列表
     private static let flagBlogAPI = "/blog/flag" //收藏网站
+    
+    private static let checkH5API = "/blog/signIn" //校验jwt给H5、博客、官方小程序使用
+
 
 
     
@@ -636,6 +639,31 @@ class YFMineNetViewModel: AccountViewModel {
             }
         }
     }
+    static func checkH5(paramters:Parameters,valueHandler: @escaping (h5Model) -> Void, completionHandler: @escaping CompletionHandler) {
+        ProgressHUD.animate()
+        
+        let url = SuperStringUtil.netUrl(API_BLOG_URL + checkH5API, paramters)
+        Alamofire.request(API_BLOG_URL + checkH5API, method: .post, parameters: paramters, encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
+            ProgressHUD.dismiss()
+            
+            if let data = dataRequest.data {
+                let strData = String.init(data: data, encoding: String.Encoding.utf8)
+                print(strData!)
+                if let res = JsonTool.fromJson(strData!, toClass: BlogListResponse<h5Model>.self) {
+                    if res.code == 200{
+                        valueHandler(res.result)
+                    }else{
+                        completionHandler(res.code, res.msg)
+                    }
+                } else {
+                    completionHandler(-1, "failure")
+                }
+            }else {
+                completionHandler(-1, "-1")
+            }
+        
+        }
+    }
   
     
     
@@ -800,12 +828,31 @@ struct BaseBlogModel: Codable {
     var hash:String?
     var info:blogDetailItem?
     var extend:extendModel?
+    var shortcut:shortcut?
 }
 struct extendModel: Codable {
-    var before:[String]?
-    var after:[String]?
-    var ex:[String]?
+    var app:permissionModel?
+    var js:jsModel?
+    var sum:sumModel?
+}
+struct permissionModel: Codable {
     var permission:[String]?
+}
+struct jsModel: Codable {
+    var after:[String]?
+    var before:[String]?
+}
+struct sumModel: Codable {
+    var flag:String?
+}
+struct shortcut: Codable {
+    var home:homeModel?
+    var sub:[homeModel]?
+}
+struct homeModel: Codable {
+    var name:String?
+    var logo:String?
+    var url:String?
 }
 struct blogDetailItem: Codable {
     let pwd: String?
@@ -813,6 +860,7 @@ struct blogDetailItem: Codable {
     let logo: String?
     let mark: String?
     let name: String?
+    let auto: Int? //0是需要授权，1是不需要授权
 }
 
 
@@ -885,5 +933,17 @@ class othersBlogRequest: Encodable {
 }
 struct upLoadImageModel: Codable {
     let url: String?
+}
+struct h5Model: Codable {
+    let token:String?
+    let data:h5Info?
+}
+struct h5Info: Codable {
+    let avatar:String?
+    let nickname:String?
+    let hash:String?
+    let info:blogDetailItem?
+    let extend:extendModel?
+    let shortcut:shortcut?
 }
 

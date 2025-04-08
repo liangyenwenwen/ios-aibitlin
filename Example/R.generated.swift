@@ -171,7 +171,7 @@ struct _R: Sendable {
       var ieXW0yeText: RswiftResources.StringResource { .init(key: "8ie-xW-0ye.text", tableName: "LaunchScreen", source: source, developmentValue: nil, comment: nil) }
     }
 
-    /// This `_R.string.localizable` struct is generated, and contains static references to 549 localization keys.
+    /// This `_R.string.localizable` struct is generated, and contains static references to 552 localization keys.
     struct localizable {
       let source: RswiftResources.StringResource.Source
 
@@ -2170,6 +2170,13 @@ struct _R: Sendable {
       /// Locales: en, th
       var 图片: RswiftResources.StringResource { .init(key: "图片", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// en translation: Image saved failed
+      ///
+      /// Key: 图片保存失败
+      ///
+      /// Locales: en, th
+      var 图片保存失败: RswiftResources.StringResource { .init(key: "图片保存失败", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: Image saved successfully
       ///
       /// Key: 图片保存成功
@@ -2281,6 +2288,13 @@ struct _R: Sendable {
       ///
       /// Locales: en, th
       var 密码锁定: RswiftResources.StringResource { .init(key: "密码锁定", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Password error
+      ///
+      /// Key: 密码错误
+      ///
+      /// Locales: en, th
+      var 密码错误: RswiftResources.StringResource { .init(key: "密码错误", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: The password length must be 6 digits
       ///
@@ -3934,6 +3948,13 @@ struct _R: Sendable {
       /// Locales: en, th
       var 隐私访问: RswiftResources.StringResource { .init(key: "隐私访问", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// en translation: Privacy access password
+      ///
+      /// Key: 隐私访问密码
+      ///
+      /// Locales: en, th
+      var 隐私访问密码: RswiftResources.StringResource { .init(key: "隐私访问密码", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: Need to send verification information
       ///
       /// Key: 需要发送验证信息
@@ -4036,7 +4057,7 @@ struct _R: Sendable {
     var colorBackground: RswiftResources.ColorResource { .init(name: "ColorBackground", path: [], bundle: bundle) }
   }
 
-  /// This `_R.image` struct is generated, and contains static references to 260 images.
+  /// This `_R.image` struct is generated, and contains static references to 261 images.
   struct image {
     let bundle: Foundation.Bundle
 
@@ -4817,6 +4838,9 @@ struct _R: Sendable {
     /// Image `warnings_icon`.
     var warnings_icon: RswiftResources.ImageResource { .init(name: "warnings_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
+    /// Image `webview_refresh`.
+    var webview_refresh: RswiftResources.ImageResource { .init(name: "webview_refresh", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `youtube_icon`.
     var youtube_icon: RswiftResources.ImageResource { .init(name: "youtube_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
   }
@@ -4826,7 +4850,7 @@ struct _R: Sendable {
     let apsEnvironment: String = "development"
   }
 
-  /// This `_R.file` struct is generated, and contains static references to 2 resource files.
+  /// This `_R.file` struct is generated, and contains static references to 4 resource files.
   struct file {
     let bundle: Foundation.Bundle
 
@@ -4835,6 +4859,12 @@ struct _R: Sendable {
 
     /// Resource file `call.mp3`.
     var callMp3: RswiftResources.FileResource { .init(name: "call", pathExtension: "mp3", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `error.html`.
+    var errorHtml: RswiftResources.FileResource { .init(name: "error", pathExtension: "html", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `webview_refresh.png`.
+    var webview_refreshPng: RswiftResources.FileResource { .init(name: "webview_refresh", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
   }
 
   /// This `_R.nib` struct is generated, and contains static references to 1 nibs.

@@ -1992,10 +1992,8 @@ extension ChatViewController: ChatControllerDelegate {
                 // MARK: - 张亚飞打的标记  网站被点击
                 print(source.bokeMessageSource.url)
                 print("boke 被点击")
-                if source.bokeMessageSource.url != nil {
-                    gotoBokeLink(source.bokeMessageSource.url!)
-                } else {
-                    gotoBokeLink("")
+                if source.bokeMessageSource.hash != nil {
+                    gotoBokeLink(bokeMessageSource: source.bokeMessageSource)
                 }
                 
             default:
@@ -2006,9 +2004,9 @@ extension ChatViewController: ChatControllerDelegate {
         print("\(#function)")
     }
     
-    func gotoBokeLink(_ link: String) {
+    func gotoBokeLink(bokeMessageSource: bokeMessageSource) {
         if let handler = OIMApi.showBokeLinkHandle {
-            handler(self, link, {_ in 
+            handler(self, bokeMessageSource.url ?? "",bokeMessageSource.hash ?? "", {_ in
                 
             })
         }
@@ -2384,7 +2382,7 @@ extension ChatViewController: CoustomInputBarAccessoryViewDelegate {
         case .voiceCall:
             chooseVoiceORVideo(isVideo: false)
         case .customer:
-            print("自定义被点击了")
+            chooseCustomerTool(padItemModel:padItemModel)
         default:
             break
         }
@@ -2442,7 +2440,13 @@ extension ChatViewController: CoustomInputBarAccessoryViewDelegate {
         
         navigationController?.pushViewController(vc, animated: true)
     }
-    
+    //MARK: - 点击聊天底部工具栏自定义工具
+    private func chooseCustomerTool(padItemModel:PadItemModel){
+        if let handler = OIMApi.clickChatQuickToolHandle {
+            handler(self, padItemModel.h5Url ?? "",padItemModel.hash ?? "", {_ in
+            })
+        }
+    }
     // MARK: - 张亚飞打的标记  第四步 展示网站列表 网站聊表被点击 返回参数  发送网站信息
     private func showBokeView()  {
         let completion = completionHandler()

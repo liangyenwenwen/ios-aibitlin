@@ -148,6 +148,7 @@ extension YFChatBokeBottomSheetView {
                 for item in tableMoreData {
                     array.removeAll(where: { $0.hash == item.hash })
                 }
+                array.removeAll { $0.type == 0 } // 删除所有官方应用
                 dataArray = array
             }else{
                 dataArray = array
