@@ -657,7 +657,7 @@ DEPENDENCIES:
   - SwifterSwift
   - SwiftEventBus
   - TangramKit
-  - WKWebViewJavascriptBridge
+  - WKWebViewJavascriptBridge (~> 1.2.2)
   - ZFPlayer (from `../3rd`)
   - ZLPhotoBrowser (from `../3rd`)
 
@@ -831,6 +831,6 @@ SPEC CHECKSUMS:
   ZLPhotoBrowser: 52c8b386e3f9a7885676027c529a015147df502c
   ZXSDK-Noidfa: f3cc8e4b6b4775df301489ae0792b727e193e7d3
 
-PODFILE CHECKSUM: 1b6c63b746bf0446c47c2c893b8528b462cf6212
+PODFILE CHECKSUM: 7fe12d5bb26c08e9904728f3c307461563207216
 
 COCOAPODS: 1.16.2

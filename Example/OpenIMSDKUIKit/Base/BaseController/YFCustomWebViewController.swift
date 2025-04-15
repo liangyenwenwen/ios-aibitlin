@@ -28,94 +28,198 @@ class YFCustomWebViewController: BaseTitleController, WKUIDelegate,WKNavigationD
     private var bridge: WKWebViewJavascriptBridge!
     var loadUrl:String?
     var appid:String?
-    
+    var chatUserId:String?
+    var chatGroupId:String?
     var h5DetailInfo:h5Model?
-
+    var loadImageAPI:String?
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: false)
+        self.navView.hide()
+        
+    }
     override func initViews() {
         super.initViews()
         initRelativeLayoutSafeArea()
-        title = "JS交互测试"
-        addRightTextButton("调用h5方法")
         container.addSubview(webView)
         bridge = WKWebViewJavascriptBridge(webView: webView)
         webView.uiDelegate = self
-        // 注册 Swift 方法供 H5 调用
-        bridge.register(handlerName: "testiOSCallback") { parameters, callback in
-            if let data = parameters as? String {
-                print("Received data from H5: \(data)")
-                // 给 H5 一个响应
-                SuperToast.show(title: "h5调用swift，返回给h5 111111")
-                callback?("111111")
-            }
-        }
-        bridge.register(handlerName: "refreshWebView") { parameters, callback in
-            let request = URLRequest(url: URL(string: "http://www.baidu.com")!)
-                   //请求
-            self.webView.load(request)
-        }
-        //显示网址内容
-        //创建一个Request
-//        let request = URLRequest(url: URL(string: loadUrl)!)
-//        //请求
-//        webView.load(request)
         // 加载 HTML 文件
 //        if let htmlPath = Bundle.main.path(forResource: "error", ofType: "html") {
 //            let url = URL(fileURLWithPath: htmlPath)
 //            let request = URLRequest(url: url)
 //            webView.load(request)
 //        }
-        if loadUrl?.length ?? 0 > 0{
-            if ((loadUrl?.hasPrefix("www.")) != nil){
-                loadUrl = "http://" + (loadUrl ?? "")
-            }
-            let request = URLRequest(url: URL(string: loadUrl)!)
-            webView.load(request)
-        }else{
-            checkH5()
-        }
-        
+        checkH5()
+        //注册方法供h5调用
+        registerAllFunc()
     }
     func registerAllFunc(){
+        //刷新
+        bridge.register(handlerName: "refreshWebView") { parameters, callback in
+            let request = URLRequest(url: URL(string: "http://www.baidu.com")!)
+                   //请求
+            self.webView.load(request)
+        }
         //h5获取token
         bridge.register(handlerName: "getToken") { parameters, callback in
-            callback?(IMController.shared.tokenABC)
+            if self.h5DetailInfo?.data?.info?.auto == 0 && (self.h5DetailInfo?.data?.extend?.app?.permission?.count ?? 0 > 0) && YFFileDataUtil.isHaveThisH5Data(.loginAuth,item: self.h5DetailInfo!) == false
+            {
+                //需要弹出授权框
+                let authView = AuthorizedLoginAlertView()
+                authView.tg_width.equal(.fill)
+                authView.tg_height.equal(351 + kSafeAreaBottomHeight)
+                authView.updateContentUI(model: self.h5DetailInfo!)
+                authView.authLoginAction = { [weak self] in
+                    YFFileDataUtil.saveOneH5ToFile(.loginAuth, item: self!.h5DetailInfo!)
+                    callback?(self?.h5DetailInfo?.token)
+                }
+                authView.cancleAuthLoginAction = {[weak self] in
+                    self?.navigationController?.popViewController(animated: true)
+                }
+                GKCover.cover(from:self.view.window, contentView: authView, style: .translucent, showStyle: .bottom, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: true)
+            }else{
+                callback?(self.h5DetailInfo?.token)
+            }
         }
+        //h5获取当前会话id
+        bridge.register(handlerName: "getCurrentConversationInfo") { (parameters, callback) in
+            callback?(["receiverUserId":self.chatUserId,"receiverGroupId":self.chatGroupId])
+        }
+        //
         //h5调用扫一扫
-        bridge.register(handlerName: "getScanCode") { parameters, callback in
+        bridge.register(handlerName: "scan") { parameters, callback in
             let vc = ScanViewController()
             vc.scanDidComplete = { [weak self] (result: String) in
                 ProgressHUD.dismiss()
-                callback?(result)
+                self?.bridge.call(handlerName: "onScan", data: result){response in
+                    
+                }
                 self?.navigationController?.popViewController(animated: true)
             }
             self.navigationController?.pushViewController(vc, animated: true)
         }
-        //h5调用保存图片
-        bridge.register(handlerName: "saveImage") { image, callback in
-            self.saveImage(image: image as! UIImage)
-        }
-        //h5获取群成员
-        bridge.register(handlerName: "getGroupMember") { parameters, callback in
+        //h5调用发送消息
+        
+        bridge.register(handlerName: "sendMessage") { parameters, callHandleback in
+            let userId = parameters?["userId"] as! String
+            let groupId = parameters?["groupId"] as! String
             
-            IMController.shared.getGroupMemberList(groupId: parameters?["groupID"] as! String, filter: .all, offset: 0, count: 100000) { ms in
-                let encoder = JSONEncoder()
-                do  {
-                    let jsondata = try encoder.encode(ms)
-                    if let jsonString = String(data: jsondata, encoding: .utf8) {
-                        print(jsonString)
-                        callback?(jsonString)
-                    }
-                } catch {
-                    print(error.localizedDescription)
+            IMController.shared.sendCommonTemplateMessage(param: parameters!["data"] as? [String:Any], to: userId.length > 0 ? userId : groupId, conversationType: userId.length > 0 ? .c2c : .superGroup) { [weak self] msg in
+                callHandleback!("发送成功")
+            } onComplete: { [weak self] msg in
+                callHandleback!("发送失败")
+            }
+        }
+        //h5获取群成员列表
+        bridge.register(handlerName: "getGroupMembersInfo") { parameters, callback in
+            
+            IMController.shared.getGroupMemberList(groupId: parameters?["groupID"] as! String, filter: .all, offset: 0, count: 100000) { [weak self] ms in
+                let we = ms[0].nickname
+                var groupMemberList = []
+                for item in ms {
+                    groupMemberList.append(["userId":item.userID,"name":item.nickname,"face":item.faceURL])
+                }
+                self?.bridge.call(handlerName: "onGroupMembersInfo", data: groupMemberList){response in
+                    
                 }
             }
         }
-        
+        //h5获取我的群列表
+        bridge.register(handlerName: "getGroups") { parameters, callback in
+            
+            IMController.shared.getJoinedGroupList { [weak self] (groups: [GroupInfo]) in
+                let groups: [GroupInfo] = groups
+                var groupList = []
+                for item in groups {
+                    groupList.append(["groupId":item.groupID,"name":item.groupName ?? "","face":"","mCount":item.memberCount])
+                }
+                self?.bridge.call(handlerName: "onGroups", data: groupList){response in
+                    
+                }
+            }
+        }
+        //h5获取我的好友列表
+        bridge.register(handlerName: "getFriendList") { parameters, callback in
+            IMController.shared.getFriendList { [weak self] users in
+                let userList = users.compactMap({ UserInfo(userID: $0.userID!, nickname: $0.remark?.isEmpty == false ? $0.remark : $0.nickname, faceURL: $0.faceURL) })
+                var friendList = []
+                for item in userList {
+                    friendList.append(["userId":item.userID,"name":item.nickname ?? "","face":item.faceURL])
+                }
+                self?.bridge.call(handlerName: "onFriendList", data: friendList){response in
+                    
+                }
+            }
+        }
+        //h5调用保存图片
+        bridge.register(handlerName: "saveImage") { parameters, callback in
+            self.saveImage(base64String: parameters?["base64String"] as! String)
+        }
+        //h5调用分享图片
+        bridge.register(handlerName: "shareImage") { parameters, callback in
+            let image = self.base64StringToImage(base64String: parameters!["base64String"] as! String)
+            if image != nil {
+                let activityViewController = UIActivityViewController(activityItems: [image!], applicationActivities: nil)
+                self.present(activityViewController, animated: true)
+            }else{
+                SuperToast.show(title: "分享失败".localized())
+            }
+        }
+        //h5调用相机或相册上传图片
+        bridge.register(handlerName: "photoUpload") {parameters, callback in
+            self.loadImageAPI = parameters!["url"] as? String
+            self._photoHelper.setConfigToMultipleSelected(forVideo: false, maxSelectCount: 1)
+            self._photoHelper.showSelectMetaSheet(byController: self)
+//            self._photoHelper.presentPhotoLibrary(byController: self)
+        }
     }
-    @objc func saveImage(image:UIImage) {
+    private lazy var _photoHelper: PhotoHelper = {
+        let v = PhotoHelper()
+        v.setConfigToMultipleSelected()
+        v.didPhotoSelected = { [weak self] (images: [UIImage], assets: [PHAsset]) in
+            guard var photo = images.first else { return }
+            self?.upLoadImage(image: photo)
+        }
+        
+        v.didCameraFinished = { [weak self] (photo: UIImage?, videoPath: URL?) in
+            guard let sself = self else { return }
+            if var photo {
+                self?.upLoadImage(image: photo)
+            }
+        }
+        return v
+    }()
+    func upLoadImage(image:UIImage) {
+        ProgressHUD.animate()
+        let uploadImage = image.compress(expectSize: 1500 * 1024)
+        let result = FileHelper.shared.saveImage(image: uploadImage)
+        
+        if result.isSuccess {
+            YFMineNetViewModel.uploadImageFromPath(apiUrl:loadImageAPI ?? "",fileURL:NSURL(fileURLWithPath: result.fullPath) as URL) { [weak self] data in
+                ProgressHUD.dismiss()
+                self?.loadImageAPI = nil
+                self?.bridge.call(handlerName: "onPhotoUpload", data: data.url ?? ""){response in
+                    
+                }
+            } completionHandler: { errCode, errMsg in
+                ProgressHUD.dismiss()
+                SuperToast.show(title: errMsg?.localized())
+            }
+        } else {
+            
+            ProgressHUD.dismiss()
+        }
+    }
+    @objc func saveImage(base64String:String) {
         let status = PHPhotoLibrary.authorizationStatus()
         if (status == .authorized) {
-            UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.image(image:didFinishSavingWithError:contextInfo:)), nil)
+            let image = base64StringToImage(base64String: base64String)
+            if image != nil {
+                UIImageWriteToSavedPhotosAlbum(image!, self, #selector(self.image(image:didFinishSavingWithError:contextInfo:)), nil)
+            }else{
+                SuperToast.show(title: "图片保存失败".localized())
+            }
         } else if (status == .restricted || status == .denied) {
             let alert = UIAlertController(title: "提示".localized(), message: "请去-> [设置 - 隐私 - 相册] 打开访问开关".localized(), preferredStyle: .alert)
             //cacel 取消也改变值  defalut 必须选择 alert才会消失
@@ -126,7 +230,12 @@ class YFCustomWebViewController: BaseTitleController, WKUIDelegate,WKNavigationD
                 let isTrue = (firstStatus == .authorized)
                 if isTrue {
                     // 用户首次允许
-                    UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.image(image:didFinishSavingWithError:contextInfo:)), nil)
+                    let image = self.base64StringToImage(base64String: base64String)
+                    if image != nil {
+                        UIImageWriteToSavedPhotosAlbum(image!, self, #selector(self.image(image:didFinishSavingWithError:contextInfo:)), nil)
+                    }else{
+                        SuperToast.show(title: "图片保存失败".localized())
+                    }
                 } else {
                     // 用户首次拒绝
                 }
@@ -144,12 +253,40 @@ class YFCustomWebViewController: BaseTitleController, WKUIDelegate,WKNavigationD
         print("图片保存成功".localized())
         SuperToast.show(title: "图片保存成功".localized())
     }
+    func base64StringToImage(base64String: String) -> UIImage? {
+        // 移除Base64字符串中的空白符和可能的URL Scheme（如"data:image/png;base64,")
+        let cleanedBase64 = base64String.replacingOccurrences(of: " ", with: "")
+            .replacingOccurrences(of: "\n", with: "")
+            .replacingOccurrences(of: "data:image/png;base64,", with: "")
+            .replacingOccurrences(of: "data:image/jpeg;base64,", with: "")
+     
+        // 将Base64字符串转换为Data
+        guard let imageData = Data(base64Encoded: cleanedBase64) else {
+            print("Error: Could not create Data from Base64 string")
+            return nil
+        }
+     
+        // 使用Data初始化UIImage
+        guard let image = UIImage(data: imageData) else {
+            print("Error: Could not create UIImage from Data")
+            return nil
+        }
+     
+        return image
+    }
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: any Error) {
         print("网页加载失败\(error.localizedDescription)")
         
     }
     // 处理临时导航失败
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        if loadUrl!.hasPrefix("https://"){
+            loadUrl = loadUrl!.replacingOccurrences(of: "https://", with: "http://")
+            let request = URLRequest(url: URL(string: loadUrl)!)
+            webView.load(request)
+        }else{
+            //加载失败页
+        }
         print("Provisional navigation failed with error: \(error.localizedDescription)")
     }
 
@@ -162,28 +299,35 @@ class YFCustomWebViewController: BaseTitleController, WKUIDelegate,WKNavigationD
                 let jsondata = try JSONSerialization.data(withJSONObject: param, options: .prettyPrinted)
                 if let jsonString = String(data: jsondata, encoding: .utf8) {
                     print(jsonString)
-                    self.checkWebView(data: jsonString.base64Encoded)
+                    self.checkWebView(dataStr: jsonString.base64Encoded)
                 }
             } catch {
                 print(error.localizedDescription)
             }
         }).disposed(by: _disposeBag)
     }
-    func checkWebView(data:String?){
-        YFMineNetViewModel.checkH5(paramters: ["data":data as Any]) { [weak self] data in
+    func checkWebView(dataStr:String?){
+        YFMineNetViewModel.checkH5(paramters: ["data":dataStr as Any]) { [weak self] data in
             ProgressHUD.dismiss()
             self?.h5DetailInfo = data
+            YFFileDataUtil.saveOneH5ToFile(item: data)
+            if self?.loadUrl?.length ?? 0 > 0{
+                if self?.loadUrl?.hasPrefix("http://") == false && self?.loadUrl?.hasPrefix("https://") == false {
+                    self?.loadUrl = "https://" + (self?.loadUrl ?? "")
+                }
+                self?.loadCheckH5()
+                return
+            }
             if !SuperStringUtil.isUrl(data.data?.info?.url, showTip: false) {
                 let key = (data.data?.info?.pwd ?? "") + "0000000000"
                 let ivs = "0000000000000000"
                 if let de = try? AESEncyptUtil.decrypt_AES_CBC(decryptText: data.data?.info?.url ?? "", key: key, ivs: ivs){
                     //解析成功
-                    if de.hasPrefix("www."){
-                        self?.loadUrl = "http://" + de
+                    if de.hasPrefix("http://") == false && de.hasPrefix("https://") == false {
+                        self?.loadUrl = "https://" + de
                     }else{
                         self?.loadUrl = de
                     }
-                    
                     self?.loadCheckH5()
                 }else{
                    //解析失败输入密码
@@ -195,8 +339,8 @@ class YFCustomWebViewController: BaseTitleController, WKUIDelegate,WKNavigationD
                         let ivs1 = "0000000000000000"
                         if let de1 = try? AESEncyptUtil.decrypt_AES_CBC(decryptText: data.data?.info?.url ?? "", key: key1, ivs: ivs1){
                             //解析成功
-                            if de1.hasPrefix("www."){
-                                self?.loadUrl = "http://" + de1
+                            if de1.hasPrefix("http://") == false && de1.hasPrefix("https://") == false {
+                                self?.loadUrl = "https://" + de1
                             }else{
                                 self?.loadUrl = de1
                             }
@@ -214,8 +358,8 @@ class YFCustomWebViewController: BaseTitleController, WKUIDelegate,WKNavigationD
                 }
                 
             }else{
-                if ((data.data?.info?.url?.hasPrefix("www.")) != nil){
-                    self?.loadUrl = "http://" + (data.data?.info?.url ?? "")
+                if data.data?.info?.url?.hasPrefix("http://") == false && data.data?.info?.url?.hasPrefix("https://") == false {
+                    self?.loadUrl = "https://" + (data.data?.info?.url ?? "")
                 }else{
                     self?.loadUrl = data.data?.info?.url
                 }
@@ -229,12 +373,25 @@ class YFCustomWebViewController: BaseTitleController, WKUIDelegate,WKNavigationD
     func loadCheckH5(){
         let request = URLRequest(url: URL(string: loadUrl)!)
         webView.load(request)
-        if h5DetailInfo?.data?.info?.auto == 0 && (h5DetailInfo?.data?.extend?.app?.permission?.count ?? 0 > 0){
-            //需要弹出授权框
-            
-        }
-        
+//        checkAuthLogin()
     }
+//    func checkAuthLogin(){
+//        if h5DetailInfo?.data?.info?.auto == 0 && (h5DetailInfo?.data?.extend?.app?.permission?.count ?? 0 > 0) && YFFileDataUtil.isHaveThisH5Data(.loginAuth,item: h5DetailInfo!) == false
+//        {
+//            //需要弹出授权框
+//            let authView = AuthorizedLoginAlertView()
+//            authView.tg_width.equal(.fill)
+//            authView.tg_height.equal(351 + kSafeAreaBottomHeight)
+//            authView.updateContentUI(model: h5DetailInfo!)
+//            authView.authLoginAction = { [weak self] in
+//                YFFileDataUtil.saveOneH5ToFile(.loginAuth, item: self!.h5DetailInfo!)
+//            }
+//            authView.cancleAuthLoginAction = {[weak self] in
+//                self?.navigationController?.popViewController(animated: true)
+//            }
+//            GKCover.cover(from:view.window, contentView: authView, style: .translucent, showStyle: .bottom, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: true)
+//        }
+//    }
     /// 拦截点击返回按钮
     override func leftBtnClick(_ sender: QMUIButton) {
         if webView.canGoBack {
@@ -244,31 +401,5 @@ class YFCustomWebViewController: BaseTitleController, WKUIDelegate,WKNavigationD
         }
         
         super.leftBtnClick(sender)
-    }
-    override func rightBtnClick(_ sender: QMUIButton) {
-//        // 获取默认的网站数据存储实例
-//            let dataStore = WKWebsiteDataStore.default()
-//            // 获取所有类型的网站数据
-//            let dataTypes = WKWebsiteDataStore.allWebsiteDataTypes()
-//            // 从过去的某个时间点开始，这里设置为遥远的过去，意味着清除所有缓存数据
-//            let date = Date.distantPast
-//            // 异步删除指定类型和时间范围内的网站数据
-//            dataStore.removeData(ofTypes: dataTypes, modifiedSince: date) {
-//                print("WKWebView 缓存已清空")
-//                let request = URLRequest(url: URL(string: self.loadUrl)!)
-//                self.webView.load(request)
-//            }
-        callH5Method()
-    }
-    private func callH5Method() {
-        let message = "Hello from Swift!"
-        bridge.call(handlerName: "testJavascriptHandler", data: message){response in
-            var str = "没有返回任何数据"
-            if let response = response as? String {
-                print("Received response from H5: \(response)")
-                str = "并返回" + response
-            }
-            SuperToast.show(title: "swift调用h5，" + str)
-        }
     }
 }

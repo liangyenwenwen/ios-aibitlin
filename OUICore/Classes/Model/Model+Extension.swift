@@ -107,7 +107,7 @@ extension MessageContentType {
         case .face:
             return "[自定义表情]"
         case .custom:
-            return "[自定义消息]"
+            return "[自定义模版]"
         default:
             return ""
         }
@@ -592,6 +592,8 @@ extension MessageInfo {
             return "[" + "meetingInvitation".innerLocalized() + "]"
         case .boke:
             return "[" + "网站".innerLocalized() + "]"
+        case .commonTemplate:
+            return "[" + "自定义".innerLocalized() + "]"
         }
     }
     

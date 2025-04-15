@@ -17,6 +17,8 @@ public typealias getOfficialBokeHandle = (( _ completion: @escaping (([[String: 
 
 public typealias clickChatQuickToolHandle = ((_ currentVC: UIViewController,_  linkUrl: String ,_ hash: String,  _ completion: @escaping ((String) -> Void)) -> Void)
 
+public typealias clickPublicCustomerMessageHandle = ((_ currentVC: UIViewController,_  source: String ,_ type: String,  _ completion: @escaping ((String) -> Void)) -> Void)
+
 
 // MARK: - 张亚飞打的标记  其他跳转  比如 个人资料
 public typealias gotoUserMessageHandle = ((_ currentVC: UIViewController, _  userID: String, _ nickname: String, _ faceURL: String ,_ completion: @escaping ((String) -> Void)) -> Void)
@@ -180,6 +182,7 @@ public class OIMApi {
     
     public static var getOfficialBokeHandle: getOfficialBokeHandle?
     public static var clickChatQuickToolHandle:clickChatQuickToolHandle?
+    public static var clickPublicCustomerMessageHandle:clickPublicCustomerMessageHandle?
     
     
     public static var gotoUserMessageHandle: gotoUserMessageHandle?

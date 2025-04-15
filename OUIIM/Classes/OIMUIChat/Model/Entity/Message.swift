@@ -276,7 +276,47 @@ struct bokeMessageSource: Hashable, Codable {
     let mark: String?
     let name: String?
 }
-
+// MARK: -  公共模版消息
+struct commonTemplateSource:Decodable {
+    let data: commonTemplateMessageSource?
+    let customType: Int?
+}
+struct commonTemplateMessageSource: Decodable {
+    let hash:String?
+    let logo: String?
+    let title: String?
+    let intro: String?
+    let action: String?
+    let url:String?
+    let remark:String?
+    let item:commonTemplateItemModel?
+    let bt:commonTemplateBtModel?
+    let media:commonTemplateMediaModel?
+}
+struct commonTemplateItemModel: Codable {
+    let bg: String?
+    let icon: String?
+    let name: String?
+    let intro: String?
+    let action:String?
+    let url:String?
+    let request_data:String?
+}
+struct commonTemplateBtModel: Codable {
+    let long:commonTemplateBtItemModel?
+    let left:commonTemplateBtItemModel?
+    let right:commonTemplateBtItemModel?
+}
+struct commonTemplateBtItemModel: Codable {
+    let action:String?
+    let url:String?
+    let name:String?
+    let request_data:String?
+}
+struct commonTemplateMediaModel: Codable {
+    let type:String?
+    let media_url:String?
+}
 
 // MARK: - 张亚飞打的标记  通知消息
 struct NoticeMessageSource: Hashable {
@@ -341,9 +381,11 @@ struct CustomMessageSource: Hashable {
         case buyVip = 10600 //购买vip
         case vipVisitorWarn = 10601 //vip访客提醒
         case systemNotify = 10700 //系统通知
+        case commonTemplate = 10900 //自定义统一模版
     }
 
     var data: String?
+    var localEx: String?
     private(set) var attributedString: NSAttributedString?
 }
 
@@ -355,6 +397,13 @@ extension CustomMessageSource {
             return obj["data"] as? [String: Any]
         }
         
+        return nil
+    }
+    public var localExValue: [String: Any]? {
+        if let localEx = localEx {
+            let obj = try! JSONSerialization.jsonObject(with: localEx.data(using: .utf8)!, options: []) as! [String: Any]
+            return obj["localEx"] as? [String: Any]
+        }
         return nil
     }
     // MARK: - 张亚飞打的标记   获取网站信息
@@ -376,7 +425,28 @@ extension CustomMessageSource {
         }
         return OUIIM.bokeMessageSource(type:"",uid: "", hash: "", pwd: "", url: "", logo: "", mark: "", name: "")
     }
-    
+    public var commonTemplateMessageSource: commonTemplateMessageSource {
+        if let value = value {
+            if let localExValue = localExValue{
+                if let res = JsonTool.fromMap(localExValue, toClass:  OUIIM.commonTemplateMessageSource.self){
+                    return res
+                }else{
+                    let long = commonTemplateBtItemModel(action: "", url: "", name: "", request_data: "")
+                    return OUIIM.commonTemplateMessageSource(hash: "",logo: "", title: "", intro: "", action: "", url: "", remark: "", item: OUIIM.commonTemplateItemModel(bg: "", icon: "", name: "", intro: "", action: "", url: "", request_data: ""), bt: OUIIM.commonTemplateBtModel(long: long, left: long, right: long), media: OUIIM.commonTemplateMediaModel(type: "", media_url: ""))
+                }
+            }else{
+                if let res = JsonTool.fromMap(value, toClass:  OUIIM.commonTemplateMessageSource.self){
+                    return res
+                }else{
+                    let long = commonTemplateBtItemModel(action: "", url: "", name: "", request_data: "")
+                    return OUIIM.commonTemplateMessageSource(hash: "",logo: "", title: "", intro: "", action: "", url: "", remark: "", item: OUIIM.commonTemplateItemModel(bg: "", icon: "", name: "", intro: "", action: "", url: "", request_data: ""), bt: OUIIM.commonTemplateBtModel(long: long, left: long, right: long), media: OUIIM.commonTemplateMediaModel(type: "", media_url: ""))
+                }
+            }
+            
+        }
+        let long = commonTemplateBtItemModel(action: "", url: "", name: "", request_data: "")
+        return OUIIM.commonTemplateMessageSource(hash: "",logo: "", title: "", intro: "", action: "", url: "", remark: "", item: OUIIM.commonTemplateItemModel(bg: "", icon: "", name: "", intro: "", action: "", url: "", request_data: ""), bt: OUIIM.commonTemplateBtModel(long: long, left: long, right: long), media: OUIIM.commonTemplateMediaModel(type: "", media_url: ""))
+    }
     // MARK: - 张亚飞打的标记   自定义消息加工
     public var type: CustomMessageType? {
         if let data = data {

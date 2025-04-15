@@ -130,7 +130,6 @@ extension MineBokeListViewController {
 //        SuperWebController.startAboubBlog(self.navigationController!, blogItem: item)
         let vc = YFCustomWebViewController()
         vc.appid = item.hash
-//        vc.loadUrl = item.base?.info?.url
         navigationController?.pushViewController(vc, animated: true)
     }
 

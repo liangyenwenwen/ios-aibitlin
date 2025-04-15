@@ -782,8 +782,8 @@ extension MainTabViewController: UITabBarControllerDelegate {
                                       MoreTabItem(image: "tool_black_list_icon", title: "黑名单".localized()),
                                       MoreTabItem(image: "tool_moments_icon", title: "动态".localized())]
         for item in YFFileDataUtil.readDataToFile(.star) {
-            if item.type == 0{
-                //官方应用
+            if item.type == 0 || item.type == 1{
+                //官方应用,企业应用
                 let moreItem =  MoreTabItem(image: item.base?.info?.logo ?? "", title: item.base?.info?.name ?? "",blogitem:item)
                 listArrr.append(moreItem)
             }

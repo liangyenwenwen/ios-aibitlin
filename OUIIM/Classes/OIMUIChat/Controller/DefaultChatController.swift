@@ -627,6 +627,8 @@ final class DefaultChatController: ChatController {
                 print("发送网站 \(source)")
                 print("发送网站 \(source.value)")
                 sendBoke(source: source.bokeMessageSource, completion: completion)
+            }else if source.type == .commonTemplate{
+                print("发送自定义消息模版 \(source)")
             }
         }
     }
@@ -675,7 +677,18 @@ final class DefaultChatController: ChatController {
             self?.appendMessage(msg, completion: completion)
         }
     }
-    
+    //发送公共模版消息
+    private func sendCommonTemplate(source: [String: Any]?, completion: @escaping ([Section]) -> Void) {
+//        let boke = BokeElem(title: source.title, iconUrl: source.iconUrl, linkUrl: source.linkUrl, intro: source.intro)
+//        let boke = BokeElem(from: )
+        
+
+        IMController.shared.sendCommonTemplateMessage(param: source, to: receiverId, conversationType: conversationType) { [weak self] msg in
+            self?.appendMessage(msg, completion: completion)
+        } onComplete: { [weak self] msg in
+            self?.appendMessage(msg, completion: completion)
+        }
+    }
     private func sendImage(source: MediaMessageSource, completion: @escaping ([Section]) -> Void) {
         var path = source.source.url!.path
         path = path.hasPrefix("file://") ? path : "file://" + path
@@ -1356,7 +1369,12 @@ final class DefaultChatController: ChatController {
                 if msg.customElem?.type == .deletedByFriend || msg.customElem?.type == .blockedByFriend {
                     return .attributeText(value)
                 } else {
-                    let source = CustomMessageSource(data: msg.customElem?.data, attributedString: value)
+                    var source = CustomMessageSource(data: msg.customElem?.data, attributedString: value)
+                    if msg.customElem?.type == .commonTemplate{
+                        if let ex = msg.localEx {
+                            source.localEx = ex
+                        }
+                    }
                     
                     return .custom(source)
                 }
@@ -1762,6 +1780,10 @@ extension DefaultChatController: ReloadDelegate {
         defaultSelecteMessage(with: messageID)
         deleteMessage {}
     }
+    func clickPublicCustomerMessage(with id: String,type:String, data: Message.Data) {
+        delegate?.clickPublicCustomerMessage(with: id,type:type, data: data)
+    }
+    
 }
 
 extension DefaultChatController: EditingAccessoryControllerDelegate {

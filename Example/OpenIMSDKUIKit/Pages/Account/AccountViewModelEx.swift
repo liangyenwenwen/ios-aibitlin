@@ -8,6 +8,8 @@
 
 import Foundation
 import OUICore
+import ProgressHUD
+
 
 // MARK: - 张亚飞打的标记  业务交互
 extension AccountViewModel {
@@ -92,12 +94,67 @@ extension AccountViewModel {
     
     // MARK: - 张亚飞打的标记  网站相关
     static func showBoke() {
+        //点击公共模版
+        OIMApi.clickPublicCustomerMessageHandle = { (vc,source, type, completion: @escaping (String) -> Void) in
+            let dic = try! JSONSerialization.jsonObject(with: source.data(using: .utf8)!) as! [String: Any]
+            let hash = dic["hash"] as! String
+            var request_data = ""
+            var url = ""
+            if type == "base"{
+                url = dic["url"] as! String
+                request_data = dic["request_data"] as! String
+            }else if type == "item"{
+                if let item = dic["item"] as? [String : Any]{
+                    url = item["url"] as! String
+                    request_data = item["request_data"] as! String
+                }
+                
+            }else{
+                if let bt = dic["bt"] as? [String : Any]{
+                    if type == "longBtn",
+                       let long = bt["long"] as? [String : Any]{
+                        url = long["url"] as! String
+                        request_data = long["request_data"] as! String
+                    }
+                    if type == "leftBtn",
+                       let left = bt["left"] as? [String : Any]{
+                        url = left["url"] as! String
+                        request_data = left["request_data"] as! String
+                    }
+                    if type == "rightBtn",
+                       let right = bt["right"] as? [String : Any]{
+                        url = right["url"] as! String
+                        request_data = right["request_data"] as! String
+                    }
+                }
+            }
+            let param = ["hash":hash,"url":url]
+            YFMineNetViewModel.checkPublicCustomerMessageApi(paramters: param) { info in
+                if info.action == "get"{
+                    ProgressHUD.dismiss()
+                    let webVC = YFCustomWebViewController()
+                    webVC.appid = info.hash
+                    webVC.loadUrl = info.url
+                    vc.navigationController?.pushViewController(webVC, animated: true)
+                }else{
+                    let dic1 = try! JSONSerialization.jsonObject(with: request_data.data(using: .utf8)!) as! [String: Any]
+                    YFMineNetViewModel.updatePublicCustomerMessageAction(url: info.url ?? "",token:info.token ?? "", paramters: dic1) { _ in
+                        
+                    } completionHandler: { errCode, errMsg in
+                        SuperToast.show(title: errMsg?.localized())
+                    }
+
+                }
+            }completionHandler: { errCode, errMsg in
+                SuperToast.show(title: errMsg?.localized())
+            }
+        }
         //获取官方应用聊天快捷工具
         OIMApi.getOfficialBokeHandle = { (completion: @escaping ([[String: String]]) -> Void) in
             var array: [[String: String]] = []
             for item in YFFileDataUtil.readDataToFile(.star) {
-                if item.type == 0{
-                    //官方应用
+                if item.type == 0 || item.type == 1{
+                    //官方应用,企业应用
                     for item1 in item.base?.shortcut?.sub ?? [] {
                         array.append(["name":item1.name ?? "","icon":"","iconUrl":item1.logo ?? "","h5Url":(item.base?.info?.url ?? "") + (item1.url ?? ""),"hash":item.hash ?? ""])
                     }

@@ -1688,7 +1688,36 @@ extension ChatViewController: ChatControllerDelegate {
             self.chatViewControllerNav.moreImg.isHidden = true
         }
     }
-    
+    //点击公共模版消息
+    func clickPublicCustomerMessage(with id: String, type:String, data: Message.Data) {
+        if case .custom(let source) = data {
+            var sourceStr = ""
+            if source.localEx?.isEmpty ?? true {
+                let obj = try! JSONSerialization.jsonObject(with: source.data!.data(using: .utf8)!) as! [String: Any]
+                do {
+                    // 将字典转换为Data对象
+                    let jsonData = try JSONSerialization.data(withJSONObject: obj["data"] as! [String : Any], options: .prettyPrinted)
+                    
+                    // 将Data对象转换为字符串
+                    if let jsonString = String(data: jsonData, encoding: .utf8) {
+                        sourceStr = jsonString
+                    } else {
+                        print("无法将数据转换为字符串")
+                    }
+                } catch {
+                    print("发生错误：\(error)")
+                }
+                
+            }else{
+                sourceStr = source.localEx!
+            }
+            if let handler = OIMApi.clickPublicCustomerMessageHandle,
+               sourceStr.length > 0{
+                handler(self, sourceStr,type, {_ in
+                })
+            }
+        }
+    }
     // MARK: - 张亚飞打的标记  点击消息
     func didTapContent(with id: String, data: Message.Data) {
         popover?.dismiss()
@@ -1995,6 +2024,9 @@ extension ChatViewController: ChatControllerDelegate {
                 if source.bokeMessageSource.hash != nil {
                     gotoBokeLink(bokeMessageSource: source.bokeMessageSource)
                 }
+            case .commonTemplate:
+                //公共消息模版被点击
+                print("公共消息模版被点击")
                 
             default:
                 break
@@ -2966,6 +2998,20 @@ extension ChatViewController: GestureDelegate {
                         actions = [forwardAction(id: message.id),
                                    starAction(id: message.id, source: source.bokeMessageSource)]
                     }
+                }else if source.type == .commonTemplate {
+                    actions = [deleteAction(id: message.id)]
+                    let visibleCells = collectionView.visibleCells
+                    var subviews = visibleCells.flatMap({ $0.contentView.subviews })
+                    let subviews2 = subviews.flatMap({ $0.subviews })
+                    let subviews3 = subviews2.filter({ $0 is UIStackView }) as [UIStackView]
+
+                    popover = PopoverCollectionViewController(items: actions!)
+                    popover!.show(in: self, sender: sourceView, point: point, passthroughViews: subviews3)
+                    
+                    popover!.onDismiss = { [weak self] in
+                        self?.keepContentOffsetAtBottom = true
+                    }
+                    return
                 }
                 break
             default:

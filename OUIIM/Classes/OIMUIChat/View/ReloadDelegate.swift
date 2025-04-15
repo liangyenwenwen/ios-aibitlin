@@ -8,6 +8,8 @@ protocol ReloadDelegate: AnyObject {
     func didTapRead(messageID: String)
     func resendMessage(messageID: String)
     func removeMessage(messageID: String)
+    func clickPublicCustomerMessage(with id: String, type:String, data: Message.Data)
+
 }
 
 // view 的点击代理，经过controler 传递到 view controller

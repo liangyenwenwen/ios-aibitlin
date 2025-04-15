@@ -34,6 +34,7 @@ class YFMineNetViewModel: AccountViewModel {
     private static let flagBlogAPI = "/blog/flag" //收藏网站
     
     private static let checkH5API = "/blog/signIn" //校验jwt给H5、博客、官方小程序使用
+    private static let getPublicCustomerMessageNextAPI = "/blog/signhost" //微交互地址签名
 
 
 
@@ -68,11 +69,10 @@ class YFMineNetViewModel: AccountViewModel {
     //"183.156.234.224"
     private static var httpHeaders : HTTPHeaders = [
         "token":IMController.shared.tokenABC,
-//        "md5":IMController.shared.tokenC,
+        "X-Forwarded-Add":IMController.shared.publicAddress,
         "X-Forwarded-For":IMController.shared.publicIP,
         "Authorization":"eyJ1c2VySW5mbyI6InVzZXJCbG9nWWFuWmhlbmdUb2tlbiJ9",
         "Content-Type":"application/json",
-//        "operationID":UUID().uuidString,
         "operationID":String(Int(Date().timeIntervalSince1970)),
     ]
     
@@ -106,7 +106,7 @@ class YFMineNetViewModel: AccountViewModel {
             
             switch response.result {
             case .success(let result):
-                if let res = JsonTool.fromJson(result, toClass: BlogResponse.self) {
+                if let res = JsonTool.fromJson(result, toClass: BlogResponseNOData.self) {
                     UserDefaults.standard.set(0, forKey: "blogVersion\(Open_im_sdkGetLoginUserID())")
                     completionHandler(res.code, res.msg)
                     
@@ -211,7 +211,7 @@ class YFMineNetViewModel: AccountViewModel {
             if let data = dataRequest.data {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 print(strData!)
-                if let res = JsonTool.fromJson(strData!, toClass: BlogResponse.self) {
+                if let res = JsonTool.fromJson(strData!, toClass: BlogResponseNOData.self) {
                     UserDefaults.standard.set(0, forKey: "blogVersion\(Open_im_sdkGetLoginUserID())")
                     completionHandler(res.code, res.msg)
                 } else {
@@ -312,7 +312,7 @@ class YFMineNetViewModel: AccountViewModel {
             if let data = dataRequest.data {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 print(strData!)
-                if let res = JsonTool.fromJson(strData!, toClass: BlogResponse.self) {
+                if let res = JsonTool.fromJson(strData!, toClass: BlogResponseNOData.self) {
                     UserDefaults.standard.set(0, forKey: "blogVersion\(Open_im_sdkGetLoginUserID())")
                     completionHandler(res.code, res.msg)
                 } else {
@@ -335,7 +335,7 @@ class YFMineNetViewModel: AccountViewModel {
             
             if let data = dataRequest.data {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
-                if let res = JsonTool.fromJson(strData!, toClass: BlogResponse.self) {
+                if let res = JsonTool.fromJson(strData!, toClass: BlogResponseNOData.self) {
                     UserDefaults.standard.set(0, forKey: "blogVersion\(Open_im_sdkGetLoginUserID())")
                     completionHandler(res.code, res.msg)
                 } else {
@@ -519,7 +519,7 @@ class YFMineNetViewModel: AccountViewModel {
                 ProgressHUD.dismiss()
                 if let data = dataRequest.data {
                     let strData = String.init(data: data, encoding: String.Encoding.utf8)
-                    if let res = JsonTool.fromJson(strData!, toClass: BlogResponse.self) {
+                    if let res = JsonTool.fromJson(strData!, toClass: BlogResponseNOData.self) {
                         
                         if res.code == 200  {
                            valueHandler("scuccess")
@@ -547,7 +547,7 @@ class YFMineNetViewModel: AccountViewModel {
                 
                 if let data = dataRequest.data {
                     let strData = String.init(data: data, encoding: String.Encoding.utf8)
-                    if let res = JsonTool.fromJson(strData!, toClass: BlogResponse.self) {
+                    if let res = JsonTool.fromJson(strData!, toClass: BlogResponseNOData.self) {
                         
                         if res.code == 200  {
                             let defaults = UserDefaults.standard
@@ -587,7 +587,7 @@ class YFMineNetViewModel: AccountViewModel {
         Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
             if let data = dataRequest.data {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
-                if let res = JsonTool.fromJson(strData!, toClass: BlogResponse.self) {
+                if let res = JsonTool.fromJson(strData!, toClass: BlogResponseNOData.self) {
                     
                     if res.code == 200  {
                         let defaults = UserDefaults.standard
@@ -603,14 +603,14 @@ class YFMineNetViewModel: AccountViewModel {
     
         
     }
-    static func uploadImageFromPath(fileURL: URL,
+    static func uploadImageFromPath(apiUrl:String = API_BLOG_URL + upLoadBlogIconAPI,fileURL: URL,
                                     valueHandler: @escaping (upLoadImageModel) -> Void,
                                     completionHandler: @escaping CompletionHandler) {
         // 发送 Multipart 请求
         Alamofire.upload(multipartFormData: { (multipartFormData) in
             // 添加文件数据
             multipartFormData.append(fileURL, withName: "file")
-        }, to: API_BLOG_URL + upLoadBlogIconAPI, method: .post,headers: httpHeaders) { (result) in
+        }, to: apiUrl, method: .post,headers: httpHeaders) { (result) in
             switch result {
             case .success(let upload, _, _):
                 // 请求成功
@@ -664,8 +664,58 @@ class YFMineNetViewModel: AccountViewModel {
         
         }
     }
-  
-    
+    static func checkPublicCustomerMessageApi(paramters:Parameters,valueHandler: @escaping (checkPublicCustomerUrlInfo) -> Void, completionHandler: @escaping CompletionHandler) {
+        ProgressHUD.animate()
+        Alamofire.request(API_BLOG_URL + getPublicCustomerMessageNextAPI, method: .post, parameters: paramters, encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
+            
+            if let data = dataRequest.data {
+                let strData = String.init(data: data, encoding: String.Encoding.utf8)
+                print(strData!)
+                if let res = JsonTool.fromJson(strData!, toClass: BlogListResponse<checkPublicCustomerUrlInfo>.self) {
+                    if res.code == 200{
+                        valueHandler(res.result)
+                    }else{
+                        completionHandler(res.code, res.msg)
+                    }
+                } else {
+                    completionHandler(-1, "failure")
+                }
+            }else {
+                completionHandler(-1, "-1")
+            }
+        
+        }
+    }
+    static func updatePublicCustomerMessageAction(url:String,token:String,paramters:Parameters,valueHandler: @escaping (Parameters) -> Void, completionHandler: @escaping CompletionHandler) {
+        ProgressHUD.animate()
+        let header : HTTPHeaders = [
+            "token":token,
+            "X-Forwarded-Add":IMController.shared.publicAddress,
+            "X-Forwarded-For":IMController.shared.publicIP,
+            "Authorization":"eyJ1c2VySW5mbyI6InVzZXJCbG9nWWFuWmhlbmdUb2tlbiJ9",
+            "Content-Type":"application/json",
+            "operationID":String(Int(Date().timeIntervalSince1970)),
+        ]
+        Alamofire.request(url, method: .post, parameters: paramters, encoding: JSONEncoding.default, headers: header).responseJSON { dataRequest in
+            ProgressHUD.dismiss()
+            if let data = dataRequest.data {
+                let strData = String.init(data: data, encoding: String.Encoding.utf8)
+                print(strData!)
+                if let res = JsonTool.fromJson(strData!, toClass: BlogListResponse<checkPublicCustomerUrlInfo>.self) {
+                    if res.code == 200{
+                        valueHandler(["33":""])
+                    }else{
+                        completionHandler(res.code, res.msg)
+                    }
+                } else {
+                    completionHandler(-1, "failure")
+                }
+            }else {
+                completionHandler(-1, "-1")
+            }
+        
+        }
+    }
     
 }
 
@@ -732,7 +782,7 @@ extension YFMineNetViewModel {
             
             if let data  = dataRequest.data {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
-                if let res = JsonTool.fromJson(strData!, toClass: BlogResponse.self) {
+                if let res = JsonTool.fromJson(strData!, toClass: BlogResponseNOData.self) {
                     
                     if res.code == 200  {
                         SuperToast.show(title: "提交成功".localized())
@@ -945,5 +995,12 @@ struct h5Info: Codable {
     let info:blogDetailItem?
     let extend:extendModel?
     let shortcut:shortcut?
+}
+struct checkPublicCustomerUrlInfo:Codable {
+    let token:String?
+    let url:String?
+    let hash:String?
+    let action:String?
+    let queryJson:String?
 }
 

@@ -52,6 +52,8 @@ public enum CustomMessageType: Int {
     case deletedByFriend = 911 // 被删除
     
     case boke = 10500 //网站
+    
+    case commonTemplate = 10900 //自定义统一模版
 }
 
 // MARK: - 对外协议
@@ -182,6 +184,7 @@ public class IMController: NSObject {
     
     public var deviceToken = ""
     public var publicIP = ""
+    public var publicAddress = ""
     public var netWorkStatus = "hasNetWork"
     public var uid: String = ""
     public var token: String = ""
@@ -986,6 +989,26 @@ extension IMController {
             sendOIMMessage(message: message, to: recvID, conversationType: conversationType, onComplete: onComplete)
         } catch {
             print("发送网站失败  ----- json 解析错误")
+        }
+        
+    }
+    //发送公共模版消息
+    public func sendCommonTemplateMessage(param: [String: Any]?,
+                                to recvID: String,
+                                conversationType: ConversationType,
+                                sending: CallBack.MessageReturnVoid,
+                                onComplete: @escaping CallBack.MessageReturnVoid) {
+        do {
+            let data = ["customType": 10900, "data":param]  as [String : Any]
+            let dataStr = String.init(data: try JSONSerialization.data(withJSONObject: data),
+                                      encoding: .utf8)!
+            let message = OIMMessageInfo.createCustomMessage(dataStr, extension: "CommonTemplate", description: "")
+            message.status = .sending
+            message.localEx = dataStr
+            sending(message.toMessageInfo())
+            sendOIMMessage(message: message, to: recvID, conversationType: conversationType, onComplete: onComplete)
+        } catch {
+            print("发送红包失败  ----- json 解析错误")
         }
         
     }

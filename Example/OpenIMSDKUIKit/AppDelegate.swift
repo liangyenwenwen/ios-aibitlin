@@ -110,16 +110,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 //            UserDefaults.standard.setValue(["en"], forKey: "AppleLanguages")
 //        }
         
-        
-//        print(YFNetworkUtils.getIPAddress())
-//        print(YFNetworkUtils.getIPAddress2())
-        IMController.shared.publicIP = UserDefaults.standard.string(forKey: "publicIP") ?? "60.177.29.150"
-        YFNetworkUtils.getPublicIP { ip in
-            if let ip = ip{
-                IMController.shared.publicIP = ip
-                UserDefaults.standard.set(ip, forKey: "publicIP")
-            }
-            
+        IMController.shared.publicIP = UserDefaults.standard.string(forKey: "publicIP") ?? ""
+        IMController.shared.publicAddress = UserDefaults.standard.string(forKey: "publicAddress") ?? ""
+        YFNetworkUtils.getPublicIP { ip,address in
+            IMController.shared.publicIP = ip ?? ""
+            UserDefaults.standard.set(ip, forKey: "publicIP")
+            IMController.shared.publicAddress = address ?? ""
+            UserDefaults.standard.set(ip, forKey: "publicAddress")
         }
         //设置接口域名
         setAppApi()

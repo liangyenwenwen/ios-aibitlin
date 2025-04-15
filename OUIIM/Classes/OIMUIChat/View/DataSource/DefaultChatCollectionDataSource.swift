@@ -31,6 +31,7 @@ typealias BlankCustomViewCollectionCell = ContainerCollectionViewCell<MessageCon
 
 // MARK: - 张亚飞打的标记  自定义BokeCell
 typealias BokeCollectionCell = ContainerCollectionViewCell<MessageContainerView<EditingAccessoryView, MainContainerView<ChatAvatarView, YFBokeView, ChatAvatarView>>>
+typealias CommonTemplateCollectionCell = ContainerCollectionViewCell<MessageContainerView<EditingAccessoryView, MainContainerView<ChatAvatarView, YFCommonTemplateView, ChatAvatarView>>>
 
 // MARK: - 张亚飞打的标记  没有头像的消息Cell
 typealias UserTitleCollectionCell = ContainerCollectionViewCell<SwappingContainerView<EdgeAligningView<UILabel>, UIImageView>>
@@ -108,6 +109,7 @@ final class DefaultChatCollectionDataSource: NSObject, ChatCollectionDataSource 
         
         // MARK: - 张亚飞打的标记  自定义消息注册
         collectionView.register(BokeCollectionCell.self, forCellWithReuseIdentifier: BokeCollectionCell.reuseIdentifier)
+        collectionView.register(CommonTemplateCollectionCell.self, forCellWithReuseIdentifier: CommonTemplateCollectionCell.reuseIdentifier)
         collectionView.register(VipNormolCollectionCell.self, forCellWithReuseIdentifier: VipNormolCollectionCell.reuseIdentifier)
         collectionView.register(VipContactCollectionCell.self, forCellWithReuseIdentifier: VipContactCollectionCell.reuseIdentifier)
         
@@ -659,6 +661,29 @@ final class DefaultChatCollectionDataSource: NSObject, ChatCollectionDataSource 
             
             return cell
             
+        }else if  source.type == .commonTemplate{
+            //公共消息
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CommonTemplateCollectionCell.reuseIdentifier, for: indexPath) as! CommonTemplateCollectionCell
+            setupMessageContainerView(cell.customView, messageId: messageId, isSelected: isSelected,enableSelected: false,alignment: alignment)
+            setupMainMessageView(cell.customView.customView, user: user, date: date, messageID: messageId, alignment: alignment, bubble: bubbleType, status: status, sessionType: sessionType, isTop: isTop, lastID: lastID)
+            setupSwipeHandlingAccessory(cell.customView.customView, date: date, accessoryConnectingView: cell.customView)
+            
+            let bubbleView = cell.customView.customView.maskedView
+            let controller = YFCommonTemplateController(source: source,
+                                                 messageID: messageId,
+                                                 bubbleController: buildBlankBubbleController(bubbleView: bubbleView,
+                                                                                             messageType: messageType,
+                                                                                              bubbleType: bubbleType))
+            
+            controller.longPress = { [weak self] sourceView, point in
+                self?.gestureDelegate?.longPress(with: indexPath, sourceView: sourceView, point: point)
+            }
+            controller.delegate = reloadDelegate
+            bubbleView.customView.setup(with: controller)
+            controller.view = bubbleView.customView
+            cell.delegate = bubbleView.customView
+            
+            return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CustomViewCollectionCell.reuseIdentifier, for: indexPath) as! CustomViewCollectionCell
             

@@ -15,6 +15,7 @@ enum localBlogType {
     case mine
     case home
     case history
+    case loginAuth
 }
 
 
@@ -54,6 +55,12 @@ class YFFileDataUtil {
         filePath!.appendPathComponent("\(Open_im_sdkGetLoginUserID())blogHistory.archive")
         return filePath!
     }()
+    static var loginAuthfilePath:URL = {
+        let manager = FileManager.default
+        var filePath = manager.urls(for: .documentDirectory, in: .userDomainMask).first
+        filePath!.appendPathComponent("\(Open_im_sdkGetLoginUserID())blogLoginAuth.archive")
+        return filePath!
+    }()
 
         
     static func getBlogPath(_ locaType: localBlogType = .star) -> URL {
@@ -69,6 +76,8 @@ class YFFileDataUtil {
                 path = homefilePath
         case .history:
                 path = historyfilePath
+        case .loginAuth:
+                path = loginAuthfilePath
         }
         return path!
     }
@@ -164,4 +173,51 @@ class YFFileDataUtil {
         saveDataToFile(locaType, blogsArr: datas)
     }
     
+    
+    
+    
+    
+    
+    static  func readH5DataToFile(_ locaType: localBlogType = .history) -> [h5Model] {
+        
+        let path = getBlogPath(locaType)
+        
+        var datas:[h5Model] = []
+        if let dataRead = try?  Data(contentsOf:path) {
+            
+               do{
+                   datas = try JSONDecoder().decode([h5Model].self, from: dataRead)
+               } catch {
+                   print(error)
+               }
+        } else {
+            print("解析出错")
+        }
+        
+        return datas
+    }
+    static func saveOneH5ToFile(_ locaType: localBlogType = .history,item:h5Model) ->() {
+        var datas = readH5DataToFile(locaType)
+        datas.insert(item, at: 0)
+        saveH5DataToFile(locaType, h5Arr: datas)
+    }
+    static func saveH5DataToFile(_ locaType: localBlogType = .history, h5Arr: [h5Model]) -> () {
+        let dataWrite = try? JSONEncoder().encode(h5Arr)
+        
+        do{
+            
+            let path = getBlogPath(locaType)
+            try dataWrite?.write(to: path)
+            print("保存成功")
+            
+            
+        } catch {
+            print("保存到本地文件失败")
+            
+        }
+    }
+    static func isHaveThisH5Data(_ locaType: localBlogType = .history, item:h5Model) -> Bool {
+        let datas = readH5DataToFile(locaType)
+        return  datas.contains(where: {$0.data?.hash == item.data?.hash})
+    }
 }
