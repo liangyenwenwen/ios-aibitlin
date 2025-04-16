@@ -492,13 +492,16 @@ extension IMController {
         }
     }
     
-    public func getGroupMemberList(groupId: String, filter: GroupMemberFilter = .member, offset: Int, count: Int, onSuccess: @escaping CallBack.GroupMembersReturnVoid) {
+    public func getGroupMemberList(groupId: String, filter: GroupMemberFilter = .member, offset: Int, count: Int, onSuccess: @escaping CallBack.GroupMembersReturnVoid, onFailure: CallBack.ErrorOptionalReturnVoid? = nil) {
         Self.shared.imManager.getGroupMemberList(groupId,
                                                  filter: OIMGroupMemberFilter(rawValue: filter.rawValue)!,
                                                  offset: offset,
                                                  count: count) { (memberInfos: [OIMGroupMemberInfo]?) in
             let members: [GroupMemberInfo] = memberInfos?.compactMap { $0.toGroupMemberInfo() } ?? []
             onSuccess(members)
+        }onFailure: { code, msg in
+            
+            print("拒绝群申请,code:\(code), msg: \(msg)")
         }
     }
     

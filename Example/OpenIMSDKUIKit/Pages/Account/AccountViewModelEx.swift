@@ -95,7 +95,7 @@ extension AccountViewModel {
     // MARK: - 张亚飞打的标记  网站相关
     static func showBoke() {
         //点击公共模版
-        OIMApi.clickPublicCustomerMessageHandle = { (vc,source, type, completion: @escaping (String) -> Void) in
+        OIMApi.clickPublicCustomerMessageHandle = { (vc,messageId,source, type, completion: @escaping (String) -> Void) in
             let dic = try! JSONSerialization.jsonObject(with: source.data(using: .utf8)!) as! [String: Any]
             let hash = dic["hash"] as! String
             var request_data = ""
@@ -135,6 +135,7 @@ extension AccountViewModel {
                     let webVC = YFCustomWebViewController()
                     webVC.appid = info.hash
                     webVC.loadUrl = info.url
+                    webVC.messageId = messageId
                     vc.navigationController?.pushViewController(webVC, animated: true)
                 }else{
                     let dic1 = try! JSONSerialization.jsonObject(with: request_data.data(using: .utf8)!) as! [String: Any]
@@ -163,10 +164,11 @@ extension AccountViewModel {
             completion(array)
         }
         //点击聊天底部工具栏自定义工具
-        OIMApi.clickChatQuickToolHandle = { (vc,url, hash, completion: @escaping (String) -> Void) in
+        OIMApi.clickChatQuickToolHandle = { (vc,chatInfo,url, hash, completion: @escaping (String) -> Void) in
             let webVC = YFCustomWebViewController()
             webVC.appid = hash
             webVC.loadUrl = url
+            webVC.chatInfo = chatInfo
             vc.navigationController?.pushViewController(webVC, animated: true)
         }
         // MARK: - 张亚飞打的标记 展示网站

@@ -472,6 +472,7 @@ final class ChatViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(loadInitialMessages), name: Notification.Name.clearRecord, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(refreshNetWorkStatus(_:)), name: Notification.Name("netWorkStatus"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(changeMessageLocalEx(_:)), name: Notification.Name("changeMessageLocalEx"), object: nil)
         if IMController.shared.netWorkStatus == "hasNetWork"{
             netWorkTipView.isHidden = true
         }else{
@@ -577,6 +578,12 @@ final class ChatViewController: UIViewController {
                 }
             }
         }
+    //修改本地消息LocalEx
+    @objc func changeMessageLocalEx(_ notidication: Notification) {
+        if  let userinfo = notidication.userInfo, let localEx = userinfo["value"] as? String, let messageId = userinfo["messageId"] as? String {
+            self.chatController.updateNewMessageLocalEx(messageID: messageId, ex: localEx)
+        }
+    }
     @objc
     private func loadInitialMessages() {
         guard !currentControllerActions.options.contains(.loadingInitialMessages) else { return }
@@ -1713,7 +1720,7 @@ extension ChatViewController: ChatControllerDelegate {
             }
             if let handler = OIMApi.clickPublicCustomerMessageHandle,
                sourceStr.length > 0{
-                handler(self, sourceStr,type, {_ in
+                handler(self,id, sourceStr,type, {_ in
                 })
             }
         }
@@ -2475,7 +2482,8 @@ extension ChatViewController: CoustomInputBarAccessoryViewDelegate {
     //MARK: - 点击聊天底部工具栏自定义工具
     private func chooseCustomerTool(padItemModel:PadItemModel){
         if let handler = OIMApi.clickChatQuickToolHandle {
-            handler(self, padItemModel.h5Url ?? "",padItemModel.hash ?? "", {_ in
+            let chatInfo = ["receiverUserId":self.chatController.getConversation().userID,"receiverGroupId":self.chatController.getConversation().groupID,"name":self.chatController.getConversation().showName,"face":self.chatController.getConversation().faceURL]
+            handler(self,chatInfo, padItemModel.h5Url ?? "",padItemModel.hash ?? "", {_ in
             })
         }
     }

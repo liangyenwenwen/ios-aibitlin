@@ -32,6 +32,8 @@ class YFCustomWebViewController: BaseTitleController, WKUIDelegate,WKNavigationD
     var chatGroupId:String?
     var h5DetailInfo:h5Model?
     var loadImageAPI:String?
+    var messageId:String?
+    var chatInfo:[String:Any]?
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
@@ -61,6 +63,10 @@ class YFCustomWebViewController: BaseTitleController, WKUIDelegate,WKNavigationD
                    //请求
             self.webView.load(request)
         }
+        //关闭h5页面
+        bridge.register(handlerName: "closeWebView") { parameters, callback in
+            self.navigationController?.popViewController(animated: true)
+        }
         //h5获取token
         bridge.register(handlerName: "getToken") { parameters, callback in
             if self.h5DetailInfo?.data?.info?.auto == 0 && (self.h5DetailInfo?.data?.extend?.app?.permission?.count ?? 0 > 0) && YFFileDataUtil.isHaveThisH5Data(.loginAuth,item: self.h5DetailInfo!) == false
@@ -82,11 +88,6 @@ class YFCustomWebViewController: BaseTitleController, WKUIDelegate,WKNavigationD
                 callback?(self.h5DetailInfo?.token)
             }
         }
-        //h5获取当前会话id
-        bridge.register(handlerName: "getCurrentConversationInfo") { (parameters, callback) in
-            callback?(["receiverUserId":self.chatUserId,"receiverGroupId":self.chatGroupId])
-        }
-        //
         //h5调用扫一扫
         bridge.register(handlerName: "scan") { parameters, callback in
             let vc = ScanViewController()
@@ -105,7 +106,7 @@ class YFCustomWebViewController: BaseTitleController, WKUIDelegate,WKNavigationD
             let userId = parameters?["userId"] as! String
             let groupId = parameters?["groupId"] as! String
             
-            IMController.shared.sendCommonTemplateMessage(param: parameters!["data"] as? [String:Any], to: userId.length > 0 ? userId : groupId, conversationType: userId.length > 0 ? .c2c : .superGroup) { [weak self] msg in
+            IMController.shared.sendCommonTemplateMessage(param: parameters!["msg"] as? [String:Any], to: userId.length > 0 ? userId : groupId, conversationType: userId.length > 0 ? .c2c : .superGroup) { [weak self] msg in
                 callHandleback!("发送成功")
             } onComplete: { [weak self] msg in
                 callHandleback!("发送失败")
@@ -114,8 +115,7 @@ class YFCustomWebViewController: BaseTitleController, WKUIDelegate,WKNavigationD
         //h5获取群成员列表
         bridge.register(handlerName: "getGroupMembersInfo") { parameters, callback in
             
-            IMController.shared.getGroupMemberList(groupId: parameters?["groupID"] as! String, filter: .all, offset: 0, count: 100000) { [weak self] ms in
-                let we = ms[0].nickname
+            IMController.shared.getGroupMemberList(groupId: parameters?["groupId"] as! String, filter: .all, offset: 0, count: 100000) { [weak self] ms in
                 var groupMemberList = []
                 for item in ms {
                     groupMemberList.append(["userId":item.userID,"name":item.nickname,"face":item.faceURL])
@@ -154,11 +154,11 @@ class YFCustomWebViewController: BaseTitleController, WKUIDelegate,WKNavigationD
         }
         //h5调用保存图片
         bridge.register(handlerName: "saveImage") { parameters, callback in
-            self.saveImage(base64String: parameters?["base64String"] as! String)
+            self.saveImage(base64String: parameters?["img"] as! String)
         }
         //h5调用分享图片
         bridge.register(handlerName: "shareImage") { parameters, callback in
-            let image = self.base64StringToImage(base64String: parameters!["base64String"] as! String)
+            let image = self.base64StringToImage(base64String: parameters!["img"] as! String)
             if image != nil {
                 let activityViewController = UIActivityViewController(activityItems: [image!], applicationActivities: nil)
                 self.present(activityViewController, animated: true)
@@ -172,6 +172,25 @@ class YFCustomWebViewController: BaseTitleController, WKUIDelegate,WKNavigationD
             self._photoHelper.setConfigToMultipleSelected(forVideo: false, maxSelectCount: 1)
             self._photoHelper.showSelectMetaSheet(byController: self)
 //            self._photoHelper.presentPhotoLibrary(byController: self)
+        }
+        //h5改变客户端消息页面
+        bridge.register(handlerName: "saveEx") { [self]parameters, callback in
+            let localEx = parameters!["ex"] as? String
+            if self.messageId?.length ?? 0 > 0{
+                NotificationCenter.default.post(name: Notification.Name("changeMessageLocalEx"), object: nil, userInfo: ["value": "localEx","messageId":self.messageId ?? ""])
+
+            }
+        }
+        //h5获取客户端聊天信息
+        bridge.register(handlerName: "getCurrentConversationInfo") { [self]parameters, callback in
+            do {
+                let jsonData = try JSONSerialization.data(withJSONObject: self.chatInfo ?? [], options: [])
+                if let jsonString = String(data: jsonData, encoding: .utf8) {
+                    callback?(jsonString)
+                }
+            } catch {
+                print("JSON serialization failed: \(error)")
+            }
         }
     }
     private lazy var _photoHelper: PhotoHelper = {

@@ -15,9 +15,9 @@ public typealias starBokeLinkHandle = ((_ blogJson: String,  _ completion: @esca
 
 public typealias getOfficialBokeHandle = (( _ completion: @escaping (([[String: String]]) -> Void)) -> Void)
 
-public typealias clickChatQuickToolHandle = ((_ currentVC: UIViewController,_  linkUrl: String ,_ hash: String,  _ completion: @escaping ((String) -> Void)) -> Void)
+public typealias clickChatQuickToolHandle = ((_ currentVC: UIViewController,_ chatInfo: [String:Any],_  linkUrl: String ,_ hash: String,  _ completion: @escaping ((String) -> Void)) -> Void)
 
-public typealias clickPublicCustomerMessageHandle = ((_ currentVC: UIViewController,_  source: String ,_ type: String,  _ completion: @escaping ((String) -> Void)) -> Void)
+public typealias clickPublicCustomerMessageHandle = ((_ currentVC: UIViewController,_ messageId: String, _  source: String ,_ type: String,  _ completion: @escaping ((String) -> Void)) -> Void)
 
 
 // MARK: - 张亚飞打的标记  其他跳转  比如 个人资料
