@@ -385,6 +385,8 @@ extension ChatViewControllerNav {
                 chatIconImg.image = .init(named: "friend_list_new_friend_icon")
             }
             
+        }onFailure: { errCode, errMsg in
+            
         }
     }
     

@@ -67,6 +67,10 @@ class YFCustomWebViewController: BaseTitleController, WKUIDelegate,WKNavigationD
         bridge.register(handlerName: "closeWebView") { parameters, callback in
             self.navigationController?.popViewController(animated: true)
         }
+        //h5获取AppId
+        bridge.register(handlerName: "getAppId") { parameters, callback in
+            callback?(self.appid)
+        }
         //h5获取token
         bridge.register(handlerName: "getToken") { parameters, callback in
             if self.h5DetailInfo?.data?.info?.auto == 0 && (self.h5DetailInfo?.data?.extend?.app?.permission?.count ?? 0 > 0) && YFFileDataUtil.isHaveThisH5Data(.loginAuth,item: self.h5DetailInfo!) == false
@@ -105,10 +109,9 @@ class YFCustomWebViewController: BaseTitleController, WKUIDelegate,WKNavigationD
         bridge.register(handlerName: "sendMessage") { parameters, callHandleback in
             let userId = parameters?["userId"] as! String
             let groupId = parameters?["groupId"] as! String
-            
-            IMController.shared.sendCommonTemplateMessage(param: parameters!["msg"] as? [String:Any], to: userId.length > 0 ? userId : groupId, conversationType: userId.length > 0 ? .c2c : .superGroup) { [weak self] msg in
+            IMController.shared.sendCommonTemplateMessage(param: parameters?["msg"] as? [String : Any], to: userId.length > 0 ? userId : groupId, conversationType: userId.length > 0 ? .c2c : .superGroup) { msg in
                 callHandleback!("发送成功")
-            } onComplete: { [weak self] msg in
+            } onComplete: { msg in
                 callHandleback!("发送失败")
             }
         }
@@ -120,7 +123,11 @@ class YFCustomWebViewController: BaseTitleController, WKUIDelegate,WKNavigationD
                 for item in ms {
                     groupMemberList.append(["userId":item.userID,"name":item.nickname,"face":item.faceURL])
                 }
-                self?.bridge.call(handlerName: "onGroupMembersInfo", data: groupMemberList){response in
+                self?.bridge.call(handlerName: "onGroupMembersInfo", data: ["code":200,"list":groupMemberList]){response in
+                    
+                }
+            }onFailure: {[weak self] errCode, errMsg in
+                self?.bridge.call(handlerName: "onGroupMembersInfo", data: ["code":errCode,"list":[]]){response in
                     
                 }
             }
@@ -134,7 +141,11 @@ class YFCustomWebViewController: BaseTitleController, WKUIDelegate,WKNavigationD
                 for item in groups {
                     groupList.append(["groupId":item.groupID,"name":item.groupName ?? "","face":"","mCount":item.memberCount])
                 }
-                self?.bridge.call(handlerName: "onGroups", data: groupList){response in
+                self?.bridge.call(handlerName: "onGroups", data: ["code":200,"list":groupList]){response in
+                    
+                }
+            }onFailure: {[weak self] errCode, errMsg in
+                self?.bridge.call(handlerName: "onGroups", data: ["code":errCode,"list":[]]){response in
                     
                 }
             }
@@ -147,7 +158,11 @@ class YFCustomWebViewController: BaseTitleController, WKUIDelegate,WKNavigationD
                 for item in userList {
                     friendList.append(["userId":item.userID,"name":item.nickname ?? "","face":item.faceURL])
                 }
-                self?.bridge.call(handlerName: "onFriendList", data: friendList){response in
+                self?.bridge.call(handlerName: "onFriendList", data: ["code":200,"list":friendList]){response in
+                    
+                }
+            }onFailure: {[weak self] errCode, errMsg in
+                self?.bridge.call(handlerName: "onFriendList", data: ["code":errCode,"list":[]]){response in
                     
                 }
             }
@@ -175,9 +190,10 @@ class YFCustomWebViewController: BaseTitleController, WKUIDelegate,WKNavigationD
         }
         //h5改变客户端消息页面
         bridge.register(handlerName: "saveEx") { [self]parameters, callback in
-            let localEx = parameters!["ex"] as? String
-            if self.messageId?.length ?? 0 > 0{
-                NotificationCenter.default.post(name: Notification.Name("changeMessageLocalEx"), object: nil, userInfo: ["value": "localEx","messageId":self.messageId ?? ""])
+            let localEx = parameters!["msg"] as? String
+            if self.messageId?.length ?? 0 > 0,
+               localEx?.length ?? 0 > 0{
+                NotificationCenter.default.post(name: Notification.Name("changeMessageLocalEx"), object: nil, userInfo: ["value": localEx!,"messageId":self.messageId ?? ""])
 
             }
         }

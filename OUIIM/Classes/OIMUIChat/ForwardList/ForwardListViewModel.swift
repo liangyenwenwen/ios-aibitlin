@@ -63,6 +63,8 @@ class ForwardListViewModel {
                 }
             }
             sself.iUnReadMembers = unReadMembers
+        }onFailure: { errCode, errMsg in
+            
         }
     }
     

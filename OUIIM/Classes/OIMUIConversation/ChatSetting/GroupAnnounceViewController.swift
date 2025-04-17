@@ -123,6 +123,8 @@ class GroupAnnounceViewController: UIViewController {
                     nameLabel.text = notificationUserInfo?.nickname
                     setNotificationUpdateTime()
                 }
+            }onFailure: { errCode, errMsg in
+                
             }
         }
 

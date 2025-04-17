@@ -45,6 +45,8 @@ class GroupListViewModel {
             self?.myGroupsRelay.accept(groups)
             self?.isICreateTableSelected.accept(true)
             self?.loading.accept(false)
+        }onFailure: { errCode, errMsg in
+            
         }
     }
     
@@ -52,6 +54,8 @@ class GroupListViewModel {
         IMController.shared.getGroupMemberList(groupId: groupID, offset: 0, count: 1000) { (members: [GroupMemberInfo]) in
             self.members = members
             self.divideUsersInSection(users: members)
+        }onFailure: { errCode, errMsg in
+            
         }
     }
     

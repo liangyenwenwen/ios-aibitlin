@@ -142,6 +142,7 @@ extension AccountViewModel {
                     YFMineNetViewModel.updatePublicCustomerMessageAction(url: info.url ?? "",token:info.token ?? "", paramters: dic1) { _ in
                         
                     } completionHandler: { errCode, errMsg in
+                        ProgressHUD.dismiss()
                         SuperToast.show(title: errMsg?.localized())
                     }
 

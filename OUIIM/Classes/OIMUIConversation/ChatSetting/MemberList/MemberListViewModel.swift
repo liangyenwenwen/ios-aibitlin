@@ -51,6 +51,8 @@ class MemberListViewModel {
     func getOwnerAndAdmin() {
         IMController.shared.getGroupMemberList(groupId: groupInfo.groupID, filter: .superAndAdmin, offset: 0, count: limit) { [weak self] infos in
             self?.ownerAndAdminRelay.accept(infos)
+        }onFailure: { errCode, errMsg in
+            
         }
     }
 
@@ -77,6 +79,8 @@ class MemberListViewModel {
             membersRelay.accept(temp)
             completion?(ms.count < limit ? true : false)
 //            self?.divideUsersInSection(users: sself.members, completion: completion)
+        }onFailure: { errCode, errMsg in
+            
         }
     }
 

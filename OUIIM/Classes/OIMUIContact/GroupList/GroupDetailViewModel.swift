@@ -27,6 +27,8 @@ class GroupDetailViewModel {
                 temp.append(fakeUser)
             }
             self?.membersRelay.accept(Array(temp))
+        }onFailure: { errCode, errMsg in
+            
         }
 
         IMController.shared.getGroupInfo(groupIds: [groupId]) { [weak self] (groupInfos: [GroupInfo]) in
@@ -37,6 +39,8 @@ class GroupDetailViewModel {
             IMController.shared.getGroupMemberList(groupId: sself.groupId, filter: .all, offset: 0, count: groupInfo.memberCount) { (members: [GroupMemberInfo]) in
                 self?.allMembers = members.compactMap { $0.userID }
                 self?.superAndAdmins = members.filter({ $0.isOwnerOrAdmin }).map({ $0.userID! })
+            }onFailure: { errCode, errMsg in
+                
             }
         }
         IMController.shared.isJoinedGroup(groupID: groupId) { [self] isIn in

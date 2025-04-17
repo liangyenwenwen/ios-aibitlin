@@ -33,6 +33,8 @@ class GroupFriendsListViewModel {
             self?.iMyGroups = groups
             self?.myGroupsRelay.accept(groups)
             self?.isMyGroupTableSelected.accept(true)
+        }onFailure: { errCode, errMsg in
+            
         }
     }
     
@@ -41,6 +43,8 @@ class GroupFriendsListViewModel {
             let r = friends.map({ UserInfo(userID: $0.userID!, nickname: $0.remark?.isEmpty == false ? $0.remark : $0.nickname, faceURL: $0.faceURL) })
             self?.iMyFriends = r
             self?.myFriendsRelay.accept(r)
+        }onFailure: { errCode, errMsg in
+            
         }
     }
 }

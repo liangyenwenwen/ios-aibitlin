@@ -222,6 +222,8 @@ public class AvatarView: UIView {
                
             }
             
+        }onFailure: { errCode, errMsg in
+            
         }
     }
     
@@ -244,6 +246,8 @@ public class AvatarView: UIView {
                 setAvatar(url: "", placeHolder: "friend_list_new_friend_icon", isLocal: true)
                
             }
+            
+        }onFailure: { errCode, errMsg in
             
         }
     }
@@ -274,6 +278,8 @@ public class AvatarView: UIView {
                 setAvatar(url: "friend_list_new_friend_icon", text: "", placeHolder: "", isLocal: true)
                
             }
+            
+        }onFailure: { errCode, errMsg in
             
         }
     }

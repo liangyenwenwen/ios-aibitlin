@@ -156,6 +156,8 @@ final class DefaultDataProvider: DataProvider {
                 if let isAdminHandler, let r = ms.first(where: { $0.userID == IMController.shared.uid }) {
                     isAdminHandler(r.isOwnerOrAdmin)
                 }
+            }onFailure: { errCode, errMsg in
+                
             }
         }
     }

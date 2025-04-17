@@ -178,6 +178,8 @@ class SearchContactsViewController: UIViewController {
                         WPFPinYinDataManager.addInitializeString(user.name, identifer: user.ID!)
                     }
             }
+        }onFailure: { errCode, errMsg in
+            
         }
     }
     

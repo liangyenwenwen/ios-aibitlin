@@ -49,6 +49,8 @@ class SelectContactsViewModel {
             friends.append(contentsOf: contacts)
             divideContactsInSection(contacts)
             loadingSubject.onNext(false)
+        }onFailure: { errCode, errMsg in
+            
         }
     }
     
@@ -60,6 +62,8 @@ class SelectContactsViewModel {
             if self.tabSelected.value == .undefine { // 好友+群组+组织架构，不要刷新界面
                 self.divideContactsInSection(self.contacts)
             }
+        }onFailure: { errCode, errMsg in
+            
         }
     }
     
@@ -76,6 +80,8 @@ class SelectContactsViewModel {
             })
             self.members.append(contentsOf: self.contacts)
             self.divideContactsInSection(self.contacts)
+        }onFailure: { errCode, errMsg in
+            
         }
     }
     

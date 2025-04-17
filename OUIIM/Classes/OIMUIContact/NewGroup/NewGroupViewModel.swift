@@ -29,6 +29,8 @@ class NewGroupViewModel {
             friends.append(contentsOf: contacts)
             divideContactsInSection(contacts)
             loadingSubject.onNext(false)
+        }onFailure: { errCode, errMsg in
+            
         }
     }
     private func divideContactsInSection(_ contacts: [ContactInfo]) {

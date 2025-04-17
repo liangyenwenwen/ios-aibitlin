@@ -19,6 +19,8 @@ class FriendListViewModel {
             self?.divideUsersInSection(users: r ?? [])
             
             
+        }onFailure: { errCode, errMsg in
+            
         }
     }
     
@@ -26,6 +28,8 @@ class FriendListViewModel {
         IMController.shared.getJoinedGroupList { [weak self] groups in
             self?.myGroups = groups
             self?.divideGroupsInSection(groups)
+        }onFailure: { errCode, errMsg in
+            
         }
     }
 

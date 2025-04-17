@@ -151,12 +151,16 @@ class GroupChatSettingViewModel {
         IMController.shared.getGroupMemberList(groupId: groupID, filter: .superAndAdmin, offset: 0, count: 10) { [self] ms in
             superAndAdmins = ms
             group.leave()
+        }onFailure: { errCode, errMsg in
+            
         }
         
         group.enter()
         IMController.shared.getGroupMemberList(groupId: groupID, filter: .member, offset: 0, count: 10) { [self] ms in
             displayMembers = ms
             group.leave()
+        }onFailure: { errCode, errMsg in
+            
         }
         
         group.notify(queue: .main) { [self] in
@@ -184,6 +188,8 @@ class GroupChatSettingViewModel {
         
         IMController.shared.getGroupMemberList(groupId: groupID, filter: .all, offset: 0, count: 100000) { [self] ms in
             allMembers = ms.compactMap({ $0.userID })
+        }onFailure: { errCode, errMsg in
+            
         }
     }
 

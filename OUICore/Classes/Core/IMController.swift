@@ -337,7 +337,7 @@ extension IMController {
         }
     }
     
-    public func getJoinedGroupList(completion: @escaping ([GroupInfo]) -> Void) {
+    public func getJoinedGroupList(completion: @escaping ([GroupInfo]) -> Void, onFailure: CallBack.ErrorOptionalReturnVoid? = nil) {
         Self.shared.imManager.getJoinedGroupListWith { (groups: [OIMGroupInfo]?) in
             guard let groups = groups else {
                 completion([])
@@ -347,6 +347,9 @@ extension IMController {
             let joined: [GroupInfo] = groups.compactMap { $0.toGroupInfo() }
             completion(joined)
         } onFailure: { code, msg in
+            if let failure = onFailure {
+                failure(code, msg)
+            }
             print("拉取我的群组错误,code:\(code), msg: \(msg)")
         }
     }
@@ -437,7 +440,7 @@ extension IMController {
 
     }
     
-    public func getFriendList(offset: Int = 0, count: Int = 40, completion: @escaping ([FriendInfo]) -> Void) {
+    public func getFriendList(offset: Int = 0, count: Int = 40, completion: @escaping ([FriendInfo]) -> Void, onFailure: CallBack.ErrorOptionalReturnVoid? = nil) {
         Self.shared.imManager.getFriendListPage(withOffset: offset, count: count, filterBlack: false) { friends in
             let arr = friends ?? []
             let ret = arr.compactMap { $0.toFriendInfo() }
@@ -445,6 +448,9 @@ extension IMController {
         } onFailure: { code, msg in
             print("\(#function) throw error: code: \(code), msg: \(msg)")
             completion([])
+            if let failure = onFailure {
+                failure(code, msg)
+            }
         }
     }
     public func getAllFriends() async -> [PublicUserInfo] {
@@ -500,8 +506,10 @@ extension IMController {
             let members: [GroupMemberInfo] = memberInfos?.compactMap { $0.toGroupMemberInfo() } ?? []
             onSuccess(members)
         }onFailure: { code, msg in
-            
-            print("拒绝群申请,code:\(code), msg: \(msg)")
+            if let failure = onFailure {
+                failure(code, msg)
+            }
+            print("拉群群成员失败,code:\(code), msg: \(msg)")
         }
     }
     
@@ -1007,7 +1015,6 @@ extension IMController {
                                       encoding: .utf8)!
             let message = OIMMessageInfo.createCustomMessage(dataStr, extension: "CommonTemplate", description: "")
             message.status = .sending
-            message.localEx = dataStr
             sending(message.toMessageInfo())
             sendOIMMessage(message: message, to: recvID, conversationType: conversationType, onComplete: onComplete)
         } catch {
