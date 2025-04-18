@@ -402,7 +402,7 @@ extension CustomMessageSource {
     public var localExValue: [String: Any]? {
         if let localEx = localEx {
             let obj = try! JSONSerialization.jsonObject(with: localEx.data(using: .utf8)!, options: []) as! [String: Any]
-            return obj["localEx"] as? [String: Any]
+            return obj
         }
         return nil
     }

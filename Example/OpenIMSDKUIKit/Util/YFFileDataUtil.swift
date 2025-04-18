@@ -22,62 +22,60 @@ enum localBlogType {
 class YFFileDataUtil {
     
 //     数据存储本地的路径
-    static var filePath:URL = {
+    static func getFilePath()-> URL{
         let manager = FileManager.default
         var filePath = manager.urls(for: .documentDirectory, in: .userDomainMask).first
         filePath!.appendPathComponent("\(Open_im_sdkGetLoginUserID())blog.archive")
         return filePath!
-    }()
+    }
     
-    static var recommendfilePath:URL = {
+    static func getRecommendfilePath()-> URL{
         let manager = FileManager.default
         var filePath = manager.urls(for: .documentDirectory, in: .userDomainMask).first
         filePath!.appendPathComponent("\(Open_im_sdkGetLoginUserID())recommendblog.archive")
         return filePath!
-    }()
+    }
     
-    static var cachefilePath:URL = {
+    static func getCachefilePath()-> URL{
         let manager = FileManager.default
         var filePath = manager.urls(for: .documentDirectory, in: .userDomainMask).first
         filePath!.appendPathComponent("\(Open_im_sdkGetLoginUserID())blogCache.archive")
         return filePath!
-    }()
+    }
     
-    static var homefilePath:URL = {
+    static func getHomefilePath()-> URL{
         let manager = FileManager.default
         var filePath = manager.urls(for: .documentDirectory, in: .userDomainMask).first
         filePath!.appendPathComponent("\(Open_im_sdkGetLoginUserID())blogHome.archive")
         return filePath!
-    }()
-    static var historyfilePath:URL = {
+    }
+    static func getHistoryfilePath()-> URL {
         let manager = FileManager.default
         var filePath = manager.urls(for: .documentDirectory, in: .userDomainMask).first
         filePath!.appendPathComponent("\(Open_im_sdkGetLoginUserID())blogHistory.archive")
         return filePath!
-    }()
-    static var loginAuthfilePath:URL = {
+    }
+    static func getLoginAuthfilePath()-> URL{
         let manager = FileManager.default
         var filePath = manager.urls(for: .documentDirectory, in: .userDomainMask).first
         filePath!.appendPathComponent("\(Open_im_sdkGetLoginUserID())blogLoginAuth.archive")
         return filePath!
-    }()
-
-        
+    }
     static func getBlogPath(_ locaType: localBlogType = .star) -> URL {
         var path: URL? = nil
         switch locaType {
             case .star:
-                path = filePath
+                path = getFilePath()
             case .recommend:
-                path = recommendfilePath
+                path = getRecommendfilePath()
             case .mine:
-                path = cachefilePath
+                path = getCachefilePath()
             case .home:
-                path = homefilePath
+                path = getHomefilePath()
         case .history:
-                path = historyfilePath
+                path = getHistoryfilePath()
         case .loginAuth:
-                path = loginAuthfilePath
+            path = getLoginAuthfilePath()
         }
         return path!
     }

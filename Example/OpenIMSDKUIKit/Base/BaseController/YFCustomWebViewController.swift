@@ -16,12 +16,10 @@ import ProgressHUD
 
 
 
-class YFCustomWebViewController: BaseTitleController, WKUIDelegate,WKNavigationDelegate {
+class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDelegate {
     lazy var webView: WKWebView = {
         let r = WKWebView(frame: CGRect.zero, configuration: SuperWebController.defaultConfiguration())
         r.navigationDelegate = self
-        r.tg_width.equal(.fill)
-        r.tg_height.equal(.fill)
         return r
     }()
     private let _disposeBag = DisposeBag()
@@ -36,14 +34,17 @@ class YFCustomWebViewController: BaseTitleController, WKUIDelegate,WKNavigationD
     var chatInfo:[String:Any]?
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: false)
-        self.navView.hide()
-        
+        navigationController?.navigationBar.isHidden = true
     }
-    override func initViews() {
-        super.initViews()
-        initRelativeLayoutSafeArea()
-        container.addSubview(webView)
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        navigationController?.navigationBar.isHidden = true
+    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.addSubview(webView)
+        webView.frame = view.bounds
         bridge = WKWebViewJavascriptBridge(webView: webView)
         webView.uiDelegate = self
         // 加载 HTML 文件
@@ -110,9 +111,9 @@ class YFCustomWebViewController: BaseTitleController, WKUIDelegate,WKNavigationD
             let userId = parameters?["userId"] as! String
             let groupId = parameters?["groupId"] as! String
             IMController.shared.sendCommonTemplateMessage(param: parameters?["msg"] as? [String : Any], to: userId.length > 0 ? userId : groupId, conversationType: userId.length > 0 ? .c2c : .superGroup) { msg in
-                callHandleback!("发送成功")
+                callHandleback?("发送成功")
             } onComplete: { msg in
-                callHandleback!("发送失败")
+                callHandleback?("发送失败")
             }
         }
         //h5获取群成员列表
@@ -207,6 +208,10 @@ class YFCustomWebViewController: BaseTitleController, WKUIDelegate,WKNavigationD
             } catch {
                 print("JSON serialization failed: \(error)")
             }
+        }
+        //h5获取状态栏高度
+        bridge.register(handlerName: "getStatusBarHeight") { parameters, callback in
+            callback?(kStatusBarHeight)
         }
     }
     private lazy var _photoHelper: PhotoHelper = {
@@ -426,15 +431,5 @@ class YFCustomWebViewController: BaseTitleController, WKUIDelegate,WKNavigationD
 //            }
 //            GKCover.cover(from:view.window, contentView: authView, style: .translucent, showStyle: .bottom, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: true)
 //        }
-//    }
-    /// 拦截点击返回按钮
-    override func leftBtnClick(_ sender: QMUIButton) {
-        if webView.canGoBack {
-            //如果浏览器能返回上一页，就直接返回上一页
-            webView.goBack()
-            return
-        }
-        
-        super.leftBtnClick(sender)
-    }
+//    }   
 }

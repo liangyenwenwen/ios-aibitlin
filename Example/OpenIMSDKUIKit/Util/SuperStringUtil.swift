@@ -67,25 +67,46 @@ class SuperStringUtil {
     static func isUrl(_ data: String?, limitLength: Int = 256, showTip: Bool = false) -> Bool {
         let  urlString = data ?? ""
         if urlString.count > limitLength {
-            
+            if showTip{
+                SuperToast.show(title: "请输入有效网址")
+            }
             return false
         }
-        
-        guard let url = URL(string: urlString) else {
+        let pattern = "^(http://?|https://?|ftp://)?(?:[^:@/]+(?::[^@/]*)?@)?(([a-zA-Z0-9.-]+\\.[a-zA-Z]{2,})|((?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))(?::\\d+)?(?:/\\S*)?$"
+            do {
+                let regex = try NSRegularExpression(pattern: pattern, options: .caseInsensitive)
+                let range = NSRange(urlString.startIndex..., in: urlString)
+                let isUrl = regex.firstMatch(in: urlString, options: [], range: range) != nil
+                if showTip && isUrl == false {
+                    SuperToast.show(title: "请输入有效网址")
+                }
+                return isUrl
+            } catch {
+                if showTip{
+                    SuperToast.show(title: "请输入有效网址")
+                }
                 return false
-        }
-            
-        let dataDetector = try! NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
-        let range = NSRange(location: 0, length: urlString.utf16.count)
+            }
         
-        let result = dataDetector.firstMatch(in: urlString, options: [], range: range) != nil
-        
-        if showTip && result == false {
-            SuperToast.show(title: "请输入有效网址")
-        }
-        return result
+//        if urlString.count > limitLength {
+//            
+//            return false
+//        }
+//        
+//        guard let url = URL(string: urlString) else {
+//                return false
+//        }
+//            
+//        let dataDetector = try! NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
+//        let range = NSRange(location: 0, length: urlString.utf16.count)
+//        
+//        let result = dataDetector.firstMatch(in: urlString, options: [], range: range) != nil
+//        
+//        if showTip && result == false {
+//            SuperToast.show(title: "请输入有效网址")
+//        }
+//        return result
     }
-    
     static func netUrl(_ data: String ,_ paramters:[String: Any]) -> String {
         var string = data + "?"
         for (key, value) in paramters {

@@ -28,12 +28,21 @@ class MineBokeListViewController: BaseTitleController {
     var isEidt = false
     var othersID: String?
     var othersName: String?
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        navigationController?.setNavigationBarHidden(true, animated: false)
+//        refreshData()
+//    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: false)
+        navigationController?.navigationBar.isHidden = true
         refreshData()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        navigationController?.navigationBar.isHidden = true
+    }
     override func initViews() {
         super.initViews()
         setBackGroundColor(.white)

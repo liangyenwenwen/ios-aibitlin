@@ -67,14 +67,17 @@ class YFMineNetViewModel: AccountViewModel {
     private static let reportComentsAddAPI = "/report/reportCircleOfFriendsAdd"
     
     //"183.156.234.224"
-    private static var httpHeaders : HTTPHeaders = [
-        "token":IMController.shared.tokenABC,
-        "X-Forwarded-Add":IMController.shared.publicAddress,
-        "X-Forwarded-For":IMController.shared.publicIP,
-        "Authorization":"eyJ1c2VySW5mbyI6InVzZXJCbG9nWWFuWmhlbmdUb2tlbiJ9",
-        "Content-Type":"application/json",
-        "operationID":String(Int(Date().timeIntervalSince1970)),
-    ]
+    static func getHttpHeader() -> HTTPHeaders{
+        let httpHeaders : HTTPHeaders = [
+            "token":IMController.shared.tokenABC,
+            "X-Forwarded-Add":IMController.shared.publicAddress,
+            "X-Forwarded-For":IMController.shared.publicIP,
+            "Authorization":"eyJ1c2VySW5mbyI6InVzZXJCbG9nWWFuWmhlbmdUb2tlbiJ9",
+            "Content-Type":"application/json",
+            "operationID":String(Int(Date().timeIntervalSince1970)),
+        ]
+       return httpHeaders
+    }
     
    // MARK: - 张亚飞打的标记   网站接口
    /// 新增网站信息到自动审核
@@ -98,7 +101,7 @@ class YFMineNetViewModel: AccountViewModel {
         let body = JsonTool.toJson(fromObject: BlogAuditRequest(logo: logo, name: name, url: url, mark: mark, pwd: pwd)).data(using: .utf8)
         
         
-        var req = try! URLRequest(url: API_BLOG_URL + BlogAuditAddWaitAuditAutoAPI, method: .post, headers: httpHeaders)
+        var req = try! URLRequest(url: API_BLOG_URL + BlogAuditAddWaitAuditAutoAPI, method: .post, headers: getHttpHeader())
         req.httpBody = body
         Alamofire.request(req).responseString { (response: DataResponse<String>) in
             
@@ -129,7 +132,7 @@ class YFMineNetViewModel: AccountViewModel {
                          completionHandler: @escaping CompletionHandler) {
         if let IMUser = IMController.shared.currentUserRelay.value {
             let body = JsonTool.toJson(fromObject: MineBlogRequest(time: time, hash: hash)).data(using: .utf8)
-            var req = try! URLRequest(url: API_BLOG_URL + ShowMyMyBlogsAPI, method: .post, headers: httpHeaders)
+            var req = try! URLRequest(url: API_BLOG_URL + ShowMyMyBlogsAPI, method: .post, headers: getHttpHeader())
             req.httpBody = body
 
             Alamofire.request(req).responseJSON { dataRequest in
@@ -172,7 +175,7 @@ class YFMineNetViewModel: AccountViewModel {
 //        ProgressHUD.animate()
         
         let body = JsonTool.toJson(fromObject: othersBlogRequest(uid:uid,hash:hash,pwd:pwd)).data(using: .utf8)
-        var req = try! URLRequest(url: API_BLOG_URL + otherSeeMyBlogAPI, method: .post, headers: httpHeaders)
+        var req = try! URLRequest(url: API_BLOG_URL + otherSeeMyBlogAPI, method: .post, headers: getHttpHeader())
         req.httpBody = body
 
         Alamofire.request(req).responseJSON { dataRequest in
@@ -204,7 +207,7 @@ class YFMineNetViewModel: AccountViewModel {
         
         let url = SuperStringUtil.netUrl(API_BLOG_URL + blogTopAPI, paramters)
         print(url)
-        Alamofire.request(url, method: .post, headers: httpHeaders).responseJSON { dataRequest in
+        Alamofire.request(url, method: .post, headers: getHttpHeader()).responseJSON { dataRequest in
             
             ProgressHUD.dismiss()
             
@@ -228,7 +231,7 @@ class YFMineNetViewModel: AccountViewModel {
         
         let url = SuperStringUtil.netUrl(API_BLOG_URL + flagBlogAPI, paramters)
         print(url)
-        Alamofire.request(url, method: .post, headers: httpHeaders).responseJSON { dataRequest in
+        Alamofire.request(url, method: .post, headers: getHttpHeader()).responseJSON { dataRequest in
             
             ProgressHUD.dismiss()
             
@@ -305,7 +308,7 @@ class YFMineNetViewModel: AccountViewModel {
         ProgressHUD.animate()
         
         let url = API_BLOG_URL + updateWaitAuditAutoAPI
-        Alamofire.request(url, method: .post, parameters: paramters, encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
+        Alamofire.request(url, method: .post, parameters: paramters, encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
             
             ProgressHUD.dismiss()
             
@@ -329,7 +332,7 @@ class YFMineNetViewModel: AccountViewModel {
         ProgressHUD.animate()
         
         let url = SuperStringUtil.netUrl(API_BLOG_URL + deleteBlogAPI, paramters)
-        Alamofire.request(url, method: .post, parameters: paramters, encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
+        Alamofire.request(url, method: .post, parameters: paramters, encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
             
             ProgressHUD.dismiss()
             
@@ -354,7 +357,7 @@ class YFMineNetViewModel: AccountViewModel {
 //        ProgressHUD.animate()
         
         let url = SuperStringUtil.netUrl(API_BLOG_URL + queryShowBlogsSurveyAPI, paramters)
-        Alamofire.request(url, method: .post, parameters: paramters, encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
+        Alamofire.request(url, method: .post, parameters: paramters, encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
             
 //            ProgressHUD.dismiss()
             
@@ -477,7 +480,7 @@ class YFMineNetViewModel: AccountViewModel {
         
         let url = SuperStringUtil.netUrl(API_BLOG_URL + vipPurchaseInitializeAPI, paramters)
     
-        Alamofire.request(url, method: .post, parameters: nil, encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
+        Alamofire.request(url, method: .post, parameters: nil, encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
             
 //            ProgressHUD.dismiss()
             
@@ -511,7 +514,7 @@ class YFMineNetViewModel: AccountViewModel {
         
         let url = SuperStringUtil.netUrl(API_BLOG_URL + vipPurchaseSucceedsAPI, paramters)
         
-        Alamofire.request(url, method: .post, parameters: paramters, encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
+        Alamofire.request(url, method: .post, parameters: paramters, encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
             if let data = dataRequest.data {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 print(strData!)
@@ -543,7 +546,7 @@ class YFMineNetViewModel: AccountViewModel {
         let url = SuperStringUtil.netUrl(API_BLOG_URL + addUserLanguageAPI,param)
         
         print(["language":String.getCurrentLanguageFirst(), "userId": uid, "imToken":UserDefaults.standard.string(forKey: bussinessTokenKey)!])
-            Alamofire.request(url, method: .post,parameters: param, encoding: JSONEncoding.default, headers: httpHeaders ).responseJSON { dataRequest in
+            Alamofire.request(url, method: .post,parameters: param, encoding: JSONEncoding.default, headers: getHttpHeader() ).responseJSON { dataRequest in
                 
                 if let data = dataRequest.data {
                     let strData = String.init(data: data, encoding: String.Encoding.utf8)
@@ -566,7 +569,7 @@ class YFMineNetViewModel: AccountViewModel {
     static func checkAppVersion(uid:String,valueHandler: @escaping ([String:Any]) -> Void){
         let paramters = ["deviceType":"ios", "userID": uid, "ip":IMController.shared.publicIP,"systemVersion":UIDevice.current.systemVersion]
         let url = SuperStringUtil.netUrl(IMController.shared.appAddress + checkAppVersionAPI, paramters)
-        Alamofire.request(url, method: .post,parameters: paramters, encoding: JSONEncoding.default, headers: httpHeaders).responseData { dataRequest in
+        Alamofire.request(url, method: .post,parameters: paramters, encoding: JSONEncoding.default, headers: getHttpHeader()).responseData { dataRequest in
             if let data = dataRequest.data {
                 guard let result = try? JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed) as? [String: Any] else {
                     return
@@ -584,7 +587,7 @@ class YFMineNetViewModel: AccountViewModel {
         let param = ["userLanguage":String.getCurrentLanguageFirst(), "userId": uid, "userToken":UserDefaults.standard.string(forKey: bussinessTokenKey)!]
         let url = SuperStringUtil.netUrl(API_BLOG_URL + updateUserLanguageAPI, param)
         
-        Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
+        Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
             if let data = dataRequest.data {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 if let res = JsonTool.fromJson(strData!, toClass: BlogResponseNOData.self) {
@@ -610,7 +613,7 @@ class YFMineNetViewModel: AccountViewModel {
         Alamofire.upload(multipartFormData: { (multipartFormData) in
             // 添加文件数据
             multipartFormData.append(fileURL, withName: "file")
-        }, to: apiUrl, method: .post,headers: httpHeaders) { (result) in
+        }, to: apiUrl, method: .post,headers: getHttpHeader()) { (result) in
             switch result {
             case .success(let upload, _, _):
                 // 请求成功
@@ -643,7 +646,7 @@ class YFMineNetViewModel: AccountViewModel {
         ProgressHUD.animate()
         
         let url = SuperStringUtil.netUrl(API_BLOG_URL + checkH5API, paramters)
-        Alamofire.request(API_BLOG_URL + checkH5API, method: .post, parameters: paramters, encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
+        Alamofire.request(API_BLOG_URL + checkH5API, method: .post, parameters: paramters, encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
             ProgressHUD.dismiss()
             
             if let data = dataRequest.data {
@@ -666,7 +669,7 @@ class YFMineNetViewModel: AccountViewModel {
     }
     static func checkPublicCustomerMessageApi(paramters:Parameters,valueHandler: @escaping (checkPublicCustomerUrlInfo) -> Void, completionHandler: @escaping CompletionHandler) {
         ProgressHUD.animate()
-        Alamofire.request(API_BLOG_URL + getPublicCustomerMessageNextAPI, method: .post, parameters: paramters, encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
+        Alamofire.request(API_BLOG_URL + getPublicCustomerMessageNextAPI, method: .post, parameters: paramters, encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
             
             if let data = dataRequest.data {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
@@ -726,7 +729,7 @@ extension YFMineNetViewModel {
                              completionHandler: @escaping CompletionHandler) {
         let url = IMController.shared.appAddress + pictureFindAPI
          ProgressHUD.animate()
-         Alamofire.request(url, method: .post, parameters: [:],encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
+         Alamofire.request(url, method: .post, parameters: [:],encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
              ProgressHUD.dismiss()
              if let data  = dataRequest.data {
                  let strData = String.init(data: data, encoding: String.Encoding.utf8)
@@ -778,7 +781,7 @@ extension YFMineNetViewModel {
         }
         
         
-        Alamofire.request(url, method: .post, parameters: paramters, encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
+        Alamofire.request(url, method: .post, parameters: paramters, encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
             
             if let data  = dataRequest.data {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
