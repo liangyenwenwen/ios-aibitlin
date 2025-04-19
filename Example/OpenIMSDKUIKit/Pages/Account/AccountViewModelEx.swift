@@ -95,7 +95,7 @@ extension AccountViewModel {
     // MARK: - 张亚飞打的标记  网站相关
     static func showBoke() {
         //点击公共模版
-        OIMApi.clickPublicCustomerMessageHandle = { (vc,messageId,source, type, completion: @escaping (String) -> Void) in
+        OIMApi.clickPublicCustomerMessageHandle = { (vc,chatInfo,messageId,source, type, completion: @escaping ([String:Any]) -> Void) in
             let dic = try! JSONSerialization.jsonObject(with: source.data(using: .utf8)!) as! [String: Any]
             let hash = dic["hash"] as! String
             var request_data = ""
@@ -136,18 +136,22 @@ extension AccountViewModel {
                     webVC.appid = info.hash
                     webVC.loadUrl = info.url
                     webVC.messageId = messageId
+                    webVC.chatInfo = chatInfo
+                    webVC.sendCommonTemplateMessageBlock = { templateMessageData in
+                        completion(templateMessageData)
+                    }
                     vc.navigationController?.pushViewController(webVC, animated: true)
                 }else{
                     let dic1 = try! JSONSerialization.jsonObject(with: request_data.data(using: .utf8)!) as! [String: Any]
                     YFMineNetViewModel.updatePublicCustomerMessageAction(url: info.url ?? "",token:info.token ?? "", paramters: dic1) { _ in
                         
                     } completionHandler: { errCode, errMsg in
-                        ProgressHUD.dismiss()
                         SuperToast.show(title: errMsg?.localized())
                     }
 
                 }
             }completionHandler: { errCode, errMsg in
+                ProgressHUD.dismiss()
                 SuperToast.show(title: errMsg?.localized())
             }
         }
@@ -165,11 +169,14 @@ extension AccountViewModel {
             completion(array)
         }
         //点击聊天底部工具栏自定义工具
-        OIMApi.clickChatQuickToolHandle = { (vc,chatInfo,url, hash, completion: @escaping (String) -> Void) in
+        OIMApi.clickChatQuickToolHandle = { (vc,chatInfo,url, hash, completion: @escaping ([String:Any]) -> Void) in
             let webVC = YFCustomWebViewController()
             webVC.appid = hash
             webVC.loadUrl = url
             webVC.chatInfo = chatInfo
+            webVC.sendCommonTemplateMessageBlock = { templateMessageData in
+                completion(templateMessageData)
+            }
             vc.navigationController?.pushViewController(webVC, animated: true)
         }
         // MARK: - 张亚飞打的标记 展示网站
@@ -217,10 +224,14 @@ extension AccountViewModel {
         
         // MARK: - 张亚飞打的标记   网站跳转
         
-        OIMApi.showBokeLinkHandle = { (vc, link,hash, _: @escaping (String) -> Void) in
+        OIMApi.showBokeLinkHandle = { (vc,chatInfo, link,hash, completion: @escaping ([String:Any]) -> Void) in
             print("link ----- \(link)")
             let webVC = YFCustomWebViewController()
             webVC.appid = hash
+            webVC.chatInfo = chatInfo
+            webVC.sendCommonTemplateMessageBlock = { templateMessageData in
+                completion(templateMessageData)
+            }
             vc.navigationController?.pushViewController(webVC, animated: true)
         }
         

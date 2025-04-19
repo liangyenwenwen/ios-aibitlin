@@ -287,6 +287,8 @@ struct commonTemplateMessageSource: Decodable {
     let title: String?
     let intro: String?
     let action: String?
+    let from_uid:String?
+    let to_uid:String?
     let url:String?
     let remark:String?
     let item:commonTemplateItemModel?

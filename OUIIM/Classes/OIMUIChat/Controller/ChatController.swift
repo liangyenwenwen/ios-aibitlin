@@ -12,6 +12,7 @@ protocol ChatController {
     func loadPreviousMessages(completion: @escaping ([Section]) -> Void)
     func loadMoreMessages(completion: @escaping ([Section]) -> Void)
     func sendMessage(_ data: Message.Data, completion: @escaping ([Section]) -> Void)
+    func sendCommonTemplateMessage(_ data: [String:Any], completion: @escaping ([Section]) -> Void)
     func canRevokeMessage(msg: Message) -> Bool
     func revokeMessage(with id: String, completion: @escaping () -> Void)
     func typing(doing: Bool)

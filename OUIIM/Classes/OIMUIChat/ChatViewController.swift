@@ -1718,9 +1718,13 @@ extension ChatViewController: ChatControllerDelegate {
             }else{
                 sourceStr = source.localEx!
             }
+            let chatInfo = ["receiverUserId":self.chatController.getConversation().userID,"receiverGroupId":self.chatController.getConversation().groupID,"name":self.chatController.getConversation().showName,"face":self.chatController.getConversation().faceURL]
             if let handler = OIMApi.clickPublicCustomerMessageHandle,
                sourceStr.length > 0{
-                handler(self,id, sourceStr,type, {_ in
+                handler(self,chatInfo,id, sourceStr,type, {commonTemplateData in
+                    //发送消息
+                    let completion = self.completionHandler()
+                    self.chatController.sendCommonTemplateMessage(commonTemplateData, completion: completion)
                 })
             }
         }
@@ -2044,9 +2048,12 @@ extension ChatViewController: ChatControllerDelegate {
     }
     
     func gotoBokeLink(bokeMessageSource: bokeMessageSource) {
+        let chatInfo = ["receiverUserId":self.chatController.getConversation().userID,"receiverGroupId":self.chatController.getConversation().groupID,"name":self.chatController.getConversation().showName,"face":self.chatController.getConversation().faceURL]
         if let handler = OIMApi.showBokeLinkHandle {
-            handler(self, bokeMessageSource.url ?? "",bokeMessageSource.hash ?? "", {_ in
-                
+            handler(self,chatInfo, bokeMessageSource.url ?? "",bokeMessageSource.hash ?? "", {commonTemplateData in
+                //发送消息
+                let completion = self.completionHandler()
+                self.chatController.sendCommonTemplateMessage(commonTemplateData, completion: completion)
             })
         }
     }
@@ -2483,7 +2490,10 @@ extension ChatViewController: CoustomInputBarAccessoryViewDelegate {
     private func chooseCustomerTool(padItemModel:PadItemModel){
         if let handler = OIMApi.clickChatQuickToolHandle {
             let chatInfo = ["receiverUserId":self.chatController.getConversation().userID,"receiverGroupId":self.chatController.getConversation().groupID,"name":self.chatController.getConversation().showName,"face":self.chatController.getConversation().faceURL]
-            handler(self,chatInfo, padItemModel.h5Url ?? "",padItemModel.hash ?? "", {_ in
+            handler(self,chatInfo, padItemModel.h5Url ?? "",padItemModel.hash ?? "", {commonTemplateData in
+                //发送消息
+                let completion = self.completionHandler()
+                self.chatController.sendCommonTemplateMessage(commonTemplateData, completion: completion)
             })
         }
     }

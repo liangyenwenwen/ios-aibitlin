@@ -9,15 +9,15 @@ public typealias QueryDataHandler<T: Any> = ((_ completion: @escaping Completion
 // MARK: - 张亚飞打的标记  网站相关
 public typealias showBoke = ((_ keywords: String , _ completion: @escaping ((String) -> Void)) -> Void)
 public typealias currentVCShowBokeHandle = ((_ currentVC: UIViewController , _ completion: @escaping ((String) -> Void)) -> Void)
-public typealias showBokeLinkHandle = ((_ currentVC: UIViewController, _  bokeLink: String ,_ hash: String,_ completion: @escaping ((String) -> Void)) -> Void)
+public typealias showBokeLinkHandle = ((_ currentVC: UIViewController,_ chatInfo: [String:Any], _  bokeLink: String ,_ hash: String,_ completion: @escaping (([String:Any]) -> Void)) -> Void)
 //public typealias starBokeLinkHandle = ((_ blogTitle: String, _  blogIcon: String, _ _blogUrl: String, _ blogIntro: String, _ completion: @escaping ((String) -> Void)) -> Void)
 public typealias starBokeLinkHandle = ((_ blogJson: String,  _ completion: @escaping ((String) -> Void)) -> Void)
 
 public typealias getOfficialBokeHandle = (( _ completion: @escaping (([[String: String]]) -> Void)) -> Void)
 
-public typealias clickChatQuickToolHandle = ((_ currentVC: UIViewController,_ chatInfo: [String:Any],_  linkUrl: String ,_ hash: String,  _ completion: @escaping ((String) -> Void)) -> Void)
+public typealias clickChatQuickToolHandle = ((_ currentVC: UIViewController,_ chatInfo: [String:Any],_  linkUrl: String ,_ hash: String,  _ completion: @escaping (([String:Any]) -> Void)) -> Void)
 
-public typealias clickPublicCustomerMessageHandle = ((_ currentVC: UIViewController,_ messageId: String, _  source: String ,_ type: String,  _ completion: @escaping ((String) -> Void)) -> Void)
+public typealias clickPublicCustomerMessageHandle = ((_ currentVC: UIViewController,_ chatInfo: [String:Any],_ messageId: String, _  source: String ,_ type: String,  _ completion: @escaping (([String:Any]) -> Void)) -> Void)
 
 
 // MARK: - 张亚飞打的标记  其他跳转  比如 个人资料

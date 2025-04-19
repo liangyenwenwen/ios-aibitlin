@@ -17,11 +17,7 @@ import ProgressHUD
 
 
 class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDelegate {
-    lazy var webView: WKWebView = {
-        let r = WKWebView(frame: CGRect.zero, configuration: SuperWebController.defaultConfiguration())
-        r.navigationDelegate = self
-        return r
-    }()
+    var sendCommonTemplateMessageBlock:(([String : Any]) -> ())?
     private let _disposeBag = DisposeBag()
     private var bridge: WKWebViewJavascriptBridge!
     var loadUrl:String?
@@ -32,6 +28,12 @@ class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDele
     var loadImageAPI:String?
     var messageId:String?
     var chatInfo:[String:Any]?
+    
+    lazy var webView: WKWebView = {
+        let r = WKWebView(frame: CGRect.zero, configuration: SuperWebController.defaultConfiguration())
+        r.navigationDelegate = self
+        return r
+    }()
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
@@ -110,11 +112,16 @@ class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDele
         bridge.register(handlerName: "sendMessage") { parameters, callHandleback in
             let userId = parameters?["userId"] as! String
             let groupId = parameters?["groupId"] as! String
-            IMController.shared.sendCommonTemplateMessage(param: parameters?["msg"] as? [String : Any], to: userId.length > 0 ? userId : groupId, conversationType: userId.length > 0 ? .c2c : .superGroup) { msg in
-                callHandleback?("发送成功")
-            } onComplete: { msg in
-                callHandleback?("发送失败")
+            if self.sendCommonTemplateMessageBlock != nil{
+                self.sendCommonTemplateMessageBlock!(parameters!)
+            }else{
+                IMController.shared.sendCommonTemplateMessage(param: parameters?["msg"] as? [String : Any], to: userId.length > 0 ? userId : groupId, conversationType: userId.length > 0 ? .c2c : .superGroup) { msg in
+                    callHandleback?("发送成功")
+                } onComplete: { msg in
+                    callHandleback?("发送失败")
+                }
             }
+            
         }
         //h5获取群成员列表
         bridge.register(handlerName: "getGroupMembersInfo") { parameters, callback in
@@ -209,9 +216,12 @@ class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDele
                 print("JSON serialization failed: \(error)")
             }
         }
-        //h5获取状态栏高度
-        bridge.register(handlerName: "getStatusBarHeight") { parameters, callback in
-            callback?(kStatusBarHeight)
+        //获取客户端信息
+        bridge.register(handlerName: "getUserInfo") {parameters, callback in
+            let userInfo = ["nickname":IMController.shared.currentUserRelay.value?.nickname,
+                            "faceURL":IMController.shared.currentUserRelay.value?.faceURL,
+                            "userID":IMController.shared.currentUserRelay.value?.userID]
+            callback?(userInfo)
         }
     }
     private lazy var _photoHelper: PhotoHelper = {
@@ -332,22 +342,44 @@ class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDele
 
     
     func checkH5(){
-        IMController.shared.currentUserRelay.subscribe(onNext: { r in
-            guard let r else { return }
-            let param = ["uid":r.userID,"nickname":r.nickname,"avatar":r.faceURL,"url":"","appid":self.appid,"md5":""]
+        IMController.shared.getJoinedGroupList { [weak self] (groups: [GroupInfo]) in
+            let groups: [GroupInfo] = groups
+            var gidsList = []
+            for item in groups {
+                gidsList.append((IMController.shared.currentUserRelay.value?.userID ?? "" + item.groupID).md5())
+            }
+            let param = ["uid":IMController.shared.currentUserRelay.value?.userID,"nickname":IMController.shared.currentUserRelay.value?.nickname,"avatar":IMController.shared.currentUserRelay.value?.faceURL,"url":"","appid":self?.appid,"md5":""]
             do  {
                 let jsondata = try JSONSerialization.data(withJSONObject: param, options: .prettyPrinted)
                 if let jsonString = String(data: jsondata, encoding: .utf8) {
-                    print(jsonString)
-                    self.checkWebView(dataStr: jsonString.base64Encoded)
+                    self?.checkWebView(param: ["data":jsonString.base64Encoded,"gids":gidsList])
                 }
             } catch {
                 print(error.localizedDescription)
             }
-        }).disposed(by: _disposeBag)
+            
+        }onFailure: {[weak self] errCode, errMsg in
+        
+        }
+        
+        
+        
+//        IMController.shared.currentUserRelay.subscribe(onNext: { r in
+//            guard let r else { return }
+//            let param = ["uid":r.userID,"nickname":r.nickname,"avatar":r.faceURL,"url":"","appid":self.appid,"md5":""]
+//            do  {
+//                let jsondata = try JSONSerialization.data(withJSONObject: param, options: .prettyPrinted)
+//                if let jsonString = String(data: jsondata, encoding: .utf8) {
+//                    print(jsonString)
+//                    self.checkWebView(dataStr: jsonString.base64Encoded)
+//                }
+//            } catch {
+//                print(error.localizedDescription)
+//            }
+//        }).disposed(by: _disposeBag)
     }
-    func checkWebView(dataStr:String?){
-        YFMineNetViewModel.checkH5(paramters: ["data":dataStr as Any]) { [weak self] data in
+    func checkWebView(param:[String:Any]){
+        YFMineNetViewModel.checkH5(paramters: param) { [weak self] data in
             ProgressHUD.dismiss()
             self?.h5DetailInfo = data
             YFFileDataUtil.saveOneH5ToFile(item: data)

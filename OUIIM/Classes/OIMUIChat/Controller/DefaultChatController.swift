@@ -632,7 +632,43 @@ final class DefaultChatController: ChatController {
             }
         }
     }
-    
+    //发送公共模版消息
+    func sendCommonTemplateMessage(_ data:[String:Any], completion: @escaping ([Section]) -> Void) {
+        let userId = data["userId"] as! String
+        let groupId = data["groupId"] as! String
+        let param = data["msg"] as? [String : Any]
+        IMController.shared.sendCommonTemplateMessage(param: param, to: groupId.length > 0 ? groupId : userId, conversationType: groupId.length > 0 ? .superGroup : .c2c){[weak self] msg in
+            if groupId.length > 0 ,
+               groupInfo?.groupID == groupId
+            {
+                //群
+                self?.appendMessage(msg, completion: completion)
+            }else{
+                //私聊
+                if userId.length > 0 ,
+                   receiverId == userId
+                {
+                    //群
+                    self?.appendMessage(msg, completion: completion)
+                }
+            }
+        } onComplete: { [weak self] msg in
+            if groupId.length > 0 ,
+               self?.groupInfo?.groupID == groupId
+            {
+                //群
+                self?.appendMessage(msg, completion: completion)
+            }else{
+                //私聊
+                if userId.length > 0 ,
+                   self?.otherInfo?.userID == userId
+                {
+                    //群
+                    self?.appendMessage(msg, completion: completion)
+                }
+            }
+        }
+    }
     private func resend(messageID: String) {
         guard let index = messages.firstIndex(where: { $0.clientMsgID == messageID }) else { return }
         
