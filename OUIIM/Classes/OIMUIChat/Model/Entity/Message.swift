@@ -434,20 +434,20 @@ extension CustomMessageSource {
                     return res
                 }else{
                     let long = commonTemplateBtItemModel(action: "", url: "", name: "", request_data: "")
-                    return OUIIM.commonTemplateMessageSource(hash: "",logo: "", title: "", intro: "", action: "", url: "", remark: "", item: OUIIM.commonTemplateItemModel(bg: "", icon: "", name: "", intro: "", action: "", url: "", request_data: ""), bt: OUIIM.commonTemplateBtModel(long: long, left: long, right: long), media: OUIIM.commonTemplateMediaModel(type: "", media_url: ""))
+                    return OUIIM.commonTemplateMessageSource(hash: "",logo: "", title: "", intro: "", action: "",from_uid:"",to_uid:"", url: "", remark: "", item: OUIIM.commonTemplateItemModel(bg: "", icon: "", name: "", intro: "", action: "", url: "", request_data: ""), bt: OUIIM.commonTemplateBtModel(long: long, left: long, right: long), media: OUIIM.commonTemplateMediaModel(type: "", media_url: ""))
                 }
             }else{
                 if let res = JsonTool.fromMap(value, toClass:  OUIIM.commonTemplateMessageSource.self){
                     return res
                 }else{
                     let long = commonTemplateBtItemModel(action: "", url: "", name: "", request_data: "")
-                    return OUIIM.commonTemplateMessageSource(hash: "",logo: "", title: "", intro: "", action: "", url: "", remark: "", item: OUIIM.commonTemplateItemModel(bg: "", icon: "", name: "", intro: "", action: "", url: "", request_data: ""), bt: OUIIM.commonTemplateBtModel(long: long, left: long, right: long), media: OUIIM.commonTemplateMediaModel(type: "", media_url: ""))
+                    return OUIIM.commonTemplateMessageSource(hash: "",logo: "", title: "", intro: "", action: "",from_uid:"",to_uid:"", url: "", remark: "", item: OUIIM.commonTemplateItemModel(bg: "", icon: "", name: "", intro: "", action: "", url: "", request_data: ""), bt: OUIIM.commonTemplateBtModel(long: long, left: long, right: long), media: OUIIM.commonTemplateMediaModel(type: "", media_url: ""))
                 }
             }
             
         }
         let long = commonTemplateBtItemModel(action: "", url: "", name: "", request_data: "")
-        return OUIIM.commonTemplateMessageSource(hash: "",logo: "", title: "", intro: "", action: "", url: "", remark: "", item: OUIIM.commonTemplateItemModel(bg: "", icon: "", name: "", intro: "", action: "", url: "", request_data: ""), bt: OUIIM.commonTemplateBtModel(long: long, left: long, right: long), media: OUIIM.commonTemplateMediaModel(type: "", media_url: ""))
+        return OUIIM.commonTemplateMessageSource(hash: "",logo: "", title: "", intro: "", action: "",from_uid:"",to_uid:"", url: "", remark: "", item: OUIIM.commonTemplateItemModel(bg: "", icon: "", name: "", intro: "", action: "", url: "", request_data: ""), bt: OUIIM.commonTemplateBtModel(long: long, left: long, right: long), media: OUIIM.commonTemplateMediaModel(type: "", media_url: ""))
     }
     // MARK: - 张亚飞打的标记   自定义消息加工
     public var type: CustomMessageType? {

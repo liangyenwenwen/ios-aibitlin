@@ -125,7 +125,13 @@ extension MineBokeListViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         emptyView.hide()
         let cell = tableView.dequeueReusableCell(withIdentifier: MineBokeListCell.className, for: indexPath) as! MineBokeListCell
-        cell.bindData(datum[indexPath.row] as! myBlogShowBlogPOModel)
+        let model = datum[indexPath.row] as! myBlogShowBlogPOModel
+        cell.bindData(model)
+        if vcType == .star && (model.base?.extend?.ex?.autoflag?.length ?? 0 > 0){
+            cell.moreView.hide()
+        }else{
+            cell.moreView.show()
+        }
         cell.editBlock = { [weak self] in
             self?.showEdit(indexPath.row)
         }

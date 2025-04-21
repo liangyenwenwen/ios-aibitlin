@@ -887,6 +887,7 @@ struct extendModel: Codable {
     var app:permissionModel?
     var js:jsModel?
     var sum:sumModel?
+    var ex:exModel?
 }
 struct permissionModel: Codable {
     var permission:[String]?
@@ -897,6 +898,9 @@ struct jsModel: Codable {
 }
 struct sumModel: Codable {
     var flag:String?
+}
+struct exModel: Codable {
+    var autoflag:String?
 }
 struct shortcut: Codable {
     var home:homeModel?
