@@ -25,7 +25,7 @@ class YFMineNetViewModel: AccountViewModel {
     private static let BlogAuditAddWaitAuditAutoAPI = "/blog/add" //添加网站
     private static let ShowMyMyBlogsAPI = "/blog/myList" //我的网站列表
     private static let updateWaitAuditAutoAPI = "/blog/edit"//修改网站
-    private static let deleteBlogAPI = "/blog/del" //删除网站
+    private static let deleteBlogAPI = "/blog/ownerDel" //删除网站
     private static let blogTopAPI = "/blog/setTop"//网站置顶
     private static let otherSeeMyBlogAPI = "/blog/othersList" //他人网站列表
     private static let flagBlogAPI = "/blog/flag" //收藏网站
