@@ -928,10 +928,10 @@ open class ZLCustomCamera: UIViewController {
         guard config.allowEditImage else {
             return false
         }
-        
+        return true
         // 如果满足如下条件，则会在拍照完成后，返回相册界面直接进入编辑界面，这里就不在编辑
-        let editAfterSelect = config.editAfterSelectThumbnailImage && config.maxSelectCount == 1
-        return !editAfterSelect
+//        let editAfterSelect = config.editAfterSelectThumbnailImage && config.maxSelectCount == 1
+//        return !editAfterSelect
     }
     
     @objc private func editImage() {
