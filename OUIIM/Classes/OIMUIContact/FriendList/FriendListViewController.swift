@@ -135,7 +135,7 @@ open class FriendListViewController: UIViewController {
         headerView.addFriendView.bindData(item: listTableHeader.MenuItem(title: "添加好友".innerLocalized(), icon: UIImage(named: "friend_list_add_friend_icon")))
         headerView.addGroupChatView.bindData(item: listTableHeader.MenuItem(title: "添加群聊".innerLocalized(), icon: UIImage(named: "friend_list_add_group_chat_icon")))
         headerView.creatGroupChatView.bindData(item: listTableHeader.MenuItem(title: "创建群聊".innerLocalized(), icon: UIImage(named: "friend_list_creat_group_chat_icon")))
-        headerView.videoMettingView.bindData(item: listTableHeader.MenuItem(title: "视频会议".innerLocalized(), icon: UIImage(named: "friend_list_video_metting_icon")))
+//        headerView.videoMettingView.bindData(item: listTableHeader.MenuItem(title: "视频会议".innerLocalized(), icon: UIImage(named: "friend_list_video_metting_icon")))
         
         let data:[listTableHeader.MenuItem] = [listTableHeader.MenuItem(title: "好友申请".innerLocalized(), icon: UIImage(named: "friend_list_group_icon")),
                                                listTableHeader.MenuItem(title: "群聊申请".localized(), icon: UIImage(named: "friend_list_group_new_icon")),
@@ -261,7 +261,7 @@ open class FriendListViewController: UIViewController {
         r.addFriendView.bindData(item: listTableHeader.MenuItem(title: "添加好友".innerLocalized(), icon: UIImage(named: "friend_list_add_friend_icon")))
         r.addGroupChatView.bindData(item: listTableHeader.MenuItem(title: "添加群聊".innerLocalized(), icon: UIImage(named: "friend_list_add_group_chat_icon")))
         r.creatGroupChatView.bindData(item: listTableHeader.MenuItem(title: "创建群聊".innerLocalized(), icon: UIImage(named: "friend_list_creat_group_chat_icon")))
-        r.videoMettingView.bindData(item: listTableHeader.MenuItem(title: "视频会议".innerLocalized(), icon: UIImage(named: "friend_list_video_metting_icon")))
+//        r.videoMettingView.bindData(item: listTableHeader.MenuItem(title: "视频会议".innerLocalized(), icon: UIImage(named: "friend_list_video_metting_icon")))
         let data:[listTableHeader.MenuItem] = [listTableHeader.MenuItem(title: "好友申请".innerLocalized(), icon: UIImage(named: "friend_list_group_icon")),
                                                listTableHeader.MenuItem(title: "群聊申请".localized(), icon: UIImage(named: "friend_list_group_new_icon")),
                                                listTableHeader.MenuItem(title: "我的群聊".localized(), icon: UIImage(named: "friend_list_new_friend_icon"))]
@@ -498,12 +498,12 @@ class listTableHeader: UIView {
         super.init(frame: frame)
         
         backgroundColor = .white
-        let width = (UIScreen.main.bounds.size.width - 16*2 - 8*3)/4
+        let width = (UIScreen.main.bounds.size.width - 16*2 - 8*2)/3
 
         addSubview(addFriendView)
         addSubview(addGroupChatView)
         addSubview(creatGroupChatView)
-        addSubview(videoMettingView)
+//        addSubview(videoMettingView)
         addSubview(newFriendView)
         addSubview(groupView)
         addSubview(newGroupView)
@@ -529,10 +529,10 @@ class listTableHeader: UIView {
             make.left.equalTo(addGroupChatView.snp_right).offset(8)
             make.width.height.top.equalTo(addFriendView)
         }
-        videoMettingView.snp.makeConstraints { make in
-            make.left.equalTo(creatGroupChatView.snp_right).offset(8)
-            make.width.height.top.equalTo(addFriendView)
-        }
+//        videoMettingView.snp.makeConstraints { make in
+//            make.left.equalTo(creatGroupChatView.snp_right).offset(8)
+//            make.width.height.top.equalTo(addFriendView)
+//        }
         
         newFriendView.snp.makeConstraints { make in
             make.left.right.equalToSuperview()

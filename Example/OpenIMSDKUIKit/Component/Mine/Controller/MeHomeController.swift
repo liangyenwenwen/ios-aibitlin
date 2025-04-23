@@ -235,7 +235,7 @@ class MeHomeController: BaseLogicController {
         vipView.tg_width.equal(.fill)
         vipView.tg_height.equal(44)
         
-        let tap = UITapGestureRecognizer(target: self, action: #selector(gotoVip))
+        let tap = UITapGestureRecognizer(target: self, action: #selector(copyUserID))
         vipView.addGestureRecognizer(tap)
         
         
@@ -431,11 +431,6 @@ extension MeHomeController {
         gotoControllerFromRoot(vc)
         
 //        gotoControllerFromRoot(YFChatNewFriendListVC.self)
-    }
-    
-    
-    @objc func gotoVip() {
-        gotoControllerFromRoot(YFMineHomeBuyVipVC.self)
     }
     
     @objc func gotoMoments() {
