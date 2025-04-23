@@ -1018,7 +1018,7 @@ extension IMController {
             sending(message.toMessageInfo())
             sendOIMMessage(message: message, to: recvID, conversationType: conversationType, onComplete: onComplete)
         } catch {
-            print("发送红包失败  ----- json 解析错误")
+            print("发送公共模版消息失败  ----- json 解析错误")
         }
         
     }

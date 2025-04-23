@@ -399,6 +399,13 @@ Toolbox = "Toolbox";
 "请输入隐私访问密码" = "Please enter your privacy access password";
 "密码长度必须为6位数字" = "The password length must be 6 digits";
 
+"使用哎比邻登录" = "Log in with Aibitlin";
+"将授权以下信息" = "Authorize the following information";
+"获取您的ID、手机号码、邮箱" = "Get your ID, phone number, email";
+"获取您的好友列表" = "Get your friend list";
+"获取您的群组列表" = "Get your group list";
+"授权登录" = "Authorized login";
+
 
 //翻译
 "翻译" = "Translate";

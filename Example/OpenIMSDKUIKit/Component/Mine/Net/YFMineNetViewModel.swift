@@ -16,11 +16,8 @@ import ProgressHUD
 import OpenIMSDK
 
 class YFMineNetViewModel: AccountViewModel {
-
-//    static let API_BLOG_URL = "http://192.168.7.107:18898"
-//    public static let API_BLOG_URL = "http://blog.aibitlin.com:18898"
-//    public static let API_BLOG_URL = "https://imblogs.aibitlin.com"
-    public static let API_BLOG_URL = "http://192.168.7.11"
+//    public static let API_BLOG_URL = "http://192.168.7.11"
+    public static let API_BLOG_URL = "https://apis.aibitlin.com"
     
     
     // MARK: - 张亚飞打的标记 blogAPI
@@ -636,7 +633,37 @@ class YFMineNetViewModel: AccountViewModel {
                         completionHandler(-1, "failure")
                     }
                 }
-            case .failure(let error):
+            case .failure(_):
+                // 请求失败
+                completionHandler(-1, "failure")
+            }
+        }
+    }
+    static func uploadH5ImageFromPath(apiUrl:String,fileURL: URL,
+                                      valueHandler: @escaping ([String:Any]) -> Void,
+                                    completionHandler: @escaping CompletionHandler) {
+        // 发送 Multipart 请求
+        Alamofire.upload(multipartFormData: { (multipartFormData) in
+            // 添加文件数据
+            multipartFormData.append(fileURL, withName: "file")
+        }, to: apiUrl, method: .post,headers: getHttpHeader()) { (result) in
+            switch result {
+            case .success(let upload, _, _):
+                // 请求成功
+                upload.responseJSON { response in
+                    // 处理服务器返回的数据
+                    if let data = response.data {
+                        
+                        guard let result = try? JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed) as? [String: Any] else {
+                            completionHandler(-1, "failure")
+                            return
+                        }
+                        valueHandler(result)
+                    }else{
+                        completionHandler(-1, "failure")
+                    }
+                }
+            case .failure(_):
                 // 请求失败
                 completionHandler(-1, "failure")
             }
@@ -645,7 +672,6 @@ class YFMineNetViewModel: AccountViewModel {
     static func checkH5(paramters:Parameters,valueHandler: @escaping (h5Model) -> Void, completionHandler: @escaping CompletionHandler) {
         ProgressHUD.animate()
         
-        let url = SuperStringUtil.netUrl(API_BLOG_URL + checkH5API, paramters)
         Alamofire.request(API_BLOG_URL + checkH5API, method: .post, parameters: paramters, encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
             ProgressHUD.dismiss()
             
@@ -689,10 +715,11 @@ class YFMineNetViewModel: AccountViewModel {
         
         }
     }
-    static func updatePublicCustomerMessageAction(url:String,token:String,paramters:Parameters,valueHandler: @escaping (Parameters) -> Void, completionHandler: @escaping CompletionHandler) {
+    static func updatePublicCustomerMessageAction(url:String,token:String,appId:String,paramters:Parameters,valueHandler: @escaping (Parameters) -> Void, completionHandler: @escaping CompletionHandler) {
         ProgressHUD.animate()
         let header : HTTPHeaders = [
             "token":token,
+            "appid":appId,
             "X-Forwarded-Add":IMController.shared.publicAddress,
             "X-Forwarded-For":IMController.shared.publicIP,
             "Authorization":"eyJ1c2VySW5mbyI6InVzZXJCbG9nWWFuWmhlbmdUb2tlbiJ9",
@@ -704,13 +731,13 @@ class YFMineNetViewModel: AccountViewModel {
             if let data = dataRequest.data {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
                 print(strData!)
-                if let res = JsonTool.fromJson(strData!, toClass: BlogListResponse<checkPublicCustomerUrlInfo>.self) {
-                    if res.code == 200{
-                        valueHandler(["33":""])
-                    }else{
-                        completionHandler(res.code, res.msg)
+                if let data = dataRequest.data {
+                    guard let result = try? JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed) as? [String: Any] else {
+                        completionHandler(-1, "failure")
+                        return
                     }
-                } else {
+                    valueHandler(result)
+                }else{
                     completionHandler(-1, "failure")
                 }
             }else {
@@ -1002,6 +1029,7 @@ struct h5Info: Codable {
     let info:blogDetailItem?
     let extend:extendModel?
     let shortcut:shortcut?
+    let type:Int?
 }
 struct checkPublicCustomerUrlInfo:Codable {
     let token:String?

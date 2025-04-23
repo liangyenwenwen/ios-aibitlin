@@ -89,10 +89,9 @@
 		04B09E332CF5A1F800ABF926 /* YFAibitlinAgreementAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B09E322CF5A1F800ABF926 /* YFAibitlinAgreementAlert.swift */; };
 		04B09E352CF5BE5C00ABF926 /* YFResetPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B09E342CF5BE5C00ABF926 /* YFResetPasswordVC.swift */; };
 		04B801372D92C3D10061641B /* AESEncyptUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B801362D92C3D10061641B /* AESEncyptUtil.swift */; };
-		04B801902D9E3AFA0061641B /* error.html in Resources */ = {isa = PBXBuildFile; fileRef = 04B8018F2D9E3AFA0061641B /* error.html */; };
-		04B801942D9E7D940061641B /* webview_refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B801932D9E7D940061641B /* webview_refresh.png */; };
 		04B801962DA3B7470061641B /* WebViewPwdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B801952DA3B7470061641B /* WebViewPwdViewController.swift */; };
 		04B801982DA3D0290061641B /* AuthorizedLoginAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B801972DA3D0290061641B /* AuthorizedLoginAlertView.swift */; };
+		04B8021A2DB88ADD0061641B /* YFWebViewErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B802192DB88ADD0061641B /* YFWebViewErrorView.swift */; };
 		04C394412CCF85A500181F6B /* YFPhoneLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C394402CCF85A500181F6B /* YFPhoneLoginVC.swift */; };
 		04C394432CCF874300181F6B /* YFAibitlinHomeChooseHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C394422CCF874300181F6B /* YFAibitlinHomeChooseHeaderView.swift */; };
 		04C394452CCFADF500181F6B /* YFEmailLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C394442CCFADF500181F6B /* YFEmailLoginVC.swift */; };
@@ -287,10 +286,9 @@
 		04B09E322CF5A1F800ABF926 /* YFAibitlinAgreementAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFAibitlinAgreementAlert.swift; sourceTree = "<group>"; };
 		04B09E342CF5BE5C00ABF926 /* YFResetPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFResetPasswordVC.swift; sourceTree = "<group>"; };
 		04B801362D92C3D10061641B /* AESEncyptUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AESEncyptUtil.swift; sourceTree = "<group>"; };
-		04B8018F2D9E3AFA0061641B /* error.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = error.html; sourceTree = "<group>"; };
-		04B801932D9E7D940061641B /* webview_refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = webview_refresh.png; sourceTree = "<group>"; };
 		04B801952DA3B7470061641B /* WebViewPwdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewPwdViewController.swift; sourceTree = "<group>"; };
 		04B801972DA3D0290061641B /* AuthorizedLoginAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizedLoginAlertView.swift; sourceTree = "<group>"; };
+		04B802192DB88ADD0061641B /* YFWebViewErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFWebViewErrorView.swift; sourceTree = "<group>"; };
 		04C394402CCF85A500181F6B /* YFPhoneLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFPhoneLoginVC.swift; sourceTree = "<group>"; };
 		04C394422CCF874300181F6B /* YFAibitlinHomeChooseHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFAibitlinHomeChooseHeaderView.swift; sourceTree = "<group>"; };
 		04C394442CCFADF500181F6B /* YFEmailLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFEmailLoginVC.swift; sourceTree = "<group>"; };
@@ -569,8 +567,7 @@
 		040D85D62BEB8C0A00DCAAB3 /* BaseController */ = {
 			isa = PBXGroup;
 			children = (
-				04B8018F2D9E3AFA0061641B /* error.html */,
-				04B801932D9E7D940061641B /* webview_refresh.png */,
+				04B802182DB88AA70061641B /* errorWebview */,
 				0411DD262C05CCB800EDD135 /* SuperDialogController.swift */,
 				040D85D72BEB8C0A00DCAAB3 /* BaseWebController.swift */,
 				040D85D82BEB8C0A00DCAAB3 /* BaseController.swift */,
@@ -763,6 +760,14 @@
 				049D30242CC2032800649DC4 /* YFNotNetTopTipView.swift */,
 			);
 			path = notNetTopTipView;
+			sourceTree = "<group>";
+		};
+		04B802182DB88AA70061641B /* errorWebview */ = {
+			isa = PBXGroup;
+			children = (
+				04B802192DB88ADD0061641B /* YFWebViewErrorView.swift */,
+			);
+			path = errorWebview;
 			sourceTree = "<group>";
 		};
 		04D2E2042CBE4E5500582B13 /* HDEmptyView */ = {
@@ -1308,10 +1313,8 @@
 				DCE04171283E5BD30095874E /* Localizable.strings in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
-				04B801902D9E3AFA0061641B /* error.html in Resources */,
 				04504CD02D6D9FD700E08B90 /* call.mp3 in Resources */,
 				042AD9E72D295E4600CB5041 /* GoogleService-Info.plist in Resources */,
-				04B801942D9E7D940061641B /* webview_refresh.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1586,6 +1589,7 @@
 				040D85AB2BEB87B800DCAAB3 /* R.generated.swift in Sources */,
 				040D860B2BEB8C4200DCAAB3 /* SuperUIViewExtension.swift in Sources */,
 				04F533F22BF84C8C005D0405 /* TestDataUtil.swift in Sources */,
+				04B8021A2DB88ADD0061641B /* YFWebViewErrorView.swift in Sources */,
 				04C394452CCFADF500181F6B /* YFEmailLoginVC.swift in Sources */,
 				040D85F62BEB8C0B00DCAAB3 /* BaseId.swift in Sources */,
 				04F5CFC32CBD35A4007BC74D /* YFEmptyView.swift in Sources */,
@@ -1875,7 +1879,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 82D668V62M;
 				ENABLE_BITCODE = NO;
@@ -1921,7 +1925,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 82D668V62M;
 				ENABLE_BITCODE = NO;

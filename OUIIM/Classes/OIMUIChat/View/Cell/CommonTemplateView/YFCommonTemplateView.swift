@@ -170,39 +170,6 @@ class YFCommonTemplateView: UIView, ContainerCollectionViewCellDelegate  {
     private var controller: YFCommonTemplateController!
     
     func reloadData(messageSource:commonTemplateMessageSource) {
-//        guard let controller else {
-//            return
-//        }
-//        titleLabel.text = controller.instructions
-//        if controller.redPacketStatus == 0{
-//            //未领取
-//            
-//            if controller.source.redPacketType == 3{
-//                //专属红包
-//                statusLabel.text = "红包-" + controller.source.receiverName! + "专属"
-//                if controller.source.receiverId == IMController.shared.uid || controller.source.sendUserId == IMController.shared.uid{
-//                    contentView.backgroundColor = .init(hexString: "#F25151")
-//                }else{
-//                    contentView.backgroundColor = .init(hexString: "#FFA0A0")
-//                }
-//            }else{
-//                statusLabel.text = "红包"
-//                contentView.backgroundColor = .init(hexString: "#F25151")
-//            }
-//            
-//        }else if controller.redPacketStatus == 1{
-//            //已领取
-//            statusLabel.text = "红包-已领取"
-//            contentView.backgroundColor = .init(hexString: "#FFA0A0")
-//        }else if controller.redPacketStatus == 2{
-//            //已过期
-//            statusLabel.text = "红包-已过期"
-//            contentView.backgroundColor = .init(hexString: "#FFA0A0")
-//        }else if controller.redPacketStatus == 3{
-//            //已领完
-//            statusLabel.text = "红包-已领完"
-//            contentView.backgroundColor = .init(hexString: "#FFA0A0")
-//        }
         logoImageView.setImageWithURLString(messageSource.logo ?? "", placeholder: UIImage(named: "launch_logo"))
         titleLabel.text = messageSource.title ?? ""
         if (messageSource.intro ?? "").length > 0{

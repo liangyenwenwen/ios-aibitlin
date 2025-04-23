@@ -171,7 +171,7 @@ struct _R: Sendable {
       var ieXW0yeText: RswiftResources.StringResource { .init(key: "8ie-xW-0ye.text", tableName: "LaunchScreen", source: source, developmentValue: nil, comment: nil) }
     }
 
-    /// This `_R.string.localizable` struct is generated, and contains static references to 552 localization keys.
+    /// This `_R.string.localizable` struct is generated, and contains static references to 558 localization keys.
     struct localizable {
       let source: RswiftResources.StringResource.Source
 
@@ -1645,6 +1645,13 @@ struct _R: Sendable {
       /// Locales: en, th
       var 使用Google登录: RswiftResources.StringResource { .init(key: "使用Google登录", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// en translation: Log in with Aibitlin
+      ///
+      /// Key: 使用哎比邻登录
+      ///
+      /// Locales: en, th
+      var 使用哎比邻登录: RswiftResources.StringResource { .init(key: "使用哎比邻登录", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: Use Phone
       ///
       /// Key: 使用手机号找回
@@ -2303,6 +2310,13 @@ struct _R: Sendable {
       /// Locales: en, th
       var 密码长度必须为6位数字: RswiftResources.StringResource { .init(key: "密码长度必须为6位数字", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// en translation: Authorize the following information
+      ///
+      /// Key: 将授权以下信息
+      ///
+      /// Locales: en, th
+      var 将授权以下信息: RswiftResources.StringResource { .init(key: "将授权以下信息", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: Tool
       ///
       /// Key: 工具箱
@@ -2617,6 +2631,13 @@ struct _R: Sendable {
       ///
       /// Locales: en, th
       var 换一批: RswiftResources.StringResource { .init(key: "换一批", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Authorized login
+      ///
+      /// Key: 授权登录
+      ///
+      /// Locales: en, th
+      var 授权登录: RswiftResources.StringResource { .init(key: "授权登录", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Sort
       ///
@@ -3360,6 +3381,27 @@ struct _R: Sendable {
       /// Locales: en, th
       var 英文: RswiftResources.StringResource { .init(key: "英文", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// en translation: Get your ID, phone number, email
+      ///
+      /// Key: 获取您的ID、手机号码、邮箱
+      ///
+      /// Locales: en, th
+      var 获取您的ID手机号码邮箱: RswiftResources.StringResource { .init(key: "获取您的ID、手机号码、邮箱", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Get your friend list
+      ///
+      /// Key: 获取您的好友列表
+      ///
+      /// Locales: en, th
+      var 获取您的好友列表: RswiftResources.StringResource { .init(key: "获取您的好友列表", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Get your group list
+      ///
+      /// Key: 获取您的群组列表
+      ///
+      /// Locales: en, th
+      var 获取您的群组列表: RswiftResources.StringResource { .init(key: "获取您的群组列表", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: The Philippines
       ///
       /// Key: 菲律宾
@@ -4057,7 +4099,7 @@ struct _R: Sendable {
     var colorBackground: RswiftResources.ColorResource { .init(name: "ColorBackground", path: [], bundle: bundle) }
   }
 
-  /// This `_R.image` struct is generated, and contains static references to 262 images.
+  /// This `_R.image` struct is generated, and contains static references to 261 images.
   struct image {
     let bundle: Foundation.Bundle
 
@@ -4841,9 +4883,6 @@ struct _R: Sendable {
     /// Image `warnings_icon`.
     var warnings_icon: RswiftResources.ImageResource { .init(name: "warnings_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
-    /// Image `webview_refresh`.
-    var webview_refresh: RswiftResources.ImageResource { .init(name: "webview_refresh", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
-
     /// Image `youtube_icon`.
     var youtube_icon: RswiftResources.ImageResource { .init(name: "youtube_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
   }
@@ -4853,7 +4892,7 @@ struct _R: Sendable {
     let apsEnvironment: String = "development"
   }
 
-  /// This `_R.file` struct is generated, and contains static references to 4 resource files.
+  /// This `_R.file` struct is generated, and contains static references to 2 resource files.
   struct file {
     let bundle: Foundation.Bundle
 
@@ -4862,12 +4901,6 @@ struct _R: Sendable {
 
     /// Resource file `call.mp3`.
     var callMp3: RswiftResources.FileResource { .init(name: "call", pathExtension: "mp3", bundle: bundle, locale: LocaleReference.none) }
-
-    /// Resource file `error.html`.
-    var errorHtml: RswiftResources.FileResource { .init(name: "error", pathExtension: "html", bundle: bundle, locale: LocaleReference.none) }
-
-    /// Resource file `webview_refresh.png`.
-    var webview_refreshPng: RswiftResources.FileResource { .init(name: "webview_refresh", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
   }
 
   /// This `_R.nib` struct is generated, and contains static references to 1 nibs.

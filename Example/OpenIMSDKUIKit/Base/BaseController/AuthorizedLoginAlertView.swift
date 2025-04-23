@@ -54,17 +54,16 @@ class AuthorizedLoginAlertView: TGLinearLayout {
     }
     func updateContentUI(model:h5Model){
         h5DetailInfo = model
-        //auth_login_cricle
-//        for item in model.data?.extend?.app?.permission ?? [] {
-//            if item == "userinfo"{
-                centerContainer.addSubview(drawAuthLabel(attributedText: getAttribute(str:"获取您的ID、手机号码、邮箱")))
-//            }else if item == "friend"{
-                centerContainer.addSubview(drawAuthLabel(attributedText: getAttribute(str:"获取您的好友列表")))
-//            }else if item == "group"{
-                centerContainer.addSubview(drawAuthLabel(attributedText: getAttribute(str: "获取您的群组列表")))
-//            }
-//        }
-        descLabel.text = "使用哎比邻登录" + (model.data?.info?.name ?? "") + "，将授权以下信息"
+        for item in model.data?.extend?.app?.permission ?? [] {
+            if item == "userinfo"{
+                centerContainer.addSubview(drawAuthLabel(attributedText: getAttribute(str:"获取您的ID、手机号码、邮箱".localized())))
+            }else if item == "friend"{
+                centerContainer.addSubview(drawAuthLabel(attributedText: getAttribute(str:"获取您的好友列表".localized())))
+            }else if item == "group"{
+                centerContainer.addSubview(drawAuthLabel(attributedText: getAttribute(str: "获取您的群组列表".localized())))
+            }
+        }
+        descLabel.text = "使用哎比邻登录".localized() + (model.data?.info?.name ?? "") + "，将授权以下信息".localized()
     }
     func getAttribute(str:String) -> NSMutableAttributedString{
         let attachment = NSTextAttachment()
@@ -95,7 +94,7 @@ class AuthorizedLoginAlertView: TGLinearLayout {
         r.tg_height.equal(.wrap)
         r.textColor = .black333
         r.font = .mediumFont(18)
-        r.text = "授权登录"
+        r.text = "授权登录".localized()
         return r
     }()
     lazy var descLabel: UILabel = {

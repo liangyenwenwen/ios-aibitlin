@@ -25,15 +25,83 @@ class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDele
     var chatUserId:String?
     var chatGroupId:String?
     var h5DetailInfo:h5Model?
-    var loadImageAPI:String?
     var messageId:String?
     var chatInfo:[String:Any]?
     
+    var loadImageAPI:String?
+    var imageArray:[UIImage] = []
+    var imageUrlArray:[Any] = []
+    var isforVideo:Bool = false
+    
+    var refreshURL:String?
+    lazy var errorView:YFWebViewErrorView = {
+        let r = YFWebViewErrorView()
+        r.isHidden = true
+        r.backBlock = { [weak self] in
+            self?.navigationController?.popViewController(animated: true)
+        }
+        r.refreshBlock = { [weak self] in
+            r.isHidden = true
+            if self?.h5DetailInfo == nil{
+                self?.checkH5()
+            }else{
+                if self?.refreshURL == nil{
+                    self?.refreshURL = self?.loadUrl
+                }
+                let request = URLRequest(url: URL(string: self?.refreshURL)!)
+                self?.webView.load(request)
+                self?.refreshURL = nil
+            }
+        }
+        return r
+    }()
+    lazy var navView: UIView = {
+        let r = UIView()
+        r.isHidden = true
+        r.backgroundColor = .white
+        r.addSubview(backImg)
+        r.addSubview(titleLabel)
+        backImg.snp.makeConstraints { make in
+            make.left.equalTo(18)
+            make.width.height.equalTo(20)
+            make.bottom.equalTo(r).offset(-12)
+        }
+        titleLabel.snp.makeConstraints { make in
+            make.left.equalTo(100)
+            make.right.equalTo(-100)
+            make.centerY.equalTo(backImg)
+        }
+        return r
+    }()
+    lazy var backImg: UIImageView = {
+        let r = UIImageView()
+        r.image = .init(named: "common_back_icon")
+        r.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(backAction))
+        r.addGestureRecognizer(tap)
+        return r
+    }()
+    lazy var titleLabel: UILabel = {
+        let r = UILabel()
+        r.textColor = .init(hexString: "#333333")
+        r.font =  UIFont(name: "PingFangSC-Medium", size: 18)
+        r.text = ""
+        r.textAlignment = .center
+        return r
+    }()
     lazy var webView: WKWebView = {
         let r = WKWebView(frame: CGRect.zero, configuration: SuperWebController.defaultConfiguration())
         r.navigationDelegate = self
         return r
     }()
+    @objc func backAction() {
+        if webView.canGoBack {
+            //如果浏览器能返回上一页，就直接返回上一页
+            webView.goBack()
+            return
+        }
+        self.navigationController?.popViewController(animated: true)
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
@@ -45,27 +113,30 @@ class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDele
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .colorBackgroundAPP
         view.addSubview(webView)
-        webView.frame = view.bounds
+        view.addSubview(navView)
+        view.addSubview(errorView)
+        webView.snp.makeConstraints { make in
+            make.top.left.right.equalTo(0)
+            make.bottom.equalTo(-kSafeAreaBottomHeight)
+        }
+        navView.snp.makeConstraints { make in
+//            make.top.equalTo(kStatusBarHeight)
+            make.top.left.right.equalTo(0)
+            make.height.equalTo(44+kStatusBarHeight)
+        }
+        errorView.snp.makeConstraints { make in
+            make.edges.equalTo(view)
+        }
         bridge = WKWebViewJavascriptBridge(webView: webView)
         webView.uiDelegate = self
-        // 加载 HTML 文件
-//        if let htmlPath = Bundle.main.path(forResource: "error", ofType: "html") {
-//            let url = URL(fileURLWithPath: htmlPath)
-//            let request = URLRequest(url: url)
-//            webView.load(request)
-//        }
         checkH5()
         //注册方法供h5调用
         registerAllFunc()
+        webView.addObserver(self, forKeyPath: "title", options: .new, context: nil)
     }
     func registerAllFunc(){
-        //刷新
-        bridge.register(handlerName: "refreshWebView") { parameters, callback in
-            let request = URLRequest(url: URL(string: "http://www.baidu.com")!)
-                   //请求
-            self.webView.load(request)
-        }
         //关闭h5页面
         bridge.register(handlerName: "closeWebView") { parameters, callback in
             self.navigationController?.popViewController(animated: true)
@@ -73,6 +144,10 @@ class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDele
         //h5获取AppId
         bridge.register(handlerName: "getAppId") { parameters, callback in
             callback?(self.appid)
+        }
+        //h5获取当前语言
+        bridge.register(handlerName: "getLanguage") { parameters, callback in
+            callback?(String.getCurrentLanguageFirst())
         }
         //h5获取token
         bridge.register(handlerName: "getToken") { parameters, callback in
@@ -192,7 +267,14 @@ class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDele
         //h5调用相机或相册上传图片
         bridge.register(handlerName: "photoUpload") {parameters, callback in
             self.loadImageAPI = parameters!["url"] as? String
-            self._photoHelper.setConfigToMultipleSelected(forVideo: false, maxSelectCount: 1)
+            var maxCount = parameters!["maxCount"] as? Int ?? 1
+            self.isforVideo = parameters!["mediaType"] as? String ?? "image" == "image" ? false : true
+            if maxCount > 20{
+                maxCount = 20
+            }
+            self.imageArray.removeAll()
+            self.imageUrlArray.removeAll()
+            self._photoHelper.setConfigToMultipleSelected(forVideo:self.isforVideo, maxSelectCount: maxCount)
             self._photoHelper.showSelectMetaSheet(byController: self)
 //            self._photoHelper.presentPhotoLibrary(byController: self)
         }
@@ -229,36 +311,44 @@ class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDele
         v.setConfigToMultipleSelected()
         v.didPhotoSelected = { [weak self] (images: [UIImage], assets: [PHAsset]) in
             guard var photo = images.first else { return }
-            self?.upLoadImage(image: photo)
+            self?.imageArray = self!.imageArray + images
+            self?.uploadImageNetWork(index: 0)
         }
         
         v.didCameraFinished = { [weak self] (photo: UIImage?, videoPath: URL?) in
             guard let sself = self else { return }
             if var photo {
-                self?.upLoadImage(image: photo)
+                self?.imageArray.append(photo)
+                self?.uploadImageNetWork(index: 0)
             }
         }
         return v
     }()
-    func upLoadImage(image:UIImage) {
-        ProgressHUD.animate()
-        let uploadImage = image.compress(expectSize: 1500 * 1024)
-        let result = FileHelper.shared.saveImage(image: uploadImage)
-        
-        if result.isSuccess {
-            YFMineNetViewModel.uploadImageFromPath(apiUrl:loadImageAPI ?? "",fileURL:NSURL(fileURLWithPath: result.fullPath) as URL) { [weak self] data in
-                ProgressHUD.dismiss()
-                self?.loadImageAPI = nil
-                self?.bridge.call(handlerName: "onPhotoUpload", data: data.url ?? ""){response in
-                    
+    func uploadImageNetWork(index: Int) {
+        if index < imageArray.count {
+            ProgressHUD.animate()
+            let uploadImage = imageArray[index].compress(expectSize: 1500 * 1024)
+            let result = FileHelper.shared.saveImage(image: uploadImage)
+            if result.isSuccess {
+                YFMineNetViewModel.uploadH5ImageFromPath(apiUrl:loadImageAPI ?? "",fileURL:NSURL(fileURLWithPath: result.fullPath) as URL) { [weak self] data in
+                    self!.imageUrlArray.append(data)
+                    self?.uploadImageNetWork(index: index + 1)
+                } completionHandler: {[weak self] errCode, errMsg in
+                    self?.uploadImageNetWork(index: index + 1)
                 }
-            } completionHandler: { errCode, errMsg in
-                ProgressHUD.dismiss()
-                SuperToast.show(title: errMsg?.localized())
+            } else {
+                uploadImageNetWork(index: index + 1)
             }
         } else {
-            
+            print("\n\n\n所有图片上传完成")
             ProgressHUD.dismiss()
+            if imageUrlArray.count == 0{
+                SuperToast.show(title: "上传失败".localized())
+            }else{
+                bridge.call(handlerName: "onPhotoUpload", data: imageUrlArray){response in
+                
+                }
+            }
         }
     }
     @objc func saveImage(base64String:String) {
@@ -326,20 +416,49 @@ class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDele
     }
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: any Error) {
         print("网页加载失败\(error.localizedDescription)")
+        if let nsError = error as NSError?, nsError.code == NSURLErrorCancelled {
+            // 忽略取消错误
+            return
+        }
+        if let failedURL = webView.url {
+            refreshURL = failedURL.absoluteString
+        }
+        errorView.isHidden = false
+        
         
     }
     // 处理临时导航失败
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        if let nsError = error as NSError?, nsError.code == NSURLErrorCancelled {
+            // 忽略取消错误
+            return
+        }
         if loadUrl!.hasPrefix("https://"){
             loadUrl = loadUrl!.replacingOccurrences(of: "https://", with: "http://")
             let request = URLRequest(url: URL(string: loadUrl)!)
             webView.load(request)
         }else{
             //加载失败页
+            if let failedURL = webView.url {
+                refreshURL = failedURL.absoluteString
+            }
+            errorView.isHidden = false
         }
         print("Provisional navigation failed with error: \(error.localizedDescription)")
     }
-
+    /// KVO监听回调
+    /// - Parameters:
+    ///   - keyPath: <#keyPath description#>
+    ///   - object: <#object description#>
+    ///   - change: <#change description#>
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if let _ = object as? WKWebView {
+            if keyPath == SuperWebController.TITLE {
+                //标题
+                self.titleLabel.text = webView.title
+            }
+        }
+    }
     
     func checkH5(){
         IMController.shared.getJoinedGroupList { [weak self] (groups: [GroupInfo]) in
@@ -352,36 +471,29 @@ class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDele
             do  {
                 let jsondata = try JSONSerialization.data(withJSONObject: param, options: .prettyPrinted)
                 if let jsonString = String(data: jsondata, encoding: .utf8) {
-                    self?.checkWebView(param: ["data":jsonString.base64Encoded,"gids":gidsList])
+                    self?.checkWebView(param: ["data":jsonString.base64Encoded as Any,"gids":gidsList])
+                }else{
+                    self?.webView.isHidden = false
                 }
             } catch {
                 print(error.localizedDescription)
+                self?.webView.isHidden = false
             }
             
         }onFailure: {[weak self] errCode, errMsg in
-        
+            self?.webView.isHidden = false
         }
-        
-        
-        
-//        IMController.shared.currentUserRelay.subscribe(onNext: { r in
-//            guard let r else { return }
-//            let param = ["uid":r.userID,"nickname":r.nickname,"avatar":r.faceURL,"url":"","appid":self.appid,"md5":""]
-//            do  {
-//                let jsondata = try JSONSerialization.data(withJSONObject: param, options: .prettyPrinted)
-//                if let jsonString = String(data: jsondata, encoding: .utf8) {
-//                    print(jsonString)
-//                    self.checkWebView(dataStr: jsonString.base64Encoded)
-//                }
-//            } catch {
-//                print(error.localizedDescription)
-//            }
-//        }).disposed(by: _disposeBag)
     }
     func checkWebView(param:[String:Any]){
         YFMineNetViewModel.checkH5(paramters: param) { [weak self] data in
             ProgressHUD.dismiss()
             self?.h5DetailInfo = data
+            if data.data?.type == 3{
+                self?.navView.isHidden = false
+                self?.webView.snp_updateConstraints({ make in
+                    make.top.equalTo(44+kStatusBarHeight)
+                })
+            }
             YFFileDataUtil.saveOneH5ToFile(item: data)
             if self?.loadUrl?.length ?? 0 > 0{
                 if self?.loadUrl?.hasPrefix("http://") == false && self?.loadUrl?.hasPrefix("https://") == false {
@@ -437,8 +549,9 @@ class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDele
                 }
                 self?.loadCheckH5()
             }
-        } completionHandler: { errCode, errMsg in
+        } completionHandler: {[weak self] errCode, errMsg in
             ProgressHUD.dismiss()
+            self?.webView.isHidden = false
             SuperToast.show(title: errMsg?.localized())
         }
     }
