@@ -194,13 +194,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 break
             }
         }
-//        IMController.shared.appAddress = "https://" + code + "." + defaultAppAddress
-//        IMController.shared.appIMAddress = "https://" + code + "." + defaultIMAddress
-//        IMController.shared.appAdminAddress = "wss://" + code + "." + defaultAdminAddress
+        IMController.shared.appAddress = "https://" + code + "." + defaultAppAddress
+        IMController.shared.appIMAddress = "https://" + code + "." + defaultIMAddress
+        IMController.shared.appAdminAddress = "wss://" + code + "." + defaultAdminAddress
         
-        IMController.shared.appAddress = "http://192.168.7.126:10008"
-        IMController.shared.appIMAddress = "http://192.168.7.126:10002"
-        IMController.shared.appAdminAddress = "ws://192.168.7.126:10001"
+//        IMController.shared.appAddress = "http://192.168.7.126:10008"
+//        IMController.shared.appIMAddress = "http://192.168.7.126:10002"
+//        IMController.shared.appAdminAddress = "ws://192.168.7.126:10001"
     }
     private func logout() {
         NotificationCenter.default.post(name: .init("logout"), object: nil)
