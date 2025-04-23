@@ -13,6 +13,7 @@ import OUICore
 import RxSwift
 import OUIIM
 import ProgressHUD
+import ZLPhotoBrowser
 
 
 
@@ -29,7 +30,7 @@ class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDele
     var chatInfo:[String:Any]?
     
     var loadImageAPI:String?
-    var imageArray:[UIImage] = []
+    var imageArray:[String] = []
     var imageUrlArray:[Any] = []
     var isforVideo:Bool = false
     
@@ -267,14 +268,14 @@ class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDele
         //h5调用相机或相册上传图片
         bridge.register(handlerName: "photoUpload") {parameters, callback in
             self.loadImageAPI = parameters!["url"] as? String
-            var maxCount = parameters!["maxCount"] as? Int ?? 1
-            self.isforVideo = parameters!["mediaType"] as? String ?? "image" == "image" ? false : true
-            if maxCount > 20{
-                maxCount = 20
+            var maxSelect = parameters!["maxSelect"] as? Int ?? 1
+            self.isforVideo = (parameters!["mediaType"] as? String ?? "image") == "image" ? false : true
+            if maxSelect > 20{
+                maxSelect = 20
             }
             self.imageArray.removeAll()
             self.imageUrlArray.removeAll()
-            self._photoHelper.setConfigToMultipleSelected(forVideo:self.isforVideo, maxSelectCount: maxCount)
+            self._photoHelper.setConfigToMultipleSelected(forVideo:self.isforVideo, maxSelectCount: maxSelect)
             self._photoHelper.showSelectMetaSheet(byController: self)
 //            self._photoHelper.presentPhotoLibrary(byController: self)
         }
@@ -311,15 +312,58 @@ class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDele
         v.setConfigToMultipleSelected()
         v.didPhotoSelected = { [weak self] (images: [UIImage], assets: [PHAsset]) in
             guard var photo = images.first else { return }
-            self?.imageArray = self!.imageArray + images
-            self?.uploadImageNetWork(index: 0)
+            ProgressHUD.animate()
+            if self?.isforVideo == true{
+                //视频
+                for asset in assets {
+                    ZLVideoManager.exportVideo(for: asset, exportType: .mp4) { [weak self] (url: URL?, _: Error?) in
+                        guard let url = url else { return }
+                        self?.imageArray.append(url.relativePath)
+                        self?.uploadImageNetWork(index: 0)
+                    }
+                }
+            }else{
+                //图片
+                for (index,image) in images.enumerated() {
+                    let uploadImage = image.compress(expectSize: 1500 * 1024)
+                    let result = FileHelper.shared.saveImage(image: uploadImage)
+                    if result.isSuccess {
+                        self?.imageArray.append(result.fullPath)
+                        if index == images.count - 1 {
+                            self?.uploadImageNetWork(index: 0)
+                        }
+                    }else{
+                        if index == images.count - 1 {
+                            self?.uploadImageNetWork(index: 0)
+                        }
+                    }
+                }
+            }
+            
+
         }
         
         v.didCameraFinished = { [weak self] (photo: UIImage?, videoPath: URL?) in
             guard let sself = self else { return }
-            if var photo {
-                self?.imageArray.append(photo)
-                self?.uploadImageNetWork(index: 0)
+            if self?.isforVideo == true {
+                guard let videoPath else { return }
+                ProgressHUD.animate()
+                PhotoHelper.getVideoAt(url: videoPath) { main, thumb, duration in
+                    self?.imageArray.append(main.fullPath)
+                    self?.uploadImageNetWork(index: 0)
+                }
+            } else {
+                if let photo = photo {
+                    ProgressHUD.animate()
+                    let uploadImage = photo.compress(expectSize: 1500 * 1024)
+                    let result = FileHelper.shared.saveImage(image: uploadImage)
+                    if result.isSuccess {
+                        self?.imageArray.append(result.fullPath)
+                        self?.uploadImageNetWork(index: 0)
+                    }else{
+                        self?.uploadImageNetWork(index: 0)
+                    }
+                }
             }
         }
         return v
@@ -327,17 +371,12 @@ class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDele
     func uploadImageNetWork(index: Int) {
         if index < imageArray.count {
             ProgressHUD.animate()
-            let uploadImage = imageArray[index].compress(expectSize: 1500 * 1024)
-            let result = FileHelper.shared.saveImage(image: uploadImage)
-            if result.isSuccess {
-                YFMineNetViewModel.uploadH5ImageFromPath(apiUrl:loadImageAPI ?? "",fileURL:NSURL(fileURLWithPath: result.fullPath) as URL) { [weak self] data in
-                    self!.imageUrlArray.append(data)
-                    self?.uploadImageNetWork(index: index + 1)
-                } completionHandler: {[weak self] errCode, errMsg in
-                    self?.uploadImageNetWork(index: index + 1)
-                }
-            } else {
-                uploadImageNetWork(index: index + 1)
+            let fullPath = imageArray[index]
+            YFMineNetViewModel.uploadH5ImageFromPath(apiUrl:loadImageAPI ?? "",fileURL:NSURL(fileURLWithPath: fullPath) as URL) { [weak self] data in
+                self!.imageUrlArray.append(data)
+                self?.uploadImageNetWork(index: index + 1)
+            } completionHandler: {[weak self] errCode, errMsg in
+                self?.uploadImageNetWork(index: index + 1)
             }
         } else {
             print("\n\n\n所有图片上传完成")

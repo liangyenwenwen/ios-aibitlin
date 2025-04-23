@@ -202,6 +202,7 @@ open class PhotoHelper {
                 let p = FileHelper.shared.saveVideo(from: url.path)
                 handler(p, result, Int(asset.duration.seconds))
             } catch {
+                ProgressHUD.dismiss()
 #if DEBUG
                 print("获取视频帧错误:", error)
 #endif
