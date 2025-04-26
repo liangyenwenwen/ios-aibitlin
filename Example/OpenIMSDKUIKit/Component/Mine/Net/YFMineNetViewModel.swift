@@ -68,7 +68,7 @@ class YFMineNetViewModel: AccountViewModel {
         let httpHeaders : HTTPHeaders = [
             "token":IMController.shared.tokenABC,
             "X-Forwarded-Add":IMController.shared.publicAddress,
-            "X-Forwarded-For":IMController.shared.publicIP,
+            "X-Forwarded-IP":IMController.shared.publicIP,
             "Authorization":"eyJ1c2VySW5mbyI6InVzZXJCbG9nWWFuWmhlbmdUb2tlbiJ9",
             "Content-Type":"application/json",
             "operationID":String(Int(Date().timeIntervalSince1970)),
@@ -721,7 +721,7 @@ class YFMineNetViewModel: AccountViewModel {
             "token":token,
             "appid":appId,
             "X-Forwarded-Add":IMController.shared.publicAddress,
-            "X-Forwarded-For":IMController.shared.publicIP,
+            "X-Forwarded-IP":IMController.shared.publicIP,
             "Authorization":"eyJ1c2VySW5mbyI6InVzZXJCbG9nWWFuWmhlbmdUb2tlbiJ9",
             "Content-Type":"application/json",
             "operationID":String(Int(Date().timeIntervalSince1970)),
