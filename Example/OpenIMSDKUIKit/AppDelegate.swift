@@ -115,8 +115,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         YFNetworkUtils.getPublicIP { ip,address in
             IMController.shared.publicIP = ip ?? ""
             UserDefaults.standard.set(ip, forKey: "publicIP")
-            IMController.shared.publicAddress = address ?? ""
-            UserDefaults.standard.set(ip, forKey: "publicAddress")
+            var addressBase64 = ""
+            if address?.length ?? 0 > 0{
+                addressBase64 = address?.base64Encoded ?? ""
+            }
+            IMController.shared.publicAddress = addressBase64
+            UserDefaults.standard.set(addressBase64, forKey: "publicAddress")
         }
         //设置接口域名
         setAppApi()

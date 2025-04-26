@@ -97,40 +97,40 @@ extension AccountViewModel {
         //点击公共模版
         OIMApi.clickPublicCustomerMessageHandle = { (vc,chatInfo,messageId,source, type, completion: @escaping ([String:Any]) -> Void) in
             let dic = try! JSONSerialization.jsonObject(with: source.data(using: .utf8)!) as! [String: Any]
-            let hash = dic["hash"] as! String
+            let hash = (dic["hash"] ?? "") as! String
             var request_data = ""
             var action = "get"
             var url = ""
             if type == "base"{
-                url = dic["url"] as! String
-                request_data = dic["request_data"] as! String
-                action = dic["action"] as! String
+                url = (dic["url"] ?? "") as! String
+                request_data = (dic["request_data"] ?? "") as! String
+                action = (dic["action"] ?? "") as! String
             }else if type == "item"{
                 if let item = dic["item"] as? [String : Any]{
-                    url = item["url"] as! String
-                    request_data = item["request_data"] as! String
-                    action = item["action"] as! String
+                    url = (item["url"] ?? "") as! String
+                    request_data = (item["request_data"] ?? "") as! String
+                    action = (item["action"] ?? "") as! String
                 }
                 
             }else{
                 if let bt = dic["bt"] as? [String : Any]{
                     if type == "longBtn",
                        let long = bt["long"] as? [String : Any]{
-                        url = long["url"] as! String
-                        request_data = long["request_data"] as! String
-                        action = long["action"] as! String
+                        url = (long["url"] ?? "") as! String
+                        request_data = (long["request_data"] ?? "") as! String
+                        action = (long["action"] ?? "") as! String
                     }
                     if type == "leftBtn",
                        let left = bt["left"] as? [String : Any]{
-                        url = left["url"] as! String
-                        request_data = left["request_data"] as! String
-                        action = left["action"] as! String
+                        url = (left["url"] ?? "") as! String
+                        request_data = (left["request_data"] ?? "") as! String
+                        action = (left["action"] ?? "") as! String
                     }
                     if type == "rightBtn",
                        let right = bt["right"] as? [String : Any]{
-                        url = right["url"] as! String
-                        request_data = right["request_data"] as! String
-                        action = right["action"] as! String
+                        url = (right["url"] ?? "") as! String
+                        request_data = (right["request_data"] ?? "") as! String
+                        action = (right["action"] ?? "") as! String
                     }
                 }
             }
@@ -153,11 +153,11 @@ extension AccountViewModel {
                 }else{
                     let dic1 = try! JSONSerialization.jsonObject(with: request_data.data(using: .utf8)!) as! [String: Any]
                     YFMineNetViewModel.updatePublicCustomerMessageAction(url: info.url ?? "",token:info.token ?? "",appId:info.hash ?? "", paramters: dic1) { data in
-                        let redirect = data["redirect"] as! [String:Any]
-                        if redirect["code"] as! Int == 301{
+                        if let redirect = data["redirect"] as? [String:Any],
+                           redirect["code"] as! Int == 301{
                             let webVC = YFCustomWebViewController()
                             webVC.appid = info.hash
-                            webVC.loadUrl = redirect["url"] as? String
+                            webVC.loadUrl = (redirect["url"] ?? "") as? String
                             webVC.messageId = messageId
                             webVC.chatInfo = chatInfo
                             webVC.sendCommonTemplateMessageBlock = { templateMessageData in

@@ -186,33 +186,35 @@ class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDele
         //h5调用发送消息
         
         bridge.register(handlerName: "sendMessage") { parameters, callHandleback in
-            let userId = parameters?["userId"] as! String
-            let groupId = parameters?["groupId"] as! String
-            if self.sendCommonTemplateMessageBlock != nil{
-                self.sendCommonTemplateMessageBlock!(parameters!)
-            }else{
-                IMController.shared.sendCommonTemplateMessage(param: parameters?["msg"] as? [String : Any], to: userId.length > 0 ? userId : groupId, conversationType: userId.length > 0 ? .c2c : .superGroup) { msg in
-                    callHandleback?("发送成功")
-                } onComplete: { msg in
-                    callHandleback?("发送失败")
+            if parameters != nil{
+                let userId = (parameters?["userId"] ?? "") as! String
+                let groupId = (parameters?["groupId"] ?? "") as! String
+                if self.sendCommonTemplateMessageBlock != nil{
+                    self.sendCommonTemplateMessageBlock!(parameters!)
+                }else{
+                    IMController.shared.sendCommonTemplateMessage(param: parameters?["msg"] as? [String : Any], to: userId.length > 0 ? userId : groupId, conversationType: userId.length > 0 ? .c2c : .superGroup) { msg in
+                        callHandleback?("发送成功")
+                    } onComplete: { msg in
+                        callHandleback?("发送失败")
+                    }
                 }
             }
-            
         }
         //h5获取群成员列表
         bridge.register(handlerName: "getGroupMembersInfo") { parameters, callback in
-            
-            IMController.shared.getGroupMemberList(groupId: parameters?["groupId"] as! String, filter: .all, offset: 0, count: 100000) { [weak self] ms in
-                var groupMemberList = []
-                for item in ms {
-                    groupMemberList.append(["userId":item.userID,"name":item.nickname,"face":item.faceURL])
-                }
-                self?.bridge.call(handlerName: "onGroupMembersInfo", data: ["code":200,"list":groupMemberList]){response in
-                    
-                }
-            }onFailure: {[weak self] errCode, errMsg in
-                self?.bridge.call(handlerName: "onGroupMembersInfo", data: ["code":errCode,"list":[]]){response in
-                    
+            if parameters != nil{
+                IMController.shared.getGroupMemberList(groupId: (parameters?["groupId"] ?? "") as! String, filter: .all, offset: 0, count: 100000) { [weak self] ms in
+                    var groupMemberList = []
+                    for item in ms {
+                        groupMemberList.append(["userId":item.userID,"name":item.nickname,"face":item.faceURL])
+                    }
+                    self?.bridge.call(handlerName: "onGroupMembersInfo", data: ["code":200,"list":groupMemberList]){response in
+                        
+                    }
+                }onFailure: {[weak self] errCode, errMsg in
+                    self?.bridge.call(handlerName: "onGroupMembersInfo", data: ["code":errCode,"list":[]]){response in
+                        
+                    }
                 }
             }
         }
@@ -251,41 +253,72 @@ class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDele
                 }
             }
         }
+        //h5调用根据url保存图片
+        bridge.register(handlerName: "saveImageUrl") { parameters, callback in
+            if parameters != nil{
+                let url = parameters?["url"] as! String
+                DispatchQueue.global().async {
+                    ProgressHUD.animate()
+                    SDWebImageManager.shared.loadImage(with:URL(string: url), options:.highPriority, progress: nil) { (image, data, error, cacheType, finished, url) in
+                        ProgressHUD.dismiss()
+                        if image != nil{
+                            self.saveImage(image: image!)
+                        }else{
+                            SuperToast.show(title: "图片保存失败".localized())
+                        }
+                    }
+                }
+            }
+        }
         //h5调用保存图片
         bridge.register(handlerName: "saveImage") { parameters, callback in
-            self.saveImage(base64String: parameters?["img"] as! String)
+            if parameters != nil{
+                let base64String = parameters?["img"] as! String
+                let image = self.base64StringToImage(base64String: base64String)
+                if image != nil {
+                    self.saveImage(image: image!)
+                }else{
+                    SuperToast.show(title: "图片保存失败".localized())
+                }
+            }
         }
         //h5调用分享图片
         bridge.register(handlerName: "shareImage") { parameters, callback in
-            let image = self.base64StringToImage(base64String: parameters!["img"] as! String)
-            if image != nil {
-                let activityViewController = UIActivityViewController(activityItems: [image!], applicationActivities: nil)
-                self.present(activityViewController, animated: true)
-            }else{
-                SuperToast.show(title: "分享失败".localized())
+            if parameters != nil{
+                let image = self.base64StringToImage(base64String: parameters!["img"] as! String)
+                if image != nil {
+                    let activityViewController = UIActivityViewController(activityItems: [image!], applicationActivities: nil)
+                    self.present(activityViewController, animated: true)
+                }else{
+                    SuperToast.show(title: "分享失败".localized())
+                }
             }
         }
         //h5调用相机或相册上传图片
         bridge.register(handlerName: "photoUpload") {parameters, callback in
-            self.loadImageAPI = parameters!["url"] as? String
-            var maxSelect = parameters!["maxSelect"] as? Int ?? 1
-            self.isforVideo = (parameters!["mediaType"] as? String ?? "image") == "image" ? false : true
-            if maxSelect > 20{
-                maxSelect = 20
+            if parameters != nil{
+                self.loadImageAPI = parameters!["url"] as? String
+                var maxSelect = parameters!["maxSelect"] as? Int ?? 1
+                self.isforVideo = (parameters!["mediaType"] as? String ?? "image") == "image" ? false : true
+                if maxSelect > 20{
+                    maxSelect = 20
+                }
+                self.imageArray.removeAll()
+                self.imageUrlArray.removeAll()
+                self._photoHelper.setConfigToMultipleSelected(forVideo:self.isforVideo, maxSelectCount: maxSelect)
+                self._photoHelper.showSelectMetaSheet(byController: self)
+    //            self._photoHelper.presentPhotoLibrary(byController: self)
             }
-            self.imageArray.removeAll()
-            self.imageUrlArray.removeAll()
-            self._photoHelper.setConfigToMultipleSelected(forVideo:self.isforVideo, maxSelectCount: maxSelect)
-            self._photoHelper.showSelectMetaSheet(byController: self)
-//            self._photoHelper.presentPhotoLibrary(byController: self)
         }
         //h5改变客户端消息页面
         bridge.register(handlerName: "saveEx") { [self]parameters, callback in
-            let localEx = parameters!["msg"] as? String
-            if self.messageId?.length ?? 0 > 0,
-               localEx?.length ?? 0 > 0{
-                NotificationCenter.default.post(name: Notification.Name("changeMessageLocalEx"), object: nil, userInfo: ["value": localEx!,"messageId":self.messageId ?? ""])
+            if parameters != nil{
+                let localEx = parameters!["msg"] as? String
+                if self.messageId?.length ?? 0 > 0,
+                   localEx?.length ?? 0 > 0{
+                    NotificationCenter.default.post(name: Notification.Name("changeMessageLocalEx"), object: nil, userInfo: ["value": localEx!,"messageId":self.messageId ?? ""])
 
+                }
             }
         }
         //h5获取客户端聊天信息
@@ -390,15 +423,10 @@ class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDele
             }
         }
     }
-    @objc func saveImage(base64String:String) {
+    @objc func saveImage(image:UIImage) {
         let status = PHPhotoLibrary.authorizationStatus()
         if (status == .authorized) {
-            let image = base64StringToImage(base64String: base64String)
-            if image != nil {
-                UIImageWriteToSavedPhotosAlbum(image!, self, #selector(self.image(image:didFinishSavingWithError:contextInfo:)), nil)
-            }else{
-                SuperToast.show(title: "图片保存失败".localized())
-            }
+            UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.image(image:didFinishSavingWithError:contextInfo:)), nil)
         } else if (status == .restricted || status == .denied) {
             let alert = UIAlertController(title: "提示".localized(), message: "请去-> [设置 - 隐私 - 相册] 打开访问开关".localized(), preferredStyle: .alert)
             //cacel 取消也改变值  defalut 必须选择 alert才会消失
@@ -409,12 +437,7 @@ class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDele
                 let isTrue = (firstStatus == .authorized)
                 if isTrue {
                     // 用户首次允许
-                    let image = self.base64StringToImage(base64String: base64String)
-                    if image != nil {
-                        UIImageWriteToSavedPhotosAlbum(image!, self, #selector(self.image(image:didFinishSavingWithError:contextInfo:)), nil)
-                    }else{
-                        SuperToast.show(title: "图片保存失败".localized())
-                    }
+                    UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.image(image:didFinishSavingWithError:contextInfo:)), nil)
                 } else {
                     // 用户首次拒绝
                 }
