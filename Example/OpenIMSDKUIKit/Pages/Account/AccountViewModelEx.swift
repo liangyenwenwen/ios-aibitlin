@@ -68,6 +68,20 @@ extension AccountViewModel {
         OIMApi.gotoNewFriendHandle = { (vc, completion: @escaping (String) -> Void) in
             vc.gotoControllerFromRoot(YFChatNewFriendListVC.self)
         }
+        OIMApi.gotoPublicStrongNoticeDetailHandle = { (vc, hash,isPresent, completion: @escaping (String) -> Void) in
+            let webVC = YFCustomWebViewController()
+            webVC.appid = hash
+            if isPresent{
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    webVC.modalPresentationStyle = .fullScreen
+                    let nav = UINavigationController.init(rootViewController:  webVC)
+                    nav.modalPresentationStyle = .fullScreen
+                    UIViewController.currentViewController().present(nav, animated: true)
+                }
+            }else{
+                vc.gotoController(webVC)
+            }
+        }
         
         OIMApi.getUserMessageHandle = { (userID, completion: @escaping (String) -> Void) in
             AccountViewModel.queryUserInfo(userIDList: [userID]) { users in
@@ -86,6 +100,17 @@ extension AccountViewModel {
             feedbackVC.reportCommentUserId = reportUserId
             feedbackVC.commentID = commentID
             vc.gotoController(feedbackVC)
+        }
+        
+        OIMApi.chooseShareTypeHandle = { (vc, completion: @escaping (Int) -> Void) in
+            let choosePushAdTypeView = YFChooseShareTypeView()
+            choosePushAdTypeView.tg_width.equal(.fill)
+            choosePushAdTypeView.tg_height.equal(193)
+            choosePushAdTypeView.drawUI(array: ["分享到好友","分享到外部"])
+            choosePushAdTypeView.choosePushAdTypeBlock = { typeIndex in
+                completion(typeIndex)
+            }
+            GKCover.cover(from: vc.view.window, contentView: choosePushAdTypeView, style: .translucent, showStyle: .bottom, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
         }
         
     }

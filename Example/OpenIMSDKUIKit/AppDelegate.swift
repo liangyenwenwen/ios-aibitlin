@@ -41,6 +41,7 @@ let sdkWSRoute = ""
 let defaultAppAddress = "aibitlin.com/chat"
 let defaultIMAddress = "aibitlin.com/api"
 let defaultAdminAddress = "aibitlin.com/msg_gateway"
+let defaultBlogAddress = "aibitlin.com/apis"
 
 
 
@@ -190,17 +191,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     func setAppApi(){
         let areaName = UserDefaults.standard.string(forKey: "chooseArea") ?? "中国大陆"
-        let dataArray : [[String: Any]] = [["areaName":"中国大陆","code":"cn","icon":"area_cn_icon"],["areaName":"中国香港","code":"hk","icon":"area_hk_icon"],["areaName":"中国澳门","code":"mo","icon":"area_mo_icon"],["areaName":"泰国","code":"th","icon":"area_th_icon"],["areaName":"菲律宾","code":"ph","icon":"area_ph_icon"],["areaName":"新加坡","code":"sg","icon":"area_sg_icon"],["areaName":"马来西亚","code":"my","icon":"area_my_icon"],["areaName":"越南","code":"vn","icon":"area_vn_icon"],["areaName":"日本","code":"jp","icon":"area_jp_icon"],["areaName":"美国","code":"us","icon":"area_us_icon"],["areaName":"其他","code":"hk","icon":""]]
         var code = "cn"
-        for item in dataArray {
-            if item["areaName"] as! String == areaName{
-                code = item["code"] as! String
-                break
+
+        if areaName == "debug"{
+            code = "debug"
+        }else{
+            let dataArray : [[String: Any]] = [["areaName":"中国大陆","code":"cn","icon":"area_cn_icon"],["areaName":"中国香港","code":"hk","icon":"area_hk_icon"],["areaName":"中国澳门","code":"mo","icon":"area_mo_icon"],["areaName":"泰国","code":"th","icon":"area_th_icon"],["areaName":"菲律宾","code":"ph","icon":"area_ph_icon"],["areaName":"新加坡","code":"sg","icon":"area_sg_icon"],["areaName":"马来西亚","code":"my","icon":"area_my_icon"],["areaName":"越南","code":"vn","icon":"area_vn_icon"],["areaName":"日本","code":"jp","icon":"area_jp_icon"],["areaName":"美国","code":"us","icon":"area_us_icon"],["areaName":"其他","code":"oth","icon":""]]
+            for item in dataArray {
+                if item["areaName"] as! String == areaName{
+                    code = item["code"] as! String
+                    break
+                }
             }
         }
+        
         IMController.shared.appAddress = "https://" + code + "." + defaultAppAddress
         IMController.shared.appIMAddress = "https://" + code + "." + defaultIMAddress
         IMController.shared.appAdminAddress = "wss://" + code + "." + defaultAdminAddress
+        IMController.shared.defaultBlogAddress = "https://" + code + "." + defaultBlogAddress
         
 //        IMController.shared.appAddress = "http://192.168.7.126:10008"
 //        IMController.shared.appIMAddress = "http://192.168.7.126:10002"

@@ -1,6 +1,7 @@
 
 import OUICore
 import Photos
+import OUICoreView
 
 
 public class QRCodeViewController: UIViewController {
@@ -521,8 +522,43 @@ public class QRCodeViewController: UIViewController {
     @objc func shareCode() {
         saveCard.bindData(showname: groupName, codeImg: codeImgView.image, avater: groupImgView.groupAvatarImageView.image, idString: groupID)
         guard let image = getShareCardImg(view: saveCard) else {return}
-        let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
-        self.present(activityViewController, animated: true)
+        if let handler = OIMApi.chooseShareTypeHandle {
+            handler(self,{typeIndex in
+                if typeIndex == 0{
+                    //分享到好友
+                    let vc = MyContactsViewController(types: [.friends, .groups, .recent], multipleSelected: true)
+                    vc.title = "分享到好友".innerLocalized()
+                    vc.allowsSelecteAll = false
+                    vc.selectedHandler = { [weak self, weak vc] infos in
+                        guard let self, let vc else { return }
+                        let result = FileHelper.shared.saveImage(image: image)
+                        infos.forEach { info in
+                            if info.type == .group {
+                                IMController.shared.sendImageMessage(path: result.relativeFilePath, to: info.ID!, conversationType: .superGroup) { _ in
+                                    
+                                } onComplete: { _ in
+                                    
+                                }
+                            } else {
+                                IMController.shared.sendImageMessage(path: result.relativeFilePath, to: info.ID!, conversationType: .c2c) { _ in
+                                    
+                                } onComplete: { _ in
+                                    
+                                }
+                            }
+                        }
+                        vc.dismiss(animated: true)
+                    }
+                    let nav = UINavigationController(rootViewController: vc)
+                    self.present(nav, animated: true)
+                    
+                }else if typeIndex == 1{
+                    //分享到外部
+                    let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+                    self.present(activityViewController, animated: true)
+                }
+            })
+        }
     }
     func refreshUI() {
         groupImgView.setGroupInfoImg(item: groupDetailInfo!)

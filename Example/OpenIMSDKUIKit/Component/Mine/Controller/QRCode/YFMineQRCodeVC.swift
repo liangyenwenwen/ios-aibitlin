@@ -9,6 +9,8 @@
 import Foundation
 import TangramKit
 import OUICore
+import OUICoreView
+
 
 class YFMineQRCodeVC: BaseTitleController {
     
@@ -452,9 +454,47 @@ extension YFMineQRCodeVC {
         saveCard.bindData(showname: username, codeImg: codeImgView.image, avater: userAvatarImgView.image, idString: userIDLbl.text)
         
         guard let image = getShareCardImg(view: saveCard.userCardView) else {return}
-        
-        let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
-        self.present(activityViewController, animated: true)
+        let choosePushAdTypeView = YFChooseShareTypeView()
+        choosePushAdTypeView.tg_width.equal(.fill)
+        choosePushAdTypeView.tg_height.equal(193)
+        choosePushAdTypeView.drawUI(array: ["分享到好友","分享到外部"])
+        choosePushAdTypeView.choosePushAdTypeBlock = { [weak self] typeIndex in
+            if typeIndex == 0{
+                //分享到好友
+                let vc = MyContactsViewController(types: [.friends, .groups, .recent], multipleSelected: true)
+                vc.title = "分享到好友".innerLocalized()
+                vc.allowsSelecteAll = false
+                vc.selectedHandler = { [weak self, weak vc] infos in
+                    guard let self, let vc else { return }
+                    let result = FileHelper.shared.saveImage(image: image)
+                    infos.forEach { info in
+                        if info.type == .group {
+                            IMController.shared.sendImageMessage(path: result.relativeFilePath, to: info.ID!, conversationType: .superGroup) { _ in
+                                
+                            } onComplete: { _ in
+                                
+                            }
+                        } else {
+                            IMController.shared.sendImageMessage(path: result.relativeFilePath, to: info.ID!, conversationType: .c2c) { _ in
+                                
+                            } onComplete: { _ in
+                                
+                            }
+                        }
+                    }
+                    SuperToast.show(title: "分享成功".localized())
+                    vc.dismiss(animated: true)
+                }
+                let nav = UINavigationController(rootViewController: vc)
+                self?.present(nav, animated: true)
+                
+            }else if typeIndex == 1{
+                //分享到外部
+                let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+                self?.present(activityViewController, animated: true)
+            }
+        }
+        GKCover.cover(from: self.view.window, contentView: choosePushAdTypeView, style: .translucent, showStyle: .bottom, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
     }
     
     func  getShareCardImg(view:UIView ) -> UIImage? {

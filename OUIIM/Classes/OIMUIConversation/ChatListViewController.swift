@@ -447,7 +447,14 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
         _tableView.backgroundColor = .white
         _tableView.rx.modelSelected(ConversationInfo.self).subscribe(onNext: { [weak self] (conversation: ConversationInfo) in
             
-            self?.toChat(conversation: conversation)
+            if conversation.conversationType == .notification && conversation.userID == "10001"{
+                let vc = ChatServiceSystemMessgae()
+                vc.conversationID = conversation.conversationID
+                vc.hidesBottomBarWhenPushed = true
+                self?.navigationController?.pushViewController(vc, animated: true)
+            }else{
+                self?.toChat(conversation: conversation)
+            }
             
         }).disposed(by: _disposeBag)
         _tableView.rx.itemSelected.subscribe(onNext: {[weak self] (indexPath) in

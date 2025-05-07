@@ -9,7 +9,7 @@
 import Foundation
 class MineChangeAreaVC: UITableViewController {
     
-    private let dataArray : [[String: Any]] = [["areaName":"中国大陆","code":"cn","icon":"area_cn_icon"],["areaName":"中国香港","code":"hk","icon":"area_hk_icon"],["areaName":"中国澳门","code":"mo","icon":"area_mo_icon"],["areaName":"泰国","code":"th","icon":"area_th_icon"],["areaName":"菲律宾","code":"ph","icon":"area_ph_icon"],["areaName":"新加坡","code":"sg","icon":"area_sg_icon"],["areaName":"马来西亚","code":"my","icon":"area_my_icon"],["areaName":"越南","code":"vn","icon":"area_vn_icon"],["areaName":"日本","code":"jp","icon":"area_jp_icon"],["areaName":"美国","code":"us","icon":"area_us_icon"],["areaName":"其他","code":"hk","icon":""]]
+    private let dataArray : [[String: Any]] = [["areaName":"中国大陆","code":"cn","icon":"area_cn_icon"],["areaName":"中国香港","code":"hk","icon":"area_hk_icon"],["areaName":"中国澳门","code":"mo","icon":"area_mo_icon"],["areaName":"泰国","code":"th","icon":"area_th_icon"],["areaName":"菲律宾","code":"ph","icon":"area_ph_icon"],["areaName":"新加坡","code":"sg","icon":"area_sg_icon"],["areaName":"马来西亚","code":"my","icon":"area_my_icon"],["areaName":"越南","code":"vn","icon":"area_vn_icon"],["areaName":"日本","code":"jp","icon":"area_jp_icon"],["areaName":"美国","code":"us","icon":"area_us_icon"],["areaName":"其他","code":"oth","icon":""]]
     
     private var chooseArea: String = ""
     override func viewWillAppear(_ animated: Bool) {
@@ -58,6 +58,11 @@ class MineChangeAreaVC: UITableViewController {
         let area = data["areaName"] as? String ?? "中国大陆"
         cell.titleLabel.text = area.localized()
         cell.selectImageView.isHidden = !(area == chooseArea)
+        cell.longPressBlock = { [weak self] in
+            if area == "其他"{
+                self?.updateArea(area: "debug")
+            }
+        }
         return cell
     }
     
@@ -79,6 +84,9 @@ class MineChangeAreaVC: UITableViewController {
 
     override func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
         let area = dataArray[indexPath.row]["areaName"] as? String ?? "中国大陆"
+        updateArea(area: area)
+    }
+    func updateArea(area:String){
         if area != chooseArea{
             let alert = UIAlertController(title: "提醒".localized(), message: "切换地区需要手动重启App，确认切换地区吗", preferredStyle: .alert)
             let cancleAction = UIAlertAction(title: "取消".localized(), style: .cancel, handler:nil)

@@ -14,6 +14,7 @@ import RxSwift
 import OUIIM
 import ProgressHUD
 import ZLPhotoBrowser
+import OUICoreView
 
 
 
@@ -33,13 +34,65 @@ class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDele
     var imageArray:[String] = []
     var imageUrlArray:[Any] = []
     var isforVideo:Bool = false
-    
     var refreshURL:String?
+    
+    lazy var rightView:UIView = {
+        let r = UIView()
+        r.hide()
+        r.backgroundColor = .white
+        r.border(.init(hexString: "#333333"),borderWidth: 1,cornerRadius: 12)
+        r.addSubview(moreBtn)
+        r.addSubview(lineView)
+        r.addSubview(closeBtn)
+        moreBtn.snp.makeConstraints { make in
+            make.left.top.bottom.equalToSuperview()
+            make.right.equalTo(lineView.snp_left)
+        }
+        lineView.snp.makeConstraints { make in
+            make.top.equalTo(8)
+            make.bottom.equalTo(-8)
+            make.width.equalTo(1)
+            make.centerX.equalToSuperview()
+        }
+        closeBtn.snp.makeConstraints { make in
+            make.right.top.bottom.equalToSuperview()
+            make.left.equalTo(lineView.snp_right)
+        }
+        return r
+    }()
+    lazy var moreBtn: UIButton = {
+        let r = UIButton(type: .custom)
+        r.setImage(UIImage(named: "TabMoreSelected"), for: .normal)
+        r.addTarget(self, action: #selector(moreBtnClick), for: .touchUpInside)
+        return r
+    }()
+    lazy var lineView: UIView = {
+        let r = UIView()
+        r.backgroundColor = .black333
+        return r
+    }()
+    lazy var closeBtn: UIButton = {
+        let r = UIButton(type: .custom)
+        r.setImage(UIImage(named: "icon-dart"), for: .normal)
+        r.addTarget(self, action: #selector(closeBtnClick), for: .touchUpInside)
+        r.imageEdgeInsets = UIEdgeInsets(top: 7, left: 10, bottom: 7, right: 10)
+        return r
+    }()
+    @objc func moreBtnClick(){
+        
+    }
+    @objc func closeBtnClick(){
+        self.navigationController?.popViewController(animated: true)
+        IMController.shared.showStrongNoticeView()
+        self.dismiss(animated: true)
+    }
     lazy var errorView:YFWebViewErrorView = {
         let r = YFWebViewErrorView()
         r.isHidden = true
         r.backBlock = { [weak self] in
+            IMController.shared.showStrongNoticeView()
             self?.navigationController?.popViewController(animated: true)
+            self?.dismiss(animated: true)
         }
         r.refreshBlock = { [weak self] in
             r.isHidden = true
@@ -102,6 +155,8 @@ class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDele
             return
         }
         self.navigationController?.popViewController(animated: true)
+        IMController.shared.showStrongNoticeView()
+        self.dismiss(animated: true)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -115,9 +170,13 @@ class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDele
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .colorBackgroundAPP
+        if #available(iOS 11.0, *) {
+            webView.scrollView.contentInsetAdjustmentBehavior = .never
+        }
         view.addSubview(webView)
         view.addSubview(navView)
         view.addSubview(errorView)
+//        webView.addSubview(rightView)
         webView.snp.makeConstraints { make in
             make.top.left.right.equalTo(0)
             make.bottom.equalTo(-kSafeAreaBottomHeight)
@@ -130,17 +189,32 @@ class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDele
         errorView.snp.makeConstraints { make in
             make.edges.equalTo(view)
         }
+//        rightView.snp.makeConstraints { make in
+//            make.right.equalTo(-16)
+//            make.top.equalTo(kStatusBarHeight+10)
+//            make.height.equalTo(34)
+//            make.width.equalTo(80)
+//        }
         bridge = WKWebViewJavascriptBridge(webView: webView)
         webView.uiDelegate = self
         checkH5()
         //注册方法供h5调用
         registerAllFunc()
         webView.addObserver(self, forKeyPath: "title", options: .new, context: nil)
+        webView.subviews.forEach { subview in
+            subview.gestureRecognizers?.forEach { gesture in
+                if let tapGesture = gesture as? UITapGestureRecognizer, tapGesture.numberOfTapsRequired == 2 {
+                    subview.removeGestureRecognizer(tapGesture)
+                }
+            }
+        }
     }
     func registerAllFunc(){
         //关闭h5页面
         bridge.register(handlerName: "closeWebView") { parameters, callback in
+            IMController.shared.showStrongNoticeView()
             self.navigationController?.popViewController(animated: true)
+            self.dismiss(animated: true)
         }
         //h5获取AppId
         bridge.register(handlerName: "getAppId") { parameters, callback in
@@ -164,7 +238,9 @@ class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDele
                     callback?(self?.h5DetailInfo?.token)
                 }
                 authView.cancleAuthLoginAction = {[weak self] in
+                    IMController.shared.showStrongNoticeView()
                     self?.navigationController?.popViewController(animated: true)
+                    self?.dismiss(animated: true)
                 }
                 GKCover.cover(from:self.view.window, contentView: authView, style: .translucent, showStyle: .bottom, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: true)
             }else{
@@ -287,8 +363,47 @@ class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDele
             if parameters != nil{
                 let image = self.base64StringToImage(base64String: parameters!["img"] as! String)
                 if image != nil {
-                    let activityViewController = UIActivityViewController(activityItems: [image!], applicationActivities: nil)
-                    self.present(activityViewController, animated: true)
+                    let choosePushAdTypeView = YFChooseShareTypeView()
+                    choosePushAdTypeView.tg_width.equal(.fill)
+                    choosePushAdTypeView.tg_height.equal(193)
+                    choosePushAdTypeView.drawUI(array: ["分享到好友","分享到外部"])
+                    choosePushAdTypeView.choosePushAdTypeBlock = { [weak self] typeIndex in
+                        if typeIndex == 0{
+                            //分享到好友
+                            let vc = MyContactsViewController(types: [.friends, .groups, .recent], multipleSelected: true)
+                            vc.title = "分享到好友".innerLocalized()
+                            vc.allowsSelecteAll = false
+                            vc.selectedHandler = { [weak self, weak vc] infos in
+                                guard let self, let vc else { return }
+                                let result = FileHelper.shared.saveImage(image: image!)
+                                infos.forEach { info in
+                                    if info.type == .group {
+                                        IMController.shared.sendImageMessage(path: result.relativeFilePath, to: info.ID!, conversationType: .superGroup) { _ in
+                                            
+                                        } onComplete: { _ in
+                                            
+                                        }
+                                    } else {
+                                        IMController.shared.sendImageMessage(path: result.relativeFilePath, to: info.ID!, conversationType: .c2c) { _ in
+                                            
+                                        } onComplete: { _ in
+                                            
+                                        }
+                                    }
+                                }
+                                SuperToast.show(title: "分享成功".localized())
+                                vc.dismiss(animated: true)
+                            }
+                            let nav = UINavigationController(rootViewController: vc)
+                            self?.present(nav, animated: true)
+                            
+                        }else if typeIndex == 1{
+                            //分享到外部
+                            let activityViewController = UIActivityViewController(activityItems: [image!], applicationActivities: nil)
+                            self?.present(activityViewController, animated: true)
+                        }
+                    }
+                    GKCover.cover(from: self.view.window, contentView: choosePushAdTypeView, style: .translucent, showStyle: .bottom, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
                 }else{
                     SuperToast.show(title: "分享失败".localized())
                 }
@@ -555,6 +670,8 @@ class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDele
                 self?.webView.snp_updateConstraints({ make in
                     make.top.equalTo(44+kStatusBarHeight)
                 })
+            }else{
+//                self?.rightView.show()
             }
             YFFileDataUtil.saveOneH5ToFile(item: data)
             if self?.loadUrl?.length ?? 0 > 0{
@@ -598,7 +715,9 @@ class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDele
                         }
                     }
                     passWordView.cancleBtnClickBlock = {[weak self] in
+                        IMController.shared.showStrongNoticeView()
                         self?.navigationController?.popViewController(animated: true)
+                        self?.dismiss(animated: true)
                     }
                     GKCover.cover(from: self?.view.window, contentView: passWordView, style: .translucent, showStyle: .center, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: true)
                 }
@@ -620,23 +739,5 @@ class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDele
     func loadCheckH5(){
         let request = URLRequest(url: URL(string: loadUrl)!)
         webView.load(request)
-//        checkAuthLogin()
     }
-//    func checkAuthLogin(){
-//        if h5DetailInfo?.data?.info?.auto == 0 && (h5DetailInfo?.data?.extend?.app?.permission?.count ?? 0 > 0) && YFFileDataUtil.isHaveThisH5Data(.loginAuth,item: h5DetailInfo!) == false
-//        {
-//            //需要弹出授权框
-//            let authView = AuthorizedLoginAlertView()
-//            authView.tg_width.equal(.fill)
-//            authView.tg_height.equal(351 + kSafeAreaBottomHeight)
-//            authView.updateContentUI(model: h5DetailInfo!)
-//            authView.authLoginAction = { [weak self] in
-//                YFFileDataUtil.saveOneH5ToFile(.loginAuth, item: self!.h5DetailInfo!)
-//            }
-//            authView.cancleAuthLoginAction = {[weak self] in
-//                self?.navigationController?.popViewController(animated: true)
-//            }
-//            GKCover.cover(from:view.window, contentView: authView, style: .translucent, showStyle: .bottom, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: true)
-//        }
-//    }   
 }

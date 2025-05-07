@@ -25,6 +25,9 @@ public typealias gotoUserMessageHandle = ((_ currentVC: UIViewController, _  use
 public typealias gotoGroupSettingHandle = ((_ currentVC: UIViewController, _  groupID: String, _ nickname: String, _ completion: @escaping ((String) -> Void)) -> Void)
 public typealias gotoNewFriendHandle = ((_ currentVC: UIViewController, _ completion: @escaping ((String) -> Void)) -> Void)
 
+public typealias gotoPublicStrongNoticeDetailHandle = ((_ currentVC: UIViewController, _  hash: String, _ isPresent: Bool, _ completion: @escaping ((String) -> Void)) -> Void)
+
+
 public typealias showChatVCShoeethandle = ((_ currentVC: UIViewController, _  userID: String, _ completion: @escaping ((String) -> Void)) -> Void)
 public typealias gotoSystemSettingHandle = ((_ currentVC: UIViewController, _  userID: String, _ completion: @escaping ((String) -> Void)) -> Void)
 public typealias addFriendhandle = ((_ currentVC: UIViewController, _  userID: String, _ completion: @escaping ((String) -> Void)) -> Void)
@@ -33,6 +36,9 @@ public typealias addFriendhandle = ((_ currentVC: UIViewController, _  userID: S
 public typealias getUserMessageHandle = ((_  userID: String, _ completion: @escaping ((String) -> Void)) -> Void)
 
 public typealias reportMomentsHandle = ((_ currentVC: UIViewController,_  reportUserID: String,_ commentID:String, _ completion: @escaping ((String) -> Void)) -> Void)
+
+public typealias chooseShareTypeHandle = ((_ currentVC: UIViewController, _ completion: @escaping ((Int) -> Void)) -> Void)
+
 
 // MARK: - 张亚飞打的标记  更新会话的ex
 public typealias updateConversationEx = ((_ conversationEx : String, _ completion: @escaping ((String) -> Void)) -> Void)
@@ -188,11 +194,13 @@ public class OIMApi {
     public static var gotoUserMessageHandle: gotoUserMessageHandle?
     public static var gotoGroupSettingHandle: gotoGroupSettingHandle?
     public static var gotoNewFriendHandle: gotoNewFriendHandle?
+    public static var gotoPublicStrongNoticeDetailHandle: gotoPublicStrongNoticeDetailHandle?
     public static var showChatVCShoeethandle: showChatVCShoeethandle?
     public static var gotoSystemSettingHandle: gotoSystemSettingHandle?
     public static var addFriendhandle: addFriendhandle?
     public static var updateConversationEx: updateConversationEx?
     public static var reportMomentsHandle: reportMomentsHandle?
+    public static var chooseShareTypeHandle: chooseShareTypeHandle?
     
     public static var getUserMessageHandle: getUserMessageHandle?
     

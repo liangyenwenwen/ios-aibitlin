@@ -134,8 +134,8 @@ extension IMController: ContactsDataSource {
 }
 
 public class IMController: NSObject {
-    public static let addFriendPrefix = "io.openim.app/addFriend/"
-    public static let joinGroupPrefix = "io.openim.app/joinGroup/"
+    public static let addFriendPrefix = "com.aibitlin.app/addFriend/"
+    public static let joinGroupPrefix = "com.aibitlin.app/joinGroup/"
     public static let shared: IMController = .init()
     public var imManager: OpenIMSDK.OIMManager!
     /// 好友申请列表新增
@@ -181,6 +181,7 @@ public class IMController: NSObject {
     public var appAddress = ""
     public var appIMAddress = ""
     public var appAdminAddress = ""
+    public var defaultBlogAddress = ""
     
     public var deviceToken = ""
     public var publicIP = ""
@@ -206,6 +207,10 @@ public class IMController: NSObject {
     public var enableRing = true
     // 开启震动
     public var enableVibration = true
+    
+    
+    private var isShowNoticeMessageView = false
+    var listArray:[PublicStrongNoticeMessage] = [] //强提醒订单消息列表
     
     // 设置业务服务器的参数
     public func setup(businessServer: String, businessToken: String?) {
@@ -1627,9 +1632,57 @@ extension IMController: OIMAdvancedMsgListener {
                 }
             })
         }
+        if msg.contentType.rawValue == 1400 && msg.sendID == "10001"{
+            if let model1 = JsonTool.fromJson((msg.notificationElem?.detail)!, toClass: PublicStrongNoticeMessage.self) {
+                if let detail = JsonTool.fromJson(model1.text ?? "", toClass: PublicStrongNoticeMessageDetail.self),
+                   detail.type == 0{
+                    model1.detail = detail
+                    model1.msgID = msg.clientMsgID
+                    model1.conversationID = "sn_" + (msg.sendID ?? "") + "_" + (msg.recvID ?? "")
+                    showPublicStrongNoticeView(detail: model1)
+                }
+            }
+        }
         newMsgReceivedSubject.onNext(msg.toMessageInfo())
     }
-    
+    public func showStrongNoticeView(){
+        if listArray.count ?? 0 > 0{
+            let model = listArray.first
+            listArray.remove(at: 0)
+            showPublicStrongNoticeView(detail: model!)
+        }
+    }
+    func showPublicStrongNoticeView(detail:PublicStrongNoticeMessage){
+        if isShowNoticeMessageView == false{
+            self.imManager.markMessageAsRead(byMsgID: detail.conversationID ?? "", clientMsgIDs: [detail.msgID ?? ""]) { _ in
+            }
+            let noticeMessageView = PublicStrongNoticeMessageView()
+            isShowNoticeMessageView = true
+            noticeMessageView.bindData(detail: detail)
+            noticeMessageView.clickBtnBlock = {[weak self] index in
+                self?.isShowNoticeMessageView = false
+                if index == 0{
+                    //稍后处理
+                    let model = self?.listArray.first
+                    if self?.listArray.count ?? 0 > 0{
+                        let model = self?.listArray.first
+                        self?.listArray.remove(at: 0)
+                        self?.showPublicStrongNoticeView(detail: model!)
+                    }
+                }else{
+                    //立即处理
+                    if let handler = OIMApi.gotoPublicStrongNoticeDetailHandle {
+                        handler(UIViewController(), detail.detail?.hash ?? "",true, { res in
+                           
+                        })
+                    }
+
+                }
+            }
+        }else{
+            listArray.append(detail)
+        }
+    }
     public func onRecvC2CReadReceipt(_ receiptList: [OIMReceiptInfo]) {
         c2cReadReceiptReceived.onNext(receiptList.compactMap { $0.toReceiptInfo() })
     }

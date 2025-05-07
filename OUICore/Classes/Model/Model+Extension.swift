@@ -593,7 +593,19 @@ extension MessageInfo {
         case .boke:
             return "[" + "网站".innerLocalized() + "]"
         case .commonTemplate:
-            return "[" + "自定义".innerLocalized() + "]"
+           if let data = customElem?.value() {
+               var title = data["title"] as? String
+               if let item = data["item"] as? [String: Any],
+                  let intro = item["intro"] as? String{
+                   if intro.length > 0 {
+                       return "[" + (title ?? "") + "-" + intro + "]"
+                   }
+                   
+               }
+               return "[" + (title ?? "小程序") + "]"
+           }else{
+               return "[" + "小程序".innerLocalized() + "]"
+           }
         }
     }
     

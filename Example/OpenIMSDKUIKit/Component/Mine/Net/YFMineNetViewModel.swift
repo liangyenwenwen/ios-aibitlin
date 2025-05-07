@@ -16,8 +16,6 @@ import ProgressHUD
 import OpenIMSDK
 
 class YFMineNetViewModel: AccountViewModel {
-//    public static let API_BLOG_URL = "http://192.168.7.11"
-    public static let API_BLOG_URL = "https://apis.aibitlin.com"
     
     
     // MARK: - 张亚飞打的标记 blogAPI
@@ -98,7 +96,7 @@ class YFMineNetViewModel: AccountViewModel {
         let body = JsonTool.toJson(fromObject: BlogAuditRequest(logo: logo, name: name, url: url, mark: mark, pwd: pwd)).data(using: .utf8)
         
         
-        var req = try! URLRequest(url: API_BLOG_URL + BlogAuditAddWaitAuditAutoAPI, method: .post, headers: getHttpHeader())
+        var req = try! URLRequest(url: IMController.shared.defaultBlogAddress + BlogAuditAddWaitAuditAutoAPI, method: .post, headers: getHttpHeader())
         req.httpBody = body
         Alamofire.request(req).responseString { (response: DataResponse<String>) in
             
@@ -129,7 +127,7 @@ class YFMineNetViewModel: AccountViewModel {
                          completionHandler: @escaping CompletionHandler) {
         if let IMUser = IMController.shared.currentUserRelay.value {
             let body = JsonTool.toJson(fromObject: MineBlogRequest(time: time, hash: hash)).data(using: .utf8)
-            var req = try! URLRequest(url: API_BLOG_URL + ShowMyMyBlogsAPI, method: .post, headers: getHttpHeader())
+            var req = try! URLRequest(url: IMController.shared.defaultBlogAddress + ShowMyMyBlogsAPI, method: .post, headers: getHttpHeader())
             req.httpBody = body
 
             Alamofire.request(req).responseJSON { dataRequest in
@@ -172,7 +170,7 @@ class YFMineNetViewModel: AccountViewModel {
 //        ProgressHUD.animate()
         
         let body = JsonTool.toJson(fromObject: othersBlogRequest(uid:uid,hash:hash,pwd:pwd)).data(using: .utf8)
-        var req = try! URLRequest(url: API_BLOG_URL + otherSeeMyBlogAPI, method: .post, headers: getHttpHeader())
+        var req = try! URLRequest(url: IMController.shared.defaultBlogAddress + otherSeeMyBlogAPI, method: .post, headers: getHttpHeader())
         req.httpBody = body
 
         Alamofire.request(req).responseJSON { dataRequest in
@@ -202,7 +200,7 @@ class YFMineNetViewModel: AccountViewModel {
     static func blogTop(paramters:Parameters, completionHandler: @escaping CompletionHandler) {
         ProgressHUD.animate()
         
-        let url = SuperStringUtil.netUrl(API_BLOG_URL + blogTopAPI, paramters)
+        let url = SuperStringUtil.netUrl(IMController.shared.defaultBlogAddress + blogTopAPI, paramters)
         print(url)
         Alamofire.request(url, method: .post, headers: getHttpHeader()).responseJSON { dataRequest in
             
@@ -226,7 +224,7 @@ class YFMineNetViewModel: AccountViewModel {
     static func flagBlog(paramters:Parameters, completionHandler: @escaping CompletionHandler) {
         ProgressHUD.animate()
         
-        let url = SuperStringUtil.netUrl(API_BLOG_URL + flagBlogAPI, paramters)
+        let url = SuperStringUtil.netUrl(IMController.shared.defaultBlogAddress + flagBlogAPI, paramters)
         print(url)
         Alamofire.request(url, method: .post, headers: getHttpHeader()).responseJSON { dataRequest in
             
@@ -281,7 +279,7 @@ class YFMineNetViewModel: AccountViewModel {
 //                                                "blogIntor":blog.myBlogShowBlogPO.userBlogIntro ?? ""]
 //
 //                
-//                let url = API_BLOG_URL + addShowBlogsSurveyAPI
+//                let url = IMController.shared.defaultBlogAddress + addShowBlogsSurveyAPI
 //                ProgressHUD.animate()
 //                Alamofire.request(url, method: .post, parameters: paramters, encoding: JSONEncoding.default, headers: httpHeaders).responseJSON(completionHandler: { dataRequest in
 //                    ProgressHUD.dismiss()
@@ -304,7 +302,7 @@ class YFMineNetViewModel: AccountViewModel {
         
         ProgressHUD.animate()
         
-        let url = API_BLOG_URL + updateWaitAuditAutoAPI
+        let url = IMController.shared.defaultBlogAddress + updateWaitAuditAutoAPI
         Alamofire.request(url, method: .post, parameters: paramters, encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
             
             ProgressHUD.dismiss()
@@ -328,7 +326,7 @@ class YFMineNetViewModel: AccountViewModel {
         
         ProgressHUD.animate()
         
-        let url = SuperStringUtil.netUrl(API_BLOG_URL + deleteBlogAPI, paramters)
+        let url = SuperStringUtil.netUrl(IMController.shared.defaultBlogAddress + deleteBlogAPI, paramters)
         Alamofire.request(url, method: .post, parameters: paramters, encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
             
             ProgressHUD.dismiss()
@@ -353,7 +351,7 @@ class YFMineNetViewModel: AccountViewModel {
         
 //        ProgressHUD.animate()
         
-        let url = SuperStringUtil.netUrl(API_BLOG_URL + queryShowBlogsSurveyAPI, paramters)
+        let url = SuperStringUtil.netUrl(IMController.shared.defaultBlogAddress + queryShowBlogsSurveyAPI, paramters)
         Alamofire.request(url, method: .post, parameters: paramters, encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
             
 //            ProgressHUD.dismiss()
@@ -383,7 +381,7 @@ class YFMineNetViewModel: AccountViewModel {
                                            completionHandler: @escaping CompletionHandler) {
         
         
-//        let url = SuperStringUtil.netUrl(API_BLOG_URL + queryShowBlogsSurveyOneDayAPI, paramters)
+//        let url = SuperStringUtil.netUrl(IMController.shared.defaultBlogAddress + queryShowBlogsSurveyOneDayAPI, paramters)
 //        Alamofire.request(url, method: .post, parameters: paramters, encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
 //            
 ////            ProgressHUD.dismiss()
@@ -412,8 +410,8 @@ class YFMineNetViewModel: AccountViewModel {
                                            valueHandler: @escaping ([BlogVisitorListModel]) -> Void,
                                            completionHandler: @escaping CompletionHandler) {
         
-//        let url = SuperStringUtil.netUrl(API_BLOG_URL + queryShowBlogsSurveyFriendsAPI, paramters)
-//        
+//        let url = SuperStringUtil.netUrl(IMController.shared.defaultBlogAddress + queryShowBlogsSurveyFriendsAPI, paramters)
+//
 //        Alamofire.request(url, method: .post, parameters: nil, encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
 //            
 ////            ProgressHUD.dismiss()
@@ -442,8 +440,8 @@ class YFMineNetViewModel: AccountViewModel {
                                            valueHandler: @escaping ([BlogVisitorListModel]) -> Void,
                                            completionHandler: @escaping CompletionHandler) {
         
-//        let url = SuperStringUtil.netUrl(API_BLOG_URL + queryShowBlogsSurveyStrangerAPI, paramters)
-//        
+//        let url = SuperStringUtil.netUrl(IMController.shared.defaultBlogAddress + queryShowBlogsSurveyStrangerAPI, paramters)
+//
 //        Alamofire.request(url, method: .post, parameters: nil, encoding: JSONEncoding.default, headers: httpHeaders).responseJSON { dataRequest in
 //            
 ////            ProgressHUD.dismiss()
@@ -475,7 +473,7 @@ class YFMineNetViewModel: AccountViewModel {
         
 //        ProgressHUD.animate()
         
-        let url = SuperStringUtil.netUrl(API_BLOG_URL + vipPurchaseInitializeAPI, paramters)
+        let url = SuperStringUtil.netUrl(IMController.shared.defaultBlogAddress + vipPurchaseInitializeAPI, paramters)
     
         Alamofire.request(url, method: .post, parameters: nil, encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
             
@@ -509,7 +507,7 @@ class YFMineNetViewModel: AccountViewModel {
         
         ProgressHUD.animate()
         
-        let url = SuperStringUtil.netUrl(API_BLOG_URL + vipPurchaseSucceedsAPI, paramters)
+        let url = SuperStringUtil.netUrl(IMController.shared.defaultBlogAddress + vipPurchaseSucceedsAPI, paramters)
         
         Alamofire.request(url, method: .post, parameters: paramters, encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
             if let data = dataRequest.data {
@@ -540,7 +538,7 @@ class YFMineNetViewModel: AccountViewModel {
     static func addUserLanguage(uid: String) {
         
         let param = ["userLanguage":String.getCurrentLanguageFirst(), "userId": uid, "userToken":UserDefaults.standard.string(forKey: bussinessTokenKey)!]
-        let url = SuperStringUtil.netUrl(API_BLOG_URL + addUserLanguageAPI,param)
+        let url = SuperStringUtil.netUrl(IMController.shared.defaultBlogAddress + addUserLanguageAPI,param)
         
         print(["language":String.getCurrentLanguageFirst(), "userId": uid, "imToken":UserDefaults.standard.string(forKey: bussinessTokenKey)!])
             Alamofire.request(url, method: .post,parameters: param, encoding: JSONEncoding.default, headers: getHttpHeader() ).responseJSON { dataRequest in
@@ -582,7 +580,7 @@ class YFMineNetViewModel: AccountViewModel {
     
     static func updateLanguage(uid: String) {
         let param = ["userLanguage":String.getCurrentLanguageFirst(), "userId": uid, "userToken":UserDefaults.standard.string(forKey: bussinessTokenKey)!]
-        let url = SuperStringUtil.netUrl(API_BLOG_URL + updateUserLanguageAPI, param)
+        let url = SuperStringUtil.netUrl(IMController.shared.defaultBlogAddress + updateUserLanguageAPI, param)
         
         Alamofire.request(url, method: .post, parameters: param,encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
             if let data = dataRequest.data {
@@ -603,7 +601,7 @@ class YFMineNetViewModel: AccountViewModel {
     
         
     }
-    static func uploadImageFromPath(apiUrl:String = API_BLOG_URL + upLoadBlogIconAPI,fileURL: URL,
+    static func uploadImageFromPath(apiUrl:String = IMController.shared.defaultBlogAddress + upLoadBlogIconAPI,fileURL: URL,
                                     valueHandler: @escaping (upLoadImageModel) -> Void,
                                     completionHandler: @escaping CompletionHandler) {
         // 发送 Multipart 请求
@@ -672,7 +670,7 @@ class YFMineNetViewModel: AccountViewModel {
     static func checkH5(paramters:Parameters,valueHandler: @escaping (h5Model) -> Void, completionHandler: @escaping CompletionHandler) {
         ProgressHUD.animate()
         
-        Alamofire.request(API_BLOG_URL + checkH5API, method: .post, parameters: paramters, encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
+        Alamofire.request(IMController.shared.defaultBlogAddress + checkH5API, method: .post, parameters: paramters, encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
             ProgressHUD.dismiss()
             
             if let data = dataRequest.data {
@@ -695,7 +693,7 @@ class YFMineNetViewModel: AccountViewModel {
     }
     static func checkPublicCustomerMessageApi(paramters:Parameters,valueHandler: @escaping (checkPublicCustomerUrlInfo) -> Void, completionHandler: @escaping CompletionHandler) {
         ProgressHUD.animate()
-        Alamofire.request(API_BLOG_URL + getPublicCustomerMessageNextAPI, method: .post, parameters: paramters, encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
+        Alamofire.request(IMController.shared.defaultBlogAddress + getPublicCustomerMessageNextAPI, method: .post, parameters: paramters, encoding: JSONEncoding.default, headers: getHttpHeader()).responseJSON { dataRequest in
             
             if let data = dataRequest.data {
                 let strData = String.init(data: data, encoding: String.Encoding.utf8)
@@ -796,15 +794,15 @@ extension YFMineNetViewModel {
         var url = ""
         switch reportType {
             case .user:
-                url = API_BLOG_URL + reportUserAddAPI
+                url = IMController.shared.defaultBlogAddress + reportUserAddAPI
             case.chatHistory:
-                url = API_BLOG_URL + reportChatHistoryAddAPI
+                url = IMController.shared.defaultBlogAddress + reportChatHistoryAddAPI
             case .blog:
-                url = API_BLOG_URL + reportBlogAddAPI
+                url = IMController.shared.defaultBlogAddress + reportBlogAddAPI
             case .feedback:
-                url = API_BLOG_URL + feedBackAddAPI
+                url = IMController.shared.defaultBlogAddress + feedBackAddAPI
         case .moments:
-            url = API_BLOG_URL + reportComentsAddAPI
+            url = IMController.shared.defaultBlogAddress + reportComentsAddAPI
         }
         
         

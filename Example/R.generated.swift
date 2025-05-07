@@ -4099,7 +4099,7 @@ struct _R: Sendable {
     var colorBackground: RswiftResources.ColorResource { .init(name: "ColorBackground", path: [], bundle: bundle) }
   }
 
-  /// This `_R.image` struct is generated, and contains static references to 261 images.
+  /// This `_R.image` struct is generated, and contains static references to 262 images.
   struct image {
     let bundle: Foundation.Bundle
 
@@ -4634,6 +4634,9 @@ struct _R: Sendable {
     /// Image `ic_eyes_open`.
     var ic_eyes_open: RswiftResources.ImageResource { .init(name: "ic_eyes_open", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
+    /// Image `icon-dart`.
+    var iconDart: RswiftResources.ImageResource { .init(name: "icon-dart", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
     /// Image `inputbar_audio_btn_normal_icon`.
     var inputbar_audio_btn_normal_icon: RswiftResources.ImageResource { .init(name: "inputbar_audio_btn_normal_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
@@ -4892,7 +4895,7 @@ struct _R: Sendable {
     let apsEnvironment: String = "development"
   }
 
-  /// This `_R.file` struct is generated, and contains static references to 2 resource files.
+  /// This `_R.file` struct is generated, and contains static references to 3 resource files.
   struct file {
     let bundle: Foundation.Bundle
 
@@ -4901,6 +4904,9 @@ struct _R: Sendable {
 
     /// Resource file `call.mp3`.
     var callMp3: RswiftResources.FileResource { .init(name: "call", pathExtension: "mp3", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `notity.mp3`.
+    var notityMp3: RswiftResources.FileResource { .init(name: "notity", pathExtension: "mp3", bundle: bundle, locale: LocaleReference.none) }
   }
 
   /// This `_R.nib` struct is generated, and contains static references to 1 nibs.

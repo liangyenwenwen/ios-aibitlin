@@ -92,6 +92,8 @@
 		04B801962DA3B7470061641B /* WebViewPwdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B801952DA3B7470061641B /* WebViewPwdViewController.swift */; };
 		04B801982DA3D0290061641B /* AuthorizedLoginAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B801972DA3D0290061641B /* AuthorizedLoginAlertView.swift */; };
 		04B8021A2DB88ADD0061641B /* YFWebViewErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B802192DB88ADD0061641B /* YFWebViewErrorView.swift */; };
+		04B802282DBF631F0061641B /* notity.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 04B802272DBF631F0061641B /* notity.mp3 */; };
+		04B802562DC0B4A40061641B /* YFChooseShareTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B802552DC0B4A40061641B /* YFChooseShareTypeView.swift */; };
 		04C394412CCF85A500181F6B /* YFPhoneLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C394402CCF85A500181F6B /* YFPhoneLoginVC.swift */; };
 		04C394432CCF874300181F6B /* YFAibitlinHomeChooseHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C394422CCF874300181F6B /* YFAibitlinHomeChooseHeaderView.swift */; };
 		04C394452CCFADF500181F6B /* YFEmailLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C394442CCFADF500181F6B /* YFEmailLoginVC.swift */; };
@@ -288,6 +290,8 @@
 		04B801952DA3B7470061641B /* WebViewPwdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewPwdViewController.swift; sourceTree = "<group>"; };
 		04B801972DA3D0290061641B /* AuthorizedLoginAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizedLoginAlertView.swift; sourceTree = "<group>"; };
 		04B802192DB88ADD0061641B /* YFWebViewErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFWebViewErrorView.swift; sourceTree = "<group>"; };
+		04B802272DBF631F0061641B /* notity.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = notity.mp3; sourceTree = "<group>"; };
+		04B802552DC0B4A40061641B /* YFChooseShareTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFChooseShareTypeView.swift; sourceTree = "<group>"; };
 		04C394402CCF85A500181F6B /* YFPhoneLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFPhoneLoginVC.swift; sourceTree = "<group>"; };
 		04C394422CCF874300181F6B /* YFAibitlinHomeChooseHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFAibitlinHomeChooseHeaderView.swift; sourceTree = "<group>"; };
 		04C394442CCFADF500181F6B /* YFEmailLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFEmailLoginVC.swift; sourceTree = "<group>"; };
@@ -574,6 +578,7 @@
 				040D85DB2BEB8C0A00DCAAB3 /* BaseTitleController.swift */,
 				04F2D05E2BEE129A00D5271B /* SuperWebController.swift */,
 				04D0531A2D70708200B87ED8 /* YFCustomWebViewController.swift */,
+				04B802552DC0B4A40061641B /* YFChooseShareTypeView.swift */,
 				04B801952DA3B7470061641B /* WebViewPwdViewController.swift */,
 				04B801972DA3D0290061641B /* AuthorizedLoginAlertView.swift */,
 			);
@@ -668,6 +673,7 @@
 		04504CCF2D6D9FD300E08B90 /* Sound */ = {
 			isa = PBXGroup;
 			children = (
+				04B802272DBF631F0061641B /* notity.mp3 */,
 				04504CCE2D6D9FD300E08B90 /* call.mp3 */,
 			);
 			path = Sound;
@@ -1304,6 +1310,7 @@
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
 				04504CD02D6D9FD700E08B90 /* call.mp3 in Resources */,
 				042AD9E72D295E4600CB5041 /* GoogleService-Info.plist in Resources */,
+				04B802282DBF631F0061641B /* notity.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1548,6 +1555,7 @@
 				040D860C2BEB8C4200DCAAB3 /* SuperUIImageExtension.swift in Sources */,
 				1790EE6E2921EAFC00C4024A /* CheckBoxTextTableViewCell.swift in Sources */,
 				043D23A02D7950FE0003B360 /* MineChangeAreaVC.swift in Sources */,
+				04B802562DC0B4A40061641B /* YFChooseShareTypeView.swift in Sources */,
 				049D30222CC1F5DB00649DC4 /* YFNetworkStatusUtil.swift in Sources */,
 				043A558C2C8166490041836E /* UserTagTypeView.swift in Sources */,
 				17943358292DB9ED0088B768 /* ScreenLockSettingViewController.swift in Sources */,
@@ -1867,7 +1875,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 82D668V62M;
 				ENABLE_BITCODE = NO;
@@ -1913,7 +1921,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 82D668V62M;
 				ENABLE_BITCODE = NO;

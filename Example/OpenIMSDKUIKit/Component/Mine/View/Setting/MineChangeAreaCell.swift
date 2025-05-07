@@ -8,6 +8,7 @@
 
 import Foundation
 class MineChangeAreaCell: UITableViewCell {
+    var longPressBlock:(()->Void)?
     let titleLabel: UILabel = {
         let v = UILabel()
         v.font = UIFont.systemFont(ofSize: 17)
@@ -39,8 +40,16 @@ class MineChangeAreaCell: UITableViewCell {
             make.right.equalToSuperview().offset(-DemoUI.margin_22)
             make.centerY.equalToSuperview()
         }
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
+        contentView.addGestureRecognizer(longPressGesture)
     }
-
+    @objc func handleLongPress(_ gestureRecognizer: UILongPressGestureRecognizer) {
+            if gestureRecognizer.state == .began {
+                if longPressBlock != nil {
+                    longPressBlock!()
+                }
+            }
+        }
     @available(*, unavailable)
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")

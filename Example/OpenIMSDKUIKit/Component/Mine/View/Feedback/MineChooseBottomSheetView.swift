@@ -277,7 +277,8 @@ class MineChooseBottomSheetView: TGLinearLayout {
         topContainer.show()
         titleLbl.text = "用户名".localized()
 //        tipslbl.show()
-        let titleArr = ["置顶聊天".localized(), "聊天自动翻译".localized(), "清空聊天记录".localized()]
+//        let titleArr = ["置顶聊天".localized(), "聊天自动翻译".localized(), "清空聊天记录".localized()]
+        let titleArr = ["置顶聊天".localized(), "清空聊天记录".localized()]
         for i in titleArr.indices {
             if i == 0 {
                 let settingView = SuperSettingView.create(title: titleArr[i]) { _ in
@@ -304,7 +305,7 @@ class MineChooseBottomSheetView: TGLinearLayout {
                 settingView.isMediumFont(15)
                 topContainer.addSubview(settingView)
                 
-            } else if i == 2 {
+            } else if i == 1 {
                 
                 
                 let settingView = SuperSettingView.onlylTitle(titleArr[i]) { [weak self] _ in
