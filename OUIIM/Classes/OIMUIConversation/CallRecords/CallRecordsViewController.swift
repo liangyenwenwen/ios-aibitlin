@@ -14,6 +14,8 @@ import OUILive
 open class CallRecordsViewController: UIViewController {
     
 #if ENABLE_CALL
+    public var showQuickWindowBlock: (() -> ())!
+    public var hideQuickWindowBlock: (() -> ())!
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
@@ -24,13 +26,15 @@ open class CallRecordsViewController: UIViewController {
 
     override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+        self.showQuickWindowBlock()
     }
     open override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         ProgressHUD.dismiss()
         _viewModel.clearUnRecord()
+        self.hideQuickWindowBlock()
     }
+    
 
     override open func viewDidLoad() {
         super.viewDidLoad()

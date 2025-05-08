@@ -30,7 +30,14 @@ class MeHomeController: BaseLogicController {
         getMyBlog()
         showBlogData()
         updatelanguage()
-        
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        AppDelegate().showQuickWindow()
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        AppDelegate().hideQuickWindow()
     }
     
     override func initViews() {

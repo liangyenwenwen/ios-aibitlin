@@ -60,6 +60,12 @@ class MainTabViewController: UITabBarController {
 //        NotificationCenter.default.addObserver(self, selector: #selector(changeAvatar), name: Notification.Name("homeChooseUserIcon"), object: nil)
         
         let chatNav = NavigationController.init(rootViewController: conversationViewController)
+        conversationViewController.showQuickWindowBlock = {
+            AppDelegate().showQuickWindow()
+        }
+        conversationViewController.hideQuickWindowBlock = {
+            AppDelegate().hideQuickWindow()
+        }
         chatNav.tabBarItem.image = UIImage.init(named: "TabMessageSelected_0")?.withRenderingMode(.alwaysOriginal)
         chatNav.tabBarItem.selectedImage = UIImage.init(named: "TabMessageSelected_1")?.withRenderingMode(.alwaysOriginal)
         controllers.append(chatNav)
@@ -82,6 +88,12 @@ class MainTabViewController: UITabBarController {
 //        CallRecordsViewController
         ///通话记录
         let recordsVC = CallRecordsViewController()
+        recordsVC.showQuickWindowBlock = {
+            AppDelegate().showQuickWindow()
+        }
+        recordsVC.hideQuickWindowBlock = {
+            AppDelegate().hideQuickWindow()
+        }
         let recordsNav = NavigationController.init(rootViewController: recordsVC)
         recordsNav.tabBarItem.image = UIImage.init(named: "TabPhoneSelected_0")?.withRenderingMode(.alwaysOriginal)
         recordsNav.tabBarItem.selectedImage = UIImage.init(named: "TabPhoneSelected_1")?.withRenderingMode(.alwaysOriginal)
@@ -93,6 +105,12 @@ class MainTabViewController: UITabBarController {
         
 //        ContactsViewController  FriendListViewController
         let contactVC = FriendListViewController()
+        contactVC.showQuickWindowBlock = {
+            AppDelegate().showQuickWindow()
+        }
+        contactVC.hideQuickWindowBlock = {
+            AppDelegate().hideQuickWindow()
+        }
         let contactNav = NavigationController.init(rootViewController: contactVC)
         contactNav.tabBarItem.image = UIImage.init(named: "TabContactSelected_0")?.withRenderingMode(.alwaysOriginal)
         contactNav.tabBarItem.selectedImage = UIImage.init(named: "TabContactSelected_1")?.withRenderingMode(.alwaysOriginal)
@@ -177,9 +195,8 @@ class MainTabViewController: UITabBarController {
             }
         }
         CallingManager.calculateCount()
-        
     }
-    
+
     @objc func refreshBadges(_ notidication: Notification) {
         
         print(notidication.userInfo)
@@ -276,6 +293,7 @@ class MainTabViewController: UITabBarController {
         IMController.shared.unCallPhoneMessageCount = 0
         IMController.shared.unContactMessageCount = 0
         AccountViewModel.saveUser(uid: nil, imToken: nil, chatToken: nil)
+        AppDelegate().cleanQuickWindow()
         presentLoginController()
     }
     @objc private func deleteAccount(){
@@ -288,6 +306,7 @@ class MainTabViewController: UITabBarController {
         IMController.shared.unCallPhoneMessageCount = 0
         IMController.shared.unContactMessageCount = 0
         AccountViewModel.saveUser(uid: nil, imToken: nil, chatToken: nil)
+        AppDelegate().cleanQuickWindow()
         presentLoginController()
     }
     
@@ -634,7 +653,6 @@ extension MainTabViewController {
 
 
 extension MainTabViewController: UITabBarControllerDelegate {
-    
     
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
         

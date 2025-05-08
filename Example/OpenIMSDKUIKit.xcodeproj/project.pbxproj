@@ -94,6 +94,8 @@
 		04B8021A2DB88ADD0061641B /* YFWebViewErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B802192DB88ADD0061641B /* YFWebViewErrorView.swift */; };
 		04B802282DBF631F0061641B /* notity.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 04B802272DBF631F0061641B /* notity.mp3 */; };
 		04B802562DC0B4A40061641B /* YFChooseShareTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B802552DC0B4A40061641B /* YFChooseShareTypeView.swift */; };
+		04B802732DCB42370061641B /* DraggableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B802722DCB42370061641B /* DraggableButton.swift */; };
+		04B802752DCCB75A0061641B /* YFCustomWebViewMoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B802742DCCB75A0061641B /* YFCustomWebViewMoreView.swift */; };
 		04C394412CCF85A500181F6B /* YFPhoneLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C394402CCF85A500181F6B /* YFPhoneLoginVC.swift */; };
 		04C394432CCF874300181F6B /* YFAibitlinHomeChooseHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C394422CCF874300181F6B /* YFAibitlinHomeChooseHeaderView.swift */; };
 		04C394452CCFADF500181F6B /* YFEmailLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C394442CCFADF500181F6B /* YFEmailLoginVC.swift */; };
@@ -292,6 +294,8 @@
 		04B802192DB88ADD0061641B /* YFWebViewErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFWebViewErrorView.swift; sourceTree = "<group>"; };
 		04B802272DBF631F0061641B /* notity.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = notity.mp3; sourceTree = "<group>"; };
 		04B802552DC0B4A40061641B /* YFChooseShareTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFChooseShareTypeView.swift; sourceTree = "<group>"; };
+		04B802722DCB42370061641B /* DraggableButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraggableButton.swift; sourceTree = "<group>"; };
+		04B802742DCCB75A0061641B /* YFCustomWebViewMoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFCustomWebViewMoreView.swift; sourceTree = "<group>"; };
 		04C394402CCF85A500181F6B /* YFPhoneLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFPhoneLoginVC.swift; sourceTree = "<group>"; };
 		04C394422CCF874300181F6B /* YFAibitlinHomeChooseHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFAibitlinHomeChooseHeaderView.swift; sourceTree = "<group>"; };
 		04C394442CCFADF500181F6B /* YFEmailLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFEmailLoginVC.swift; sourceTree = "<group>"; };
@@ -578,6 +582,7 @@
 				040D85DB2BEB8C0A00DCAAB3 /* BaseTitleController.swift */,
 				04F2D05E2BEE129A00D5271B /* SuperWebController.swift */,
 				04D0531A2D70708200B87ED8 /* YFCustomWebViewController.swift */,
+				04B802742DCCB75A0061641B /* YFCustomWebViewMoreView.swift */,
 				04B802552DC0B4A40061641B /* YFChooseShareTypeView.swift */,
 				04B801952DA3B7470061641B /* WebViewPwdViewController.swift */,
 				04B801972DA3D0290061641B /* AuthorizedLoginAlertView.swift */,
@@ -1225,6 +1230,7 @@
 			isa = PBXGroup;
 			children = (
 				1790EE6A2921EAFC00C4024A /* MainTabViewController.swift */,
+				04B802722DCB42370061641B /* DraggableButton.swift */,
 				040D44232C882ABA007DB6FB /* Chat */,
 				17B11A3E2ABD28C600DB8980 /* NavigationControllerPopGesture */,
 				170E4B2129344C51007A6535 /* Discovery */,
@@ -1646,6 +1652,7 @@
 				040D85E72BEB8C0B00DCAAB3 /* BaseTableViewCell.swift in Sources */,
 				04F4EE7C2C8C2C350028E895 /* YFMineHomeBuyVipCell.swift in Sources */,
 				04F2D0822BEE21CA00D5271B /* MineMessageVC.swift in Sources */,
+				04B802752DCCB75A0061641B /* YFCustomWebViewMoreView.swift in Sources */,
 				04F2D0832BEE21CA00D5271B /* MeHomeController.swift in Sources */,
 				040D86092BEB8C4200DCAAB3 /* SuperUIThemeExtension.swift in Sources */,
 				040D85C52BEB8B0400DCAAB3 /* SuperStringUtil.swift in Sources */,
@@ -1707,6 +1714,7 @@
 				040D85F22BEB8C0B00DCAAB3 /* ListResponse.swift in Sources */,
 				040D85C42BEB8B0400DCAAB3 /* ViewFactoryUtil.swift in Sources */,
 				04A4BD002BF32F17008FA224 /* YFMineChangePasswordVC.swift in Sources */,
+				04B802732DCB42370061641B /* DraggableButton.swift in Sources */,
 				1780764A29260BF50024399B /* InputPasswordViewController.swift in Sources */,
 				DC0B7DF2282DFA09003896C1 /* UnderlineButton.swift in Sources */,
 			);

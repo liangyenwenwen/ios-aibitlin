@@ -19,6 +19,9 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
     
     private var scrolledIndex = 0
     
+    public var showQuickWindowBlock: (() -> ())!
+    public var hideQuickWindowBlock: (() -> ())!
+
     var timer: Timer? = nil
     
     public func scrollToUnreadItem() {
@@ -208,6 +211,7 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
         super.viewDidAppear(animated)
         self.getUnReadTotalCount()
         self.timeCountDown()
+        self.showQuickWindowBlock()
     }
     
     
@@ -217,6 +221,7 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
         super.viewWillDisappear(animated)
         ProgressHUD.dismiss()
         navigationController?.setNavigationBarHidden(false, animated: true)
+        self.hideQuickWindowBlock()
     }
     private func createMenuItems() -> [PopoverTableViewController.MenuItem] {
       

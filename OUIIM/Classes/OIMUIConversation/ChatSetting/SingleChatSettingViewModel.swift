@@ -50,7 +50,7 @@ class SingleChatSettingViewModel {
     private func publishConversationInfo() {
         noDisturbRelay.accept(conversation.recvMsgOpt == .notNotify)
         setTopContactRelay.accept(conversation.isPinned)
-        burnAfterReadingRelay.accept(conversation.isPrivateChat)
+        burnAfterReadingRelay.accept(conversation.isPrivateChat ?? false)
         if conversation.burnDuration == 0 {
             conversation.burnDuration = 30
         }

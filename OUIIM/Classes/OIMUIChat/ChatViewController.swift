@@ -1680,6 +1680,8 @@ extension ChatViewController: ChatControllerDelegate {
             bottomTipsView?.removeFromSuperview()
             bottomTipsView = nil
             navigationItem.rightBarButtonItems = [settingButton, mediaButton]
+            self.chatViewControllerNav.moreImg.isHidden = false
+            self.chatViewControllerNav.setIconImage()
         } else {
             if bottomTipsView == nil {
                 bottomTipsView = EditingBottomTipsView()

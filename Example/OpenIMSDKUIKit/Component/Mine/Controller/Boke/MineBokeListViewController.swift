@@ -238,30 +238,31 @@ extension MineBokeListViewController {
             
         }
         
-//        contentView.shareBlog = { [weak self] blogItem in
-//            print(blogItem.base?.info?.name)
-//            
-//            let vc = MyContactsViewController(types: [.friends])
-//            vc.allowsSelecteAll = false
-//            
-//            vc.selectedContact { [weak self, weak vc] info in
-//                guard let self, let vc, let user = info.first else { return }
-//
-//                IMController.shared.sendBokeMessage(boke: blogItem.base?.info?.toBokeElem()!, to: user.ID!, conversationType: .c2c) { _ in
-//                    
-//                } onComplete: { _ in
-//                    vc.dismiss(animated: true)
-//                    GKCover.hideWithoutAnimation()
-//                    SuperToast.show(title: "sentSuccess".localized())
-//                    
-//                }
-//
-//                
-//            }
-//            
-//            let nav = UINavigationController(rootViewController: vc)
-//            self?.present(nav, animated: true)
-//        }
+        contentView.shareBlog = { [weak self] blogItem in
+            print(blogItem.base?.info?.name)
+            
+            let vc = MyContactsViewController(types: [.friends])
+            vc.allowsSelecteAll = false
+            
+            vc.selectedContact { [weak self, weak vc] info in
+                guard let self, let vc, let user = info.first else { return }
+                
+                let boke = BokeElem(type: String(blogItem.type!), uid: blogItem.uid, hash: blogItem.hash, pwd:  blogItem.base?.info?.pwd, url:  blogItem.base?.info?.url, logo:  blogItem.base?.info?.logo, mark:  blogItem.base?.info?.mark, name:  blogItem.base?.info?.name)
+                IMController.shared.sendBokeMessage(boke: boke, to: user.ID!, conversationType: .c2c) { _ in
+                    
+                } onComplete: { _ in
+                    vc.dismiss(animated: true)
+                    GKCover.hideWithoutAnimation()
+                    SuperToast.show(title: "分享成功".localized())
+                    
+                }
+
+                
+            }
+            
+            let nav = UINavigationController(rootViewController: vc)
+            self?.present(nav, animated: true)
+        }
         
         contentView.topBlog = { [weak self] item in
             GKCover.hide()
@@ -273,6 +274,7 @@ extension MineBokeListViewController {
             GKCover.hide()
             let vc = YFFeedbackVC()
             vc.reportType = .blog
+            // vc.blogItem = item
             self?.gotoController(vc)
             GKCover.hideWithoutAnimation()
         }

@@ -55,7 +55,7 @@ class GroupDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .viewBackgroundColor
-        
+        title = "群详情".innerLocalized()
         initView()
         bindData()
         _viewModel.getGroupInfo()
@@ -216,7 +216,13 @@ extension GroupDetailViewController: UITableViewDelegate, UITableViewDataSource 
         case .header:
             let cell = tableView.dequeueReusableCell(withIdentifier: GroupBasicInfoCell.className) as! GroupBasicInfoCell
             let groupInfo = _viewModel.groupInfoRelay.value
-            cell.avatarView.setAvatar(url: groupInfo?.faceURL, text: groupInfo?.groupName)
+            if groupInfo != nil {
+                cell.avatarView.isGroup = true
+                cell.avatarView.setGroupInfoImg(item: groupInfo!)
+            }else{
+                cell.avatarView.setAvatar(url: groupInfo?.faceURL, text: groupInfo?.groupName)
+            }
+//            cell.avatarView.setAvatar(url: groupInfo?.faceURL, text: groupInfo?.groupName)
             
             if let count = groupInfo?.memberCount, count > 0 {
                 cell.titleLabel.text = groupInfo?.groupName?.append(string: "(\(count))")

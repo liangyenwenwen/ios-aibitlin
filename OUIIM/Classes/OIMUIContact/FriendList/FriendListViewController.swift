@@ -10,7 +10,8 @@ import OUILive
 
 open class FriendListViewController: UIViewController {
     var selectCallBack: ((UserInfo) -> Void)?
-    
+    public var showQuickWindowBlock: (() -> ())!
+    public var hideQuickWindowBlock: (() -> ())!
     var messageCount: Int = 0
     
     private lazy var _tableView: UITableView = {
@@ -163,6 +164,7 @@ open class FriendListViewController: UIViewController {
         super.viewWillDisappear(animated)
 //        navigationController?.setNavigationBarHidden(false, animated: true)
 //        navigationController?.navigationBar.isHidden = false
+        self.hideQuickWindowBlock()
     }
     
     open override func viewDidDisappear(_ animated: Bool) {
@@ -171,11 +173,12 @@ open class FriendListViewController: UIViewController {
 //        navigationController?.navigationBar.isHidden = false
         
     }
-
+    
     override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         navigationItem.hidesSearchBarWhenScrolling = true
         navigationController?.navigationBar.isHidden = true
+        self.showQuickWindowBlock()
     }
 
     override open func viewDidLoad() {

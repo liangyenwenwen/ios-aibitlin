@@ -4099,7 +4099,7 @@ struct _R: Sendable {
     var colorBackground: RswiftResources.ColorResource { .init(name: "ColorBackground", path: [], bundle: bundle) }
   }
 
-  /// This `_R.image` struct is generated, and contains static references to 262 images.
+  /// This `_R.image` struct is generated, and contains static references to 270 images.
   struct image {
     let bundle: Foundation.Bundle
 
@@ -4885,6 +4885,30 @@ struct _R: Sendable {
 
     /// Image `warnings_icon`.
     var warnings_icon: RswiftResources.ImageResource { .init(name: "warnings_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `web_close_icon`.
+    var web_close_icon: RswiftResources.ImageResource { .init(name: "web_close_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `web_more_close_all_icon`.
+    var web_more_close_all_icon: RswiftResources.ImageResource { .init(name: "web_more_close_all_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `web_more_close_icon`.
+    var web_more_close_icon: RswiftResources.ImageResource { .init(name: "web_more_close_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `web_more_icon`.
+    var web_more_icon: RswiftResources.ImageResource { .init(name: "web_more_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `web_report_icon`.
+    var web_report_icon: RswiftResources.ImageResource { .init(name: "web_report_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `web_share_icon`.
+    var web_share_icon: RswiftResources.ImageResource { .init(name: "web_share_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `web_small_icon`.
+    var web_small_icon: RswiftResources.ImageResource { .init(name: "web_small_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `web_star_icon`.
+    var web_star_icon: RswiftResources.ImageResource { .init(name: "web_star_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
     /// Image `youtube_icon`.
     var youtube_icon: RswiftResources.ImageResource { .init(name: "youtube_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }

@@ -38,9 +38,8 @@ class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDele
     
     lazy var rightView:UIView = {
         let r = UIView()
-        r.hide()
         r.backgroundColor = .white
-        r.border(.init(hexString: "#333333"),borderWidth: 1,cornerRadius: 12)
+        r.border(UIColor(hex: 0x000000, alpha: 0.1)!,borderWidth: 1,cornerRadius: 16)
         r.addSubview(moreBtn)
         r.addSubview(lineView)
         r.addSubview(closeBtn)
@@ -49,8 +48,8 @@ class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDele
             make.right.equalTo(lineView.snp_left)
         }
         lineView.snp.makeConstraints { make in
-            make.top.equalTo(8)
-            make.bottom.equalTo(-8)
+            make.top.equalTo(7)
+            make.bottom.equalTo(-7)
             make.width.equalTo(1)
             make.centerX.equalToSuperview()
         }
@@ -62,24 +61,78 @@ class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDele
     }()
     lazy var moreBtn: UIButton = {
         let r = UIButton(type: .custom)
-        r.setImage(UIImage(named: "TabMoreSelected"), for: .normal)
+        r.setImage(UIImage(named: "web_more_icon"), for: .normal)
         r.addTarget(self, action: #selector(moreBtnClick), for: .touchUpInside)
         return r
     }()
     lazy var lineView: UIView = {
         let r = UIView()
-        r.backgroundColor = .black333
+        r.backgroundColor = UIColor(hex: 0x000000, alpha: 0.2)
         return r
     }()
     lazy var closeBtn: UIButton = {
         let r = UIButton(type: .custom)
-        r.setImage(UIImage(named: "icon-dart"), for: .normal)
+        r.setImage(UIImage(named: "web_close_icon"), for: .normal)
         r.addTarget(self, action: #selector(closeBtnClick), for: .touchUpInside)
-        r.imageEdgeInsets = UIEdgeInsets(top: 7, left: 10, bottom: 7, right: 10)
         return r
     }()
     @objc func moreBtnClick(){
-        
+        if h5DetailInfo == nil{
+            SuperToast.show(title: "加载失败".localized())
+            return
+        }
+        let moreView = YFCustomWebViewMoreView()
+        moreView.tg_width.equal(.fill)
+        moreView.tg_height.equal(190 + kSafeAreaBottomHeight)
+        moreView.updateContentUI(model: self.h5DetailInfo!)
+        moreView.btnClickBlock = { [weak self] index in
+            if index == 0{
+                //分享
+                let vc = MyContactsViewController(types: [.friends])
+                vc.allowsSelecteAll = false
+                
+                vc.selectedContact { [weak self, weak vc] info in
+                    guard let self, let vc, let user = info.first else { return }
+                    
+                    let boke = BokeElem(type: String(self.h5DetailInfo?.data?.type ?? 0), uid: "", hash: self.appid, pwd:  self.h5DetailInfo?.data?.info?.pwd, url:  self.h5DetailInfo?.data?.info?.url, logo:  self.h5DetailInfo?.data?.info?.logo, mark:  self.h5DetailInfo?.data?.info?.mark, name:  self.h5DetailInfo?.data?.info?.name)
+                    IMController.shared.sendBokeMessage(boke: boke, to: user.ID!, conversationType: .c2c) { _ in
+                        
+                    } onComplete: { _ in
+                        vc.dismiss(animated: true)
+                        GKCover.hideWithoutAnimation()
+                        SuperToast.show(title: "分享成功".localized())
+                    }
+                }
+                let nav = UINavigationController(rootViewController: vc)
+                self?.present(nav, animated: true)
+            }else if index == 1{
+                //收藏
+                YFMineNetViewModel.flagBlog(paramters: ["hash":self?.appid ?? "","val":"1"]) { errCode, errMsg in
+                    if errCode == 200{
+                        SuperToast.show(title: "收藏成功".localized())
+                    }else{
+                        SuperToast.show(title: errMsg?.localized())
+                    }
+                }
+            }else if index == 2{
+                //收起
+                IMController.shared.showStrongNoticeView()
+                AppDelegate().addQuickWindow(data: ["appid":self?.appid ?? "","name":self?.h5DetailInfo?.data?.info?.name ?? "","logo":self?.h5DetailInfo?.data?.info?.logo ?? ""])
+                self?.navigationController?.popViewController(animated: true)
+                self?.dismiss(animated: true)
+            }else if index == 3{
+                //举报
+                let vc = YFFeedbackVC()
+                vc.reportType = .blog
+//                vc.blogItem = self?.h5DetailInfo?.data?.info
+                self?.navigationController?.pushViewController(vc, animated: true)
+            }else if index == 4{
+                self?.navigationController?.popViewController(animated: true)
+                IMController.shared.showStrongNoticeView()
+                self?.dismiss(animated: true)
+            }
+        }
+        GKCover.cover(from:self.view.window, contentView: moreView, style: .translucent, showStyle: .bottom, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
     }
     @objc func closeBtnClick(){
         self.navigationController?.popViewController(animated: true)
@@ -167,8 +220,12 @@ class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDele
         super.viewDidAppear(animated)
         navigationController?.navigationBar.isHidden = true
     }
+    deinit {
+        print("------")
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
+        AppDelegate().hideQuickWindow()
         view.backgroundColor = .colorBackgroundAPP
         if #available(iOS 11.0, *) {
             webView.scrollView.contentInsetAdjustmentBehavior = .never
@@ -176,7 +233,7 @@ class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDele
         view.addSubview(webView)
         view.addSubview(navView)
         view.addSubview(errorView)
-//        webView.addSubview(rightView)
+        view.addSubview(rightView)
         webView.snp.makeConstraints { make in
             make.top.left.right.equalTo(0)
             make.bottom.equalTo(-kSafeAreaBottomHeight)
@@ -189,12 +246,12 @@ class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDele
         errorView.snp.makeConstraints { make in
             make.edges.equalTo(view)
         }
-//        rightView.snp.makeConstraints { make in
-//            make.right.equalTo(-16)
-//            make.top.equalTo(kStatusBarHeight+10)
-//            make.height.equalTo(34)
-//            make.width.equalTo(80)
-//        }
+        rightView.snp.makeConstraints { make in
+            make.right.equalTo(-16)
+            make.top.equalTo(kStatusBarHeight+4)
+            make.height.equalTo(32)
+            make.width.equalTo(87)
+        }
         bridge = WKWebViewJavascriptBridge(webView: webView)
         webView.uiDelegate = self
         checkH5()
@@ -670,8 +727,6 @@ class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDele
                 self?.webView.snp_updateConstraints({ make in
                     make.top.equalTo(44+kStatusBarHeight)
                 })
-            }else{
-//                self?.rightView.show()
             }
             YFFileDataUtil.saveOneH5ToFile(item: data)
             if self?.loadUrl?.length ?? 0 > 0{

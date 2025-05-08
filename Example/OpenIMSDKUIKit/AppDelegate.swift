@@ -79,7 +79,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             return UIApplication.shared.delegate as! AppDelegate
         }
     }
-    
+    var quickWindowArray:[[String:Any]] = []
+    lazy var quickWindowView: DraggableButton = {
+        let r = DraggableButton(frame: CGRect(x: SCREEN_WIDTH - 70, y: UIScreen.main.bounds.height/2 - 30, width: 60, height: 60))
+        r.corner(30)
+        r.addTarget(self, action: #selector(quickWindowViewClick), for: .touchUpInside)
+        return r
+    }()
    
     private let _disposeBag = DisposeBag();
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -189,6 +195,64 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
         return true
     }
+    @objc func quickWindowViewClick(){
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+           let data = appDelegate.quickWindowArray.first{
+            let webVC = YFCustomWebViewController()
+            webVC.appid = (data["appid"] ?? "") as? String
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                webVC.modalPresentationStyle = .fullScreen
+                let nav = UINavigationController.init(rootViewController:  webVC)
+                nav.modalPresentationStyle = .fullScreen
+                UIViewController.currentViewController().present(nav, animated: true)
+            }
+        }
+    }
+    func addQuickWindow(data:[String:Any]?){
+        if data != nil,
+           let appDelegate = UIApplication.shared.delegate as? AppDelegate{
+            for (index,item) in appDelegate.quickWindowArray.enumerated() {
+                if item["appid"] as? String == data!["appid"] as? String {
+                    appDelegate.quickWindowArray.remove(at: index)
+                    break
+                }
+            }
+            appDelegate.quickWindowArray.insert(data!, at: 0)
+        }
+    }
+    func showQuickWindow(){
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
+            if appDelegate.quickWindowView.superview == nil{
+                if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                   let keyWindow = windowScene.windows.first(where: { $0.isKeyWindow }) {
+                    keyWindow.addSubview(appDelegate.quickWindowView)
+                    keyWindow.bringSubviewToFront(appDelegate.quickWindowView)
+                    }
+            }else{
+                appDelegate.quickWindowView.show()
+            }
+            if let data = appDelegate.quickWindowArray.first{
+                appDelegate.quickWindowView.sd_setImage(with: URL(string: (data["logo"] ?? "") as? String), for: .normal)
+            }else{
+                appDelegate.hideQuickWindow()
+            }
+        }
+    }
+    func hideQuickWindow(){
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+           appDelegate.quickWindowView.superview != nil{
+            appDelegate.quickWindowView.hide()
+        }
+    }
+    func cleanQuickWindow(){
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
+            appDelegate.quickWindowArray.removeAll()
+            if appDelegate.quickWindowView.superview != nil{
+                appDelegate.quickWindowView.hide()
+            }
+            
+        }
+    }
     func setAppApi(){
         let areaName = UserDefaults.standard.string(forKey: "chooseArea") ?? "中国大陆"
         var code = "cn"
@@ -213,6 +277,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 //        IMController.shared.appAddress = "http://192.168.7.126:10008"
 //        IMController.shared.appIMAddress = "http://192.168.7.126:10002"
 //        IMController.shared.appAdminAddress = "ws://192.168.7.126:10001"
+//        IMController.shared.defaultBlogAddress = "https://" + code + "." + defaultBlogAddress
     }
     private func logout() {
         NotificationCenter.default.post(name: .init("logout"), object: nil)
