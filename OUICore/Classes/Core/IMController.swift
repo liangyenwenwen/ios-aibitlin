@@ -211,6 +211,7 @@ public class IMController: NSObject {
     
     private var isShowNoticeMessageView = false
     var listArray:[PublicStrongNoticeMessage] = [] //强提醒订单消息列表
+    public var currentAppId = ""
     
     // 设置业务服务器的参数
     public func setup(businessServer: String, businessToken: String?) {
@@ -1639,13 +1640,19 @@ extension IMController: OIMAdvancedMsgListener {
                     model1.detail = detail
                     model1.msgID = msg.clientMsgID
                     model1.conversationID = "sn_" + (msg.sendID ?? "") + "_" + (msg.recvID ?? "")
-                    showPublicStrongNoticeView(detail: model1)
+                    if detail.hash == currentAppId{
+                        self.imManager.markMessageAsRead(byMsgID: model1.conversationID ?? "", clientMsgIDs: [model1.msgID ?? ""]) { _ in
+                        }
+                    }else{
+                        showPublicStrongNoticeView(detail: model1)
+                    }
                 }
             }
         }
         newMsgReceivedSubject.onNext(msg.toMessageInfo())
     }
     public func showStrongNoticeView(){
+        currentAppId = ""
         if listArray.count ?? 0 > 0{
             let model = listArray.first
             listArray.remove(at: 0)

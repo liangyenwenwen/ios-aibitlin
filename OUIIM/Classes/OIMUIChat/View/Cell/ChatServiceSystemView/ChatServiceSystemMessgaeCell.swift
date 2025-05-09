@@ -58,6 +58,7 @@ class ChatServiceSystemMessgaeCell: UITableViewCell {
     }()
     lazy var iconImageView: UIImageView = {
         let r = UIImageView()
+        r.corner(radius: 4)
         return r
     }()
     

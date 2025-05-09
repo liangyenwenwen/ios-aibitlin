@@ -22,22 +22,7 @@ class AllQuickWindowView: UIView {
         let r = UIButton()
         r.setImage(UIImage(named: "web_more_close_icon"), for: .normal)
         r.rx.tap.subscribe(onNext: { [weak self] in
-            // 执行动画
-            self?.transform =  CGAffineTransform(scaleX: 1, y: 1)
-            UIView.animate(withDuration: 5,
-                           delay: 0,
-                           usingSpringWithDamping: 0.6,
-                           initialSpringVelocity: 0.5,
-                           options: [.curveEaseOut],
-                           animations: {
-                self?.transform =  CGAffineTransform(scaleX: 0, y: 0) // 恢复到原始大小
-                if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
-                    self?.center = appDelegate.quickWindowView.center
-                }
-                
-            }) { _ in
-                self?.removeFromSuperview()
-            }
+            self?.removeFromSuperview()
         }).disposed(by: rx.disposeBag)
         return r
     }()
@@ -123,6 +108,10 @@ extension AllQuickWindowView: UICollectionViewDelegate {
         self.removeFromSuperview()
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
             let data = appDelegate.quickWindowArray[indexPath.row]
+            if indexPath.row != 0 {
+                appDelegate.quickWindowArray.remove(at: indexPath.row)
+                appDelegate.quickWindowArray.insert(data, at: indexPath.row)
+            }
             let webVC = data["vc"] as? YFCustomWebViewController ?? YFCustomWebViewController()
             webVC.modalPresentationStyle = .fullScreen
             let nav = UINavigationController.init(rootViewController:  webVC)

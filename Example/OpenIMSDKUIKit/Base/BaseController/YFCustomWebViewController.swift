@@ -227,6 +227,7 @@ class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDele
     override func viewDidLoad() {
         super.viewDidLoad()
         AppDelegate().hideQuickWindow()
+        IMController.shared.currentAppId = appid ?? ""
         view.backgroundColor = .colorBackgroundAPP
         if #available(iOS 11.0, *) {
             webView.scrollView.contentInsetAdjustmentBehavior = .never

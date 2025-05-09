@@ -101,6 +101,7 @@ class PublicStrongNoticeMessageView: UIView {
     }()
     lazy var iconImageView: UIImageView = {
         let r = UIImageView()
+        r.corner(radius: 4)
         return r
     }()
     lazy var titleLabel: UILabel = {
