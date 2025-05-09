@@ -94,8 +94,9 @@
 		04B8021A2DB88ADD0061641B /* YFWebViewErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B802192DB88ADD0061641B /* YFWebViewErrorView.swift */; };
 		04B802282DBF631F0061641B /* notity.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 04B802272DBF631F0061641B /* notity.mp3 */; };
 		04B802562DC0B4A40061641B /* YFChooseShareTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B802552DC0B4A40061641B /* YFChooseShareTypeView.swift */; };
-		04B802732DCB42370061641B /* DraggableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B802722DCB42370061641B /* DraggableButton.swift */; };
+		04B802732DCB42370061641B /* QuickWindowBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B802722DCB42370061641B /* QuickWindowBtn.swift */; };
 		04B802752DCCB75A0061641B /* YFCustomWebViewMoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B802742DCCB75A0061641B /* YFCustomWebViewMoreView.swift */; };
+		04B802772DCCF8450061641B /* AllQuickWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B802762DCCF8450061641B /* AllQuickWindowView.swift */; };
 		04C394412CCF85A500181F6B /* YFPhoneLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C394402CCF85A500181F6B /* YFPhoneLoginVC.swift */; };
 		04C394432CCF874300181F6B /* YFAibitlinHomeChooseHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C394422CCF874300181F6B /* YFAibitlinHomeChooseHeaderView.swift */; };
 		04C394452CCFADF500181F6B /* YFEmailLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C394442CCFADF500181F6B /* YFEmailLoginVC.swift */; };
@@ -294,8 +295,9 @@
 		04B802192DB88ADD0061641B /* YFWebViewErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFWebViewErrorView.swift; sourceTree = "<group>"; };
 		04B802272DBF631F0061641B /* notity.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = notity.mp3; sourceTree = "<group>"; };
 		04B802552DC0B4A40061641B /* YFChooseShareTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFChooseShareTypeView.swift; sourceTree = "<group>"; };
-		04B802722DCB42370061641B /* DraggableButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraggableButton.swift; sourceTree = "<group>"; };
+		04B802722DCB42370061641B /* QuickWindowBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickWindowBtn.swift; sourceTree = "<group>"; };
 		04B802742DCCB75A0061641B /* YFCustomWebViewMoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFCustomWebViewMoreView.swift; sourceTree = "<group>"; };
+		04B802762DCCF8450061641B /* AllQuickWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllQuickWindowView.swift; sourceTree = "<group>"; };
 		04C394402CCF85A500181F6B /* YFPhoneLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFPhoneLoginVC.swift; sourceTree = "<group>"; };
 		04C394422CCF874300181F6B /* YFAibitlinHomeChooseHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFAibitlinHomeChooseHeaderView.swift; sourceTree = "<group>"; };
 		04C394442CCFADF500181F6B /* YFEmailLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFEmailLoginVC.swift; sourceTree = "<group>"; };
@@ -779,6 +781,15 @@
 			path = errorWebview;
 			sourceTree = "<group>";
 		};
+		04B802782DCDDD4D0061641B /* QuickWindow */ = {
+			isa = PBXGroup;
+			children = (
+				04B802722DCB42370061641B /* QuickWindowBtn.swift */,
+				04B802762DCCF8450061641B /* AllQuickWindowView.swift */,
+			);
+			path = QuickWindow;
+			sourceTree = "<group>";
+		};
 		04D2E2042CBE4E5500582B13 /* HDEmptyView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1229,8 +1240,8 @@
 		DC28F0E627EE1BD90068B545 /* Pages */ = {
 			isa = PBXGroup;
 			children = (
+				04B802782DCDDD4D0061641B /* QuickWindow */,
 				1790EE6A2921EAFC00C4024A /* MainTabViewController.swift */,
-				04B802722DCB42370061641B /* DraggableButton.swift */,
 				040D44232C882ABA007DB6FB /* Chat */,
 				17B11A3E2ABD28C600DB8980 /* NavigationControllerPopGesture */,
 				170E4B2129344C51007A6535 /* Discovery */,
@@ -1697,6 +1708,7 @@
 				040D860D2BEB8C4200DCAAB3 /* SuperUIStringExtension.swift in Sources */,
 				04F2D09D2BEE221400D5271B /* UIView+GKExtension.m in Sources */,
 				045B8BF92BF481AF0094E080 /* UserMessageBottomSheetView.swift in Sources */,
+				04B802772DCCF8450061641B /* AllQuickWindowView.swift in Sources */,
 				040C46402D7FE00300566EC0 /* MineGeneralSettingVC.swift in Sources */,
 				04016EF42CA543F900D54020 /* YFChatNewFriendListVC.swift in Sources */,
 				049C64402BEC622300B679C4 /* YFLoginChooseHeaderView.swift in Sources */,
@@ -1714,7 +1726,7 @@
 				040D85F22BEB8C0B00DCAAB3 /* ListResponse.swift in Sources */,
 				040D85C42BEB8B0400DCAAB3 /* ViewFactoryUtil.swift in Sources */,
 				04A4BD002BF32F17008FA224 /* YFMineChangePasswordVC.swift in Sources */,
-				04B802732DCB42370061641B /* DraggableButton.swift in Sources */,
+				04B802732DCB42370061641B /* QuickWindowBtn.swift in Sources */,
 				1780764A29260BF50024399B /* InputPasswordViewController.swift in Sources */,
 				DC0B7DF2282DFA09003896C1 /* UnderlineButton.swift in Sources */,
 			);

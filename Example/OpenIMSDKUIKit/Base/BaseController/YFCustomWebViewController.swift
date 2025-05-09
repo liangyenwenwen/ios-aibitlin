@@ -116,8 +116,9 @@ class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDele
                 }
             }else if index == 2{
                 //收起
+                let image = self?.getShareCardImg(view: self?.webView)
                 IMController.shared.showStrongNoticeView()
-                AppDelegate().addQuickWindow(data: ["appid":self?.appid ?? "","name":self?.h5DetailInfo?.data?.info?.name ?? "","logo":self?.h5DetailInfo?.data?.info?.logo ?? ""])
+                AppDelegate().addQuickWindow(data: ["appid":self?.appid ?? "","name":self?.h5DetailInfo?.data?.info?.name ?? "","logo":self?.h5DetailInfo?.data?.info?.logo ?? "","vc":self!,"image":image ?? nil])
                 self?.navigationController?.popViewController(animated: true)
                 self?.dismiss(animated: true)
             }else if index == 3{
@@ -239,7 +240,6 @@ class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDele
             make.bottom.equalTo(-kSafeAreaBottomHeight)
         }
         navView.snp.makeConstraints { make in
-//            make.top.equalTo(kStatusBarHeight)
             make.top.left.right.equalTo(0)
             make.height.equalTo(44+kStatusBarHeight)
         }
@@ -255,7 +255,7 @@ class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDele
         bridge = WKWebViewJavascriptBridge(webView: webView)
         webView.uiDelegate = self
         checkH5()
-        //注册方法供h5调用
+//        //注册方法供h5调用
         registerAllFunc()
         webView.addObserver(self, forKeyPath: "title", options: .new, context: nil)
         webView.subviews.forEach { subview in
@@ -268,28 +268,28 @@ class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDele
     }
     func registerAllFunc(){
         //关闭h5页面
-        bridge.register(handlerName: "closeWebView") { parameters, callback in
+        bridge.register(handlerName: "closeWebView") {[weak self] parameters, callback in
             IMController.shared.showStrongNoticeView()
-            self.navigationController?.popViewController(animated: true)
-            self.dismiss(animated: true)
+            self?.navigationController?.popViewController(animated: true)
+            self?.dismiss(animated: true)
         }
         //h5获取AppId
-        bridge.register(handlerName: "getAppId") { parameters, callback in
-            callback?(self.appid)
+        bridge.register(handlerName: "getAppId") {[weak self] parameters, callback in
+            callback?(self?.appid)
         }
         //h5获取当前语言
         bridge.register(handlerName: "getLanguage") { parameters, callback in
             callback?(String.getCurrentLanguageFirst())
         }
         //h5获取token
-        bridge.register(handlerName: "getToken") { parameters, callback in
-            if self.h5DetailInfo?.data?.info?.auto == 0 && (self.h5DetailInfo?.data?.extend?.app?.permission?.count ?? 0 > 0) && YFFileDataUtil.isHaveThisH5Data(.loginAuth,item: self.h5DetailInfo!) == false
+        bridge.register(handlerName: "getToken") { [weak self]parameters, callback in
+            if self?.h5DetailInfo?.data?.info?.auto == 0 && (self?.h5DetailInfo?.data?.extend?.app?.permission?.count ?? 0 > 0) && YFFileDataUtil.isHaveThisH5Data(.loginAuth,item: (self?.h5DetailInfo)!) == false
             {
                 //需要弹出授权框
                 let authView = AuthorizedLoginAlertView()
                 authView.tg_width.equal(.fill)
                 authView.tg_height.equal(351 + kSafeAreaBottomHeight)
-                authView.updateContentUI(model: self.h5DetailInfo!)
+                authView.updateContentUI(model: (self?.h5DetailInfo)!)
                 authView.authLoginAction = { [weak self] in
                     YFFileDataUtil.saveOneH5ToFile(.loginAuth, item: self!.h5DetailInfo!)
                     callback?(self?.h5DetailInfo?.token)
@@ -299,13 +299,13 @@ class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDele
                     self?.navigationController?.popViewController(animated: true)
                     self?.dismiss(animated: true)
                 }
-                GKCover.cover(from:self.view.window, contentView: authView, style: .translucent, showStyle: .bottom, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: true)
+                GKCover.cover(from:self?.view.window, contentView: authView, style: .translucent, showStyle: .bottom, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: true)
             }else{
-                callback?(self.h5DetailInfo?.token)
+                callback?(self?.h5DetailInfo?.token)
             }
         }
         //h5调用扫一扫
-        bridge.register(handlerName: "scan") { parameters, callback in
+        bridge.register(handlerName: "scan") {[weak self] parameters, callback in
             let vc = ScanViewController()
             vc.scanDidComplete = { [weak self] (result: String) in
                 ProgressHUD.dismiss()
@@ -314,16 +314,16 @@ class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDele
                 }
                 self?.navigationController?.popViewController(animated: true)
             }
-            self.navigationController?.pushViewController(vc, animated: true)
+            self?.navigationController?.pushViewController(vc, animated: true)
         }
         //h5调用发送消息
         
-        bridge.register(handlerName: "sendMessage") { parameters, callHandleback in
+        bridge.register(handlerName: "sendMessage") {[weak self] parameters, callHandleback in
             if parameters != nil{
                 let userId = (parameters?["userId"] ?? "") as! String
                 let groupId = (parameters?["groupId"] ?? "") as! String
-                if self.sendCommonTemplateMessageBlock != nil{
-                    self.sendCommonTemplateMessageBlock!(parameters!)
+                if self?.sendCommonTemplateMessageBlock != nil{
+                    self?.sendCommonTemplateMessageBlock!(parameters!)
                 }else{
                     IMController.shared.sendCommonTemplateMessage(param: parameters?["msg"] as? [String : Any], to: userId.length > 0 ? userId : groupId, conversationType: userId.length > 0 ? .c2c : .superGroup) { msg in
                         callHandleback?("发送成功")
@@ -334,7 +334,7 @@ class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDele
             }
         }
         //h5获取群成员列表
-        bridge.register(handlerName: "getGroupMembersInfo") { parameters, callback in
+        bridge.register(handlerName: "getGroupMembersInfo") {[weak self] parameters, callback in
             if parameters != nil{
                 IMController.shared.getGroupMemberList(groupId: (parameters?["groupId"] ?? "") as! String, filter: .all, offset: 0, count: 100000) { [weak self] ms in
                     var groupMemberList = []
@@ -352,7 +352,7 @@ class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDele
             }
         }
         //h5获取我的群列表
-        bridge.register(handlerName: "getGroups") { parameters, callback in
+        bridge.register(handlerName: "getGroups") {[weak self] parameters, callback in
             
             IMController.shared.getJoinedGroupList { [weak self] (groups: [GroupInfo]) in
                 let groups: [GroupInfo] = groups
@@ -370,7 +370,7 @@ class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDele
             }
         }
         //h5获取我的好友列表
-        bridge.register(handlerName: "getFriendList") { parameters, callback in
+        bridge.register(handlerName: "getFriendList") {[weak self] parameters, callback in
             IMController.shared.getFriendList { [weak self] users in
                 let userList = users.compactMap({ UserInfo(userID: $0.userID!, nickname: $0.remark?.isEmpty == false ? $0.remark : $0.nickname, faceURL: $0.faceURL) })
                 var friendList = []
@@ -387,7 +387,7 @@ class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDele
             }
         }
         //h5调用根据url保存图片
-        bridge.register(handlerName: "saveImageUrl") { parameters, callback in
+        bridge.register(handlerName: "saveImageUrl") {[weak self] parameters, callback in
             if parameters != nil{
                 let url = parameters?["url"] as! String
                 DispatchQueue.global().async {
@@ -395,7 +395,7 @@ class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDele
                     SDWebImageManager.shared.loadImage(with:URL(string: url), options:.highPriority, progress: nil) { (image, data, error, cacheType, finished, url) in
                         ProgressHUD.dismiss()
                         if image != nil{
-                            self.saveImage(image: image!)
+                            self?.saveImage(image: image!)
                         }else{
                             SuperToast.show(title: "图片保存失败".localized())
                         }
@@ -404,21 +404,21 @@ class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDele
             }
         }
         //h5调用保存图片
-        bridge.register(handlerName: "saveImage") { parameters, callback in
+        bridge.register(handlerName: "saveImage") {[weak self] parameters, callback in
             if parameters != nil{
                 let base64String = parameters?["img"] as! String
-                let image = self.base64StringToImage(base64String: base64String)
+                let image = self?.base64StringToImage(base64String: base64String)
                 if image != nil {
-                    self.saveImage(image: image!)
+                    self?.saveImage(image: image!)
                 }else{
                     SuperToast.show(title: "图片保存失败".localized())
                 }
             }
         }
         //h5调用分享图片
-        bridge.register(handlerName: "shareImage") { parameters, callback in
+        bridge.register(handlerName: "shareImage") {[weak self] parameters, callback in
             if parameters != nil{
-                let image = self.base64StringToImage(base64String: parameters!["img"] as! String)
+                let image = self?.base64StringToImage(base64String: parameters!["img"] as! String)
                 if image != nil {
                     let choosePushAdTypeView = YFChooseShareTypeView()
                     choosePushAdTypeView.tg_width.equal(.fill)
@@ -460,43 +460,43 @@ class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDele
                             self?.present(activityViewController, animated: true)
                         }
                     }
-                    GKCover.cover(from: self.view.window, contentView: choosePushAdTypeView, style: .translucent, showStyle: .bottom, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
+                    GKCover.cover(from: self?.view.window, contentView: choosePushAdTypeView, style: .translucent, showStyle: .bottom, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
                 }else{
                     SuperToast.show(title: "分享失败".localized())
                 }
             }
         }
         //h5调用相机或相册上传图片
-        bridge.register(handlerName: "photoUpload") {parameters, callback in
+        bridge.register(handlerName: "photoUpload") {[weak self]parameters, callback in
             if parameters != nil{
-                self.loadImageAPI = parameters!["url"] as? String
+                self?.loadImageAPI = parameters!["url"] as? String
                 var maxSelect = parameters!["maxSelect"] as? Int ?? 1
-                self.isforVideo = (parameters!["mediaType"] as? String ?? "image") == "image" ? false : true
+                self?.isforVideo = (parameters!["mediaType"] as? String ?? "image") == "image" ? false : true
                 if maxSelect > 20{
                     maxSelect = 20
                 }
-                self.imageArray.removeAll()
-                self.imageUrlArray.removeAll()
-                self._photoHelper.setConfigToMultipleSelected(forVideo:self.isforVideo, maxSelectCount: maxSelect)
-                self._photoHelper.showSelectMetaSheet(byController: self)
+                self?.imageArray.removeAll()
+                self?.imageUrlArray.removeAll()
+                self?._photoHelper.setConfigToMultipleSelected(forVideo:self?.isforVideo ?? false, maxSelectCount: maxSelect)
+                self?._photoHelper.showSelectMetaSheet(byController: self!)
     //            self._photoHelper.presentPhotoLibrary(byController: self)
             }
         }
         //h5改变客户端消息页面
-        bridge.register(handlerName: "saveEx") { [self]parameters, callback in
+        bridge.register(handlerName: "saveEx") { [weak self] parameters, callback in
             if parameters != nil{
                 let localEx = parameters!["msg"] as? String
-                if self.messageId?.length ?? 0 > 0,
+                if self?.messageId?.length ?? 0 > 0,
                    localEx?.length ?? 0 > 0{
-                    NotificationCenter.default.post(name: Notification.Name("changeMessageLocalEx"), object: nil, userInfo: ["value": localEx!,"messageId":self.messageId ?? ""])
+                    NotificationCenter.default.post(name: Notification.Name("changeMessageLocalEx"), object: nil, userInfo: ["value": localEx!,"messageId":self?.messageId ?? ""])
 
                 }
             }
         }
         //h5获取客户端聊天信息
-        bridge.register(handlerName: "getCurrentConversationInfo") { [self]parameters, callback in
+        bridge.register(handlerName: "getCurrentConversationInfo") { [weak self]parameters, callback in
             do {
-                let jsonData = try JSONSerialization.data(withJSONObject: self.chatInfo ?? [], options: [])
+                let jsonData = try JSONSerialization.data(withJSONObject: self?.chatInfo ?? [], options: [])
                 if let jsonString = String(data: jsonData, encoding: .utf8) {
                     callback?(jsonString)
                 }
@@ -794,5 +794,24 @@ class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDele
     func loadCheckH5(){
         let request = URLRequest(url: URL(string: loadUrl)!)
         webView.load(request)
+    }
+    func  getShareCardImg(view:WKWebView?) -> UIImage? {
+        if view == nil { return nil }
+        // 开始图形上下文
+        UIGraphicsBeginImageContextWithOptions(view!.bounds.size,  false, 0.0)
+        defer { UIGraphicsEndImageContext() } // 确保上下文能被释放
+        
+        // 将view渲染到图形上下文中
+        if let context = UIGraphicsGetCurrentContext() {
+            view!.layer.render(in: context)
+//                view.isHidden = true
+        } else {
+//                view.isHidden = true
+        }
+        
+        // 从图形上下文获取图片
+        guard let image = UIGraphicsGetImageFromCurrentImageContext() else { return nil }
+        
+        return image
     }
 }

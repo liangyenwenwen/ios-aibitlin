@@ -79,9 +79,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             return UIApplication.shared.delegate as! AppDelegate
         }
     }
-    var quickWindowArray:[[String:Any]] = []
-    lazy var quickWindowView: DraggableButton = {
-        let r = DraggableButton(frame: CGRect(x: SCREEN_WIDTH - 70, y: UIScreen.main.bounds.height/2 - 30, width: 60, height: 60))
+    var quickWindowArray:[[String:Any?]] = []
+    lazy var quickWindowView: QuickWindowBtn = {
+        let r = QuickWindowBtn(frame: CGRect(x: SCREEN_WIDTH - 70, y: UIScreen.main.bounds.height/2 - 30, width: 60, height: 60))
         r.corner(30)
         r.addTarget(self, action: #selector(quickWindowViewClick), for: .touchUpInside)
         return r
@@ -91,15 +91,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
         Messaging.messaging().delegate = self
-//        // 请求通知权限
-//        UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.sound,.badge]) { (granted, error) in
-//            if let error = error {
-//                print("请求通知权限出错: \(error)")
-//            } else if granted {
-//                application.registerForRemoteNotifications()
-//            }
-//        }
-//        PushNotificationService.shared.messaging.delegate = PushNotificationService.shared
 
         IQKeyboardManager.shared.enable = true
         
@@ -170,10 +161,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
         let language = Localize.currentLanguage()
         Localize.setCurrentLanguage(language)
-//        IMController.shared.appAddress = defaultAppAddress
-//        IMController.shared.appIMAddress = defaultIMAddress
-//        IMController.shared.appAdminAddress = defaultAdminAddress
-
         // 初始化SDK
         IMController.shared.setup(sdkAPIAdrr: IMController.shared.appIMAddress,
                                   sdkWSAddr: IMController.shared.appAdminAddress) {
@@ -196,19 +183,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         return true
     }
     @objc func quickWindowViewClick(){
-        if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
-           let data = appDelegate.quickWindowArray.first{
-            let webVC = YFCustomWebViewController()
-            webVC.appid = (data["appid"] ?? "") as? String
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                webVC.modalPresentationStyle = .fullScreen
-                let nav = UINavigationController.init(rootViewController:  webVC)
-                nav.modalPresentationStyle = .fullScreen
-                UIViewController.currentViewController().present(nav, animated: true)
-            }
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+              let keyWindow = windowScene.windows.first(where: { $0.isKeyWindow }) {
+            let allQuickWindowView = AllQuickWindowView(frame: CGRect(x: 0, y: 0, width: kScreenWidth, height: kScreenHeight))
+            keyWindow.addSubview(allQuickWindowView)
+            keyWindow.bringSubviewToFront(allQuickWindowView)
+            // 计算相对于父视图的起始点
+            allQuickWindowView.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
+            // 执行动画
+            UIView.animate(withDuration: 0.5,
+                           delay: 0,
+                           usingSpringWithDamping: 0.6,
+                           initialSpringVelocity: 0.5,
+                           options: [.curveEaseOut],
+                           animations: {
+                allQuickWindowView.transform = .identity // 恢复到原始大小
+            })
         }
     }
-    func addQuickWindow(data:[String:Any]?){
+    func addQuickWindow(data:[String:Any?]?){
         if data != nil,
            let appDelegate = UIApplication.shared.delegate as? AppDelegate{
             for (index,item) in appDelegate.quickWindowArray.enumerated() {

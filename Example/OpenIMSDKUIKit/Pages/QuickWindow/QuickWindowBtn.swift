@@ -1,5 +1,5 @@
 //
-//  DraggableButton.swift
+//  QuickWindowBtn.swift
 //  OpenIMSDKUIKit_Example
 //
 //  Created by mac on 2025/5/7.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DraggableButton: UIButton {
+class QuickWindowBtn: UIButton {
 
     // 初始化按钮
     override init(frame: CGRect) {
