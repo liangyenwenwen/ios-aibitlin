@@ -215,11 +215,13 @@ class TabMoreView: UIView {
     public struct MenuItem {
         let title: String
         let icon: String
+        var url: String?
         var isCanDelete: Bool = false
         let blogitem:myBlogShowBlogPOModel?
-        public init(title: String, icon: String,isCanDelete:Bool = false, blogitem : myBlogShowBlogPOModel?) {
+        public init(title: String, icon: String,url: String? = nil,isCanDelete:Bool = false, blogitem : myBlogShowBlogPOModel?) {
             self.title = title
             self.icon = icon
+            self.url = url
             self.isCanDelete = isCanDelete
             self.blogitem = blogitem
         }

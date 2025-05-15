@@ -89,10 +89,10 @@ class MainTabViewController: UITabBarController {
         ///通话记录
         let recordsVC = CallRecordsViewController()
         recordsVC.showQuickWindowBlock = {
-            AppDelegate().showQuickWindow()
+//            AppDelegate().showQuickWindow()
         }
         recordsVC.hideQuickWindowBlock = {
-            AppDelegate().hideQuickWindow()
+//            AppDelegate().hideQuickWindow()
         }
         let recordsNav = NavigationController.init(rootViewController: recordsVC)
         recordsNav.tabBarItem.image = UIImage.init(named: "TabPhoneSelected_0")?.withRenderingMode(.alwaysOriginal)
@@ -106,10 +106,10 @@ class MainTabViewController: UITabBarController {
 //        ContactsViewController  FriendListViewController
         let contactVC = FriendListViewController()
         contactVC.showQuickWindowBlock = {
-            AppDelegate().showQuickWindow()
+//            AppDelegate().showQuickWindow()
         }
         contactVC.hideQuickWindowBlock = {
-            AppDelegate().hideQuickWindow()
+//            AppDelegate().hideQuickWindow()
         }
         let contactNav = NavigationController.init(rootViewController: contactVC)
         contactNav.tabBarItem.image = UIImage.init(named: "TabContactSelected_0")?.withRenderingMode(.alwaysOriginal)
@@ -194,9 +194,22 @@ class MainTabViewController: UITabBarController {
                 break
             }
         }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(quickWindowViewStatusChange(_:)), name: Notification.Name("QuickWindowViewStatus"), object: nil)
         CallingManager.calculateCount()
     }
-
+    @objc func quickWindowViewStatusChange(_ notidication: Notification) {
+        if  let userinfo = notidication.userInfo, let netWorkStatus = userinfo["value"] as? String {
+            
+            if netWorkStatus == "showQuickWindowView"{
+                //显示悬浮弹框
+                AppDelegate().showQuickWindow()
+            }else{
+                //隐藏悬浮弹框
+                AppDelegate().hideQuickWindow()
+            }
+        }
+    }
     @objc func refreshBadges(_ notidication: Notification) {
         
         print(notidication.userInfo)
@@ -758,6 +771,7 @@ extension MainTabViewController: UITabBarControllerDelegate {
             
             let vc = YFCustomWebViewController()
             vc.appid = item.blogitem?.hash
+            vc.loadUrl = item.url
             vc.hidesBottomBarWhenPushed = true
             currentVC.pushViewController(vc, animated: true)
 //            SuperWebController.startAboubBlog(currentVC, blogItem: item.blogitem!, isRoot: true)
@@ -802,7 +816,7 @@ extension MainTabViewController: UITabBarControllerDelegate {
         for item in YFFileDataUtil.readDataToFile(.star) {
             if item.type == 0 || item.type == 1{
                 //官方应用,企业应用
-                let moreItem =  MoreTabItem(image: item.base?.info?.logo ?? "", title: item.base?.info?.name ?? "",blogitem:item)
+                let moreItem =  MoreTabItem(image: item.base?.info?.logo ?? "", title: item.base?.info?.name ?? "",url: (item.base?.info?.url ?? "") + (item.base?.shortcut?.home?.url ?? ""),blogitem:item)
                 listArrr.append(moreItem)
             }
         }
@@ -814,7 +828,7 @@ extension MainTabViewController: UITabBarControllerDelegate {
         listArrr.append(MoreTabItem(image: "tool_more_icon", title: "添加".localized()))
         for i in 0 ..< listArrr.count {
             let itemData = listArrr[i]
-            let item = TabMoreView.MenuItem(title: itemData.title, icon: itemData.image,isCanDelete:itemData.isCanDelete,blogitem: itemData.blogitem)
+            let item = TabMoreView.MenuItem(title: itemData.title, icon: itemData.image,url: itemData.url,isCanDelete:itemData.isCanDelete,blogitem: itemData.blogitem)
             items.append(item)
         }
         _moreView.setItems(items)
@@ -829,6 +843,7 @@ extension MainTabViewController: UITabBarControllerDelegate {
 struct MoreTabItem {
     var image: String
     var title: String
+    var url: String?
     var isCanDelete: Bool = false
     var blogitem:myBlogShowBlogPOModel?
 }

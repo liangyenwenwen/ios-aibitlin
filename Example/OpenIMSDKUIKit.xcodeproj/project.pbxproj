@@ -94,7 +94,7 @@
 		04B8021A2DB88ADD0061641B /* YFWebViewErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B802192DB88ADD0061641B /* YFWebViewErrorView.swift */; };
 		04B802282DBF631F0061641B /* notity.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 04B802272DBF631F0061641B /* notity.mp3 */; };
 		04B802562DC0B4A40061641B /* YFChooseShareTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B802552DC0B4A40061641B /* YFChooseShareTypeView.swift */; };
-		04B802732DCB42370061641B /* QuickWindowBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B802722DCB42370061641B /* QuickWindowBtn.swift */; };
+		04B802732DCB42370061641B /* QuickWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B802722DCB42370061641B /* QuickWindowView.swift */; };
 		04B802752DCCB75A0061641B /* YFCustomWebViewMoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B802742DCCB75A0061641B /* YFCustomWebViewMoreView.swift */; };
 		04B802772DCCF8450061641B /* AllQuickWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B802762DCCF8450061641B /* AllQuickWindowView.swift */; };
 		04C394412CCF85A500181F6B /* YFPhoneLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C394402CCF85A500181F6B /* YFPhoneLoginVC.swift */; };
@@ -295,7 +295,7 @@
 		04B802192DB88ADD0061641B /* YFWebViewErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFWebViewErrorView.swift; sourceTree = "<group>"; };
 		04B802272DBF631F0061641B /* notity.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = notity.mp3; sourceTree = "<group>"; };
 		04B802552DC0B4A40061641B /* YFChooseShareTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFChooseShareTypeView.swift; sourceTree = "<group>"; };
-		04B802722DCB42370061641B /* QuickWindowBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickWindowBtn.swift; sourceTree = "<group>"; };
+		04B802722DCB42370061641B /* QuickWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickWindowView.swift; sourceTree = "<group>"; };
 		04B802742DCCB75A0061641B /* YFCustomWebViewMoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFCustomWebViewMoreView.swift; sourceTree = "<group>"; };
 		04B802762DCCF8450061641B /* AllQuickWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllQuickWindowView.swift; sourceTree = "<group>"; };
 		04C394402CCF85A500181F6B /* YFPhoneLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFPhoneLoginVC.swift; sourceTree = "<group>"; };
@@ -784,7 +784,7 @@
 		04B802782DCDDD4D0061641B /* QuickWindow */ = {
 			isa = PBXGroup;
 			children = (
-				04B802722DCB42370061641B /* QuickWindowBtn.swift */,
+				04B802722DCB42370061641B /* QuickWindowView.swift */,
 				04B802762DCCF8450061641B /* AllQuickWindowView.swift */,
 			);
 			path = QuickWindow;
@@ -1726,7 +1726,7 @@
 				040D85F22BEB8C0B00DCAAB3 /* ListResponse.swift in Sources */,
 				040D85C42BEB8B0400DCAAB3 /* ViewFactoryUtil.swift in Sources */,
 				04A4BD002BF32F17008FA224 /* YFMineChangePasswordVC.swift in Sources */,
-				04B802732DCB42370061641B /* QuickWindowBtn.swift in Sources */,
+				04B802732DCB42370061641B /* QuickWindowView.swift in Sources */,
 				1780764A29260BF50024399B /* InputPasswordViewController.swift in Sources */,
 				DC0B7DF2282DFA09003896C1 /* UnderlineButton.swift in Sources */,
 			);
@@ -1895,7 +1895,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 82D668V62M;
 				ENABLE_BITCODE = NO;
@@ -1941,7 +1941,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 82D668V62M;
 				ENABLE_BITCODE = NO;

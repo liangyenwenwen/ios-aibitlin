@@ -41,7 +41,6 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
     
     public func refreshConversations() {
 //        _viewModel.getAllConversations()
-        
         _headerView.searchView.titleLbl.text = "搜索".innerLocalized()
         emptyView._titleStr = "空空如也".innerLocalized() as NSString
         netWorkTipView.titleLbl.text = "请检查网络是否可用！".innerLocalized()
@@ -203,7 +202,8 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
             navigationController?.setNavigationBarHidden(true, animated: true)
         }
         self.refreshConversations()
-//        
+        self.showQuickWindowBlock()
+//
 //        _tableView.reloadData()
     }
 

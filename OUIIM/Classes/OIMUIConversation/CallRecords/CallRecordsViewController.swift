@@ -22,11 +22,11 @@ open class CallRecordsViewController: UIViewController {
         self.currentRow = -1
         _viewModel.getRecords()
         updateLanguage()
+        self.showQuickWindowBlock()
     }
 
     override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.showQuickWindowBlock()
     }
     open override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)

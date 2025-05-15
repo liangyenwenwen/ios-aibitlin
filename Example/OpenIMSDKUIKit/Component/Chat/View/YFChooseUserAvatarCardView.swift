@@ -362,17 +362,15 @@ extension YFChooseUserAvatarCardView {
     
     @objc func imageChanged(sender :UITapGestureRecognizer) {
         let senderview = sender.view as!  systemIconView
-        
-        
-        isHaveImg = true
-        
-        
         let senderTag = senderview.tag
         currentIndex = senderTag - 15000
-       
-        refrehUI()
+        if (picData?.count ?? 0) > currentIndex {
+            isHaveImg = true
+            refrehUI()
+            self.topCameraImg.show(picData?[currentIndex] ?? "")
+        }
         
-        self.topCameraImg.show(picData?[currentIndex] ?? "")
+        
     }
     
     

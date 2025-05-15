@@ -486,7 +486,12 @@ final class ChatViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
         setWartermarkBackground()
         getDraft()
-
+        //显示悬浮弹框
+        if self.chatController.getConversation().conversationType == .c2c || self.chatController.getConversation().conversationType == .superGroup {
+            NotificationCenter.default.post(name: Notification.Name("QuickWindowViewStatus"), object: nil, userInfo: ["value": "showQuickWindowView"])
+        }else{
+            NotificationCenter.default.post(name: Notification.Name("QuickWindowViewStatus"), object: nil, userInfo: ["value": "hideQuickWindowView"])
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -496,7 +501,6 @@ final class ChatViewController: UIViewController {
         if var draft = chatController.getConversation().draftText, !draft.isEmpty {
             inputBarView.inputTextView.becomeFirstResponder()
         }
-        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -513,7 +517,8 @@ final class ChatViewController: UIViewController {
         AudioPlayController.shared.reset()
         
 //        navigationController?.navigationBar.isHidden = false
-        
+        //隐藏悬浮弹框
+        NotificationCenter.default.post(name: Notification.Name("QuickWindowViewStatus"), object: nil, userInfo: ["value": "hideQuickWindowView"])
     }
     
     

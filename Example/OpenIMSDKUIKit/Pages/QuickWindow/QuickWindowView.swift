@@ -1,5 +1,5 @@
 //
-//  QuickWindowBtn.swift
+//  QuickWindowView.swift
 //  OpenIMSDKUIKit_Example
 //
 //  Created by mac on 2025/5/7.
@@ -8,8 +8,26 @@
 
 import UIKit
 
-class QuickWindowBtn: UIButton {
-
+class QuickWindowView: UIView {
+    lazy var titleLabel: UILabel = {
+        let r = UILabel()
+        r.textColor = .black333
+        r.font = .mediumFont(14)
+        return r
+    }()
+    lazy var countLabel: UILabel = {
+        let r = UILabel()
+        r.textColor = .black999
+        r.font = .regularFont(12)
+        r.textAlignment = .right
+        return r
+    }()
+    lazy var iconImageView: UIImageView = {
+        let r = UIImageView()
+        r.image = R.image.superChevronRight()?.withTintColor()
+        r.tintColor = .black999
+        return r
+    }()
     // 初始化按钮
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -22,8 +40,25 @@ class QuickWindowBtn: UIButton {
     }
     
     private func commonInit() {
-//        setImage(.homeWeatherAssistant, for: .normal)
-//        self.backgroundColor = .green
+        addSubview(titleLabel)
+        addSubview(countLabel)
+        addSubview(iconImageView)
+        titleLabel.snp_makeConstraints { make in
+            make.left.equalTo(8)
+            make.centerY.equalToSuperview()
+            make.right.equalTo(countLabel.snp_left).offset(-3)
+        }
+        countLabel.snp_makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.width.equalTo(15)
+            make.right.equalTo(iconImageView.snp_left).offset(-4)
+        }
+        iconImageView.snp_makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.right.equalTo(-8)
+            make.width.equalTo(4)
+            make.height.equalTo(8)
+        }
         setupDragGesture()
     }
     

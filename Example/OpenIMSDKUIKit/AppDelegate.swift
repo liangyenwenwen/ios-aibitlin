@@ -38,10 +38,15 @@ let sdkWSPort = ":10001"
 let sdkWSRoute = ""
 
 
-let defaultAppAddress = "aibitlin.com/chat"
-let defaultIMAddress = "aibitlin.com/api"
-let defaultAdminAddress = "aibitlin.com/msg_gateway"
-let defaultBlogAddress = "aibitlin.com/apis"
+let defaultAppAddress = "kkkcdn.com/chat"
+let defaultIMAddress = "kkkcdn.com/api"
+let defaultAdminAddress = "kkkcdn.com/msg_gateway"
+let defaultBlogAddress = "kkkcdn.com/apis"
+
+//let defaultAppAddress = "aibitlin.com/chat"
+//let defaultIMAddress = "aibitlin.com/api"
+//let defaultAdminAddress = "aibitlin.com/msg_gateway"
+//let defaultBlogAddress = "aibitlin.com/apis"
 
 
 
@@ -80,13 +85,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
     }
     var quickWindowArray:[[String:Any?]] = []
-    lazy var quickWindowView: QuickWindowBtn = {
-        let r = QuickWindowBtn(frame: CGRect(x: SCREEN_WIDTH - 70, y: UIScreen.main.bounds.height/2 - 30, width: 60, height: 60))
-        r.corner(30)
-        r.addTarget(self, action: #selector(quickWindowViewClick), for: .touchUpInside)
+    lazy var quickWindowView: QuickWindowView = {
+        let r = QuickWindowView(frame: CGRect(x: SCREEN_WIDTH - 110, y: UIScreen.main.bounds.height/2 - 15, width: 100, height: 30))
+        r.corner(15)
+        r.backgroundColor = .white
+        // 配置阴影
+        r.layer.shadowColor = UIColor.black.cgColor
+        r.layer.shadowOpacity = 0.5
+        r.layer.shadowOffset = CGSize(width: 2, height: 2)
+        r.layer.shadowRadius = 4
+
+        // 要保证视图的 clipsToBounds 属性为 false，否则阴影会被裁剪掉
+        r.clipsToBounds = false
+        let tap = UITapGestureRecognizer.init(target: self, action: #selector(quickWindowViewClick(_:)))
+        r.addGestureRecognizer(tap)
+//        r.addTarget(self, action: #selector(quickWindowViewClick), for: .touchUpInside)
         return r
     }()
-   
     private let _disposeBag = DisposeBag();
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
@@ -182,7 +197,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
         return true
     }
-    @objc func quickWindowViewClick(){
+    @objc func quickWindowViewClick(_ sender:UITapGestureRecognizer){
         if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
               let keyWindow = windowScene.windows.first(where: { $0.isKeyWindow }) {
             let allQuickWindowView = AllQuickWindowView(frame: CGRect(x: 0, y: 0, width: kScreenWidth, height: kScreenHeight))
@@ -225,7 +240,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 appDelegate.quickWindowView.show()
             }
             if let data = appDelegate.quickWindowArray.first{
-                appDelegate.quickWindowView.sd_setImage(with: URL(string: (data["logo"] ?? "") as? String), for: .normal)
+//                appDelegate.quickWindowView.sd_setImage(with: URL(string: (data["logo"] ?? "") as? String), for: .normal)
+                appDelegate.quickWindowView.titleLabel.text = (data["name"] ?? "") as? String
+                appDelegate.quickWindowView.countLabel.text = String(appDelegate.quickWindowArray.count)
             }else{
                 appDelegate.hideQuickWindow()
             }
