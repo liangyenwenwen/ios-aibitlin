@@ -99,7 +99,7 @@
 "loginPwdFormat" = "8 ～20位，至少包含数字、字母";
 "passwordLogin" = "密码登录";
 "through" = "通过%@";
-"home" = "Aibitlin";
+"home" = "688";
 "contacts" = "通讯录";
 "workbench" = "发现";
 "mine" = "我的";
@@ -248,7 +248,7 @@ Toolbox = "工具箱";
 "I don't have an account" = "我没有账号，";
 "Create a new account" = "创建一个新账号";
 
-"删除您的账户，AIbitlin所有服务都将无法继续使用，包括聊天、网站等。" = "删除您的账户，AIbitlin所有服务都将无法继续使用，包括聊天、网站等。";
+"删除您的账户，688所有服务都将无法继续使用，包括聊天、网站等。" = "删除您的账户，688所有服务都将无法继续使用，包括聊天、网站等。";
 
 
 "BuyVIP" = "购买VIP服务";

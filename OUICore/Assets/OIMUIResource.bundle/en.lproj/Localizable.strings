@@ -23,7 +23,7 @@
 "创建大群" = "Create a group";
 "搜索" = "Search";
 "扫一扫" = "Scan";
-"创建群聊，全面使用Aibitlin" = "Create a group chat; full use of Aibitlin";
+"创建群聊，全面使用688" = "Create a group chat; full use of 688";
 "与成员一起沟通协作" = "Communicate and collaborate with members";
 "扫描二维码名片" = "Scan QR code business card";
 "入群申请" = "Group entry application";
@@ -237,7 +237,7 @@
 "消息阅读状态" = "Message Reading Status";
 "按住说话" = "hold to talk";
 "松手发送" = "Let's send";
-"无法录制声音，前往 设置 > 哎比邻 中打开麦克风权限" = "Unable to record audio. Go to Settings > Aibitlin to enable microphone access.";
+"无法录制声音，前往 设置 > 688 中打开麦克风权限" = "Unable to record audio. Go to Settings > 688 to enable microphone access.";
 "前往设置" = "Go to Settings";
 "音视频通话" = "Audio and video call";
 "加好友" = "Add";
@@ -531,7 +531,7 @@
 "addFriend" = "Add Friend";
 "addFriendHint" = "ID/Name";
 "createGroup" = "Create Group";
-"createGroupHint" = "Create a group,fully utilize AIbitlin";
+"createGroupHint" = "Create a group,fully utilize 688";
 "addGroup" = "Add Group";
 "addGroupHint" = "Ask the admin or members for the ID";
 "searchIDAddFriend" = "Search ID to Add Friend";

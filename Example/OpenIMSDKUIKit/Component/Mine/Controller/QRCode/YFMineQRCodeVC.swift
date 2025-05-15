@@ -212,7 +212,7 @@ class YFMineQRCodeVC: BaseTitleController {
     
     lazy var tipLbl: UILabel = {
         let r = UILabel()
-        r.text = "1.未下载APP的用户，扫你的二维码可直接下载哎比邻。\n2.未注册用户在登录页面扫你的二维码，免注册即可试用哎比邻，并自动收藏您推荐的网站。".localized()
+        r.text = "1.未下载APP的用户，扫你的二维码可直接下载688。\n2.未注册用户在登录页面扫你的二维码，免注册即可试用688，并自动收藏您推荐的网站。".localized()
         r.tg_left.equal(16)
         r.tg_right.equal(16)
         r.tg_height.equal(.wrap)

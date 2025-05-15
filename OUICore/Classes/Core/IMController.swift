@@ -134,8 +134,8 @@ extension IMController: ContactsDataSource {
 }
 
 public class IMController: NSObject {
-    public static let addFriendPrefix = "com.aibitlin.app/addFriend/"
-    public static let joinGroupPrefix = "com.aibitlin.app/joinGroup/"
+    public static let addFriendPrefix = "com.kkkcdn.app/addFriend/"
+    public static let joinGroupPrefix = "com.kkkcdn.app/joinGroup/"
     public static let shared: IMController = .init()
     public var imManager: OpenIMSDK.OIMManager!
     /// 好友申请列表新增

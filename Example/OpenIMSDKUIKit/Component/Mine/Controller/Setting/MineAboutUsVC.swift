@@ -53,7 +53,7 @@ class MineAboutUsVC: BaseTitleController {
         r.font = .semiboldFont(18)
         r.textColor = .black333
         let infoDictionary = Bundle.main.infoDictionary
-        let displayName = "Aibitlin"
+        let displayName = "688"
         let majorVersion = infoDictionary!["CFBundleShortVersionString"] as! String
         r.text = "\(displayName) V\(majorVersion)"
         return r

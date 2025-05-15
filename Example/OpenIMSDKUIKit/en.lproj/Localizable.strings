@@ -182,7 +182,7 @@
 "loginPwdFormat" = "8 to 20 characters; at least including numbers and letters";
 "passwordLogin" = "Password Login";
 "through" = "Through %@";
-"home" = "Aibitlin";
+"home" = "688";
 "contacts" = "Contacts";
 "workbench" = "Discover";
 "mine" = "Mine";
@@ -338,11 +338,11 @@ Toolbox = "Toolbox";
 "隐私协议和注册协议" = "Privacy Agreement and Registration Agreement";
 "同意并继续" = "Agree and continue";
 "不同意" = "Disagree";
-"我已阅读并同意AIbitlin《注册协议》" =  "I have read and agreed to the Aibitlin Registration Agreement";
-"我已阅读并同意AIbitlin《隐私协议》《注册协议》" =  "I have read and agreed to the Aibitlin Privacy Agreement and Registration Agreement";
+"我已阅读并同意688《注册协议》" =  "I have read and agreed to the 688 Registration Agreement";
+"我已阅读并同意688《隐私协议》《注册协议》" =  "I have read and agreed to the 688 Privacy Agreement and Registration Agreement";
 "《隐私协议》" = "Privacy Agreement";
 "《注册协议》" = "Registration Agreement";
-"我已阅读并同意AIbitlin" = "I have read and agreed to the Aibitlin";
+"我已阅读并同意688" = "I have read and agreed to the 688";
 "注册" = "Join in";
 "请勾选协议" = "Please check the agreement";
 "清空聊天记录" = "Clear Message";
@@ -371,7 +371,7 @@ Toolbox = "Toolbox";
 
 
 "确定删除你的账号吗" = "Are you sure about deleting your account";
-"删除您的账户，AIbitlin所有服务都将无法继续使用，包括聊天、网站等。" = "If you delete your account, all services of AIbitlin will no longer be available, including chat, website, etc.";
+"删除您的账户，688所有服务都将无法继续使用，包括聊天、网站等。" = "If you delete your account, all services of 688 will no longer be available, including chat, website, etc.";
 "我们将在7天内删除你的账号并清楚你的所有记录，请7天内不要登录此账号，否则会终止删除账号的进程。" = "We will delete your account and clear all your records within 7 days, please do not log in to this account within 7 days, otherwise the process of deleting the account will be terminated.";
 "注意：账号一经删除无法恢复" = "Note: Once an account is deleted, it cannot be restored";
 "删除成功" = "Deleted successfully";
@@ -399,7 +399,7 @@ Toolbox = "Toolbox";
 "请输入隐私访问密码" = "Please enter your privacy access password";
 "密码长度必须为6位数字" = "The password length must be 6 digits";
 
-"使用哎比邻登录" = "Log in with Aibitlin";
+"使用688登录" = "Log in with 688";
 "将授权以下信息" = "Authorize the following information";
 "获取您的ID、手机号码、邮箱" = "Get your ID, phone number, email";
 "获取您的好友列表" = "Get your friend list";
@@ -453,14 +453,14 @@ Toolbox = "Toolbox";
 "使用Apple登录" = "Sign in with Apple";
 "使用Google登录" = "Sign in with Google";
 "扫码登录" = "Sign In With Scan";
-"登录哎比邻" = "Sign in to Aibitlin";
+"登录688" = "Sign in to 688";
 "登录你的账号、与全球用户无障碍聊天。" = "Sign in to your account and chat seamlessly with users worldwide.";
 "邮箱" = "E-mail";
 "密码/输入密码" = "Password";
 "登录" = "Sign in";
 "请输入" = "Please fill in";
 "我没有账号，创建一个新账号" = "I don't have an account, create a new account.";
-"我已阅读并同意Aibitlin《隐私协议》《注册协议》" =  "I have read and agreed to the Aibitlin's Privacy Agreement and Registration Agreement";
+"我已阅读并同意688《隐私协议》《注册协议》" =  "I have read and agreed to the 688's Privacy Agreement and Registration Agreement";
 "《隐私协议》" = "Privacy Agreement";
 "《注册协议》" = "Registration Agreement";
 "手机号" = "Phone";
@@ -474,13 +474,13 @@ Toolbox = "Toolbox";
 
 
 //注册页面
-"注册哎比邻" = "Join Aibitlin";
+"注册688" = "Join 688";
 "验证码" = "Code";
 "获取验证码" = "Send";
 "8-20位，包含数字、字母。" = "8-20 digits, including numbers and letters.";
 "再次输入/再次输入密码" = "Enter Again";
 "名字" = "Name";
-"我已阅读并同意AIbitlin《注册协议》" =  "I have read and agreed to the Aibitlin Registration Agreement";
+"我已阅读并同意688《注册协议》" =  "I have read and agreed to the 688 Registration Agreement";
 
 //注册页面
 "请验证你的邮箱" = "Please verify your email";
@@ -676,7 +676,7 @@ SupportShortNumber = "Support setting a minimum %@-digit account ID";
 
 "普通用户" = "Ordinary user";
 
-"1.未下载APP的用户，扫你的二维码可直接下载哎比邻。\n2.未注册用户在登录页面扫你的二维码，免注册即可试用哎比邻，并自动收藏您推荐的网站。" = "1.Users who haven't downloaded the app can scan your QR code to download AIibitlin directly.\n2.Unregistered users can scan your QR code on the login page to try Aibitlin without registering and automatically bookmark the websites you recommend.";
+"1.未下载APP的用户，扫你的二维码可直接下载688。\n2.未注册用户在登录页面扫你的二维码，免注册即可试用688，并自动收藏您推荐的网站。" = "1.Users who haven't downloaded the app can scan your QR code to download AIibitlin directly.\n2.Unregistered users can scan your QR code on the login page to try 688 without registering and automatically bookmark the websites you recommend.";
 
 "更换头像" = "Change the avatar";
 "你的名字" = "Your Name";

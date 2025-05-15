@@ -63,7 +63,7 @@ class AuthorizedLoginAlertView: TGLinearLayout {
                 centerContainer.addSubview(drawAuthLabel(attributedText: getAttribute(str: "获取您的群组列表".localized())))
             }
         }
-        descLabel.text = "使用哎比邻登录".localized() + (model.data?.info?.name ?? "") + "，将授权以下信息".localized()
+        descLabel.text = "使用688登录".localized() + (model.data?.info?.name ?? "") + "，将授权以下信息".localized()
     }
     func getAttribute(str:String) -> NSMutableAttributedString{
         let attachment = NSTextAttachment()

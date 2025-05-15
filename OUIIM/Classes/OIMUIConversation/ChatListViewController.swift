@@ -170,7 +170,7 @@ open class ChatListViewController: UIViewController, UITableViewDelegate {
     }
     
     lazy var emptyView:HDEmptyView  = {
-        let emptyV:HDEmptyView = HDEmptyView.emptyActionViewWithImageStr(imageStr: "custom_blank_icon", titleStr: "空空如也".localized() as NSString, detailStr: "", btnTitleStr: "", target: self, action: #selector(reloadBtnAction)) as! HDEmptyView
+        let emptyV:HDEmptyView = HDEmptyView.emptyActionViewWithImageStr(imageStr: "launch_logo", titleStr: "空空如也".localized() as NSString, detailStr: "", btnTitleStr: "", target: self, action: #selector(reloadBtnAction)) as! HDEmptyView
         
         emptyV.titleLabTextColor = UIColor.red
         emptyV.actionBtnFont = UIFont.systemFont(ofSize: 19)

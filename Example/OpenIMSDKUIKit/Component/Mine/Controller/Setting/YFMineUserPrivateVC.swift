@@ -52,7 +52,7 @@ class YFMineUserPrivateVC: BaseTitleController {
     
     
     lazy var findByIDView: SuperSettingView = {
-        let r = SuperSettingView.create(title: "AIbitlin ID") { data in
+        let r = SuperSettingView.create(title: "688 ID") { data in
             
         } switchChanged: { data in
             

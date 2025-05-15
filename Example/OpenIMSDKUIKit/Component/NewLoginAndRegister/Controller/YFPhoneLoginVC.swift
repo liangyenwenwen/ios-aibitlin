@@ -62,12 +62,12 @@ class YFPhoneLoginVC: BaseLogicController {
                 self?.pwdView.hide()
                 self?.codeView.show()
                 self?.pwdView.textFieldView.text = ""
-//                self?.appTitleLbl.text = "验证码登录哎比邻".localized()
+//                self?.appTitleLbl.text = "验证码登录688".localized()
             } else {
                 self?.pwdView.show()
                 self?.codeView.hide()
                 self?.codeView.textFieldView.text = ""
-//                self?.appTitleLbl.text = "密码登录哎比邻".localized()
+//                self?.appTitleLbl.text = "密码登录688".localized()
             }
                 
         }

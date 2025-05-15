@@ -114,7 +114,7 @@ class MineMessageVC: BaseTitleController, UIImagePickerControllerDelegate, UINav
     }()
     
     lazy var userIDView: SuperSettingView = {
-        let r = SuperSettingView.createSetTitleAddContentView("Aibitlin ID：", "Richenda0728") { [weak self] data in
+        let r = SuperSettingView.createSetTitleAddContentView("688 ID：", "Richenda0728") { [weak self] data in
 //            self?.changeMessage(.userID)
 //            SuperToast.show(title: "开发中".localized())
         }

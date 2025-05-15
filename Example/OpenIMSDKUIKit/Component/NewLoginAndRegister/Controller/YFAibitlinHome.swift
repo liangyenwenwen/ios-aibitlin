@@ -124,11 +124,11 @@ class YFAibitlinHome: BaseLogicController {
     }()
     lazy var appIcon: UIImageView = {
         let r = UIImageView()
-        r.tg_width.equal(100)
-        r.tg_height.equal(44)
-        r.tg_top.equal(74)
+        r.tg_width.equal(80)
+        r.tg_height.equal(80)
+        r.tg_top.equal(60)
         r.tg_centerX.equal(0)
-        r.image = .init(named: "app_icon_home")
+        r.image = .init(named: "launch_logo")
         return r
     }()
     
@@ -139,7 +139,7 @@ class YFAibitlinHome: BaseLogicController {
         r.textColor = .init(hexString: "#999999")
         r.font = .mediumFont(14)
         r.tg_top.equal(10)
-        r.tg_bottom.equal(40)
+        r.tg_bottom.equal(25)
         r.tg_left.equal(27)
         r.tg_right.equal(-27)
         r.tg_width.equal(.wrap)
@@ -200,14 +200,14 @@ class YFAibitlinHome: BaseLogicController {
             .paragraphStyle: paragraphStyle,
         ]
         
-        let agreementString = "我已阅读并同意AIbitlin《隐私协议》《注册协议》".localized()
+        let agreementString = "我已阅读并同意688《隐私协议》《注册协议》".localized()
         let agreeStr = NSMutableAttributedString(string: agreementString, attributes: attributes)
         agreeStr.bs_font = .systemFont(ofSize: TEXT_MEDDLE)
         agreeStr.bs_color = .placeholder
         
         
         // MARK: - 张亚飞打的标记  点击协议内容切换是否同意协议
-        var range = agreementString.range(of: "我已阅读并同意AIbitlin《隐私协议》《注册协议》".localized())!
+        var range = agreementString.range(of: "我已阅读并同意688《隐私协议》《注册协议》".localized())!
         agreeStr.bs_set(textHighlightRange: agreementString.nsRange(from: range), color: .placeholder, backgroundColor: nil) { [weak self] _, _, _, _ in
             
             if self?.chooseDelegateBtn != nil  {

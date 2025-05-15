@@ -23,7 +23,8 @@ class YFEmptyView: UIView {
     
     lazy var tipImgView: UIImageView = {
         let r = UIImageView()
-        r.image = .init(named: "custom_blank_icon")
+        r.image = .init(named: "launch_logo")
+        r.alpha = 0.3
         return r
     }()
     
@@ -62,8 +63,8 @@ class YFEmptyView: UIView {
 //            make.height.equalTo(54)
 //            make.centerX.equalToSuperview()
             make.top.equalToSuperview()
-            make.width.equalTo(120)
-            make.height.equalTo(54)
+            make.width.equalTo(65)
+            make.height.equalTo(65)
             make.centerX.equalToSuperview()
         }
         

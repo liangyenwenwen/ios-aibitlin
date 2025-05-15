@@ -36,6 +36,7 @@ public class HDEmptyView: HDEmptyBaseView {
     fileprivate lazy var promptImageView: UIImageView = {
         let promptImageView = UIImageView()
         promptImageView.contentMode = .scaleAspectFit
+        promptImageView.alpha = 0.3
         return promptImageView
     }()
     //标题
