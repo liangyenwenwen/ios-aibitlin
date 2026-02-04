@@ -34,6 +34,7 @@ enum MyStyle:Int {
     case useEmail
     case useFeedback
     case useReport
+    case useTourist
     case isLogin
     case isRegister
     case changePhone

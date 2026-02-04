@@ -5,6 +5,7 @@ import OUICore
 import ProgressHUD
 import RxSwift
 import Network
+import Foundation
 
 // 注册/忘记密码
 public enum UsedFor: Int {
@@ -13,9 +14,13 @@ public enum UsedFor: Int {
     case login = 3
     case changeAccount = 4
     case deleteAccount = 5
+    case tourist = 6
 }
 
 typealias CompletionHandler = (_ errCode: Int, _ errMsg: String?) -> Void
+
+typealias CompletionHandler1<T> = (_ errCode: Int, _ errMsg: T?) -> Void
+
 
 open class AccountViewModel {
     // 实际开发，抽离网络部分
@@ -41,6 +46,7 @@ open class AccountViewModel {
     private static let LoginWithEmailVerifyCodeAPI = "/account/mail_verify_login"
     private static let RegisterWithPhoneAPI = "/account/phone_register"
     private static let RegisterWithEmailAPI = "/account/mail_register"
+    private static let RegisterWithTouristAPI = "/account/tourist_register_or_login"
     private static let ResetPasswordWithPhoneAPI = "/account/password/phone_reset"
     private static let ResetPasswordWithEmailAPI = "/account/password/mail_reset"
     private static let ChangePasswordWithPhoneAPI = "/account/password/phone_change"
@@ -253,17 +259,21 @@ open class AccountViewModel {
             registerTypeApi = RegisterWithPhoneAPI
         case 2:
             registerTypeApi = RegisterWithEmailAPI
+        case 3:
+            registerTypeApi = RegisterWithTouristAPI
         default:
             registerTypeApi = RegisterAPI
         }
-        
+        request(registerTypeApi: registerTypeApi, bodyJson: body, completionHandler: completionHandler)
+    }
+
+    
+    private static func request(registerTypeApi:String,bodyJson:Data?,completionHandler: @escaping CompletionHandler){
         var req = try! URLRequest(url: IMController.shared.appAddress + registerTypeApi, method: .post)
-        req.httpBody = body
+        req.httpBody = bodyJson
         //        req.addValue(UUID().uuidString, forHTTPHeaderField: "operationID")
         req.addValue(String(Int(Date().timeIntervalSince1970)), forHTTPHeaderField: "operationID")
         req.addValue(String.getCurrentLanguageHeader(), forHTTPHeaderField: "language")
-        
-        
         
         Alamofire.request(req).responseString { (response: DataResponse<String>) in
             switch response.result {
@@ -282,6 +292,44 @@ open class AccountViewModel {
         }
     }
     
+    // [usedFor] 6: 游客验证码
+    static func touristCode(phone: String? = nil, areaCode: String? = nil, email: String? = nil, invaitationCode: String? = nil, useFor: UsedFor, completionHandler: @escaping CompletionHandler1<Any>) {
+        let body = JsonTool.toJson(fromObject:
+            CodeRequest(
+                phone: phone,
+                areaCode: areaCode,
+                email: email,
+                usedFor: useFor.rawValue,
+                invaitationCode: invaitationCode,
+                deviceID:YFDeviceID.getUUID())).data(using: .utf8)
+        
+        var req = try! URLRequest(url: IMController.shared.appAddress + CodeAPI, method: .post)
+        req.httpBody = body
+        
+        //        req.addValue(UUID().uuidString, forHTTPHeaderField: "operationID")
+        req.addValue(String(Int(Date().timeIntervalSince1970)), forHTTPHeaderField: "operationID")
+//        let language = String.getCurrentLanguage()[0...1].lowercased()
+        req.addValue(String.getCurrentLanguageHeader(), forHTTPHeaderField: "language")
+        
+        Alamofire.request(req).responseString { (response: DataResponse<String>) in
+            switch response.result {
+                
+            case .success(let result):
+                if let res = JsonTool.fromJson(result, toClass: Response<VerifyCaptcha>.self) {
+                    if res.errCode == 0 {
+                        completionHandler(res.errCode,res.data )
+                    } else {
+                        completionHandler(res.errCode, res.errMsg)
+                    }
+                } else {
+                    print("JSON解析错误")
+                }
+            case .failure(let err):
+                completionHandler(-1, err.localizedDescription)
+            }
+        }
+    }
+    
     // [usedFor] 1：注册，2：重置密码， 3: 登录，4: 变更邮箱/手机号，5: 删除账号
     static func requestCode(phone: String? = nil, areaCode: String? = nil, email: String? = nil, invaitationCode: String? = nil, useFor: UsedFor, completionHandler: @escaping CompletionHandler) {
         let body = JsonTool.toJson(fromObject:
@@ -290,7 +338,8 @@ open class AccountViewModel {
                 areaCode: areaCode,
                 email: email,
                 usedFor: useFor.rawValue,
-                invaitationCode: invaitationCode)).data(using: .utf8)
+                invaitationCode: invaitationCode,
+                deviceID:YFDeviceID.getUUID())).data(using: .utf8)
         
         var req = try! URLRequest(url: IMController.shared.appAddress + CodeAPI, method: .post)
         req.httpBody = body
@@ -326,7 +375,8 @@ open class AccountViewModel {
                 areaCode: areaCode,
                 email: email,
                 usedFor: useFor.rawValue,
-                verificationCode: verificationCode)).data(using: .utf8)
+                verificationCode: verificationCode,
+                deviceID:YFDeviceID.getUUID())).data(using: .utf8)
         
         var req = try! URLRequest(url: IMController.shared.appAddress + VerifyCodeAPI, method: .post)
         req.httpBody = body
@@ -722,6 +772,41 @@ struct UserEntity: Decodable {
     let expiredTime: Int?
 }
 
+//struct VerifyCaptcha:Decodable{
+//    let bg:String
+//    let puzzle:String
+//    let h:Int
+//}
+
+// 1. 补充 Encodable 协议（支持 JSON 序列化），并遵循 CustomStringConvertible（支持自定义可读字符串）
+struct VerifyCaptcha: Codable, CustomStringConvertible {
+    let bg: String
+    let puzzle: String
+    let h: Int
+    
+    // MARK: - 方案1：自定义可读字符串（调试/日志用）
+    var description: String {
+        return "VerifyCaptcha(bg: \"\(bg)\", puzzle: \"\(puzzle)\", h: \(h))"
+    }
+    
+    // MARK: - 方案2：快速转 JSON 字符串（可选，也可通过扩展实现）
+    func toJSONString(prettyPrinted: Bool = false) -> String? {
+        let encoder = JSONEncoder()
+        if prettyPrinted {
+            encoder.outputFormatting = [.prettyPrinted, .withoutEscapingSlashes]
+        } else {
+            encoder.outputFormatting = .withoutEscapingSlashes
+        }
+        do {
+            let data = try encoder.encode(self)
+            return String(data: data, encoding: .utf8)
+        } catch {
+            print("转 JSON 失败：\(error)")
+            return nil
+        }
+    }
+}
+
 class RegisterRequest: Encodable {
     private var verifyCode: String?
     private let platform: Int = 1
@@ -736,6 +821,7 @@ class RegisterRequest: Encodable {
         self.invitationCode = invitationCode
     }
 }
+
 class DeleteAccountRequest: Encodable {
     private let userID: String
     private let cancelSign: Int
@@ -765,8 +851,9 @@ class CodeRequest: Encodable {
     private let verifyCode: String?
     private let invaitationCode: String?
     private let platform: Int = 1
+    private let deviceID: String?
     
-    init(phone: String? = nil, areaCode: String? = nil, email: String? = nil, usedFor: Int, invaitationCode: String? = nil, verificationCode: String? = nil) {
+    init(phone: String? = nil, areaCode: String? = nil, email: String? = nil, usedFor: Int, invaitationCode: String? = nil, verificationCode: String? = nil,deviceID: String? = nil) {
         assert(phone != nil || email != nil, "phone or email is nil")
         self.phoneNumber = phone
         self.email = email
@@ -774,6 +861,7 @@ class CodeRequest: Encodable {
         self.usedFor = usedFor
         self.verifyCode = verificationCode
         self.invaitationCode = invaitationCode
+        self.deviceID = deviceID
     }
 }
 

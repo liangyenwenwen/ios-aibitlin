@@ -1,3 +1,4 @@
+
 //
 //  YFCustomWebViewController.swift
 //  OpenIMSDKUIKit_Example
@@ -18,7 +19,7 @@ import OUICoreView
 
 
 
-class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDelegate {
+class YFCustomWebViewController2: UIViewController, WKUIDelegate,WKNavigationDelegate {
     var sendCommonTemplateMessageBlock:(([String : Any]) -> ())?
     private let _disposeBag = DisposeBag()
     private var bridge: WKWebViewJavascriptBridge!
@@ -266,8 +267,34 @@ class YFCustomWebViewController: UIViewController, WKUIDelegate,WKNavigationDele
                 }
             }
         }
+        
+        // 文件夹名：WebResources，index.html 在其中
+        guard let webFolderURL = Bundle.main.url(forResource: "WebResources", withExtension: nil) else {
+            SuperToast.show(title: "文件夹不存在".localized())
+            return
+        }
+        let htmlURL = webFolderURL.appendingPathComponent("index2.html")
+        webView.loadFileURL(htmlURL, allowingReadAccessTo: webFolderURL)
     }
     func registerAllFunc(){
+        
+        // 注册供JS调用的Swift方法
+        // 方法1：showAlert（无返回值给JS）
+        bridge.register(handlerName:"showAlert") { [weak self] data, responseCallback in
+            print("==================showAlert")
+            guard let self = self else { return }
+            // 解析JS传递的参数
+            if let dict = data as? [String: Any],
+               let title = dict["title"] as? String,
+               let content = dict["content"] as? String {
+                // 原生弹窗展示
+                let alert = UIAlertController(title: title, message: content, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "确定", style: .default))
+            }
+            // 无返回值时，responseCallback传nil即可
+            responseCallback?(nil)
+        }
+        
         //关闭h5页面
         bridge.register(handlerName: "closeWebView") {[weak self] parameters, callback in
             IMController.shared.showStrongNoticeView()

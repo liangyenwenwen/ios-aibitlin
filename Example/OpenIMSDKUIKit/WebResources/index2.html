@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>WKWebViewJavascriptBridge示例</title>
+    <style>
+        button {
+            padding: 12px 24px;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+        }
+
+        #log {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            min-height: 100px;
+        }
+    </style>
+</head>
+<body>
+<h1>WKWebViewJavascriptBridge 交互</h1>
+
+<!-- JS调用Swift的按钮 -->
+<button onclick="callSwiftWithoutCallback()">调用Swift（无回调）</button>
+<button onclick="callSwiftWithCallback()">调用Swift（带回调）</button>
+
+<!-- 日志显示区 -->
+<div id="log"></div>
+
+<script>
+    var _iosReady = false;
+    var _iosBridge = null;
+    var _iosCallbacks = [];
+    var captchaJson = null;
+
+    // 辅助函数：添加日志到页面
+    function appendLog(text) {
+        var logDiv = document.getElementById('log');
+        logDiv.innerHTML += text + '<br/>';
+    }
+
+    function initIOSBridge(callback) {
+        if (this._iosReady) {
+            callback(this._iosBridge);
+        } else {
+            this._iosCallbacks.push(callback);
+
+            if (!window.WKWVJBCallbacks) {
+                window.WKWVJBCallbacks = [];
+            }
+
+            window.WKWVJBCallbacks.push((bridge) => {
+                this._iosBridge = bridge;
+                this._iosReady = true;
+                this._iosCallbacks.forEach(cb => cb(bridge));
+                this._iosCallbacks = [];
+            });
+
+            window.webkit?.messageHandlers?.iOS_Native_InjectJavascript?.postMessage(null);
+        }
+    }
+
+    // 3. JS调用Swift的方法
+    // 无回调调用
+    function callSwiftWithoutCallback() {
+
+        this.initIOSBridge((bridge) => {
+            var data = {
+                action: "showAlert",
+                title: "来自JS的消息",
+                content: "这是无回调的调用"
+            };
+            bridge.callHandler('showAlert', data, (res) => {
+                callback && callback(res);
+            });
+        });
+
+        appendLog(window.WKWVJBCallbacks);
+
+        var data = {
+            action: "showAlert",
+            title: "来自JS的消息",
+            content: "这是无回调的调用"
+        };
+        // 调用Swift注册的名为"showAlert"的方法
+        window.WebViewJavascriptBridge.callHandler('showAlert', data);
+        appendLog('JS调用Swift: showAlert（无回调）');
+    }
+
+    // 带回调调用
+    function callSwiftWithCallback() {
+
+        var data = {
+            action: "getDeviceInfo",
+            needBattery: true
+        };
+        // 调用Swift注册的"getDeviceInfo"方法，并接收返回值
+        window.WebViewJavascriptBridge.callHandler('getDeviceInfo', data, function (response) {
+            appendLog('Swift返回设备信息：' + JSON.stringify(response));
+        });
+        appendLog('JS调用Swift: getDeviceInfo（带回调）');
+    }
+
+    this.initIOSBridge((bridge) => {
+        bridge.registerHandler('showMessageFromSwift', (data) => {
+            appendLog(data);
+            const {code, list} = data
+            callback(code, list);
+        });
+    });
+
+</script>
+</body>
+</html>

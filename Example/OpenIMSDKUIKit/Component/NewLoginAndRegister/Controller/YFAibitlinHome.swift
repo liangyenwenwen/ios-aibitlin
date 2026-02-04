@@ -17,7 +17,7 @@ class YFAibitlinHome: BaseLogicController {
 //    var loginArr: [HomeLoginType] = [.phone, .email, .facebook, .apple, .google, .sacnCode]
 //    var chinaArr: [HomeLoginType] = [.phone, .email, .apple, .sacnCode]
 //    var isChina: Bool = false
-    var loginArr: [HomeLoginType] = [.email,.phone,.register]
+    var loginArr: [HomeLoginType] = [.temporary,.sacnCode,.email,.phone,.register]
     var facebookView:YFAibitlinHomeLoginTypeView?
     var googleView:YFAibitlinHomeLoginTypeView?
     
@@ -286,6 +286,8 @@ extension YFAibitlinHome {
             emailLoginAction()
         case .register:
             registerAction()
+        case .temporary:
+            toTourict()
         default:
             SuperToast.show(title: "开发中".localized())
         }
@@ -313,6 +315,21 @@ extension YFAibitlinHome {
     func toForgotPassword() {
         gotoController(YFRetrievePasswordVC.self)
     }
+    
+    func toTourict(){
+        //SuperToast.show(title: "临时用户登录".localized())
+        let alertView = TouristAlert2()
+        alertView.tg_width.equal(.fill)
+        alertView.tg_height.equal(.wrap)
+        alertView.tg_centerY.equal(0)
+        alertView.tg_height.equal(450)
+        alertView.currentVC = self
+        GKCover.cover(from: self.view, contentView: alertView, style: .translucent, showStyle: .center, showAnimStyle: .bottom, hideAnimStyle: .bottom, notClick: false)
+
+//        let webVC = YFCustomWebViewController2()
+//        navigationController?.pushViewController(webVC, animated: true)
+    }
+    
     func registerAction(){
         let vc = YFNewRegisterVC()
         vc.useType = .usePhone

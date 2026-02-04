@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .block {
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .sliderContainer {
+            position: relative;
+            text-align: center;
+            width: 310px;
+            height: 40px;
+            line-height: 40px;
+            margin-top: 15px;
+            background: #f7f9fa;
+            color: #45494c;
+            border: 1px solid #e4e7eb;
+        }
+
+        .sliderContainer_active .slider {
+            height: 38px;
+            top: -1px;
+            border: 1px solid #1991FA;
+        }
+
+        .sliderContainer_active .sliderMask {
+            height: 38px;
+            border-width: 1px;
+        }
+
+        .sliderContainer_success .slider {
+            height: 38px;
+            top: -1px;
+            border: 1px solid #52CCBA;
+            background-color: #52CCBA !important;
+        }
+
+        .sliderContainer_success .sliderMask {
+            height: 38px;
+            border: 1px solid #52CCBA;
+            background-color: #D2F4EF;
+        }
+
+        .sliderContainer_success .sliderIcon {
+            background-position: 0 0 !important;
+        }
+
+        .sliderContainer_fail .slider {
+            height: 38px;
+            top: -1px;
+            border: 1px solid #f57a7a;
+            background-color: #f57a7a !important;
+        }
+
+        .sliderContainer_fail .sliderMask {
+            height: 38px;
+            border: 1px solid #f57a7a;
+            background-color: #fce1e1;
+        }
+
+        .sliderContainer_fail .sliderIcon {
+            top: 14px;
+            background-position: 0 -82px !important;
+        }
+
+        .sliderContainer_active .sliderText, .sliderContainer_success .sliderText, .sliderContainer_fail .sliderText {
+            display: none;
+        }
+
+        .sliderMask {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 40px;
+            border: 0 solid #1991FA;
+            background: #D1E9FE;
+        }
+
+        .slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 40px;
+            height: 40px;
+            background: #fff;
+            box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: background .2s linear;
+        }
+
+        .slider:hover {
+            background: #1991FA;
+        }
+
+        .slider:hover .sliderIcon {
+            background-position: 0 -13px;
+        }
+
+        .sliderIcon {
+            position: absolute;
+            top: 15px;
+            left: 13px;
+            width: 14px;
+            height: 12px;
+            background: url(icons.png) 0 -26px;
+            background-size: 34px 471px;
+        }
+
+        .refreshIcon {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 34px;
+            height: 34px;
+            cursor: pointer;
+            background: url(icons.png) 0 -437px;
+            background-size: 34px 471px;
+        }
+
+        .container {
+            width: 310px;
+            margin: 100px auto;
+        }
+
+        input {
+            display: block;
+            width: 290px;
+            line-height: 40px;
+            margin: 10px 0;
+            padding: 0 10px;
+            outline: none;
+            border: 1px solid #c8cccf;
+            border-radius: 4px;
+            color: #6a6f77;
+        }
+
+        #msg {
+            width: 100%;
+            line-height: 40px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        a:link, a:visited, a:hover, a:active {
+            margin-left: 100px;
+            color: #0366D6;
+        }
+    </style>
+</head>
+
+<body>
+<div>
+    <div id="titel"></div>
+    <div id="captcha"></div>
+    <div id="msg"></div>
+    <div id="tip"></div>
+</div>
+<script type="text/javascript">
+    'use strict';
+
+    window.GlobalCaptcha = {
+        background: null,
+        puzzle: null,
+        h: 0,
+    }
+    var captchaJson = null;
+    var bg;
+
+    var count = 0;
+    
+    function print(msg) {
+        document.getElementById('tip').innerHTML = count++ + '打印：' + msg
+    }
+    
+    var _iosReady = false;
+    var _iosBridge = null;
+    var _iosCallbacks = [];
+ 
+    function initIOSBridge(callback) {
+         if (_iosReady) {
+             callback(_iosBridge);
+         } else {
+             _iosCallbacks.push(callback);
+             if (!window.WKWVJBCallbacks) {
+                 window.WKWVJBCallbacks = [];
+             }
+             
+            print("=====5");
+             window.WKWVJBCallbacks.push((bridge) => {
+                 print("=====6");
+                 _iosBridge = bridge;
+                 _iosReady = true;
+                 _iosCallbacks.forEach(cb => {
+                     print("=====7");
+                     cb(bridge);
+                 });
+                 _iosCallbacks = [];
+             });
+         }
+    };
+    initIOSBridge((bridge)=>{
+        print("=====2");
+        bridge.registerHandler('onCaptcha',(data)=>{
+            print("=====3");
+            document.getElementById('msg').innerHTML = repsjson;
+            captchaJson = JSON.parse(repsjson);
+            window.GlobalCaptcha.background.src = captchaJson.bg;
+        })
+    });
+
+    var _createClass = function () {
+        function defineProperties(target, props) {
+            for (var i = 0; i < props.length; i++) {
+                var descriptor = props[i];
+                descriptor.enumerable = descriptor.enumerable || false;
+                descriptor.configurable = true;
+                if ("value" in descriptor) descriptor.writable = true;
+                Object.defineProperty(target, descriptor.key, descriptor);
+            }
+        }
+
+        return function (Constructor, protoProps, staticProps) {
+            if (protoProps) defineProperties(Constructor.prototype, protoProps);
+            if (staticProps) defineProperties(Constructor, staticProps);
+            return Constructor;
+        };
+    }();
+
+    function _classCallCheck(instance, Constructor) {
+        if (!(instance instanceof Constructor)) {
+            throw new TypeError("Cannot call a class as a function");
+        }
+    }
+    
+    (function (window) {
+        var l = 32,
+            // 滑块边长
+            r = 9,
+            // 滑块半径
+            w = 310,
+            // canvas宽度
+            h = 155,
+            // canvas高度
+            PI = Math.PI;
+        var L = l + r * 2 + 3; // 滑块实际边长
+
+        function getRandomNumberByRange(start, end) {
+            return Math.round(Math.random() * (end - start) + start);
+        }
+
+        function createCanvas(width, height) {
+            var canvas = createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            return canvas;
+        }
+
+        function createImg(onload) {
+            var img = createElement('img');
+            img.crossOrigin = "Anonymous";
+            img.onload = onload;
+            img.onerror = function () {
+                //img.src = getRandomImg();
+            };
+            //img.src = getRandomImg();
+            getCaptcha();
+            return img;
+        }
+
+        function base64ToImageData(base64, callback) {
+            // 创建 Image 对象
+            const img = new Image();
+
+            // 图像加载完成后执行
+            img.onload = function () {
+                // 创建临时 Canvas
+                const canvas = document.createElement('canvas');
+                canvas.width = img.width;
+                canvas.height = img.height;
+
+                // 获取 Canvas 上下文并绘制图像
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0);
+                _draw2(ctx, 0, 18, 'clip');
+
+                // 从 Canvas 获取 ImageData
+                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+                // 通过回调返回 ImageData
+                callback(imageData);
+            };
+
+            // 处理加载错误
+            img.onerror = function () {
+                console.error('图像加载失败');
+                callback(null);
+            };
+
+            // 设置 Base64 源，触发加载
+            img.src = base64;
+        }
+
+        function createElement(tagName, className) {
+            var elment = document.createElement(tagName);
+            elment.className = className;
+            return elment;
+        }
+
+        //不支持element.classList方法的兼容写法（ie10及以下）
+        if (!("classList" in document.documentElement)) {
+            Object.defineProperty(HTMLElement.prototype, 'classList', {
+                get: function () {
+                    var self = this;
+
+                    function update(fn) {
+                        return function (value) {
+                            var classes = self.className.split(/\s+/g),
+                                index = classes.indexOf(value);
+
+                            fn(classes, index, value);
+                            self.className = classes.join(" ");
+                        }
+                    }
+
+                    return {
+                        add: update(function (classes, index, value) {
+                            if (!~index) classes.push(value);
+                        }),
+
+                        remove: update(function (classes, index) {
+                            if (~index) classes.splice(index, 1);
+                        }),
+
+                        toggle: update(function (classes, index, value) {
+                            if (~index)
+                                classes.splice(index, 1);
+                            else
+                                classes.push(value);
+                        }),
+
+                        contains: function (value) {
+                            return !!~self.className.split(/\s+/g).indexOf(value);
+                        },
+
+                        item: function (i) {
+                            return self.className.split(/\s+/g)[i] || null;
+                        }
+                    };
+                }
+            });
+        }
+
+        function addClass(tag, className) {
+            tag.classList.add(className);
+        }
+
+        function removeClass(tag, className) {
+            tag.classList.remove(className);
+        }
+
+        function getRandomImg() {
+            //var parameter = '{"password":"d41d8cd98f00b204e9800998ecf8427e","platform":2,"usedFor":6,"operationID":"1749521121158","deviceID":"0777ae25-2c89-380e-b116-d18bd58619ad","email":""}'
+            //this.img.src =
+            //return 'https://picsum.photos/300/150/?image=' + getRandomNumberByRange(0, 1084);
+        }
+
+        function _draw(ctx, x, y, operation) {
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            ctx.arc(x + l / 2, y - r + 2, r, 0.72 * PI, 2.26 * PI);
+            ctx.lineTo(x + l, y);
+            ctx.arc(x + l + r - 2, y + l / 2, r, 1.21 * PI, 2.78 * PI);
+            ctx.lineTo(x + l, y + l);
+            ctx.lineTo(x, y + l);
+            ctx.arc(x + r - 2, y + l / 2, r + 0.4, 2.76 * PI, 1.24 * PI, true);
+            ctx.lineTo(x, y);
+            ctx.lineWidth = 2;
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.7)';
+            ctx.stroke();
+            ctx[operation]();
+            ctx.globalCompositeOperation = 'overlay';
+        }
+
+        function _draw2(ctx, x, y, operation) {
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            ctx.arc(x + l / 2, y - r + 2, r, 0.72 * PI, 2.26 * PI);
+            ctx.lineTo(x + l, y);
+            ctx.arc(x + l + r - 2, y + l / 2, r, 1.21 * PI, 2.78 * PI);
+            ctx.lineTo(x + l, y + l);
+            ctx.lineTo(x, y + l);
+            ctx.arc(x + r - 2, y + l / 2, r + 0.4, 2.76 * PI, 1.24 * PI, true);
+            ctx.lineTo(x, y);
+            ctx.lineWidth = 2;
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.7)';
+            ctx.stroke();
+            ctx[operation]();
+            ctx.globalCompositeOperation = 'overlay';
+        }
+
+        function sum(x, y) {
+            return x + y;
+        }
+
+        function square(x) {
+            return x * x;
+        }
+
+        var jigsaw = function () {
+            function jigsaw(_ref) {
+                var el = _ref.el,
+                    onSuccess = _ref.onSuccess,
+                    onFail = _ref.onFail,
+                    onRefresh = _ref.onRefresh;
+
+                _classCallCheck(this, jigsaw);
+
+                el.style.position = el.style.position || 'relative';
+                this.el = el;
+                this.onSuccess = onSuccess;
+                this.onFail = onFail;
+                this.onRefresh = onRefresh;
+            }
+
+            _createClass(jigsaw, [{
+                key: 'init',
+                value: function init() {
+                    this.initDOM();
+                    this.initImg();
+                    this.bindEvents();
+                }
+            }, {
+                key: 'initDOM',
+                value: function initDOM() {
+                    var canvas = createCanvas(w, h); // 画布
+                    var block = canvas.cloneNode(true); // 滑块
+                    var sliderContainer = createElement('div', 'sliderContainer');
+                    var refreshIcon = createElement('div', 'refreshIcon');
+                    var sliderMask = createElement('div', 'sliderMask');
+                    var slider = createElement('div', 'slider');
+                    var sliderIcon = createElement('span', 'sliderIcon');
+                    var text = createElement('span', 'sliderText');
+
+                    block.className = 'block';
+                    text.innerHTML = '向右滑动填充拼图';
+
+                    var el = this.el;
+                    el.appendChild(canvas);
+                    el.appendChild(refreshIcon);
+                    el.appendChild(block);
+                    slider.appendChild(sliderIcon);
+                    sliderMask.appendChild(slider);
+                    sliderContainer.appendChild(sliderMask);
+                    sliderContainer.appendChild(text);
+                    el.appendChild(sliderContainer);
+
+                    //20181113
+                    // 不支持assign方法的兼容写法
+                    if (typeof Object.assign != 'function') {
+                        // Must be writable: true, enumerable: false, configurable: true
+                        Object.defineProperty(Object, "assign", {
+                            value: function assign(target, varArgs) { // .length of function is 2
+                                'use strict';
+                                if (target == null) { // TypeError if undefined or null
+                                    throw new TypeError('Cannot convert undefined or null to object');
+                                }
+
+                                var to = Object(target);
+
+                                for (var index = 1; index < arguments.length; index++) {
+                                    var nextSource = arguments[index];
+
+                                    if (nextSource != null) { // Skip over if undefined or null
+                                        for (var nextKey in nextSource) {
+                                            // Avoid bugs when hasOwnProperty is shadowed
+                                            if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {
+                                                to[nextKey] = nextSource[nextKey];
+                                            }
+                                        }
+                                    }
+                                }
+                                return to;
+                            },
+                            writable: true,
+                            configurable: true
+                        });
+                    }
+
+                    Object.assign(this, {
+                        canvas: canvas,
+                        block: block,
+                        sliderContainer: sliderContainer,
+                        refreshIcon: refreshIcon,
+                        slider: slider,
+                        sliderMask: sliderMask,
+                        sliderIcon: sliderIcon,
+                        text: text,
+                        canvasCtx: canvas.getContext('2d'),
+                        blockCtx: block.getContext('2d')
+                    });
+                }
+            }, {
+                key: 'initImg',
+                value: function initImg() {
+                    var _this = this;
+
+                    var img = createImg(function () { // 每次照片加载完成后，就会回调该方法
+
+                        _this.sliderContainer.className = 'sliderContainer';
+                        _this.slider.style.left = 0;
+                        _this.block.style.left = 0;
+                        _this.sliderMask.style.width = 0;
+                        _this.clean();
+
+                        console.log("initImg")
+                        _this.draw(); // 绘制拼图块
+                        _this.canvasCtx.drawImage(img, 0, 0, w, h); // 绘制背景
+                        //////////// _this.canvasCtx.drawImage(img, 0, 0, w, h);
+                        _this.blockCtx.drawImage(img, 0, 0, w, h); // 绘制拼块
+                        var y = _this.y - r * 2 - 1;
+
+                        //getImageData方法和putImageData方法在IE9和IE10上，涉及到文件路径的跨域访问问题。
+                        //   console.log('(x:'+_this.x+',y:'+_this.y+')');
+                        if (navigator.userAgent.indexOf("MSIE") > -1) {
+                            _this.block.style.marginLeft = '-' + (_this.x - 3) + 'px';//不抵边，空3px
+                        } else {
+                            var ImageData = _this.blockCtx.getImageData(_this.x - 3, y, L, L);
+                            _this.block.width = L;
+                            //_this.blockCtx.putImageData(ImageData, 0, y);
+
+                            base64ToImageData(captchaJson.puzzle, function (imageData) { // 绘制小拼块
+                                if (imageData) {
+                                    console.log('成功获取 ImageData:', imageData.width, 'x', imageData.height);
+                                    // 在这里可以对 imageData 进行处理
+                                    _this.blockCtx.putImageData(imageData, 0, y + 3);
+                                }
+                            });
+                        }
+
+                    });
+
+                    this.img = img;
+                    window.GlobalCaptcha.background = img;
+                }
+            }, {
+                key: 'draw',
+                value: function draw() { // 绘制拼图块
+                    // 随机创建滑块的位置
+                    this.x = getRandomNumberByRange(L + 10, w - (L + 10));
+                    //this.y = getRandomNumberByRange(10 + r * 2, h - (L + 10));
+                    this.y = captchaJson.h
+                    //_draw(this.canvasCtx, this.x, this.y, 'fill');
+                    //_draw(this.blockCtx, this.x, this.y + 3, 'clip');
+                }
+            }, {
+                key: 'clean',
+                value: function clean() {
+                    this.canvasCtx.clearRect(0, 0, w, h);
+                    this.blockCtx.clearRect(0, 0, w, h);
+                    this.block.width = w;
+                }
+            }, {
+                key: 'bindEvents',
+                value: function bindEvents() {
+                    var _this2 = this;
+
+                    this.el.onselectstart = function () {
+                        return false;
+                    };
+                    this.refreshIcon.onclick = function () {
+                        _this2.reset();
+                        typeof _this2.onRefresh === 'function' && _this2.onRefresh();
+                    };
+
+                    var originX = void 0,
+                        originY = void 0,
+                        trail = [],
+                        isMouseDown = false;
+
+                    // 鼠标开始滑动
+                    var handleDragStart = function handleDragStart(e) {
+                        originX = e.clientX || e.touches[0].clientX;
+                        originY = e.clientY || e.touches[0].clientY;
+                        isMouseDown = true;
+                    };
+
+                    // 鼠标移动回调
+                    var handleDragMove = function handleDragMove(e) {
+                        if (!isMouseDown) return false;
+                        var eventX = e.clientX || e.touches[0].clientX;
+                        var eventY = e.clientY || e.touches[0].clientY;
+                        var moveX = eventX - originX;
+                        var moveY = eventY - originY;
+                        if (moveX < 0 || moveX + 38 >= w) return false;
+                        if (moveX >= w - 50) return false;
+                        _this2.slider.style.left = moveX + 'px';
+                        var blockLeft = /*(w - 40 - 20) / (w - 40) * */moveX;
+                        _this2.block.style.left = blockLeft + 'px';
+
+                        addClass(_this2.sliderContainer, 'sliderContainer_active');
+                        _this2.sliderMask.style.width = moveX + 'px';
+                        trail.push(moveY);
+                    };
+
+                    // 鼠标滑动停止
+                    var handleDragEnd = function handleDragEnd(e) {
+                        if (!isMouseDown) return false;
+                        isMouseDown = false;
+                        var eventX = e.clientX || e.changedTouches[0].clientX;
+                        if (eventX == originX) return false;
+                        removeClass(_this2.sliderContainer, 'sliderContainer_active');
+                        _this2.trail = trail;
+
+                        var _verify = _this2.verify(),
+                            spliced = _verify.spliced,
+                            verified = _verify.verified;
+
+                        /*if (spliced) {
+                            if (verified) {
+                                addClass(_this2.sliderContainer, 'sliderContainer_success');
+                                typeof _this2.onSuccess === 'function' && _this2.onSuccess();
+                            } else {
+                                addClass(_this2.sliderContainer, 'sliderContainer_fail');
+                                _this2.text.innerHTML = '再试一次';
+                                _this2.reset();
+                            }
+                        } else {
+                            addClass(_this2.sliderContainer, 'sliderContainer_fail');
+                            typeof _this2.onFail === 'function' && _this2.onFail();
+                            setTimeout(function () {
+                                _this2.reset();
+                            }, 1000);
+                        }*/
+                    };
+                    this.slider.addEventListener('mousedown', handleDragStart); // 鼠标开始滑动
+                    this.slider.addEventListener('touchstart', handleDragStart); // 鼠标开始滑动
+                    document.addEventListener('mousemove', handleDragMove); // 鼠标移动回调
+                    document.addEventListener('touchmove', handleDragMove); // 鼠标移动按下回调
+                    document.addEventListener('mouseup', handleDragEnd); // 鼠标滑动停止释放回调
+                    document.addEventListener('touchend', handleDragEnd); // 鼠标滑动释放回调
+                }
+            }, {
+                key: 'verify',
+                value: function verify() {
+                    var arr = this.trail; // 拖动时y轴的移动距离
+                    var average = arr.reduce(sum) / arr.length;
+                    var deviations = arr.map(function (x) {
+                        return x - average;
+                    });
+                    var stddev = Math.sqrt(deviations.map(square).reduce(sum) / arr.length);
+                    var left = parseInt(this.block.style.left);
+                    login(left)
+                    return {
+                        spliced: Math.abs(left - this.x) < 10,
+                        verified: stddev !== 0 // 简单验证下拖动轨迹，为零时表示Y轴上下没有波动，可能非人为操作
+                    };
+                }
+            }, {
+                key: 'reset',
+                value: function reset() {
+                    this.sliderContainer.className = 'sliderContainer';
+                    this.slider.style.left = 0;
+                    this.block.style.left = 0;
+                    this.sliderMask.style.width = 0;
+                    this.clean();
+                    //this.img.src = getRandomImg();
+                    //document.getElementById('msg').innerHTML = '获取验证截图！'
+                    getCaptcha()
+                }
+            }, {
+                key: 'resetCtx',
+                value: function resetCtx() {
+                    print(captcha);
+                    this.sliderContainer.className = 'sliderContainer';
+                    this.slider.style.left = 0;
+                    this.block.style.left = 0;
+                    this.sliderMask.style.width = 0;
+                    this.clean();
+                }
+            }]);
+
+            return jigsaw;
+        }();
+
+        window.jigsaw = {
+            init: function init(opts) {
+                return new jigsaw(opts).init();
+            }
+        };
+    })(window);
+
+    function cleanMsg() {
+        document.getElementById('msg').innerHTML = ''
+    }
+
+    function onCaptcha(repsjson) {
+        print(repsjson);
+        document.getElementById('msg').innerHTML = repsjson
+        captchaJson = JSON.parse(repsjson);
+        window.GlobalCaptcha.background.src = captchaJson.bg;
+    }
+    
+    function login(x) {
+        CaptchaBridge.login(x);
+    }
+    
+    // JS调用原生：无参数
+    function getCaptcha() {
+        bridge.callHandler('getCaptcha', null, function(response) {
+            //document.getElementById('result').innerText = "原生返回：" + response;
+        });
+    }
+    
+    //在页面上使用
+    jigsaw.init({
+        el: document.getElementById('captcha'),
+        onSuccess: function () {
+            document.getElementById('msg').innerHTML = '登录成功！'
+        },
+        onFail: cleanMsg,
+        onRefresh: cleanMsg
+    })
+    
+</script>
+
+</body>

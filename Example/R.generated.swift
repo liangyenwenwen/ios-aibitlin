@@ -171,7 +171,7 @@ struct _R: Sendable {
       var ieXW0yeText: RswiftResources.StringResource { .init(key: "8ie-xW-0ye.text", tableName: "LaunchScreen", source: source, developmentValue: nil, comment: nil) }
     }
 
-    /// This `_R.string.localizable` struct is generated, and contains static references to 558 localization keys.
+    /// This `_R.string.localizable` struct is generated, and contains static references to 560 localization keys.
     struct localizable {
       let source: RswiftResources.StringResource.Source
 
@@ -776,6 +776,13 @@ struct _R: Sendable {
       ///
       /// Locales: en, zh-Hans, th
       var supportShortNumber: RswiftResources.StringResource1<String> { .init(key: "SupportShortNumber", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// zh-Hans translation: 临时用户登录
+      ///
+      /// Key: Temporary user login
+      ///
+      /// Locales: zh-Hans
+      var temporaryUserLogin: RswiftResources.StringResource { .init(key: "Temporary user login", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Toolbox
       ///
@@ -1539,6 +1546,13 @@ struct _R: Sendable {
       ///
       /// Locales: en, th
       var 中国香港: RswiftResources.StringResource { .init(key: "中国香港", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Temporary user login
+      ///
+      /// Key: 临时用户登录
+      ///
+      /// Locales: en, th
+      var 临时用户登录: RswiftResources.StringResource { .init(key: "临时用户登录", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Report
       ///
@@ -4099,7 +4113,7 @@ struct _R: Sendable {
     var colorBackground: RswiftResources.ColorResource { .init(name: "ColorBackground", path: [], bundle: bundle) }
   }
 
-  /// This `_R.image` struct is generated, and contains static references to 270 images.
+  /// This `_R.image` struct is generated, and contains static references to 271 images.
   struct image {
     let bundle: Foundation.Bundle
 
@@ -4712,6 +4726,9 @@ struct _R: Sendable {
     /// Image `login_type_scan`.
     var login_type_scan: RswiftResources.ImageResource { .init(name: "login_type_scan", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
+    /// Image `login_type_tourist`.
+    var login_type_tourist: RswiftResources.ImageResource { .init(name: "login_type_tourist", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
     /// Image `login_type_wechat`.
     var login_type_wechat: RswiftResources.ImageResource { .init(name: "login_type_wechat", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
@@ -4919,12 +4936,15 @@ struct _R: Sendable {
     let apsEnvironment: String = "development"
   }
 
-  /// This `_R.file` struct is generated, and contains static references to 3 resource files.
+  /// This `_R.file` struct is generated, and contains static references to 4 resource files.
   struct file {
     let bundle: Foundation.Bundle
 
     /// Resource file `GoogleService-Info.plist`.
     var googleServiceInfoPlist: RswiftResources.FileResource { .init(name: "GoogleService-Info", pathExtension: "plist", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `WebResources`.
+    var webResources: RswiftResources.FileResource { .init(name: "WebResources", pathExtension: "", bundle: bundle, locale: LocaleReference.none) }
 
     /// Resource file `call.mp3`.
     var callMp3: RswiftResources.FileResource { .init(name: "call", pathExtension: "mp3", bundle: bundle, locale: LocaleReference.none) }

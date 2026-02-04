@@ -448,6 +448,7 @@ Toolbox = "Toolbox";
 //登录页面
 "使用手机登录" = "Sign in with Phone";
 "使用邮箱登录" = "Sign in with E-Mail";
+"临时用户登录" = "Temporary user login";
 "创建一个新账号" = "Create new account";
 "使用Facebook登录" = "Sign in with Facebook";
 "使用Apple登录" = "Sign in with Apple";

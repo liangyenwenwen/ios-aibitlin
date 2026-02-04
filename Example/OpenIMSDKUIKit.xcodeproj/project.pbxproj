@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -72,11 +72,14 @@
 		043D23A32D7952480003B360 /* MineChangeAreaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043D23A22D7952480003B360 /* MineChangeAreaCell.swift */; };
 		0445BEE22CD1E04300A46558 /* ABLNetWorkToos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445BEE12CD1E04300A46558 /* ABLNetWorkToos.swift */; };
 		04504CD02D6D9FD700E08B90 /* call.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 04504CCE2D6D9FD300E08B90 /* call.mp3 */; };
+		045B3B522F2C810D00BEA1F3 /* TouristAlert2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045B3B512F2C810D00BEA1F3 /* TouristAlert2.swift */; };
+		045B3B582F2DBDCF00BEA1F3 /* YFCustomWebViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045B3B572F2DBDCF00BEA1F3 /* YFCustomWebViewController2.swift */; };
 		045B8BF72BF4496D0094E080 /* MineChooseBottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045B8BF62BF4496C0094E080 /* MineChooseBottomSheetView.swift */; };
 		045B8BF92BF481AF0094E080 /* UserMessageBottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045B8BF82BF481AF0094E080 /* UserMessageBottomSheetView.swift */; };
 		045B8BFD2BF4B7070094E080 /* YFChatBokeBottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045B8BFC2BF4B7070094E080 /* YFChatBokeBottomSheetView.swift */; };
 		047753C62BFDCD27006DBFD3 /* YFTranslateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047753C52BFDCD27006DBFD3 /* YFTranslateVC.swift */; };
 		047BF6B62CA2B6DF00706117 /* YFFileDataUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047BF6B52CA2B6DF00706117 /* YFFileDataUtil.swift */; };
+		0482CB0F2F272985004B6510 /* WebResources in Resources */ = {isa = PBXBuildFile; fileRef = 0482CB0E2F272985004B6510 /* WebResources */; };
 		049B98032CB521360032E7B8 /* YFChooseUserAvatarCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049B98022CB521360032E7B8 /* YFChooseUserAvatarCardView.swift */; };
 		049C643E2BEC619300B679C4 /* YFLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049C643D2BEC619300B679C4 /* YFLoginVC.swift */; };
 		049C64402BEC622300B679C4 /* YFLoginChooseHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049C643F2BEC622300B679C4 /* YFLoginChooseHeaderView.swift */; };
@@ -269,6 +272,8 @@
 		043D23A22D7952480003B360 /* MineChangeAreaCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineChangeAreaCell.swift; sourceTree = "<group>"; };
 		0445BEE12CD1E04300A46558 /* ABLNetWorkToos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ABLNetWorkToos.swift; sourceTree = "<group>"; };
 		04504CCE2D6D9FD300E08B90 /* call.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = call.mp3; sourceTree = "<group>"; };
+		045B3B512F2C810D00BEA1F3 /* TouristAlert2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouristAlert2.swift; sourceTree = "<group>"; };
+		045B3B572F2DBDCF00BEA1F3 /* YFCustomWebViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFCustomWebViewController2.swift; sourceTree = "<group>"; };
 		045B8BF62BF4496C0094E080 /* MineChooseBottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineChooseBottomSheetView.swift; sourceTree = "<group>"; };
 		045B8BF82BF481AF0094E080 /* UserMessageBottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMessageBottomSheetView.swift; sourceTree = "<group>"; };
 		045B8BFC2BF4B7070094E080 /* YFChatBokeBottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFChatBokeBottomSheetView.swift; sourceTree = "<group>"; };
@@ -276,6 +281,7 @@
 		046D26952BFF255F00FEA10F /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		047753C52BFDCD27006DBFD3 /* YFTranslateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFTranslateVC.swift; sourceTree = "<group>"; };
 		047BF6B52CA2B6DF00706117 /* YFFileDataUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFFileDataUtil.swift; sourceTree = "<group>"; };
+		0482CB0E2F272985004B6510 /* WebResources */ = {isa = PBXFileReference; lastKnownFileType = folder; name = WebResources; path = OpenIMSDKUIKit/WebResources; sourceTree = "<group>"; };
 		048593C62D2BA8AA0095FE0A /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		048593C82D2BA8AA0095FE0A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		049B98022CB521360032E7B8 /* YFChooseUserAvatarCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YFChooseUserAvatarCardView.swift; sourceTree = "<group>"; };
@@ -405,6 +411,10 @@
 		EA353ED940185D57061D542E /* Pods-ScreenShareBroadcastExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScreenShareBroadcastExtension.debug.xcconfig"; path = "Target Support Files/Pods-ScreenShareBroadcastExtension/Pods-ScreenShareBroadcastExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		EED869B95C353B3B8D5FE5BE /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		0482CB012F27210B004B6510 /* WebResources */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = WebResources; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		607FACCD1AFB9204008FA782 /* Frameworks */ = {
@@ -584,6 +594,7 @@
 				040D85DB2BEB8C0A00DCAAB3 /* BaseTitleController.swift */,
 				04F2D05E2BEE129A00D5271B /* SuperWebController.swift */,
 				04D0531A2D70708200B87ED8 /* YFCustomWebViewController.swift */,
+				045B3B572F2DBDCF00BEA1F3 /* YFCustomWebViewController2.swift */,
 				04B802742DCCB75A0061641B /* YFCustomWebViewMoreView.swift */,
 				04B802552DC0B4A40061641B /* YFChooseShareTypeView.swift */,
 				04B801952DA3B7470061641B /* WebViewPwdViewController.swift */,
@@ -837,6 +848,7 @@
 				04DA67932CCF2B2100FCA60C /* YFAibitlinHomeView.swift */,
 				04C394422CCF874300181F6B /* YFAibitlinHomeChooseHeaderView.swift */,
 				04B09E322CF5A1F800ABF926 /* YFAibitlinAgreementAlert.swift */,
+				045B3B512F2C810D00BEA1F3 /* TouristAlert2.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1122,6 +1134,7 @@
 		607FACC71AFB9204008FA782 = {
 			isa = PBXGroup;
 			children = (
+				0482CB0E2F272985004B6510 /* WebResources */,
 				DCD9C9762849145C00487806 /* OpenIMSDKUIKit_Example.entitlements */,
 				607FACD21AFB9204008FA782 /* OpenIMSDKUIKit */,
 				607FACF51AFB993E008FA782 /* Podspec Metadata */,
@@ -1143,6 +1156,7 @@
 		607FACD21AFB9204008FA782 /* OpenIMSDKUIKit */ = {
 			isa = PBXGroup;
 			children = (
+				0482CB012F27210B004B6510 /* WebResources */,
 				04504CCF2D6D9FD300E08B90 /* Sound */,
 				0445BEE02CD1DF8B00A46558 /* NetWork */,
 				04F2D0952BEE21EC00D5271B /* Vender */,
@@ -1272,6 +1286,9 @@
 			);
 			dependencies = (
 			);
+			fileSystemSynchronizedGroups = (
+				0482CB012F27210B004B6510 /* WebResources */,
+			);
 			name = OpenIMSDKUIKit_Example;
 			productName = OpenIMSDKUIKit;
 			productReference = 607FACD01AFB9204008FA782 /* IM-NCER.app */;
@@ -1320,6 +1337,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0482CB0F2F272985004B6510 /* WebResources in Resources */,
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
 				0411DD282C05CE3C00EDD135 /* InfoPlist.strings in Resources */,
 				DCE04171283E5BD30095874E /* Localizable.strings in Resources */,
@@ -1578,6 +1596,7 @@
 				17943358292DB9ED0088B768 /* ScreenLockSettingViewController.swift in Sources */,
 				04D2E2092CBE4E5500582B13 /* UIView+Position.swift in Sources */,
 				17C370972A4D78A400CCB044 /* UnderlineTextField.swift in Sources */,
+				045B3B522F2C810D00BEA1F3 /* TouristAlert2.swift in Sources */,
 				17B11A422ABD28C600DB8980 /* InterruptNavigationControllerPopGesture.swift in Sources */,
 				1760BE5C2BD9FFAD0096CD1C /* SimpleInputViewController.swift in Sources */,
 				049C64432BEC689100B679C4 /* YFTitleAddUnderlineChooseView.swift in Sources */,
@@ -1676,6 +1695,7 @@
 				04F2D08B2BEE21CA00D5271B /* MineBokeEditVC.swift in Sources */,
 				04F2D0882BEE21CA00D5271B /* ChangeMessageVC.swift in Sources */,
 				043A558D2C8166490041836E /* UserTagView.swift in Sources */,
+				045B3B582F2DBDCF00BEA1F3 /* YFCustomWebViewController2.swift in Sources */,
 				04EFEA402CEB3F22004441CB /* UpdateView.swift in Sources */,
 				040D85F02BEB8C0B00DCAAB3 /* BaseTitleController.swift in Sources */,
 				040D85C02BEB8B0400DCAAB3 /* CountDownUtil.swift in Sources */,

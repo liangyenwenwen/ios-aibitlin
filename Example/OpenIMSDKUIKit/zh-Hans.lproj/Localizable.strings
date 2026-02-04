@@ -246,6 +246,7 @@ Blacklist = "黑名单";
 Toolbox = "工具箱";
 
 "I don't have an account" = "我没有账号，";
+"Temporary user login" = "临时用户登录";
 "Create a new account" = "创建一个新账号";
 
 "删除您的账户，AIbitlin所有服务都将无法继续使用，包括聊天、网站等。" = "删除您的账户，AIbitlin所有服务都将无法继续使用，包括聊天、网站等。";
