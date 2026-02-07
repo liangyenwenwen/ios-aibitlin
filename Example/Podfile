@@ -61,11 +61,11 @@ pod 'CryptoSwift'
 end
 
 # 开启会议后有屏幕分享功能才会使用该target
-target 'ScreenShareBroadcastExtension' do
+#target 'ScreenShareBroadcastExtension' do
 #  pod 'LiveKitClient', :git => 'https://github.com/livekit/client-sdk-swift.git', :tag => '1.1.6'
 #  pod 'LiveKitClient', :git => 'https://github.com/livekit/client-sdk-swift.git', :tag => '2.0.14'
 #  pod 'LiveKitWebRTC', :git => 'https://github.com/livekit/webrtc-xcframework.git', :tag => '125.6422.07'
-end
+#end
 
 post_install do |installer|
   app_project = Xcodeproj::Project.open('OpenIMSDKUIKit.xcodeproj')

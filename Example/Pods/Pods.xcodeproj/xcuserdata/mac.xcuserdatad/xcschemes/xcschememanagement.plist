@@ -339,11 +339,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-ScreenShareBroadcastExtension.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>ProgressHUD-ProgressHUD.xcscheme</key>
 		<dict>
 			<key>isShown</key>

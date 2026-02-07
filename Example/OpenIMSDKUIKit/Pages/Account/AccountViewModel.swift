@@ -902,6 +902,8 @@ class UpdateUserInfoRequest: Codable {
     let allowBeep: Int?
     let allowVibration: Int?
     let personalProfile: String?
+    let status: Int?
+    let userType: Int?
     
     init(userID: String? = nil,
          chatID: String? = nil,
@@ -922,7 +924,9 @@ class UpdateUserInfoRequest: Codable {
          allowBeep: Int? = nil,
          allowVibration: Int? = nil,
          forbidden: Int? = nil,
-         personalProfile: String? = nil)
+         personalProfile: String? = nil,
+         status:Int? = nil,
+         userType:Int? = nil)
     {
         self.areaCode = areaCode
         self.chatID = chatID
@@ -944,6 +948,8 @@ class UpdateUserInfoRequest: Codable {
         self.allowVibration = allowVibration
         self.forbidden = forbidden
         self.personalProfile = personalProfile
+        self.status = status
+        self.userType = userType
     }
 }
 

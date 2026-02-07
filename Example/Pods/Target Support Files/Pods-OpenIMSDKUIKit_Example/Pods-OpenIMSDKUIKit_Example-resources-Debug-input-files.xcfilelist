@@ -1,0 +1,5 @@
+${PODS_ROOT}/Target Support Files/Pods-OpenIMSDKUIKit_Example/Pods-OpenIMSDKUIKit_Example-resources.sh
+${PODS_CONFIGURATION_BUILD_DIR}/OUICalling/OIMUICalling.bundle
+${PODS_CONFIGURATION_BUILD_DIR}/OUICore/OIMUIResource.bundle
+${PODS_CONFIGURATION_BUILD_DIR}/OUICore/OIMUIEmoji.bundle
+${PODS_ROOT}/../../3rd/ZFPlayer/Classes/ControlView/ZFPlayer.bundle

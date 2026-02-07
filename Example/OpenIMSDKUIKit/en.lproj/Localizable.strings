@@ -675,7 +675,10 @@ SupportShortNumber = "Support setting a minimum %@-digit account ID";
 
 "我的二维码" = "My QR Code";
 
+"系统用户" = "System user"; // 在客户端也显示为 “普通用户”
 "普通用户" = "Ordinary user";
+"临时用户" = "Tourist user";
+"企业用户" = "Enterprise user";
 
 "1.未下载APP的用户，扫你的二维码可直接下载哎比邻。\n2.未注册用户在登录页面扫你的二维码，免注册即可试用哎比邻，并自动收藏您推荐的网站。" = "1.Users who haven't downloaded the app can scan your QR code to download AIibitlin directly.\n2.Unregistered users can scan your QR code on the login page to try Aibitlin without registering and automatically bookmark the websites you recommend.";
 

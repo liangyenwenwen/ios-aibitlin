@@ -78,7 +78,6 @@ class MeHomeController: BaseLogicController {
 //        let  viplbl = vipView.viewWithTag(20001) as! UILabel
 //        viplbl.text = "我的二维码".localized()
         
-        
         let  codeTitle = sectionCodeView.viewWithTag(20001) as! UILabel
         codeTitle.text = "我的二维码".localized()
         
@@ -102,8 +101,17 @@ class MeHomeController: BaseLogicController {
         
         avatarImageView.setAvatar(url: user?.faceURL, text: userState.n)
         username.text = userState.n
-        tagLable.text = SuperStringUtil.getUserTag(showname: (user?.nickname)!)  ?? "普通用户".localized()
-        tagLable.textColor = userState.v > 0  ? .init(hexString: "#7238EF")  : .init(hexString: "#999999")
+        if( user?.userType == 0 || user?.userType == 1 || user?.userType == nil ){
+            tagLable.text = SuperStringUtil.getUserTag(showname: (user?.nickname)!)  ?? "普通用户".localized()
+            tagLable.textColor = .init(hexString: "#388CEF")
+        }else if( user?.userType == 2){
+            tagLable.text = SuperStringUtil.getUserTag(showname: (user?.nickname)!)  ?? "游客用户".localized()
+            tagLable.textColor = .init(hexString: "#FFBF6B")
+        }else if(user?.userType == 3){
+            tagLable.text = SuperStringUtil.getUserTag(showname: (user?.nickname)!)  ?? "企业用户".localized()
+            tagLable.textColor = .init(hexString: "#7728F5")
+        }
+        
 //        userID.text = user?.chatID
         
 //        print(user?.userID)
@@ -178,6 +186,14 @@ class MeHomeController: BaseLogicController {
         return v
     }()
     
+    lazy var avataraSubscriptImageView: AvatarView = {
+        let v = AvatarView()
+        v.size = 18
+        v.border(.white)
+        v.corner(32)
+        return v
+    }()
+    
     lazy var username: UILabel = {
         let r = ViewFactoryUtil.customBoldTilteLable("", font: TEXT_LARGE4)
         r.numberOfLines = 1
@@ -244,10 +260,6 @@ class MeHomeController: BaseLogicController {
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(copyUserID))
         vipView.addGestureRecognizer(tap)
-        
-        
-        
-        
         return vipView
     }()
     
@@ -364,9 +376,7 @@ class MeHomeController: BaseLogicController {
         bokeView.tg_height.equal(.wrap)
         container.addSubview(bokeView)
         
-   
         bokeView.addSubview(sectionStarBlogView)
-              
         bokeView.addSubview(myStarblogItemsView)
     }
     
