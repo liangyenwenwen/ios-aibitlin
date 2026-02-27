@@ -757,6 +757,10 @@ SupportShortNumber = "Support setting a minimum %@-digit account ID";
 
 "密码错误" = "Password error";
 
+"绑定邮箱" = "Binding Email";
+"绑定手机" = "Binding Phone";
+"修改手机号" = "Change Phone";
+"修改邮箱" = "Change Email";
 
 //"" = "";
 //"" = "";

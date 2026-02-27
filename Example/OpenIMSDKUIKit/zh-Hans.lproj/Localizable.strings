@@ -224,7 +224,9 @@ AccountInformation = "账号信息";
 DeleteAccount = "删除账号";
 
 ChangePassword = "修改密码";
+BindingEmail = "绑定邮箱";
 ChangeEmail = "修改邮箱";
+BindingPhone = "绑定手机号";
 ChangePhone = "修改手机号";
 
 EnterTheOriginalPassword = "修改原密码";

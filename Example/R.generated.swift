@@ -171,7 +171,7 @@ struct _R: Sendable {
       var ieXW0yeText: RswiftResources.StringResource { .init(key: "8ie-xW-0ye.text", tableName: "LaunchScreen", source: source, developmentValue: nil, comment: nil) }
     }
 
-    /// This `_R.string.localizable` struct is generated, and contains static references to 563 localization keys.
+    /// This `_R.string.localizable` struct is generated, and contains static references to 569 localization keys.
     struct localizable {
       let source: RswiftResources.StringResource.Source
 
@@ -237,6 +237,20 @@ struct _R: Sendable {
       ///
       /// Locales: en, zh-Hans, th
       var basicInformation: RswiftResources.StringResource { .init(key: "BasicInformation", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// zh-Hans translation: 绑定邮箱
+      ///
+      /// Key: BindingEmail
+      ///
+      /// Locales: zh-Hans
+      var bindingEmail: RswiftResources.StringResource { .init(key: "BindingEmail", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// zh-Hans translation: 绑定手机号
+      ///
+      /// Key: BindingPhone
+      ///
+      /// Locales: zh-Hans
+      var bindingPhone: RswiftResources.StringResource { .init(key: "BindingPhone", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Binding third-party accounts
       ///
@@ -1757,6 +1771,20 @@ struct _R: Sendable {
       /// Locales: en, th
       var 修改密码: RswiftResources.StringResource { .init(key: "修改密码", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
+      /// en translation: Change Phone
+      ///
+      /// Key: 修改手机号
+      ///
+      /// Locales: en, th
+      var 修改手机号: RswiftResources.StringResource { .init(key: "修改手机号", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Change Email
+      ///
+      /// Key: 修改邮箱
+      ///
+      /// Locales: en, th
+      var 修改邮箱: RswiftResources.StringResource { .init(key: "修改邮箱", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
       /// en translation: Notify me when the duration of stay exceeds seconds
       ///
       /// Key: 停留时长超过多少秒通知我
@@ -3254,6 +3282,20 @@ struct _R: Sendable {
       ///
       /// Locales: en, th
       var 系统通知设置: RswiftResources.StringResource { .init(key: "系统通知设置", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Binding Phone
+      ///
+      /// Key: 绑定手机
+      ///
+      /// Locales: en, th
+      var 绑定手机: RswiftResources.StringResource { .init(key: "绑定手机", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
+
+      /// en translation: Binding Email
+      ///
+      /// Key: 绑定邮箱
+      ///
+      /// Locales: en, th
+      var 绑定邮箱: RswiftResources.StringResource { .init(key: "绑定邮箱", tableName: "Localizable", source: source, developmentValue: nil, comment: nil) }
 
       /// en translation: Edit
       ///

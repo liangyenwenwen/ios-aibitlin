@@ -29,8 +29,16 @@ class MineViewModel {
                                        valueHandler: { [weak self] (users: [QueryUserInfo]) in
             guard let user: QueryUserInfo = users.first else { return }
             self?.currentUserRelay.accept(user)
+            
+            let userA = IMController.shared.currentUserRelay.value
+            userA?.nickname = user.nickname
+            userA?.faceURL = user.faceURL
+            userA?.phoneNumber = user.phoneNumber
+            userA?.email = user.email
+            IMController.shared.currentUserRelay.accept(userA)
         }, completionHandler: {(errCode, errMsg) in
         })
+        
     }
 
     func updateGender(_ gender: Gender, completion: @escaping CallBack.ErrorOptionalReturnVoid) {

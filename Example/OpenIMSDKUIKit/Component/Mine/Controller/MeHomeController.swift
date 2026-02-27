@@ -67,6 +67,8 @@ class MeHomeController: BaseLogicController {
         _viewModel.currentUserRelay.subscribe(onNext: { [weak self] (user: QueryUserInfo?) in
             guard let self, user != nil else { return }
             
+            
+            
             updateHeaderView()
             
         }).disposed(by: rx.disposeBag)

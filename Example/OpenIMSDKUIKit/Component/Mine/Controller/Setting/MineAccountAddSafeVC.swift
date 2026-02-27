@@ -81,7 +81,18 @@ class MineAccountAddSafeVC: BaseTitleController {
     }()
     
     lazy var changeEmailView: SuperSettingView = {
-        let r = SuperSettingView.createSetTitleAddContentView("ChangeEmail".localized(), "") { [weak self] data in
+        
+        var email = ""
+        let currentEmail = IMController.shared.currentUserRelay.value?.email
+        let isEmailEmpty = currentEmail?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true
+
+        if isEmailEmpty {
+            email = "绑定邮箱".localized()
+        } else {
+            email = "修改邮箱".localized()
+        }
+    
+        let r = SuperSettingView.createSetTitleAddContentView(email , "") { [weak self] data in
 //            self?.toDeleteAcountAuthenticationVC(.changeEmail)
             SuperToast.show(title: "开发中".localized())
         }
@@ -91,7 +102,20 @@ class MineAccountAddSafeVC: BaseTitleController {
     
     
     lazy var changePhoneView: SuperSettingView = {
-        let r = SuperSettingView.createSetTitleAddContentView("ChangePhone".localized(), " ") { [weak self] data in
+        
+        var phone = ""
+        // 分步拆解：先获取手机号，避免长链式调用，提升可读性
+        let currentPhone = IMController.shared.currentUserRelay.value?.phoneNumber
+        // 安全判空：nil/空字符串/仅空白字符 都视为“未绑定”
+        let isPhoneEmpty = currentPhone?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true
+
+        if isPhoneEmpty {
+            phone = "绑定手机号".localized()
+        } else {
+            phone = "修改手机号".localized()
+        }
+    
+        let r = SuperSettingView.createSetTitleAddContentView(phone, " ") { [weak self] data in
 //            self?.toDeleteAcountAuthenticationVC(.changePhone)
             SuperToast.show(title: "开发中".localized())
         }
